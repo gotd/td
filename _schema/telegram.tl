@@ -2,8 +2,8 @@
 //
 // Source: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/Resources/tl/api.tl
 // Merge:  _schema/help_config_simple.tl
-// Layer:  126
-// SHA256: 9ca5da232cf470ab52bb4ea6dd8aa1af3dc8f05c3f94302306bff41c995d6aec
+// Layer:  128
+// SHA256: 3bdd325205d5870c453580bf5f4a0a664e174b9e2af8dcf7eefd7c2d4404a938
 
 boolFalse#bc799737 = Bool;
 
@@ -65,7 +65,7 @@ inputMediaDocumentExternal#fb52dc99 flags:# url:string ttl_seconds:flags.0?int =
 
 inputMediaGame#d33f43f3 id:InputGame = InputMedia;
 
-inputMediaInvoice#f4e096c3 flags:# title:string description:string photo:flags.0?InputWebDocument invoice:Invoice payload:bytes provider:string provider_data:DataJSON start_param:string = InputMedia;
+inputMediaInvoice#f4e096c3 flags:# multiple_allowed:flags.1?true can_forward:flags.2?true title:string description:string photo:flags.0?InputWebDocument invoice:Invoice payload:bytes provider:string provider_data:DataJSON start_param:string = InputMedia;
 
 inputMediaGeoLive#971fa843 flags:# stopped:flags.0?true geo_point:InputGeoPoint heading:flags.2?int period:flags.1?int proximity_notification_radius:flags.3?int = InputMedia;
 
@@ -101,9 +101,9 @@ inputPhotoFileLocation#40181ffe id:long access_hash:long file_reference:bytes th
 
 inputPhotoLegacyFileLocation#d83466f3 id:long access_hash:long file_reference:bytes volume_id:long local_id:int secret:long = InputFileLocation;
 
-inputPeerPhotoFileLocation#27d69997 flags:# big:flags.0?true peer:InputPeer volume_id:long local_id:int = InputFileLocation;
+inputPeerPhotoFileLocation#37257e99 flags:# big:flags.0?true peer:InputPeer photo_id:long = InputFileLocation;
 
-inputStickerSetThumb#dbaeae9 stickerset:InputStickerSet volume_id:long local_id:int = InputFileLocation;
+inputStickerSetThumb#9d84f3db stickerset:InputStickerSet thumb_version:int = InputFileLocation;
 
 inputGroupCallStream#bba51639 call:InputGroupCall time_ms:long scale:int = InputFileLocation;
 
@@ -139,7 +139,7 @@ user#938458c1 flags:# self:flags.10?true contact:flags.11?true mutual_contact:fl
 
 userProfilePhotoEmpty#4f11bae1 = UserProfilePhoto;
 
-userProfilePhoto#69d3ab26 flags:# has_video:flags.0?true photo_id:long photo_small:FileLocation photo_big:FileLocation dc_id:int = UserProfilePhoto;
+userProfilePhoto#82d1f706 flags:# has_video:flags.0?true photo_id:long stripped_thumb:flags.1?bytes dc_id:int = UserProfilePhoto;
 
 userStatusEmpty#9d05049 = UserStatus;
 
@@ -179,7 +179,7 @@ chatParticipants#3f460fed chat_id:int participants:Vector<ChatParticipant> versi
 
 chatPhotoEmpty#37c1011c = ChatPhoto;
 
-chatPhoto#d20b9f3c flags:# has_video:flags.0?true photo_small:FileLocation photo_big:FileLocation dc_id:int = ChatPhoto;
+chatPhoto#1c6e1c11 flags:# has_video:flags.0?true photo_id:long stripped_thumb:flags.1?bytes dc_id:int = ChatPhoto;
 
 messageEmpty#90a6ca84 flags:# id:int peer_id:flags.0?Peer = Message;
 
@@ -267,6 +267,8 @@ messageActionInviteToGroupCall#76b9f11a call:InputGroupCall users:Vector<int> = 
 
 messageActionSetMessagesTTL#aa1afbfd period:int = MessageAction;
 
+messageActionGroupCallScheduled#b3a07661 call:InputGroupCall schedule_date:int = MessageAction;
+
 dialog#2c171f72 flags:# pinned:flags.2?true unread_mark:flags.3?true peer:Peer top_message:int read_inbox_max_id:int read_outbox_max_id:int unread_count:int unread_mentions_count:int notify_settings:PeerNotifySettings pts:flags.0?int draft:flags.1?DraftMessage folder_id:flags.4?int = Dialog;
 
 dialogFolder#71bd134c flags:# pinned:flags.2?true folder:Folder peer:Peer top_message:int unread_muted_peers_count:int unread_unmuted_peers_count:int unread_muted_messages_count:int unread_unmuted_messages_count:int = Dialog;
@@ -277,13 +279,13 @@ photo#fb197a65 flags:# has_stickers:flags.0?true id:long access_hash:long file_r
 
 photoSizeEmpty#e17e23c type:string = PhotoSize;
 
-photoSize#77bfb61b type:string location:FileLocation w:int h:int size:int = PhotoSize;
+photoSize#75c78e60 type:string w:int h:int size:int = PhotoSize;
 
-photoCachedSize#e9a734fa type:string location:FileLocation w:int h:int bytes:bytes = PhotoSize;
+photoCachedSize#21e1ad6 type:string w:int h:int bytes:bytes = PhotoSize;
 
 photoStrippedSize#e0b0bc2e type:string bytes:bytes = PhotoSize;
 
-photoSizeProgressive#5aa86a51 type:string location:FileLocation w:int h:int sizes:Vector<int> = PhotoSize;
+photoSizeProgressive#fa3efb95 type:string w:int h:int sizes:Vector<int> = PhotoSize;
 
 photoPathSize#d8214d41 type:string bytes:bytes = PhotoSize;
 
@@ -855,7 +857,7 @@ inputStickerSetAnimatedEmoji#28703c8 = InputStickerSet;
 
 inputStickerSetDice#e67f520e emoticon:string = InputStickerSet;
 
-stickerSet#40e237a8 flags:# archived:flags.1?true official:flags.2?true masks:flags.3?true animated:flags.5?true installed_date:flags.0?int id:long access_hash:long title:string short_name:string thumbs:flags.4?Vector<PhotoSize> thumb_dc_id:flags.4?int count:int hash:int = StickerSet;
+stickerSet#d7df217a flags:# archived:flags.1?true official:flags.2?true masks:flags.3?true animated:flags.5?true installed_date:flags.0?int id:long access_hash:long title:string short_name:string thumbs:flags.4?Vector<PhotoSize> thumb_dc_id:flags.4?int thumb_version:flags.4?int count:int hash:int = StickerSet;
 
 messages.stickerSet#b60a24a6 set:StickerSet packs:Vector<StickerPack> documents:Vector<Document> = messages.StickerSet;
 
@@ -1005,6 +1007,8 @@ inputBotInlineMessageMediaContact#a6edbffd flags:# phone_number:string first_nam
 
 inputBotInlineMessageGame#4b425864 flags:# reply_markup:flags.2?ReplyMarkup = InputBotInlineMessage;
 
+inputBotInlineMessageMediaInvoice#d5348d85 flags:# multiple_allowed:flags.1?true can_forward:flags.3?true title:string description:string photo:flags.0?InputWebDocument invoice:Invoice payload:bytes provider:string provider_data:DataJSON start_param:string reply_markup:flags.2?ReplyMarkup = InputBotInlineMessage;
+
 inputBotInlineResult#88bf9319 flags:# id:string type:string title:flags.1?string description:flags.2?string url:flags.3?string thumb:flags.4?InputWebDocument content:flags.5?InputWebDocument send_message:InputBotInlineMessage = InputBotInlineResult;
 
 inputBotInlineResultPhoto#a8d864a7 id:string type:string photo:InputPhoto send_message:InputBotInlineMessage = InputBotInlineResult;
@@ -1022,6 +1026,8 @@ botInlineMessageMediaGeo#51846fd flags:# geo:GeoPoint heading:flags.0?int period
 botInlineMessageMediaVenue#8a86659c flags:# geo:GeoPoint title:string address:string provider:string venue_id:string venue_type:string reply_markup:flags.2?ReplyMarkup = BotInlineMessage;
 
 botInlineMessageMediaContact#18d1cdc2 flags:# phone_number:string first_name:string last_name:string vcard:string reply_markup:flags.2?ReplyMarkup = BotInlineMessage;
+
+botInlineMessageMediaInvoice#354a9b09 flags:# shipping_address_requested:flags.1?true test:flags.3?true title:string description:string photo:flags.0?WebDocument currency:string total_amount:long reply_markup:flags.2?ReplyMarkup = BotInlineMessage;
 
 botInlineResult#11965f3a flags:# id:string type:string title:flags.1?string description:flags.2?string url:flags.3?string thumb:flags.4?WebDocument content:flags.5?WebDocument send_message:BotInlineMessage = BotInlineResult;
 
@@ -1223,7 +1229,7 @@ dataJSON#7d748d04 data:string = DataJSON;
 
 labeledPrice#cb296bf8 label:string amount:long = LabeledPrice;
 
-invoice#c30aa358 flags:# test:flags.0?true name_requested:flags.1?true phone_requested:flags.2?true email_requested:flags.3?true shipping_address_requested:flags.4?true flexible:flags.5?true phone_to_provider:flags.6?true email_to_provider:flags.7?true currency:string prices:Vector<LabeledPrice> = Invoice;
+invoice#cd886e0 flags:# test:flags.0?true name_requested:flags.1?true phone_requested:flags.2?true email_requested:flags.3?true shipping_address_requested:flags.4?true flexible:flags.5?true phone_to_provider:flags.6?true email_to_provider:flags.7?true currency:string prices:Vector<LabeledPrice> max_tip_amount:flags.8?long suggested_tip_amounts:flags.8?Vector<long> = Invoice;
 
 paymentCharge#ea02c27e id:string provider_charge_id:string = PaymentCharge;
 
@@ -1245,7 +1251,7 @@ inputWebFileGeoPointLocation#9f2221c9 geo_point:InputGeoPoint access_hash:long w
 
 upload.webFile#21e753bc size:int mime_type:string file_type:storage.FileType mtime:int bytes:bytes = upload.WebFile;
 
-payments.paymentForm#3f56aea3 flags:# can_save_credentials:flags.2?true password_missing:flags.3?true bot_id:int invoice:Invoice provider_id:int url:string native_provider:flags.4?string native_params:flags.4?DataJSON saved_info:flags.0?PaymentRequestedInfo saved_credentials:flags.1?PaymentSavedCredentials users:Vector<User> = payments.PaymentForm;
+payments.paymentForm#8d0b2415 flags:# can_save_credentials:flags.2?true password_missing:flags.3?true form_id:long bot_id:int invoice:Invoice provider_id:int url:string native_provider:flags.4?string native_params:flags.4?DataJSON saved_info:flags.0?PaymentRequestedInfo saved_credentials:flags.1?PaymentSavedCredentials users:Vector<User> = payments.PaymentForm;
 
 payments.validatedRequestedInfo#d1451883 flags:# id:flags.0?string shipping_options:flags.1?Vector<ShippingOption> = payments.ValidatedRequestedInfo;
 
@@ -1253,7 +1259,7 @@ payments.paymentResult#4e5f810d updates:Updates = payments.PaymentResult;
 
 payments.paymentVerificationNeeded#d8411139 url:string = payments.PaymentResult;
 
-payments.paymentReceipt#500911e1 flags:# date:int bot_id:int invoice:Invoice provider_id:int info:flags.0?PaymentRequestedInfo shipping:flags.1?ShippingOption currency:string total_amount:long credentials_title:string users:Vector<User> = payments.PaymentReceipt;
+payments.paymentReceipt#10b555d0 flags:# date:int bot_id:int provider_id:int title:string description:string photo:flags.2?WebDocument invoice:Invoice info:flags.0?PaymentRequestedInfo shipping:flags.1?ShippingOption tip_amount:flags.3?long currency:string total_amount:long credentials_title:string users:Vector<User> = payments.PaymentReceipt;
 
 payments.savedInfo#fb8fe43c flags:# has_saved_credentials:flags.1?true saved_info:flags.0?PaymentRequestedInfo = payments.SavedInfo;
 
@@ -1619,8 +1625,6 @@ emojiURL#a575739d url:string = EmojiURL;
 
 emojiLanguage#b3fb5361 lang_code:string = EmojiLanguage;
 
-fileLocationToBeDeprecated#bc7fc6cd volume_id:long local_id:int = FileLocation;
-
 folder#ff544e65 flags:# autofill_new_broadcasts:flags.0?true autofill_public_groups:flags.1?true autofill_new_correspondents:flags.2?true id:int title:string photo:flags.3?ChatPhoto = Folder;
 
 inputFolderPeer#fbd2c296 peer:InputPeer folder_id:int = InputFolderPeer;
@@ -1717,7 +1721,7 @@ help.promoDataEmpty#98f6ac75 expires:int = help.PromoData;
 
 help.promoData#8c39793f flags:# proxy:flags.0?true expires:int peer:Peer chats:Vector<Chat> users:Vector<User> psa_type:flags.1?string psa_message:flags.2?string = help.PromoData;
 
-videoSize#e831c556 flags:# type:string location:FileLocation w:int h:int size:int video_start_ts:flags.0?double = VideoSize;
+videoSize#de33b094 flags:# type:string w:int h:int size:int video_start_ts:flags.0?double = VideoSize;
 
 statsGroupTopPoster#18f3d0f7 user_id:int messages:int avg_chars:int = StatsGroupTopPoster;
 
@@ -1753,11 +1757,11 @@ stats.messageStats#8999f295 views_graph:StatsGraph = stats.MessageStats;
 
 groupCallDiscarded#7780bcb4 id:long access_hash:long duration:int = GroupCall;
 
-groupCall#c0c2052e flags:# join_muted:flags.1?true can_change_join_muted:flags.2?true join_date_asc:flags.6?true id:long access_hash:long participants_count:int params:flags.0?DataJSON title:flags.3?string stream_dc_id:flags.4?int record_start_date:flags.5?int version:int = GroupCall;
+groupCall#c95c6654 flags:# join_muted:flags.1?true can_change_join_muted:flags.2?true join_date_asc:flags.6?true schedule_start_subscribed:flags.8?true id:long access_hash:long participants_count:int params:flags.0?DataJSON title:flags.3?string stream_dc_id:flags.4?int record_start_date:flags.5?int schedule_date:flags.7?int version:int = GroupCall;
 
 inputGroupCall#d8aa840f id:long access_hash:long = InputGroupCall;
 
-groupCallParticipant#19adba89 flags:# muted:flags.0?true left:flags.1?true can_self_unmute:flags.2?true just_joined:flags.4?true versioned:flags.5?true min:flags.8?true muted_by_you:flags.9?true volume_by_admin:flags.10?true self:flags.12?true peer:Peer date:int active_date:flags.3?int source:int volume:flags.7?int about:flags.11?string raise_hand_rating:flags.13?long = GroupCallParticipant;
+groupCallParticipant#b96b25ee flags:# muted:flags.0?true left:flags.1?true can_self_unmute:flags.2?true just_joined:flags.4?true versioned:flags.5?true min:flags.8?true muted_by_you:flags.9?true volume_by_admin:flags.10?true self:flags.12?true peer:Peer date:int active_date:flags.3?int source:int volume:flags.7?int about:flags.11?string raise_hand_rating:flags.13?long params:flags.6?DataJSON = GroupCallParticipant;
 
 phone.groupCall#9e727aad call:GroupCall participants:Vector<GroupCallParticipant> participants_next_offset:string chats:Vector<Chat> users:Vector<User> = phone.GroupCall;
 
@@ -2470,13 +2474,13 @@ bots.answerWebhookJSONQuery#e6213f4d query_id:long data:DataJSON = Bool;
 
 bots.setBotCommands#805d46f6 commands:Vector<BotCommand> = Bool;
 
-payments.getPaymentForm#99f09745 msg_id:int = payments.PaymentForm;
+payments.getPaymentForm#8a333c8d flags:# peer:InputPeer msg_id:int theme_params:flags.0?DataJSON = payments.PaymentForm;
 
-payments.getPaymentReceipt#a092a980 msg_id:int = payments.PaymentReceipt;
+payments.getPaymentReceipt#2478d1cc peer:InputPeer msg_id:int = payments.PaymentReceipt;
 
-payments.validateRequestedInfo#770a8e74 flags:# save:flags.0?true msg_id:int info:PaymentRequestedInfo = payments.ValidatedRequestedInfo;
+payments.validateRequestedInfo#db103170 flags:# save:flags.0?true peer:InputPeer msg_id:int info:PaymentRequestedInfo = payments.ValidatedRequestedInfo;
 
-payments.sendPaymentForm#2b8879b3 flags:# msg_id:int requested_info_id:flags.0?string shipping_option_id:flags.1?string credentials:InputPaymentCredentials = payments.PaymentResult;
+payments.sendPaymentForm#30c3bc9d flags:# form_id:long peer:InputPeer msg_id:int requested_info_id:flags.0?string shipping_option_id:flags.1?string credentials:InputPaymentCredentials tip_amount:flags.2?long = payments.PaymentResult;
 
 payments.getSavedInfo#227d824b = payments.SavedInfo;
 
@@ -2512,7 +2516,7 @@ phone.saveCallDebug#277add7e peer:InputPhoneCall debug:DataJSON = Bool;
 
 phone.sendSignalingData#ff7a9383 peer:InputPhoneCall data:bytes = Bool;
 
-phone.createGroupCall#bd3dabe0 peer:InputPeer random_id:int = Updates;
+phone.createGroupCall#48cdc6d8 flags:# peer:InputPeer random_id:int title:flags.0?string schedule_date:flags.1?int = Updates;
 
 phone.joinGroupCall#b132ff7b flags:# muted:flags.0?true call:InputGroupCall join_as:InputPeer invite_hash:flags.1?string params:DataJSON = Updates;
 
@@ -2539,6 +2543,12 @@ phone.editGroupCallTitle#1ca6ac0a call:InputGroupCall title:string = Updates;
 phone.getGroupCallJoinAs#ef7c213a peer:InputPeer = phone.JoinAsPeers;
 
 phone.exportGroupCallInvite#e6aa647f flags:# can_self_unmute:flags.0?true call:InputGroupCall = phone.ExportedGroupCallInvite;
+
+phone.toggleGroupCallStartSubscription#219c34e6 call:InputGroupCall subscribed:Bool = Updates;
+
+phone.startScheduledGroupCall#5680e342 call:InputGroupCall = Updates;
+
+phone.saveDefaultGroupCallJoinAs#575e1f8c peer:InputPeer join_as:InputPeer = Bool;
 
 langpack.getLangPack#f2f2330a lang_pack:string lang_code:string = LangPackDifference;
 
@@ -2575,4 +2585,4 @@ accessPointRule#4679b65f phone_prefix_rules:string dc_id:int ips:vector<IpPort> 
 
 help.configSimple#5a592a6c date:int expires:int rules:vector<AccessPointRule> = help.ConfigSimple;
 
-// LAYER 126
+// LAYER 128

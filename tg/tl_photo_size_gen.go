@@ -164,15 +164,13 @@ var (
 	_ PhotoSizeClass = &PhotoSizeEmpty{}
 )
 
-// PhotoSize represents TL type `photoSize#77bfb61b`.
+// PhotoSize represents TL type `photoSize#75c78e60`.
 // Image description.
 //
 // See https://core.telegram.org/constructor/photoSize for reference.
 type PhotoSize struct {
 	// Thumbnail type
 	Type string
-	// File location
-	Location FileLocationToBeDeprecated
 	// Image width
 	W int
 	// Image height
@@ -182,16 +180,13 @@ type PhotoSize struct {
 }
 
 // PhotoSizeTypeID is TL type id of PhotoSize.
-const PhotoSizeTypeID = 0x77bfb61b
+const PhotoSizeTypeID = 0x75c78e60
 
 func (p *PhotoSize) Zero() bool {
 	if p == nil {
 		return true
 	}
 	if !(p.Type == "") {
-		return false
-	}
-	if !(p.Location.Zero()) {
 		return false
 	}
 	if !(p.W == 0) {
@@ -219,13 +214,11 @@ func (p *PhotoSize) String() string {
 // FillFrom fills PhotoSize from given interface.
 func (p *PhotoSize) FillFrom(from interface {
 	GetType() (value string)
-	GetLocation() (value FileLocationToBeDeprecated)
 	GetW() (value int)
 	GetH() (value int)
 	GetSize() (value int)
 }) {
 	p.Type = from.GetType()
-	p.Location = from.GetLocation()
 	p.W = from.GetW()
 	p.H = from.GetH()
 	p.Size = from.GetSize()
@@ -259,10 +252,6 @@ func (p *PhotoSize) TypeInfo() tdp.Type {
 			SchemaName: "type",
 		},
 		{
-			Name:       "Location",
-			SchemaName: "location",
-		},
-		{
 			Name:       "W",
 			SchemaName: "w",
 		},
@@ -281,7 +270,7 @@ func (p *PhotoSize) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhotoSize) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode photoSize#77bfb61b as nil")
+		return fmt.Errorf("can't encode photoSize#75c78e60 as nil")
 	}
 	b.PutID(PhotoSizeTypeID)
 	return p.EncodeBare(b)
@@ -290,12 +279,9 @@ func (p *PhotoSize) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhotoSize) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode photoSize#77bfb61b as nil")
+		return fmt.Errorf("can't encode photoSize#75c78e60 as nil")
 	}
 	b.PutString(p.Type)
-	if err := p.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photoSize#77bfb61b: field location: %w", err)
-	}
 	b.PutInt(p.W)
 	b.PutInt(p.H)
 	b.PutInt(p.Size)
@@ -305,11 +291,6 @@ func (p *PhotoSize) EncodeBare(b *bin.Buffer) error {
 // GetType returns value of Type field.
 func (p *PhotoSize) GetType() (value string) {
 	return p.Type
-}
-
-// GetLocation returns value of Location field.
-func (p *PhotoSize) GetLocation() (value FileLocationToBeDeprecated) {
-	return p.Location
 }
 
 // GetW returns value of W field.
@@ -330,10 +311,10 @@ func (p *PhotoSize) GetSize() (value int) {
 // Decode implements bin.Decoder.
 func (p *PhotoSize) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode photoSize#77bfb61b to nil")
+		return fmt.Errorf("can't decode photoSize#75c78e60 to nil")
 	}
 	if err := b.ConsumeID(PhotoSizeTypeID); err != nil {
-		return fmt.Errorf("unable to decode photoSize#77bfb61b: %w", err)
+		return fmt.Errorf("unable to decode photoSize#75c78e60: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -341,38 +322,33 @@ func (p *PhotoSize) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhotoSize) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode photoSize#77bfb61b to nil")
+		return fmt.Errorf("can't decode photoSize#75c78e60 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoSize#77bfb61b: field type: %w", err)
+			return fmt.Errorf("unable to decode photoSize#75c78e60: field type: %w", err)
 		}
 		p.Type = value
 	}
 	{
-		if err := p.Location.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode photoSize#77bfb61b: field location: %w", err)
-		}
-	}
-	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoSize#77bfb61b: field w: %w", err)
+			return fmt.Errorf("unable to decode photoSize#75c78e60: field w: %w", err)
 		}
 		p.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoSize#77bfb61b: field h: %w", err)
+			return fmt.Errorf("unable to decode photoSize#75c78e60: field h: %w", err)
 		}
 		p.H = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoSize#77bfb61b: field size: %w", err)
+			return fmt.Errorf("unable to decode photoSize#75c78e60: field size: %w", err)
 		}
 		p.Size = value
 	}
@@ -392,15 +368,13 @@ var (
 	_ PhotoSizeClass = &PhotoSize{}
 )
 
-// PhotoCachedSize represents TL type `photoCachedSize#e9a734fa`.
+// PhotoCachedSize represents TL type `photoCachedSize#21e1ad6`.
 // Description of an image and its content.
 //
 // See https://core.telegram.org/constructor/photoCachedSize for reference.
 type PhotoCachedSize struct {
 	// Thumbnail type
 	Type string
-	// File location
-	Location FileLocationToBeDeprecated
 	// Image width
 	W int
 	// Image height
@@ -410,16 +384,13 @@ type PhotoCachedSize struct {
 }
 
 // PhotoCachedSizeTypeID is TL type id of PhotoCachedSize.
-const PhotoCachedSizeTypeID = 0xe9a734fa
+const PhotoCachedSizeTypeID = 0x21e1ad6
 
 func (p *PhotoCachedSize) Zero() bool {
 	if p == nil {
 		return true
 	}
 	if !(p.Type == "") {
-		return false
-	}
-	if !(p.Location.Zero()) {
 		return false
 	}
 	if !(p.W == 0) {
@@ -447,13 +418,11 @@ func (p *PhotoCachedSize) String() string {
 // FillFrom fills PhotoCachedSize from given interface.
 func (p *PhotoCachedSize) FillFrom(from interface {
 	GetType() (value string)
-	GetLocation() (value FileLocationToBeDeprecated)
 	GetW() (value int)
 	GetH() (value int)
 	GetBytes() (value []byte)
 }) {
 	p.Type = from.GetType()
-	p.Location = from.GetLocation()
 	p.W = from.GetW()
 	p.H = from.GetH()
 	p.Bytes = from.GetBytes()
@@ -487,10 +456,6 @@ func (p *PhotoCachedSize) TypeInfo() tdp.Type {
 			SchemaName: "type",
 		},
 		{
-			Name:       "Location",
-			SchemaName: "location",
-		},
-		{
 			Name:       "W",
 			SchemaName: "w",
 		},
@@ -509,7 +474,7 @@ func (p *PhotoCachedSize) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhotoCachedSize) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode photoCachedSize#e9a734fa as nil")
+		return fmt.Errorf("can't encode photoCachedSize#21e1ad6 as nil")
 	}
 	b.PutID(PhotoCachedSizeTypeID)
 	return p.EncodeBare(b)
@@ -518,12 +483,9 @@ func (p *PhotoCachedSize) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhotoCachedSize) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode photoCachedSize#e9a734fa as nil")
+		return fmt.Errorf("can't encode photoCachedSize#21e1ad6 as nil")
 	}
 	b.PutString(p.Type)
-	if err := p.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photoCachedSize#e9a734fa: field location: %w", err)
-	}
 	b.PutInt(p.W)
 	b.PutInt(p.H)
 	b.PutBytes(p.Bytes)
@@ -533,11 +495,6 @@ func (p *PhotoCachedSize) EncodeBare(b *bin.Buffer) error {
 // GetType returns value of Type field.
 func (p *PhotoCachedSize) GetType() (value string) {
 	return p.Type
-}
-
-// GetLocation returns value of Location field.
-func (p *PhotoCachedSize) GetLocation() (value FileLocationToBeDeprecated) {
-	return p.Location
 }
 
 // GetW returns value of W field.
@@ -558,10 +515,10 @@ func (p *PhotoCachedSize) GetBytes() (value []byte) {
 // Decode implements bin.Decoder.
 func (p *PhotoCachedSize) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode photoCachedSize#e9a734fa to nil")
+		return fmt.Errorf("can't decode photoCachedSize#21e1ad6 to nil")
 	}
 	if err := b.ConsumeID(PhotoCachedSizeTypeID); err != nil {
-		return fmt.Errorf("unable to decode photoCachedSize#e9a734fa: %w", err)
+		return fmt.Errorf("unable to decode photoCachedSize#21e1ad6: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -569,38 +526,33 @@ func (p *PhotoCachedSize) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhotoCachedSize) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode photoCachedSize#e9a734fa to nil")
+		return fmt.Errorf("can't decode photoCachedSize#21e1ad6 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoCachedSize#e9a734fa: field type: %w", err)
+			return fmt.Errorf("unable to decode photoCachedSize#21e1ad6: field type: %w", err)
 		}
 		p.Type = value
 	}
 	{
-		if err := p.Location.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode photoCachedSize#e9a734fa: field location: %w", err)
-		}
-	}
-	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoCachedSize#e9a734fa: field w: %w", err)
+			return fmt.Errorf("unable to decode photoCachedSize#21e1ad6: field w: %w", err)
 		}
 		p.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoCachedSize#e9a734fa: field h: %w", err)
+			return fmt.Errorf("unable to decode photoCachedSize#21e1ad6: field h: %w", err)
 		}
 		p.H = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoCachedSize#e9a734fa: field bytes: %w", err)
+			return fmt.Errorf("unable to decode photoCachedSize#21e1ad6: field bytes: %w", err)
 		}
 		p.Bytes = value
 	}
@@ -779,15 +731,13 @@ var (
 	_ PhotoSizeClass = &PhotoStrippedSize{}
 )
 
-// PhotoSizeProgressive represents TL type `photoSizeProgressive#5aa86a51`.
+// PhotoSizeProgressive represents TL type `photoSizeProgressive#fa3efb95`.
 // Progressively encoded photosize
 //
 // See https://core.telegram.org/constructor/photoSizeProgressive for reference.
 type PhotoSizeProgressive struct {
 	// Photosize type
 	Type string
-	// File location
-	Location FileLocationToBeDeprecated
 	// Photo width
 	W int
 	// Photo height
@@ -798,16 +748,13 @@ type PhotoSizeProgressive struct {
 }
 
 // PhotoSizeProgressiveTypeID is TL type id of PhotoSizeProgressive.
-const PhotoSizeProgressiveTypeID = 0x5aa86a51
+const PhotoSizeProgressiveTypeID = 0xfa3efb95
 
 func (p *PhotoSizeProgressive) Zero() bool {
 	if p == nil {
 		return true
 	}
 	if !(p.Type == "") {
-		return false
-	}
-	if !(p.Location.Zero()) {
 		return false
 	}
 	if !(p.W == 0) {
@@ -835,13 +782,11 @@ func (p *PhotoSizeProgressive) String() string {
 // FillFrom fills PhotoSizeProgressive from given interface.
 func (p *PhotoSizeProgressive) FillFrom(from interface {
 	GetType() (value string)
-	GetLocation() (value FileLocationToBeDeprecated)
 	GetW() (value int)
 	GetH() (value int)
 	GetSizes() (value []int)
 }) {
 	p.Type = from.GetType()
-	p.Location = from.GetLocation()
 	p.W = from.GetW()
 	p.H = from.GetH()
 	p.Sizes = from.GetSizes()
@@ -875,10 +820,6 @@ func (p *PhotoSizeProgressive) TypeInfo() tdp.Type {
 			SchemaName: "type",
 		},
 		{
-			Name:       "Location",
-			SchemaName: "location",
-		},
-		{
 			Name:       "W",
 			SchemaName: "w",
 		},
@@ -897,7 +838,7 @@ func (p *PhotoSizeProgressive) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhotoSizeProgressive) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode photoSizeProgressive#5aa86a51 as nil")
+		return fmt.Errorf("can't encode photoSizeProgressive#fa3efb95 as nil")
 	}
 	b.PutID(PhotoSizeProgressiveTypeID)
 	return p.EncodeBare(b)
@@ -906,12 +847,9 @@ func (p *PhotoSizeProgressive) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhotoSizeProgressive) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode photoSizeProgressive#5aa86a51 as nil")
+		return fmt.Errorf("can't encode photoSizeProgressive#fa3efb95 as nil")
 	}
 	b.PutString(p.Type)
-	if err := p.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photoSizeProgressive#5aa86a51: field location: %w", err)
-	}
 	b.PutInt(p.W)
 	b.PutInt(p.H)
 	b.PutVectorHeader(len(p.Sizes))
@@ -924,11 +862,6 @@ func (p *PhotoSizeProgressive) EncodeBare(b *bin.Buffer) error {
 // GetType returns value of Type field.
 func (p *PhotoSizeProgressive) GetType() (value string) {
 	return p.Type
-}
-
-// GetLocation returns value of Location field.
-func (p *PhotoSizeProgressive) GetLocation() (value FileLocationToBeDeprecated) {
-	return p.Location
 }
 
 // GetW returns value of W field.
@@ -949,10 +882,10 @@ func (p *PhotoSizeProgressive) GetSizes() (value []int) {
 // Decode implements bin.Decoder.
 func (p *PhotoSizeProgressive) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode photoSizeProgressive#5aa86a51 to nil")
+		return fmt.Errorf("can't decode photoSizeProgressive#fa3efb95 to nil")
 	}
 	if err := b.ConsumeID(PhotoSizeProgressiveTypeID); err != nil {
-		return fmt.Errorf("unable to decode photoSizeProgressive#5aa86a51: %w", err)
+		return fmt.Errorf("unable to decode photoSizeProgressive#fa3efb95: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -960,43 +893,38 @@ func (p *PhotoSizeProgressive) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhotoSizeProgressive) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode photoSizeProgressive#5aa86a51 to nil")
+		return fmt.Errorf("can't decode photoSizeProgressive#fa3efb95 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoSizeProgressive#5aa86a51: field type: %w", err)
+			return fmt.Errorf("unable to decode photoSizeProgressive#fa3efb95: field type: %w", err)
 		}
 		p.Type = value
 	}
 	{
-		if err := p.Location.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode photoSizeProgressive#5aa86a51: field location: %w", err)
-		}
-	}
-	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoSizeProgressive#5aa86a51: field w: %w", err)
+			return fmt.Errorf("unable to decode photoSizeProgressive#fa3efb95: field w: %w", err)
 		}
 		p.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoSizeProgressive#5aa86a51: field h: %w", err)
+			return fmt.Errorf("unable to decode photoSizeProgressive#fa3efb95: field h: %w", err)
 		}
 		p.H = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoSizeProgressive#5aa86a51: field sizes: %w", err)
+			return fmt.Errorf("unable to decode photoSizeProgressive#fa3efb95: field sizes: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode photoSizeProgressive#5aa86a51: field sizes: %w", err)
+				return fmt.Errorf("unable to decode photoSizeProgressive#fa3efb95: field sizes: %w", err)
 			}
 			p.Sizes = append(p.Sizes, value)
 		}
@@ -1188,10 +1116,10 @@ var (
 //  }
 //  switch v := g.(type) {
 //  case *tg.PhotoSizeEmpty: // photoSizeEmpty#e17e23c
-//  case *tg.PhotoSize: // photoSize#77bfb61b
-//  case *tg.PhotoCachedSize: // photoCachedSize#e9a734fa
+//  case *tg.PhotoSize: // photoSize#75c78e60
+//  case *tg.PhotoCachedSize: // photoCachedSize#21e1ad6
 //  case *tg.PhotoStrippedSize: // photoStrippedSize#e0b0bc2e
-//  case *tg.PhotoSizeProgressive: // photoSizeProgressive#5aa86a51
+//  case *tg.PhotoSizeProgressive: // photoSizeProgressive#fa3efb95
 //  case *tg.PhotoPathSize: // photoPathSize#d8214d41
 //  default: panic(v)
 //  }
@@ -1297,14 +1225,14 @@ func DecodePhotoSize(buf *bin.Buffer) (PhotoSizeClass, error) {
 		}
 		return &v, nil
 	case PhotoSizeTypeID:
-		// Decoding photoSize#77bfb61b.
+		// Decoding photoSize#75c78e60.
 		v := PhotoSize{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PhotoSizeClass: %w", err)
 		}
 		return &v, nil
 	case PhotoCachedSizeTypeID:
-		// Decoding photoCachedSize#e9a734fa.
+		// Decoding photoCachedSize#21e1ad6.
 		v := PhotoCachedSize{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PhotoSizeClass: %w", err)
@@ -1318,7 +1246,7 @@ func DecodePhotoSize(buf *bin.Buffer) (PhotoSizeClass, error) {
 		}
 		return &v, nil
 	case PhotoSizeProgressiveTypeID:
-		// Decoding photoSizeProgressive#5aa86a51.
+		// Decoding photoSizeProgressive#fa3efb95.
 		v := PhotoSizeProgressive{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PhotoSizeClass: %w", err)

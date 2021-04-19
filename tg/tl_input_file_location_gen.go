@@ -1348,7 +1348,7 @@ var (
 	_ InputFileLocationClass = &InputPhotoLegacyFileLocation{}
 )
 
-// InputPeerPhotoFileLocation represents TL type `inputPeerPhotoFileLocation#27d69997`.
+// InputPeerPhotoFileLocation represents TL type `inputPeerPhotoFileLocation#37257e99`.
 // Location of profile photo of channel/group/supergroup/user
 //
 // See https://core.telegram.org/constructor/inputPeerPhotoFileLocation for reference.
@@ -1362,20 +1362,12 @@ type InputPeerPhotoFileLocation struct {
 	Big bool
 	// The peer whose profile picture should be downloaded
 	Peer InputPeerClass
-	// Volume ID from FileLocation¹ met in the profile photo container.
-	//
-	// Links:
-	//  1) https://core.telegram.org/type/FileLocation
-	VolumeID int64
-	// Local ID from FileLocation¹ met in the profile photo container.
-	//
-	// Links:
-	//  1) https://core.telegram.org/type/FileLocation
-	LocalID int
+	// PhotoID field of InputPeerPhotoFileLocation.
+	PhotoID int64
 }
 
 // InputPeerPhotoFileLocationTypeID is TL type id of InputPeerPhotoFileLocation.
-const InputPeerPhotoFileLocationTypeID = 0x27d69997
+const InputPeerPhotoFileLocationTypeID = 0x37257e99
 
 func (i *InputPeerPhotoFileLocation) Zero() bool {
 	if i == nil {
@@ -1390,10 +1382,7 @@ func (i *InputPeerPhotoFileLocation) Zero() bool {
 	if !(i.Peer == nil) {
 		return false
 	}
-	if !(i.VolumeID == 0) {
-		return false
-	}
-	if !(i.LocalID == 0) {
+	if !(i.PhotoID == 0) {
 		return false
 	}
 
@@ -1413,13 +1402,11 @@ func (i *InputPeerPhotoFileLocation) String() string {
 func (i *InputPeerPhotoFileLocation) FillFrom(from interface {
 	GetBig() (value bool)
 	GetPeer() (value InputPeerClass)
-	GetVolumeID() (value int64)
-	GetLocalID() (value int)
+	GetPhotoID() (value int64)
 }) {
 	i.Big = from.GetBig()
 	i.Peer = from.GetPeer()
-	i.VolumeID = from.GetVolumeID()
-	i.LocalID = from.GetLocalID()
+	i.PhotoID = from.GetPhotoID()
 }
 
 // TypeID returns type id in TL schema.
@@ -1455,12 +1442,8 @@ func (i *InputPeerPhotoFileLocation) TypeInfo() tdp.Type {
 			SchemaName: "peer",
 		},
 		{
-			Name:       "VolumeID",
-			SchemaName: "volume_id",
-		},
-		{
-			Name:       "LocalID",
-			SchemaName: "local_id",
+			Name:       "PhotoID",
+			SchemaName: "photo_id",
 		},
 	}
 	return typ
@@ -1469,7 +1452,7 @@ func (i *InputPeerPhotoFileLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPeerPhotoFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerPhotoFileLocation#27d69997 as nil")
+		return fmt.Errorf("can't encode inputPeerPhotoFileLocation#37257e99 as nil")
 	}
 	b.PutID(InputPeerPhotoFileLocationTypeID)
 	return i.EncodeBare(b)
@@ -1478,22 +1461,21 @@ func (i *InputPeerPhotoFileLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerPhotoFileLocation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerPhotoFileLocation#27d69997 as nil")
+		return fmt.Errorf("can't encode inputPeerPhotoFileLocation#37257e99 as nil")
 	}
 	if !(i.Big == false) {
 		i.Flags.Set(0)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerPhotoFileLocation#27d69997: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputPeerPhotoFileLocation#37257e99: field flags: %w", err)
 	}
 	if i.Peer == nil {
-		return fmt.Errorf("unable to encode inputPeerPhotoFileLocation#27d69997: field peer is nil")
+		return fmt.Errorf("unable to encode inputPeerPhotoFileLocation#37257e99: field peer is nil")
 	}
 	if err := i.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerPhotoFileLocation#27d69997: field peer: %w", err)
+		return fmt.Errorf("unable to encode inputPeerPhotoFileLocation#37257e99: field peer: %w", err)
 	}
-	b.PutLong(i.VolumeID)
-	b.PutInt(i.LocalID)
+	b.PutLong(i.PhotoID)
 	return nil
 }
 
@@ -1518,23 +1500,18 @@ func (i *InputPeerPhotoFileLocation) GetPeer() (value InputPeerClass) {
 	return i.Peer
 }
 
-// GetVolumeID returns value of VolumeID field.
-func (i *InputPeerPhotoFileLocation) GetVolumeID() (value int64) {
-	return i.VolumeID
-}
-
-// GetLocalID returns value of LocalID field.
-func (i *InputPeerPhotoFileLocation) GetLocalID() (value int) {
-	return i.LocalID
+// GetPhotoID returns value of PhotoID field.
+func (i *InputPeerPhotoFileLocation) GetPhotoID() (value int64) {
+	return i.PhotoID
 }
 
 // Decode implements bin.Decoder.
 func (i *InputPeerPhotoFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerPhotoFileLocation#27d69997 to nil")
+		return fmt.Errorf("can't decode inputPeerPhotoFileLocation#37257e99 to nil")
 	}
 	if err := b.ConsumeID(InputPeerPhotoFileLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#27d69997: %w", err)
+		return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#37257e99: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1542,34 +1519,27 @@ func (i *InputPeerPhotoFileLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerPhotoFileLocation) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerPhotoFileLocation#27d69997 to nil")
+		return fmt.Errorf("can't decode inputPeerPhotoFileLocation#37257e99 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#27d69997: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#37257e99: field flags: %w", err)
 		}
 	}
 	i.Big = i.Flags.Has(0)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#27d69997: field peer: %w", err)
+			return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#37257e99: field peer: %w", err)
 		}
 		i.Peer = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#27d69997: field volume_id: %w", err)
+			return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#37257e99: field photo_id: %w", err)
 		}
-		i.VolumeID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#27d69997: field local_id: %w", err)
-		}
-		i.LocalID = value
+		i.PhotoID = value
 	}
 	return nil
 }
@@ -1587,7 +1557,7 @@ var (
 	_ InputFileLocationClass = &InputPeerPhotoFileLocation{}
 )
 
-// InputStickerSetThumb represents TL type `inputStickerSetThumb#dbaeae9`.
+// InputStickerSetThumb represents TL type `inputStickerSetThumb#9d84f3db`.
 // Location of stickerset thumbnail (see files¹)
 //
 // Links:
@@ -1597,14 +1567,12 @@ var (
 type InputStickerSetThumb struct {
 	// Sticker set
 	Stickerset InputStickerSetClass
-	// Volume ID
-	VolumeID int64
-	// Local ID
-	LocalID int
+	// ThumbVersion field of InputStickerSetThumb.
+	ThumbVersion int
 }
 
 // InputStickerSetThumbTypeID is TL type id of InputStickerSetThumb.
-const InputStickerSetThumbTypeID = 0xdbaeae9
+const InputStickerSetThumbTypeID = 0x9d84f3db
 
 func (i *InputStickerSetThumb) Zero() bool {
 	if i == nil {
@@ -1613,10 +1581,7 @@ func (i *InputStickerSetThumb) Zero() bool {
 	if !(i.Stickerset == nil) {
 		return false
 	}
-	if !(i.VolumeID == 0) {
-		return false
-	}
-	if !(i.LocalID == 0) {
+	if !(i.ThumbVersion == 0) {
 		return false
 	}
 
@@ -1635,12 +1600,10 @@ func (i *InputStickerSetThumb) String() string {
 // FillFrom fills InputStickerSetThumb from given interface.
 func (i *InputStickerSetThumb) FillFrom(from interface {
 	GetStickerset() (value InputStickerSetClass)
-	GetVolumeID() (value int64)
-	GetLocalID() (value int)
+	GetThumbVersion() (value int)
 }) {
 	i.Stickerset = from.GetStickerset()
-	i.VolumeID = from.GetVolumeID()
-	i.LocalID = from.GetLocalID()
+	i.ThumbVersion = from.GetThumbVersion()
 }
 
 // TypeID returns type id in TL schema.
@@ -1671,12 +1634,8 @@ func (i *InputStickerSetThumb) TypeInfo() tdp.Type {
 			SchemaName: "stickerset",
 		},
 		{
-			Name:       "VolumeID",
-			SchemaName: "volume_id",
-		},
-		{
-			Name:       "LocalID",
-			SchemaName: "local_id",
+			Name:       "ThumbVersion",
+			SchemaName: "thumb_version",
 		},
 	}
 	return typ
@@ -1685,7 +1644,7 @@ func (i *InputStickerSetThumb) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputStickerSetThumb) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetThumb#dbaeae9 as nil")
+		return fmt.Errorf("can't encode inputStickerSetThumb#9d84f3db as nil")
 	}
 	b.PutID(InputStickerSetThumbTypeID)
 	return i.EncodeBare(b)
@@ -1694,16 +1653,15 @@ func (i *InputStickerSetThumb) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStickerSetThumb) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetThumb#dbaeae9 as nil")
+		return fmt.Errorf("can't encode inputStickerSetThumb#9d84f3db as nil")
 	}
 	if i.Stickerset == nil {
-		return fmt.Errorf("unable to encode inputStickerSetThumb#dbaeae9: field stickerset is nil")
+		return fmt.Errorf("unable to encode inputStickerSetThumb#9d84f3db: field stickerset is nil")
 	}
 	if err := i.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputStickerSetThumb#dbaeae9: field stickerset: %w", err)
+		return fmt.Errorf("unable to encode inputStickerSetThumb#9d84f3db: field stickerset: %w", err)
 	}
-	b.PutLong(i.VolumeID)
-	b.PutInt(i.LocalID)
+	b.PutInt(i.ThumbVersion)
 	return nil
 }
 
@@ -1712,23 +1670,18 @@ func (i *InputStickerSetThumb) GetStickerset() (value InputStickerSetClass) {
 	return i.Stickerset
 }
 
-// GetVolumeID returns value of VolumeID field.
-func (i *InputStickerSetThumb) GetVolumeID() (value int64) {
-	return i.VolumeID
-}
-
-// GetLocalID returns value of LocalID field.
-func (i *InputStickerSetThumb) GetLocalID() (value int) {
-	return i.LocalID
+// GetThumbVersion returns value of ThumbVersion field.
+func (i *InputStickerSetThumb) GetThumbVersion() (value int) {
+	return i.ThumbVersion
 }
 
 // Decode implements bin.Decoder.
 func (i *InputStickerSetThumb) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetThumb#dbaeae9 to nil")
+		return fmt.Errorf("can't decode inputStickerSetThumb#9d84f3db to nil")
 	}
 	if err := b.ConsumeID(InputStickerSetThumbTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickerSetThumb#dbaeae9: %w", err)
+		return fmt.Errorf("unable to decode inputStickerSetThumb#9d84f3db: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1736,28 +1689,21 @@ func (i *InputStickerSetThumb) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStickerSetThumb) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetThumb#dbaeae9 to nil")
+		return fmt.Errorf("can't decode inputStickerSetThumb#9d84f3db to nil")
 	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetThumb#dbaeae9: field stickerset: %w", err)
+			return fmt.Errorf("unable to decode inputStickerSetThumb#9d84f3db: field stickerset: %w", err)
 		}
 		i.Stickerset = value
 	}
 	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetThumb#dbaeae9: field volume_id: %w", err)
-		}
-		i.VolumeID = value
-	}
-	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetThumb#dbaeae9: field local_id: %w", err)
+			return fmt.Errorf("unable to decode inputStickerSetThumb#9d84f3db: field thumb_version: %w", err)
 		}
-		i.LocalID = value
+		i.ThumbVersion = value
 	}
 	return nil
 }
@@ -1971,8 +1917,8 @@ var (
 //  case *tg.InputTakeoutFileLocation: // inputTakeoutFileLocation#29be5899
 //  case *tg.InputPhotoFileLocation: // inputPhotoFileLocation#40181ffe
 //  case *tg.InputPhotoLegacyFileLocation: // inputPhotoLegacyFileLocation#d83466f3
-//  case *tg.InputPeerPhotoFileLocation: // inputPeerPhotoFileLocation#27d69997
-//  case *tg.InputStickerSetThumb: // inputStickerSetThumb#dbaeae9
+//  case *tg.InputPeerPhotoFileLocation: // inputPeerPhotoFileLocation#37257e99
+//  case *tg.InputStickerSetThumb: // inputStickerSetThumb#9d84f3db
 //  case *tg.InputGroupCallStream: // inputGroupCallStream#bba51639
 //  default: panic(v)
 //  }
@@ -2052,14 +1998,14 @@ func DecodeInputFileLocation(buf *bin.Buffer) (InputFileLocationClass, error) {
 		}
 		return &v, nil
 	case InputPeerPhotoFileLocationTypeID:
-		// Decoding inputPeerPhotoFileLocation#27d69997.
+		// Decoding inputPeerPhotoFileLocation#37257e99.
 		v := InputPeerPhotoFileLocation{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
 		}
 		return &v, nil
 	case InputStickerSetThumbTypeID:
-		// Decoding inputStickerSetThumb#dbaeae9.
+		// Decoding inputStickerSetThumb#9d84f3db.
 		v := InputStickerSetThumb{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)

@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// VideoSize represents TL type `videoSize#e831c556`.
+// VideoSize represents TL type `videoSize#de33b094`.
 // Animated profile picture¹ in MPEG4 format
 //
 // Links:
@@ -44,8 +44,6 @@ type VideoSize struct {
 	Flags bin.Fields
 	// u for animated profile pictures, and v for trimmed and downscaled video previews
 	Type string
-	// File location
-	Location FileLocationToBeDeprecated
 	// Video width
 	W int
 	// Video height
@@ -59,7 +57,7 @@ type VideoSize struct {
 }
 
 // VideoSizeTypeID is TL type id of VideoSize.
-const VideoSizeTypeID = 0xe831c556
+const VideoSizeTypeID = 0xde33b094
 
 func (v *VideoSize) Zero() bool {
 	if v == nil {
@@ -69,9 +67,6 @@ func (v *VideoSize) Zero() bool {
 		return false
 	}
 	if !(v.Type == "") {
-		return false
-	}
-	if !(v.Location.Zero()) {
 		return false
 	}
 	if !(v.W == 0) {
@@ -102,14 +97,12 @@ func (v *VideoSize) String() string {
 // FillFrom fills VideoSize from given interface.
 func (v *VideoSize) FillFrom(from interface {
 	GetType() (value string)
-	GetLocation() (value FileLocationToBeDeprecated)
 	GetW() (value int)
 	GetH() (value int)
 	GetSize() (value int)
 	GetVideoStartTs() (value float64, ok bool)
 }) {
 	v.Type = from.GetType()
-	v.Location = from.GetLocation()
 	v.W = from.GetW()
 	v.H = from.GetH()
 	v.Size = from.GetSize()
@@ -147,10 +140,6 @@ func (v *VideoSize) TypeInfo() tdp.Type {
 			SchemaName: "type",
 		},
 		{
-			Name:       "Location",
-			SchemaName: "location",
-		},
-		{
 			Name:       "W",
 			SchemaName: "w",
 		},
@@ -174,7 +163,7 @@ func (v *VideoSize) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (v *VideoSize) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode videoSize#e831c556 as nil")
+		return fmt.Errorf("can't encode videoSize#de33b094 as nil")
 	}
 	b.PutID(VideoSizeTypeID)
 	return v.EncodeBare(b)
@@ -183,18 +172,15 @@ func (v *VideoSize) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *VideoSize) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode videoSize#e831c556 as nil")
+		return fmt.Errorf("can't encode videoSize#de33b094 as nil")
 	}
 	if !(v.VideoStartTs == 0) {
 		v.Flags.Set(0)
 	}
 	if err := v.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode videoSize#e831c556: field flags: %w", err)
+		return fmt.Errorf("unable to encode videoSize#de33b094: field flags: %w", err)
 	}
 	b.PutString(v.Type)
-	if err := v.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode videoSize#e831c556: field location: %w", err)
-	}
 	b.PutInt(v.W)
 	b.PutInt(v.H)
 	b.PutInt(v.Size)
@@ -207,11 +193,6 @@ func (v *VideoSize) EncodeBare(b *bin.Buffer) error {
 // GetType returns value of Type field.
 func (v *VideoSize) GetType() (value string) {
 	return v.Type
-}
-
-// GetLocation returns value of Location field.
-func (v *VideoSize) GetLocation() (value FileLocationToBeDeprecated) {
-	return v.Location
 }
 
 // GetW returns value of W field.
@@ -247,10 +228,10 @@ func (v *VideoSize) GetVideoStartTs() (value float64, ok bool) {
 // Decode implements bin.Decoder.
 func (v *VideoSize) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode videoSize#e831c556 to nil")
+		return fmt.Errorf("can't decode videoSize#de33b094 to nil")
 	}
 	if err := b.ConsumeID(VideoSizeTypeID); err != nil {
-		return fmt.Errorf("unable to decode videoSize#e831c556: %w", err)
+		return fmt.Errorf("unable to decode videoSize#de33b094: %w", err)
 	}
 	return v.DecodeBare(b)
 }
@@ -258,50 +239,45 @@ func (v *VideoSize) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *VideoSize) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode videoSize#e831c556 to nil")
+		return fmt.Errorf("can't decode videoSize#de33b094 to nil")
 	}
 	{
 		if err := v.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode videoSize#e831c556: field flags: %w", err)
+			return fmt.Errorf("unable to decode videoSize#de33b094: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode videoSize#e831c556: field type: %w", err)
+			return fmt.Errorf("unable to decode videoSize#de33b094: field type: %w", err)
 		}
 		v.Type = value
 	}
 	{
-		if err := v.Location.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode videoSize#e831c556: field location: %w", err)
-		}
-	}
-	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode videoSize#e831c556: field w: %w", err)
+			return fmt.Errorf("unable to decode videoSize#de33b094: field w: %w", err)
 		}
 		v.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode videoSize#e831c556: field h: %w", err)
+			return fmt.Errorf("unable to decode videoSize#de33b094: field h: %w", err)
 		}
 		v.H = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode videoSize#e831c556: field size: %w", err)
+			return fmt.Errorf("unable to decode videoSize#de33b094: field size: %w", err)
 		}
 		v.Size = value
 	}
 	if v.Flags.Has(0) {
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode videoSize#e831c556: field video_start_ts: %w", err)
+			return fmt.Errorf("unable to decode videoSize#de33b094: field video_start_ts: %w", err)
 		}
 		v.VideoStartTs = value
 	}

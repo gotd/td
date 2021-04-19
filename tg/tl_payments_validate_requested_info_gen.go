@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// PaymentsValidateRequestedInfoRequest represents TL type `payments.validateRequestedInfo#770a8e74`.
+// PaymentsValidateRequestedInfoRequest represents TL type `payments.validateRequestedInfo#db103170`.
 // Submit requested order information for validation
 //
 // See https://core.telegram.org/method/payments.validateRequestedInfo for reference.
@@ -41,6 +41,8 @@ type PaymentsValidateRequestedInfoRequest struct {
 	Flags bin.Fields
 	// Save order information to re-use it for future orders
 	Save bool
+	// Peer field of PaymentsValidateRequestedInfoRequest.
+	Peer InputPeerClass
 	// Message ID of payment form
 	MsgID int
 	// Requested order information
@@ -48,7 +50,7 @@ type PaymentsValidateRequestedInfoRequest struct {
 }
 
 // PaymentsValidateRequestedInfoRequestTypeID is TL type id of PaymentsValidateRequestedInfoRequest.
-const PaymentsValidateRequestedInfoRequestTypeID = 0x770a8e74
+const PaymentsValidateRequestedInfoRequestTypeID = 0xdb103170
 
 func (v *PaymentsValidateRequestedInfoRequest) Zero() bool {
 	if v == nil {
@@ -58,6 +60,9 @@ func (v *PaymentsValidateRequestedInfoRequest) Zero() bool {
 		return false
 	}
 	if !(v.Save == false) {
+		return false
+	}
+	if !(v.Peer == nil) {
 		return false
 	}
 	if !(v.MsgID == 0) {
@@ -82,10 +87,12 @@ func (v *PaymentsValidateRequestedInfoRequest) String() string {
 // FillFrom fills PaymentsValidateRequestedInfoRequest from given interface.
 func (v *PaymentsValidateRequestedInfoRequest) FillFrom(from interface {
 	GetSave() (value bool)
+	GetPeer() (value InputPeerClass)
 	GetMsgID() (value int)
 	GetInfo() (value PaymentRequestedInfo)
 }) {
 	v.Save = from.GetSave()
+	v.Peer = from.GetPeer()
 	v.MsgID = from.GetMsgID()
 	v.Info = from.GetInfo()
 }
@@ -119,6 +126,10 @@ func (v *PaymentsValidateRequestedInfoRequest) TypeInfo() tdp.Type {
 			Null:       !v.Flags.Has(0),
 		},
 		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
 			Name:       "MsgID",
 			SchemaName: "msg_id",
 		},
@@ -133,7 +144,7 @@ func (v *PaymentsValidateRequestedInfoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (v *PaymentsValidateRequestedInfoRequest) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode payments.validateRequestedInfo#770a8e74 as nil")
+		return fmt.Errorf("can't encode payments.validateRequestedInfo#db103170 as nil")
 	}
 	b.PutID(PaymentsValidateRequestedInfoRequestTypeID)
 	return v.EncodeBare(b)
@@ -142,17 +153,23 @@ func (v *PaymentsValidateRequestedInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *PaymentsValidateRequestedInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode payments.validateRequestedInfo#770a8e74 as nil")
+		return fmt.Errorf("can't encode payments.validateRequestedInfo#db103170 as nil")
 	}
 	if !(v.Save == false) {
 		v.Flags.Set(0)
 	}
 	if err := v.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.validateRequestedInfo#770a8e74: field flags: %w", err)
+		return fmt.Errorf("unable to encode payments.validateRequestedInfo#db103170: field flags: %w", err)
+	}
+	if v.Peer == nil {
+		return fmt.Errorf("unable to encode payments.validateRequestedInfo#db103170: field peer is nil")
+	}
+	if err := v.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.validateRequestedInfo#db103170: field peer: %w", err)
 	}
 	b.PutInt(v.MsgID)
 	if err := v.Info.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.validateRequestedInfo#770a8e74: field info: %w", err)
+		return fmt.Errorf("unable to encode payments.validateRequestedInfo#db103170: field info: %w", err)
 	}
 	return nil
 }
@@ -173,6 +190,11 @@ func (v *PaymentsValidateRequestedInfoRequest) GetSave() (value bool) {
 	return v.Flags.Has(0)
 }
 
+// GetPeer returns value of Peer field.
+func (v *PaymentsValidateRequestedInfoRequest) GetPeer() (value InputPeerClass) {
+	return v.Peer
+}
+
 // GetMsgID returns value of MsgID field.
 func (v *PaymentsValidateRequestedInfoRequest) GetMsgID() (value int) {
 	return v.MsgID
@@ -186,10 +208,10 @@ func (v *PaymentsValidateRequestedInfoRequest) GetInfo() (value PaymentRequested
 // Decode implements bin.Decoder.
 func (v *PaymentsValidateRequestedInfoRequest) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode payments.validateRequestedInfo#770a8e74 to nil")
+		return fmt.Errorf("can't decode payments.validateRequestedInfo#db103170 to nil")
 	}
 	if err := b.ConsumeID(PaymentsValidateRequestedInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.validateRequestedInfo#770a8e74: %w", err)
+		return fmt.Errorf("unable to decode payments.validateRequestedInfo#db103170: %w", err)
 	}
 	return v.DecodeBare(b)
 }
@@ -197,24 +219,31 @@ func (v *PaymentsValidateRequestedInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *PaymentsValidateRequestedInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode payments.validateRequestedInfo#770a8e74 to nil")
+		return fmt.Errorf("can't decode payments.validateRequestedInfo#db103170 to nil")
 	}
 	{
 		if err := v.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.validateRequestedInfo#770a8e74: field flags: %w", err)
+			return fmt.Errorf("unable to decode payments.validateRequestedInfo#db103170: field flags: %w", err)
 		}
 	}
 	v.Save = v.Flags.Has(0)
 	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.validateRequestedInfo#db103170: field peer: %w", err)
+		}
+		v.Peer = value
+	}
+	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.validateRequestedInfo#770a8e74: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode payments.validateRequestedInfo#db103170: field msg_id: %w", err)
 		}
 		v.MsgID = value
 	}
 	{
 		if err := v.Info.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.validateRequestedInfo#770a8e74: field info: %w", err)
+			return fmt.Errorf("unable to decode payments.validateRequestedInfo#db103170: field info: %w", err)
 		}
 	}
 	return nil
@@ -228,7 +257,7 @@ var (
 	_ bin.BareDecoder = &PaymentsValidateRequestedInfoRequest{}
 )
 
-// PaymentsValidateRequestedInfo invokes method payments.validateRequestedInfo#770a8e74 returning error if any.
+// PaymentsValidateRequestedInfo invokes method payments.validateRequestedInfo#db103170 returning error if any.
 // Submit requested order information for validation
 //
 // Possible errors:

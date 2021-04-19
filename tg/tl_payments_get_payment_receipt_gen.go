@@ -29,21 +29,26 @@ var (
 	_ = tgerr.Error{}
 )
 
-// PaymentsGetPaymentReceiptRequest represents TL type `payments.getPaymentReceipt#a092a980`.
+// PaymentsGetPaymentReceiptRequest represents TL type `payments.getPaymentReceipt#2478d1cc`.
 // Get payment receipt
 //
 // See https://core.telegram.org/method/payments.getPaymentReceipt for reference.
 type PaymentsGetPaymentReceiptRequest struct {
+	// Peer field of PaymentsGetPaymentReceiptRequest.
+	Peer InputPeerClass
 	// Message ID of receipt
 	MsgID int
 }
 
 // PaymentsGetPaymentReceiptRequestTypeID is TL type id of PaymentsGetPaymentReceiptRequest.
-const PaymentsGetPaymentReceiptRequestTypeID = 0xa092a980
+const PaymentsGetPaymentReceiptRequestTypeID = 0x2478d1cc
 
 func (g *PaymentsGetPaymentReceiptRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.Peer == nil) {
+		return false
 	}
 	if !(g.MsgID == 0) {
 		return false
@@ -63,8 +68,10 @@ func (g *PaymentsGetPaymentReceiptRequest) String() string {
 
 // FillFrom fills PaymentsGetPaymentReceiptRequest from given interface.
 func (g *PaymentsGetPaymentReceiptRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
 	GetMsgID() (value int)
 }) {
+	g.Peer = from.GetPeer()
 	g.MsgID = from.GetMsgID()
 }
 
@@ -92,6 +99,10 @@ func (g *PaymentsGetPaymentReceiptRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
 			Name:       "MsgID",
 			SchemaName: "msg_id",
 		},
@@ -102,7 +113,7 @@ func (g *PaymentsGetPaymentReceiptRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PaymentsGetPaymentReceiptRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getPaymentReceipt#a092a980 as nil")
+		return fmt.Errorf("can't encode payments.getPaymentReceipt#2478d1cc as nil")
 	}
 	b.PutID(PaymentsGetPaymentReceiptRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,10 +122,21 @@ func (g *PaymentsGetPaymentReceiptRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetPaymentReceiptRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getPaymentReceipt#a092a980 as nil")
+		return fmt.Errorf("can't encode payments.getPaymentReceipt#2478d1cc as nil")
+	}
+	if g.Peer == nil {
+		return fmt.Errorf("unable to encode payments.getPaymentReceipt#2478d1cc: field peer is nil")
+	}
+	if err := g.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.getPaymentReceipt#2478d1cc: field peer: %w", err)
 	}
 	b.PutInt(g.MsgID)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *PaymentsGetPaymentReceiptRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
 }
 
 // GetMsgID returns value of MsgID field.
@@ -125,10 +147,10 @@ func (g *PaymentsGetPaymentReceiptRequest) GetMsgID() (value int) {
 // Decode implements bin.Decoder.
 func (g *PaymentsGetPaymentReceiptRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getPaymentReceipt#a092a980 to nil")
+		return fmt.Errorf("can't decode payments.getPaymentReceipt#2478d1cc to nil")
 	}
 	if err := b.ConsumeID(PaymentsGetPaymentReceiptRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getPaymentReceipt#a092a980: %w", err)
+		return fmt.Errorf("unable to decode payments.getPaymentReceipt#2478d1cc: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -136,12 +158,19 @@ func (g *PaymentsGetPaymentReceiptRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetPaymentReceiptRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getPaymentReceipt#a092a980 to nil")
+		return fmt.Errorf("can't decode payments.getPaymentReceipt#2478d1cc to nil")
+	}
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.getPaymentReceipt#2478d1cc: field peer: %w", err)
+		}
+		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getPaymentReceipt#a092a980: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode payments.getPaymentReceipt#2478d1cc: field msg_id: %w", err)
 		}
 		g.MsgID = value
 	}
@@ -156,19 +185,16 @@ var (
 	_ bin.BareDecoder = &PaymentsGetPaymentReceiptRequest{}
 )
 
-// PaymentsGetPaymentReceipt invokes method payments.getPaymentReceipt#a092a980 returning error if any.
+// PaymentsGetPaymentReceipt invokes method payments.getPaymentReceipt#2478d1cc returning error if any.
 // Get payment receipt
 //
 // Possible errors:
 //  400 MESSAGE_ID_INVALID: The provided message id is invalid
 //
 // See https://core.telegram.org/method/payments.getPaymentReceipt for reference.
-func (c *Client) PaymentsGetPaymentReceipt(ctx context.Context, msgid int) (*PaymentsPaymentReceipt, error) {
+func (c *Client) PaymentsGetPaymentReceipt(ctx context.Context, request *PaymentsGetPaymentReceiptRequest) (*PaymentsPaymentReceipt, error) {
 	var result PaymentsPaymentReceipt
 
-	request := &PaymentsGetPaymentReceiptRequest{
-		MsgID: msgid,
-	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
