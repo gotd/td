@@ -15,10 +15,10 @@ func gzip(b *bin.Buffer) (*bin.Buffer, error) {
 	return &bin.Buffer{Buf: content.Data}, nil
 }
 
-func (c *Conn) handleGZIP(b *bin.Buffer) error {
+func (c *Conn) handleGZIP(msgID int64, b *bin.Buffer) error {
 	content, err := gzip(b)
 	if err != nil {
 		return xerrors.Errorf("unzip: %w", err)
 	}
-	return c.handleMessage(content)
+	return c.handleMessage(msgID, content)
 }
