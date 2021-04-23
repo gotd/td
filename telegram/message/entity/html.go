@@ -94,8 +94,6 @@ func (p *htmlParser) startTag() error {
 		}
 	case pre:
 		e.format = Code()
-	default:
-		return xerrors.Errorf("unknown tag name %q", e.tag)
 	}
 
 	p.stack = append(p.stack, e)
@@ -116,7 +114,9 @@ func (p *htmlParser) endTag() error {
 	}
 
 	length := ComputeLength(p.builder.message.String())
-	p.builder.entities = append(p.builder.entities, s.format(s.offset, length-s.offset))
+	if s.format != nil {
+		p.builder.entities = append(p.builder.entities, s.format(s.offset, length-s.offset))
+	}
 	return nil
 }
 
@@ -144,6 +144,7 @@ func (p *htmlParser) parse() error {
 }
 
 // HTML parses given input from reader and adds parsed entities to given builder.
+// Notice that this parser ignores unsupported tags.
 //
 // See https://core.telegram.org/bots/api#html-style.
 func HTML(r io.Reader, b *Builder) error {
