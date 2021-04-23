@@ -169,7 +169,7 @@ func (c *Conn) readEncryptedMessages(ctx context.Context) error {
 			}
 			b.ResetTo(msg.Data())
 
-			if err := c.handleMessage(b); err != nil {
+			if err := c.handleMessage(msg.MessageID, b); err != nil {
 				// Probably we can return here, but this will shutdown whole
 				// connection which can be unexpected.
 				c.log.Warn("Error while handling message", zap.Error(err))

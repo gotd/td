@@ -1,6 +1,7 @@
 package mtproto
 
 import (
+	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -8,14 +9,14 @@ import (
 	"github.com/gotd/td/internal/proto"
 )
 
-func (c *Conn) handleMessage(b *bin.Buffer) error {
+func (c *Conn) handleMessage(msgID int64, b *bin.Buffer) error {
 	id, err := b.PeekID()
 	if err != nil {
 		// Empty body.
 		return xerrors.Errorf("failed to determine message type: %w", err)
 	}
 
-	c.logWithType(b).Debug("Handle message")
+	c.logWithType(b).Debug("Handle message", zap.Int64("msg_id", msgID))
 	switch id {
 	case mt.NewSessionCreatedTypeID:
 		return c.handleSessionCreated(b)
@@ -24,7 +25,7 @@ func (c *Conn) handleMessage(b *bin.Buffer) error {
 	case mt.FutureSaltsTypeID:
 		return c.handleFutureSalts(b)
 	case proto.MessageContainerTypeID:
-		return c.handleContainer(b)
+		return c.handleContainer(msgID, b)
 	case proto.ResultTypeID:
 		return c.handleResult(b)
 	case mt.PongTypeID:
@@ -32,7 +33,10 @@ func (c *Conn) handleMessage(b *bin.Buffer) error {
 	case mt.MsgsAckTypeID:
 		return c.handleAck(b)
 	case proto.GZIPTypeID:
-		return c.handleGZIP(b)
+		return c.handleGZIP(msgID, b)
+	case mt.MsgDetailedInfoTypeID,
+		mt.MsgNewDetailedInfoTypeID:
+		return nil
 	default:
 		return c.handler.OnMessage(b)
 	}
