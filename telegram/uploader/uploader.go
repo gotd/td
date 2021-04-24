@@ -32,6 +32,7 @@ func NewUploader(rpc Client) *Uploader {
 		id: func() (int64, error) {
 			return crypto.RandInt64(rand.Reader)
 		},
+		src:     new(source.HTTPSource),
 		threads: 1,
 	}).WithPartSize(defaultPartSize)
 }
