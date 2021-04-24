@@ -5,6 +5,7 @@ import (
 	"context"
 	"crypto/rand"
 	"io"
+	"net/url"
 	"runtime"
 	"strconv"
 	"sync"
@@ -16,6 +17,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/syncio"
+	"github.com/gotd/td/telegram/uploader/source"
 	"github.com/gotd/td/tg"
 )
 
@@ -91,6 +93,31 @@ func (m *mockClient) UploadSaveBigFilePart(ctx context.Context, request *tg.Uplo
 	return true, nil
 }
 
+type mockSource struct {
+	name string
+	data *bytes.Reader
+}
+
+func (m mockSource) Open(ctx context.Context, u *url.URL) (source.RemoteFile, error) {
+	return m, nil
+}
+
+func (m mockSource) Read(p []byte) (n int, err error) {
+	return m.data.Read(p)
+}
+
+func (m mockSource) Close() error {
+	return nil
+}
+
+func (m mockSource) Name() string {
+	return m.name
+}
+
+func (m mockSource) Size() int64 {
+	return m.data.Size()
+}
+
 func TestUploader(t *testing.T) {
 	ctx := context.Background()
 
@@ -139,6 +166,18 @@ func TestUploader(t *testing.T) {
 					Data: data,
 				},
 			}, "10.jpg")
+			return err
+		}},
+		{"FromURL", func(b *Uploader, data []byte) error {
+			if len(data) == len(testData) {
+				b = b.WithPartSize(MaximumPartSize)
+			}
+			b = b.WithSource(mockSource{
+				name: "img.jpg",
+				data: bytes.NewReader(data),
+			})
+
+			_, err := b.FromURL(ctx, "http://example.com")
 			return err
 		}},
 	}
