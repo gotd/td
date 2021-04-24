@@ -5,12 +5,14 @@ import (
 	"context"
 	"io"
 	"io/fs"
+	"net/url"
 	"os"
 	"path/filepath"
 
 	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/telegram/uploader/source"
 	"github.com/gotd/td/tg"
 )
 
@@ -65,4 +67,37 @@ func (u *Uploader) FromReader(ctx context.Context, name string, f io.Reader) (tg
 // FromBytes uploads file from given byte slice.
 func (u *Uploader) FromBytes(ctx context.Context, name string, b []byte) (tg.InputFileClass, error) {
 	return u.Upload(ctx, NewUpload(name, bytes.NewReader(b), int64(len(b))))
+}
+
+// FromURL uses given source to upload to Telegram.
+func (u *Uploader) FromURL(ctx context.Context, rawURL string) (_ tg.InputFileClass, rerr error) {
+	return u.FromSource(ctx, u.src, rawURL)
+}
+
+// FromSource uses given source and URL to fetch data and upload it to Telegram.
+func (u *Uploader) FromSource(ctx context.Context, src source.Source, rawURL string) (_ tg.InputFileClass, rerr error) {
+	parsed, err := url.Parse(rawURL)
+	if err != nil {
+		return nil, xerrors.Errorf("parse url %q: %w", rawURL, err)
+	}
+
+	f, err := src.Open(ctx, parsed)
+	if err != nil {
+		return nil, xerrors.Errorf("open %q: %w", rawURL, err)
+	}
+	defer func() {
+		multierr.AppendInto(&rerr, f.Close())
+	}()
+
+	name := f.Name()
+	if name == "" {
+		return nil, xerrors.Errorf("invalid name %q got from %q", name, rawURL)
+	}
+
+	size := f.Size()
+	if size < 0 {
+		size = -1
+	}
+
+	return u.Upload(ctx, NewUpload(f.Name(), f, size))
 }

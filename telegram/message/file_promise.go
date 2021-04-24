@@ -8,6 +8,7 @@ import (
 	"go.uber.org/atomic"
 
 	"github.com/gotd/td/telegram/uploader"
+	"github.com/gotd/td/telegram/uploader/source"
 	"github.com/gotd/td/tg"
 )
 
@@ -18,6 +19,8 @@ type Uploader interface {
 	FromFS(ctx context.Context, filesystem fs.FS, path string) (tg.InputFileClass, error)
 	FromReader(ctx context.Context, name string, f io.Reader) (tg.InputFileClass, error)
 	FromBytes(ctx context.Context, name string, b []byte) (tg.InputFileClass, error)
+	FromURL(ctx context.Context, rawURL string) (tg.InputFileClass, error)
+	FromSource(ctx context.Context, src source.Source, rawURL string) (tg.InputFileClass, error)
 }
 
 type uploadBuilder struct {
@@ -102,5 +105,19 @@ func FromReader(name string, r io.Reader) UploadOption {
 func FromBytes(name string, data []byte) UploadOption {
 	return Upload(func(ctx context.Context, b Uploader) (tg.InputFileClass, error) {
 		return b.FromBytes(ctx, name, data)
+	})
+}
+
+// FromURL uploads file from given URL.
+func FromURL(rawURL string) UploadOption {
+	return Upload(func(ctx context.Context, b Uploader) (tg.InputFileClass, error) {
+		return b.FromURL(ctx, rawURL)
+	})
+}
+
+// FromSource uploads file from given URL using given Source.
+func FromSource(src source.Source, rawURL string) UploadOption {
+	return Upload(func(ctx context.Context, b Uploader) (tg.InputFileClass, error) {
+		return b.FromSource(ctx, src, rawURL)
 	})
 }

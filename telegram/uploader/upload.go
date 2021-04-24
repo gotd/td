@@ -3,6 +3,7 @@ package uploader
 
 import (
 	"io"
+	"sync"
 
 	"go.uber.org/atomic"
 )
@@ -25,10 +26,13 @@ type Upload struct {
 	id int64
 	// Sent parts (in partSize).
 	sentParts atomic.Int64
+
 	// Confirmed uploaded parts.
-	confirmedParts atomic.Int64
+	confirmedParts int
 	// Confirmed uploaded bytes.
-	confirmedBytes atomic.Int64
+	confirmedBytes int64
+	confirmedMux   sync.Mutex
+
 	// Total parts.
 	totalParts int
 	// Part size of uploader.
@@ -45,19 +49,29 @@ type Upload struct {
 }
 
 func (u *Upload) confirmSmall(bytes int) ProgressState {
-	part := int(u.confirmedParts.Inc())
-	return u.confirm(part, bytes)
+	u.confirmedMux.Lock()
+	defer u.confirmedMux.Unlock()
+
+	u.confirmedParts++
+	return u.confirmLocked(u.confirmedParts, bytes)
 }
 
 func (u *Upload) confirm(part, bytes int) ProgressState {
-	uploaded := int(u.confirmedBytes.Add(int64(bytes)))
+	u.confirmedMux.Lock()
+	defer u.confirmedMux.Unlock()
+
+	return u.confirmLocked(part, bytes)
+}
+
+func (u *Upload) confirmLocked(part, bytes int) ProgressState {
+	u.confirmedBytes += int64(bytes)
 
 	return ProgressState{
 		ID:       u.id,
 		Name:     u.name,
 		Part:     part,
 		PartSize: u.partSize,
-		Uploaded: uploaded,
-		Total:    int(u.totalBytes),
+		Uploaded: u.confirmedBytes,
+		Total:    u.totalBytes,
 	}
 }
