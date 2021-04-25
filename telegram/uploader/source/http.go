@@ -16,6 +16,11 @@ type HTTPSource struct {
 	client *http.Client
 }
 
+// NewHTTPSource creates new HTTPSource.
+func NewHTTPSource() *HTTPSource {
+	return &HTTPSource{client: http.DefaultClient}
+}
+
 // WithClient sets HTTP client to use.
 func (s *HTTPSource) WithClient(client *http.Client) *HTTPSource {
 	s.client = client
