@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/gotd/td/telegram/uploader"
+	"github.com/gotd/td/telegram/uploader/source"
 	"github.com/gotd/td/tg"
 )
 
@@ -31,6 +32,14 @@ func (m mockUploader) FromReader(ctx context.Context, name string, f io.Reader) 
 }
 
 func (m mockUploader) FromBytes(ctx context.Context, name string, b []byte) (tg.InputFileClass, error) {
+	return m.file, nil
+}
+
+func (m mockUploader) FromURL(ctx context.Context, rawURL string) (tg.InputFileClass, error) {
+	return m.file, nil
+}
+
+func (m mockUploader) FromSource(ctx context.Context, src source.Source, rawURL string) (tg.InputFileClass, error) {
 	return m.file, nil
 }
 
@@ -79,5 +88,19 @@ func TestUpload(t *testing.T) {
 		ForceFile: true,
 	}, mock)
 	_, err = dialog.Upload(FromFile(nil)).File(ctx)
+	mock.NoError(err)
+
+	expectSendMedia(&tg.InputMediaUploadedDocument{
+		File:      f,
+		ForceFile: true,
+	}, mock)
+	_, err = dialog.Upload(FromURL("http://example.com")).File(ctx)
+	mock.NoError(err)
+
+	expectSendMedia(&tg.InputMediaUploadedDocument{
+		File:      f,
+		ForceFile: true,
+	}, mock)
+	_, err = dialog.Upload(FromSource(new(source.HTTPSource), "http://example.com")).File(ctx)
 	mock.NoError(err)
 }

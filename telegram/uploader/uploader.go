@@ -10,6 +10,7 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/telegram/uploader/source"
 	"github.com/gotd/td/tg"
 )
 
@@ -21,6 +22,7 @@ type Uploader struct {
 	pool     *bin.Pool
 	threads  int
 	progress Progress
+	src      source.Source
 }
 
 // NewUploader creates new Uploader.
@@ -30,6 +32,7 @@ func NewUploader(rpc Client) *Uploader {
 		id: func() (int64, error) {
 			return crypto.RandInt64(rand.Reader)
 		},
+		src:     new(source.HTTPSource),
 		threads: 1,
 	}).WithPartSize(defaultPartSize)
 }
@@ -37,6 +40,12 @@ func NewUploader(rpc Client) *Uploader {
 // WithProgress sets progress callback.
 func (u *Uploader) WithProgress(progress Progress) *Uploader {
 	u.progress = progress
+	return u
+}
+
+// WithSource sets URL resolver to use.
+func (u *Uploader) WithSource(src source.Source) *Uploader {
+	u.src = src
 	return u
 }
 

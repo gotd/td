@@ -9,7 +9,7 @@ import (
 )
 
 // Upload creates new UploadBuilder to upload and send attachments.
-// Given option will be called only once, even if you call upload functions .
+// Given option will be called only once, even if you call upload functions.
 func (b *Builder) Upload(upd UploadOption) *UploadBuilder {
 	return &UploadBuilder{
 		builder: b.copy(),

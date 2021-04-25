@@ -8,6 +8,7 @@ import (
 	"go.uber.org/atomic"
 
 	"github.com/gotd/td/telegram/uploader"
+	"github.com/gotd/td/telegram/uploader/source"
 	"github.com/gotd/td/tg"
 )
 
@@ -18,6 +19,8 @@ type Uploader interface {
 	FromFS(ctx context.Context, filesystem fs.FS, path string) (tg.InputFileClass, error)
 	FromReader(ctx context.Context, name string, f io.Reader) (tg.InputFileClass, error)
 	FromBytes(ctx context.Context, name string, b []byte) (tg.InputFileClass, error)
+	FromURL(ctx context.Context, rawURL string) (tg.InputFileClass, error)
+	FromSource(ctx context.Context, src source.Source, rawURL string) (tg.InputFileClass, error)
 }
 
 type uploadBuilder struct {
@@ -47,7 +50,11 @@ func (r *fileCache) Load() (result tg.InputFileClass, ok bool) {
 	return
 }
 
-func uploadOption(promise func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error)) UploadOption {
+// FilePromise is a upload file promise.
+type FilePromise = func(ctx context.Context, b Uploader) (tg.InputFileClass, error)
+
+// Upload creates new upload options using given promise.
+func Upload(promise FilePromise) UploadOption {
 	once := &fileCache{}
 	return uploadOptionFunc(func(ctx context.Context, b uploadBuilder) (r tg.InputFileClass, err error) {
 		if v, ok := once.Load(); ok {
@@ -59,29 +66,29 @@ func uploadOption(promise func(ctx context.Context, b uploadBuilder) (tg.InputFi
 			}
 		}()
 
-		return promise(ctx, b)
+		return promise(ctx, b.upload)
 	})
 }
 
 // FromFile uploads given File.
 // NB: FromFile does not close given file.
 func FromFile(f uploader.File) UploadOption {
-	return uploadOption(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
-		return b.upload.FromFile(ctx, f)
+	return Upload(func(ctx context.Context, b Uploader) (tg.InputFileClass, error) {
+		return b.FromFile(ctx, f)
 	})
 }
 
 // FromPath uploads file from given path.
 func FromPath(path string) UploadOption {
-	return uploadOption(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
-		return b.upload.FromPath(ctx, path)
+	return Upload(func(ctx context.Context, b Uploader) (tg.InputFileClass, error) {
+		return b.FromPath(ctx, path)
 	})
 }
 
 // FromFS uploads file from given path using given fs.FS.
 func FromFS(filesystem fs.FS, path string) UploadOption {
-	return uploadOption(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
-		return b.upload.FromFS(ctx, filesystem, path)
+	return Upload(func(ctx context.Context, b Uploader) (tg.InputFileClass, error) {
+		return b.FromFS(ctx, filesystem, path)
 	})
 }
 
@@ -89,14 +96,28 @@ func FromFS(filesystem fs.FS, path string) UploadOption {
 // NB: totally stream should not exceed the limit for
 // small files (10 MB as docs says, may be a bit bigger).
 func FromReader(name string, r io.Reader) UploadOption {
-	return uploadOption(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
-		return b.upload.FromReader(ctx, name, r)
+	return Upload(func(ctx context.Context, b Uploader) (tg.InputFileClass, error) {
+		return b.FromReader(ctx, name, r)
 	})
 }
 
 // FromBytes uploads file from given byte slice.
 func FromBytes(name string, data []byte) UploadOption {
-	return uploadOption(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
-		return b.upload.FromBytes(ctx, name, data)
+	return Upload(func(ctx context.Context, b Uploader) (tg.InputFileClass, error) {
+		return b.FromBytes(ctx, name, data)
+	})
+}
+
+// FromURL uploads file from given URL.
+func FromURL(rawURL string) UploadOption {
+	return Upload(func(ctx context.Context, b Uploader) (tg.InputFileClass, error) {
+		return b.FromURL(ctx, rawURL)
+	})
+}
+
+// FromSource uploads file from given URL using given Source.
+func FromSource(src source.Source, rawURL string) UploadOption {
+	return Upload(func(ctx context.Context, b Uploader) (tg.InputFileClass, error) {
+		return b.FromSource(ctx, src, rawURL)
 	})
 }

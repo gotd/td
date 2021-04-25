@@ -26,7 +26,14 @@ func String(s string) styling.StyledTextOption {
 // Format formats string using fmt, parses HTML from formatted string and returns styling option
 // to build styled text block.
 func Format(format string, args ...interface{}) styling.StyledTextOption {
-	return String(fmt.Sprintf(format, args...))
+	return styling.Custom(func(eb *entity.Builder) error {
+		var buf bytes.Buffer
+		_, err := fmt.Fprintf(&buf, format, args...)
+		if err != nil {
+			return err
+		}
+		return entity.HTML(&buf, eb)
+	})
 }
 
 // Reader reads HTML from given reader and returns styling option
