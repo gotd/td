@@ -101,6 +101,6 @@ func TestUpload(t *testing.T) {
 		File:      f,
 		ForceFile: true,
 	}, mock)
-	_, err = dialog.Upload(FromSource(new(source.HTTPSource), "http://example.com")).File(ctx)
+	_, err = dialog.Upload(FromSource(source.NewHTTPSource(), "http://example.com")).File(ctx)
 	mock.NoError(err)
 }
