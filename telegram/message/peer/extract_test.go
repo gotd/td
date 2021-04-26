@@ -17,7 +17,7 @@ type mockResult struct {
 }
 
 func (m mockResult) MapUsers() (r tg.UserClassArray) {
-	for _, e := range m.Entities.users {
+	for _, e := range m.Entities.Users() {
 		r = append(r, e)
 	}
 
@@ -25,11 +25,11 @@ func (m mockResult) MapUsers() (r tg.UserClassArray) {
 }
 
 func (m mockResult) MapChats() (r tg.ChatClassArray) {
-	for _, e := range m.Entities.chats {
+	for _, e := range m.Entities.Chats() {
 		r = append(r, e)
 	}
 
-	for _, e := range m.Entities.channels {
+	for _, e := range m.Entities.Channels() {
 		r = append(r, e)
 	}
 

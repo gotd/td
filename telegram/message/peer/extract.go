@@ -47,6 +47,24 @@ func EntitiesFromUpdate(uctx tg.Entities) Entities {
 	)
 }
 
+// Users returns map of users.
+// Notice that returned map is not a copy.
+func (ent Entities) Users() map[int]*tg.User {
+	return ent.users
+}
+
+// Chats returns map of chats.
+// Notice that returned map is not a copy.
+func (ent Entities) Chats() map[int]*tg.Chat {
+	return ent.chats
+}
+
+// Channels returns map of channels.
+// Notice that returned map is not a copy.
+func (ent Entities) Channels() map[int]*tg.Channel {
+	return ent.channels
+}
+
 // FillFromResult adds and updates all entities from given result.
 func (ent Entities) FillFromResult(r EntitySearchResult) {
 	r.MapUsers().FillUserMap(ent.users)
