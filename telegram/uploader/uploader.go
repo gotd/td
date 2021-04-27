@@ -50,8 +50,10 @@ func (u *Uploader) WithSource(src source.Source) *Uploader {
 }
 
 // WithThreads sets uploading goroutines limit per upload.
-func (u *Uploader) WithThreads(limit int) *Uploader {
-	u.threads = limit
+func (u *Uploader) WithThreads(threads int) *Uploader {
+	if threads > 0 {
+		u.threads = threads
+	}
 	return u
 }
 
