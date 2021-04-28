@@ -12,8 +12,8 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
-// Waiter is a invoker middleware to handle FLOOD_WAIT errors from Telegram.
-type Waiter struct {
+// WaitScheduler is a invoker middleware to handle FLOOD_WAIT errors from Telegram.
+type WaitScheduler struct {
 	prev  tg.Invoker // immutable
 	clock clock.Clock
 	sch   *scheduler
@@ -23,9 +23,9 @@ type Waiter struct {
 	retryLimit int
 }
 
-// NewWaiter creates new Waiter invoker middleware.
-func NewWaiter(prev tg.Invoker) *Waiter {
-	return &Waiter{
+// NewWaitScheduler creates new WaitScheduler invoker middleware.
+func NewWaitScheduler(prev tg.Invoker) *WaitScheduler {
+	return &WaitScheduler{
 		prev:       prev,
 		clock:      clock.System,
 		sch:        newScheduler(clock.System, time.Second),
@@ -36,13 +36,13 @@ func NewWaiter(prev tg.Invoker) *Waiter {
 }
 
 // WithClock sets clock to use.
-func (w *Waiter) WithClock(c clock.Clock) *Waiter {
+func (w *WaitScheduler) WithClock(c clock.Clock) *WaitScheduler {
 	w.clock = c
 	return w
 }
 
 // WithWaitLimit sets wait limit to use.
-func (w *Waiter) WithWaitLimit(waitLimit int) *Waiter {
+func (w *WaitScheduler) WithWaitLimit(waitLimit int) *WaitScheduler {
 	if waitLimit >= 0 {
 		w.waitLimit = waitLimit
 	}
@@ -50,15 +50,15 @@ func (w *Waiter) WithWaitLimit(waitLimit int) *Waiter {
 }
 
 // WithRetryLimit sets retry limit to use.
-func (w *Waiter) WithRetryLimit(retryLimit int) *Waiter {
+func (w *WaitScheduler) WithRetryLimit(retryLimit int) *WaitScheduler {
 	if retryLimit >= 0 {
 		w.retryLimit = retryLimit
 	}
 	return w
 }
 
-// WithTick sets gather tick for Waiter.
-func (w *Waiter) WithTick(tick time.Duration) *Waiter {
+// WithTick sets gather tick for WaitScheduler.
+func (w *WaitScheduler) WithTick(tick time.Duration) *WaitScheduler {
 	if tick > 0 {
 		w.tick = tick
 	}
@@ -66,7 +66,7 @@ func (w *Waiter) WithTick(tick time.Duration) *Waiter {
 }
 
 // Run runs send loop.
-func (w *Waiter) Run(ctx context.Context) error {
+func (w *WaitScheduler) Run(ctx context.Context) error {
 	ticker := w.clock.Ticker(w.tick)
 	defer ticker.Stop()
 
@@ -94,7 +94,7 @@ func (w *Waiter) Run(ctx context.Context) error {
 	}
 }
 
-func (w *Waiter) send(s scheduled) (bool, error) {
+func (w *WaitScheduler) send(s scheduled) (bool, error) {
 	err := w.prev.InvokeRaw(s.request.ctx, s.request.input, s.request.output)
 
 	floodWait, ok := tgerr.AsType(err, ErrFloodWait)
@@ -122,7 +122,7 @@ type Object interface {
 const ErrFloodWait = "FLOOD_WAIT"
 
 // InvokeRaw implements tg.Invoker.
-func (w *Waiter) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+func (w *WaitScheduler) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	select {
 	case err := <-w.sch.new(ctx, input, output):
 		return err
