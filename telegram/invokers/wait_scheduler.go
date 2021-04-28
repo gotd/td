@@ -105,7 +105,7 @@ func (w *WaitScheduler) send(s scheduled) (bool, error) {
 	case floodWait.Argument >= w.waitLimit:
 		return true, xerrors.Errorf("FLOOD_WAIT argument is too big (%d >= %d)", floodWait.Argument, w.waitLimit)
 	case s.request.retry >= w.retryLimit:
-		return true, xerrors.Errorf("Retry limit exceeded (%d >= %d)", s.request.retry, w.retryLimit)
+		return true, xerrors.Errorf("retry limit exceeded (%d >= %d)", s.request.retry, w.retryLimit)
 	}
 
 	s.request.retry++
