@@ -61,13 +61,13 @@ func (c *Conn) read(ctx context.Context, b *bin.Buffer) (*crypto.EncryptedMessag
 
 	// Validating message. This protects from replay attacks.
 	if msg.SessionID != session.ID {
-		return nil, xerrors.Errorf("invalid session: %w", errRejected)
+		return nil, xerrors.Errorf("invalid session (got %d, expected %d): %w", msg.SessionID, session.ID, errRejected)
 	}
 	if err := checkMessageID(c.clock.Now(), msg.MessageID); err != nil {
-		return nil, xerrors.Errorf("bad message id: %w", err)
+		return nil, xerrors.Errorf("bad message id %d: %w", msg.MessageID, err)
 	}
 	if !c.messageIDBuf.Consume(msg.MessageID) {
-		return nil, xerrors.Errorf("duplicate or too low message id: %w", errRejected)
+		return nil, xerrors.Errorf("duplicate or too low message id %d: %w", msg.MessageID, errRejected)
 	}
 
 	return msg, nil
