@@ -13,6 +13,11 @@ import (
 )
 
 // Waiter is a tg.Invoker that handles flood wait errors on underlying invoker.
+//
+// This implementation is more suitable for one-off tasks and programs with low level
+// of concurrency and parallelism.
+//
+// See WaitScheduler for a fully-blown scheduler-based flood wait handler.
 type Waiter struct {
 	next  tg.Invoker
 	clock clock.Clock

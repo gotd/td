@@ -12,7 +12,14 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
-// WaitScheduler is a invoker middleware to handle FLOOD_WAIT errors from Telegram.
+// WaitScheduler is a tg.Invoker that handles flood wait errors on underlying invoker.
+//
+// This implementation uses a request scheduler and is more suitable for long-running
+// programs with high level of concurrency and parallelism.
+//
+// You should use WaitScheduler if unsure which waiter implementation to use.
+//
+// See Waiter for a simple sleep-based implementation.
 type WaitScheduler struct {
 	prev  tg.Invoker // immutable
 	clock clock.Clock
@@ -23,25 +30,28 @@ type WaitScheduler struct {
 	retryLimit int
 }
 
-// NewWaitScheduler creates new WaitScheduler invoker middleware.
+// NewWaitScheduler returns a new invoker that waits on the flood wait errors.
 func NewWaitScheduler(prev tg.Invoker) *WaitScheduler {
 	return &WaitScheduler{
 		prev:       prev,
 		clock:      clock.System,
 		sch:        newScheduler(clock.System, time.Second),
-		tick:       1 * time.Millisecond,
+		tick:       time.Millisecond,
 		waitLimit:  60,
 		retryLimit: 5,
 	}
 }
 
-// WithClock sets clock to use.
+// WithClock sets clock to use. Default is to use system clock.
 func (w *WaitScheduler) WithClock(c clock.Clock) *WaitScheduler {
 	w.clock = c
 	return w
 }
 
-// WithWaitLimit sets wait limit to use.
+// WithWaitLimit limits wait time per attempt. WaitScheduler will return an error if flood wait
+// time exceeds that limit. Default is to wait at most a minute.
+//
+// To limit total wait time use a context.Context with timeout or deadline set.
 func (w *WaitScheduler) WithWaitLimit(waitLimit int) *WaitScheduler {
 	if waitLimit >= 0 {
 		w.waitLimit = waitLimit
@@ -49,7 +59,7 @@ func (w *WaitScheduler) WithWaitLimit(waitLimit int) *WaitScheduler {
 	return w
 }
 
-// WithRetryLimit sets retry limit to use.
+// WithRetryLimit sets max number of retries before giving up. Default is to retry at most 5 times.
 func (w *WaitScheduler) WithRetryLimit(retryLimit int) *WaitScheduler {
 	if retryLimit >= 0 {
 		w.retryLimit = retryLimit
@@ -57,7 +67,7 @@ func (w *WaitScheduler) WithRetryLimit(retryLimit int) *WaitScheduler {
 	return w
 }
 
-// WithTick sets gather tick for WaitScheduler.
+// WithTick sets gather tick interval for WaitScheduler. Default is 1ms.
 func (w *WaitScheduler) WithTick(tick time.Duration) *WaitScheduler {
 	if tick > 0 {
 		w.tick = tick
