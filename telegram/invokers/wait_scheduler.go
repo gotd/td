@@ -21,57 +21,70 @@ import (
 //
 // See Waiter for a simple sleep-based implementation.
 type WaitScheduler struct {
-	prev  tg.Invoker // immutable
+	next  tg.Invoker // immutable
 	clock clock.Clock
 	sch   *scheduler
 
 	tick       time.Duration
-	waitLimit  int
-	retryLimit int
+	maxWait    time.Duration
+	maxRetries int
 }
 
 // NewWaitScheduler returns a new invoker that waits on the flood wait errors.
-func NewWaitScheduler(prev tg.Invoker) *WaitScheduler {
+func NewWaitScheduler(invoker tg.Invoker) *WaitScheduler {
 	return &WaitScheduler{
-		prev:       prev,
+		next:       invoker,
 		clock:      clock.System,
 		sch:        newScheduler(clock.System, time.Second),
 		tick:       time.Millisecond,
-		waitLimit:  60,
-		retryLimit: 5,
+		maxWait:    60 * time.Second,
+		maxRetries: 5,
+	}
+}
+
+// clone returns a copy of the WaitScheduler.
+func (w *WaitScheduler) clone() *WaitScheduler {
+	return &WaitScheduler{
+		next:       w.next,
+		clock:      w.clock,
+		sch:        w.sch,
+		tick:       w.tick,
+		maxWait:    w.maxWait,
+		maxRetries: w.maxRetries,
 	}
 }
 
 // WithClock sets clock to use. Default is to use system clock.
 func (w *WaitScheduler) WithClock(c clock.Clock) *WaitScheduler {
+	w = w.clone()
 	w.clock = c
 	return w
 }
 
-// WithWaitLimit limits wait time per attempt. WaitScheduler will return an error if flood wait
+// WithMaxWait limits wait time per attempt. WaitScheduler will return an error if flood wait
 // time exceeds that limit. Default is to wait at most a minute.
 //
 // To limit total wait time use a context.Context with timeout or deadline set.
-func (w *WaitScheduler) WithWaitLimit(waitLimit int) *WaitScheduler {
-	if waitLimit >= 0 {
-		w.waitLimit = waitLimit
-	}
+func (w *WaitScheduler) WithMaxWait(m time.Duration) *WaitScheduler {
+	w = w.clone()
+	w.maxWait = m
 	return w
 }
 
-// WithRetryLimit sets max number of retries before giving up. Default is to retry at most 5 times.
-func (w *WaitScheduler) WithRetryLimit(retryLimit int) *WaitScheduler {
-	if retryLimit >= 0 {
-		w.retryLimit = retryLimit
-	}
+// WithMaxRetries sets max number of retries before giving up. Default is to retry at most 5 times.
+func (w *WaitScheduler) WithMaxRetries(m int) *WaitScheduler {
+	w = w.clone()
+	w.maxRetries = m
 	return w
 }
 
 // WithTick sets gather tick interval for WaitScheduler. Default is 1ms.
-func (w *WaitScheduler) WithTick(tick time.Duration) *WaitScheduler {
-	if tick > 0 {
-		w.tick = tick
+func (w *WaitScheduler) WithTick(t time.Duration) *WaitScheduler {
+	w = w.clone()
+	if t <= 0 {
+		t = time.Nanosecond
 	}
+	w.tick = t
 	return w
 }
 
@@ -105,27 +118,32 @@ func (w *WaitScheduler) Run(ctx context.Context) error {
 }
 
 func (w *WaitScheduler) send(s scheduled) (bool, error) {
-	err := w.prev.InvokeRaw(s.request.ctx, s.request.input, s.request.output)
+	err := w.next.InvokeRaw(s.request.ctx, s.request.input, s.request.output)
 
 	floodWait, ok := tgerr.AsType(err, ErrFloodWait)
-	switch {
-	case !ok:
+	if !ok {
 		w.sch.nice(s.request.key)
 		return true, err
-	case floodWait.Argument >= w.waitLimit:
-		return true, xerrors.Errorf("FLOOD_WAIT argument is too big (%d >= %d)", floodWait.Argument, w.waitLimit)
-	case s.request.retry >= w.retryLimit:
-		return true, xerrors.Errorf("retry limit exceeded (%d >= %d)", s.request.retry, w.retryLimit)
 	}
 
 	s.request.retry++
-	w.sch.flood(s.request, time.Duration(floodWait.Argument)*time.Second)
-	return false, nil
-}
 
-// Object is a abstraction for Telegram API object with TypeID.
-type Object interface {
-	TypeID() uint32
+	if max := w.maxRetries; max != 0 && s.request.retry > max {
+		return true, xerrors.Errorf("flood wait retry limit exceeded (%d > %d): %w", s.request.retry, max, err)
+	}
+
+	arg := floodWait.Argument
+	if arg <= 0 {
+		arg = 1
+	}
+	d := time.Duration(arg) * time.Second
+
+	if max := w.maxWait; max != 0 && d > max {
+		return true, xerrors.Errorf("flood wait argument is too big (%v > %v): %w", d, max, err)
+	}
+
+	w.sch.flood(s.request, d)
+	return false, nil
 }
 
 // ErrFloodWait is error type of "FLOOD_WAIT" error.

@@ -35,8 +35,8 @@ func ExampleWaitScheduler() {
 	var invoker tg.Invoker // e.g. *telegram.Client
 
 	waiter := invokers.NewWaitScheduler(invoker).
-		WithWaitLimit(300).
-		WithRetryLimit(3)
+		WithMaxWait(5 * time.Minute).
+		WithMaxRetries(3)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Hour)
 	defer cancel()

@@ -6,6 +6,11 @@ import (
 	"github.com/gotd/td/bin"
 )
 
+// Object is a abstraction for Telegram API object with TypeID.
+type Object interface {
+	TypeID() uint32
+}
+
 type key uint64
 
 func (k *key) fromEncoder(encoder bin.Encoder) {
