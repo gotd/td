@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"go.uber.org/ratelimit"
 	"golang.org/x/sync/errgroup"
+	"golang.org/x/time/rate"
 
 	"github.com/gotd/td/telegram/invokers"
 	"github.com/gotd/td/tg"
@@ -14,9 +14,9 @@ import (
 func ExampleRateLimiter() {
 	var invoker tg.Invoker // e.g. *telegram.Client
 
-	limiter := invokers.NewRateLimiter(invoker, ratelimit.New(1,
-		ratelimit.Per(100*time.Millisecond),
-	))
+	limiter := invokers.NewRateLimiter(invoker,
+		rate.NewLimiter(rate.Every(100*time.Millisecond), 1),
+	)
 
 	tg.NewClient(limiter)
 }
