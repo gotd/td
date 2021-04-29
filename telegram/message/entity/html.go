@@ -8,6 +8,8 @@ import (
 
 	"golang.org/x/net/html"
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/tg"
 )
 
 type stackElem struct {
@@ -17,10 +19,11 @@ type stackElem struct {
 }
 
 type htmlParser struct {
-	tokenizer *html.Tokenizer
-	builder   *Builder
-	stack     []stackElem
-	attr      map[string]string
+	tokenizer    *html.Tokenizer
+	builder      *Builder
+	stack        []stackElem
+	attr         map[string]string
+	userResolver func(id int) (tg.InputUserClass, error)
 }
 
 func (p *htmlParser) fillAttrs() {
@@ -77,7 +80,12 @@ func (p *htmlParser) startTag() error {
 				return xerrors.Errorf("invalid user ID %q: %w", id, err)
 			}
 
-			e.format = MentionName(id)
+			user, err := p.userResolver(id)
+			if err != nil {
+				return xerrors.Errorf("can't resolve user %q: %w", id, err)
+			}
+
+			e.format = MentionName(user)
 		} else {
 			e.format = TextURL(href)
 		}
@@ -146,12 +154,25 @@ func (p *htmlParser) parse() error {
 // HTML parses given input from reader and adds parsed entities to given builder.
 // Notice that this parser ignores unsupported tags.
 //
+// Parameter userResolver is used to resolve user by ID during formatting. May be nil.
+// If userResolver is nil, formatter will create tg.InputUser using only ID.
+// Notice that it's okay for bots, but not for users.
+//
 // See https://core.telegram.org/bots/api#html-style.
-func HTML(r io.Reader, b *Builder) error {
+func HTML(r io.Reader, b *Builder, userResolver func(id int) (tg.InputUserClass, error)) error {
+	if userResolver == nil {
+		userResolver = func(id int) (tg.InputUserClass, error) {
+			return &tg.InputUser{
+				UserID: id,
+			}, nil
+		}
+	}
+
 	p := htmlParser{
-		tokenizer: html.NewTokenizer(r),
-		builder:   b,
-		attr:      map[string]string{},
+		tokenizer:    html.NewTokenizer(r),
+		builder:      b,
+		attr:         map[string]string{},
+		userResolver: userResolver,
 	}
 
 	return p.parse()

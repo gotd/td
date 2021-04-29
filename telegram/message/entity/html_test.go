@@ -40,7 +40,9 @@ func TestHTML(t *testing.T) {
 		{`<a href="http://www.example.com/">inline URL</a>`, "inline URL",
 			getEnities(TextURL("http://www.example.com/"))},
 		{`<a href="tg://user?id=123456789">inline mention of a user</a>`, "inline mention of a user",
-			getEnities(MentionName(123456789))},
+			getEnities(MentionName(&tg.InputUser{
+				UserID: 123456789,
+			}))},
 		{`<pre><code class="language-python">python code</code></pre>`, "python code",
 			getEnities(Pre("python"), Code())},
 		{"<b>&lt;</b>", "<", getEnities(Bold())},
@@ -50,7 +52,7 @@ func TestHTML(t *testing.T) {
 		t.Run(strings.Title(test.msg), func(t *testing.T) {
 			a := require.New(t)
 			b := Builder{}
-			a.NoError(HTML(strings.NewReader(test.html), &b))
+			a.NoError(HTML(strings.NewReader(test.html), &b, nil))
 
 			msg, entities := b.Complete()
 			a.Equal(test.msg, msg)

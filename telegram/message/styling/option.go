@@ -2,6 +2,7 @@ package styling
 
 import (
 	"github.com/gotd/td/telegram/message/entity"
+	"github.com/gotd/td/tg"
 )
 
 // StyledTextOption is a option for styling text.
@@ -140,7 +141,7 @@ func TextURL(s, url string) StyledTextOption {
 
 // MentionName formats text as MentionName entity.
 // See https://core.telegram.org/constructor/messageEntityMentionName.
-func MentionName(s string, userID int) StyledTextOption {
+func MentionName(s string, userID tg.InputUserClass) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
 		b.MentionName(s, userID)
 		return nil
