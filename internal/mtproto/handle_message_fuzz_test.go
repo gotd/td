@@ -1,8 +1,9 @@
-// +build fuzz
+// +build go1.17
 
 package mtproto
 
 import (
+	"testing"
 	"time"
 
 	"go.uber.org/zap"
@@ -12,13 +13,10 @@ import (
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/rpc"
+	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/tg"
 )
-
-type Zero struct{}
-
-func (Zero) Read(p []byte) (n int, err error) { return len(p), nil }
 
 type fuzzHandler struct {
 	types *tmap.Constructor
@@ -52,12 +50,11 @@ func (h fuzzHandler) OnMessage(b *bin.Buffer) error {
 
 func (fuzzHandler) OnSession(session Session) error { return nil }
 
-var (
-	conn *Conn
-	buf  *bin.Buffer
-)
-
-func init() {
+func FuzzHandleMessage(f *testing.F) {
+	types := tmap.New(
+		tg.TypesMap(),
+		mt.TypesMap(),
+	)
 	handler := fuzzHandler{
 		// Handler will try to dynamically decode any incoming message.
 		types: tmap.NewConstructor(
@@ -73,14 +70,40 @@ func init() {
 		handler:   handler,
 	}
 
-	conn = c
-	buf = &bin.Buffer{}
-}
+	b := &bin.Buffer{}
 
-func FuzzHandleMessage(data []byte) int {
-	buf.ResetTo(data)
-	if err := conn.handleMessage(buf); err != nil {
-		return 0
-	}
-	return 1
+	f.Fuzz(func(t *testing.T, data []byte) {
+		b.ResetTo(data)
+		// Default to 128 bytes per invocation.
+		allocThreshold := 128
+
+		// Adjusting threshold for specific types.
+		//
+		// Probably there should be better way to do this, but
+		// manually ensuring allocation distribution by type is
+		// pretty ok.
+		b.ResetTo(data)
+		if id, err := b.PeekID(); err == nil {
+			t.Logf("Type: 0x%x %s", id, types.Get(id))
+			switch id {
+			case tg.UpdatesTypeID,
+				tg.TextFixedTypeID,
+				tg.InputPeerChannelFromMessageTypeID,
+				tg.PageBlockRelatedArticlesTypeID:
+				allocThreshold = 512
+			case tg.TextBoldTypeID,
+				tg.TextItalicTypeID,
+				tg.TextMarkedTypeID,
+				tg.MessageTypeID,
+				tg.PageBlockCoverTypeID,
+				tg.InputMediaUploadedDocumentTypeID:
+				allocThreshold = 256
+			}
+		}
+
+		testutil.MaxAlloc(t, allocThreshold, func() {
+			b.ResetTo(data)
+			_ = c.handleMessage(0, b)
+		})
+	})
 }
