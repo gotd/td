@@ -108,7 +108,9 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.UpdateHandler == nil {
 		// opt.NoUpdates = true
-		opt.UpdateHandler = nopUpdateHandler{}
+		opt.UpdateHandler = UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
+			return nil
+		})
 	}
 }
 
@@ -120,7 +122,3 @@ func defaultBackoff(c clock.Clock) func() backoff.BackOff {
 		return b
 	}
 }
-
-type nopUpdateHandler struct{}
-
-func (nopUpdateHandler) Handle(ctx context.Context, u tg.UpdatesClass) error { return nil }

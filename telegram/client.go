@@ -36,6 +36,17 @@ type UpdateHandler interface {
 	Handle(ctx context.Context, u tg.UpdatesClass) error
 }
 
+// UpdateHandlerFunc type is an adapter to allow the use of
+// ordinary function as update handler.
+//
+// UpdateHandlerFunc(f) is an UpdateHandler that calls f.
+type UpdateHandlerFunc func(ctx context.Context, u tg.UpdatesClass) error
+
+// Handle calls f(ctx, u)
+func (f UpdateHandlerFunc) Handle(ctx context.Context, u tg.UpdatesClass) error {
+	return f(ctx, u)
+}
+
 type clientStorage interface {
 	Load(ctx context.Context) (*session.Data, error)
 	Save(ctx context.Context, data *session.Data) error

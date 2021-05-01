@@ -79,7 +79,7 @@ func newTestClient(h testHandler) *Client {
 		conn:          &testConn{engine: engine, ready: ready},
 		ctx:           context.Background(),
 		cancel:        func() {},
-		updateHandler: nopUpdateHandler{},
+		updateHandler: UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error { return nil }),
 	}
 	client.init()
 
