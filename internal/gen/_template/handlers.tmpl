@@ -15,54 +15,54 @@ func NewUpdateDispatcher() UpdateDispatcher {
 }
 
 type Entities struct {
-    Short bool
-    Users map[int]*User
-    Chats map[int]*Chat
-    Channels map[int]*Channel
-    init bool
-}
-
-func (u *Entities) lazyInitFromUpdates(updates *Updates) {
-    if u.init {
-        return
-    }
-
-    u.init = true
-    u.Users = updates.MapUsers().NotEmptyToMap()
-    chats := updates.MapChats()
-    u.Chats = chats.ChatToMap()
-    u.Channels = chats.ChannelToMap()
+	Short    bool
+	Users    map[int]*User
+	Chats    map[int]*Chat
+	Channels map[int]*Channel
 }
 
 func (u *Entities) short() {
-    if u.init {
-        return
-    }
-    u.init = true
-
-    u.Short = true
-    u.Users = make(map[int]*User, 0)
-    u.Chats = make(map[int]*Chat, 0)
-    u.Channels = make(map[int]*Channel, 0)
+	u.Short = true
+	u.Users = make(map[int]*User, 0)
+	u.Chats = make(map[int]*Chat, 0)
+	u.Channels = make(map[int]*Channel, 0)
 }
 
 // Handle implements UpdateDispatcher.
-func (u UpdateDispatcher) Handle(ctx context.Context, updates *Updates) error {
-    e := Entities{}
+func (u UpdateDispatcher) Handle(ctx context.Context, updates UpdatesClass) error {
+	var (
+		e Entities
+		upds []UpdateClass
+	)
+	switch u := updates.(type) {
+	case *Updates:
+		upds = u.Updates
+		e.Users = u.MapUsers().NotEmptyToMap()
+		chats := u.MapChats()
+		e.Chats = chats.ChatToMap()
+		e.Channels = chats.ChannelToMap()
+	case *UpdatesCombined:
+		upds = u.Updates
+		e.Users = u.MapUsers().NotEmptyToMap()
+		chats := u.MapChats()
+		e.Chats = chats.ChatToMap()
+		e.Channels = chats.ChannelToMap()
+	case *UpdateShort:
+		upds = []UpdateClass{u.Update}
+		e.short()
+	default:
+		// *UpdateShortMessage
+		// *UpdateShortChatMessage
+		// *UpdateShortSentMessage
+		// *UpdatesTooLong
+		return nil
+	}
 
-    var err error
-	for _, update := range updates.Updates {
-        e.lazyInitFromUpdates(updates)
-        multierr.AppendInto(&err, u.dispatch(ctx, e, update))
+	var err error
+	for _, update := range upds {
+		multierr.AppendInto(&err, u.dispatch(ctx, e, update))
 	}
 	return err
-}
-
-// HandleShort implements UpdateDispatcher.
-func (u UpdateDispatcher) HandleShort(ctx context.Context, short *UpdateShort) error {
-    e := Entities{}
-    e.short()
-    return u.dispatch(ctx, e, short.Update)
 }
 
 func (u UpdateDispatcher) dispatch(ctx context.Context, e Entities, update UpdateClass) error {

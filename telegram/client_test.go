@@ -72,13 +72,14 @@ func newTestClient(h testHandler) *Client {
 	ready := tdsync.NewReady()
 	ready.Signal()
 	client := &Client{
-		log:     zap.NewNop(),
-		rand:    rand.New(rand.NewSource(1)),
-		appID:   TestAppID,
-		appHash: TestAppHash,
-		conn:    &testConn{engine: engine, ready: ready},
-		ctx:     context.Background(),
-		cancel:  func() {},
+		log:           zap.NewNop(),
+		rand:          rand.New(rand.NewSource(1)),
+		appID:         TestAppID,
+		appHash:       TestAppHash,
+		conn:          &testConn{engine: engine, ready: ready},
+		ctx:           context.Background(),
+		cancel:        func() {},
+		updateHandler: UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error { return nil }),
 	}
 	client.init()
 
