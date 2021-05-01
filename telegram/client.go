@@ -33,8 +33,7 @@ import (
 
 // UpdateHandler will be called on received updates from Telegram.
 type UpdateHandler interface {
-	Handle(ctx context.Context, u *tg.Updates) error
-	HandleShort(ctx context.Context, u *tg.UpdateShort) error
+	Handle(ctx context.Context, u tg.UpdatesClass) error
 }
 
 type clientStorage interface {
@@ -106,10 +105,6 @@ type Client struct {
 	updateHandler UpdateHandler // immutable
 	// Denotes that no update mode is enabled.
 	noUpdatesMode bool // immutable
-}
-
-func (c *Client) onMessage(b *bin.Buffer) error {
-	return c.handleUpdates(b)
 }
 
 // getVersion optimistically gets current client version.

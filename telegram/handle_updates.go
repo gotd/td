@@ -24,31 +24,27 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 	switch u := updates.(type) {
 	case *tg.Updates:
 		c.updateInterceptor(u.Updates...)
-		if c.updateHandler == nil {
-			return nil
-		}
+		return c.updateHandler.Handle(c.ctx, u)
+	case *tg.UpdatesCombined:
+		c.updateInterceptor(u.Updates...)
 		return c.updateHandler.Handle(c.ctx, u)
 	case *tg.UpdateShort:
 		c.updateInterceptor(u.Update)
-		if c.updateHandler == nil {
-			return nil
-		}
-		return c.updateHandler.HandleShort(c.ctx, u)
+		return c.updateHandler.Handle(c.ctx, u)
 	case *tg.UpdateShortMessage:
-		return c.processUpdates(helpers.ConvertUpdateShortMessage(u))
+		return c.updateHandler.Handle(c.ctx, helpers.ConvertUpdateShortMessage(u))
 	case *tg.UpdateShortChatMessage:
-		return c.processUpdates(helpers.ConvertUpdateShortChatMessage(u))
+		return c.updateHandler.Handle(c.ctx, helpers.ConvertUpdateShortChatMessage(u))
 	case *tg.UpdateShortSentMessage:
-		return c.processUpdates(helpers.ConvertUpdateShortSentMessage(u))
+		return c.updateHandler.Handle(c.ctx, helpers.ConvertUpdateShortSentMessage(u))
 	// TODO(ernado): handle UpdatesTooLong
-	// TODO(ernado): handle UpdatesCombined
 	default:
 		c.log.Warn("Ignoring update", zap.String("update_type", fmt.Sprintf("%T", u)))
 	}
 	return nil
 }
 
-func (c *Client) handleUpdates(b *bin.Buffer) error {
+func (c *Client) decodeUpdates(b *bin.Buffer) error {
 	updates, err := tg.DecodeUpdates(b)
 	if err != nil {
 		return xerrors.Errorf("decode updates: %w", err)

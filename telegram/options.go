@@ -1,6 +1,7 @@
 package telegram
 
 import (
+	"context"
 	"crypto/rand"
 	"crypto/rsa"
 	"io"
@@ -105,6 +106,10 @@ func (opt *Options) setDefaults() {
 	if opt.MessageID == nil {
 		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now)
 	}
+	if opt.UpdateHandler == nil {
+		// opt.NoUpdates = true
+		opt.UpdateHandler = nopUpdateHandler{}
+	}
 }
 
 func defaultBackoff(c clock.Clock) func() backoff.BackOff {
@@ -115,3 +120,7 @@ func defaultBackoff(c clock.Clock) func() backoff.BackOff {
 		return b
 	}
 }
+
+type nopUpdateHandler struct{}
+
+func (nopUpdateHandler) Handle(ctx context.Context, u tg.UpdatesClass) error { return nil }

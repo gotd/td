@@ -22,7 +22,7 @@ func (c clientHandler) OnSession(cfg tg.Config, s mtproto.Session) error {
 }
 
 func (c clientHandler) OnMessage(b *bin.Buffer) error {
-	return c.client.onMessage(b)
+	return c.client.decodeUpdates(b)
 }
 
 func (c *Client) asHandler() manager.Handler {
