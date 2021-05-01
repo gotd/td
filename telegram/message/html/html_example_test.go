@@ -23,7 +23,7 @@ func sendHTML(ctx context.Context) error {
 	// See https://core.telegram.org/bots/api#html-style.
 	return client.Run(ctx, func(ctx context.Context) error {
 		_, err := message.NewSender(tg.NewClient(client)).
-			Self().StyledText(ctx, html.String(`<b>bold</b>, <strong>bold</strong>
+			Self().StyledText(ctx, html.String(nil, `<b>bold</b>, <strong>bold</strong>
 <i>italic</i>, <em>italic</em>
 <u>underline</u>, <ins>underline</ins>
 <s>strikethrough</s>, <strike>strikethrough</strike>, <del>strikethrough</del>

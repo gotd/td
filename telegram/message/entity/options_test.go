@@ -109,12 +109,16 @@ func TestBuilder(t *testing.T) {
 		}, r)
 	})
 	t.Run("MentionName", func(t *testing.T) {
-		_, ent := b.MentionName("abc", 1).Complete()
+		user := &tg.InputUser{
+			UserID:     10,
+			AccessHash: 10,
+		}
+		_, ent := b.MentionName("abc", user).Complete()
 		r := ent[0]
-		require.Equal(t, &tg.MessageEntityMentionName{
+		require.Equal(t, &tg.InputMessageEntityMentionName{
 			Offset: 0,
 			Length: len("abc"),
-			UserID: 1,
+			UserID: user,
 		}, r)
 	})
 	t.Run("Phone", func(t *testing.T) {

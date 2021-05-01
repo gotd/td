@@ -86,10 +86,10 @@ func TextURL(url string) Formatter {
 }
 
 // MentionName formats message as MentionName message entity.
-// See https://core.telegram.org/constructor/messageEntityMentionName.
-func MentionName(userID int) Formatter {
+// See https://core.telegram.org/constructor/inputMessageEntityMentionName.
+func MentionName(userID tg.InputUserClass) Formatter {
 	return func(offset, limit int) tg.MessageEntityClass {
-		return &tg.MessageEntityMentionName{Offset: offset, Length: limit, UserID: userID}
+		return &tg.InputMessageEntityMentionName{Offset: offset, Length: limit, UserID: userID}
 	}
 }
 

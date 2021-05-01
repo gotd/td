@@ -1,5 +1,7 @@
 package entity
 
+import "github.com/gotd/td/tg"
+
 // Plain formats message as plain text.
 func (b *Builder) Plain(s string) *Builder {
 	b.message.WriteString(s)
@@ -73,8 +75,8 @@ func (b *Builder) TextURL(s, url string) *Builder {
 }
 
 // MentionName formats message as MentionName message entity.
-// See https://core.telegram.org/constructor/messageEntityMentionName.
-func (b *Builder) MentionName(s string, userID int) *Builder {
+// See https://core.telegram.org/constructor/inputMessageEntityMentionName.
+func (b *Builder) MentionName(s string, userID tg.InputUserClass) *Builder {
 	return b.Format(s, MentionName(userID))
 }
 
