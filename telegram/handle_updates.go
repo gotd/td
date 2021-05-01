@@ -44,7 +44,7 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 	return nil
 }
 
-func (c *Client) decodeUpdates(b *bin.Buffer) error {
+func (c *Client) handleUpdates(b *bin.Buffer) error {
 	updates, err := tg.DecodeUpdates(b)
 	if err != nil {
 		return xerrors.Errorf("decode updates: %w", err)
