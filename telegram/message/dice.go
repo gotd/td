@@ -21,7 +21,7 @@ const (
 	// BasketballEmoticon is a emoticon to send basketball sticker.
 	BasketballEmoticon = "🏀"
 	// FootballEmoticon is a emoticon to send football sticker.
-	FootballEmoticon = "🏀"
+	FootballEmoticon = "⚽"
 	// CasinoEmoticon is a emoticon to send casino sticker.
 	CasinoEmoticon = "🎰"
 	// BowlingEmoticon is a emoticon to send bowling sticker.
