@@ -12,7 +12,7 @@ require (
 	github.com/gotd/xor v0.1.1
 	github.com/k0kubun/pp/v3 v3.0.7
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/quasilyte/go-ruleguard/dsl v0.3.2
+	github.com/quasilyte/go-ruleguard/dsl v0.3.3
 	github.com/rogpeppe/go-internal v1.8.0
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/stretchr/testify v1.7.0
