@@ -16,10 +16,6 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-type protocol interface {
-	Handshake(conn net.Conn) (transport.Conn, error)
-}
-
 type mtProxy struct {
 	dial          DialFunc
 	protocol      protocol
