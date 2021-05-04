@@ -29,7 +29,7 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-func testTransportExternal(p dcs.Protocol, storage session.Storage) func(t *testing.T) {
+func testTransportExternal(resolver dcs.Resolver, storage session.Storage) func(t *testing.T) {
 	return func(t *testing.T) {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
@@ -40,7 +40,7 @@ func testTransportExternal(p dcs.Protocol, storage session.Storage) func(t *test
 		err := telegram.TestClient(ctx, telegram.Options{
 			Logger:         log.Named("client"),
 			SessionStorage: storage,
-			Resolver:       dcs.PlainResolver(dcs.PlainOptions{Protocol: p}),
+			Resolver:       resolver,
 		}, func(ctx context.Context, client *telegram.Client) error {
 			if _, err := client.Self(ctx); err != nil {
 				return xerrors.Errorf("self: %w", err)
@@ -55,13 +55,24 @@ func testTransportExternal(p dcs.Protocol, storage session.Storage) func(t *test
 
 func TestExternalE2EConnect(t *testing.T) {
 	testutil.SkipExternal(t)
-
 	// To re-use session.
 	storage := &session.StorageMemory{}
-	t.Run("Abridged", testTransportExternal(transport.Abridged, storage))
-	t.Run("Intermediate", testTransportExternal(transport.Intermediate, storage))
-	t.Run("PaddedIntermediate", testTransportExternal(transport.PaddedIntermediate, storage))
-	t.Run("Full", testTransportExternal(transport.Full, storage))
+
+	tcp := func(p dcs.Protocol) func(t *testing.T) {
+		return testTransportExternal(dcs.PlainResolver(dcs.PlainOptions{Protocol: p}), storage)
+	}
+
+	t.Run("Abridged", tcp(transport.Abridged))
+	t.Run("Intermediate", tcp(transport.Intermediate))
+	t.Run("PaddedIntermediate", tcp(transport.PaddedIntermediate))
+	t.Run("Full", tcp(transport.Full))
+
+	wsOpts := dcs.WebsocketOptions{
+		Domain: func(dc int) (string, error) {
+			return "wss://venus.web.telegram.org/apiws_test", nil
+		},
+	}
+	t.Run("Websocket", testTransportExternal(dcs.WebsocketResolver(wsOpts), storage))
 }
 
 const dialog = `— Да?

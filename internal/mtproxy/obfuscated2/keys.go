@@ -6,6 +6,8 @@ import (
 	"encoding/binary"
 	"io"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/internal/crypto"
 )
 
@@ -49,10 +51,16 @@ func generateKeys(randSource io.Reader, protocol [4]byte, secret []byte, dc int)
 	initRev := getDecryptInit(init)
 	decryptKey := append(make([]byte, 0, keyLength), initRev[:32]...)
 	decryptIV := append(make([]byte, 0, 16), initRev[32:48]...)
-	secret = secret[0:16]
 
-	encryptKey = crypto.SHA256(encryptKey, secret)
-	decryptKey = crypto.SHA256(decryptKey, secret)
+	if len(secret) > 0 {
+		if len(secret) < 16 {
+			return k, xerrors.Errorf("invalid secret size %d", len(secret))
+		}
+		secret = secret[0:16]
+
+		encryptKey = crypto.SHA256(encryptKey, secret)
+		decryptKey = crypto.SHA256(decryptKey, secret)
+	}
 
 	k.encrypt, err = createCTR(encryptKey, encryptIV)
 	if err != nil {
