@@ -5,7 +5,6 @@ go 1.16
 require (
 	github.com/cenkalti/backoff/v4 v4.1.0
 	github.com/go-openapi/inflect v0.19.0
-	github.com/gorilla/websocket v1.4.2
 	github.com/gotd/getdoc v0.6.2
 	github.com/gotd/ige v0.1.5
 	github.com/gotd/neo v0.1.3
@@ -27,4 +26,5 @@ require (
 	golang.org/x/tools v0.0.0-20200820010801-b793a1359eac
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
 	gopkg.in/yaml.v2 v2.3.0 // indirect
+	nhooyr.io/websocket v1.8.7
 )

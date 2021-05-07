@@ -4,12 +4,14 @@ import (
 	"context"
 	"crypto/rand"
 	"io"
+	"math"
 	"net"
+	"sync"
 	"time"
 
-	"github.com/gorilla/websocket"
 	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
+	"nhooyr.io/websocket"
 
 	"github.com/gotd/td/internal/mtproxy"
 	"github.com/gotd/td/internal/mtproxy/obfuscator"
@@ -19,32 +21,64 @@ import (
 )
 
 type wsConn struct {
-	conn   *websocket.Conn
+	conn *websocket.Conn
+
+	writeTimer   *time.Timer
+	writeContext context.Context
+
+	readTimer   *time.Timer
+	readContext context.Context
+
+	readMu sync.Mutex
 	reader io.Reader
 }
 
-func (c *wsConn) Write(p []byte) (int, error) {
-	err := c.conn.WriteMessage(websocket.BinaryMessage, p)
+func netConn(ctx context.Context, c *websocket.Conn) net.Conn {
+	nc := &wsConn{
+		conn: c,
+	}
+
+	var cancel context.CancelFunc
+	nc.writeContext, cancel = context.WithCancel(ctx)
+	nc.writeTimer = time.AfterFunc(math.MaxInt64, cancel)
+	if !nc.writeTimer.Stop() {
+		<-nc.writeTimer.C
+	}
+
+	nc.readContext, cancel = context.WithCancel(ctx)
+	nc.readTimer = time.AfterFunc(math.MaxInt64, cancel)
+	if !nc.readTimer.Stop() {
+		<-nc.readTimer.C
+	}
+
+	return nc
+}
+
+func (w *wsConn) Write(b []byte) (int, error) {
+	err := w.conn.Write(w.writeContext, websocket.MessageBinary, b)
 	if err != nil {
 		return 0, err
 	}
-	return len(p), nil
+	return len(b), nil
 }
 
-func (c *wsConn) Read(p []byte) (int, error) {
+func (w *wsConn) Read(b []byte) (int, error) {
+	w.readMu.Lock()
+	defer w.readMu.Unlock()
+
 	for {
-		if c.reader == nil {
+		if w.reader == nil {
 			// Advance to next message.
 			var err error
-			_, c.reader, err = c.conn.NextReader()
+			_, w.reader, err = w.conn.Reader(w.readContext)
 			if err != nil {
 				return 0, err
 			}
 		}
-		n, err := c.reader.Read(p)
+		n, err := w.reader.Read(b)
 		if err == io.EOF {
 			// At end of message.
-			c.reader = nil
+			w.reader = nil
 			if n > 0 {
 				return n, nil
 			}
@@ -56,34 +90,57 @@ func (c *wsConn) Read(p []byte) (int, error) {
 	}
 }
 
-func (c *wsConn) Close() error {
-	return c.conn.Close()
+func (w *wsConn) Close() error {
+	w.writeTimer.Stop()
+	w.readTimer.Stop()
+	return w.conn.Close(websocket.StatusNormalClosure, "")
 }
 
-func (c *wsConn) LocalAddr() net.Addr {
-	return c.conn.LocalAddr()
+type websocketAddr struct {
 }
 
-func (c *wsConn) RemoteAddr() net.Addr {
-	return c.conn.RemoteAddr()
+func (a websocketAddr) Network() string {
+	return "websocket"
 }
 
-func (c *wsConn) SetDeadline(t time.Time) error {
-	return multierr.Append(c.conn.SetReadDeadline(t), c.conn.SetWriteDeadline(t))
+func (a websocketAddr) String() string {
+	return "websocket/unknown-addr"
 }
 
-func (c *wsConn) SetReadDeadline(t time.Time) error {
-	return c.conn.SetReadDeadline(t)
+func (w *wsConn) LocalAddr() net.Addr {
+	return websocketAddr{}
 }
 
-func (c *wsConn) SetWriteDeadline(t time.Time) error {
-	return c.conn.SetWriteDeadline(t)
+func (w *wsConn) RemoteAddr() net.Addr {
+	return websocketAddr{}
+}
+
+func (w *wsConn) SetDeadline(t time.Time) error {
+	return multierr.Append(w.SetWriteDeadline(t), w.SetReadDeadline(t))
+}
+
+func (w *wsConn) SetWriteDeadline(t time.Time) error {
+	if t.IsZero() {
+		w.writeTimer.Stop()
+	} else {
+		w.writeTimer.Reset(time.Until(t))
+	}
+	return nil
+}
+
+func (w *wsConn) SetReadDeadline(t time.Time) error {
+	if t.IsZero() {
+		w.readTimer.Stop()
+	} else {
+		w.readTimer.Reset(time.Until(t))
+	}
+	return nil
 }
 
 type ws struct {
-	dialer   *websocket.Dialer
-	domain   func(dc int) (string, error)
-	protocol protocol
+	dialOptions *websocket.DialOptions
+	domain      func(dc int) (string, error)
+	protocol    protocol
 
 	tag  [4]byte
 	rand io.Reader
@@ -95,14 +152,14 @@ func (w ws) connect(ctx context.Context, dc int) (transport.Conn, error) {
 		return nil, xerrors.Errorf("resolve domain %d", dc)
 	}
 
-	conn, resp, err := w.dialer.DialContext(ctx, addr, nil)
+	conn, resp, err := websocket.Dial(ctx, addr, w.dialOptions)
 	if resp != nil && resp.Body != nil {
 		_ = resp.Body.Close()
 	}
 	if err != nil {
 		return nil, xerrors.Errorf("dial ws: %w", err)
 	}
-	obsConn := obfuscator.Obfuscated2(w.rand, &wsConn{conn: conn})
+	obsConn := obfuscator.Obfuscated2(w.rand, netConn(context.Background(), conn))
 
 	if err := obsConn.Handshake(w.tag, mtproxy.Secret{
 		DC:     dc,
@@ -136,7 +193,7 @@ func (w ws) CDN(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport
 type WebsocketOptions struct {
 	// Dialer specifies the websocket dialer.
 	// If Dialer is nil, then the resolver dials using websocket.DefaultDialer.
-	Dialer *websocket.Dialer
+	DialOptions *websocket.DialOptions
 	// Random source for MTProxy obfuscator.
 	Rand io.Reader
 	// Domain resolves connection URL by DC ID.
@@ -153,8 +210,10 @@ var websocketDomains = map[int]string{
 }
 
 func (m *WebsocketOptions) setDefaults() {
-	if m.Dialer == nil {
-		m.Dialer = websocket.DefaultDialer
+	if m.DialOptions == nil {
+		m.DialOptions = &websocket.DialOptions{Subprotocols: []string{
+			"binary",
+		}}
 	}
 	if m.Rand == nil {
 		m.Rand = rand.Reader
@@ -177,10 +236,10 @@ func WebsocketResolver(opts WebsocketOptions) Resolver {
 	cdc := codec.Intermediate{}
 	opts.setDefaults()
 	return ws{
-		dialer:   opts.Dialer,
-		domain:   opts.Domain,
-		protocol: transport.NewProtocol(func() transport.Codec { return codec.NoHeader{Codec: cdc} }),
-		tag:      cdc.ObfuscatedTag(),
-		rand:     opts.Rand,
+		dialOptions: opts.DialOptions,
+		domain:      opts.Domain,
+		protocol:    transport.NewProtocol(func() transport.Codec { return codec.NoHeader{Codec: cdc} }),
+		tag:         cdc.ObfuscatedTag(),
+		rand:        opts.Rand,
 	}
 }
