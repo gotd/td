@@ -36,22 +36,18 @@ func (i *Full) Write(w io.Writer, b *bin.Buffer) error {
 		return err
 	}
 
-	if err := writeFull(w, int(atomic.LoadInt64(&i.wSeqNo)), b); err != nil {
+	if err := writeFull(w, int(atomic.AddInt64(&i.wSeqNo, 1)-1), b); err != nil {
 		return xerrors.Errorf("write full: %w", err)
 	}
-
-	atomic.AddInt64(&i.wSeqNo, 1)
 
 	return nil
 }
 
 // Read fills buffer with received message.
 func (i *Full) Read(r io.Reader, b *bin.Buffer) error {
-	if err := readFull(r, int(atomic.LoadInt64(&i.rSeqNo)), b); err != nil {
+	if err := readFull(r, int(atomic.AddInt64(&i.rSeqNo, 1)-1), b); err != nil {
 		return xerrors.Errorf("read full: %w", err)
 	}
-
-	atomic.AddInt64(&i.rSeqNo, 1)
 
 	if err := checkProtocolError(b); err != nil {
 		return err
