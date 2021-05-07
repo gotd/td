@@ -37,7 +37,8 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 		return c.updateHandler.Handle(c.ctx, helpers.ConvertUpdateShortChatMessage(u))
 	case *tg.UpdateShortSentMessage:
 		return c.updateHandler.Handle(c.ctx, helpers.ConvertUpdateShortSentMessage(u))
-	// TODO(ernado): handle UpdatesTooLong
+	case *tg.UpdatesTooLong:
+		return c.updateHandler.Handle(c.ctx, u)
 	default:
 		c.log.Warn("Ignoring update", zap.String("update_type", fmt.Sprintf("%T", u)))
 	}
