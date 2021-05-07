@@ -30,7 +30,6 @@ type wsConn struct {
 	readContext context.Context
 
 	readMu sync.Mutex
-	eofed  bool
 	reader io.Reader
 }
 
@@ -124,7 +123,7 @@ func (w *wsConn) SetWriteDeadline(t time.Time) error {
 	if t.IsZero() {
 		w.writeTimer.Stop()
 	} else {
-		w.writeTimer.Reset(t.Sub(time.Now()))
+		w.writeTimer.Reset(time.Until(t))
 	}
 	return nil
 }
@@ -133,7 +132,7 @@ func (w *wsConn) SetReadDeadline(t time.Time) error {
 	if t.IsZero() {
 		w.readTimer.Stop()
 	} else {
-		w.readTimer.Reset(t.Sub(time.Now()))
+		w.readTimer.Reset(time.Until(t))
 	}
 	return nil
 }
