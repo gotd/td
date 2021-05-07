@@ -140,12 +140,12 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 
 	// Start retrying.
 	sent, err := e.retryUntilAck(retryCtx, req)
-	if err != nil && !errors.Is(err, context.Canceled) {
+	if err != nil && !errors.Is(err, retryCtx.Err()) {
 		// If the retryCtx was canceled, then one of two things happened:
-		//   1. User canceled the original context.
+		//   1. User canceled the parent context.
 		//   2. The RPC result came and callback canceled retryCtx.
 		//
-		// If this is not an context.Canceled error, most likely we did not receive ack
+		// If this is not a Context’s error, most likely we did not receive ack
 		// and exceeded the limit of attempts to send a request,
 		// or could not write data to the connection, so we return an error.
 		return xerrors.Errorf("retryUntilAck: %w", err)
