@@ -149,6 +149,11 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		}); err != nil {
 			return err
 		}
+		if err := w.Generate("updates_interceptor", "tl_updates_interceptor_gen.go", config{
+			Structs: g.structs,
+		}); err != nil {
+			return err
+		}
 	}
 
 	cfg := config{

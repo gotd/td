@@ -4,6 +4,33 @@
 {{- else }}, request *{{ .Name }}{{- end }}
 {{- end }}
 
+{{ define "request_params_only_vars" }}ctx{{- if .UnpackParameters }}{{- if .Fields }},
+{{- range $f := .Fields }}{{ lower $f.Name }},{{- end}}
+{{- end }}
+{{- else }}, request{{- end }}
+{{- end }}
+
+{{- define "method_description" }}
+// {{ .Method }} invokes method {{ .RawType }} returning error if any.
+{{- if .Docs }}
+{{- range $d := .Docs }}
+// {{ trim $d }}
+{{- end }}
+{{- end }}
+{{- if .Links }}
+    {{- template "print_links" .Links }}
+{{- end }}
+{{- if .Errors }}
+    {{- template "print_errors" .Errors }}
+{{- end }}
+{{- if .URL }}
+//
+// See {{ .URL }} for reference.
+{{- end }}
+{{- if .BotCanUse }}
+// Can be used by bots.
+{{- end }}{{- end }}
+
 {{ define "pack_request" }}{{- if .UnpackParameters }}
     request := &{{ $.Name }}{
         {{- range $f := $.Fields }}

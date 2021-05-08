@@ -1,0 +1,37 @@
+{{ define "updates_interceptor" }}
+{{ $pkg := $.Package }}
+{{ template "header" $ }}
+
+// UpdatesInterceptor intercepts results of all methods that return UpdatesClass response
+// and passes them to the specified handler first.
+// If the interceptor function returns an error, the original method call also fails.
+type UpdatesInterceptor struct {
+    *Client
+    handle func(UpdatesClass) error
+}
+
+// NewUpdatesInterceptor creates new update interceptor.
+func NewUpdatesInterceptor(client *Client, handler func(UpdatesClass) error) *UpdatesInterceptor {
+    return &UpdatesInterceptor{client, handler}
+}
+
+{{ range $s := $.Structs }}{{ if eq $s.Result "UpdatesClass" }}
+{{- template "method_description" $s }}
+//
+// Note: If the method call was successful, the received updates will be passed to the interceptor first.
+// If the interceptor returns an error, this error will be returned as the result of the method.
+func (icpt *UpdatesInterceptor) {{ $s.Method }}({{ template "request_params" $s }}) (UpdatesClass, error) {
+    updates, err := icpt.Client.{{ $s.Method }}({{ template "request_params_only_vars" $s }})
+    if err != nil {
+        return nil, err
+    }
+
+    if err := icpt.handle(updates); err != nil {
+        return nil, fmt.Errorf("interceptor: %w", err)
+    }
+
+    return updates, nil
+}
+{{ end }}{{ end }}
+
+{{ end }}
