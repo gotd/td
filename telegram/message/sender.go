@@ -18,17 +18,19 @@ type Sender struct {
 	raw  *tg.Client
 	rand io.Reader
 
-	uploader Uploader
-	resolver peer.Resolver
+	uploader   Uploader
+	resolver   peer.Resolver
+	updateHook func(tg.UpdatesClass) error
 }
 
 // NewSender creates a new Sender.
 func NewSender(raw *tg.Client) *Sender {
 	return &Sender{
-		raw:      raw,
-		rand:     rand.Reader,
-		uploader: uploader.NewUploader(raw),
-		resolver: peer.DefaultResolver(raw),
+		raw:        raw,
+		rand:       rand.Reader,
+		uploader:   uploader.NewUploader(raw),
+		resolver:   peer.DefaultResolver(raw),
+		updateHook: func(uc tg.UpdatesClass) error { return nil },
 	}
 }
 
@@ -44,6 +46,12 @@ func (s *Sender) WithResolver(resolver peer.Resolver) *Sender {
 	return s
 }
 
+// WithHook sets updates hook.
+func (s *Sender) WithHook(f func(tg.UpdatesClass) error) *Sender {
+	s.updateHook = f
+	return s
+}
+
 // WithRand sets random ID source.
 func (s *Sender) WithRand(r io.Reader) *Sender {
 	s.rand = r
@@ -56,6 +64,18 @@ func (s *Sender) ClearAllDrafts(ctx context.Context) error {
 	return err
 }
 
+func (s *Sender) hook(u tg.UpdatesClass, e error) (tg.UpdatesClass, error) {
+	if e != nil {
+		return nil, e
+	}
+
+	if err := s.updateHook(u); err != nil {
+		return nil, xerrors.Errorf("hook: %w", err)
+	}
+
+	return u, nil
+}
+
 // sendMessage sends message to peer.
 func (s *Sender) sendMessage(ctx context.Context, req *tg.MessagesSendMessageRequest) (tg.UpdatesClass, error) {
 	if req.RandomID == 0 {
@@ -66,7 +86,7 @@ func (s *Sender) sendMessage(ctx context.Context, req *tg.MessagesSendMessageReq
 		req.RandomID = id
 	}
 
-	return s.raw.MessagesSendMessage(ctx, req)
+	return s.hook(s.raw.MessagesSendMessage(ctx, req))
 }
 
 // sendMedia sends message with single media to peer.
@@ -79,7 +99,7 @@ func (s *Sender) sendMedia(ctx context.Context, req *tg.MessagesSendMediaRequest
 		req.RandomID = id
 	}
 
-	return s.raw.MessagesSendMedia(ctx, req)
+	return s.hook(s.raw.MessagesSendMedia(ctx, req))
 }
 
 // sendMultiMedia sends message with multiple media to peer.
@@ -92,12 +112,12 @@ func (s *Sender) sendMultiMedia(ctx context.Context, req *tg.MessagesSendMultiMe
 		req.MultiMedia[i].RandomID = id
 	}
 
-	return s.raw.MessagesSendMultiMedia(ctx, req)
+	return s.hook(s.raw.MessagesSendMultiMedia(ctx, req))
 }
 
 // editMessage edits message.
 func (s *Sender) editMessage(ctx context.Context, req *tg.MessagesEditMessageRequest) (tg.UpdatesClass, error) {
-	return s.raw.MessagesEditMessage(ctx, req)
+	return s.hook(s.raw.MessagesEditMessage(ctx, req))
 }
 
 // forwardMessages forwards message to peer.
@@ -111,7 +131,7 @@ func (s *Sender) forwardMessages(ctx context.Context, req *tg.MessagesForwardMes
 		req.RandomID[i] = id
 	}
 
-	return s.raw.MessagesForwardMessages(ctx, req)
+	return s.hook(s.raw.MessagesForwardMessages(ctx, req))
 }
 
 // startBot starts a conversation with a bot using a deep linking parameter.
@@ -124,7 +144,7 @@ func (s *Sender) startBot(ctx context.Context, req *tg.MessagesStartBotRequest) 
 		req.RandomID = id
 	}
 
-	return s.raw.MessagesStartBot(ctx, req)
+	return s.hook(s.raw.MessagesStartBot(ctx, req))
 }
 
 // sendInlineBotResult sends inline query result message to peer.
@@ -140,7 +160,7 @@ func (s *Sender) sendInlineBotResult(
 		req.RandomID = id
 	}
 
-	return s.raw.MessagesSendInlineBotResult(ctx, req)
+	return s.hook(s.raw.MessagesSendInlineBotResult(ctx, req))
 }
 
 // uploadMedia uploads file and associate it to a chat (without actually sending it to the chat).
@@ -164,7 +184,7 @@ func (s *Sender) saveDraft(ctx context.Context, req *tg.MessagesSaveDraftRequest
 
 // sendVote votes in a poll.
 func (s *Sender) sendVote(ctx context.Context, req *tg.MessagesSendVoteRequest) (tg.UpdatesClass, error) {
-	return s.raw.MessagesSendVote(ctx, req)
+	return s.hook(s.raw.MessagesSendVote(ctx, req))
 }
 
 // setTyping sends a typing event to a conversation partner or group.
@@ -201,7 +221,7 @@ func (s *Sender) sendScreenshotNotification(
 		req.RandomID = id
 	}
 
-	return s.raw.MessagesSendScreenshotNotification(ctx, req)
+	return s.hook(s.raw.MessagesSendScreenshotNotification(ctx, req))
 }
 
 // sendScheduledMessages sends scheduled messages using given ids.
@@ -209,7 +229,7 @@ func (s *Sender) sendScheduledMessages(
 	ctx context.Context,
 	req *tg.MessagesSendScheduledMessagesRequest,
 ) (tg.UpdatesClass, error) {
-	return s.raw.MessagesSendScheduledMessages(ctx, req)
+	return s.hook(s.raw.MessagesSendScheduledMessages(ctx, req))
 }
 
 // deleteScheduledMessages deletes scheduled messages using given ids.
@@ -217,7 +237,7 @@ func (s *Sender) deleteScheduledMessages(
 	ctx context.Context,
 	req *tg.MessagesDeleteScheduledMessagesRequest,
 ) (tg.UpdatesClass, error) {
-	return s.raw.MessagesDeleteScheduledMessages(ctx, req)
+	return s.hook(s.raw.MessagesDeleteScheduledMessages(ctx, req))
 }
 
 // getScheduledHistory gets scheduled messages history.
@@ -241,7 +261,7 @@ func (s *Sender) importChatInvite(
 	ctx context.Context,
 	hash string,
 ) (tg.UpdatesClass, error) {
-	return s.raw.MessagesImportChatInvite(ctx, hash)
+	return s.hook(s.raw.MessagesImportChatInvite(ctx, hash))
 }
 
 // joinChannel joins a channel/supergroup.
@@ -249,7 +269,7 @@ func (s *Sender) joinChannel(
 	ctx context.Context,
 	input tg.InputChannelClass,
 ) (tg.UpdatesClass, error) {
-	return s.raw.ChannelsJoinChannel(ctx, input)
+	return s.hook(s.raw.ChannelsJoinChannel(ctx, input))
 }
 
 // leaveChannel leaves a channel/supergroup.
@@ -257,7 +277,7 @@ func (s *Sender) leaveChannel(
 	ctx context.Context,
 	input tg.InputChannelClass,
 ) (tg.UpdatesClass, error) {
-	return s.raw.ChannelsLeaveChannel(ctx, input)
+	return s.hook(s.raw.ChannelsLeaveChannel(ctx, input))
 }
 
 // deleteChatUser delete user from chat.
@@ -265,7 +285,7 @@ func (s *Sender) deleteChatUser(
 	ctx context.Context,
 	req *tg.MessagesDeleteChatUserRequest,
 ) (tg.UpdatesClass, error) {
-	return s.raw.MessagesDeleteChatUser(ctx, req)
+	return s.hook(s.raw.MessagesDeleteChatUser(ctx, req))
 }
 
 // deleteChannelMessages deletes messages in channel.
