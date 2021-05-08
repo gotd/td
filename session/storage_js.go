@@ -1,4 +1,4 @@
-// +build js
+// +build js,wasm
 
 package session
 
@@ -35,17 +35,15 @@ func getStorage() (js.Value, bool) {
 // ErrLocalStorageIsNotAvailable is returned if localStorage is not available and Storage can't use it.
 var ErrLocalStorageIsNotAvailable = xerrors.New("localStorage is not available")
 
-func catch(err *error) {
-	defer func() {
-		if r := recover(); r != nil {
-			rErr, ok := r.(error)
-			if !ok {
-				*err = xerrors.Errorf("catch: %v", r)
-			} else {
-				*err = xerrors.Errorf("catch: %w", rErr)
-			}
+func catch(err *error)  { // nolint:gocritic
+	if r := recover(); r != nil {
+		rErr, ok := r.(error)
+		if !ok {
+			*err = xerrors.Errorf("catch: %v", r)
+		} else {
+			*err = xerrors.Errorf("catch: %w", rErr)
 		}
-	}()
+	}
 }
 
 // LoadSession loads session using Web Storage API.
