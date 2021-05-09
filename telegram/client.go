@@ -60,8 +60,12 @@ type clientConn interface {
 
 // Client represents a MTProto client to Telegram.
 type Client struct {
-	// tg provides RPC calls via Client.
+	// tg provides RPC calls via Client. Uses invoker below.
 	tg *tg.Client // immutable
+	// invoker to use for RPC calls via Client. Uses middleware below.
+	invoker tg.Invoker // immutable
+	// middleware to use for RPC calls via Client.
+	middleware middleware.Middleware // immutable, nillable
 
 	// Telegram device information.
 	device DeviceConfig // immutable
@@ -117,9 +121,6 @@ type Client struct {
 	updateHandler UpdateHandler // immutable
 	// Denotes that no update mode is enabled.
 	noUpdatesMode bool // immutable
-
-	// Middleware to use for RPC calls.
-	middleware middleware.Middleware // immutable
 }
 
 // getVersion optimistically gets current client version.
@@ -223,8 +224,13 @@ func (c *Client) init() {
 	c.exported = make(chan *tg.AuthExportedAuthorization, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.subConns = map[int]CloseInvoker{}
+
 	// Initializing internal RPC caller.
-	c.tg = tg.NewClient(c)
+	c.invoker = clientInvoker{c}
+	if f := c.middleware; f != nil {
+		c.invoker = f(c)
+	}
+	c.tg = tg.NewClient(c.invoker)
 }
 
 func (c *Client) restoreConnection(ctx context.Context) error {

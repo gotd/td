@@ -11,7 +11,18 @@ import (
 
 // InvokeRaw sends input and decodes result into output.
 func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	// NOTE: Assuming that call contains content message (seqno increment).
+	return c.invoker.InvokeRaw(ctx, input, output)
+}
+
+// clientInvoker implements tg.Invoker on Client without middleware support.
+type clientInvoker struct {
+	*Client
+}
+
+// InvokeRaw sends input and decodes result into output.
+//
+// NOTE: Assuming that call contains content message (seqno increment).
+func (c clientInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	if err := c.connInvokeRaw(ctx, input, output); err != nil {
 		// Handling datacenter migration request.
 		if rpcErr, ok := tgerr.As(err); ok && rpcErr.IsCode(303) {

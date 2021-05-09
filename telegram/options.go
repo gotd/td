@@ -118,9 +118,6 @@ func (opt *Options) setDefaults() {
 			return nil
 		})
 	}
-	if opt.Middleware == nil {
-		opt.Middleware = middleware.Noop
-	}
 }
 
 func defaultBackoff(c clock.Clock) func() backoff.BackOff {
