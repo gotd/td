@@ -27,7 +27,7 @@ func TestArticle(t *testing.T) {
 		}
 	}).ThenTrue()
 	_, err := builder.Set(ctx,
-		Article(ArticleType, MessageText("article")).Title(ArticleType).
+		Article(ArticleType, MessageText("article")).
 			Description(ArticleType).URL(ArticleType),
 		Article(ArticleType, MediaAuto("article")).ID("10").Title(ArticleType).
 			Description(ArticleType).URL(ArticleType),
