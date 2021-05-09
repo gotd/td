@@ -62,8 +62,10 @@ type clientConn interface {
 type Client struct {
 	// tg provides RPC calls via Client. Uses invoker below.
 	tg *tg.Client // immutable
-	// invoker to use for RPC calls via Client.
+	// invoker to use for RPC calls via Client. Uses middleware below.
 	invoker tg.Invoker // immutable
+	// middleware to use for RPC calls via Client.
+	middleware middleware.Middleware // immutable, nillable
 
 	// Telegram device information.
 	device DeviceConfig // immutable
@@ -174,8 +176,9 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		device:           opt.Device,
 		migrationTimeout: opt.MigrationTimeout,
 		noUpdatesMode:    opt.NoUpdates,
+		middleware:       opt.Middleware,
 	}
-	client.init(opt.Middleware)
+	client.init()
 
 	// Including version into client logger to help with debugging.
 	if v := getVersion(); v != "" {
@@ -211,7 +214,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 }
 
 // init sets fields which needs explicit initialization, like maps or channels.
-func (c *Client) init(f middleware.Middleware) {
+func (c *Client) init() {
 	if c.cfg == nil {
 		c.cfg = manager.NewAtomicConfig(tg.Config{})
 	}
@@ -224,7 +227,7 @@ func (c *Client) init(f middleware.Middleware) {
 
 	// Initializing internal RPC caller.
 	c.invoker = clientInvoker{c}
-	if f != nil {
+	if f := c.middleware; f != nil {
 		c.invoker = f(c)
 	}
 	c.tg = tg.NewClient(c.invoker)
