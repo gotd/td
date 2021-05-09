@@ -17,8 +17,3 @@ func Chain(middlewares ...Middleware) Middleware {
 		return invoker
 	}
 }
-
-// Noop is a Middleware that does nothing.
-func Noop(invoker tg.Invoker) tg.Invoker {
-	return invoker
-}
