@@ -12,6 +12,12 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
+const (
+	defaultTick       = time.Millisecond
+	defaultMaxWait    = time.Minute
+	defaultMaxRetries = 5
+)
+
 // Waiter is a tg.Invoker that handles flood wait errors on underlying invoker.
 //
 // This implementation uses a request scheduler and is more suitable for long-running
@@ -36,9 +42,9 @@ func NewWaiter(invoker tg.Invoker) *Waiter {
 		next:       invoker,
 		clock:      clock.System,
 		sch:        newScheduler(clock.System, time.Second),
-		tick:       time.Millisecond,
-		maxWait:    60 * time.Second,
-		maxRetries: 5,
+		tick:       defaultTick,
+		maxWait:    defaultMaxWait,
+		maxRetries: defaultMaxRetries,
 	}
 }
 
