@@ -9,7 +9,8 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
-// InvokeRaw sends input and decodes result into output.
+// InvokeRaw invokes raw MTProto RPC method. It sends input and decodes result
+// into output. The request also goes through Middleware from Client’s Options.
 func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	return c.invoker.InvokeRaw(ctx, input, output)
 }
