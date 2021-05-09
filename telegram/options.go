@@ -13,6 +13,7 @@ import (
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/middleware"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
 )
@@ -49,6 +50,11 @@ type Options struct {
 	SessionStorage SessionStorage
 	// UpdateHandler will be called on received update.
 	UpdateHandler UpdateHandler
+
+	// Middleware to use for RPC calls.
+	//
+	// If not provided, no middleware is used.
+	Middleware middleware.Middleware
 
 	// AckBatchSize is maximum ack-s to buffer.
 	AckBatchSize int
@@ -111,6 +117,9 @@ func (opt *Options) setDefaults() {
 		opt.UpdateHandler = UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
 			return nil
 		})
+	}
+	if opt.Middleware == nil {
+		opt.Middleware = middleware.Noop
 	}
 }
 

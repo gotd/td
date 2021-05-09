@@ -25,6 +25,7 @@ import (
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
+	"github.com/gotd/td/middleware"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/manager"
@@ -116,6 +117,9 @@ type Client struct {
 	updateHandler UpdateHandler // immutable
 	// Denotes that no update mode is enabled.
 	noUpdatesMode bool // immutable
+
+	// Middleware to use for RPC calls.
+	middleware middleware.Middleware // immutable
 }
 
 // getVersion optimistically gets current client version.
@@ -171,6 +175,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		device:           opt.Device,
 		migrationTimeout: opt.MigrationTimeout,
 		noUpdatesMode:    opt.NoUpdates,
+		middleware:       opt.Middleware,
 	}
 	client.init()
 

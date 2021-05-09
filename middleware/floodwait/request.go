@@ -1,4 +1,4 @@
-package invokers
+package floodwait
 
 import (
 	"context"
@@ -6,10 +6,15 @@ import (
 	"github.com/gotd/td/bin"
 )
 
+// object is a abstraction for Telegram API object with TypeID.
+type object interface {
+	TypeID() uint32
+}
+
 type key uint64
 
 func (k *key) fromEncoder(encoder bin.Encoder) {
-	obj, ok := encoder.(Object)
+	obj, ok := encoder.(object)
 	if !ok {
 		return
 	}

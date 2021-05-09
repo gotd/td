@@ -1,4 +1,4 @@
-package invokers
+package floodwait
 
 import (
 	"context"

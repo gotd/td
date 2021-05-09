@@ -9,11 +9,10 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
-// InvokeRaw sens input and decodes result into output.
-//
-// NOTE: Assuming that call contains content message (seqno increment).
+// InvokeRaw sends input and decodes result into output.
 func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	if err := c.invokeRaw(ctx, input, output); err != nil {
+	// NOTE: Assuming that call contains content message (seqno increment).
+	if err := c.connInvokeRaw(ctx, input, output); err != nil {
 		// Handling datacenter migration request.
 		if rpcErr, ok := tgerr.As(err); ok && rpcErr.IsCode(303) {
 			targetDC := rpcErr.Argument
@@ -39,7 +38,7 @@ func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.De
 	return nil
 }
 
-func (c *Client) invokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+func (c *Client) connInvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	c.connMux.Lock()
 	conn := c.conn
 	c.connMux.Unlock()
