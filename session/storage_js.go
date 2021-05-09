@@ -35,7 +35,7 @@ func getStorage() (js.Value, bool) {
 // ErrLocalStorageIsNotAvailable is returned if localStorage is not available and Storage can't use it.
 var ErrLocalStorageIsNotAvailable = xerrors.New("localStorage is not available")
 
-func catch(err *error)  { // nolint:gocritic
+func catch(err *error) { // nolint:gocritic
 	if r := recover(); r != nil {
 		rErr, ok := r.(error)
 		if !ok {

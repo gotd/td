@@ -16,8 +16,15 @@ func (b *ArticleResultBuilder) apply(r *resultPageBuilder) error {
 		return err
 	}
 
-	var t tg.InputBotInlineResult
-	t.FillFrom(b.result)
+	t := tg.InputBotInlineResult{
+		ID:          b.result.ID,
+		Type:        b.result.Type,
+		Title:       b.result.Title,
+		Description: b.result.Description,
+		URL:         b.result.URL,
+		Thumb:       b.result.Thumb,
+		Content:     b.result.Content,
+	}
 	if t.ID == "" {
 		t.ID, err = r.generateID()
 		if err != nil {

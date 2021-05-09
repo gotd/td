@@ -16,8 +16,10 @@ func (b *GameResultBuilder) apply(r *resultPageBuilder) error {
 		return err
 	}
 
-	var t tg.InputBotInlineResultGame
-	t.FillFrom(b.result)
+	t := tg.InputBotInlineResultGame{
+		ID:        b.result.ID,
+		ShortName: b.result.ShortName,
+	}
 	if t.ID == "" {
 		t.ID, err = r.generateID()
 		if err != nil {
