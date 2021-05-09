@@ -107,6 +107,7 @@ func (r *ResultBuilder) Set(ctx context.Context, opt ResultOption, opts ...Resul
 		CacheTime:  r.cacheTime,
 		NextOffset: r.nextOffset,
 		SwitchPm:   r.switchPm,
+		Gallery:    r.gallery,
 	})
 	if err != nil {
 		return false, xerrors.Errorf("set inline results: %w", err)

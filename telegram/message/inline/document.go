@@ -14,8 +14,13 @@ func (b *DocumentResultBuilder) apply(r *resultPageBuilder) error {
 		return err
 	}
 
-	var t tg.InputBotInlineResultDocument
-	t.FillFrom(b.result)
+	t := tg.InputBotInlineResultDocument{
+		ID:          b.result.ID,
+		Type:        b.result.Type,
+		Title:       b.result.Title,
+		Description: b.result.Description,
+		Document:    b.result.Document,
+	}
 	if t.ID == "" {
 		t.ID, err = r.generateID()
 		if err != nil {

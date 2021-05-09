@@ -16,8 +16,11 @@ func (b *PhotoResultBuilder) apply(r *resultPageBuilder) error {
 		return err
 	}
 
-	var t tg.InputBotInlineResultPhoto
-	t.FillFrom(b.result)
+	t := tg.InputBotInlineResultPhoto{
+		ID:    b.result.ID,
+		Type:  b.result.Type,
+		Photo: b.result.Photo,
+	}
 	if t.ID == "" {
 		t.ID, err = r.generateID()
 		if err != nil {
