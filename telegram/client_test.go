@@ -81,7 +81,7 @@ func newTestClient(h testHandler) *Client {
 		cancel:        func() {},
 		updateHandler: UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error { return nil }),
 	}
-	client.init()
+	client.init(nil)
 
 	return client
 }
