@@ -10,24 +10,26 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func ExampleWaitTimer() {
+func ExampleSimpleWaiter() {
 	var invoker tg.Invoker // e.g. *telegram.Client
 
-	waiter := floodwait.NewWaitTimer(invoker).
+	waiter := floodwait.NewSimpleWaiter(invoker).
 		WithMaxWait(5 * time.Minute).
 		WithMaxRetries(3)
 
+	// Do something with waiter invoker.
+	// E.g. create a new RPC client.
 	tg.NewClient(waiter)
 }
 
-func ExampleWaitScheduler() {
+func ExampleWaiter() {
 	var invoker tg.Invoker // e.g. *telegram.Client
 
-	waiter := floodwait.NewWaitScheduler(invoker).
+	waiter := floodwait.NewWaiter(invoker).
 		WithMaxWait(5 * time.Minute).
 		WithMaxRetries(3)
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Hour)
+	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	g, ctx := errgroup.WithContext(ctx)
@@ -35,14 +37,17 @@ func ExampleWaitScheduler() {
 		return waiter.Run(ctx)
 	})
 	g.Go(func() error {
-		defer cancel() // always cancel context for waiter goroutine
+		// Cancel context for waiter goroutine even
+		// if we return nil error.
+		defer cancel()
 
-		// do something with waiter invoker or client
-		// e.g. raw := tg.NewClient(waiter)
+		// Do something with waiter invoker.
+		// E.g. create a new RPC client.
+		tg.NewClient(waiter)
+
 		return nil
 	})
-	err := g.Wait()
-	if err != nil {
+	if err := g.Wait(); err != nil {
 		panic(err)
 	}
 }
