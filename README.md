@@ -45,7 +45,7 @@ This project is fully non-commercial and not affiliated with any commercial orga
   * [downloads](https://pkg.go.dev/github.com/gotd/td/telegram/downloader) with CDN support, also multiple streams
   * [messages](https://pkg.go.dev/github.com/gotd/td/telegram/message) with various convenience builders and text styling support
   * [query](https://pkg.go.dev/github.com/gotd/td/telegram/query) with pagination helpers
-  * [invokers](https://pkg.go.dev/github.com/gotd/td/telegram/invokers) for rate limiting and FLOOD_WAIT handling
+  * [middleware](https://pkg.go.dev/github.com/gotd/td/middleware) for [rate limiting](https://pkg.go.dev/github.com/gotd/td/middleware/ratelimit) and [FLOOD_WAIT handling](https://pkg.go.dev/github.com/gotd/td/middleware/floodwait)
 * CDN support with connection pooling
 * Automatic datacenter migration and redirects handling
 * Graceful [request cancellation](https://core.telegram.org/mtproto/service_messages#cancellation-of-an-rpc-query) via context
