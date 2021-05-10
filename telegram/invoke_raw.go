@@ -9,11 +9,22 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
-// InvokeRaw sens input and decodes result into output.
+// InvokeRaw invokes raw MTProto RPC method. It sends input and decodes result
+// into output. The request also goes through Middleware from Client’s Options.
+func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	return c.invoker.InvokeRaw(ctx, input, output)
+}
+
+// clientInvoker implements tg.Invoker on Client without middleware support.
+type clientInvoker struct {
+	*Client
+}
+
+// InvokeRaw sends input and decodes result into output.
 //
 // NOTE: Assuming that call contains content message (seqno increment).
-func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	if err := c.invokeRaw(ctx, input, output); err != nil {
+func (c clientInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	if err := c.connInvokeRaw(ctx, input, output); err != nil {
 		// Handling datacenter migration request.
 		if rpcErr, ok := tgerr.As(err); ok && rpcErr.IsCode(303) {
 			targetDC := rpcErr.Argument
@@ -39,7 +50,7 @@ func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.De
 	return nil
 }
 
-func (c *Client) invokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+func (c *Client) connInvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	c.connMux.Lock()
 	conn := c.conn
 	c.connMux.Unlock()

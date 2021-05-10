@@ -55,7 +55,7 @@ func (c *Client) invokeMigrate(ctx context.Context, dcID int, input bin.Encoder,
 	// Check if someone already migrated.
 	s := c.session.Load()
 	if s.DC == dcID {
-		return c.invokeRaw(ctx, input, output)
+		return c.connInvokeRaw(ctx, input, output)
 	}
 
 	mctx, cancel := context.WithTimeout(ctx, c.migrationTimeout)
@@ -69,7 +69,7 @@ func (c *Client) invokeMigrate(ctx context.Context, dcID int, input bin.Encoder,
 	}
 
 	// Re-trying request on another connection.
-	return c.invokeRaw(ctx, input, output)
+	return c.connInvokeRaw(ctx, input, output)
 }
 
 func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error {

@@ -25,6 +25,7 @@ import (
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
+	"github.com/gotd/td/middleware"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/manager"
@@ -59,8 +60,12 @@ type clientConn interface {
 
 // Client represents a MTProto client to Telegram.
 type Client struct {
-	// tg provides RPC calls via Client.
+	// tg provides RPC calls via Client. Uses invoker below.
 	tg *tg.Client // immutable
+	// invoker to use for RPC calls via Client. Uses middleware below.
+	invoker tg.Invoker // immutable
+	// middleware to use for RPC calls via Client.
+	middleware middleware.Middleware // immutable, nillable
 
 	// Telegram device information.
 	device DeviceConfig // immutable
@@ -171,6 +176,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		device:           opt.Device,
 		migrationTimeout: opt.MigrationTimeout,
 		noUpdatesMode:    opt.NoUpdates,
+		middleware:       opt.Middleware,
 	}
 	client.init()
 
@@ -218,8 +224,13 @@ func (c *Client) init() {
 	c.exported = make(chan *tg.AuthExportedAuthorization, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.subConns = map[int]CloseInvoker{}
+
 	// Initializing internal RPC caller.
-	c.tg = tg.NewClient(c)
+	c.invoker = clientInvoker{c}
+	if f := c.middleware; f != nil {
+		c.invoker = f(c)
+	}
+	c.tg = tg.NewClient(c.invoker)
 }
 
 func (c *Client) restoreConnection(ctx context.Context) error {
