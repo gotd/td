@@ -49,8 +49,7 @@ func (b *MessageMediaAutoBuilder) Markup(m tg.ReplyMarkupClass) *MessageMediaAut
 // Row sets single row keyboard markup  for sending bot buttons.
 // NB: markup will not be used, if you send multiple media attachments.
 func (b *MessageMediaAutoBuilder) Row(
-	button tg.KeyboardButtonClass,
 	buttons ...tg.KeyboardButtonClass,
 ) *MessageMediaAutoBuilder {
-	return b.Markup(markup.InlineRow(button, buttons...))
+	return b.Markup(markup.InlineRow(buttons...))
 }

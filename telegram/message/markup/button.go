@@ -3,9 +3,9 @@ package markup
 import "github.com/gotd/td/tg"
 
 // Row creates keyboard row.
-func Row(button tg.KeyboardButtonClass, buttons ...tg.KeyboardButtonClass) tg.KeyboardButtonRow {
+func Row(buttons ...tg.KeyboardButtonClass) tg.KeyboardButtonRow {
 	return tg.KeyboardButtonRow{
-		Buttons: append([]tg.KeyboardButtonClass{button}, buttons...),
+		Buttons: buttons,
 	}
 }
 

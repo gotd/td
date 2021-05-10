@@ -23,7 +23,7 @@ func TestInlineRow(t *testing.T) {
 		RequestPoll("poll", true),
 	}
 
-	v, ok := InlineRow(buttons[0], buttons[1:]...).(*tg.ReplyInlineMarkup)
+	v, ok := InlineRow(buttons...).(*tg.ReplyInlineMarkup)
 	a.True(ok)
 	a.Len(v.Rows, 1)
 	row := v.Rows[0]

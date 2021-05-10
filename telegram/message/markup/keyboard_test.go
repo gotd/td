@@ -23,7 +23,7 @@ func TestSingleRow(t *testing.T) {
 		RequestPoll("poll", true),
 	}
 
-	v, ok := SingleRow(buttons[0], buttons[1:]...).(*tg.ReplyKeyboardMarkup)
+	v, ok := SingleRow(buttons...).(*tg.ReplyKeyboardMarkup)
 	a.True(ok)
 	a.Len(v.Rows, 1)
 	row := v.Rows[0]
