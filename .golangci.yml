@@ -30,6 +30,7 @@ linters-settings:
       - whyNoLint
       - singleCaseSwitch
       - commentedOutCode
+      - appendAssign
     settings:
       ruleguard:
         rules: './gorules/rules.go'
