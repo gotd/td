@@ -33,12 +33,14 @@ They cannot be rotated and are bound to your Telegram account.
 
 So, some summary:
 
-1) Don't use unofficial clients, **seriously**. This client is unofficial.
+1) This client is unofficial, Telegram treats such clients suspiciously, especially fresh ones.
 2) Use it only for Bots (but don't abuse).
-3) If you still want "userbot", use it passively (i.e. just receive updates and not send anything)
+3) If you still want "userbot", use it passively (i.e. just receive updates and not send anything).
 4) If you want to implement active "userbot"
+   * Do not use QR code login, this will result in permaban
    * Do it with extreme care
-   * Do not abuse, spam or use it for other criminal activities
+   * Do not use voip accounts
+   * Do not abuse, spam or use it for other suspicious activities
    * Implement rate limiting
    * But *in general* it is bad idea if you are not 100% know what you are doing
 
@@ -47,6 +49,8 @@ Other usages can trigger Telegram anti-abuse system and ban all your accounts fo
 ## What to do if I'm banned
 
 First, try not to panic, anti-abuse system often makes false-positive bans.
+See [discussions](https://github.com/lonamiwebs/telethon/issues/824#issuecomment-432182634) in other Telegram API libraries
+for more context.
 
 Second, write to [recover@telegram.org](mailto:recover@telegram.org) explaining what you intend to do with the API,
 asking to unban your account.
