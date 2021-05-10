@@ -39,11 +39,10 @@ func (b *ReplyKeyboardMarkupBuilder) Selective() *ReplyKeyboardMarkupBuilder {
 }
 
 // Build returns created keyboard.
-func (b *ReplyKeyboardMarkupBuilder) Build(
-	row tg.KeyboardButtonRow, rows ...tg.KeyboardButtonRow,
+func (b *ReplyKeyboardMarkupBuilder) Build(rows ...tg.KeyboardButtonRow,
 ) tg.ReplyMarkupClass {
 	cp := b.kb
-	cp.Rows = append([]tg.KeyboardButtonRow{row}, rows...)
+	cp.Rows = rows
 	return &cp
 }
 
@@ -53,11 +52,11 @@ func BuildKeyboard() *ReplyKeyboardMarkupBuilder {
 }
 
 // SingleRow creates keyboard with single row using given buttons.
-func SingleRow(button tg.KeyboardButtonClass, buttons ...tg.KeyboardButtonClass) tg.ReplyMarkupClass {
-	return Keyboard(Row(button, buttons...))
+func SingleRow(buttons ...tg.KeyboardButtonClass) tg.ReplyMarkupClass {
+	return Keyboard(Row(buttons...))
 }
 
 // Keyboard creates keyboard using given rows.
-func Keyboard(row tg.KeyboardButtonRow, rows ...tg.KeyboardButtonRow) tg.ReplyMarkupClass {
-	return BuildKeyboard().Build(row, rows...)
+func Keyboard(rows ...tg.KeyboardButtonRow) tg.ReplyMarkupClass {
+	return BuildKeyboard().Build(rows...)
 }

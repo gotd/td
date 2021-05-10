@@ -85,18 +85,15 @@ func (r *ResultBuilder) SwitchPM(text, startParam string) *ResultBuilder {
 }
 
 // Set sets inline results for given query.
-func (r *ResultBuilder) Set(ctx context.Context, opt ResultOption, opts ...ResultOption) (bool, error) {
+func (r *ResultBuilder) Set(ctx context.Context, opts ...ResultOption) (bool, error) {
 	res := resultPageBuilder{
 		results: nil,
 		random:  r.random,
 	}
 
-	if err := opt.apply(&res); err != nil {
-		return false, xerrors.Errorf("apply first option: %w", err)
-	}
 	for idx, opt := range opts {
 		if err := opt.apply(&res); err != nil {
-			return false, xerrors.Errorf("apply %d option: %w", idx+2, err)
+			return false, xerrors.Errorf("apply %d option: %w", idx+1, err)
 		}
 	}
 
