@@ -1,4 +1,7 @@
 contact_links:
+  - name: My account got banned!
+    url: https://github.com/gotd/td/blob/main/.github/SUPPORT.md#how-not-to-get-banned
+    about: 'Use "How not to get banned" guide'
   - name: Ask on Telegram (Russian)
     url: https://t.me/gotd_ru
     about: You can ask for help in Russian here!
