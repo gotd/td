@@ -8,7 +8,7 @@ Fast Telegram client fully in go.
 * [Contributing](CONTRIBUTING.md)
 * [Architecture](ARCHITECTURE.md)
 
-Before using this library, read [How Not To Get Banned](https://github.com/gotd/td/blob/main/.github/SUPPORT.md#how-not-to-get-banned) guide.
+Before using this library, read [How Not To Get Banned](.github/SUPPORT.md#how-not-to-get-banned) guide.
 
 ## Status
 
