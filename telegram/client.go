@@ -226,7 +226,7 @@ func (c *Client) init() {
 	c.subConns = map[int]CloseInvoker{}
 
 	// Initializing internal RPC caller.
-	c.invoker = clientInvoker{c}
+	c.invoker = directInvoker{client: c}
 	if f := c.middleware; f != nil {
 		c.invoker = f(c)
 	}

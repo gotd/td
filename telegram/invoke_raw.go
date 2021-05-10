@@ -15,16 +15,10 @@ func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.De
 	return c.invoker.InvokeRaw(ctx, input, output)
 }
 
-// clientInvoker implements tg.Invoker on Client without middleware support.
-type clientInvoker struct {
-	*Client
-}
-
-// InvokeRaw sends input and decodes result into output.
-//
-// NOTE: Assuming that call contains content message (seqno increment).
-func (c clientInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	if err := c.connInvokeRaw(ctx, input, output); err != nil {
+// invokeDirect directly invokes RPC method without middlewares, automatically
+// handling datacenter redirects.
+func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	if err := c.invokeConn(ctx, input, output); err != nil {
 		// Handling datacenter migration request.
 		if rpcErr, ok := tgerr.As(err); ok && rpcErr.IsCode(303) {
 			targetDC := rpcErr.Argument
@@ -47,10 +41,26 @@ func (c clientInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output 
 
 		return err
 	}
+
 	return nil
 }
 
-func (c *Client) connInvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+// directInvoker implements tg.Invoker on Client for invoking methods directly,
+// without middlewares.
+type directInvoker struct {
+	client *Client
+}
+
+// InvokeRaw sends input and decodes result into output.
+//
+// NOTE: Assuming that call contains content message (seqno increment).
+func (d directInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	return d.client.invokeDirect(ctx, input, output)
+}
+
+// invokeConn directly invokes RPC call on primary connection without any
+// additional handling.
+func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	c.connMux.Lock()
 	conn := c.conn
 	c.connMux.Unlock()
