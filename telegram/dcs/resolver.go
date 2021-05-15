@@ -2,7 +2,6 @@ package dcs
 
 import (
 	"context"
-	"errors"
 	"net"
 	"strconv"
 
@@ -68,32 +67,80 @@ func (p plain) CDN(ctx context.Context, dc int, dcOptions []tg.DCOption) (transp
 	return p.connect(ctx, dc, candidates[:n])
 }
 
-func (p plain) connect(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error) {
-	for _, dc := range dcOptions {
-		addr := net.JoinHostPort(dc.IPAddress, strconv.Itoa(dc.Port))
-		conn, err := p.dial(ctx, p.network, addr)
-		if err != nil {
-			var netErr net.Error
-			if errors.As(err, &netErr) && (netErr.Timeout() || netErr.Temporary()) {
-				select {
-				case <-ctx.Done():
-				default:
-					continue
-				}
-			}
-			return nil, err
-		}
+func (p plain) dialTransport(ctx context.Context, dc tg.DCOption) (_ transport.Conn, rerr error) {
+	addr := net.JoinHostPort(dc.IPAddress, strconv.Itoa(dc.Port))
 
-		transportConn, err := p.protocol.Handshake(conn)
-		if err != nil {
-			err = xerrors.Errorf("transport handshake: %w", err)
-			return nil, multierr.Combine(err, conn.Close())
+	conn, err := p.dial(ctx, p.network, addr)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		if rerr != nil {
+			multierr.AppendInto(&rerr, conn.Close())
 		}
+	}()
 
-		return transportConn, nil
+	transportConn, err := p.protocol.Handshake(conn)
+	if err != nil {
+		return nil, xerrors.Errorf("transport handshake: %w", err)
 	}
 
-	return nil, xerrors.Errorf("no addresses for DC %d", dc)
+	return transportConn, nil
+}
+
+func (p plain) connect(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error) {
+	switch len(dcOptions) {
+	case 0:
+		return nil, xerrors.Errorf("no addresses for DC %d", dc)
+	case 1:
+		return p.dialTransport(ctx, dcOptions[0])
+	}
+
+	type dialResult struct {
+		conn transport.Conn
+		err  error
+	}
+
+	// We use unbuffered channel to ensure that only one connection will be returned
+	// and all other will be closed.
+	results := make(chan dialResult)
+	tryDial := func(ctx context.Context, option tg.DCOption) {
+		conn, err := p.dialTransport(ctx, option)
+		select {
+		case results <- dialResult{
+			conn: conn,
+			err:  err,
+		}:
+		case <-ctx.Done():
+			if conn != nil {
+				_ = conn.Close()
+			}
+		}
+	}
+
+	dialCtx, dialCancel := context.WithCancel(ctx)
+	defer dialCancel()
+
+	for _, dcOption := range dcOptions {
+		go tryDial(dialCtx, dcOption)
+	}
+
+	remain := len(dcOptions)
+	for {
+		select {
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		case result := <-results:
+			remain--
+			if result.err != nil {
+				if remain == 0 {
+					return nil, result.err
+				}
+				continue
+			}
+			return result.conn, nil
+		}
+	}
 }
 
 // PlainOptions is plain resolver creation options.
