@@ -2,9 +2,9 @@ package dcs
 
 import (
 	"context"
-	"errors"
 	"net"
 	"strconv"
+	"sync"
 
 	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
@@ -39,7 +39,7 @@ type plain struct {
 }
 
 func (p plain) Primary(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error) {
-	return p.connect(ctx, dc, FindPrimaryDCs(dcOptions, dc, p.preferIPv6))
+	return p.connectFastest(ctx, FindPrimaryDCs(dcOptions, dc, p.preferIPv6))
 }
 
 func (p plain) MediaOnly(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error) {
@@ -52,7 +52,7 @@ func (p plain) MediaOnly(ctx context.Context, dc int, dcOptions []tg.DCOption) (
 			n++
 		}
 	}
-	return p.connect(ctx, dc, candidates[:n])
+	return p.connectFastest(ctx, candidates[:n])
 }
 
 func (p plain) CDN(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error) {
@@ -65,35 +65,90 @@ func (p plain) CDN(ctx context.Context, dc int, dcOptions []tg.DCOption) (transp
 			n++
 		}
 	}
-	return p.connect(ctx, dc, candidates[:n])
+	return p.connectFastest(ctx, candidates[:n])
 }
 
-func (p plain) connect(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error) {
-	for _, dc := range dcOptions {
-		addr := net.JoinHostPort(dc.IPAddress, strconv.Itoa(dc.Port))
-		conn, err := p.dial(ctx, p.network, addr)
-		if err != nil {
-			var netErr net.Error
-			if errors.As(err, &netErr) && (netErr.Timeout() || netErr.Temporary()) {
-				select {
-				case <-ctx.Done():
-				default:
-					continue
-				}
-			}
-			return nil, err
-		}
-
-		transportConn, err := p.protocol.Handshake(conn)
-		if err != nil {
-			err = xerrors.Errorf("transport handshake: %w", err)
-			return nil, multierr.Combine(err, conn.Close())
-		}
-
-		return transportConn, nil
+func (p plain) connect(ctx context.Context, server tg.DCOption) (transport.Conn, error) {
+	addr := net.JoinHostPort(server.IPAddress, strconv.Itoa(server.Port))
+	conn, err := p.dial(ctx, p.network, addr)
+	if err != nil {
+		return nil, xerrors.Errorf("dial: %w", err)
 	}
 
-	return nil, xerrors.Errorf("no addresses for DC %d", dc)
+	transportConn, err := p.protocol.Handshake(conn)
+	if err != nil {
+		err = xerrors.Errorf("transport handshake: %w", err)
+		return nil, multierr.Combine(err, conn.Close())
+	}
+
+	return transportConn, nil
+}
+
+// connectFastest concurrently dials all candidates from servers list,
+// selecting first valid candidate.
+func (p plain) connectFastest(ctx context.Context, servers []tg.DCOption) (transport.Conn, error) {
+	if len(servers) == 0 {
+		return nil, xerrors.New("no candidates")
+	}
+
+	var (
+		connSelected transport.Conn
+		connErrors   []error
+		connMux      sync.Mutex
+	)
+
+	var g sync.WaitGroup
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	for i := range servers {
+		opt := servers[i]
+		g.Add(1)
+
+		// Not limiting concurrent dials for now.
+		go func() {
+			defer g.Done()
+
+			conn, err := p.connect(ctx, opt)
+			connMux.Lock()
+			defer connMux.Unlock()
+
+			if err != nil {
+				// Can be dial error or just context cancellation.
+				connErrors = append(connErrors, err)
+				return
+			}
+
+			if connSelected == nil {
+				// Selecting connection and stopping candidate selection.
+				connSelected = conn
+				cancel()
+			} else {
+				// Dropping connection as other connection ls already selected.
+				// Probably we can do it without mutex.
+				_ = conn.Close()
+			}
+		}()
+	}
+
+	// Waiting for candidate selection.
+	// Should stop on first valid candidate.
+	g.Wait()
+
+	connMux.Lock()
+	defer connMux.Unlock()
+
+	if connSelected != nil {
+		return connSelected, nil
+	}
+
+	for _, err := range connErrors {
+		// Return first error.
+		return nil, xerrors.Errorf("dial: %w", err)
+	}
+
+	// Should be unreachable.
+	return nil, xerrors.New("unable to select")
 }
 
 // PlainOptions is plain resolver creation options.
