@@ -38,9 +38,9 @@ func (f floodWaitOptionFunc) apply(o *floodWaitOptions) {
 }
 
 // FloodWaitWithClock sets time source for flood wait.
-func FloodWaitWithClock(clock clock.Clock) FloodWaitOption {
+func FloodWaitWithClock(c clock.Clock) FloodWaitOption {
 	return floodWaitOptionFunc(func(o *floodWaitOptions) {
-		o.clock = clock
+		o.clock = c
 	})
 }
 
