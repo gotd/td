@@ -19,10 +19,10 @@ import (
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/downloader"
-	"github.com/gotd/td/telegram/internal/tgtest"
-	"github.com/gotd/td/telegram/internal/tgtest/services/file"
 	"github.com/gotd/td/telegram/uploader"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgtest"
+	"github.com/gotd/td/tgtest/services/file"
 	"github.com/gotd/td/transport"
 )
 

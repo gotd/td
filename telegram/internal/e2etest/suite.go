@@ -11,7 +11,7 @@ import (
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/telegram/internal/tgtest"
+	"github.com/gotd/td/tgtest"
 )
 
 // TestConfig contains some common test server settings.

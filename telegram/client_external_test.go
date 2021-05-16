@@ -24,9 +24,9 @@ import (
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/downloader"
 	"github.com/gotd/td/telegram/internal/e2etest"
-	"github.com/gotd/td/telegram/internal/tgtest"
 	"github.com/gotd/td/telegram/message"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgtest"
 	"github.com/gotd/td/transport"
 )
 
