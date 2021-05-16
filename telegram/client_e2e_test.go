@@ -26,10 +26,10 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-type quorumSetup struct {
-	TB     testing.TB
-	Quorum *tgtest.Quorum
-	Logger *zap.Logger
+type clusterSetup struct {
+	TB      testing.TB
+	Cluster *tgtest.Cluster
+	Logger  *zap.Logger
 }
 
 type clientSetup struct {
@@ -38,9 +38,9 @@ type clientSetup struct {
 	Complete func()
 }
 
-func testQuorum(
+func testCluster(
 	p dcs.Protocol,
-	setup func(q quorumSetup),
+	setup func(q clusterSetup),
 	run func(ctx context.Context, c clientSetup) error,
 ) func(t *testing.T) {
 	return func(t *testing.T) {
@@ -49,20 +49,20 @@ func testQuorum(
 
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
-		grp := tdsync.NewCancellableGroup(ctx)
+		g := tdsync.NewCancellableGroup(ctx)
 
-		q := tgtest.NewQuorum(p.Codec).WithLogger(log.Named("quorum"))
-		setup(quorumSetup{
-			TB:     t,
-			Quorum: q,
-			Logger: log,
+		c := tgtest.NewCluster(p.Codec).WithLogger(log.Named("cluster"))
+		setup(clusterSetup{
+			TB:      t,
+			Cluster: c,
+			Logger:  log,
 		})
-		grp.Go(q.Up)
+		g.Go(c.Up)
 
-		grp.Go(func(ctx context.Context) error {
+		g.Go(func(ctx context.Context) error {
 			select {
-			// Await quorum readiness.
-			case <-q.Ready():
+			// Wait for cluster readiness.
+			case <-c.Ready():
 			case <-ctx.Done():
 				return ctx.Err()
 			}
@@ -70,18 +70,18 @@ func testQuorum(
 			return run(ctx, clientSetup{
 				TB: t,
 				Options: telegram.Options{
-					PublicKeys:     q.Keys(),
+					PublicKeys:     c.Keys(),
 					Resolver:       dcs.PlainResolver(dcs.PlainOptions{Protocol: p}),
 					Logger:         log.Named("client"),
 					SessionStorage: &session.StorageMemory{},
-					DCList:         q.Config().DCOptions,
+					DCList:         c.Config().DCOptions,
 				},
 				Complete: cancel,
 			})
 		})
 
 		log.Debug("Waiting")
-		if err := grp.Wait(); !errors.Is(err, context.Canceled) {
+		if err := g.Wait(); !errors.Is(err, context.Canceled) {
 			require.NoError(t, err)
 		}
 	}
@@ -97,16 +97,16 @@ func testAllTransports(t *testing.T, test func(p dcs.Protocol) func(t *testing.T
 func testTransport(p dcs.Protocol) func(t *testing.T) {
 	testMessage := "ну че там с деньгами?"
 
-	return testQuorum(p, func(s quorumSetup) {
-		q := s.Quorum
+	return testCluster(p, func(s clusterSetup) {
+		c := s.Cluster
 
 		h := tgtest.TestTransport(s.TB, s.Logger.Named("handler"), testMessage)
-		q.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
+		c.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
 			ID:         10,
 			AccessHash: 10,
 			Username:   "rustcocks",
 		})
-		q.Dispatch(2, "server").
+		c.Dispatch(2, "server").
 			Handle(tg.InvokeWithLayerRequestTypeID, h).
 			Handle(tg.MessagesSendMessageRequestTypeID, h)
 	}, func(ctx context.Context, c clientSetup) error {
@@ -157,14 +157,14 @@ func TestClientE2E(t *testing.T) {
 
 func testMigrate(p dcs.Protocol) func(t *testing.T) {
 	wait := make(chan struct{}, 1)
-	return testQuorum(p, func(s quorumSetup) {
-		q := s.Quorum
-		q.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
+	return testCluster(p, func(s clusterSetup) {
+		c := s.Cluster
+		c.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
 			ID:         10,
 			AccessHash: 10,
 			Username:   "rustcocks",
 		})
-		q.Dispatch(1, "server").HandleFunc(tg.MessagesSendMessageRequestTypeID,
+		c.Dispatch(1, "server").HandleFunc(tg.MessagesSendMessageRequestTypeID,
 			func(server *tgtest.Server, req *tgtest.Request) error {
 				m := &tg.MessagesSendMessageRequest{}
 				if err := m.Decode(req.Buf); err != nil {
@@ -179,7 +179,7 @@ func testMigrate(p dcs.Protocol) func(t *testing.T) {
 				return server.SendResult(req, &tg.Updates{})
 			},
 		)
-		q.Dispatch(2, "migrate").HandleFunc(tg.MessagesSendMessageRequestTypeID,
+		c.Dispatch(2, "migrate").HandleFunc(tg.MessagesSendMessageRequestTypeID,
 			func(server *tgtest.Server, req *tgtest.Request) error {
 				m := &tg.MessagesSendMessageRequest{}
 				if err := m.Decode(req.Buf); err != nil {
@@ -218,15 +218,15 @@ func TestMigrate(t *testing.T) {
 }
 
 func testFiles(p dcs.Protocol) func(t *testing.T) {
-	return testQuorum(p, func(s quorumSetup) {
-		q := s.Quorum
-		q.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
+	return testCluster(p, func(s clusterSetup) {
+		c := s.Cluster
+		c.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
 			ID:         10,
 			AccessHash: 10,
 			Username:   "rustcocks",
 		})
 		f := file.NewService(file.NewInMemory()).WitHashPartSize(1024)
-		f.Register(q.DC(2, "DC").Dispatcher())
+		f.Register(c.DC(2, "DC").Dispatcher())
 	}, func(ctx context.Context, c clientSetup) error {
 		client := telegram.NewClient(1, "hash", c.Options)
 		defer c.Complete()
