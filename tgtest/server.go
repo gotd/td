@@ -1,4 +1,3 @@
-// Package tgtest provides test Telegram server for end-to-end test.
 package tgtest
 
 import (

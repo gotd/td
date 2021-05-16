@@ -6,8 +6,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgmock"
 )
 
 func generatePhotos(count int) []tg.PhotoClass {
@@ -33,7 +33,7 @@ func result(r []tg.PhotoClass, count int) tg.PhotosPhotosClass {
 
 func TestIterator(t *testing.T) {
 	ctx := context.Background()
-	mock := rpcmock.NewMock(t, require.New(t))
+	mock := tgmock.NewMock(t, require.New(t))
 	limit := 10
 	totalRecords := 3 * limit
 	expected := generatePhotos(totalRecords)

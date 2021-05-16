@@ -9,8 +9,8 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/syncio"
 	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/telegram/internal/helpers"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 type part struct {
@@ -31,7 +31,7 @@ func (u *Uploader) uploadBigFilePart(ctx context.Context, p part) (int, error) {
 			Bytes:          p.buf.Buf,
 		})
 
-		if flood, err := helpers.FloodWait(ctx, err); err != nil {
+		if flood, err := tgerr.FloodWait(ctx, err); err != nil {
 			if flood {
 				continue
 			}

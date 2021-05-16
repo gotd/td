@@ -11,14 +11,14 @@ import (
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/telegram/internal/tgtest"
+	"github.com/gotd/td/tgtest"
 )
 
 // TestConfig contains some common test server settings.
 type TestConfig struct {
 	AppID   int
 	AppHash string
-	DcID    int
+	DC      int
 }
 
 // Suite is struct which contains external E2E test parameters.
@@ -44,7 +44,7 @@ func NewSuite(suite tgtest.Suite, config TestConfig, randomSource io.Reader) *Su
 // Client creates new *telegram.Client using this suite.
 func (s *Suite) Client(logger *zap.Logger, handler telegram.UpdateHandler) *telegram.Client {
 	return telegram.NewClient(s.AppID, s.AppHash, telegram.Options{
-		DC:            s.DcID,
+		DC:            s.DC,
 		DCList:        dcs.StagingDCs(),
 		Logger:        logger,
 		UpdateHandler: handler,
@@ -55,7 +55,7 @@ func (s *Suite) Client(logger *zap.Logger, handler telegram.UpdateHandler) *tele
 func (s *Suite) Authenticate(ctx context.Context, client *telegram.Client) error {
 	var auth telegram.UserAuthenticator
 	for {
-		auth = telegram.TestAuth(rand.Reader, s.DcID)
+		auth = telegram.TestAuth(rand.Reader, s.DC)
 		phone, err := auth.Phone(ctx)
 		if err != nil {
 			return err

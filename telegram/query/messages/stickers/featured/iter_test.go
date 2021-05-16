@@ -6,8 +6,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgmock"
 )
 
 func generateStickers(count int) []tg.StickerSetCoveredClass {
@@ -39,7 +39,7 @@ func result(r []tg.StickerSetCoveredClass, count int) tg.MessagesFeaturedSticker
 
 func TestIterator(t *testing.T) {
 	ctx := context.Background()
-	mock := rpcmock.NewMock(t, require.New(t))
+	mock := tgmock.NewMock(t, require.New(t))
 	limit := 10
 	totalRecords := 3 * limit
 	expected := generateStickers(totalRecords)

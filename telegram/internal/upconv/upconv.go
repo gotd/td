@@ -1,4 +1,4 @@
-package helpers
+package upconv
 
 import "github.com/gotd/td/tg"
 
@@ -38,8 +38,8 @@ func convertOptional(msg *tg.Message, i tg.UpdatesClass) {
 	}
 }
 
-// ConvertUpdateShortMessage converts UpdateShortMessage to UpdateShort.
-func ConvertUpdateShortMessage(u *tg.UpdateShortMessage) *tg.UpdateShort {
+// ShortMessage converts UpdateShortMessage to UpdateShort.
+func ShortMessage(u *tg.UpdateShortMessage) *tg.UpdateShort {
 	msg := &tg.Message{
 		Out:         u.Out,
 		Mentioned:   u.Mentioned,
@@ -65,8 +65,8 @@ func ConvertUpdateShortMessage(u *tg.UpdateShortMessage) *tg.UpdateShort {
 	}
 }
 
-// ConvertUpdateShortChatMessage converts UpdateShortChatMessage to UpdateShort.
-func ConvertUpdateShortChatMessage(u *tg.UpdateShortChatMessage) *tg.UpdateShort {
+// ShortChatMessage converts UpdateShortChatMessage to UpdateShort.
+func ShortChatMessage(u *tg.UpdateShortChatMessage) *tg.UpdateShort {
 	msg := &tg.Message{
 		Out:         u.Out,
 		Mentioned:   u.Mentioned,
@@ -90,8 +90,8 @@ func ConvertUpdateShortChatMessage(u *tg.UpdateShortChatMessage) *tg.UpdateShort
 	}
 }
 
-// ConvertUpdateShortSentMessage converts UpdateShortSentMessage to UpdateShort.
-func ConvertUpdateShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort {
+// ShortSentMessage converts UpdateShortSentMessage to UpdateShort.
+func ShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort {
 	msg := &tg.Message{
 		Out:  u.Out,
 		ID:   u.ID,

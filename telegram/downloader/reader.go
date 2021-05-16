@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/internal/helpers"
+	"github.com/gotd/td/tgerr"
 )
 
 type block struct {
@@ -82,7 +82,7 @@ func (r *reader) next(ctx context.Context, offset, limit int) (block, error) {
 	for {
 		ch, err := r.sch.Chunk(ctx, offset, limit)
 
-		if flood, err := helpers.FloodWait(ctx, err); err != nil {
+		if flood, err := tgerr.FloodWait(ctx, err); err != nil {
 			if flood {
 				continue
 			}

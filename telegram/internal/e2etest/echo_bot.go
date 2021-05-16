@@ -10,7 +10,6 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/internal/helpers"
 	"github.com/gotd/td/telegram/message"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
@@ -91,7 +90,7 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 	if err := backoff.Retry(func() error {
 		me, err = client.Self(ctx)
 		if err != nil {
-			if ok, err := helpers.FloodWait(ctx, err); ok {
+			if ok, err := tgerr.FloodWait(ctx, err); ok {
 				return err
 			}
 

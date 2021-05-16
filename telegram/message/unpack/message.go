@@ -3,7 +3,7 @@ package unpack
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/internal/helpers"
+	"github.com/gotd/td/telegram/internal/upconv"
 	"github.com/gotd/td/tg"
 )
 
@@ -27,13 +27,13 @@ func MessageClass(u tg.UpdatesClass, err error) (tg.MessageClass, error) {
 	var updates []tg.UpdateClass
 	switch v := u.(type) {
 	case *tg.UpdateShortMessage:
-		short := helpers.ConvertUpdateShortMessage(v)
+		short := upconv.ShortMessage(v)
 		updates = []tg.UpdateClass{short.Update}
 	case *tg.UpdateShortChatMessage:
-		short := helpers.ConvertUpdateShortChatMessage(v)
+		short := upconv.ShortChatMessage(v)
 		updates = []tg.UpdateClass{short.Update}
 	case *tg.UpdateShortSentMessage:
-		short := helpers.ConvertUpdateShortSentMessage(v)
+		short := upconv.ShortSentMessage(v)
 		updates = []tg.UpdateClass{short.Update}
 	case *tg.UpdateShort:
 		updates = []tg.UpdateClass{v.Update}

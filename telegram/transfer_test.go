@@ -5,15 +5,15 @@ import (
 	"context"
 	"testing"
 
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgmock"
 )
 
 func TestTransfer(t *testing.T) {
 	ctx := context.Background()
 
 	dc := 1
-	mockClient(func(a *rpcmock.Mock, client *Client) {
+	mockClient(func(a *tgmock.Mock, client *Client) {
 		user := &tg.User{ID: 10, Username: "abc10"}
 		auth := &tg.AuthAuthorization{
 			User: user,

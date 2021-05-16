@@ -26,8 +26,8 @@ import (
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgmock"
 )
 
 type testHandler func(id int64, body bin.Encoder) (bin.Encoder, error)
@@ -86,12 +86,12 @@ func newTestClient(h testHandler) *Client {
 	return client
 }
 
-func mockClient(cb func(mock *rpcmock.Mock, client *Client)) func(t *testing.T) {
+func mockClient(cb func(mock *tgmock.Mock, client *Client)) func(t *testing.T) {
 	return func(t *testing.T) {
 		t.Helper()
 
 		a := require.New(t)
-		mock := rpcmock.NewMock(t, a)
+		mock := tgmock.NewMock(t, a)
 		client := newTestClient(testHandler(mock.Handler()))
 		cb(mock, client)
 	}

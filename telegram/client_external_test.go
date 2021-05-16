@@ -24,9 +24,9 @@ import (
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/downloader"
 	"github.com/gotd/td/telegram/internal/e2etest"
-	"github.com/gotd/td/telegram/internal/tgtest"
 	"github.com/gotd/td/telegram/message"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgtest"
 	"github.com/gotd/td/transport"
 )
 
@@ -99,7 +99,7 @@ func TestExternalE2EUsersDialog(t *testing.T) {
 	cfg := e2etest.TestConfig{
 		AppID:   telegram.TestAppID,
 		AppHash: telegram.TestAppHash,
-		DcID:    2,
+		DC:      2,
 	}
 	suite := e2etest.NewSuite(tgtest.NewSuite(ctx, t, log), cfg, rand.Reader)
 
@@ -140,7 +140,7 @@ func TestExternalE2EPartialUpload(t *testing.T) {
 	cfg := e2etest.TestConfig{
 		AppID:   telegram.TestAppID,
 		AppHash: telegram.TestAppHash,
-		DcID:    2,
+		DC:      2,
 	}
 	suite := e2etest.NewSuite(tgtest.NewSuite(ctx, t, log), cfg, rand.Reader)
 

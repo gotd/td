@@ -6,13 +6,13 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
+	"github.com/gotd/td/tgmock"
 )
 
-func testSender(t *testing.T) (*Sender, *rpcmock.Mock) {
-	mock := rpcmock.NewMock(t, require.New(t))
+func testSender(t *testing.T) (*Sender, *tgmock.Mock) {
+	mock := tgmock.NewMock(t, require.New(t))
 	sender := NewSender(tg.NewClient(mock))
 	return sender, mock
 }
@@ -25,12 +25,12 @@ func testRPCError() *tgerr.Error {
 	}
 }
 
-func expectSendMedia(attachment tg.InputMediaClass, mock *rpcmock.Mock) {
+func expectSendMedia(attachment tg.InputMediaClass, mock *tgmock.Mock) {
 	expectSendMediaAndText(attachment, mock, "")
 }
 
 func expectSendMediaAndText(
-	attachment tg.InputMediaClass, mock *rpcmock.Mock,
+	attachment tg.InputMediaClass, mock *tgmock.Mock,
 	msg string, entities ...tg.MessageEntityClass,
 ) {
 	mock.ExpectFunc(func(b bin.Encoder) {

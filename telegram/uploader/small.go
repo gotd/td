@@ -6,8 +6,8 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/internal/helpers"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) error {
@@ -37,7 +37,7 @@ func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) e
 				Bytes:    read,
 			})
 
-			if flood, err := helpers.FloodWait(ctx, err); err != nil {
+			if flood, err := tgerr.FloodWait(ctx, err); err != nil {
 				if flood {
 					continue
 				}

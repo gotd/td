@@ -6,14 +6,14 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
+	"github.com/gotd/td/tgmock"
 )
 
 func TestElem(t *testing.T) {
 	ctx := context.Background()
-	mock := rpcmock.NewMock(t, require.New(t))
+	mock := tgmock.NewMock(t, require.New(t))
 	raw := tg.NewClient(mock)
 
 	ch := Elem{

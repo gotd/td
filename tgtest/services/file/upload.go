@@ -7,17 +7,28 @@ import (
 	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/internal/helpers"
+	"github.com/gotd/td/constant"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 )
 
+// https://core.telegram.org/api/files#uploading-files
+const (
+	// Each part should have a sequence number, file_part, with a value ranging from 0 to 3,999.
+	uploadPartsLimit = constant.UploadMaxParts
+
+	// `part_size % 1024 = 0` (divisible by 1KB)
+	uploadPaddingPartSize = constant.UploadPadding
+	// `524288 % part_size = 0` (512KB must be evenly divisible by part_size)
+	uploadMaximumPartSize = constant.UploadMaxPartSize
+)
+
 type upload interface {
-	// Random file identifier created by the client
+	// GetFileID returns random file identifier created by the client.
 	GetFileID() int64
-	// Numerical order of a part
+	// GetFilePart returns numerical order of a part.
 	GetFilePart() int
-	// Binary data, contend of a part
+	// GetBytes returns binary data, content of a part.
 	GetBytes() []byte
 }
 
@@ -25,7 +36,7 @@ func validatePartSize(got, stored int) *tgerr.Error {
 	switch {
 	case got == 0:
 		return tgerr.New(400, tg.ErrFilePartEmpty)
-	case got > helpers.MaximumPartSize:
+	case got > uploadMaximumPartSize:
 		return tgerr.New(400, tg.ErrFilePartTooBig)
 	}
 
@@ -36,8 +47,8 @@ func validatePartSize(got, stored int) *tgerr.Error {
 	switch {
 	case got != stored:
 		return tgerr.New(400, tg.ErrFilePartSizeChanged)
-	case helpers.MaximumPartSize%got != 0,
-		got%helpers.PaddingPartSize != 0:
+	case uploadMaximumPartSize%got != 0,
+		got%uploadPaddingPartSize != 0:
 		return tgerr.New(400, tg.ErrFilePartSizeInvalid)
 	default:
 		return nil
@@ -61,7 +72,7 @@ func (m *Service) write(ctx context.Context, request upload) (err error) {
 	}()
 
 	part := request.GetFilePart()
-	if part < 0 || part > helpers.PartsLimit {
+	if part < 0 || part > uploadPartsLimit {
 		return tgerr.New(400, tg.ErrFilePartInvalid)
 	}
 	data := request.GetBytes()
@@ -92,7 +103,7 @@ func (m *Service) UploadSaveFilePart(ctx context.Context, request *tg.UploadSave
 
 func (m *Service) UploadSaveBigFilePart(ctx context.Context, request *tg.UploadSaveBigFilePartRequest) (bool, error) {
 	part := request.FileTotalParts
-	if part < 0 || part > helpers.PartsLimit {
+	if part < 0 || part > uploadPartsLimit {
 		return false, tgerr.New(400, tg.ErrFilePartsInvalid)
 	}
 
