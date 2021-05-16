@@ -18,6 +18,7 @@ import (
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/testutil"
+	"github.com/gotd/td/middleware/floodwait"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
@@ -149,7 +150,7 @@ func TestExternalE2EPartialUpload(t *testing.T) {
 			return err
 		}
 
-		raw := tg.NewClient(client)
+		raw := tg.NewClient(floodwait.NewWaiter(client))
 		fileID, err := crypto.RandInt64(rand.Reader)
 		if err != nil {
 			return err
