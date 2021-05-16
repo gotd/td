@@ -6,8 +6,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgmock"
 )
 
 func generateParticipants(count int) []tg.ChannelParticipantClass {
@@ -32,7 +32,7 @@ func result(r []tg.ChannelParticipantClass, count int) tg.ChannelsChannelPartici
 
 func TestIterator(t *testing.T) {
 	ctx := context.Background()
-	mock := rpcmock.NewMock(t, require.New(t))
+	mock := tgmock.NewMock(t, require.New(t))
 	limit := 10
 	totalRecords := 3 * limit
 	expected := generateParticipants(totalRecords)

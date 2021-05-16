@@ -6,13 +6,13 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
+	"github.com/gotd/td/tgmock"
 )
 
 func Test_plainResolver_Resolve(t *testing.T) {
-	mock := rpcmock.NewMock(t, require.New(t))
+	mock := tgmock.NewMock(t, require.New(t))
 	raw := tg.NewClient(mock)
 
 	domain := "adcd"
@@ -44,7 +44,7 @@ func Test_plainResolver_Resolve(t *testing.T) {
 }
 
 func Test_plainResolver_ResolvePhone(t *testing.T) {
-	mock := rpcmock.NewMock(t, require.New(t))
+	mock := tgmock.NewMock(t, require.New(t))
 	raw := tg.NewClient(mock)
 
 	phone := "adcd"

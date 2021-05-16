@@ -8,11 +8,11 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgmock"
 )
 
-func expectSendReport(reason tg.ReportReasonClass, mock *rpcmock.Mock, id int, msg string) {
+func expectSendReport(reason tg.ReportReasonClass, mock *tgmock.Mock, id int, msg string) {
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesReportRequest)
 		mock.True(ok)

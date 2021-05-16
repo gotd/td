@@ -4,14 +4,14 @@ import (
 	"context"
 	"testing"
 
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgmock"
 )
 
 func TestClient_AuthBot(t *testing.T) {
 	const token = "12345:token"
 
-	t.Run("AuthAuthorization", mockClient(func(a *rpcmock.Mock, client *Client) {
+	t.Run("AuthAuthorization", mockClient(func(a *tgmock.Mock, client *Client) {
 		testUser := &tg.User{}
 		testUser.SetBot(true)
 
@@ -26,7 +26,7 @@ func TestClient_AuthBot(t *testing.T) {
 		a.Equal(testUser, result.User)
 	}))
 
-	t.Run("AuthAuthorizationSignUpRequired", mockClient(func(a *rpcmock.Mock, client *Client) {
+	t.Run("AuthAuthorizationSignUpRequired", mockClient(func(a *tgmock.Mock, client *Client) {
 		a.ExpectCall(&tg.AuthImportBotAuthorizationRequest{
 			BotAuthToken: token,
 			APIID:        TestAppID,

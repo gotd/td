@@ -7,8 +7,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgmock"
 )
 
 func generateMessages(count int) []tg.MessageClass {
@@ -34,7 +34,7 @@ func messagesClass(r []tg.MessageClass, count int) tg.MessagesMessagesClass {
 
 func TestIterator(t *testing.T) {
 	ctx := context.Background()
-	mock := rpcmock.NewMock(t, require.New(t))
+	mock := tgmock.NewMock(t, require.New(t))
 	limit := 10
 	totalMessages := 3 * limit
 	expected := generateMessages(totalMessages)

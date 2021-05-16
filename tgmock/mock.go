@@ -1,4 +1,4 @@
-package rpcmock
+package tgmock
 
 import (
 	"github.com/stretchr/testify/require"
@@ -11,7 +11,7 @@ type TestingT interface {
 	Cleanup(cb func())
 }
 
-// Mock is a mock tg.Invoker.
+// Mock is a mock for tg.Invoker with testify/require support.
 type Mock struct {
 	calls []Handler
 	*require.Assertions

@@ -4,15 +4,15 @@ import (
 	"context"
 	"testing"
 
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
+	"github.com/gotd/td/tgmock"
 )
 
 func TestClient_AuthStatus(t *testing.T) {
 	ctx := context.Background()
 
-	t.Run("Authorized", mockClient(func(a *rpcmock.Mock, client *Client) {
+	t.Run("Authorized", mockClient(func(a *tgmock.Mock, client *Client) {
 		user := &tg.User{
 			Username: "user",
 		}
@@ -24,7 +24,7 @@ func TestClient_AuthStatus(t *testing.T) {
 		a.Equal(user, status.User)
 	}))
 
-	t.Run("Unauthorized", mockClient(func(a *rpcmock.Mock, client *Client) {
+	t.Run("Unauthorized", mockClient(func(a *tgmock.Mock, client *Client) {
 		a.Expect().ThenUnregistered()
 
 		status, err := client.AuthStatus(ctx)
@@ -32,7 +32,7 @@ func TestClient_AuthStatus(t *testing.T) {
 		a.False(status.Authorized)
 	}))
 
-	t.Run("Error", mockClient(func(a *rpcmock.Mock, client *Client) {
+	t.Run("Error", mockClient(func(a *tgmock.Mock, client *Client) {
 		a.Expect().ThenRPCErr(&tgerr.Error{
 			Code:    500,
 			Message: "BRUH",
@@ -47,7 +47,7 @@ func TestClient_AuthStatus(t *testing.T) {
 func TestClient_AuthIfNecessary(t *testing.T) {
 	ctx := context.Background()
 
-	t.Run("Authorized", mockClient(func(a *rpcmock.Mock, client *Client) {
+	t.Run("Authorized", mockClient(func(a *tgmock.Mock, client *Client) {
 		testUser := &tg.User{
 			Username: "user",
 		}

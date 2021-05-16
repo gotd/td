@@ -1,4 +1,4 @@
-package rpcmock
+package tgmock
 
 import (
 	"context"

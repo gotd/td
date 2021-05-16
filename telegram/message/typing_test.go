@@ -7,11 +7,11 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgmock"
 )
 
-func expectSendSetTyping(action tg.SendMessageActionClass, mock *rpcmock.Mock, threadID int) {
+func expectSendSetTyping(action tg.SendMessageActionClass, mock *tgmock.Mock, threadID int) {
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSetTypingRequest)
 		mock.True(ok)

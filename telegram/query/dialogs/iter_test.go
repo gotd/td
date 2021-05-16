@@ -6,8 +6,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgmock"
 )
 
 func generateDialogs(count int) []tg.DialogClass {
@@ -53,7 +53,7 @@ func result(r []tg.DialogClass, count int) tg.MessagesDialogsClass {
 
 func TestIterator(t *testing.T) {
 	ctx := context.Background()
-	mock := rpcmock.NewMock(t, require.New(t))
+	mock := tgmock.NewMock(t, require.New(t))
 	limit := 10
 	totalRows := 3 * limit
 	expected := generateDialogs(totalRows)
