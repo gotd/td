@@ -126,6 +126,7 @@ func (p plain) connect(ctx context.Context, dc int, dcOptions []tg.DCOption) (tr
 	}
 
 	remain := len(dcOptions)
+	var rErr error
 	for {
 		select {
 		case <-ctx.Done():
@@ -133,8 +134,9 @@ func (p plain) connect(ctx context.Context, dc int, dcOptions []tg.DCOption) (tr
 		case result := <-results:
 			remain--
 			if result.err != nil {
+				rErr = multierr.Append(rErr, result.err)
 				if remain == 0 {
-					return nil, result.err
+					return nil, rErr
 				}
 				continue
 			}
