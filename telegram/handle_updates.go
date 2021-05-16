@@ -7,7 +7,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram/internal/helpers"
+	"github.com/gotd/td/telegram/internal/upconv"
 	"github.com/gotd/td/tg"
 )
 
@@ -32,11 +32,11 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 		c.updateInterceptor(u.Update)
 		return c.updateHandler.Handle(c.ctx, u)
 	case *tg.UpdateShortMessage:
-		return c.updateHandler.Handle(c.ctx, helpers.ConvertUpdateShortMessage(u))
+		return c.updateHandler.Handle(c.ctx, upconv.ShortMessage(u))
 	case *tg.UpdateShortChatMessage:
-		return c.updateHandler.Handle(c.ctx, helpers.ConvertUpdateShortChatMessage(u))
+		return c.updateHandler.Handle(c.ctx, upconv.ShortChatMessage(u))
 	case *tg.UpdateShortSentMessage:
-		return c.updateHandler.Handle(c.ctx, helpers.ConvertUpdateShortSentMessage(u))
+		return c.updateHandler.Handle(c.ctx, upconv.ShortSentMessage(u))
 	case *tg.UpdatesTooLong:
 		return c.updateHandler.Handle(c.ctx, u)
 	default:
