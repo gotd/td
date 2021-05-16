@@ -9,12 +9,11 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/internal/helpers"
-	"github.com/gotd/td/tgerr"
-
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/internal/helpers"
 	"github.com/gotd/td/telegram/message"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 // EchoBot is a simple echo message bot.
