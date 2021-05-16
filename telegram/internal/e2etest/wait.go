@@ -6,8 +6,8 @@ import (
 	"github.com/cenkalti/backoff/v4"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram/internal/helpers"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 type waitInvoker struct {
@@ -17,7 +17,7 @@ type waitInvoker struct {
 func retryFloodWait(ctx context.Context, cb func() error) error {
 	return backoff.Retry(func() error {
 		if err := cb(); err != nil {
-			if ok, err := helpers.FloodWait(ctx, err); ok {
+			if ok, err := tgerr.FloodWait(ctx, err); ok {
 				return err
 			}
 
