@@ -7,23 +7,20 @@ import (
 	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/constant"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 )
 
 // https://core.telegram.org/api/files#uploading-files
 const (
-	// Use upload.saveBigFilePart in case the full size of the file is more than 10 MB
-	// and upload.saveFilePart for smaller files
-	uploadBigFileLimit = 10 * 1024 * 1024 // 10 MB
-
 	// Each part should have a sequence number, file_part, with a value ranging from 0 to 3,999.
-	uploadPartsLimit = 3999
+	uploadPartsLimit = constant.UploadMaxParts
 
 	// `part_size % 1024 = 0` (divisible by 1KB)
-	uploadPaddingPartSize = 1024
+	uploadPaddingPartSize = constant.UploadPadding
 	// `524288 % part_size = 0` (512KB must be evenly divisible by part_size)
-	uploadMaximumPartSize = 524288
+	uploadMaximumPartSize = constant.UploadMaxPartSize
 )
 
 type upload interface {

@@ -3,26 +3,27 @@ package uploader
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/internal/helpers"
+	"github.com/gotd/td/constant"
 )
 
 // https://core.telegram.org/api/files#uploading-files
 const (
 	// Use upload.saveBigFilePart in case the full size of the file is more than 10 MB
-	// and upload.saveFilePart for smaller files
-	bigFileLimit = helpers.BigFileLimit // 10 MB
+	// and upload.saveFilePart for smaller files.
+	bigFileLimit = constant.UploadMaxSmallSize
 
 	// Each part should have a sequence number, file_part, with a value ranging from 0 to 3,999.
-	partsLimit = helpers.PartsLimit
+	partsLimit = constant.UploadMaxParts
 
 	defaultPartSize = 128 * 1024 // 128 KB
 	// The file’s binary content is then split into parts. All parts must have the same size (part_size)
 	// and the following conditions must be met:
 
 	// `part_size % 1024 = 0` (divisible by 1KB)
-	paddingPartSize = helpers.PaddingPartSize
-	// `524288 % part_size = 0` (512KB must be evenly divisible by part_size)
-	MaximumPartSize = helpers.MaximumPartSize
+	paddingPartSize = constant.UploadPadding
+
+	// MaximumPartSize is maximum size of single part.
+	MaximumPartSize = constant.UploadMaxPartSize
 )
 
 func checkPartSize(partSize int) error {

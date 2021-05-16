@@ -2,8 +2,8 @@
 package file
 
 import (
-	"github.com/gotd/td/telegram/internal/tgtest"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgtest"
 )
 
 // Service is a Telegram file service.
