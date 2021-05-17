@@ -73,7 +73,7 @@ type Options struct {
 
 func (opt *Options) setDefaults() {
 	if opt.Resolver == nil {
-		opt.Resolver = dcs.PlainResolver(dcs.PlainOptions{})
+		opt.Resolver = dcs.DefaultResolver()
 	}
 	if opt.Random == nil {
 		opt.Random = rand.Reader

@@ -8,6 +8,7 @@ type DCList struct {
 	Domains map[int]string
 }
 
+// Zero returns true if this DCList is zero value.
 func (d DCList) Zero() bool {
 	return d.Options == nil && d.Domains == nil
 }

@@ -7,6 +7,8 @@ import (
 	"github.com/gotd/td/transport"
 )
 
+var _ Resolver = DefaultResolver()
+
 // Resolver resolves DC and creates transport MTProto connection.
 type Resolver interface {
 	Primary(ctx context.Context, dc int, list DCList) (transport.Conn, error)
