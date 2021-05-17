@@ -144,7 +144,7 @@ func TestClient(ctx context.Context, opts Options, cb func(ctx context.Context, 
 	if opts.DC == 0 {
 		opts.DC = 2
 	}
-	if len(opts.DCList) == 0 {
+	if opts.DCList.Zero() {
 		opts.DCList = dcs.StagingDCs()
 	}
 

@@ -117,7 +117,6 @@ func (c *Client) DC(ctx context.Context, dc int, max int64) (CloseInvoker, error
 // It connects to MediaOnly DCs.
 func (c *Client) MediaOnly(ctx context.Context, dc int, max int64) (CloseInvoker, error) {
 	return c.dc(ctx, dc, max, func(ctx context.Context) (transport.Conn, error) {
-		cfg := c.cfg.Load()
-		return c.resolver.MediaOnly(ctx, dc, cfg.DCOptions)
+		return c.resolver.MediaOnly(ctx, dc, c.dcList())
 	})
 }

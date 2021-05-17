@@ -12,9 +12,10 @@ import (
 	"github.com/gotd/td/internal/mtproxy"
 	"github.com/gotd/td/internal/mtproxy/obfuscator"
 	"github.com/gotd/td/internal/proto/codec"
-	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
+
+var _ Resolver = mtProxy{}
 
 type mtProxy struct {
 	dial          DialFunc
@@ -26,15 +27,15 @@ type mtProxy struct {
 	rand   io.Reader
 }
 
-func (m mtProxy) Primary(ctx context.Context, dc int, _ []tg.DCOption) (transport.Conn, error) {
+func (m mtProxy) Primary(ctx context.Context, dc int, _ DCList) (transport.Conn, error) {
 	return m.resolve(ctx, dc)
 }
 
-func (m mtProxy) MediaOnly(ctx context.Context, dc int, _ []tg.DCOption) (transport.Conn, error) {
+func (m mtProxy) MediaOnly(ctx context.Context, dc int, _ DCList) (transport.Conn, error) {
 	return m.resolve(ctx, dc+10000)
 }
 
-func (m mtProxy) CDN(ctx context.Context, dc int, _ []tg.DCOption) (transport.Conn, error) {
+func (m mtProxy) CDN(ctx context.Context, dc int, _ DCList) (transport.Conn, error) {
 	return m.resolve(ctx, dc)
 }
 

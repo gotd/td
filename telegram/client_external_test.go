@@ -68,11 +68,7 @@ func TestExternalE2EConnect(t *testing.T) {
 	t.Run("PaddedIntermediate", tcp(transport.PaddedIntermediate))
 	t.Run("Full", tcp(transport.Full))
 
-	wsOpts := dcs.WebsocketOptions{
-		Domain: func(dc int) (string, error) {
-			return "wss://venus.web.telegram.org/apiws_test", nil
-		},
-	}
+	wsOpts := dcs.WebsocketOptions{}
 	t.Run("Websocket", testTransportExternal(dcs.WebsocketResolver(wsOpts), storage))
 }
 

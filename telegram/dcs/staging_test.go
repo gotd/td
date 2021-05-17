@@ -10,8 +10,8 @@ func TestStagingDCs(t *testing.T) {
 	require.NotEmpty(t, ProdDCs())
 
 	// Check copying.
-	a := StagingDCs()
+	a := StagingDCs().Options
 	a[0].IPAddress = "10"
-	b := StagingDCs()
+	b := StagingDCs().Options
 	require.NotEqual(t, "10", b[0].IPAddress)
 }
