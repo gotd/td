@@ -19,8 +19,6 @@ import (
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/downloader"
-	"github.com/gotd/td/telegram/internal/tgtest"
-	"github.com/gotd/td/telegram/internal/tgtest/services/file"
 	"github.com/gotd/td/telegram/uploader"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgtest"
@@ -76,8 +74,8 @@ func testCluster(
 					Resolver:       dcs.PlainResolver(dcs.PlainOptions{Protocol: p}),
 					Logger:         log.Named("client"),
 					SessionStorage: &session.StorageMemory{},
-					DCList:         dcs.DCList{
-						Options: q.Config().DCOptions,
+					DCList: dcs.DCList{
+						Options: c.Config().DCOptions,
 						Domains: map[int]string{},
 					},
 				},
