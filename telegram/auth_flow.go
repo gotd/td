@@ -46,7 +46,7 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
 	}
 	hash := sentCode.PhoneCodeHash
 
-	code, err := f.Auth.Code(ctx)
+	code, err := f.Auth.Code(ctx, sentCode)
 	if err != nil {
 		return xerrors.Errorf("get code: %w", err)
 	}
@@ -101,15 +101,15 @@ type AuthFlowClient interface {
 
 // CodeAuthenticator asks user for received authentication code.
 type CodeAuthenticator interface {
-	Code(ctx context.Context) (string, error)
+	Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, error)
 }
 
 // CodeAuthenticatorFunc is functional wrapper for CodeAuthenticator.
-type CodeAuthenticatorFunc func(ctx context.Context) (string, error)
+type CodeAuthenticatorFunc func(ctx context.Context, sentCode *tg.AuthSentCode) (string, error)
 
 // Code implements CodeAuthenticator interface.
-func (c CodeAuthenticatorFunc) Code(ctx context.Context) (string, error) {
-	return c(ctx)
+func (c CodeAuthenticatorFunc) Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
+	return c(ctx, sentCode)
 }
 
 // UserInfo represents user info required for sign up.
@@ -223,13 +223,24 @@ func CodeOnlyAuth(phone string, code CodeAuthenticator) UserAuthenticator {
 }
 
 type testAuth struct {
-	code  string
+	dc    int
 	phone string
 }
 
 func (t testAuth) Phone(ctx context.Context) (string, error)    { return t.phone, nil }
 func (t testAuth) Password(ctx context.Context) (string, error) { return "", ErrPasswordNotProvided }
-func (t testAuth) Code(ctx context.Context) (string, error)     { return t.code, nil }
+func (t testAuth) Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
+	type notFlashing interface {
+		GetLength() int
+	}
+
+	typ, ok := sentCode.Type.(notFlashing)
+	if !ok {
+		return "", xerrors.Errorf("unexpected type: %T", sentCode.Type)
+	}
+
+	return strings.Repeat(strconv.Itoa(t.dc), typ.GetLength()), nil
+}
 
 func (t testAuth) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
 	return nil
@@ -253,11 +264,10 @@ func TestAuth(randReader io.Reader, dc int) UserAuthenticator {
 	if err != nil {
 		panic(err)
 	}
-	code := strings.Repeat(strconv.Itoa(dc), 6)
 	phone := fmt.Sprintf("99966%d%04d", dc, n)
 
 	return testAuth{
-		code:  code,
+		dc:    dc,
 		phone: phone,
 	}
 }

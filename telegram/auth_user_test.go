@@ -112,9 +112,11 @@ func TestClient_AuthSignIn(t *testing.T) {
 	})
 	t.Run("AuthFlow", func(t *testing.T) {
 		// Using flow helper.
-		u := ConstantAuth(phone, password, CodeAuthenticatorFunc(func(ctx context.Context) (string, error) {
-			return code, nil
-		}))
+		u := ConstantAuth(phone, password, CodeAuthenticatorFunc(
+			func(ctx context.Context, _ *tg.AuthSentCode) (string, error) {
+				return code, nil
+			},
+		))
 		require.NoError(t, NewAuth(u, SendCodeOptions{CurrentNumber: true}).Run(ctx, client))
 	})
 }
@@ -135,7 +137,9 @@ func TestClientTestAuth(t *testing.T) {
 				Settings:    tg.CodeSettings{},
 			}, req)
 			return &tg.AuthSentCode{
-				Type:          &tg.AuthSentCodeTypeApp{},
+				Type: &tg.AuthSentCodeTypeApp{
+					Length: 6,
+				},
 				PhoneCodeHash: codeHash,
 			}, nil
 		case *tg.AuthSignInRequest:
@@ -178,7 +182,9 @@ func TestClientTestSignUp(t *testing.T) {
 				Settings:    tg.CodeSettings{},
 			}, req)
 			return &tg.AuthSentCode{
-				Type:          &tg.AuthSentCodeTypeApp{},
+				Type: &tg.AuthSentCodeTypeApp{
+					Length: 6,
+				},
 				PhoneCodeHash: codeHash,
 			}, nil
 		case *tg.AuthSignUpRequest:
