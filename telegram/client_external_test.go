@@ -1,30 +1,24 @@
 package telegram_test
 
 import (
-	"bytes"
 	"context"
 	"crypto/rand"
 	"strings"
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/testutil"
-	"github.com/gotd/td/middleware/floodwait"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/telegram/downloader"
 	"github.com/gotd/td/telegram/internal/e2etest"
-	"github.com/gotd/td/telegram/message"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgtest"
 	"github.com/gotd/td/transport"
