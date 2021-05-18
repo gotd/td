@@ -16,10 +16,11 @@ import (
 	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
+	"github.com/gotd/td/tg"
 )
 
 func askCode(code string, err error) telegram.CodeAuthenticatorFunc {
-	return func(ctx context.Context) (string, error) {
+	return func(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
 		return code, err
 	}
 }
@@ -29,7 +30,7 @@ func TestConstantAuth(t *testing.T) {
 	auth := telegram.ConstantAuth("phone", "password", askCode("123", nil))
 	ctx := context.Background()
 
-	result, err := auth.Code(ctx)
+	result, err := auth.Code(ctx, nil)
 	a.NoError(err)
 	a.Equal("123", result)
 
@@ -47,7 +48,7 @@ func TestCodeOnlyAuth(t *testing.T) {
 	auth := telegram.CodeOnlyAuth("phone", askCode("123", nil))
 	ctx := context.Background()
 
-	result, err := auth.Code(ctx)
+	result, err := auth.Code(ctx, nil)
 	a.NoError(err)
 	a.Equal("123", result)
 
@@ -66,7 +67,7 @@ func TestEnvAuth(t *testing.T) {
 	prefix := "TEST_ENV_AUTH_"
 	auth := telegram.EnvAuth(prefix, askCode("123", nil))
 
-	result, err := auth.Code(ctx)
+	result, err := auth.Code(ctx, nil)
 	a.NoError(err)
 	a.Equal("123", result)
 
@@ -130,7 +131,7 @@ func ExampleAuthFlow_Run() {
 
 	ctx := context.Background()
 	client := telegram.NewClient(appID, appHash, telegram.Options{})
-	codeAsk := func(ctx context.Context) (string, error) {
+	codeAsk := func(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
 		fmt.Print("code:")
 		code, err := bufio.NewReader(os.Stdin).ReadString('\n')
 		if err != nil {
