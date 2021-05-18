@@ -2,9 +2,9 @@ package dcs
 
 import "github.com/gotd/td/tg"
 
-// StagingDCs returns staging DC list.
-func StagingDCs() DCList {
-	return DCList{
+// Staging returns staging DC list.
+func Staging() List {
+	return List{
 		Options: []tg.DCOption{
 			{
 				ID:        1,

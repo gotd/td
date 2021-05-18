@@ -45,7 +45,7 @@ func NewSuite(suite tgtest.Suite, config TestConfig, randomSource io.Reader) *Su
 func (s *Suite) Client(logger *zap.Logger, handler telegram.UpdateHandler) *telegram.Client {
 	return telegram.NewClient(s.AppID, s.AppHash, telegram.Options{
 		DC:            s.DC,
-		DCList:        dcs.StagingDCs(),
+		DCList:        dcs.Staging(),
 		Logger:        logger,
 		UpdateHandler: handler,
 	})

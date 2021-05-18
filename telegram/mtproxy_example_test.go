@@ -20,7 +20,7 @@ func connectViaMTProxy(ctx context.Context) error {
 		return xerrors.Errorf("parse secret: %w", err)
 	}
 
-	resolver, err := dcs.MTProxyResolver(
+	resolver, err := dcs.MTProxy(
 		os.Getenv("PROXY_ADDR"),
 		secret,
 		dcs.MTProxyOptions{},

@@ -4,5 +4,5 @@ package dcs
 
 // DefaultResolver returns default DC resolver for current platform.
 func DefaultResolver() Resolver {
-	return WebsocketResolver(WebsocketOptions{})
+	return Websocket(WebsocketOptions{})
 }

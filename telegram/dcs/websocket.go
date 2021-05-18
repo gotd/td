@@ -55,15 +55,15 @@ func (w ws) connect(ctx context.Context, dc int, domains map[int]string) (transp
 	return transportConn, nil
 }
 
-func (w ws) Primary(ctx context.Context, dc int, list DCList) (transport.Conn, error) {
+func (w ws) Primary(ctx context.Context, dc int, list List) (transport.Conn, error) {
 	return w.connect(ctx, dc, list.Domains)
 }
 
-func (w ws) MediaOnly(ctx context.Context, dc int, list DCList) (transport.Conn, error) {
+func (w ws) MediaOnly(ctx context.Context, dc int, list List) (transport.Conn, error) {
 	return nil, xerrors.Errorf("can't resolve %d: MediaOnly is unsupported", dc)
 }
 
-func (w ws) CDN(ctx context.Context, dc int, list DCList) (transport.Conn, error) {
+func (w ws) CDN(ctx context.Context, dc int, list List) (transport.Conn, error) {
 	return nil, xerrors.Errorf("can't resolve %d: CDN is unsupported", dc)
 }
 
@@ -87,10 +87,10 @@ func (m *WebsocketOptions) setDefaults() {
 	}
 }
 
-// WebsocketResolver creates Websocket DC resolver.
+// Websocket creates Websocket DC resolver.
 //
 // See https://core.telegram.org/mtproto/transports#websocket.
-func WebsocketResolver(opts WebsocketOptions) Resolver {
+func Websocket(opts WebsocketOptions) Resolver {
 	cdc := codec.Intermediate{}
 	opts.setDefaults()
 	return ws{

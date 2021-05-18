@@ -7,11 +7,11 @@ import (
 )
 
 func TestProd(t *testing.T) {
-	require.NotEmpty(t, ProdDCs())
+	require.NotEmpty(t, Prod())
 
 	// Check copying.
-	a := ProdDCs().Options
+	a := Prod().Options
 	a[0].IPAddress = "10"
-	b := ProdDCs().Options
+	b := Prod().Options
 	require.NotEqual(t, "10", b[0].IPAddress)
 }

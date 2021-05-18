@@ -11,9 +11,9 @@ var _ Resolver = DefaultResolver()
 
 // Resolver resolves DC and creates transport MTProto connection.
 type Resolver interface {
-	Primary(ctx context.Context, dc int, list DCList) (transport.Conn, error)
-	MediaOnly(ctx context.Context, dc int, list DCList) (transport.Conn, error)
-	CDN(ctx context.Context, dc int, list DCList) (transport.Conn, error)
+	Primary(ctx context.Context, dc int, list List) (transport.Conn, error)
+	MediaOnly(ctx context.Context, dc int, list List) (transport.Conn, error)
+	CDN(ctx context.Context, dc int, list List) (transport.Conn, error)
 }
 
 // DialFunc connects to the address on the named network.

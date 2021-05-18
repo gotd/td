@@ -103,7 +103,7 @@ func TestEnsureErrorIfCantConnect(t *testing.T) {
 		return nil, testErr
 	}
 	opts := Options{
-		Resolver: dcs.PlainResolver(dcs.PlainOptions{Dial: dialer}),
+		Resolver: dcs.Plain(dcs.PlainOptions{Dial: dialer}),
 		ReconnectionBackoff: func() backoff.BackOff {
 			return backoff.WithMaxRetries(backoff.NewConstantBackOff(time.Nanosecond), 2)
 		},

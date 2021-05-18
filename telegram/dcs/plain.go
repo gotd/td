@@ -21,11 +21,11 @@ type plain struct {
 	preferIPv6 bool
 }
 
-func (p plain) Primary(ctx context.Context, dc int, list DCList) (transport.Conn, error) {
+func (p plain) Primary(ctx context.Context, dc int, list List) (transport.Conn, error) {
 	return p.connect(ctx, dc, FindPrimaryDCs(list.Options, dc, p.preferIPv6))
 }
 
-func (p plain) MediaOnly(ctx context.Context, dc int, list DCList) (transport.Conn, error) {
+func (p plain) MediaOnly(ctx context.Context, dc int, list List) (transport.Conn, error) {
 	candidates := FindDCs(list.Options, dc, p.preferIPv6)
 	// Filter (in place) from SliceTricks.
 	n := 0
@@ -38,7 +38,7 @@ func (p plain) MediaOnly(ctx context.Context, dc int, list DCList) (transport.Co
 	return p.connect(ctx, dc, candidates[:n])
 }
 
-func (p plain) CDN(ctx context.Context, dc int, list DCList) (transport.Conn, error) {
+func (p plain) CDN(ctx context.Context, dc int, list List) (transport.Conn, error) {
 	candidates := FindDCs(list.Options, dc, p.preferIPv6)
 	// Filter (in place) from SliceTricks.
 	n := 0
@@ -156,8 +156,8 @@ func (m *PlainOptions) setDefaults() {
 	}
 }
 
-// PlainResolver creates plain DC resolver.
-func PlainResolver(opts PlainOptions) Resolver {
+// Plain creates plain DC resolver.
+func Plain(opts PlainOptions) Resolver {
 	opts.setDefaults()
 	return plain{
 		protocol:   opts.Protocol,

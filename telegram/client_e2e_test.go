@@ -71,10 +71,10 @@ func testCluster(
 				TB: t,
 				Options: telegram.Options{
 					PublicKeys:     c.Keys(),
-					Resolver:       dcs.PlainResolver(dcs.PlainOptions{Protocol: p}),
+					Resolver:       dcs.Plain(dcs.PlainOptions{Protocol: p}),
 					Logger:         log.Named("client"),
 					SessionStorage: &session.StorageMemory{},
-					DCList: dcs.DCList{
+					DCList: dcs.List{
 						Options: c.Config().DCOptions,
 						Domains: map[int]string{},
 					},

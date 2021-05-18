@@ -7,11 +7,11 @@ import (
 )
 
 func TestStagingDCs(t *testing.T) {
-	require.NotEmpty(t, ProdDCs())
+	require.NotEmpty(t, Prod())
 
 	// Check copying.
-	a := StagingDCs().Options
+	a := Staging().Options
 	a[0].IPAddress = "10"
-	b := StagingDCs().Options
+	b := Staging().Options
 	require.NotEqual(t, "10", b[0].IPAddress)
 }

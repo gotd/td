@@ -2,9 +2,9 @@ package dcs
 
 import "github.com/gotd/td/tg"
 
-// ProdDCs returns production DC list.
-func ProdDCs() DCList {
-	return DCList{
+// Prod returns production DC list.
+func Prod() List {
+	return List{
 		Options: []tg.DCOption{
 			{
 				ID:        1,

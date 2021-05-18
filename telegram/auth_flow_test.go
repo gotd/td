@@ -96,7 +96,7 @@ func ExampleTestAuth() {
 	ctx := context.Background()
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 		DC:     dcID,
-		DCList: dcs.StagingDCs(),
+		DCList: dcs.Staging(),
 	})
 	if err := client.Run(ctx, func(ctx context.Context) error {
 		return telegram.NewAuth(

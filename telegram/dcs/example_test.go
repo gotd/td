@@ -18,7 +18,7 @@ func ExampleDialFunc() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	client := telegram.NewClient(1, "appHash", telegram.Options{
-		Resolver: dcs.PlainResolver(dcs.PlainOptions{Dial: proxy.Dial}),
+		Resolver: dcs.Plain(dcs.PlainOptions{Dial: proxy.Dial}),
 	})
 
 	_ = client.Run(ctx, func(ctx context.Context) error {
@@ -40,7 +40,7 @@ func ExampleDialFunc_dialer() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	client := telegram.NewClient(1, "appHash", telegram.Options{
-		Resolver: dcs.PlainResolver(dcs.PlainOptions{
+		Resolver: dcs.Plain(dcs.PlainOptions{
 			Dial: dc.DialContext,
 		}),
 	})

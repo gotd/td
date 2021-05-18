@@ -27,15 +27,15 @@ type mtProxy struct {
 	rand   io.Reader
 }
 
-func (m mtProxy) Primary(ctx context.Context, dc int, _ DCList) (transport.Conn, error) {
+func (m mtProxy) Primary(ctx context.Context, dc int, _ List) (transport.Conn, error) {
 	return m.resolve(ctx, dc)
 }
 
-func (m mtProxy) MediaOnly(ctx context.Context, dc int, _ DCList) (transport.Conn, error) {
+func (m mtProxy) MediaOnly(ctx context.Context, dc int, _ List) (transport.Conn, error) {
 	return m.resolve(ctx, dc+10000)
 }
 
-func (m mtProxy) CDN(ctx context.Context, dc int, _ DCList) (transport.Conn, error) {
+func (m mtProxy) CDN(ctx context.Context, dc int, _ List) (transport.Conn, error) {
 	return m.resolve(ctx, dc)
 }
 
@@ -104,10 +104,10 @@ func (m *MTProxyOptions) setDefaults() {
 	}
 }
 
-// MTProxyResolver creates MTProxy obfuscated DC resolver.
+// MTProxy creates MTProxy obfuscated DC resolver.
 //
 // See https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation.
-func MTProxyResolver(addr string, secret []byte, opts MTProxyOptions) (Resolver, error) {
+func MTProxy(addr string, secret []byte, opts MTProxyOptions) (Resolver, error) {
 	s, err := mtproxy.ParseSecret(2, secret)
 	if err != nil {
 		return nil, err

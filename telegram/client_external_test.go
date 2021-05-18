@@ -54,7 +54,7 @@ func TestExternalE2EConnect(t *testing.T) {
 	storage := &session.StorageMemory{}
 
 	tcp := func(p dcs.Protocol) func(t *testing.T) {
-		return testTransportExternal(dcs.PlainResolver(dcs.PlainOptions{Protocol: p}), storage)
+		return testTransportExternal(dcs.Plain(dcs.PlainOptions{Protocol: p}), storage)
 	}
 
 	t.Run("Abridged", tcp(transport.Abridged))
@@ -63,7 +63,7 @@ func TestExternalE2EConnect(t *testing.T) {
 	t.Run("Full", tcp(transport.Full))
 
 	wsOpts := dcs.WebsocketOptions{}
-	t.Run("Websocket", testTransportExternal(dcs.WebsocketResolver(wsOpts), storage))
+	t.Run("Websocket", testTransportExternal(dcs.Websocket(wsOpts), storage))
 }
 
 const dialog = `— Да?

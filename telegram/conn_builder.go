@@ -52,9 +52,9 @@ func defaultConstructor() connConstructor {
 	}
 }
 
-func (c *Client) dcList() dcs.DCList {
+func (c *Client) dcList() dcs.List {
 	cfg := c.cfg.Load()
-	return dcs.DCList{
+	return dcs.List{
 		Options: cfg.DCOptions,
 		Domains: c.domains,
 	}
