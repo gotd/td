@@ -8,6 +8,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/pool"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/manager"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
@@ -51,10 +52,17 @@ func defaultConstructor() connConstructor {
 	}
 }
 
+func (c *Client) dcList() dcs.List {
+	cfg := c.cfg.Load()
+	return dcs.List{
+		Options: cfg.DCOptions,
+		Domains: c.domains,
+	}
+}
+
 func (c *Client) primaryDC(dc int) mtproto.Dialer {
 	return func(ctx context.Context) (transport.Conn, error) {
-		cfg := c.cfg.Load()
-		return c.resolver.Primary(ctx, dc, cfg.DCOptions)
+		return c.resolver.Primary(ctx, dc, c.dcList())
 	}
 }
 

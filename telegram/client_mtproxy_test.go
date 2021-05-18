@@ -103,7 +103,7 @@ func testMTProxy(secretType string, m mtg, storage session.Storage) func(t *test
 				return ctx.Err()
 			}
 
-			resolver, err := dcs.MTProxyResolver(m.addr, secret, dcs.MTProxyOptions{})
+			resolver, err := dcs.MTProxy(m.addr, secret, dcs.MTProxyOptions{})
 			if err != nil {
 				return err
 			}

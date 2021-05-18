@@ -65,7 +65,7 @@ func OptionsFromEnvironment(opts Options) (Options, error) {
 	}
 
 	if opts.Resolver == nil {
-		opts.Resolver = dcs.PlainResolver(dcs.PlainOptions{
+		opts.Resolver = dcs.Plain(dcs.PlainOptions{
 			Dial: proxy.Dial,
 		})
 	}
@@ -144,8 +144,8 @@ func TestClient(ctx context.Context, opts Options, cb func(ctx context.Context, 
 	if opts.DC == 0 {
 		opts.DC = 2
 	}
-	if len(opts.DCList) == 0 {
-		opts.DCList = dcs.StagingDCs()
+	if opts.DCList.Zero() {
+		opts.DCList = dcs.Staging()
 	}
 
 	logger := zap.NewNop()

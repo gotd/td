@@ -31,7 +31,7 @@ type Options struct {
 	DC int
 
 	// DCList is initial list of addresses to connect.
-	DCList []tg.DCOption
+	DCList dcs.List
 
 	// Resolver to use.
 	Resolver dcs.Resolver
@@ -73,7 +73,7 @@ type Options struct {
 
 func (opt *Options) setDefaults() {
 	if opt.Resolver == nil {
-		opt.Resolver = dcs.PlainResolver(dcs.PlainOptions{})
+		opt.Resolver = dcs.DefaultResolver()
 	}
 	if opt.Random == nil {
 		opt.Random = rand.Reader
@@ -84,8 +84,8 @@ func (opt *Options) setDefaults() {
 	if opt.DC == 0 {
 		opt.DC = 2
 	}
-	if len(opt.DCList) == 0 {
-		opt.DCList = dcs.ProdDCs()
+	if opt.DCList.Zero() {
+		opt.DCList = dcs.Prod()
 	}
 	if opt.AckBatchSize == 0 {
 		opt.AckBatchSize = 20

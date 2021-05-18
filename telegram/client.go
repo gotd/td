@@ -72,6 +72,8 @@ type Client struct {
 
 	// MTProto options.
 	opts mtproto.Options // immutable
+	// Domain list (for websocket)
+	domains map[int]string
 
 	// Connection state. Guarded by connMux.
 	session *pool.SyncSession
@@ -155,6 +157,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	}
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
+
 		rand:          opt.Random,
 		log:           opt.Logger,
 		ctx:           clientCtx,
@@ -165,8 +168,9 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		session: pool.NewSyncSession(pool.Session{
 			DC: opt.DC,
 		}),
+		domains: opt.DCList.Domains,
 		cfg: manager.NewAtomicConfig(tg.Config{
-			DCOptions: opt.DCList,
+			DCOptions: opt.DCList.Options,
 		}),
 		create:           defaultConstructor(),
 		resolver:         opt.Resolver,
@@ -215,6 +219,9 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 
 // init sets fields which needs explicit initialization, like maps or channels.
 func (c *Client) init() {
+	if c.domains == nil {
+		c.domains = map[int]string{}
+	}
 	if c.cfg == nil {
 		c.cfg = manager.NewAtomicConfig(tg.Config{})
 	}
