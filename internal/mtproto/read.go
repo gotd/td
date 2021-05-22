@@ -15,6 +15,14 @@ import (
 	"github.com/gotd/td/internal/proto/codec"
 )
 
+// https://core.telegram.org/mtproto/description#message-identifier-msg-id
+// A message is rejected over 300 seconds after it is created or 30 seconds
+// before it is created (this is needed to protect from replay attacks).
+const (
+	maxPast   = time.Second * 300
+	maxFuture = time.Second * 30
+)
+
 // errRejected is returned on invalid message that should not be processed.
 var errRejected = errors.New("message rejected")
 
@@ -29,13 +37,6 @@ func checkMessageID(now time.Time, rawID int64) error {
 		return xerrors.Errorf("unexpected type %s: %w", id.Type(), errRejected)
 	}
 
-	// https://core.telegram.org/mtproto/description#message-identifier-msg-id
-	// A message is rejected over 300 seconds after it is created or 30 seconds
-	// before it is created (this is needed to protect from replay attacks).
-	const (
-		maxPast   = time.Second * 300
-		maxFuture = time.Second * 30
-	)
 	created := id.Time()
 	if created.Before(now) && now.Sub(created) > maxPast {
 		return xerrors.Errorf("created too far in past: %w", errRejected)
