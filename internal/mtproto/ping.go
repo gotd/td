@@ -2,7 +2,6 @@ package mtproto
 
 import (
 	"context"
-	"time"
 
 	"golang.org/x/xerrors"
 
@@ -99,14 +98,14 @@ func (c *Conn) pingLoop(ctx context.Context) error {
 	// for example, it may set disconnect_delay equal to 75 seconds.
 	delay := c.pingInterval + c.pingTimeout
 
-	ticker := time.NewTicker(c.pingInterval)
+	ticker := c.clock.Ticker(c.pingInterval)
 	defer ticker.Stop()
 
 	for {
 		select {
 		case <-ctx.Done():
 			return xerrors.Errorf("ping loop: %w", ctx.Err())
-		case <-ticker.C:
+		case <-ticker.C():
 			if err := func() error {
 				ctx, cancel := context.WithTimeout(ctx, c.pingTimeout)
 				defer cancel()
