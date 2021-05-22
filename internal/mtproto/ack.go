@@ -2,7 +2,6 @@ package mtproto
 
 import (
 	"context"
-	"time"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -25,12 +24,14 @@ func (c *Conn) ackLoop(ctx context.Context) error {
 		log.Debug("Ack", zap.Int64s("msg_ids", buf))
 	}
 
-	ticker := time.NewTicker(c.ackInterval) // TODO: remove side-effect
+	ticker := c.clock.Ticker(c.ackInterval)
+	defer ticker.Stop()
+
 	for {
 		select {
 		case <-ctx.Done():
 			return xerrors.Errorf("acl: %w", ctx.Err())
-		case <-ticker.C:
+		case <-ticker.C():
 			if len(buf) > 0 {
 				send()
 			}
