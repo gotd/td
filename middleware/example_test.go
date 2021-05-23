@@ -10,6 +10,7 @@ import (
 	"github.com/gotd/td/middleware/floodwait"
 	"github.com/gotd/td/middleware/ratelimit"
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/tg"
 )
 
 func Example() {
@@ -22,19 +23,20 @@ func Example() {
 	client := telegram.NewClient(
 		telegram.TestAppID,
 		telegram.TestAppHash,
-		telegram.Options{
-			Middleware: middleware.Chain(
-				floodwait.Middleware(),
-				ratelimit.Middleware(
-					rate.NewLimiter(rate.Every(100*time.Millisecond), 5),
-				),
-			),
-		},
+		telegram.Options{},
 	)
+
+	api := tg.NewClient(middleware.Chain(
+		floodwait.Middleware(),
+		ratelimit.Middleware(
+			rate.NewLimiter(rate.Every(100*time.Millisecond), 5),
+		),
+	)(client))
 
 	ctx := context.TODO()
 	err := client.Run(ctx, func(ctx context.Context) error {
-		return nil
+		_, err := api.ContactsResolveUsername(ctx, "@self")
+		return err
 	})
 	if err != nil {
 		panic(err)
