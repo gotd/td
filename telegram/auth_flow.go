@@ -9,9 +9,9 @@ import (
 // NewAuth initializes new authentication flow.
 //
 // Deprecated: use auth.NewFlow.
-func NewAuth(auth UserAuthenticator, opt SendCodeOptions) AuthFlow {
+func NewAuth(u UserAuthenticator, opt SendCodeOptions) AuthFlow {
 	return AuthFlow{
-		Auth:    auth,
+		Auth:    u,
 		Options: opt,
 	}
 }

@@ -8,7 +8,7 @@ import (
 
 // SendMessage sends message to peer.
 //
-// Deprecated, use helpers like message.NewSender.
+// Deprecated: use helpers like message.NewSender.
 func (c *Client) SendMessage(ctx context.Context, req *tg.MessagesSendMessageRequest) error {
 	if req.RandomID == 0 {
 		id, err := c.RandInt64()

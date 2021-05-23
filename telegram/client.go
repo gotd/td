@@ -112,7 +112,7 @@ type Client struct {
 	// Client config.
 	appID int // immutable
 
-	// Deprecated, use auth package.
+	// Deprecated: use auth package.
 	appHash string // immutable, deprecated
 	// Session storage.
 	storage clientStorage // immutable, nillable
