@@ -235,7 +235,7 @@ func (c *Client) init() {
 	// Initializing internal RPC caller.
 	c.invoker = directInvoker{client: c}
 	if f := c.middleware; f != nil {
-		c.invoker = f(c)
+		c.invoker = f(c.invoker)
 	}
 	c.tg = tg.NewClient(c.invoker)
 }
