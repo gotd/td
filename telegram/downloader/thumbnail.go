@@ -6,7 +6,8 @@ import "golang.org/x/xerrors"
 //
 // See https://core.telegram.org/api/files#stripped-thumbnails for reference.
 //
-// Based on tdesktop implementation https://github.com/telegramdesktop/tdesktop/blob/1757dd856b84d23f83d4e562c94dde825f6eb40c/Telegram/SourceFiles/ui/image/image.cpp#L43
+// Based on tdesktop implementation.
+// See https://github.com/telegramdesktop/tdesktop/blob/v2.7.5/Telegram/SourceFiles/ui/image/image.cpp#L43.
 func ExpandThumbnail(data, to []byte) ([]byte, error) {
 	const firstChar byte = '\x01'
 	switch {
@@ -16,7 +17,7 @@ func ExpandThumbnail(data, to []byte) ([]byte, error) {
 		return nil, xerrors.Errorf("payload must start with %#x, but got %#x", firstChar, data[0])
 	}
 
-	// From https://github.com/telegramdesktop/tdesktop/blob/1757dd856b84d23f83d4e562c94dde825f6eb40c/Telegram/SourceFiles/ui/image/image.cpp#L47-L82.
+	// From https://github.com/telegramdesktop/tdesktop/blob/v2.7.5/Telegram/SourceFiles/ui/image/image.cpp#L47-L82.
 	const (
 		header = "\xff\xd8\xff\xe0\x00\x10\x4a\x46\x49" +
 			"\x46\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00\xff\xdb\x00\x43\x00\x28\x1c" +
