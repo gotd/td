@@ -16,15 +16,35 @@ var strippedImage = []uint8{
 }
 
 func TestExpandThumbnail(t *testing.T) {
-	a := require.New(t)
+	t.Run("Expand", func(t *testing.T) {
+		a := require.New(t)
 
-	to := make([]byte, 0, 1024)
-	testutil.ZeroAlloc(t, func() {
-		var err error
-		to, err = ExpandThumbnail(strippedImage, to)
+		to := make([]byte, 0, 1024)
+		testutil.ZeroAlloc(t, func() {
+			var err error
+			to, err = ExpandThumbnail(strippedImage, to)
+			a.NoError(err)
+		})
+
+		_, err := jpeg.Decode(bytes.NewReader(to))
 		a.NoError(err)
 	})
+	t.Run("ExpandTwice", func(t *testing.T) {
+		a := require.New(t)
 
-	_, err := jpeg.Decode(bytes.NewReader(to))
-	a.NoError(err)
+		result, err := ExpandThumbnail(strippedImage, nil)
+		a.NoError(err)
+
+		offset := len(result)
+		result, err = ExpandThumbnail(strippedImage, result)
+		a.NoError(err)
+
+		a.Equal(result[:offset], result[offset:])
+
+		_, err = jpeg.Decode(bytes.NewReader(result[:offset]))
+		a.NoError(err)
+
+		_, err = jpeg.Decode(bytes.NewReader(result[offset:]))
+		a.NoError(err)
+	})
 }
