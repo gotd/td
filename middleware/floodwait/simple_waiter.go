@@ -12,13 +12,13 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
-// SimpleWaiter is a tg.Invoker that handles flood wait errors on underlying invoker.
+// Waiter is a tg.Invoker that handles flood wait errors on underlying invoker.
 //
 // This implementation is more suitable for one-off tasks and programs with low level
 // of concurrency and parallelism.
 //
 // See Waiter for a fully-blown scheduler-based flood wait handler.
-type SimpleWaiter struct {
+type Waiter struct {
 	next  tg.Invoker
 	clock clock.Clock
 
@@ -26,17 +26,17 @@ type SimpleWaiter struct {
 	maxWait    time.Duration
 }
 
-// NewSimpleWaiter returns a new invoker that waits on the flood wait errors.
-func NewSimpleWaiter(invoker tg.Invoker) *SimpleWaiter {
-	return &SimpleWaiter{
+// NewWaiter returns a new invoker that waits on the flood wait errors.
+func NewWaiter(invoker tg.Invoker) *Waiter {
+	return &Waiter{
 		next:  invoker,
 		clock: clock.System,
 	}
 }
 
-// clone returns a copy of the SimpleWaiter.
-func (w *SimpleWaiter) clone() *SimpleWaiter {
-	return &SimpleWaiter{
+// clone returns a copy of the Waiter.
+func (w *Waiter) clone() *Waiter {
+	return &Waiter{
 		next:       w.next,
 		clock:      w.clock,
 		maxWait:    w.maxWait,
@@ -45,7 +45,7 @@ func (w *SimpleWaiter) clone() *SimpleWaiter {
 }
 
 // WithClock sets clock to use. Default is to use system clock.
-func (w *SimpleWaiter) WithClock(c clock.Clock) *SimpleWaiter {
+func (w *Waiter) WithClock(c clock.Clock) *Waiter {
 	w = w.clone()
 	w.clock = c
 	return w
@@ -53,24 +53,24 @@ func (w *SimpleWaiter) WithClock(c clock.Clock) *SimpleWaiter {
 
 // WithMaxRetries sets max number of retries before giving up. Default is to keep retrying
 // on flood wait errors indefinitely.
-func (w *SimpleWaiter) WithMaxRetries(m uint) *SimpleWaiter {
+func (w *Waiter) WithMaxRetries(m uint) *Waiter {
 	w = w.clone()
 	w.maxRetries = m
 	return w
 }
 
-// WithMaxWait limits wait time per attempt. SimpleWaiter will return an error if flood wait
+// WithMaxWait limits wait time per attempt. Waiter will return an error if flood wait
 // time exceeds that limit. Default is to wait without time limit.
 //
 // To limit total wait time use a context.Context with timeout or deadline set.
-func (w *SimpleWaiter) WithMaxWait(m time.Duration) *SimpleWaiter {
+func (w *Waiter) WithMaxWait(m time.Duration) *Waiter {
 	w = w.clone()
 	w.maxWait = m
 	return w
 }
 
 // InvokeRaw implements tg.Invoker.
-func (w *SimpleWaiter) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+func (w *Waiter) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	var t clock.Timer
 
 	var retries uint
@@ -80,7 +80,7 @@ func (w *SimpleWaiter) InvokeRaw(ctx context.Context, input bin.Encoder, output 
 			return nil
 		}
 
-		floodWait, ok := tgerr.AsType(err, ErrFloodWait)
+		floodWait, ok := tgerr.AsType(err, tgerr.ErrFloodWait)
 		if !ok {
 			return err
 		}
