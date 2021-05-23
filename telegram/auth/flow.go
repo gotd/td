@@ -151,8 +151,8 @@ func (c constantAuth) Password(ctx context.Context) (string, error) {
 	return c.password, nil
 }
 
-// ConstantAuth creates UserAuthenticator with constant phone and password.
-func ConstantAuth(phone, password string, code CodeAuthenticator) UserAuthenticator {
+// Constant creates UserAuthenticator with constant phone and password.
+func Constant(phone, password string, code CodeAuthenticator) UserAuthenticator {
 	return constantAuth{
 		phone:             phone,
 		password:          password,
@@ -187,8 +187,8 @@ func (e envAuth) Password(ctx context.Context) (string, error) {
 	return p, nil
 }
 
-// EnvAuth creates UserAuthenticator which gets phone and password from environment variables.
-func EnvAuth(prefix string, code CodeAuthenticator) UserAuthenticator {
+// Env creates UserAuthenticator which gets phone and password from environment variables.
+func Env(prefix string, code CodeAuthenticator) UserAuthenticator {
 	return envAuth{
 		prefix:            prefix,
 		CodeAuthenticator: code,
@@ -214,8 +214,8 @@ func (c codeOnlyAuth) Password(ctx context.Context) (string, error) {
 	return "", ErrPasswordNotProvided
 }
 
-// CodeOnlyAuth creates UserAuthenticator with constant phone and no password.
-func CodeOnlyAuth(phone string, code CodeAuthenticator) UserAuthenticator {
+// CodeOnly creates UserAuthenticator with constant phone and no password.
+func CodeOnly(phone string, code CodeAuthenticator) UserAuthenticator {
 	return codeOnlyAuth{
 		phone:             phone,
 		CodeAuthenticator: code,
@@ -253,11 +253,11 @@ func (t testAuth) SignUp(ctx context.Context) (UserInfo, error) {
 	}, nil
 }
 
-// TestAuth returns UserAuthenticator that authenticates via testing credentials.
+// Test returns UserAuthenticator that authenticates via testing credentials.
 //
 // Can be used only with testing server. Will perform sign up if test user is
 // not registered.
-func TestAuth(randReader io.Reader, dc int) UserAuthenticator {
+func Test(randReader io.Reader, dc int) UserAuthenticator {
 	// 99966XYYYY, X = dc_id, Y = random numbers, code = X repeat 6.
 	// The n value is from 0000 to 9999.
 	n, err := crypto.RandInt64n(randReader, 1000)

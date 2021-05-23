@@ -73,7 +73,7 @@ func (s *Suite) Authenticate(ctx context.Context, client *telegram.Client) error
 	return telegram.NewAuth(
 		auth,
 		telegram.SendCodeOptions{},
-	).Run(ctx, client)
+	).Run(ctx, client.Auth())
 }
 
 // RetryAuthenticate authenticates client on test server.

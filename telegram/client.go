@@ -110,8 +110,10 @@ type Client struct {
 	cancel context.CancelFunc // immutable
 
 	// Client config.
-	appID   int    // immutable
-	appHash string // immutable
+	appID int // immutable
+
+	// Deprecated, use auth package.
+	appHash string // immutable, deprecated
 	// Session storage.
 	storage clientStorage // immutable, nillable
 
@@ -157,7 +159,6 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	}
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
-
 		rand:          opt.Random,
 		log:           opt.Logger,
 		ctx:           clientCtx,

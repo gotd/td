@@ -103,7 +103,7 @@ func ExampleTestAuth() {
 		return telegram.NewAuth(
 			telegram.TestAuth(rand.Reader, dcID),
 			telegram.SendCodeOptions{},
-		).Run(ctx, client)
+		).Run(ctx, client.Auth())
 	}); err != nil {
 		panic(err)
 	}
@@ -145,6 +145,6 @@ func ExampleAuthFlow_Run() {
 		return telegram.NewAuth(
 			telegram.ConstantAuth(phone, pass, telegram.CodeAuthenticatorFunc(codeAsk)),
 			telegram.SendCodeOptions{},
-		).Run(ctx, client)
+		).Run(ctx, client.Auth())
 	}))
 }

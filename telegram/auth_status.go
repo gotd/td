@@ -10,6 +10,8 @@ import (
 )
 
 // AuthStatus represents authorization status.
+//
+// Deprecated: use auth package.
 type AuthStatus struct {
 	// Authorized is true if client is authorized.
 	Authorized bool
@@ -22,6 +24,8 @@ func unauthorized(err error) bool {
 }
 
 // AuthStatus gets authorization status of client.
+//
+// Deprecated: use auth package.
 func (c *Client) AuthStatus(ctx context.Context) (*AuthStatus, error) {
 	u, err := c.Self(ctx)
 	if err != nil {
@@ -39,6 +43,8 @@ func (c *Client) AuthStatus(ctx context.Context) (*AuthStatus, error) {
 }
 
 // AuthIfNecessary runs given auth flow if current session is not authorized.
+//
+// Deprecated: use auth package.
 func (c *Client) AuthIfNecessary(ctx context.Context, flow AuthFlow) error {
 	auth, err := c.AuthStatus(ctx)
 	if err != nil {
@@ -47,7 +53,7 @@ func (c *Client) AuthIfNecessary(ctx context.Context, flow AuthFlow) error {
 	if auth.Authorized {
 		return nil
 	}
-	if err := flow.Run(ctx, c); err != nil {
+	if err := flow.Run(ctx, c.Auth()); err != nil {
 		return xerrors.Errorf("auth flow: %w", err)
 	}
 	return nil

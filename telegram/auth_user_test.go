@@ -117,7 +117,7 @@ func TestClient_AuthSignIn(t *testing.T) {
 				return code, nil
 			},
 		))
-		require.NoError(t, NewAuth(u, SendCodeOptions{CurrentNumber: true}).Run(ctx, client))
+		require.NoError(t, NewAuth(u, SendCodeOptions{CurrentNumber: true}).Run(ctx, client.Auth()))
 	})
 }
 
@@ -162,7 +162,7 @@ func TestClientTestAuth(t *testing.T) {
 	require.NoError(t, NewAuth(
 		TestAuth(rand.New(rand.NewSource(1)), dcID),
 		SendCodeOptions{},
-	).Run(ctx, client))
+	).Run(ctx, client.Auth()))
 }
 
 func TestClientTestSignUp(t *testing.T) {
@@ -221,5 +221,5 @@ func TestClientTestSignUp(t *testing.T) {
 	require.NoError(t, NewAuth(
 		TestAuth(rand.New(rand.NewSource(1)), dcID),
 		SendCodeOptions{},
-	).Run(ctx, client))
+	).Run(ctx, client.Auth()))
 }
