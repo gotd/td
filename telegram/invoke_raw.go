@@ -9,10 +9,10 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
-// InvokeRaw invokes raw MTProto RPC method. It sends input and decodes result
+// Invoke invokes raw MTProto RPC method. It sends input and decodes result
 // into output. The request also goes through Middleware from Client’s Options.
-func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	return c.invoker.InvokeRaw(ctx, input, output)
+func (c *Client) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	return c.invoker.Invoke(ctx, input, output)
 }
 
 // invokeDirect directly invokes RPC method without middlewares, automatically
@@ -51,10 +51,10 @@ type directInvoker struct {
 	client *Client
 }
 
-// InvokeRaw sends input and decodes result into output.
+// Invoke sends input and decodes result into output.
 //
 // NOTE: Assuming that call contains content message (seqno increment).
-func (d directInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+func (d directInvoker) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	return d.client.invokeDirect(ctx, input, output)
 }
 
@@ -65,5 +65,5 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 	conn := c.conn
 	c.connMux.Unlock()
 
-	return conn.InvokeRaw(ctx, input, output)
+	return conn.Invoke(ctx, input, output)
 }

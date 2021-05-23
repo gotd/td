@@ -173,7 +173,7 @@ func (c *Client) AccountUpdateUsername(ctx context.Context, username string) (Us
 	request := &AccountUpdateUsernameRequest{
 		Username: username,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.User, nil

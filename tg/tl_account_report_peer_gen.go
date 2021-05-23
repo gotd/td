@@ -225,7 +225,7 @@ var (
 func (c *Client) AccountReportPeer(ctx context.Context, request *AccountReportPeerRequest) (bool, error) {
 	var result BoolBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}
 	_, ok := result.Bool.(*BoolTrue)

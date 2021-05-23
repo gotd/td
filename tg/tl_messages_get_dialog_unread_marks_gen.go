@@ -134,7 +134,7 @@ func (c *Client) MessagesGetDialogUnreadMarks(ctx context.Context) ([]DialogPeer
 	var result DialogPeerClassVector
 
 	request := &MessagesGetDialogUnreadMarksRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return []DialogPeerClass(result.Elems), nil

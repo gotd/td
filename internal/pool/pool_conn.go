@@ -16,7 +16,7 @@ var ErrConnDead = xerrors.New("connection dead")
 // Conn represents Telegram MTProto connection.
 type Conn interface {
 	Run(ctx context.Context) error
-	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
+	Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error
 	Ready() <-chan struct{}
 }
 

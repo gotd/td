@@ -219,7 +219,7 @@ var (
 func (c *Client) MessagesAcceptEncryption(ctx context.Context, request *MessagesAcceptEncryptionRequest) (EncryptedChatClass, error) {
 	var result EncryptedChatBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.EncryptedChat, nil

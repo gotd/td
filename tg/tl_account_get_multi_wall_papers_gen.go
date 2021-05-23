@@ -185,7 +185,7 @@ func (c *Client) AccountGetMultiWallPapers(ctx context.Context, wallpapers []Inp
 	request := &AccountGetMultiWallPapersRequest{
 		Wallpapers: wallpapers,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return []WallPaperClass(result.Elems), nil

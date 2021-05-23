@@ -193,7 +193,7 @@ func (c *Client) AccountDeleteSecureValue(ctx context.Context, types []SecureVal
 	request := &AccountDeleteSecureValueRequest{
 		Types: types,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}
 	_, ok := result.Bool.(*BoolTrue)

@@ -55,7 +55,7 @@ type clientStorage interface {
 
 type clientConn interface {
 	Run(ctx context.Context) error
-	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
+	Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error
 }
 
 // Client represents a MTProto client to Telegram.

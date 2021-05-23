@@ -164,7 +164,7 @@ func (c *Client) Ping(ctx context.Context, id int32) error {
 	request := &PingRequest{
 		ID: id,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &ok); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
 		return err
 	}
 	return nil

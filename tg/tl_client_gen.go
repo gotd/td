@@ -31,7 +31,7 @@ var (
 
 // Invoker can invoke raw MTProto rpc calls.
 type Invoker interface {
-	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
+	Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error
 }
 
 // Client implement methods for calling functions from TL schema via Invoker.

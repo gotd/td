@@ -134,7 +134,7 @@ func (c *Client) HelpGetNearestDC(ctx context.Context) (*NearestDC, error) {
 	var result NearestDC
 
 	request := &HelpGetNearestDCRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

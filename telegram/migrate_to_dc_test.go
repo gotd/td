@@ -140,7 +140,7 @@ func TestMigration(t *testing.T) {
 
 	err := client.Run(ctx, func(ctx context.Context) error {
 		var result tg.BoolTrue
-		return client.InvokeRaw(ctx, &tg.AuthLogOutRequest{}, &result)
+		return client.Invoke(ctx, &tg.AuthLogOutRequest{}, &result)
 	})
 	a.NoError(err)
 }

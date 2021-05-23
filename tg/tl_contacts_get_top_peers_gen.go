@@ -495,7 +495,7 @@ var (
 func (c *Client) ContactsGetTopPeers(ctx context.Context, request *ContactsGetTopPeersRequest) (ContactsTopPeersClass, error) {
 	var result ContactsTopPeersBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.TopPeers, nil

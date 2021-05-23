@@ -186,7 +186,7 @@ func (c *Client) MessagesGetMessages(ctx context.Context, id []InputMessageClass
 	request := &MessagesGetMessagesRequest{
 		ID: id,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Messages, nil

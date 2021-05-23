@@ -140,7 +140,7 @@ func (c *Client) MessagesGetDialogFilters(ctx context.Context) ([]DialogFilter, 
 	var result DialogFilterVector
 
 	request := &MessagesGetDialogFiltersRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return []DialogFilter(result.Elems), nil

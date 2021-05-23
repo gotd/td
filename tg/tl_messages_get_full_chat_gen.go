@@ -171,7 +171,7 @@ func (c *Client) MessagesGetFullChat(ctx context.Context, chatid int) (*Messages
 	request := &MessagesGetFullChatRequest{
 		ChatID: chatid,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

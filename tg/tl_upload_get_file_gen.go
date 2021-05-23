@@ -315,7 +315,7 @@ var (
 func (c *Client) UploadGetFile(ctx context.Context, request *UploadGetFileRequest) (UploadFileClass, error) {
 	var result UploadFileBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.File, nil

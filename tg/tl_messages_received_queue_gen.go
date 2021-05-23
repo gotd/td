@@ -169,7 +169,7 @@ func (c *Client) MessagesReceivedQueue(ctx context.Context, maxqts int) ([]int64
 	request := &MessagesReceivedQueueRequest{
 		MaxQts: maxqts,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return []int64(result.Elems), nil

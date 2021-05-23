@@ -277,7 +277,7 @@ var (
 func (c *Client) ReqDHParams(ctx context.Context, request *ReqDHParamsRequest) (ServerDHParamsClass, error) {
 	var result ServerDHParamsBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Server_DH_Params, nil

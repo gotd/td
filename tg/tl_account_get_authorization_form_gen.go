@@ -211,7 +211,7 @@ var (
 func (c *Client) AccountGetAuthorizationForm(ctx context.Context, request *AccountGetAuthorizationFormRequest) (*AccountAuthorizationForm, error) {
 	var result AccountAuthorizationForm
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

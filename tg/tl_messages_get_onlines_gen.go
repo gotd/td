@@ -175,7 +175,7 @@ func (c *Client) MessagesGetOnlines(ctx context.Context, peer InputPeerClass) (*
 	request := &MessagesGetOnlinesRequest{
 		Peer: peer,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

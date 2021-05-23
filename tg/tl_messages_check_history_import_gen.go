@@ -164,7 +164,7 @@ func (c *Client) MessagesCheckHistoryImport(ctx context.Context, importhead stri
 	request := &MessagesCheckHistoryImportRequest{
 		ImportHead: importhead,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

@@ -303,7 +303,7 @@ var (
 func (c *Client) MessagesSendEncryptedFile(ctx context.Context, request *MessagesSendEncryptedFileRequest) (MessagesSentEncryptedMessageClass, error) {
 	var result MessagesSentEncryptedMessageBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.SentEncryptedMessage, nil

@@ -186,7 +186,7 @@ func (c *Client) FoldersEditPeerFolders(ctx context.Context, folderpeers []Input
 	request := &FoldersEditPeerFoldersRequest{
 		FolderPeers: folderpeers,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Updates, nil

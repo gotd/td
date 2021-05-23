@@ -200,7 +200,7 @@ var (
 func (c *Client) MessagesFaveSticker(ctx context.Context, request *MessagesFaveStickerRequest) (bool, error) {
 	var result BoolBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}
 	_, ok := result.Bool.(*BoolTrue)

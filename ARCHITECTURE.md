@@ -49,7 +49,7 @@ Also, it is possible to call methods directly using `tg.Client`, because
 ```go
 // Invoker can invoke raw MTProto rpc calls.
 type Invoker interface {
-	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
+	Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error
 }
 ```
 

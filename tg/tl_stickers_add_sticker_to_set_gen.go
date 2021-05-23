@@ -199,7 +199,7 @@ var (
 func (c *Client) StickersAddStickerToSet(ctx context.Context, request *StickersAddStickerToSetRequest) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

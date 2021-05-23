@@ -174,7 +174,7 @@ func (c *Client) HelpGetUserInfo(ctx context.Context, userid InputUserClass) (He
 	request := &HelpGetUserInfoRequest{
 		UserID: userid,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.UserInfo, nil

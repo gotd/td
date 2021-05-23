@@ -42,7 +42,7 @@ func (t *testConn) Ready() <-chan struct{} {
 	return t.ready.Ready()
 }
 
-func (t *testConn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+func (t *testConn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	id := t.id.Inc() - 1
 	return t.engine.Do(ctx, rpc.Request{
 		Input:  input,

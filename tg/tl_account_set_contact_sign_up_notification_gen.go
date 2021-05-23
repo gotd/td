@@ -166,7 +166,7 @@ func (c *Client) AccountSetContactSignUpNotification(ctx context.Context, silent
 	request := &AccountSetContactSignUpNotificationRequest{
 		Silent: silent,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}
 	_, ok := result.Bool.(*BoolTrue)

@@ -69,13 +69,13 @@ func (w *SimpleWaiter) WithMaxWait(m time.Duration) *SimpleWaiter {
 	return w
 }
 
-// InvokeRaw implements tg.Invoker.
-func (w *SimpleWaiter) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+// Invoke implements tg.Invoker.
+func (w *SimpleWaiter) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	var t clock.Timer
 
 	var retries uint
 	for {
-		err := w.next.InvokeRaw(ctx, input, output)
+		err := w.next.Invoke(ctx, input, output)
 		if err == nil {
 			return nil
 		}

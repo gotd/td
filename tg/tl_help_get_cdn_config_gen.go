@@ -144,7 +144,7 @@ func (c *Client) HelpGetCDNConfig(ctx context.Context) (*CDNConfig, error) {
 	var result CDNConfig
 
 	request := &HelpGetCDNConfigRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

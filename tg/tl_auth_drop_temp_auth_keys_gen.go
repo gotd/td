@@ -176,7 +176,7 @@ func (c *Client) AuthDropTempAuthKeys(ctx context.Context, exceptauthkeys []int6
 	request := &AuthDropTempAuthKeysRequest{
 		ExceptAuthKeys: exceptauthkeys,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}
 	_, ok := result.Bool.(*BoolTrue)

@@ -134,7 +134,7 @@ func (c *Client) AccountGetContentSettings(ctx context.Context) (*AccountContent
 	var result AccountContentSettings
 
 	request := &AccountGetContentSettingsRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

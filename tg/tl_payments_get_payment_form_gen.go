@@ -253,7 +253,7 @@ var (
 func (c *Client) PaymentsGetPaymentForm(ctx context.Context, request *PaymentsGetPaymentFormRequest) (*PaymentsPaymentForm, error) {
 	var result PaymentsPaymentForm
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

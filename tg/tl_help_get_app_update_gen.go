@@ -166,7 +166,7 @@ func (c *Client) HelpGetAppUpdate(ctx context.Context, source string) (HelpAppUp
 	request := &HelpGetAppUpdateRequest{
 		Source: source,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.AppUpdate, nil

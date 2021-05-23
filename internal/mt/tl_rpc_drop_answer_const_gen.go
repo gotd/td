@@ -160,7 +160,7 @@ func (c *Client) RPCDropAnswer(ctx context.Context, reqmsgid int64) (RPCDropAnsw
 	request := &RPCDropAnswerRequest{
 		ReqMsgID: reqmsgid,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.RpcDropAnswer, nil

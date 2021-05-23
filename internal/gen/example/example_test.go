@@ -155,7 +155,7 @@ type mockInvoker struct {
 	output bin.Encoder
 }
 
-func (m *mockInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+func (m *mockInvoker) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	m.input = input
 
 	buf := bin.Buffer{}

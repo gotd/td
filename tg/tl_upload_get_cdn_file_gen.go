@@ -217,7 +217,7 @@ var (
 func (c *Client) UploadGetCDNFile(ctx context.Context, request *UploadGetCDNFileRequest) (UploadCDNFileClass, error) {
 	var result UploadCDNFileBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.CdnFile, nil

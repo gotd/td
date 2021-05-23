@@ -195,7 +195,7 @@ var (
 func (c *Client) MessagesInstallStickerSet(ctx context.Context, request *MessagesInstallStickerSetRequest) (MessagesStickerSetInstallResultClass, error) {
 	var result MessagesStickerSetInstallResultBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.StickerSetInstallResult, nil

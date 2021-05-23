@@ -358,7 +358,7 @@ var (
 func (c *Client) MessagesGetBotCallbackAnswer(ctx context.Context, request *MessagesGetBotCallbackAnswerRequest) (*MessagesBotCallbackAnswer, error) {
 	var result MessagesBotCallbackAnswer
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

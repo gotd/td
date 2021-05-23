@@ -169,7 +169,7 @@ func (c *Client) PhoneGetGroupCallJoinAs(ctx context.Context, peer InputPeerClas
 	request := &PhoneGetGroupCallJoinAsRequest{
 		Peer: peer,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

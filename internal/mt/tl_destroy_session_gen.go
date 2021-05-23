@@ -160,7 +160,7 @@ func (c *Client) DestroySession(ctx context.Context, sessionid int64) (DestroySe
 	request := &DestroySessionRequest{
 		SessionID: sessionid,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.DestroySessionRes, nil

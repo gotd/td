@@ -124,7 +124,7 @@ func (w *Waiter) Run(ctx context.Context) error {
 }
 
 func (w *Waiter) send(s scheduled) (bool, error) {
-	err := w.next.InvokeRaw(s.request.ctx, s.request.input, s.request.output)
+	err := w.next.Invoke(s.request.ctx, s.request.input, s.request.output)
 
 	floodWait, ok := tgerr.AsType(err, ErrFloodWait)
 	if !ok {
@@ -155,8 +155,8 @@ func (w *Waiter) send(s scheduled) (bool, error) {
 // ErrFloodWait is error type of "FLOOD_WAIT" error.
 const ErrFloodWait = "FLOOD_WAIT"
 
-// InvokeRaw implements tg.Invoker.
-func (w *Waiter) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+// Invoke implements tg.Invoker.
+func (w *Waiter) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	select {
 	case err := <-w.sch.new(ctx, input, output):
 		return err

@@ -164,7 +164,7 @@ func (c *Client) Send(ctx context.Context, msg SMS) (*SMS, error) {
 	request := &SendRequest{
 		Msg: msg,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

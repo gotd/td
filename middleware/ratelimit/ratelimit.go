@@ -86,10 +86,10 @@ func (l *RateLimiter) wait(ctx context.Context) error {
 	}
 }
 
-// InvokeRaw implements tg.Invoker.
-func (l *RateLimiter) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+// Invoke implements tg.Invoker.
+func (l *RateLimiter) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	if err := l.wait(ctx); err != nil {
 		return err
 	}
-	return l.next.InvokeRaw(ctx, input, output)
+	return l.next.Invoke(ctx, input, output)
 }

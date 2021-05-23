@@ -175,7 +175,7 @@ func (c *Client) MessagesReadFeaturedStickers(ctx context.Context, id []int64) (
 	request := &MessagesReadFeaturedStickersRequest{
 		ID: id,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}
 	_, ok := result.Bool.(*BoolTrue)

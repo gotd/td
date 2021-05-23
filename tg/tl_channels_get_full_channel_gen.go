@@ -183,7 +183,7 @@ func (c *Client) ChannelsGetFullChannel(ctx context.Context, channel InputChanne
 	request := &ChannelsGetFullChannelRequest{
 		Channel: channel,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

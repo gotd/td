@@ -171,7 +171,7 @@ func (c *Client) MessagesGetAttachedStickers(ctx context.Context, media InputSti
 	request := &MessagesGetAttachedStickersRequest{
 		Media: media,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return []StickerSetCoveredClass(result.Elems), nil

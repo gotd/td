@@ -182,7 +182,7 @@ func (c *Client) AuthAcceptLoginToken(ctx context.Context, token []byte) (*Autho
 	request := &AuthAcceptLoginTokenRequest{
 		Token: token,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

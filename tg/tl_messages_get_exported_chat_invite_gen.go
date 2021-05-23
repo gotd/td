@@ -190,7 +190,7 @@ var (
 func (c *Client) MessagesGetExportedChatInvite(ctx context.Context, request *MessagesGetExportedChatInviteRequest) (MessagesExportedChatInviteClass, error) {
 	var result MessagesExportedChatInviteBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.ExportedChatInvite, nil

@@ -202,7 +202,7 @@ var (
 func (c *Client) AccountGetTmpPassword(ctx context.Context, request *AccountGetTmpPasswordRequest) (*AccountTmpPassword, error) {
 	var result AccountTmpPassword
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

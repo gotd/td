@@ -14,7 +14,7 @@ func (c *Client) invokeSub(ctx context.Context, dc int, input bin.Encoder, outpu
 	conn, ok := c.subConns[dc]
 	if ok {
 		c.subConnsMux.Unlock()
-		return conn.InvokeRaw(ctx, input, output)
+		return conn.Invoke(ctx, input, output)
 	}
 
 	conn, err := c.dc(ctx, dc, 1, c.primaryDC(dc))
@@ -25,5 +25,5 @@ func (c *Client) invokeSub(ctx context.Context, dc int, input bin.Encoder, outpu
 	c.subConns[dc] = conn
 	c.subConnsMux.Unlock()
 
-	return conn.InvokeRaw(ctx, input, output)
+	return conn.Invoke(ctx, input, output)
 }

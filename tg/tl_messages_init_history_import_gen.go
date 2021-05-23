@@ -219,7 +219,7 @@ var (
 func (c *Client) MessagesInitHistoryImport(ctx context.Context, request *MessagesInitHistoryImportRequest) (*MessagesHistoryImport, error) {
 	var result MessagesHistoryImport
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

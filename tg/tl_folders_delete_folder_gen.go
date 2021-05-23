@@ -175,7 +175,7 @@ func (c *Client) FoldersDeleteFolder(ctx context.Context, folderid int) (Updates
 	request := &FoldersDeleteFolderRequest{
 		FolderID: folderid,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Updates, nil

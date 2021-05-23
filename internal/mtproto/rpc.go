@@ -12,10 +12,10 @@ import (
 	"github.com/gotd/td/internal/rpc"
 )
 
-// InvokeRaw sends input and decodes result into output.
+// Invoke sends input and decodes result into output.
 //
 // NOTE: Assuming that call contains content message (seqno increment).
-func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	msgID, seqNo := c.nextMsgSeq(true)
 	req := rpc.Request{
 		MsgID:  msgID,
@@ -55,7 +55,7 @@ func (c *Conn) dropRPC(req rpc.Request) error {
 	defer cancel()
 
 	var resp mt.RPCDropAnswerBox
-	if err := c.InvokeRaw(ctx, &mt.RPCDropAnswerRequest{
+	if err := c.Invoke(ctx, &mt.RPCDropAnswerRequest{
 		ReqMsgID: req.MsgID,
 	}, &resp); err != nil {
 		return err
