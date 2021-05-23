@@ -182,7 +182,7 @@ var (
 func (c *Client) MessagesDeletePhoneCallHistory(ctx context.Context, request *MessagesDeletePhoneCallHistoryRequest) (*MessagesAffectedFoundMessages, error) {
 	var result MessagesAffectedFoundMessages
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

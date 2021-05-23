@@ -137,7 +137,7 @@ func (c *Client) ContactsGetSaved(ctx context.Context) ([]SavedPhoneContact, err
 	var result SavedPhoneContactVector
 
 	request := &ContactsGetSavedRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return []SavedPhoneContact(result.Elems), nil

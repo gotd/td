@@ -201,7 +201,7 @@ var (
 func (c *Client) AccountSaveSecureValue(ctx context.Context, request *AccountSaveSecureValueRequest) (*SecureValue, error) {
 	var result SecureValue
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

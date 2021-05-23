@@ -199,7 +199,7 @@ var (
 func (c *Client) MessagesGetScheduledHistory(ctx context.Context, request *MessagesGetScheduledHistoryRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Messages, nil

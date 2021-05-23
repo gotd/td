@@ -56,7 +56,7 @@ func run(ctx context.Context) error {
 		if self, err := client.Self(ctx); err != nil || self.Bot {
 			if err := telegram.NewAuth(
 				telegram.TestAuth(rand.Reader, *dcID), telegram.SendCodeOptions{},
-			).Run(ctx, client); err != nil {
+			).Run(ctx, client.Auth()); err != nil {
 				return xerrors.Errorf("auth: %w", err)
 			}
 		}

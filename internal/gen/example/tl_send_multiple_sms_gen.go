@@ -175,7 +175,7 @@ func (c *Client) SendMultipleSMS(ctx context.Context, messages []SMS) error {
 	request := &SendMultipleSMSRequest{
 		Messages: messages,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &ok); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
 		return err
 	}
 	return nil

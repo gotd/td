@@ -404,7 +404,7 @@ var (
 func (c *Client) AccountInitTakeoutSession(ctx context.Context, request *AccountInitTakeoutSessionRequest) (*AccountTakeout, error) {
 	var result AccountTakeout
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

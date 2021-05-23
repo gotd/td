@@ -245,8 +245,8 @@ retry:
 	return nil, err
 }
 
-// InvokeRaw sends MTProto request using one of pool connection.
-func (c *DC) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+// Invoke sends MTProto request using one of pool connection.
+func (c *DC) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	if c.closed.Load() {
 		return errDCIsClosed
 	}
@@ -261,7 +261,7 @@ func (c *DC) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decode
 		}
 
 		c.log.Debug("DC Invoke")
-		err = conn.InvokeRaw(ctx, input, output)
+		err = conn.Invoke(ctx, input, output)
 		c.release(conn)
 		if err != nil {
 			c.log.Debug("DC Invoke failed", zap.Error(err))

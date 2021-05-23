@@ -238,7 +238,7 @@ var (
 func (c *Client) MessagesSearchStickerSets(ctx context.Context, request *MessagesSearchStickerSetsRequest) (MessagesFoundStickerSetsClass, error) {
 	var result MessagesFoundStickerSetsBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.FoundStickerSets, nil

@@ -160,7 +160,7 @@ func (c *Client) Ping(ctx context.Context, pingid int64) (*Pong, error) {
 	request := &PingRequest{
 		PingID: pingid,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

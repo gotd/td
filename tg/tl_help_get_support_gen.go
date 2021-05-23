@@ -134,7 +134,7 @@ func (c *Client) HelpGetSupport(ctx context.Context) (*HelpSupport, error) {
 	var result HelpSupport
 
 	request := &HelpGetSupportRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

@@ -301,7 +301,7 @@ var (
 func (c *Client) UpdatesGetDifference(ctx context.Context, request *UpdatesGetDifferenceRequest) (UpdatesDifferenceClass, error) {
 	var result UpdatesDifferenceBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Difference, nil

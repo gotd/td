@@ -185,7 +185,7 @@ func (c *Client) PhotosDeletePhotos(ctx context.Context, id []InputPhotoClass) (
 	request := &PhotosDeletePhotosRequest{
 		ID: id,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return []int64(result.Elems), nil

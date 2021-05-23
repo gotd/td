@@ -135,3 +135,5 @@ issues:
     - path: internal\.go
       text: "should have.+comment"
       linters: [golint]
+    - linters: [staticcheck]
+      text: "SA1019: telegram.+ is deprecated:"

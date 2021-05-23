@@ -132,7 +132,7 @@ func (c *Client) DoAuth(ctx context.Context) (AuthClass, error) {
 	var result AuthBox
 
 	request := &DoAuthRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Auth, nil

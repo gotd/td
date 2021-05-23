@@ -174,7 +174,7 @@ func (c *Client) AccountGetNotifySettings(ctx context.Context, peer InputNotifyP
 	request := &AccountGetNotifySettingsRequest{
 		Peer: peer,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

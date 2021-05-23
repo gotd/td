@@ -9,14 +9,13 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
-// InvokeRaw invokes raw MTProto RPC method. It sends input and decodes result
-// into output. The request also goes through Middleware from Client’s Options.
-func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	return c.invoker.InvokeRaw(ctx, input, output)
+// Invoke invokes raw MTProto RPC method. It sends input and decodes result
+// into output.
+func (c *Client) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	return c.invokeDirect(ctx, input, output)
 }
 
-// invokeDirect directly invokes RPC method without middlewares, automatically
-// handling datacenter redirects.
+// invokeDirect directly invokes RPC method, automatically handling datacenter redirects.
 func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	if err := c.invokeConn(ctx, input, output); err != nil {
 		// Handling datacenter migration request.
@@ -45,19 +44,6 @@ func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin
 	return nil
 }
 
-// directInvoker implements tg.Invoker on Client for invoking methods directly,
-// without middlewares.
-type directInvoker struct {
-	client *Client
-}
-
-// InvokeRaw sends input and decodes result into output.
-//
-// NOTE: Assuming that call contains content message (seqno increment).
-func (d directInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	return d.client.invokeDirect(ctx, input, output)
-}
-
 // invokeConn directly invokes RPC call on primary connection without any
 // additional handling.
 func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
@@ -65,5 +51,5 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 	conn := c.conn
 	c.connMux.Unlock()
 
-	return conn.InvokeRaw(ctx, input, output)
+	return conn.Invoke(ctx, input, output)
 }

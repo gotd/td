@@ -177,7 +177,7 @@ func (c *Client) MessagesMigrateChat(ctx context.Context, chatid int) (UpdatesCl
 	request := &MessagesMigrateChatRequest{
 		ChatID: chatid,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Updates, nil

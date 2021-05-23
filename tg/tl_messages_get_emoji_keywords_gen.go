@@ -166,7 +166,7 @@ func (c *Client) MessagesGetEmojiKeywords(ctx context.Context, langcode string) 
 	request := &MessagesGetEmojiKeywordsRequest{
 		LangCode: langcode,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

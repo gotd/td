@@ -142,7 +142,7 @@ func (c *Client) AccountGetAllSecureValues(ctx context.Context) ([]SecureValue, 
 	var result SecureValueVector
 
 	request := &AccountGetAllSecureValuesRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return []SecureValue(result.Elems), nil

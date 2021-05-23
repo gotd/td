@@ -164,7 +164,7 @@ func (c *Client) PhoneDiscardGroupCall(ctx context.Context, call InputGroupCall)
 	request := &PhoneDiscardGroupCallRequest{
 		Call: call,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Updates, nil

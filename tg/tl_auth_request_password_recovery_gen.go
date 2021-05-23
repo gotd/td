@@ -147,7 +147,7 @@ func (c *Client) AuthRequestPasswordRecovery(ctx context.Context) (*AuthPassword
 	var result AuthPasswordRecovery
 
 	request := &AuthRequestPasswordRecoveryRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

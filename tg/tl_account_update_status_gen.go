@@ -170,7 +170,7 @@ func (c *Client) AccountUpdateStatus(ctx context.Context, offline bool) (bool, e
 	request := &AccountUpdateStatusRequest{
 		Offline: offline,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}
 	_, ok := result.Bool.(*BoolTrue)

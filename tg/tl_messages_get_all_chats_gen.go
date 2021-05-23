@@ -175,7 +175,7 @@ func (c *Client) MessagesGetAllChats(ctx context.Context, exceptids []int) (Mess
 	request := &MessagesGetAllChatsRequest{
 		ExceptIDs: exceptids,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Chats, nil

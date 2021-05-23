@@ -246,7 +246,7 @@ var (
 func (c *Client) ChannelsEditBanned(ctx context.Context, request *ChannelsEditBannedRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Updates, nil

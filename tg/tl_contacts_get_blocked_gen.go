@@ -187,7 +187,7 @@ var (
 func (c *Client) ContactsGetBlocked(ctx context.Context, request *ContactsGetBlockedRequest) (ContactsBlockedClass, error) {
 	var result ContactsBlockedBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Blocked, nil

@@ -212,7 +212,7 @@ var (
 func (c *Client) MessagesEditChatAbout(ctx context.Context, request *MessagesEditChatAboutRequest) (bool, error) {
 	var result BoolBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}
 	_, ok := result.Bool.(*BoolTrue)

@@ -189,7 +189,7 @@ func (c *Client) ContactsImportContacts(ctx context.Context, contacts []InputPho
 	request := &ContactsImportContactsRequest{
 		Contacts: contacts,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

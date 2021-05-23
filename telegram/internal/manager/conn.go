@@ -18,7 +18,7 @@ import (
 )
 
 type protoConn interface {
-	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
+	Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error
 	Run(ctx context.Context, f func(ctx context.Context) error) error
 }
 
@@ -140,15 +140,15 @@ func (c *Conn) Ready() <-chan struct{} {
 	return c.sessionInit.Ready()
 }
 
-// InvokeRaw implements Invoker.
-func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+// Invoke implements Invoker.
+func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	// Tracking ongoing invokes.
 	defer c.trackInvoke()()
 	if err := c.waitSession(ctx); err != nil {
 		return xerrors.Errorf("waitSession: %w", err)
 	}
 
-	return c.proto.InvokeRaw(ctx, c.wrapRequest(noopDecoder{input}), output)
+	return c.proto.Invoke(ctx, c.wrapRequest(noopDecoder{input}), output)
 }
 
 // OnMessage implements mtproto.Handler.
@@ -194,7 +194,7 @@ func (c *Conn) init(ctx context.Context) error {
 	})
 
 	var cfg tg.Config
-	if err := c.proto.InvokeRaw(ctx, req, &cfg); err != nil {
+	if err := c.proto.Invoke(ctx, req, &cfg); err != nil {
 		return xerrors.Errorf("invoke: %w", err)
 	}
 

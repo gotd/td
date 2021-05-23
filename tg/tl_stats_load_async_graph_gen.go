@@ -237,7 +237,7 @@ var (
 func (c *Client) StatsLoadAsyncGraph(ctx context.Context, request *StatsLoadAsyncGraphRequest) (StatsGraphClass, error) {
 	var result StatsGraphBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.StatsGraph, nil

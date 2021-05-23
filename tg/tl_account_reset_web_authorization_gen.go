@@ -175,7 +175,7 @@ func (c *Client) AccountResetWebAuthorization(ctx context.Context, hash int64) (
 	request := &AccountResetWebAuthorizationRequest{
 		Hash: hash,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}
 	_, ok := result.Bool.(*BoolTrue)

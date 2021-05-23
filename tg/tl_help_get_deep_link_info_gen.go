@@ -166,7 +166,7 @@ func (c *Client) HelpGetDeepLinkInfo(ctx context.Context, path string) (HelpDeep
 	request := &HelpGetDeepLinkInfoRequest{
 		Path: path,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.DeepLinkInfo, nil

@@ -41,7 +41,7 @@ func TestMsgSeq(t *testing.T) {
 				defer wg.Done()
 
 				for i := 0; i < requestsPerWorker; i++ {
-					err := client.InvokeRaw(context.Background(), &tg.Config{}, &tg.Config{})
+					err := client.Invoke(context.Background(), &tg.Config{}, &tg.Config{})
 					require.NoError(t, err)
 				}
 			}(t)

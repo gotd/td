@@ -175,7 +175,7 @@ func (c *Client) MessagesGetEmojiKeywordsLanguages(ctx context.Context, langcode
 	request := &MessagesGetEmojiKeywordsLanguagesRequest{
 		LangCodes: langcodes,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return []EmojiLanguage(result.Elems), nil

@@ -267,7 +267,7 @@ var (
 func (c *Client) PaymentsValidateRequestedInfo(ctx context.Context, request *PaymentsValidateRequestedInfoRequest) (*PaymentsValidatedRequestedInfo, error) {
 	var result PaymentsValidatedRequestedInfo
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

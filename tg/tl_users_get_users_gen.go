@@ -193,7 +193,7 @@ func (c *Client) UsersGetUsers(ctx context.Context, id []InputUserClass) ([]User
 	request := &UsersGetUsersRequest{
 		ID: id,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return []UserClass(result.Elems), nil

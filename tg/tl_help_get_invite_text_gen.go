@@ -134,7 +134,7 @@ func (c *Client) HelpGetInviteText(ctx context.Context) (*HelpInviteText, error)
 	var result HelpInviteText
 
 	request := &HelpGetInviteTextRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

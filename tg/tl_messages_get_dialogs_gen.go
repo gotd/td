@@ -377,7 +377,7 @@ var (
 func (c *Client) MessagesGetDialogs(ctx context.Context, request *MessagesGetDialogsRequest) (MessagesDialogsClass, error) {
 	var result MessagesDialogsBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Dialogs, nil

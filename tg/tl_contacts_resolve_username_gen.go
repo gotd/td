@@ -174,7 +174,7 @@ func (c *Client) ContactsResolveUsername(ctx context.Context, username string) (
 	request := &ContactsResolveUsernameRequest{
 		Username: username,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

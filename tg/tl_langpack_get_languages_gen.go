@@ -169,7 +169,7 @@ func (c *Client) LangpackGetLanguages(ctx context.Context, langpack string) ([]L
 	request := &LangpackGetLanguagesRequest{
 		LangPack: langpack,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return []LangPackLanguage(result.Elems), nil

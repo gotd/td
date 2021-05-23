@@ -140,7 +140,7 @@ func (c *Client) HelpGetAppConfig(ctx context.Context) (JSONValueClass, error) {
 	var result JSONValueBox
 
 	request := &HelpGetAppConfigRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.JSONValue, nil

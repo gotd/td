@@ -10,8 +10,8 @@ import (
 	"github.com/gotd/td/internal/crypto"
 )
 
-// InvokeRaw implements tg.Invoker.
-func (i *Mock) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+// Invoke implements tg.Invoker.
+func (i *Mock) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	h := i.Handler()
 
 	id, err := crypto.RandInt64(rand.Reader)

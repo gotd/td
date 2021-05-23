@@ -238,7 +238,7 @@ var (
 func (c *Client) HelpEditUserInfo(ctx context.Context, request *HelpEditUserInfoRequest) (HelpUserInfoClass, error) {
 	var result HelpUserInfoBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.UserInfo, nil

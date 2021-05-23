@@ -288,7 +288,7 @@ var (
 func (c *Client) AccountUploadTheme(ctx context.Context, request *AccountUploadThemeRequest) (DocumentClass, error) {
 	var result DocumentBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Document, nil

@@ -25,7 +25,6 @@ import (
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
-	"github.com/gotd/td/middleware"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/manager"
@@ -55,17 +54,13 @@ type clientStorage interface {
 
 type clientConn interface {
 	Run(ctx context.Context) error
-	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
+	Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error
 }
 
 // Client represents a MTProto client to Telegram.
 type Client struct {
 	// tg provides RPC calls via Client. Uses invoker below.
 	tg *tg.Client // immutable
-	// invoker to use for RPC calls via Client. Uses middleware below.
-	invoker tg.Invoker // immutable
-	// middleware to use for RPC calls via Client.
-	middleware middleware.Middleware // immutable, nillable
 
 	// Telegram device information.
 	device DeviceConfig // immutable
@@ -110,8 +105,10 @@ type Client struct {
 	cancel context.CancelFunc // immutable
 
 	// Client config.
-	appID   int    // immutable
-	appHash string // immutable
+	appID int // immutable
+
+	// Deprecated: use auth package.
+	appHash string // immutable, deprecated
 	// Session storage.
 	storage clientStorage // immutable, nillable
 
@@ -157,7 +154,6 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	}
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
-
 		rand:          opt.Random,
 		log:           opt.Logger,
 		ctx:           clientCtx,
@@ -180,7 +176,6 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		device:           opt.Device,
 		migrationTimeout: opt.MigrationTimeout,
 		noUpdatesMode:    opt.NoUpdates,
-		middleware:       opt.Middleware,
 	}
 	client.init()
 
@@ -231,13 +226,7 @@ func (c *Client) init() {
 	c.exported = make(chan *tg.AuthExportedAuthorization, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.subConns = map[int]CloseInvoker{}
-
-	// Initializing internal RPC caller.
-	c.invoker = directInvoker{client: c}
-	if f := c.middleware; f != nil {
-		c.invoker = f(c.invoker)
-	}
-	c.tg = tg.NewClient(c.invoker)
+	c.tg = tg.NewClient(c)
 }
 
 func (c *Client) restoreConnection(ctx context.Context) error {

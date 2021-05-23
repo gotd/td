@@ -191,7 +191,7 @@ var (
 func (c *Client) ContactsSearch(ctx context.Context, request *ContactsSearchRequest) (*ContactsFound, error) {
 	var result ContactsFound
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

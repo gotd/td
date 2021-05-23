@@ -154,7 +154,7 @@ func (c *Client) ChannelsGetGroupsForDiscussion(ctx context.Context) (MessagesCh
 	var result MessagesChatsBox
 
 	request := &ChannelsGetGroupsForDiscussionRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Chats, nil

@@ -176,7 +176,7 @@ func (c *Client) AccountResetAuthorization(ctx context.Context, hash int64) (boo
 	request := &AccountResetAuthorizationRequest{
 		Hash: hash,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}
 	_, ok := result.Bool.(*BoolTrue)

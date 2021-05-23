@@ -169,7 +169,7 @@ func (c *Client) MessagesGetMaskStickers(ctx context.Context, hash int) (Message
 	request := &MessagesGetMaskStickersRequest{
 		Hash: hash,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.AllStickers, nil

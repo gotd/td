@@ -1,8 +1,7 @@
 package telegram
 
 import (
-	"golang.org/x/xerrors"
-
+	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/tg"
 )
 
@@ -22,16 +21,9 @@ func (s *SignUpRequired) Error() string {
 	return "account with provided number does not exist (sign up required)"
 }
 
-// checkAuthResult checks that a is *tg.AuthAuthorization and returns authorization result or error.
-func checkAuthResult(a tg.AuthAuthorizationClass) (*tg.AuthAuthorization, error) {
-	switch a := a.(type) {
-	case *tg.AuthAuthorization:
-		return a, nil // ok
-	case *tg.AuthAuthorizationSignUpRequired:
-		return nil, &SignUpRequired{
-			TermsOfService: a.TermsOfService,
-		}
-	default:
-		return nil, xerrors.Errorf("got unexpected response %T", a)
-	}
+// Auth returns auth client.
+func (c *Client) Auth() *auth.Client {
+	return auth.NewClient(
+		c.tg, c.rand, c.appID, c.appHash,
+	)
 }

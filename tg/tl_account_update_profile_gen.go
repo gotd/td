@@ -294,7 +294,7 @@ var (
 func (c *Client) AccountUpdateProfile(ctx context.Context, request *AccountUpdateProfileRequest) (UserClass, error) {
 	var result UserBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.User, nil

@@ -190,7 +190,7 @@ func (c *Client) AccountGetPasswordSettings(ctx context.Context, password InputC
 	request := &AccountGetPasswordSettingsRequest{
 		Password: password,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

@@ -28,8 +28,8 @@ func retryFloodWait(ctx context.Context, cb func() error) error {
 	}, backoff.WithContext(backoff.NewExponentialBackOff(), ctx))
 }
 
-func (w waitInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+func (w waitInvoker) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	return retryFloodWait(ctx, func() error {
-		return w.prev.InvokeRaw(ctx, input, output)
+		return w.prev.Invoke(ctx, input, output)
 	})
 }

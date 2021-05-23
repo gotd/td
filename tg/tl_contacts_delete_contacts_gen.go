@@ -185,7 +185,7 @@ func (c *Client) ContactsDeleteContacts(ctx context.Context, id []InputUserClass
 	request := &ContactsDeleteContactsRequest{
 		ID: id,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Updates, nil

@@ -148,7 +148,7 @@ func (c *Client) HelpGetConfig(ctx context.Context) (*Config, error) {
 	var result Config
 
 	request := &HelpGetConfigRequest{}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

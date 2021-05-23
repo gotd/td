@@ -197,7 +197,7 @@ var (
 func (c *Client) UploadReuploadCDNFile(ctx context.Context, request *UploadReuploadCDNFileRequest) ([]FileHash, error) {
 	var result FileHashVector
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return []FileHash(result.Elems), nil

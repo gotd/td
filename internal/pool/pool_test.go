@@ -45,7 +45,7 @@ func (m mockConn) Run(ctx context.Context) error {
 	return nil
 }
 
-func (m mockConn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+func (m mockConn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	m.locker.RLock()
 	defer m.locker.RUnlock()
 	return m.invoke(ctx, input, output)
@@ -179,10 +179,10 @@ func runScript(open int64, s script) func(t *testing.T) {
 		for _, action := range s {
 			switch action {
 			case 'i':
-				a.NoError(dc.InvokeRaw(ctx, nil, nil))
+				a.NoError(dc.Invoke(ctx, nil, nil))
 			case 'a':
 				wg.Go(func(ctx context.Context) error {
-					return dc.InvokeRaw(ctx, nil, nil)
+					return dc.Invoke(ctx, nil, nil)
 				})
 			case 'k':
 				b.killOne()

@@ -227,7 +227,7 @@ var (
 func (c *Client) MessagesGetGameHighScores(ctx context.Context, request *MessagesGetGameHighScoresRequest) (*MessagesHighScores, error) {
 	var result MessagesHighScores
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return &result, nil

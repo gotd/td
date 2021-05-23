@@ -171,7 +171,7 @@ func (c *Client) MessagesCheckChatInvite(ctx context.Context, hash string) (Chat
 	request := &MessagesCheckChatInviteRequest{
 		Hash: hash,
 	}
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.ChatInvite, nil

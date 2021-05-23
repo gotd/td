@@ -1,273 +1,82 @@
 package telegram
 
 import (
-	"context"
-	"errors"
-	"fmt"
 	"io"
-	"os"
-	"strconv"
-	"strings"
 
-	"golang.org/x/xerrors"
-
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/tg"
+	"github.com/gotd/td/telegram/auth"
 )
 
 // NewAuth initializes new authentication flow.
-func NewAuth(auth UserAuthenticator, opt SendCodeOptions) AuthFlow {
+//
+// Deprecated: use auth.NewFlow.
+func NewAuth(u UserAuthenticator, opt SendCodeOptions) AuthFlow {
 	return AuthFlow{
-		Auth:    auth,
+		Auth:    u,
 		Options: opt,
 	}
 }
 
 // AuthFlow simplifies boilerplate for authentication flow.
-type AuthFlow struct {
-	Auth    UserAuthenticator
-	Options SendCodeOptions
-}
-
-// Run starts authentication flow on client.
-func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
-	if f.Auth == nil {
-		return xerrors.New("no UserAuthenticator provided")
-	}
-
-	phone, err := f.Auth.Phone(ctx)
-	if err != nil {
-		return xerrors.Errorf("get phone: %w", err)
-	}
-
-	sentCode, err := client.AuthSendCode(ctx, phone, f.Options)
-	if err != nil {
-		return xerrors.Errorf("send code: %w", err)
-	}
-	hash := sentCode.PhoneCodeHash
-
-	code, err := f.Auth.Code(ctx, sentCode)
-	if err != nil {
-		return xerrors.Errorf("get code: %w", err)
-	}
-
-	_, signInErr := client.AuthSignIn(ctx, phone, code, hash)
-
-	if errors.Is(signInErr, ErrPasswordAuthNeeded) {
-		password, err := f.Auth.Password(ctx)
-		if err != nil {
-			return xerrors.Errorf("get password: %w", err)
-		}
-		if _, err := client.AuthPassword(ctx, password); err != nil {
-			return xerrors.Errorf("sign in with password: %w", err)
-		}
-		return nil
-	}
-
-	var signUpRequired *SignUpRequired
-	if errors.As(signInErr, &signUpRequired) {
-		if err := f.Auth.AcceptTermsOfService(ctx, signUpRequired.TermsOfService); err != nil {
-			return xerrors.Errorf("confirm TOS: %w", err)
-		}
-		info, err := f.Auth.SignUp(ctx)
-		if err != nil {
-			return xerrors.Errorf("sign up info not provided: %w", err)
-		}
-		if _, err := client.AuthSignUp(ctx, SignUp{
-			PhoneNumber:   phone,
-			PhoneCodeHash: hash,
-			FirstName:     info.FirstName,
-			LastName:      info.LastName,
-		}); err != nil {
-			return xerrors.Errorf("sign up: %w", err)
-		}
-		return nil
-	}
-
-	if signInErr != nil {
-		return xerrors.Errorf("sign in: %w", signInErr)
-	}
-
-	return nil
-}
+//
+// Deprecated: use auth.Flow.
+type AuthFlow = auth.Flow
 
 // AuthFlowClient abstracts telegram client for AuthFlow.
-type AuthFlowClient interface {
-	AuthSignIn(ctx context.Context, phone, code, codeHash string) (*tg.AuthAuthorization, error)
-	AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (*tg.AuthSentCode, error)
-	AuthPassword(ctx context.Context, password string) (*tg.AuthAuthorization, error)
-	AuthSignUp(ctx context.Context, s SignUp) (*tg.AuthAuthorization, error)
-}
+//
+// Deprecated: use auth.FlowClient.
+type AuthFlowClient = auth.FlowClient
 
 // CodeAuthenticator asks user for received authentication code.
-type CodeAuthenticator interface {
-	Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, error)
-}
+//
+// Deprecated: use auth.CodeAuthenticator.
+type CodeAuthenticator = auth.CodeAuthenticator
 
 // CodeAuthenticatorFunc is functional wrapper for CodeAuthenticator.
-type CodeAuthenticatorFunc func(ctx context.Context, sentCode *tg.AuthSentCode) (string, error)
-
-// Code implements CodeAuthenticator interface.
-func (c CodeAuthenticatorFunc) Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
-	return c(ctx, sentCode)
-}
+type CodeAuthenticatorFunc = auth.CodeAuthenticatorFunc
 
 // UserInfo represents user info required for sign up.
-type UserInfo struct {
-	FirstName string
-	LastName  string
-}
+//
+// Deprecated: use auth package.
+type UserInfo = auth.UserInfo
 
 // UserAuthenticator asks user for phone, password and received authentication code.
-type UserAuthenticator interface {
-	Phone(ctx context.Context) (string, error)
-	Password(ctx context.Context) (string, error)
-	AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error
-	SignUp(ctx context.Context) (UserInfo, error)
-	CodeAuthenticator
-}
-
-type noSignUp struct{}
-
-func (c noSignUp) SignUp(ctx context.Context) (UserInfo, error) {
-	return UserInfo{}, xerrors.New("not implemented")
-}
-
-func (c noSignUp) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
-	return &SignUpRequired{TermsOfService: tos}
-}
-
-type constantAuth struct {
-	phone, password string
-	CodeAuthenticator
-	noSignUp
-}
-
-func (c constantAuth) Phone(ctx context.Context) (string, error) {
-	return c.phone, nil
-}
-
-func (c constantAuth) Password(ctx context.Context) (string, error) {
-	return c.password, nil
-}
+//
+// Deprecated: use auth package.
+type UserAuthenticator = auth.UserAuthenticator
 
 // ConstantAuth creates UserAuthenticator with constant phone and password.
+//
+// Deprecated: use auth package.
 func ConstantAuth(phone, password string, code CodeAuthenticator) UserAuthenticator {
-	return constantAuth{
-		phone:             phone,
-		password:          password,
-		CodeAuthenticator: code,
-	}
-}
-
-type envAuth struct {
-	prefix string
-	CodeAuthenticator
-	noSignUp
-}
-
-func (e envAuth) lookup(k string) (string, error) {
-	env := e.prefix + k
-	v, ok := os.LookupEnv(env)
-	if !ok {
-		return "", xerrors.Errorf("environment variable %q not set", env)
-	}
-	return v, nil
-}
-
-func (e envAuth) Phone(ctx context.Context) (string, error) {
-	return e.lookup("PHONE")
-}
-
-func (e envAuth) Password(ctx context.Context) (string, error) {
-	p, err := e.lookup("PASSWORD")
-	if err != nil {
-		return "", ErrPasswordNotProvided
-	}
-	return p, nil
+	return auth.Constant(phone, password, code)
 }
 
 // EnvAuth creates UserAuthenticator which gets phone and password from environment variables.
+//
+// Deprecated: use auth package.
 func EnvAuth(prefix string, code CodeAuthenticator) UserAuthenticator {
-	return envAuth{
-		prefix:            prefix,
-		CodeAuthenticator: code,
-		noSignUp:          noSignUp{},
-	}
+	return auth.Env(prefix, code)
 }
 
 // ErrPasswordNotProvided means that password requested by Telegram,
 // but not provided by user.
-var ErrPasswordNotProvided = errors.New("password requested but not provided")
-
-type codeOnlyAuth struct {
-	phone string
-	CodeAuthenticator
-	noSignUp
-}
-
-func (c codeOnlyAuth) Phone(ctx context.Context) (string, error) {
-	return c.phone, nil
-}
-
-func (c codeOnlyAuth) Password(ctx context.Context) (string, error) {
-	return "", ErrPasswordNotProvided
-}
+//
+// Deprecated: use auth package.
+var ErrPasswordNotProvided = auth.ErrPasswordNotProvided
 
 // CodeOnlyAuth creates UserAuthenticator with constant phone and no password.
+//
+// Deprecated: use auth package.
 func CodeOnlyAuth(phone string, code CodeAuthenticator) UserAuthenticator {
-	return codeOnlyAuth{
-		phone:             phone,
-		CodeAuthenticator: code,
-	}
-}
-
-type testAuth struct {
-	dc    int
-	phone string
-}
-
-func (t testAuth) Phone(ctx context.Context) (string, error)    { return t.phone, nil }
-func (t testAuth) Password(ctx context.Context) (string, error) { return "", ErrPasswordNotProvided }
-func (t testAuth) Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
-	type notFlashing interface {
-		GetLength() int
-	}
-
-	typ, ok := sentCode.Type.(notFlashing)
-	if !ok {
-		return "", xerrors.Errorf("unexpected type: %T", sentCode.Type)
-	}
-
-	return strings.Repeat(strconv.Itoa(t.dc), typ.GetLength()), nil
-}
-
-func (t testAuth) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
-	return nil
-}
-
-func (t testAuth) SignUp(ctx context.Context) (UserInfo, error) {
-	return UserInfo{
-		FirstName: "Test",
-		LastName:  "User",
-	}, nil
+	return auth.CodeOnly(phone, code)
 }
 
 // TestAuth returns UserAuthenticator that authenticates via testing credentials.
 //
 // Can be used only with testing server. Will perform sign up if test user is
 // not registered.
+//
+// Deprecated: use auth package.
 func TestAuth(randReader io.Reader, dc int) UserAuthenticator {
-	// 99966XYYYY, X = dc_id, Y = random numbers, code = X repeat 6.
-	// The n value is from 0000 to 9999.
-	n, err := crypto.RandInt64n(randReader, 1000)
-	if err != nil {
-		panic(err)
-	}
-	phone := fmt.Sprintf("99966%d%04d", dc, n)
-
-	return testAuth{
-		dc:    dc,
-		phone: phone,
-	}
+	return auth.Test(randReader, dc)
 }

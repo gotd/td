@@ -321,7 +321,7 @@ var (
 func (c *Client) UpdatesGetChannelDifference(ctx context.Context, request *UpdatesGetChannelDifferenceRequest) (UpdatesChannelDifferenceClass, error) {
 	var result UpdatesChannelDifferenceBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.ChannelDifference, nil

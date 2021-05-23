@@ -205,7 +205,7 @@ var (
 func (c *Client) SetClientDHParams(ctx context.Context, request *SetClientDHParamsRequest) (SetClientDHParamsAnswerClass, error) {
 	var result SetClientDHParamsAnswerBox
 
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
 	return result.Set_client_DH_params_answer, nil
