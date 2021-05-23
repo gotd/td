@@ -16,8 +16,6 @@ import (
 //
 // This implementation is more suitable for one-off tasks and programs with low level
 // of concurrency and parallelism.
-//
-// See Waiter for a fully-blown scheduler-based flood wait handler.
 type Waiter struct {
 	next  tg.Invoker
 	clock clock.Clock
