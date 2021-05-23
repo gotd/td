@@ -2,6 +2,7 @@ package manager
 
 import (
 	"context"
+	"errors"
 	"sync"
 	"time"
 
@@ -115,7 +116,9 @@ func (c *Conn) trackInvoke() func() {
 func (c *Conn) Run(ctx context.Context) (err error) {
 	defer c.dead.Signal()
 	defer func() {
-		c.log.Info("Connection dead", zap.Error(err))
+		if !errors.Is(err, ctx.Err()) {
+			c.log.Debug("Connection dead", zap.Error(err))
+		}
 	}()
 	return c.proto.Run(ctx, c.init)
 }
