@@ -1,4 +1,4 @@
-package downloader_test
+package thumbnail_test
 
 import (
 	"bytes"
@@ -7,11 +7,11 @@ import (
 	"image/jpeg"
 	"image/png"
 
-	"github.com/gotd/td/telegram/downloader"
+	"github.com/gotd/td/telegram/thumbnail"
 	"github.com/gotd/td/tg"
 )
 
-func ExampleExpandThumbnail() {
+func ExampleExpand() {
 	userPhoto := tg.UserProfilePhoto{
 		StrippedThumb: []uint8{
 			0x01, 0x28, 0x28, 0x29, 0x40, 0x1d, 0xff, 0x00, 0x2a, 0x41, 0x8e, 0xe3, 0x22, 0xac, 0x42, 0x51,
@@ -33,7 +33,7 @@ func ExampleExpandThumbnail() {
 		},
 	}
 
-	result, err := downloader.ExpandThumbnail(userPhoto.StrippedThumb, nil)
+	result, err := thumbnail.Expand(userPhoto.StrippedThumb)
 	if err != nil {
 		panic(err)
 	}

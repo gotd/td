@@ -1,14 +1,24 @@
-package downloader
+// Package thumbnail implements expanding of stripped telegram thumbnails.
+package thumbnail
 
 import "golang.org/x/xerrors"
 
-// ExpandThumbnail creates a JPG payload from stripped thumbnail bytes.
+// Expand returns a JPG payload from stripped thumbnail bytes, like
+// tg.UserProfilePhoto.StrippedThumb.
+//
+// See ExpandTo.
+func Expand(data []byte) ([]byte, error) {
+	return ExpandTo(data, nil)
+}
+
+// ExpandTo appends a JPG payload to "to" byte slice, creating it from
+// stripped thumbnail bytes (e.g. tg.UserProfilePhoto.StrippedThumb).
 //
 // See https://core.telegram.org/api/files#stripped-thumbnails for reference.
 //
 // Based on tdesktop implementation.
 // See https://github.com/telegramdesktop/tdesktop/blob/v2.7.5/Telegram/SourceFiles/ui/image/image.cpp#L43.
-func ExpandThumbnail(data, to []byte) ([]byte, error) {
+func ExpandTo(data, to []byte) ([]byte, error) {
 	const firstChar byte = '\x01'
 	switch {
 	case len(data) < 3:
