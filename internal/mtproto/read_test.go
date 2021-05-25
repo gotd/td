@@ -11,15 +11,14 @@ import (
 
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/neo"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/testutil"
-	"github.com/gotd/td/transport"
 )
 
 func TestCheckMessageID(t *testing.T) {
@@ -72,6 +71,23 @@ func (n noopBuf) Consume(id int64) bool {
 	return true
 }
 
+type constantConn struct {
+	data []byte
+}
+
+func (c constantConn) Send(ctx context.Context, b *bin.Buffer) error {
+	return nil
+}
+
+func (c constantConn) Recv(ctx context.Context, b *bin.Buffer) error {
+	b.Put(c.data)
+	return nil
+}
+
+func (c constantConn) Close() error {
+	return nil
+}
+
 func benchRead(payloadSize int) func(b *testing.B) {
 	return func(b *testing.B) {
 		a := require.New(b)
@@ -80,39 +96,18 @@ func benchRead(payloadSize int) func(b *testing.B) {
 		random := rand.Reader
 		c := neo.NewTime(time.Now())
 
-		payload := make([]byte, payloadSize)
-		_, err := io.ReadFull(random, payload)
-		a.NoError(err)
-
 		var key crypto.Key
-		_, err = io.ReadFull(random, key[:])
+		_, err := io.ReadFull(random, key[:])
 		a.NoError(err)
 		authKey := key.WithID()
 
-		ackCh := make(chan int64, procs)
-		client, server := transport.PaddedIntermediate.Pipe()
-		conn := Conn{
-			conn:            client,
-			handler:         nopHandler{},
-			clock:           c,
-			rand:            random,
-			cipher:          crypto.NewClientCipher(random),
-			log:             logger,
-			messageID:       proto.NewMessageIDGen(c.Now),
-			messageIDBuf:    noopBuf{},
-			ackSendChan:     ackCh,
-			authKey:         authKey,
-			readConcurrency: procs,
-			messages:        make(chan *crypto.EncryptedMessageData, procs),
-		}
-
-		ctx := context.TODO()
-		grp := tdsync.NewCancellableGroup(ctx)
+		payload := make([]byte, payloadSize)
+		_, err = io.ReadFull(random, payload)
+		a.NoError(err)
 
 		msg := new(bin.Buffer)
 		serverCipher := crypto.NewServerCipher(random)
-		gen := proto.NewMessageIDGen(c.Now)
-		id := gen.New(proto.MessageServerResponse)
+		id := proto.NewMessageIDGen(c.Now).New(proto.MessageServerResponse)
 		a.NoError(msg.Encode(&dohuyaData{
 			Data: payload,
 		}))
@@ -126,6 +121,23 @@ func benchRead(payloadSize int) func(b *testing.B) {
 			MessageDataWithPadding: data,
 		}, msg))
 
+		ackCh := make(chan int64, procs)
+		conn := Conn{
+			conn:            constantConn{data: msg.Raw()},
+			handler:         nopHandler{},
+			clock:           c,
+			rand:            random,
+			cipher:          crypto.NewClientCipher(random),
+			log:             logger,
+			messageID:       proto.NewMessageIDGen(c.Now),
+			messageIDBuf:    noopBuf{},
+			ackSendChan:     ackCh,
+			authKey:         authKey,
+			readConcurrency: procs,
+			messages:        make(chan *crypto.EncryptedMessageData, procs),
+		}
+		grp := tdsync.NewCancellableGroup(context.Background())
+
 		b.ResetTimer()
 		b.ReportAllocs()
 
@@ -133,24 +145,21 @@ func benchRead(payloadSize int) func(b *testing.B) {
 		for i := 0; i < procs; i++ {
 			grp.Go(conn.readEncryptedMessages)
 		}
+
 		grp.Go(func(ctx context.Context) error {
+			defer grp.Cancel()
+
 			for i := 0; i < b.N; i++ {
-				if err := server.Send(ctx, &bin.Buffer{Buf: msg.Buf}); err != nil {
-					return xerrors.Errorf("send: %w", err)
+				select {
+				case <-ctx.Done():
+					return ctx.Err()
+				case <-ackCh:
 				}
 			}
+
 			return nil
 		})
-
-		for i := 0; i < b.N; i++ {
-			select {
-			case <-ctx.Done():
-			case <-ackCh:
-			}
-		}
-
-		a.NoError(server.Close())
-		_ = grp.Wait()
+		a.ErrorIs(grp.Wait(), context.Canceled)
 	}
 }
 
