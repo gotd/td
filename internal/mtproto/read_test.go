@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gotd/neo"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/neo"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
