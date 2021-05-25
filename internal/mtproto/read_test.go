@@ -1,13 +1,23 @@
 package mtproto
 
 import (
+	"context"
+	"crypto/rand"
+	"io"
+	"runtime"
 	"testing"
 	"time"
 
+	"github.com/gotd/neo"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/zap/zaptest"
 
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/testutil"
+	"github.com/gotd/td/transport"
 )
 
 func TestCheckMessageID(t *testing.T) {
@@ -38,4 +48,90 @@ func TestCheckMessageID(t *testing.T) {
 			})
 		}
 	})
+}
+
+type dohuyaData struct {
+	Data []byte
+}
+
+func (d dohuyaData) Decode(b *bin.Buffer) error {
+	_, err := b.Bytes()
+	return err
+}
+
+func (d dohuyaData) Encode(b *bin.Buffer) error {
+	b.PutBytes(d.Data)
+	return nil
+}
+
+type noopBuf struct{}
+
+func (n noopBuf) Consume(id int64) bool {
+	return true
+}
+
+func BenchmarkRead(b *testing.B) {
+	a := require.New(b)
+	procs := runtime.GOMAXPROCS(0)
+	logger := zaptest.NewLogger(b)
+	random := rand.Reader
+	c := neo.NewTime(time.Now())
+
+	payload := make([]byte, 1024)
+	_, err := io.ReadFull(random, payload[:])
+	a.NoError(err)
+
+	var key crypto.Key
+	_, err = io.ReadFull(random, key[:])
+	a.NoError(err)
+	authKey := key.WithID()
+
+	client, server := transport.PaddedIntermediate.Pipe()
+	conn := Conn{
+		conn:            client,
+		handler:         nopHandler{},
+		clock:           c,
+		rand:            random,
+		cipher:          crypto.NewClientCipher(random),
+		log:             logger,
+		messageID:       proto.NewMessageIDGen(c.Now),
+		messageIDBuf:    noopBuf{},
+		authKey:         authKey,
+		readConcurrency: procs,
+		messages:        make(chan *crypto.EncryptedMessageData, procs),
+	}
+
+	ctx := context.TODO()
+	grp := tdsync.NewCancellableGroup(ctx)
+
+	msg := new(bin.Buffer)
+	serverCipher := crypto.NewServerCipher(random)
+	gen := proto.NewMessageIDGen(c.Now)
+	id := gen.New(proto.MessageServerResponse)
+	a.NoError(msg.Encode(&dohuyaData{
+		Data: payload,
+	}))
+
+	length := msg.Len()
+	data := msg.Copy()
+	a.NoError(serverCipher.Encrypt(authKey, crypto.EncryptedMessageData{
+		MessageID:              id,
+		MessageDataLen:         int32(length),
+		MessageDataWithPadding: data,
+	}, msg))
+
+	b.ResetTimer()
+	b.ReportAllocs()
+
+	grp.Go(conn.readLoop)
+	for i := 0; i < procs; i++ {
+		grp.Go(conn.readEncryptedMessages)
+	}
+
+	for i := 0; i < b.N; i++ {
+		a.NoError(server.Send(ctx, &bin.Buffer{Buf: msg.Buf}))
+	}
+
+	a.NoError(server.Close())
+	_ = grp.Wait()
 }
