@@ -10,7 +10,8 @@ import (
 
 	"github.com/gotd/neo"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap/zaptest"
+	"go.uber.org/zap"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -73,12 +74,12 @@ func (n noopBuf) Consume(id int64) bool {
 func BenchmarkRead(b *testing.B) {
 	a := require.New(b)
 	procs := runtime.GOMAXPROCS(0)
-	logger := zaptest.NewLogger(b)
+	logger := zap.NewNop()
 	random := rand.Reader
 	c := neo.NewTime(time.Now())
 
 	payload := make([]byte, 1024)
-	_, err := io.ReadFull(random, payload[:])
+	_, err := io.ReadFull(random, payload)
 	a.NoError(err)
 
 	var key crypto.Key
@@ -86,6 +87,7 @@ func BenchmarkRead(b *testing.B) {
 	a.NoError(err)
 	authKey := key.WithID()
 
+	ackCh := make(chan int64, procs)
 	client, server := transport.PaddedIntermediate.Pipe()
 	conn := Conn{
 		conn:            client,
@@ -96,6 +98,7 @@ func BenchmarkRead(b *testing.B) {
 		log:             logger,
 		messageID:       proto.NewMessageIDGen(c.Now),
 		messageIDBuf:    noopBuf{},
+		ackSendChan:     ackCh,
 		authKey:         authKey,
 		readConcurrency: procs,
 		messages:        make(chan *crypto.EncryptedMessageData, procs),
@@ -116,6 +119,7 @@ func BenchmarkRead(b *testing.B) {
 	data := msg.Copy()
 	a.NoError(serverCipher.Encrypt(authKey, crypto.EncryptedMessageData{
 		MessageID:              id,
+		SeqNo:                  1,
 		MessageDataLen:         int32(length),
 		MessageDataWithPadding: data,
 	}, msg))
@@ -127,9 +131,20 @@ func BenchmarkRead(b *testing.B) {
 	for i := 0; i < procs; i++ {
 		grp.Go(conn.readEncryptedMessages)
 	}
+	grp.Go(func(ctx context.Context) error {
+		for i := 0; i < b.N; i++ {
+			if err := server.Send(ctx, &bin.Buffer{Buf: msg.Buf}); err != nil {
+				return xerrors.Errorf("send: %w", err)
+			}
+		}
+		return nil
+	})
 
 	for i := 0; i < b.N; i++ {
-		a.NoError(server.Send(ctx, &bin.Buffer{Buf: msg.Buf}))
+		select {
+		case <-ctx.Done():
+		case <-ackCh:
+		}
 	}
 
 	a.NoError(server.Close())
