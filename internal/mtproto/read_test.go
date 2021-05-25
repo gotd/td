@@ -3,6 +3,7 @@ package mtproto
 import (
 	"context"
 	"crypto/rand"
+	"fmt"
 	"io"
 	"runtime"
 	"testing"
@@ -71,82 +72,95 @@ func (n noopBuf) Consume(id int64) bool {
 	return true
 }
 
-func BenchmarkRead(b *testing.B) {
-	a := require.New(b)
-	procs := runtime.GOMAXPROCS(0)
-	logger := zap.NewNop()
-	random := rand.Reader
-	c := neo.NewTime(time.Now())
+func benchRead(payloadSize int) func(b *testing.B) {
+	return func(b *testing.B) {
+		a := require.New(b)
+		procs := runtime.GOMAXPROCS(0)
+		logger := zap.NewNop()
+		random := rand.Reader
+		c := neo.NewTime(time.Now())
 
-	payload := make([]byte, 1024)
-	_, err := io.ReadFull(random, payload)
-	a.NoError(err)
+		payload := make([]byte, payloadSize)
+		_, err := io.ReadFull(random, payload)
+		a.NoError(err)
 
-	var key crypto.Key
-	_, err = io.ReadFull(random, key[:])
-	a.NoError(err)
-	authKey := key.WithID()
+		var key crypto.Key
+		_, err = io.ReadFull(random, key[:])
+		a.NoError(err)
+		authKey := key.WithID()
 
-	ackCh := make(chan int64, procs)
-	client, server := transport.PaddedIntermediate.Pipe()
-	conn := Conn{
-		conn:            client,
-		handler:         nopHandler{},
-		clock:           c,
-		rand:            random,
-		cipher:          crypto.NewClientCipher(random),
-		log:             logger,
-		messageID:       proto.NewMessageIDGen(c.Now),
-		messageIDBuf:    noopBuf{},
-		ackSendChan:     ackCh,
-		authKey:         authKey,
-		readConcurrency: procs,
-		messages:        make(chan *crypto.EncryptedMessageData, procs),
-	}
+		ackCh := make(chan int64, procs)
+		client, server := transport.PaddedIntermediate.Pipe()
+		conn := Conn{
+			conn:            client,
+			handler:         nopHandler{},
+			clock:           c,
+			rand:            random,
+			cipher:          crypto.NewClientCipher(random),
+			log:             logger,
+			messageID:       proto.NewMessageIDGen(c.Now),
+			messageIDBuf:    noopBuf{},
+			ackSendChan:     ackCh,
+			authKey:         authKey,
+			readConcurrency: procs,
+			messages:        make(chan *crypto.EncryptedMessageData, procs),
+		}
 
-	ctx := context.TODO()
-	grp := tdsync.NewCancellableGroup(ctx)
+		ctx := context.TODO()
+		grp := tdsync.NewCancellableGroup(ctx)
 
-	msg := new(bin.Buffer)
-	serverCipher := crypto.NewServerCipher(random)
-	gen := proto.NewMessageIDGen(c.Now)
-	id := gen.New(proto.MessageServerResponse)
-	a.NoError(msg.Encode(&dohuyaData{
-		Data: payload,
-	}))
+		msg := new(bin.Buffer)
+		serverCipher := crypto.NewServerCipher(random)
+		gen := proto.NewMessageIDGen(c.Now)
+		id := gen.New(proto.MessageServerResponse)
+		a.NoError(msg.Encode(&dohuyaData{
+			Data: payload,
+		}))
 
-	length := msg.Len()
-	data := msg.Copy()
-	a.NoError(serverCipher.Encrypt(authKey, crypto.EncryptedMessageData{
-		MessageID:              id,
-		SeqNo:                  1,
-		MessageDataLen:         int32(length),
-		MessageDataWithPadding: data,
-	}, msg))
+		length := msg.Len()
+		data := msg.Copy()
+		a.NoError(serverCipher.Encrypt(authKey, crypto.EncryptedMessageData{
+			MessageID:              id,
+			SeqNo:                  1,
+			MessageDataLen:         int32(length),
+			MessageDataWithPadding: data,
+		}, msg))
 
-	b.ResetTimer()
-	b.ReportAllocs()
+		b.ResetTimer()
+		b.ReportAllocs()
 
-	grp.Go(conn.readLoop)
-	for i := 0; i < procs; i++ {
-		grp.Go(conn.readEncryptedMessages)
-	}
-	grp.Go(func(ctx context.Context) error {
+		grp.Go(conn.readLoop)
+		for i := 0; i < procs; i++ {
+			grp.Go(conn.readEncryptedMessages)
+		}
+		grp.Go(func(ctx context.Context) error {
+			for i := 0; i < b.N; i++ {
+				if err := server.Send(ctx, &bin.Buffer{Buf: msg.Buf}); err != nil {
+					return xerrors.Errorf("send: %w", err)
+				}
+			}
+			return nil
+		})
+
 		for i := 0; i < b.N; i++ {
-			if err := server.Send(ctx, &bin.Buffer{Buf: msg.Buf}); err != nil {
-				return xerrors.Errorf("send: %w", err)
+			select {
+			case <-ctx.Done():
+			case <-ackCh:
 			}
 		}
-		return nil
-	})
 
-	for i := 0; i < b.N; i++ {
-		select {
-		case <-ctx.Done():
-		case <-ackCh:
-		}
+		a.NoError(server.Close())
+		_ = grp.Wait()
 	}
+}
 
-	a.NoError(server.Close())
-	_ = grp.Wait()
+func BenchmarkRead(b *testing.B) {
+	for _, size := range []int{
+		128,
+		1024,
+		16 * 1024,
+		512 * 1024,
+	} {
+		b.Run(fmt.Sprintf("%db", size), benchRead(size))
+	}
 }
