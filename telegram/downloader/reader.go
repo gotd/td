@@ -6,6 +6,7 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 )
 
@@ -83,7 +84,7 @@ func (r *reader) next(ctx context.Context, offset, limit int) (block, error) {
 		ch, err := r.sch.Chunk(ctx, offset, limit)
 
 		if flood, err := tgerr.FloodWait(ctx, err); err != nil {
-			if flood {
+			if flood || tgerr.Is(err, tg.ErrTimeout) {
 				continue
 			}
 			return block{}, xerrors.Errorf("get next chunk: %w", err)

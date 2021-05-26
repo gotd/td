@@ -88,7 +88,7 @@ func (v *verifier) next(ctx context.Context) (tg.FileHash, bool, error) {
 	for {
 		hashes, err := v.client.Hashes(ctx, v.offset)
 		if flood, err := tgerr.FloodWait(ctx, err); err != nil {
-			if flood {
+			if flood || tgerr.Is(err, tg.ErrTimeout) {
 				continue
 			}
 			return tg.FileHash{}, false, xerrors.Errorf("get hashes: %w", err)
