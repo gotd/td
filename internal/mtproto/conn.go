@@ -33,6 +33,11 @@ type MessageIDSource interface {
 	New(t proto.MessageType) int64
 }
 
+// MessageBuf is message id buffer.
+type MessageBuf interface {
+	Consume(id int64) bool
+}
+
 // Cipher handles message encryption and decryption.
 type Cipher interface {
 	DecryptFromBuffer(k crypto.AuthKey, buf *bin.Buffer) (*crypto.EncryptedMessageData, error)
@@ -58,7 +63,7 @@ type Conn struct {
 	cipher       Cipher
 	log          *zap.Logger
 	messageID    MessageIDSource
-	messageIDBuf *proto.MessageIDBuf // replay attack protection
+	messageIDBuf MessageBuf // replay attack protection
 
 	// use session() to access authKey, salt or sessionID.
 	sessionMux sync.RWMutex

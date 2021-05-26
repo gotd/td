@@ -1,12 +1,24 @@
 package mtproto
 
 import (
+	"context"
+	"crypto/rand"
+	"fmt"
+	"io"
+	"runtime"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/require"
+	"go.uber.org/atomic"
+	"go.uber.org/zap"
 
+	"github.com/gotd/neo"
+
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/testutil"
 )
 
@@ -38,4 +50,125 @@ func TestCheckMessageID(t *testing.T) {
 			})
 		}
 	})
+}
+
+type dohuyaData struct {
+	Data []byte
+}
+
+func (d dohuyaData) Decode(b *bin.Buffer) error {
+	_, err := b.Bytes()
+	return err
+}
+
+func (d dohuyaData) Encode(b *bin.Buffer) error {
+	b.PutBytes(d.Data)
+	return nil
+}
+
+type noopBuf struct{}
+
+func (n noopBuf) Consume(id int64) bool {
+	return true
+}
+
+type constantConn struct {
+	data    []byte
+	counter *atomic.Int64
+	cancel  context.CancelFunc
+}
+
+func (c constantConn) Send(ctx context.Context, b *bin.Buffer) error {
+	return nil
+}
+
+func (c constantConn) Recv(ctx context.Context, b *bin.Buffer) error {
+	if c.counter.Dec() == 0 {
+		c.cancel()
+		return ctx.Err()
+	}
+	b.Put(c.data)
+	return nil
+}
+
+func (c constantConn) Close() error {
+	return nil
+}
+
+func benchRead(payloadSize int) func(b *testing.B) {
+	return func(b *testing.B) {
+		a := require.New(b)
+		procs := runtime.GOMAXPROCS(0)
+		logger := zap.NewNop()
+		random := rand.Reader
+		c := neo.NewTime(time.Now())
+
+		var key crypto.Key
+		_, err := io.ReadFull(random, key[:])
+		a.NoError(err)
+		authKey := key.WithID()
+
+		payload := make([]byte, payloadSize)
+		_, err = io.ReadFull(random, payload)
+		a.NoError(err)
+
+		msg := new(bin.Buffer)
+		serverCipher := crypto.NewServerCipher(random)
+		id := proto.NewMessageIDGen(c.Now).New(proto.MessageServerResponse)
+		a.NoError(msg.Encode(&dohuyaData{
+			Data: payload,
+		}))
+
+		length := msg.Len()
+		data := msg.Copy()
+		a.NoError(serverCipher.Encrypt(authKey, crypto.EncryptedMessageData{
+			MessageID:              id,
+			SeqNo:                  0,
+			MessageDataLen:         int32(length),
+			MessageDataWithPadding: data,
+		}, msg))
+
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+
+		conn := Conn{
+			conn: constantConn{
+				data:    msg.Raw(),
+				counter: atomic.NewInt64(int64(b.N)),
+				cancel:  cancel,
+			},
+			handler:         nopHandler{},
+			clock:           c,
+			rand:            random,
+			cipher:          crypto.NewClientCipher(random),
+			log:             logger,
+			messageID:       proto.NewMessageIDGen(c.Now),
+			messageIDBuf:    noopBuf{},
+			authKey:         authKey,
+			readConcurrency: procs,
+			messages:        make(chan *crypto.EncryptedMessageData, procs),
+		}
+		grp := tdsync.NewCancellableGroup(ctx)
+
+		b.ResetTimer()
+		b.ReportAllocs()
+		b.SetBytes(int64(payloadSize))
+
+		grp.Go(conn.readLoop)
+		for i := 0; i < procs; i++ {
+			grp.Go(conn.readEncryptedMessages)
+		}
+		a.ErrorIs(grp.Wait(), context.Canceled)
+	}
+}
+
+func BenchmarkRead(b *testing.B) {
+	for _, size := range []int{
+		128,
+		1024,
+		16 * 1024,
+		512 * 1024,
+	} {
+		b.Run(fmt.Sprintf("%db", size), benchRead(size))
+	}
 }
