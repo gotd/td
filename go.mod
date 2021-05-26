@@ -18,7 +18,7 @@ require (
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/atomic v1.7.0
 	go.uber.org/multierr v1.7.0
-	go.uber.org/zap v1.16.0
+	go.uber.org/zap v1.17.0
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 	golang.org/x/net v0.0.0-20201021035429-f5854403a974
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
