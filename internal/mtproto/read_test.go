@@ -152,6 +152,7 @@ func benchRead(payloadSize int) func(b *testing.B) {
 
 		b.ResetTimer()
 		b.ReportAllocs()
+		b.SetBytes(int64(payloadSize))
 
 		grp.Go(conn.readLoop)
 		for i := 0; i < procs; i++ {
