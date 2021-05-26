@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
+	"go.uber.org/atomic"
 	"go.uber.org/zap"
 
 	"github.com/gotd/neo"
@@ -72,7 +73,9 @@ func (n noopBuf) Consume(id int64) bool {
 }
 
 type constantConn struct {
-	data []byte
+	data    []byte
+	counter *atomic.Int64
+	cancel  context.CancelFunc
 }
 
 func (c constantConn) Send(ctx context.Context, b *bin.Buffer) error {
@@ -80,6 +83,10 @@ func (c constantConn) Send(ctx context.Context, b *bin.Buffer) error {
 }
 
 func (c constantConn) Recv(ctx context.Context, b *bin.Buffer) error {
+	if c.counter.Dec() == 0 {
+		c.cancel()
+		return ctx.Err()
+	}
 	b.Put(c.data)
 	return nil
 }
@@ -116,14 +123,20 @@ func benchRead(payloadSize int) func(b *testing.B) {
 		data := msg.Copy()
 		a.NoError(serverCipher.Encrypt(authKey, crypto.EncryptedMessageData{
 			MessageID:              id,
-			SeqNo:                  1,
+			SeqNo:                  0,
 			MessageDataLen:         int32(length),
 			MessageDataWithPadding: data,
 		}, msg))
 
-		ackCh := make(chan int64, procs)
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+
 		conn := Conn{
-			conn:            constantConn{data: msg.Raw()},
+			conn: constantConn{
+				data:    msg.Raw(),
+				counter: atomic.NewInt64(int64(b.N)),
+				cancel:  cancel,
+			},
 			handler:         nopHandler{},
 			clock:           c,
 			rand:            random,
@@ -131,12 +144,11 @@ func benchRead(payloadSize int) func(b *testing.B) {
 			log:             logger,
 			messageID:       proto.NewMessageIDGen(c.Now),
 			messageIDBuf:    noopBuf{},
-			ackSendChan:     ackCh,
 			authKey:         authKey,
 			readConcurrency: procs,
 			messages:        make(chan *crypto.EncryptedMessageData, procs),
 		}
-		grp := tdsync.NewCancellableGroup(context.Background())
+		grp := tdsync.NewCancellableGroup(ctx)
 
 		b.ResetTimer()
 		b.ReportAllocs()
@@ -145,20 +157,6 @@ func benchRead(payloadSize int) func(b *testing.B) {
 		for i := 0; i < procs; i++ {
 			grp.Go(conn.readEncryptedMessages)
 		}
-
-		grp.Go(func(ctx context.Context) error {
-			defer grp.Cancel()
-
-			for i := 0; i < b.N; i++ {
-				select {
-				case <-ctx.Done():
-					return ctx.Err()
-				case <-ackCh:
-				}
-			}
-
-			return nil
-		})
 		a.ErrorIs(grp.Wait(), context.Canceled)
 	}
 }
