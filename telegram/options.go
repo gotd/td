@@ -57,6 +57,7 @@ type Options struct {
 	RetryInterval time.Duration
 	MaxRetries    int
 	// ReadConcurrency is a count of workers to decrypt and decode incoming messages.
+	// Should be more than 2 to make effect. Otherwise ignored.
 	ReadConcurrency int
 
 	// Device is device config.

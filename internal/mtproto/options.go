@@ -157,7 +157,7 @@ func (opt *Options) setDefaults() {
 	if opt.Handler == nil {
 		opt.Handler = nopHandler{}
 	}
-	if opt.ReadConcurrency == 0 {
+	if opt.ReadConcurrency < 2 {
 		opt.setDefaultConcurrency()
 	}
 	if opt.Cipher == nil {
