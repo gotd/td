@@ -48,12 +48,7 @@ func checkMessageID(now time.Time, rawID int64) error {
 	return nil
 }
 
-func (c *Conn) read(ctx context.Context, b *bin.Buffer) (*crypto.EncryptedMessageData, error) {
-	b.Reset()
-	if err := c.conn.Recv(ctx, b); err != nil {
-		return nil, err
-	}
-
+func (c *Conn) decryptMessage(b *bin.Buffer) (*crypto.EncryptedMessageData, error) {
 	session := c.session()
 	msg, err := c.cipher.DecryptFromBuffer(session.Key, b)
 	if err != nil {
@@ -72,6 +67,36 @@ func (c *Conn) read(ctx context.Context, b *bin.Buffer) (*crypto.EncryptedMessag
 	}
 
 	return msg, nil
+}
+
+func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
+	msg, err := c.decryptMessage(buf)
+	if errors.Is(err, errRejected) {
+		c.log.Warn("Ignoring rejected message", zap.Error(err))
+		return nil
+	}
+	if err != nil {
+		return xerrors.Errorf("consume message: %w", err)
+	}
+
+	if err := c.handleMessage(msg.MessageID, &bin.Buffer{Buf: msg.Data()}); err != nil {
+		// Probably we can return here, but this will shutdown whole
+		// connection which can be unexpected.
+		c.log.Warn("Error while handling message", zap.Error(err))
+		// Sending acknowledge even on error. Client should restore
+		// from missing updates via explicit pts check and getDiff call.
+	}
+
+	needAck := (msg.SeqNo & 0x01) != 0
+	if needAck {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case c.ackSendChan <- msg.MessageID:
+		}
+	}
+
+	return nil
 }
 
 func (c *Conn) noUpdates(err error) bool {
@@ -106,6 +131,7 @@ func (c *Conn) handleAuthKeyNotFound(ctx context.Context) error {
 
 func (c *Conn) readLoop(ctx context.Context) (err error) {
 	b := new(bin.Buffer)
+
 	log := c.log.Named("read")
 	log.Debug("Read loop started")
 	defer func() {
@@ -115,21 +141,17 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 		}
 		l.Debug("Read loop done")
 	}()
-	defer close(c.messages)
 
 	for {
-		msg, err := c.read(ctx, b)
-		if errors.Is(err, errRejected) {
-			c.log.Warn("Ignoring rejected message", zap.Error(err))
-			continue
-		}
+		b.Reset()
+
+		err = c.conn.Recv(ctx, b)
 		if err == nil {
-			select {
-			case <-ctx.Done():
-				return ctx.Err()
-			case c.messages <- msg:
-				continue
+			if err := c.consumeMessage(ctx, b); err != nil {
+				return err
 			}
+
+			continue
 		}
 
 		select {
@@ -154,39 +176,6 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 			return xerrors.Errorf("read loop: %w", ctx.Err())
 		default:
 			return xerrors.Errorf("read: %w", err)
-		}
-	}
-}
-
-func (c *Conn) readEncryptedMessages(ctx context.Context) error {
-	b := new(bin.Buffer)
-	for {
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		case msg, ok := <-c.messages:
-			if !ok {
-				return nil
-			}
-			b.ResetTo(msg.Data())
-
-			if err := c.handleMessage(msg.MessageID, b); err != nil {
-				// Probably we can return here, but this will shutdown whole
-				// connection which can be unexpected.
-				c.log.Warn("Error while handling message", zap.Error(err))
-				// Sending acknowledge even on error. Client should restore
-				// from missing updates via explicit pts check and getDiff call.
-			}
-
-			needAck := (msg.SeqNo & 0x01) != 0
-			if needAck {
-				select {
-				case <-ctx.Done():
-					return ctx.Err()
-				case c.ackSendChan <- msg.MessageID:
-					continue
-				}
-			}
 		}
 	}
 }

@@ -3,9 +3,11 @@ package mtproto
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/neo"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 )
@@ -44,6 +46,7 @@ func BenchmarkEncryption(b *testing.B) {
 		rand:   Zero{},
 		log:    zap.NewNop(),
 		cipher: crypto.NewClientCipher(Zero{}),
+		clock:  neo.NewTime(time.Now()),
 	}
 	for i := 0; i < 256; i++ {
 		c.authKey.Value[i] = byte(i)
@@ -52,7 +55,8 @@ func BenchmarkEncryption(b *testing.B) {
 	for _, payload := range []int{
 		128,
 		1024,
-		5000,
+		16 * 1024,
+		512 * 1024,
 	} {
 		b.Run(fmt.Sprintf("%d", payload), func(b *testing.B) {
 			benchPayload(b, c, payload)

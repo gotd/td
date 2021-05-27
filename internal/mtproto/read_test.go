@@ -3,14 +3,15 @@ package mtproto
 import (
 	"context"
 	"crypto/rand"
+	"errors"
 	"fmt"
 	"io"
 	"runtime"
+	"sync"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/atomic"
 	"go.uber.org/zap"
 
 	"github.com/gotd/neo"
@@ -74,24 +75,31 @@ func (n noopBuf) Consume(id int64) bool {
 
 type constantConn struct {
 	data    []byte
-	counter *atomic.Int64
 	cancel  context.CancelFunc
+	counter int
+	mux     sync.Mutex
 }
 
-func (c constantConn) Send(ctx context.Context, b *bin.Buffer) error {
+func (c *constantConn) Send(ctx context.Context, b *bin.Buffer) error {
 	return nil
 }
 
-func (c constantConn) Recv(ctx context.Context, b *bin.Buffer) error {
-	if c.counter.Dec() == 0 {
+func (c *constantConn) Recv(ctx context.Context, b *bin.Buffer) error {
+	c.mux.Lock()
+	exit := c.counter == 0
+	if exit {
+		c.mux.Unlock()
 		c.cancel()
-		return ctx.Err()
+		return errors.New("error")
 	}
+	c.counter--
+	c.mux.Unlock()
+
 	b.Put(c.data)
 	return nil
 }
 
-func (c constantConn) Close() error {
+func (c *constantConn) Close() error {
 	return nil
 }
 
@@ -132,10 +140,10 @@ func benchRead(payloadSize int) func(b *testing.B) {
 		defer cancel()
 
 		conn := Conn{
-			conn: constantConn{
+			conn: &constantConn{
 				data:    msg.Raw(),
-				counter: atomic.NewInt64(int64(b.N)),
 				cancel:  cancel,
+				counter: b.N,
 			},
 			handler:         nopHandler{},
 			clock:           c,
@@ -146,7 +154,6 @@ func benchRead(payloadSize int) func(b *testing.B) {
 			messageIDBuf:    noopBuf{},
 			authKey:         authKey,
 			readConcurrency: procs,
-			messages:        make(chan *crypto.EncryptedMessageData, procs),
 		}
 		grp := tdsync.NewCancellableGroup(ctx)
 
@@ -154,9 +161,8 @@ func benchRead(payloadSize int) func(b *testing.B) {
 		b.ReportAllocs()
 		b.SetBytes(int64(payloadSize))
 
-		grp.Go(conn.readLoop)
 		for i := 0; i < procs; i++ {
-			grp.Go(conn.readEncryptedMessages)
+			grp.Go(conn.readLoop)
 		}
 		a.ErrorIs(grp.Wait(), context.Canceled)
 	}
