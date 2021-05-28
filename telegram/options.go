@@ -56,6 +56,9 @@ type Options struct {
 	AckInterval   time.Duration
 	RetryInterval time.Duration
 	MaxRetries    int
+	// ReadConcurrency is a count of workers to decrypt and decode incoming messages.
+	// Should be more than 2 to make effect. Otherwise ignored.
+	ReadConcurrency int
 
 	// Device is device config.
 	// Will be sent with session creation request.
@@ -96,6 +99,7 @@ func (opt *Options) setDefaults() {
 	if opt.MaxRetries == 0 {
 		opt.MaxRetries = 5
 	}
+	// Keep ReadConcurrency is zero, mtproto.Options will set default value.
 	opt.Device.SetDefaults()
 	if opt.Clock == nil {
 		opt.Clock = clock.System

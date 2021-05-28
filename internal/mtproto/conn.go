@@ -95,7 +95,6 @@ type Conn struct {
 	pingInterval time.Duration
 
 	readConcurrency int
-	messages        chan *crypto.EncryptedMessageData
 	gotSession      *tdsync.Ready
 
 	dialTimeout       time.Duration
@@ -135,7 +134,6 @@ func New(dialer Dialer, opt Options) *Conn {
 		pingInterval: opt.PingInterval,
 
 		readConcurrency: opt.ReadConcurrency,
-		messages:        make(chan *crypto.EncryptedMessageData, opt.ReadConcurrency),
 		gotSession:      tdsync.NewReady(),
 
 		rpc:               opt.engine,
@@ -197,13 +195,12 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 		g := tdsync.NewLogGroup(ctx, c.log.Named("group"))
 		g.Go("handleClose", c.handleClose)
 		g.Go("pingLoop", c.pingLoop)
-		g.Go("readLoop", c.readLoop)
 		g.Go("ackLoop", c.ackLoop)
 		g.Go("saltsLoop", c.saltLoop)
 		g.Go("userCallback", f)
 
 		for i := 0; i < c.readConcurrency; i++ {
-			g.Go("readEncryptedMessages-"+strconv.Itoa(i), c.readEncryptedMessages)
+			g.Go("readLoop-"+strconv.Itoa(i), c.readLoop)
 		}
 		if err := g.Wait(); err != nil {
 			return xerrors.Errorf("group: %w", err)
