@@ -8,6 +8,7 @@ import (
 	"crypto/rand"
 	"encoding/binary"
 	"io"
+	"runtime"
 	"strconv"
 	"testing"
 
@@ -232,7 +233,7 @@ func TestDownloader(t *testing.T) {
 		}},
 		{"Parallel", func(b *Builder) ([]byte, error) {
 			output := new(syncio.BufWriterAt)
-			_, err := b.Parallel(ctx, output)
+			_, err := b.WithThreads(runtime.GOMAXPROCS(0)).Parallel(ctx, output)
 			return output.Bytes(), err
 		}},
 		{"Parallel-OneThread", func(b *Builder) ([]byte, error) {
