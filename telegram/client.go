@@ -126,6 +126,11 @@ type Client struct {
 	noUpdatesMode bool // immutable
 }
 
+// API returns *tg.Client for calling raw MTProto methods.
+func (c *Client) API() *tg.Client {
+	return c.tg
+}
+
 // getVersion optimistically gets current client version.
 //
 // Does not handle replace directives.
