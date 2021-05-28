@@ -30,6 +30,24 @@ func (e *EncryptedMessage) Decode(b *bin.Buffer) error {
 	return nil
 }
 
+// DecodeWithoutCopy is like Decode, but EncryptedData references to given buffer instead of
+// copying.
+func (e *EncryptedMessage) DecodeWithoutCopy(b *bin.Buffer) error {
+	if err := b.ConsumeN(e.AuthKeyID[:], 8); err != nil {
+		return err
+	}
+	{
+		v, err := b.Int128()
+		if err != nil {
+			return err
+		}
+		e.MsgKey = v
+	}
+	// Consuming the rest of the buffer.
+	e.EncryptedData = b.Buf
+	return nil
+}
+
 // Encode implements bin.Encoder.
 func (e EncryptedMessage) Encode(b *bin.Buffer) error {
 	b.Put(e.AuthKeyID[:])

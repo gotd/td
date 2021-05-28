@@ -33,7 +33,7 @@ func TestDecrypt(t *testing.T) {
 	if err := msg.Decode(b); err != nil {
 		t.Fatal(err)
 	}
-	plaintext, err := c.DecryptMessage(testAuthKey, &msg)
+	plaintext, err := c.decryptMessage(testAuthKey, &msg)
 	if err != nil {
 		t.Fatal(err)
 	}

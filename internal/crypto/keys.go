@@ -1,6 +1,8 @@
 package crypto
 
 import (
+	"crypto/sha256"
+
 	"github.com/gotd/td/bin"
 )
 
@@ -34,14 +36,13 @@ func getX(mode Side) int {
 // * https://core.telegram.org/mtproto/description#defining-aes-key-and-initialization-vector
 
 // msgKeyLarge returns msg_key_large value.
-func msgKeyLarge(authKey Key, plaintextPadded []byte, mode Side) []byte {
-	h := getSHA256()
-	defer sha256Pool.Put(h)
+func msgKeyLarge(r []byte, authKey Key, plaintextPadded []byte, mode Side) []byte {
+	h := sha256.New()
 
 	x := getX(mode)
 	_, _ = h.Write(authKey[88+x : 32+88+x])
 	_, _ = h.Write(plaintextPadded)
-	return h.Sum(nil)
+	return h.Sum(r)
 }
 
 // messageKey returns msg_key = substr (msg_key_large, 8, 16).
@@ -55,27 +56,25 @@ func messageKey(messageKeyLarge []byte) bin.Int128 {
 // sha256a returns sha256_a value.
 //
 // sha256_a = SHA256 (msg_key + substr (auth_key, x, 36));
-func sha256a(authKey Key, msgKey bin.Int128, x int) []byte {
-	h := getSHA256()
-	defer sha256Pool.Put(h)
+func sha256a(r []byte, authKey Key, msgKey bin.Int128, x int) []byte {
+	h := sha256.New()
 
 	_, _ = h.Write(msgKey[:])
 	_, _ = h.Write(authKey[x : x+36])
 
-	return h.Sum(nil)
+	return h.Sum(r)
 }
 
 // sha256b returns sha256_b value.
 //
 // sha256_b = SHA256 (substr (auth_key, 40+x, 36) + msg_key);
-func sha256b(authKey Key, msgKey bin.Int128, x int) []byte {
-	h := getSHA256()
-	defer sha256Pool.Put(h)
+func sha256b(r []byte, authKey Key, msgKey bin.Int128, x int) []byte {
+	h := sha256.New()
 
 	_, _ = h.Write(authKey[40+x : 40+x+36])
 	_, _ = h.Write(msgKey[:])
 
-	return h.Sum(nil)
+	return h.Sum(r)
 }
 
 // aesKey returns aes_key value.
@@ -112,18 +111,20 @@ func aesIV(sha256a, sha256b []byte) bin.Int256 {
 func Keys(authKey Key, msgKey bin.Int128, mode Side) (key, iv bin.Int256) {
 	x := getX(mode)
 
+	r := make([]byte, 512)
 	// `sha256_a = SHA256 (msg_key + substr (auth_key, x, 36));`
-	a := sha256a(authKey, msgKey, x)
+	a := sha256a(r[0:0], authKey, msgKey, x)
 	// `sha256_b = SHA256 (substr (auth_key, 40+x, 36) + msg_key);`
-	b := sha256b(authKey, msgKey, x)
+	b := sha256b(r[256:256], authKey, msgKey, x)
 
 	return aesKey(a, b), aesIV(a, b)
 }
 
 // MessageKey computes message key for provided auth_key and padded payload.
 func MessageKey(authKey Key, plaintextPadded []byte, mode Side) bin.Int128 {
+	r := make([]byte, 0, 256)
 	// `msg_key_large = SHA256 (substr (auth_key, 88+x, 32) + plaintext + random_padding);`
-	msgKeyLarge := msgKeyLarge(authKey, plaintextPadded, mode)
+	msgKeyLarge := msgKeyLarge(r, authKey, plaintextPadded, mode)
 	// `msg_key = substr (msg_key_large, 8, 16);`
 	return messageKey(msgKeyLarge)
 }
