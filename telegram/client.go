@@ -61,6 +61,10 @@ type clientConn interface {
 type Client struct {
 	// tg provides RPC calls via Client. Uses invoker below.
 	tg *tg.Client // immutable
+	// invoker implements tg.Invoker on top of Client and mw.
+	invoker tg.Invoker // immutable
+	// mw is list of middlewares used in invoker, can be blank.
+	mw []Middleware // immutable
 
 	// Telegram device information.
 	device DeviceConfig // immutable
@@ -227,7 +231,8 @@ func (c *Client) init() {
 	c.exported = make(chan *tg.AuthExportedAuthorization, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.subConns = map[int]CloseInvoker{}
-	c.tg = tg.NewClient(c)
+	c.invoker = chainMiddlewares(InvokeFunc(c.invokeDirect), c.mw...)
+	c.tg = tg.NewClient(c.invoker)
 }
 
 func (c *Client) restoreConnection(ctx context.Context) error {

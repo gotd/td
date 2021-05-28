@@ -49,6 +49,9 @@ type Options struct {
 	SessionStorage SessionStorage
 	// UpdateHandler will be called on received update.
 	UpdateHandler UpdateHandler
+	// Middlewares list allows to wrap tg.Invoker. Can be useful for metrics,
+	// tracing, etc. Note that order is important.
+	Middlewares []Middleware
 
 	// AckBatchSize is maximum ack-s to buffer.
 	AckBatchSize int
