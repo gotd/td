@@ -12,7 +12,7 @@ import (
 // Invoke invokes raw MTProto RPC method. It sends input and decodes result
 // into output.
 func (c *Client) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	return c.invokeDirect(ctx, input, output)
+	return c.invoker.Invoke(ctx, input, output)
 }
 
 // invokeDirect directly invokes RPC method, automatically handling datacenter redirects.
