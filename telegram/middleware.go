@@ -26,12 +26,12 @@ type MiddlewareFunc func(next tg.Invoker) InvokeFunc
 // Handle implements Middleware.
 func (m MiddlewareFunc) Handle(next tg.Invoker) InvokeFunc { return m(next) }
 
-func chainMiddlewares(client tg.Invoker, chain ...Middleware) tg.Invoker {
+func chainMiddlewares(invoker tg.Invoker, chain ...Middleware) tg.Invoker {
 	if len(chain) == 0 {
-		return client
+		return invoker
 	}
 	for i := len(chain) - 1; i >= 0; i-- {
-		client = chain[i].Handle(client)
+		invoker = chain[i].Handle(invoker)
 	}
-	return client
+	return invoker
 }
