@@ -36,14 +36,13 @@ func getX(mode Side) int {
 // * https://core.telegram.org/mtproto/description#defining-aes-key-and-initialization-vector
 
 // msgKeyLarge returns msg_key_large value.
-func msgKeyLarge(authKey Key, plaintextPadded []byte, mode Side) []byte {
-	h := getSHA256()
-	defer sha256Pool.Put(h)
+func msgKeyLarge(r []byte, authKey Key, plaintextPadded []byte, mode Side) []byte {
+	h := sha256.New()
 
 	x := getX(mode)
 	_, _ = h.Write(authKey[88+x : 32+88+x])
 	_, _ = h.Write(plaintextPadded)
-	return h.Sum(nil)
+	return h.Sum(r)
 }
 
 // messageKey returns msg_key = substr (msg_key_large, 8, 16).
@@ -123,8 +122,9 @@ func Keys(authKey Key, msgKey bin.Int128, mode Side) (key, iv bin.Int256) {
 
 // MessageKey computes message key for provided auth_key and padded payload.
 func MessageKey(authKey Key, plaintextPadded []byte, mode Side) bin.Int128 {
+	r := make([]byte, 0, 256)
 	// `msg_key_large = SHA256 (substr (auth_key, 88+x, 32) + plaintext + random_padding);`
-	msgKeyLarge := msgKeyLarge(authKey, plaintextPadded, mode)
+	msgKeyLarge := msgKeyLarge(r, authKey, plaintextPadded, mode)
 	// `msg_key = substr (msg_key_large, 8, 16);`
 	return messageKey(msgKeyLarge)
 }
