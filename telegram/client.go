@@ -185,6 +185,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		device:           opt.Device,
 		migrationTimeout: opt.MigrationTimeout,
 		noUpdatesMode:    opt.NoUpdates,
+		mw:               opt.Middlewares,
 	}
 	client.init()
 
