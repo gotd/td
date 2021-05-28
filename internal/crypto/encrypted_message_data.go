@@ -72,6 +72,51 @@ func (e *EncryptedMessageData) Decode(b *bin.Buffer) error {
 	return nil
 }
 
+// DecodeWithoutCopy is like Decode, but EncryptedData references to given buffer instead of
+// copying.
+func (e *EncryptedMessageData) DecodeWithoutCopy(b *bin.Buffer) error {
+	{
+		v, err := b.Long()
+		if err != nil {
+			return err
+		}
+		e.Salt = v
+	}
+	{
+		v, err := b.Long()
+		if err != nil {
+			return err
+		}
+		e.SessionID = v
+	}
+	{
+		v, err := b.Long()
+		if err != nil {
+			return err
+		}
+		e.MessageID = v
+	}
+	{
+		v, err := b.Int32()
+		if err != nil {
+			return err
+		}
+		e.SeqNo = v
+	}
+	{
+		v, err := b.Int32()
+		if err != nil {
+			return err
+		}
+		e.MessageDataLen = v
+	}
+	e.MessageDataWithPadding = b.Buf
+	if int(e.MessageDataLen) > len(e.MessageDataWithPadding) {
+		return xerrors.Errorf("MessageDataLen field is bigger then MessageDataWithPadding length")
+	}
+	return nil
+}
+
 // Data returns message data without hash.
 func (e *EncryptedMessageData) Data() []byte {
 	return e.MessageDataWithPadding[:e.MessageDataLen]

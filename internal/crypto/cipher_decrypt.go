@@ -12,7 +12,9 @@ import (
 // DecryptFromBuffer decodes EncryptedMessage and decrypts it.
 func (c Cipher) DecryptFromBuffer(k AuthKey, buf *bin.Buffer) (*EncryptedMessageData, error) {
 	msg := &EncryptedMessage{}
-	if err := msg.Decode(buf); err != nil {
+	// Because we assume that buffer is valid during decrypting, we able to
+	// use DecodeWithoutCopy and do not allocate inner buffer for EncryptedMessage.
+	if err := msg.DecodeWithoutCopy(buf); err != nil {
 		return nil, err
 	}
 
@@ -21,7 +23,7 @@ func (c Cipher) DecryptFromBuffer(k AuthKey, buf *bin.Buffer) (*EncryptedMessage
 
 // Decrypt decrypts data from encrypted message using AES-IGE.
 func (c Cipher) Decrypt(k AuthKey, encrypted *EncryptedMessage) (*EncryptedMessageData, error) {
-	plaintext, err := c.DecryptMessage(k, encrypted)
+	plaintext, err := c.decryptMessage(k, encrypted)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +36,9 @@ func (c Cipher) Decrypt(k AuthKey, encrypted *EncryptedMessage) (*EncryptedMessa
 	}
 
 	msg := &EncryptedMessageData{}
-	if err := msg.Decode(&bin.Buffer{Buf: plaintext}); err != nil {
+	// Notice: do not re-use plaintext, because we use DecodeWithoutCopy, it references
+	// original buffer.
+	if err := msg.DecodeWithoutCopy(&bin.Buffer{Buf: plaintext}); err != nil {
 		return nil, err
 	}
 
@@ -57,8 +61,8 @@ func (c Cipher) Decrypt(k AuthKey, encrypted *EncryptedMessage) (*EncryptedMessa
 	return msg, nil
 }
 
-// DecryptMessage decrypts data from encrypted message using AES-IGE.
-func (c Cipher) DecryptMessage(k AuthKey, encrypted *EncryptedMessage) ([]byte, error) {
+// decryptMessage decrypts data from encrypted message using AES-IGE.
+func (c Cipher) decryptMessage(k AuthKey, encrypted *EncryptedMessage) ([]byte, error) {
 	if k.ID != encrypted.AuthKeyID {
 		return nil, xerrors.New("unknown auth key id")
 	}

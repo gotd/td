@@ -29,7 +29,7 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 		}
 
 		m := &crypto.EncryptedMessage{}
-		if err := m.Decode(&b); err != nil {
+		if err := m.DecodeWithoutCopy(&b); err != nil {
 			return xerrors.Errorf("encrypted message decode: %w", err)
 		}
 
