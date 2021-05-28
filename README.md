@@ -49,7 +49,7 @@ This project is fully non-commercial and not affiliated with any commercial orga
 * CDN support with connection pooling
 * Automatic datacenter migration and redirects handling
 * Graceful [request cancellation](https://core.telegram.org/mtproto/service_messages#cancellation-of-an-rpc-query) via context
-* WebSocket transport support
+* WebSocket transport support (works in WASM)
 
 ## Example
 
