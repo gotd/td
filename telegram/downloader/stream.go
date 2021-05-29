@@ -17,6 +17,13 @@ func (d *Downloader) stream(ctx context.Context, r *reader, w io.Writer) (tg.Sto
 
 	g := tdsync.NewCancellableGroup(ctx)
 	toWrite := make(chan block, 1)
+
+	stop := func(t tg.StorageFileTypeClass) {
+		typOnce.Do(func() {
+			typ = t
+		})
+		close(toWrite)
+	}
 	// Download loop
 	g.Go(func(ctx context.Context) error {
 		for {
@@ -27,10 +34,7 @@ func (d *Downloader) stream(ctx context.Context, r *reader, w io.Writer) (tg.Sto
 
 			n := len(b.data)
 			if n < 1 {
-				typOnce.Do(func() {
-					typ = b.tag
-					close(toWrite)
-				})
+				stop(b.tag)
 				return nil
 			}
 
@@ -38,6 +42,11 @@ func (d *Downloader) stream(ctx context.Context, r *reader, w io.Writer) (tg.Sto
 			case <-ctx.Done():
 				return ctx.Err()
 			case toWrite <- b:
+			}
+
+			if b.last() {
+				stop(b.tag)
+				return nil
 			}
 		}
 	})

@@ -64,6 +64,11 @@ func (d *Downloader) parallel(
 						return ctx.Err()
 					case toWrite <- b:
 					}
+
+					if b.last() {
+						stop(b.tag)
+						return nil
+					}
 				}
 			})
 		}

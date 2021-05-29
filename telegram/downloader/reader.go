@@ -12,7 +12,15 @@ import (
 
 type block struct {
 	chunk
-	offset int64
+	offset   int64
+	partSize int
+}
+
+// last compares partSize and chunk length to determine last part.
+func (b block) last() bool {
+	// If returned chunk is smaller than requested part, it seems
+	// it is last part.
+	return len(b.data) < b.partSize
 }
 
 type reader struct {
@@ -91,8 +99,9 @@ func (r *reader) next(ctx context.Context, offset, limit int) (block, error) {
 		}
 
 		return block{
-			chunk:  ch,
-			offset: int64(offset),
+			chunk:    ch,
+			offset:   int64(offset),
+			partSize: r.partSize,
 		}, nil
 	}
 }
