@@ -61,7 +61,7 @@ Also take a look at [gotd/cli](https://github.com/gotd/cli), command line interf
 
 #### User
 
-You can use `td/telegram/auth/Flow` to simplify user authentication flow.
+You can use `td/telegram/auth.Flow` to simplify user authentication flow.
 
 ```go
 codePrompt := func(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
