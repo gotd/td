@@ -50,7 +50,7 @@ func ExampleClient_Auth() {
 
 	check(client.Run(ctx, func(ctx context.Context) error {
 		return auth.NewFlow(
-			auth.Constant(phone, pass, telegram.CodeAuthenticatorFunc(codeAsk)),
+			auth.Constant(phone, pass, auth.CodeAuthenticatorFunc(codeAsk)),
 			auth.SendCodeOptions{},
 		).Run(ctx, client.Auth())
 	}))

@@ -35,13 +35,13 @@ func BotFromEnvironment(
 	}
 
 	return client.Run(ctx, func(ctx context.Context) error {
-		status, err := client.AuthStatus(ctx)
+		status, err := client.Auth().Status(ctx)
 		if err != nil {
 			return xerrors.Errorf("auth status: %w", err)
 		}
 
 		if !status.Authorized {
-			if _, err := client.AuthBot(ctx, os.Getenv("BOT_TOKEN")); err != nil {
+			if _, err := client.Auth().Bot(ctx, os.Getenv("BOT_TOKEN")); err != nil {
 				return xerrors.Errorf("login: %w", err)
 			}
 		}

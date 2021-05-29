@@ -17,6 +17,7 @@ import (
 
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/session"
+	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tgerr"
 )
@@ -159,9 +160,9 @@ func TestClient(ctx context.Context, opts Options, cb func(ctx context.Context, 
 	return retry(ctx, logger, func(retryCtx context.Context) error {
 		client := NewClient(TestAppID, TestAppHash, opts)
 		return client.Run(retryCtx, func(runCtx context.Context) error {
-			if err := client.AuthIfNecessary(runCtx, NewAuth(
-				TestAuth(rand.Reader, opts.DC),
-				SendCodeOptions{},
+			if err := client.Auth().IfNecessary(runCtx, auth.NewFlow(
+				auth.Test(rand.Reader, opts.DC),
+				auth.SendCodeOptions{},
 			)); err != nil {
 				return xerrors.Errorf("auth flow: %w", err)
 			}

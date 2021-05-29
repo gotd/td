@@ -15,6 +15,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
 )
@@ -54,8 +55,8 @@ func run(ctx context.Context) error {
 
 	return client.Run(ctx, func(ctx context.Context) error {
 		if self, err := client.Self(ctx); err != nil || self.Bot {
-			if err := telegram.NewAuth(
-				telegram.TestAuth(rand.Reader, *dcID), telegram.SendCodeOptions{},
+			if err := auth.NewFlow(
+				auth.Test(rand.Reader, *dcID), auth.SendCodeOptions{},
 			).Run(ctx, client.Auth()); err != nil {
 				return xerrors.Errorf("auth: %w", err)
 			}

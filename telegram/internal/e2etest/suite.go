@@ -10,6 +10,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tgtest"
 )
@@ -53,10 +54,10 @@ func (s *Suite) Client(logger *zap.Logger, handler telegram.UpdateHandler) *tele
 
 // Authenticate authenticates client on test server.
 func (s *Suite) Authenticate(ctx context.Context, client *telegram.Client) error {
-	var auth telegram.UserAuthenticator
+	var ua auth.UserAuthenticator
 	for {
-		auth = telegram.TestAuth(rand.Reader, s.DC)
-		phone, err := auth.Phone(ctx)
+		ua = auth.Test(rand.Reader, s.DC)
+		phone, err := ua.Phone(ctx)
 		if err != nil {
 			return err
 		}
@@ -70,10 +71,7 @@ func (s *Suite) Authenticate(ctx context.Context, client *telegram.Client) error
 		s.usedMux.Unlock()
 	}
 
-	return telegram.NewAuth(
-		auth,
-		telegram.SendCodeOptions{},
-	).Run(ctx, client.Auth())
+	return auth.NewFlow(ua, auth.SendCodeOptions{}).Run(ctx, client.Auth())
 }
 
 // RetryAuthenticate authenticates client on test server.
