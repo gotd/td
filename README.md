@@ -45,7 +45,7 @@ This project is fully non-commercial and not affiliated with any commercial orga
   * [downloads](https://pkg.go.dev/github.com/gotd/td/telegram/downloader) with CDN support, also multiple streams
   * [messages](https://pkg.go.dev/github.com/gotd/td/telegram/message) with various convenience builders and text styling support
   * [query](https://pkg.go.dev/github.com/gotd/td/telegram/query) with pagination helpers
-  * [middleware](https://pkg.go.dev/github.com/gotd/td/middleware) for [rate limiting](https://pkg.go.dev/github.com/gotd/td/middleware/ratelimit) and [FLOOD_WAIT handling](https://pkg.go.dev/github.com/gotd/td/middleware/floodwait)
+  * [middleware](https://pkg.go.dev/github.com/gotd/td/telegram#Middleware) for [rate limiting](https://pkg.go.dev/github.com/gotd/contrib/middleware/ratelimit) and [FLOOD_WAIT handling](https://pkg.go.dev/github.com/gotd/contrib/middleware/floodwait)
 * CDN support with connection pooling
 * Automatic datacenter migration and redirects handling
 * Graceful [request cancellation](https://core.telegram.org/mtproto/service_messages#cancellation-of-an-rpc-query) via context
@@ -61,10 +61,10 @@ Also take a look at [gotd/cli](https://github.com/gotd/cli), command line interf
 
 #### User
 
-You can use `td/telegram/AuthFlow` to simplify user authentication flow.
+You can use `td/telegram/auth/Flow` to simplify user authentication flow.
 
 ```go
-codePrompt := func(ctx context.Context) (string, error) {
+codePrompt := func(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
     // NB: Use "golang.org/x/crypto/ssh/terminal" to prompt password.
     fmt.Print("Enter code: ")
     code, err := bufio.NewReader(os.Stdin).ReadString('\n')
@@ -76,10 +76,10 @@ codePrompt := func(ctx context.Context) (string, error) {
 // This will setup and perform authentication flow.
 // If account does not require 2FA password, use telegram.CodeOnlyAuth
 // instead of telegram.ConstantAuth.
-if err := telegram.NewAuth(
-    telegram.ConstantAuth(phone, password, telegram.CodeAuthenticatorFunc(codePrompt)),
-    telegram.SendCodeOptions{},
-).Run(ctx, client); err != nil {
+if err := auth.NewFlow(
+    auth.Constant(phone, password, auth.CodeAuthenticatorFunc(codePrompt)),
+    auth.SendCodeOptions{},
+).Run(ctx, client.Auth()); err != nil {
     panic(err)
 }
 ```
@@ -88,7 +88,7 @@ if err := telegram.NewAuth(
 Use bot token from [@BotFather](https://telegram.me/BotFather).
 
 ```go
-if err := client.AuthBot(ctx, "token:12345"); err != nil {
+if err := client.Auth().Bot(ctx, "token:12345"); err != nil {
     panic(err)
 }
 ```
@@ -104,7 +104,7 @@ directly.
 client := telegram.NewClient(appID, appHash, telegram.Options{})
 client.Run(ctx, func(ctx context.Context) error) {
   // Grab token from @BotFather.
-  if err := client.AuthBot(ctx, "token:12345"); err != nil {
+  if err := client.Auth().Bot(ctx, "token:12345"); err != nil {
     return err
   }
   state, err := tg.NewClient(client).UpdatesGetState(ctx)
