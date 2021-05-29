@@ -5,6 +5,8 @@ import (
 	"testing"
 	"unicode/utf8"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/telegram/message/styling"
 	"github.com/gotd/td/tg"
@@ -17,23 +19,23 @@ func TestBuilder_Text(t *testing.T) {
 	msg := "abc"
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendMessageRequest)
-		mock.True(ok)
-		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
-		mock.Equal(msg, req.Message)
+		require.True(t, ok)
+		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
+		require.Equal(t, msg, req.Message)
 	}).ThenResult(&tg.Updates{})
 
 	_, err := sender.Self().Textf(ctx, "%s", msg)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendMessageRequest)
-		mock.True(ok)
-		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
-		mock.Equal(msg, req.Message)
+		require.True(t, ok)
+		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
+		require.Equal(t, msg, req.Message)
 	}).ThenRPCErr(testRPCError())
 
 	_, err = sender.Self().Textf(ctx, "%s", msg)
-	mock.Error(err)
+	require.Error(t, err)
 }
 
 func TestBuilder_StyledText(t *testing.T) {
@@ -94,29 +96,29 @@ func TestBuilder_StyledText(t *testing.T) {
 			msg := "abc"
 			mock.ExpectFunc(func(b bin.Encoder) {
 				req, ok := b.(*tg.MessagesSendMessageRequest)
-				mock.True(ok)
-				mock.Equal(&tg.InputPeerSelf{}, req.Peer)
-				mock.Equal(msg, req.Message)
+				require.True(t, ok)
+				require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
+				require.Equal(t, msg, req.Message)
 
-				mock.NotEmpty(len(req.Entities))
-				mock.Equal(test.creator(utf8.RuneCountInString(msg)), req.Entities[0])
+				require.NotZero(t, len(req.Entities))
+				require.Equal(t, test.creator(utf8.RuneCountInString(msg)), req.Entities[0])
 			}).ThenResult(&tg.Updates{})
 
 			_, err := sender.Self().StyledText(ctx, test.format(msg))
-			mock.NoError(err)
+			require.NoError(t, err)
 
 			mock.ExpectFunc(func(b bin.Encoder) {
 				req, ok := b.(*tg.MessagesSendMessageRequest)
-				mock.True(ok)
-				mock.Equal(&tg.InputPeerSelf{}, req.Peer)
-				mock.Equal(msg, req.Message)
+				require.True(t, ok)
+				require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
+				require.Equal(t, msg, req.Message)
 
-				mock.NotEmpty(len(req.Entities))
-				mock.Equal(test.creator(utf8.RuneCountInString(msg)), req.Entities[0])
+				require.NotZero(t, len(req.Entities))
+				require.Equal(t, test.creator(utf8.RuneCountInString(msg)), req.Entities[0])
 			}).ThenRPCErr(testRPCError())
 
 			_, err = sender.Self().StyledText(ctx, test.format(msg))
-			mock.Error(err)
+			require.Error(t, err)
 		})
 	}
 }

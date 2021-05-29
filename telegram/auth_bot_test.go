@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgmock"
 )
@@ -22,8 +24,8 @@ func TestClient_AuthBot(t *testing.T) {
 		}).ThenResult(&tg.AuthAuthorization{User: testUser})
 
 		result, err := client.AuthBot(context.Background(), token)
-		a.NoError(err)
-		a.Equal(testUser, result.User)
+		require.NoError(t, err)
+		require.Equal(t, testUser, result.User)
 	}))
 
 	t.Run("AuthAuthorizationSignUpRequired", mockClient(func(a *tgmock.Mock, client *Client) {
@@ -34,7 +36,7 @@ func TestClient_AuthBot(t *testing.T) {
 		}).ThenResult(&tg.AuthAuthorizationSignUpRequired{})
 
 		result, err := client.AuthBot(context.Background(), token)
-		a.Error(err)
-		a.Nil(result)
+		require.Error(t, err)
+		require.Nil(t, result)
 	}))
 }

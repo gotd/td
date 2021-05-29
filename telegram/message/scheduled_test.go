@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -16,14 +18,14 @@ func TestScheduledManager_Send(t *testing.T) {
 		ID:   []int{10},
 	}).ThenResult(&tg.Updates{})
 	_, err := sender.Self().Scheduled().Send(ctx, 10)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.ExpectCall(&tg.MessagesSendScheduledMessagesRequest{
 		Peer: &tg.InputPeerSelf{},
 		ID:   []int{10},
 	}).ThenRPCErr(testRPCError())
 	_, err = sender.Self().Scheduled().Send(ctx, 10)
-	mock.Error(err)
+	require.Error(t, err)
 }
 
 func TestScheduledManager_Delete(t *testing.T) {
@@ -35,14 +37,14 @@ func TestScheduledManager_Delete(t *testing.T) {
 		ID:   []int{10},
 	}).ThenResult(&tg.Updates{})
 	_, err := sender.Self().Scheduled().Delete(ctx, 10)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.ExpectCall(&tg.MessagesDeleteScheduledMessagesRequest{
 		Peer: &tg.InputPeerSelf{},
 		ID:   []int{10},
 	}).ThenRPCErr(testRPCError())
 	_, err = sender.Self().Scheduled().Delete(ctx, 10)
-	mock.Error(err)
+	require.Error(t, err)
 }
 
 func TestScheduledManager_Get(t *testing.T) {
@@ -64,15 +66,15 @@ func TestScheduledManager_Get(t *testing.T) {
 		ID:   []int{10},
 	}).ThenResult(expected)
 	msgs, err := sender.Self().Scheduled().Get(ctx, 10)
-	mock.Equal(expected, msgs)
-	mock.NoError(err)
+	require.Equal(t, expected, msgs)
+	require.NoError(t, err)
 
 	mock.ExpectCall(&tg.MessagesGetScheduledMessagesRequest{
 		Peer: &tg.InputPeerSelf{},
 		ID:   []int{10},
 	}).ThenRPCErr(testRPCError())
 	_, err = sender.Self().Scheduled().Get(ctx, 10)
-	mock.Error(err)
+	require.Error(t, err)
 }
 
 func TestScheduledManager_History(t *testing.T) {
@@ -94,21 +96,21 @@ func TestScheduledManager_History(t *testing.T) {
 		Hash: 0,
 	}).ThenResult(expected)
 	msgs, err := sender.Self().Scheduled().History(ctx)
-	mock.Equal(expected, msgs)
-	mock.NoError(err)
+	require.Equal(t, expected, msgs)
+	require.NoError(t, err)
 
 	mock.ExpectCall(&tg.MessagesGetScheduledHistoryRequest{
 		Peer: &tg.InputPeerSelf{},
 		Hash: 1,
 	}).ThenResult(expected)
 	msgs, err = sender.Self().Scheduled().HistoryWithHash(ctx, 1)
-	mock.Equal(expected, msgs)
-	mock.NoError(err)
+	require.Equal(t, expected, msgs)
+	require.NoError(t, err)
 
 	mock.ExpectCall(&tg.MessagesGetScheduledHistoryRequest{
 		Peer: &tg.InputPeerSelf{},
 		Hash: 0,
 	}).ThenRPCErr(testRPCError())
 	_, err = sender.Self().Scheduled().History(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 }

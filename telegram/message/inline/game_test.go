@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 )
@@ -15,26 +17,26 @@ func TestGame(t *testing.T) {
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		v, ok := b.(*tg.MessagesSetInlineBotResultsRequest)
-		mock.True(ok)
-		mock.Equal(int64(10), v.QueryID)
+		require.True(t, ok)
+		require.Equal(t, int64(10), v.QueryID)
 
 		for i := range v.Results {
 			r, ok := v.Results[i].(*tg.InputBotInlineResultGame)
-			mock.True(ok)
-			mock.NotEmpty(r.ID)
-			mock.Equal(gameName, r.ShortName)
+			require.True(t, ok)
+			require.NotZero(t, r.ID)
+			require.Equal(t, gameName, r.ShortName)
 		}
 	}).ThenTrue()
 	_, err := builder.Set(ctx,
 		Game(gameName, MessageText("game")),
 		Game(gameName, MessageText("game")).ID("10"),
 	)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.Expect().ThenRPCErr(testRPCError())
 	_, err = builder.Set(ctx,
 		Game(gameName, MessageText("game")),
 		Game(gameName, MessageText("game")).ID("10"),
 	)
-	mock.Error(err)
+	require.Error(t, err)
 }

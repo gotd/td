@@ -5,6 +5,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -15,14 +17,14 @@ func TestGIF(t *testing.T) {
 		ID: 10,
 	}
 
-	expectSendMedia(&tg.InputMediaUploadedDocument{
+	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:     file,
 		MimeType: DefaultGifMIME,
 		Attributes: []tg.DocumentAttributeClass{
 			&tg.DocumentAttributeAnimated{},
 		},
 	}, mock)
-	expectSendMedia(&tg.InputMediaUploadedDocument{
+	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:     file,
 		MimeType: DefaultGifMIME,
 		Attributes: []tg.DocumentAttributeClass{
@@ -32,7 +34,7 @@ func TestGIF(t *testing.T) {
 	}, mock)
 
 	_, err := sender.Self().GIF(ctx, file)
-	mock.NoError(err)
+	require.NoError(t, err)
 	_, err = sender.Self().Media(ctx, GIF(file).TTL(10*time.Second))
-	mock.NoError(err)
+	require.NoError(t, err)
 }

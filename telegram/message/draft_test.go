@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/telegram/message/styling"
 	"github.com/gotd/td/tg"
 )
@@ -29,7 +31,7 @@ func TestDraft(t *testing.T) {
 		Peer: &tg.InputPeerSelf{},
 	}).ThenTrue()
 
-	mock.NoError(sender.Self().SaveDraft(ctx, "text"))
-	mock.NoError(sender.Self().SaveStyledDraft(ctx, styling.Bold("styled text")))
-	mock.NoError(sender.Self().ClearDraft(ctx))
+	require.NoError(t, sender.Self().SaveDraft(ctx, "text"))
+	require.NoError(t, sender.Self().SaveStyledDraft(ctx, styling.Bold("styled text")))
+	require.NoError(t, sender.Self().ClearDraft(ctx))
 }

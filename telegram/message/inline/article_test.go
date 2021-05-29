@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 )
@@ -14,16 +16,16 @@ func TestArticle(t *testing.T) {
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		v, ok := b.(*tg.MessagesSetInlineBotResultsRequest)
-		mock.True(ok)
-		mock.Equal(int64(10), v.QueryID)
+		require.True(t, ok)
+		require.Equal(t, int64(10), v.QueryID)
 
 		for i := range v.Results {
 			r, ok := v.Results[i].(*tg.InputBotInlineResult)
-			mock.True(ok)
-			mock.NotEmpty(r.ID)
-			mock.Equal(r.Title, r.Type)
-			mock.Equal(r.Description, r.Title)
-			mock.Equal(r.URL, r.Description)
+			require.True(t, ok)
+			require.NotZero(t, r.ID)
+			require.Equal(t, r.Title, r.Type)
+			require.Equal(t, r.Description, r.Title)
+			require.Equal(t, r.URL, r.Description)
 		}
 	}).ThenTrue()
 	_, err := builder.Set(ctx,
@@ -32,11 +34,11 @@ func TestArticle(t *testing.T) {
 		Article(ArticleType, MediaAuto("article")).ID("10").Title(ArticleType).
 			Description(ArticleType).URL(ArticleType),
 	)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.Expect().ThenRPCErr(testRPCError())
 	_, err = builder.Set(ctx,
 		Article(ArticleType, MessageText("article")),
 	)
-	mock.Error(err)
+	require.Error(t, err)
 }

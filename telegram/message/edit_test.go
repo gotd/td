@@ -5,6 +5,8 @@ import (
 	"testing"
 	"unicode/utf8"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/telegram/message/styling"
 	"github.com/gotd/td/tg"
 )
@@ -21,7 +23,7 @@ func TestEditMessageBuilder_Text(t *testing.T) {
 	}).ThenResult(&tg.Updates{})
 
 	_, err := sender.Self().Edit(10).Text(ctx, msg)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.ExpectCall(&tg.MessagesEditMessageRequest{
 		Peer:    &tg.InputPeerSelf{},
@@ -30,7 +32,7 @@ func TestEditMessageBuilder_Text(t *testing.T) {
 	}).ThenRPCErr(testRPCError())
 
 	_, err = sender.Self().Edit(10).Textf(ctx, "%s", msg)
-	mock.Error(err)
+	require.Error(t, err)
 }
 
 func TestEditMessageBuilder_StyledText(t *testing.T) {
@@ -50,7 +52,7 @@ func TestEditMessageBuilder_StyledText(t *testing.T) {
 	}).ThenResult(&tg.Updates{})
 
 	_, err := sender.Self().Edit(10).StyledText(ctx, styling.Bold(msg))
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.ExpectCall(&tg.MessagesEditMessageRequest{
 		Peer:    &tg.InputPeerSelf{},
@@ -64,7 +66,7 @@ func TestEditMessageBuilder_StyledText(t *testing.T) {
 	}).ThenRPCErr(testRPCError())
 
 	_, err = sender.Self().Edit(10).StyledText(ctx, styling.Bold(msg))
-	mock.Error(err)
+	require.Error(t, err)
 }
 
 func TestEditMessageBuilder_Media(t *testing.T) {
@@ -83,7 +85,7 @@ func TestEditMessageBuilder_Media(t *testing.T) {
 	}).ThenResult(&tg.Updates{})
 
 	_, err := sender.Self().Edit(10).Media(ctx, Photo(loc))
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.ExpectCall(&tg.MessagesEditMessageRequest{
 		Peer: &tg.InputPeerSelf{},
@@ -94,5 +96,5 @@ func TestEditMessageBuilder_Media(t *testing.T) {
 	}).ThenRPCErr(testRPCError())
 
 	_, err = sender.Self().Edit(10).Media(ctx, Photo(loc))
-	mock.Error(err)
+	require.Error(t, err)
 }

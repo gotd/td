@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -14,9 +16,9 @@ func TestGame(t *testing.T) {
 		ID: 10,
 	}
 
-	expectSendMedia(&tg.InputMediaGame{
+	expectSendMedia(t, &tg.InputMediaGame{
 		ID: game,
 	}, mock)
 	_, err := sender.Self().Media(ctx, Game(game))
-	mock.NoError(err)
+	require.NoError(t, err)
 }

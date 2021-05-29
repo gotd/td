@@ -1,6 +1,7 @@
 package tgmock
 
 import (
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
@@ -8,23 +9,66 @@ import (
 
 // TestingT is simplified *testing.T interface.
 type TestingT interface {
+	require.TestingT
+	assert.TestingT
+	Helper()
 	Cleanup(cb func())
 }
 
 // Mock is a mock for tg.Invoker with testify/require support.
 type Mock struct {
-	calls []Handler
-	*require.Assertions
+	calls  []Handler
+	assert assertions
+}
+
+type Option interface {
+	apply(t TestingT, m *Mock)
+}
+
+type assertions interface {
+	Truef(value bool, msg string, args ...interface{})
+	Equal(expected interface{}, actual interface{}, msgAndArgs ...interface{})
+}
+
+type assertAssertions struct {
+	assert *assert.Assertions
+}
+
+func (a assertAssertions) Equal(expected interface{}, actual interface{}, msgAndArgs ...interface{}) {
+	a.assert.Equal(expected, actual, msgAndArgs...)
+}
+
+func (a assertAssertions) Truef(value bool, msg string, args ...interface{}) {
+	a.assert.Truef(value, msg, args...)
+}
+
+type optionFunc func(t TestingT, m *Mock)
+
+func (o optionFunc) apply(t TestingT, m *Mock) { o(t, m) }
+
+func WithRequire() Option {
+	return optionFunc(func(t TestingT, m *Mock) {
+		m.assert = require.New(t)
+	})
+}
+
+func NewRequire(t TestingT) *Mock {
+	return NewMock(t, WithRequire())
 }
 
 // NewMock creates new Mock.
-func NewMock(testingT TestingT, assert *require.Assertions) *Mock {
+func NewMock(t TestingT, options ...Option) *Mock {
 	m := &Mock{
-		Assertions: assert,
+		assert: &assertAssertions{
+			assert: assert.New(t),
+		},
+	}
+	for _, o := range options {
+		o.apply(t, m)
 	}
 
-	testingT.Cleanup(func() {
-		m.Assertions.Truef(
+	t.Cleanup(func() {
+		m.assert.Truef(
 			m.AllWereMet(),
 			"not all expected calls happen (expected yet %d)",
 			len(m.calls),
@@ -60,7 +104,7 @@ func (i *Mock) pop() (Handler, bool) {
 func (i *Mock) Handler() HandlerFunc {
 	return func(id int64, body bin.Encoder) (bin.Encoder, error) {
 		h, ok := i.pop()
-		i.Assertions.Truef(ok, "unexpected call")
+		i.assert.Truef(ok, "unexpected call")
 
 		return h.Handle(id, body)
 	}

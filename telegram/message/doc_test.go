@@ -12,7 +12,7 @@ import (
 )
 
 func testSender(t *testing.T) (*Sender, *tgmock.Mock) {
-	mock := tgmock.NewMock(t, require.New(t))
+	mock := tgmock.NewRequire(t)
 	sender := NewSender(tg.NewClient(mock))
 	return sender, mock
 }
@@ -25,25 +25,26 @@ func testRPCError() *tgerr.Error {
 	}
 }
 
-func expectSendMedia(attachment tg.InputMediaClass, mock *tgmock.Mock) {
-	expectSendMediaAndText(attachment, mock, "")
+func expectSendMedia(t *testing.T, attachment tg.InputMediaClass, mock *tgmock.Mock) {
+	expectSendMediaAndText(t, attachment, mock, "")
 }
 
 func expectSendMediaAndText(
-	attachment tg.InputMediaClass, mock *tgmock.Mock,
+	t *testing.T, attachment tg.InputMediaClass, mock *tgmock.Mock,
 	msg string, entities ...tg.MessageEntityClass,
 ) {
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendMediaRequest)
-		mock.True(ok)
-		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
-		mock.Equal(msg, req.Message)
-		mock.Equal(attachment, req.Media)
-		mock.NotZero(req.RandomID)
+		require.True(t, ok)
+		require.True(t, ok)
+		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
+		require.Equal(t, msg, req.Message)
+		require.Equal(t, attachment, req.Media)
+		require.NotZero(t, req.RandomID)
 
-		mock.Equal(len(entities), len(req.Entities))
+		require.Equal(t, len(entities), len(req.Entities))
 		if len(entities) > 0 {
-			mock.Equal(entities, req.Entities)
+			require.Equal(t, entities, req.Entities)
 		}
 	}).ThenResult(&tg.Updates{})
 }

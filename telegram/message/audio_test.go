@@ -5,6 +5,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -15,7 +17,7 @@ func TestVoice(t *testing.T) {
 		ID: 10,
 	}
 
-	expectSendMedia(&tg.InputMediaUploadedDocument{
+	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:     file,
 		MimeType: DefaultVoiceMIME,
 		Attributes: []tg.DocumentAttributeClass{
@@ -24,7 +26,7 @@ func TestVoice(t *testing.T) {
 			},
 		},
 	}, mock)
-	expectSendMedia(&tg.InputMediaUploadedDocument{
+	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:     file,
 		MimeType: DefaultAudioMIME,
 		Attributes: []tg.DocumentAttributeClass{
@@ -38,7 +40,7 @@ func TestVoice(t *testing.T) {
 	}, mock)
 
 	_, err := sender.Self().Voice(ctx, file)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	_, err = sender.Self().Media(ctx, Audio(file).
 		Duration(10*time.Second).
@@ -46,5 +48,5 @@ func TestVoice(t *testing.T) {
 		Performer("Marty Robbins").
 		Waveform([]byte{10}),
 	)
-	mock.NoError(err)
+	require.NoError(t, err)
 }

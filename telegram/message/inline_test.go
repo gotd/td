@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 )
@@ -14,23 +16,23 @@ func TestBuilder_InlineResult(t *testing.T) {
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendInlineBotResultRequest)
-		mock.True(ok)
-		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
-		mock.Equal(int64(10), req.QueryID)
-		mock.Equal("10", req.ID)
-		mock.True(req.HideVia)
+		require.True(t, ok)
+		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
+		require.Equal(t, int64(10), req.QueryID)
+		require.Equal(t, "10", req.ID)
+		require.True(t, req.HideVia)
 	}).ThenResult(&tg.Updates{})
 	_, err := sender.Self().InlineResult(ctx, "10", 10, true)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendInlineBotResultRequest)
-		mock.True(ok)
-		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
-		mock.Equal(int64(10), req.QueryID)
-		mock.Equal("10", req.ID)
-		mock.False(req.HideVia)
+		require.True(t, ok)
+		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
+		require.Equal(t, int64(10), req.QueryID)
+		require.Equal(t, "10", req.ID)
+		require.False(t, req.HideVia)
 	}).ThenRPCErr(testRPCError())
 	_, err = sender.Self().InlineResult(ctx, "10", 10, false)
-	mock.Error(err)
+	require.Error(t, err)
 }

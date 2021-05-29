@@ -30,7 +30,7 @@ func (i *Mock) ExpectFunc(fn func(b bin.Encoder)) *RequestBuilder {
 // ExpectCall creates builder of new expected call with given input.
 func (i *Mock) ExpectCall(body bin.Encoder) *RequestBuilder {
 	return i.request(func(got bin.Encoder) {
-		i.Assertions.Equal(body, got)
+		i.assert.Equal(body, got)
 	})
 }
 

@@ -6,21 +6,23 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgmock"
 )
 
-func expectSendReport(reason tg.ReportReasonClass, mock *tgmock.Mock, id int, msg string) {
+func expectSendReport(t *testing.T, reason tg.ReportReasonClass, mock *tgmock.Mock, id int, msg string) {
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesReportRequest)
-		mock.True(ok)
-		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
-		mock.Equal(reason, req.Reason)
-		mock.NotEmpty(req.ID)
-		mock.Equal(id, req.ID[0])
-		mock.Equal(msg, req.Message)
+		require.True(t, ok)
+		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
+		require.Equal(t, reason, req.Reason)
+		require.NotZero(t, req.ID)
+		require.Equal(t, id, req.ID[0])
+		require.Equal(t, msg, req.Message)
 	}).ThenTrue()
 }
 
@@ -29,45 +31,45 @@ func TestRequestBuilder_Report(t *testing.T) {
 	sender, mock := testSender(t)
 
 	id64, err := crypto.RandInt64(rand.Reader)
-	mock.NoError(err)
+	require.NoError(t, err)
 	id := int(id64)
 	msg := "abc" + strconv.Itoa(id)
 
 	report := sender.Self().Report(id).Message(msg)
 
 	var r bool
-	expectSendReport(&tg.InputReportReasonSpam{}, mock, id, msg)
+	expectSendReport(t, &tg.InputReportReasonSpam{}, mock, id, msg)
 	r, err = report.Spam(ctx)
-	mock.NoError(err)
-	mock.True(r)
-	expectSendReport(&tg.InputReportReasonViolence{}, mock, id, msg)
+	require.NoError(t, err)
+	require.True(t, r)
+	expectSendReport(t, &tg.InputReportReasonViolence{}, mock, id, msg)
 	r, err = report.Violence(ctx)
-	mock.NoError(err)
-	mock.True(r)
-	expectSendReport(&tg.InputReportReasonPornography{}, mock, id, msg)
+	require.NoError(t, err)
+	require.True(t, r)
+	expectSendReport(t, &tg.InputReportReasonPornography{}, mock, id, msg)
 	r, err = report.Pornography(ctx)
-	mock.NoError(err)
-	mock.True(r)
-	expectSendReport(&tg.InputReportReasonChildAbuse{}, mock, id, msg)
+	require.NoError(t, err)
+	require.True(t, r)
+	expectSendReport(t, &tg.InputReportReasonChildAbuse{}, mock, id, msg)
 	r, err = report.ChildAbuse(ctx)
-	mock.NoError(err)
-	mock.True(r)
-	expectSendReport(&tg.InputReportReasonOther{}, mock, id, msg)
+	require.NoError(t, err)
+	require.True(t, r)
+	expectSendReport(t, &tg.InputReportReasonOther{}, mock, id, msg)
 	r, err = report.Other(ctx)
-	mock.NoError(err)
-	mock.True(r)
-	expectSendReport(&tg.InputReportReasonCopyright{}, mock, id, msg)
+	require.NoError(t, err)
+	require.True(t, r)
+	expectSendReport(t, &tg.InputReportReasonCopyright{}, mock, id, msg)
 	r, err = report.Copyright(ctx)
-	mock.NoError(err)
-	mock.True(r)
-	expectSendReport(&tg.InputReportReasonGeoIrrelevant{}, mock, id, msg)
+	require.NoError(t, err)
+	require.True(t, r)
+	expectSendReport(t, &tg.InputReportReasonGeoIrrelevant{}, mock, id, msg)
 	r, err = report.GeoIrrelevant(ctx)
-	mock.NoError(err)
-	mock.True(r)
-	expectSendReport(&tg.InputReportReasonFake{}, mock, id, msg)
+	require.NoError(t, err)
+	require.True(t, r)
+	expectSendReport(t, &tg.InputReportReasonFake{}, mock, id, msg)
 	r, err = report.Fake(ctx)
-	mock.NoError(err)
-	mock.True(r)
+	require.NoError(t, err)
+	require.True(t, r)
 }
 
 func TestRequestBuilder_ReportSpam(t *testing.T) {
@@ -79,6 +81,6 @@ func TestRequestBuilder_ReportSpam(t *testing.T) {
 	}).ThenTrue()
 
 	r, err := sender.Self().ReportSpam(ctx)
-	mock.True(r)
-	mock.NoError(err)
+	require.True(t, r)
+	require.NoError(t, err)
 }

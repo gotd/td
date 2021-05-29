@@ -29,21 +29,21 @@ func TestRequestBuilder_ScreenshotNotify(t *testing.T) {
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendScreenshotNotificationRequest)
-		mock.True(ok)
-		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
-		mock.Equal(10, req.ReplyToMsgID)
+		require.True(t, ok)
+		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
+		require.Equal(t, 10, req.ReplyToMsgID)
 	}).ThenResult(&tg.Updates{})
 	_, err := sender.Self().ScreenshotNotify(ctx, 10)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendScreenshotNotificationRequest)
-		mock.True(ok)
-		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
-		mock.Equal(10, req.ReplyToMsgID)
+		require.True(t, ok)
+		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
+		require.Equal(t, 10, req.ReplyToMsgID)
 	}).ThenRPCErr(testRPCError())
 	_, err = sender.Self().ScreenshotNotify(ctx, 10)
-	mock.Error(err)
+	require.Error(t, err)
 }
 
 func TestRequestBuilder_PeerSettings(t *testing.T) {
@@ -58,15 +58,15 @@ func TestRequestBuilder_PeerSettings(t *testing.T) {
 	}).ThenResult(expected)
 
 	s, err := sender.Self().PeerSettings(ctx)
-	mock.NoError(err)
-	mock.Equal(expected, s)
+	require.NoError(t, err)
+	require.Equal(t, expected, s)
 
 	mock.ExpectCall(&tg.MessagesGetPeerSettingsRequest{
 		Peer: &tg.InputPeerSelf{},
 	}).ThenRPCErr(testRPCError())
 
 	_, err = sender.Self().PeerSettings(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 }
 
 func TestRequestBuilder_StartBot(t *testing.T) {
@@ -79,32 +79,32 @@ func TestRequestBuilder_StartBot(t *testing.T) {
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesStartBotRequest)
-		mock.True(ok)
-		mock.Equal(peer, req.Peer)
-		mock.Equal(&tg.InputUser{
+		require.True(t, ok)
+		require.Equal(t, peer, req.Peer)
+		require.Equal(t, &tg.InputUser{
 			UserID:     10,
 			AccessHash: 10,
 		}, req.Bot)
-		mock.Equal("abc", req.StartParam)
-		mock.NotZero(req.RandomID)
+		require.Equal(t, "abc", req.StartParam)
+		require.NotZero(t, req.RandomID)
 	}).ThenResult(&tg.Updates{})
 	_, err := sender.To(peer).StartBot(ctx, StartBotParam("abc"))
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	inputUser := &tg.InputUserEmpty{}
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesStartBotRequest)
-		mock.True(ok)
-		mock.Equal(peer, req.Peer)
-		mock.Equal(inputUser, req.Bot)
-		mock.NotZero(req.RandomID)
+		require.True(t, ok)
+		require.Equal(t, peer, req.Peer)
+		require.Equal(t, inputUser, req.Bot)
+		require.NotZero(t, req.RandomID)
 	}).ThenResult(&tg.Updates{})
 	_, err = sender.To(peer).StartBot(ctx, StartBotInputUser(inputUser))
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	// Should not make RPC calls.
 	_, err = sender.To(&tg.InputPeerChannel{}).StartBot(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 
 	peerFromMsg := &tg.InputPeerUserFromMessage{
 		Peer:   peer,
@@ -113,16 +113,16 @@ func TestRequestBuilder_StartBot(t *testing.T) {
 	}
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesStartBotRequest)
-		mock.True(ok)
-		mock.Equal(peerFromMsg, req.Peer)
-		mock.Equal(&tg.InputUserFromMessage{
+		require.True(t, ok)
+		require.Equal(t, peerFromMsg, req.Peer)
+		require.Equal(t, &tg.InputUserFromMessage{
 			Peer:   peer,
 			MsgID:  10,
 			UserID: 10,
 		}, req.Bot)
-		mock.NotZero(req.RandomID)
+		require.NotZero(t, req.RandomID)
 	}).ThenRPCErr(testRPCError())
 
 	_, err = sender.To(peerFromMsg).StartBot(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 }

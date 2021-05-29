@@ -5,6 +5,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -15,7 +17,7 @@ func TestRoundVideo(t *testing.T) {
 		ID: 10,
 	}
 
-	expectSendMedia(&tg.InputMediaUploadedDocument{
+	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:     file,
 		MimeType: DefaultVideoMIME,
 		Attributes: []tg.DocumentAttributeClass{
@@ -24,7 +26,7 @@ func TestRoundVideo(t *testing.T) {
 			},
 		},
 	}, mock)
-	expectSendMedia(&tg.InputMediaUploadedDocument{
+	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:     file,
 		MimeType: DefaultVideoMIME,
 		Attributes: []tg.DocumentAttributeClass{
@@ -39,11 +41,11 @@ func TestRoundVideo(t *testing.T) {
 	}, mock)
 
 	_, err := sender.Self().RoundVideo(ctx, file)
-	mock.NoError(err)
+	require.NoError(t, err)
 	_, err = sender.Self().Media(ctx, RoundVideo(file).
 		Duration(10*time.Second).
 		Resolution(10, 10).
 		SupportsStreaming(),
 	)
-	mock.NoError(err)
+	require.NoError(t, err)
 }

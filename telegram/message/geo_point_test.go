@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -16,10 +18,10 @@ func TestGeoPoint(t *testing.T) {
 		AccuracyRadius: 10,
 	}
 
-	expectSendMedia(&tg.InputMediaGeoPoint{
+	expectSendMedia(t, &tg.InputMediaGeoPoint{
 		GeoPoint: &point,
 	}, mock)
 
 	_, err := sender.Self().Media(ctx, GeoPoint(11, 12, 10))
-	mock.NoError(err)
+	require.NoError(t, err)
 }

@@ -5,6 +5,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -15,32 +17,32 @@ func TestPhoto(t *testing.T) {
 		ID: 10,
 	}
 
-	expectSendMedia(&tg.InputMediaPhoto{ID: loc}, mock)
-	expectSendMedia(&tg.InputMediaPhoto{
+	expectSendMedia(t, &tg.InputMediaPhoto{ID: loc}, mock)
+	expectSendMedia(t, &tg.InputMediaPhoto{
 		ID:         loc,
 		TTLSeconds: 10,
 	}, mock)
 
 	_, err := sender.Self().Photo(ctx, loc)
-	mock.NoError(err)
+	require.NoError(t, err)
 	_, err = sender.Self().Media(ctx, Photo(loc).TTL(10*time.Second))
-	mock.NoError(err)
+	require.NoError(t, err)
 }
 
 func TestPhotoExternal(t *testing.T) {
 	ctx := context.Background()
 	sender, mock := testSender(t)
 
-	expectSendMedia(&tg.InputMediaPhotoExternal{URL: "https://google.com"}, mock)
-	expectSendMedia(&tg.InputMediaPhotoExternal{
+	expectSendMedia(t, &tg.InputMediaPhotoExternal{URL: "https://google.com"}, mock)
+	expectSendMedia(t, &tg.InputMediaPhotoExternal{
 		URL:        "https://github.com",
 		TTLSeconds: 10,
 	}, mock)
 
 	_, err := sender.Self().PhotoExternal(ctx, "https://google.com")
-	mock.NoError(err)
+	require.NoError(t, err)
 	_, err = sender.Self().Media(ctx, PhotoExternal("https://github.com").TTL(10*time.Second))
-	mock.NoError(err)
+	require.NoError(t, err)
 }
 
 func TestUploadedPhoto(t *testing.T) {
@@ -53,14 +55,14 @@ func TestUploadedPhoto(t *testing.T) {
 		ID: 10,
 	}
 
-	expectSendMedia(&tg.InputMediaUploadedPhoto{
+	expectSendMedia(t, &tg.InputMediaUploadedPhoto{
 		File: file,
 	}, mock)
-	expectSendMedia(&tg.InputMediaUploadedPhoto{
+	expectSendMedia(t, &tg.InputMediaUploadedPhoto{
 		File:       file,
 		TTLSeconds: 10,
 	}, mock)
-	expectSendMedia(&tg.InputMediaUploadedPhoto{
+	expectSendMedia(t, &tg.InputMediaUploadedPhoto{
 		File: file,
 		Stickers: []tg.InputDocumentClass{&tg.InputDocument{
 			ID: loc.GetID(),
@@ -68,9 +70,9 @@ func TestUploadedPhoto(t *testing.T) {
 	}, mock)
 
 	_, err := sender.Self().UploadedPhoto(ctx, file)
-	mock.NoError(err)
+	require.NoError(t, err)
 	_, err = sender.Self().Media(ctx, UploadedPhoto(file).TTL(10*time.Second))
-	mock.NoError(err)
+	require.NoError(t, err)
 	_, err = sender.Self().Media(ctx, UploadedPhoto(file).Stickers(loc))
-	mock.NoError(err)
+	require.NoError(t, err)
 }
