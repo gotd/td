@@ -53,11 +53,11 @@ func WithRequire() Option {
 }
 
 func NewRequire(t TestingT) *Mock {
-	return NewMock(t, WithRequire())
+	return New(t, WithRequire())
 }
 
-// NewMock creates new Mock.
-func NewMock(t TestingT, options ...Option) *Mock {
+// New creates new Mock.
+func New(t TestingT, options ...Option) *Mock {
 	m := &Mock{
 		assert: &assertAssertions{
 			assert: assert.New(t),

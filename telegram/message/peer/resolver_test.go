@@ -44,7 +44,7 @@ func Test_plainResolver_Resolve(t *testing.T) {
 }
 
 func Test_plainResolver_ResolvePhone(t *testing.T) {
-	mock := tgmock.NewMock(t)
+	mock := tgmock.New(t)
 	raw := tg.NewClient(mock)
 
 	phone := "adcd"

@@ -15,7 +15,7 @@ import (
 )
 
 func testBuilder(t *testing.T) (*ResultBuilder, *tgmock.Mock) {
-	mock := tgmock.NewMock(t)
+	mock := tgmock.New(t)
 	sender := New(tg.NewClient(mock), rand.Reader, 10)
 	return sender, mock
 }

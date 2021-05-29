@@ -1,4 +1,4 @@
-package telegram
+package auth
 
 import (
 	"context"
@@ -15,6 +15,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
+	"github.com/gotd/td/tgmock"
 )
 
 func getHex(t testing.TB, in string) []byte {
@@ -34,15 +35,15 @@ func TestClient_AuthSignIn(t *testing.T) {
 	)
 	ctx := context.Background()
 	testUser := &tg.User{ID: 1}
-	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
+	invoker := tgmock.Invoker(func(body bin.Encoder) (bin.Encoder, error) {
 		switch req := body.(type) {
 		case *tg.AuthSendCodeRequest:
 			settings := tg.CodeSettings{}
 			settings.SetCurrentNumber(true)
 			assert.Equal(t, &tg.AuthSendCodeRequest{
 				PhoneNumber: phone,
-				APIHash:     TestAppHash,
-				APIID:       TestAppID,
+				APIHash:     testAppHash,
+				APIID:       testAppID,
 				Settings:    settings,
 			}, req)
 			return &tg.AuthSentCode{
@@ -95,29 +96,30 @@ func TestClient_AuthSignIn(t *testing.T) {
 
 	t.Run("Manual", func(t *testing.T) {
 		// 1. Request code from server to device.
-		sentCode, err := client.AuthSendCode(ctx, phone, SendCodeOptions{CurrentNumber: true})
+		client := testClient(invoker)
+		sentCode, err := client.SendCode(ctx, phone, SendCodeOptions{CurrentNumber: true})
 		require.NoError(t, err)
 		h := sentCode.PhoneCodeHash
 		require.Equal(t, codeHash, h)
 
 		// 2. Send code from device to server.
 		// Server is responding with 2FA password prompt.
-		_, signInErr := client.AuthSignIn(ctx, phone, code, h)
+		_, signInErr := client.SignIn(ctx, phone, code, h)
 		require.ErrorIs(t, signInErr, ErrPasswordAuthNeeded)
 
 		// 3. Provide 2FA password.
-		result, err := client.AuthPassword(ctx, password)
+		result, err := client.Password(ctx, password)
 		require.NoError(t, err)
 		require.Equal(t, testUser, result.User)
 	})
 	t.Run("AuthFlow", func(t *testing.T) {
 		// Using flow helper.
-		u := ConstantAuth(phone, password, CodeAuthenticatorFunc(
+		u := Constant(phone, password, CodeAuthenticatorFunc(
 			func(ctx context.Context, _ *tg.AuthSentCode) (string, error) {
 				return code, nil
 			},
 		))
-		require.NoError(t, NewAuth(u, SendCodeOptions{CurrentNumber: true}).Run(ctx, client.Auth()))
+		require.NoError(t, NewFlow(u, SendCodeOptions{CurrentNumber: true}).Run(ctx, testClient(invoker)))
 	})
 }
 
@@ -127,13 +129,13 @@ func TestClientTestAuth(t *testing.T) {
 		dcID     = 2
 	)
 	ctx := context.Background()
-	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
+	invoker := tgmock.Invoker(func(body bin.Encoder) (bin.Encoder, error) {
 		switch req := body.(type) {
 		case *tg.AuthSendCodeRequest:
 			assert.Equal(t, &tg.AuthSendCodeRequest{
 				PhoneNumber: req.PhoneNumber,
-				APIHash:     TestAppHash,
-				APIID:       TestAppID,
+				APIHash:     testAppHash,
+				APIID:       testAppID,
 				Settings:    tg.CodeSettings{},
 			}, req)
 			return &tg.AuthSentCode{
@@ -159,10 +161,10 @@ func TestClientTestAuth(t *testing.T) {
 		}
 		return nil, xerrors.New("unexpected")
 	})
-	require.NoError(t, NewAuth(
-		TestAuth(rand.New(rand.NewSource(1)), dcID),
+	require.NoError(t, NewFlow(
+		Test(rand.New(rand.NewSource(1)), dcID),
 		SendCodeOptions{},
-	).Run(ctx, client.Auth()))
+	).Run(ctx, testClient(invoker)))
 }
 
 func TestClientTestSignUp(t *testing.T) {
@@ -172,13 +174,13 @@ func TestClientTestSignUp(t *testing.T) {
 		tosID    = "foo"
 	)
 	ctx := context.Background()
-	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
+	invoker := tgmock.Invoker(func(body bin.Encoder) (bin.Encoder, error) {
 		switch req := body.(type) {
 		case *tg.AuthSendCodeRequest:
 			assert.Equal(t, &tg.AuthSendCodeRequest{
 				PhoneNumber: req.PhoneNumber,
-				APIHash:     TestAppHash,
-				APIID:       TestAppID,
+				APIHash:     testAppHash,
+				APIID:       testAppID,
 				Settings:    tg.CodeSettings{},
 			}, req)
 			return &tg.AuthSentCode{
@@ -218,8 +220,8 @@ func TestClientTestSignUp(t *testing.T) {
 		}
 		return nil, xerrors.New("unexpected")
 	})
-	require.NoError(t, NewAuth(
-		TestAuth(rand.New(rand.NewSource(1)), dcID),
+	require.NoError(t, NewFlow(
+		Test(rand.New(rand.NewSource(1)), dcID),
 		SendCodeOptions{},
-	).Run(ctx, client.Auth()))
+	).Run(ctx, testClient(invoker)))
 }
