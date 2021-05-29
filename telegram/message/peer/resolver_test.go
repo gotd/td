@@ -12,7 +12,7 @@ import (
 )
 
 func Test_plainResolver_Resolve(t *testing.T) {
-	mock := tgmock.NewMock(t, require.New(t))
+	mock := tgmock.NewRequire(t)
 	raw := tg.NewClient(mock)
 
 	domain := "adcd"
@@ -35,16 +35,16 @@ func Test_plainResolver_Resolve(t *testing.T) {
 	resolver := plainResolver{raw: raw}
 
 	r, err := resolver.ResolveDomain(ctx, domain)
-	mock.IsType(&tg.InputPeerUser{}, r)
-	mock.Equal(10, r.(*tg.InputPeerUser).UserID)
-	mock.NoError(err)
+	require.IsType(t, &tg.InputPeerUser{}, r)
+	require.Equal(t, 10, r.(*tg.InputPeerUser).UserID)
+	require.NoError(t, err)
 
 	_, err = resolver.ResolveDomain(ctx, domain)
-	mock.Error(err)
+	require.Error(t, err)
 }
 
 func Test_plainResolver_ResolvePhone(t *testing.T) {
-	mock := tgmock.NewMock(t, require.New(t))
+	mock := tgmock.New(t)
 	raw := tg.NewClient(mock)
 
 	phone := "adcd"
@@ -69,10 +69,10 @@ func Test_plainResolver_ResolvePhone(t *testing.T) {
 	resolver := plainResolver{raw: raw}
 
 	r, err := resolver.ResolvePhone(ctx, phone)
-	mock.NoError(err)
-	mock.IsType(&tg.InputPeerUser{}, r)
-	mock.Equal(10, r.(*tg.InputPeerUser).UserID)
+	require.NoError(t, err)
+	require.IsType(t, &tg.InputPeerUser{}, r)
+	require.Equal(t, 10, r.(*tg.InputPeerUser).UserID)
 
 	_, err = resolver.ResolvePhone(ctx, phone)
-	mock.Error(err)
+	require.Error(t, err)
 }

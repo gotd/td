@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -44,9 +46,9 @@ func TestSender_JoinLink(t *testing.T) {
 
 				_, err := sender.JoinLink(ctx, link)
 				if wantErr {
-					mock.Error(err)
+					require.Error(t, err)
 				} else {
-					mock.NoError(err)
+					require.NoError(t, err)
 				}
 			})
 		}
@@ -68,7 +70,7 @@ func TestRequestBuilder_Join(t *testing.T) {
 		},
 	}).ThenResult(&tg.Updates{})
 	_, err := sender.To(peer).Join(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.ExpectCall(&tg.ChannelsJoinChannelRequest{
 		Channel: &tg.InputChannel{
@@ -77,7 +79,7 @@ func TestRequestBuilder_Join(t *testing.T) {
 		},
 	}).ThenRPCErr(testRPCError())
 	_, err = sender.To(peer).Join(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 }
 
 func TestRequestBuilder_Leave(t *testing.T) {
@@ -96,11 +98,11 @@ func TestRequestBuilder_Leave(t *testing.T) {
 		Channel: ch,
 	}).ThenResult(&tg.Updates{})
 	_, err := sender.To(peer).Leave(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.ExpectCall(&tg.ChannelsLeaveChannelRequest{
 		Channel: ch,
 	}).ThenRPCErr(testRPCError())
 	_, err = sender.To(peer).Leave(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 }

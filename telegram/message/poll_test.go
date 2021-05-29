@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/telegram/message/styling"
 	"github.com/gotd/td/tg"
@@ -16,25 +18,25 @@ func TestPoll(t *testing.T) {
 	id := int64(0)
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendMediaRequest)
-		mock.True(ok)
-		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
+		require.True(t, ok)
+		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
 
 		m, ok := req.Media.(*tg.InputMediaPoll)
-		mock.True(ok)
+		require.True(t, ok)
 		id = m.Poll.ID
-		mock.Len(m.Poll.Answers, 3)
-		mock.Len(m.CorrectAnswers, 1)
-		mock.Equal(m.Poll.Answers[0].Option, m.CorrectAnswers[0])
+		require.Len(t, m.Poll.Answers, 3)
+		require.Len(t, m.CorrectAnswers, 1)
+		require.Equal(t, m.Poll.Answers[0].Option, m.CorrectAnswers[0])
 	}).ThenResult(&tg.Updates{})
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendMediaRequest)
-		mock.True(ok)
-		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
+		require.True(t, ok)
+		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
 
 		m, ok := req.Media.(*tg.InputMediaPoll)
-		mock.True(ok)
-		mock.Equal(id, m.Poll.ID)
-		mock.True(m.Poll.Closed)
+		require.True(t, ok)
+		require.Equal(t, id, m.Poll.ID)
+		require.True(t, m.Poll.Closed)
 	}).ThenResult(&tg.Updates{})
 
 	poll := Poll("Nu che tam s den'gami?",
@@ -48,9 +50,9 @@ func TestPoll(t *testing.T) {
 		)
 
 	_, err := sender.Self().Media(ctx, poll)
-	mock.NoError(err)
+	require.NoError(t, err)
 	_, err = sender.Self().Media(ctx, poll.Close())
-	mock.NoError(err)
+	require.NoError(t, err)
 }
 
 func TestRequestBuilder_PollVote(t *testing.T) {
@@ -63,7 +65,7 @@ func TestRequestBuilder_PollVote(t *testing.T) {
 		Options: [][]byte{[]byte("abc")},
 	}).ThenResult(&tg.Updates{})
 	_, err := sender.Self().PollVote(ctx, 10, []byte("abc"))
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.ExpectCall(&tg.MessagesSendVoteRequest{
 		Peer:    &tg.InputPeerSelf{},
@@ -71,5 +73,5 @@ func TestRequestBuilder_PollVote(t *testing.T) {
 		Options: [][]byte{[]byte("abc")},
 	}).ThenRPCErr(testRPCError())
 	_, err = sender.Self().PollVote(ctx, 10, []byte("abc"))
-	mock.Error(err)
+	require.Error(t, err)
 }

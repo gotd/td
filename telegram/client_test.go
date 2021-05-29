@@ -89,9 +89,7 @@ func newTestClient(h testHandler) *Client {
 func mockClient(cb func(mock *tgmock.Mock, client *Client)) func(t *testing.T) {
 	return func(t *testing.T) {
 		t.Helper()
-
-		a := require.New(t)
-		mock := tgmock.NewMock(t, a)
+		mock := tgmock.NewRequire(t)
 		client := newTestClient(testHandler(mock.Handler()))
 		cb(mock, client)
 	}

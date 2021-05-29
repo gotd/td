@@ -53,7 +53,7 @@ func result(r []tg.DialogClass, count int) tg.MessagesDialogsClass {
 
 func TestIterator(t *testing.T) {
 	ctx := context.Background()
-	mock := tgmock.NewMock(t, require.New(t))
+	mock := tgmock.NewRequire(t)
 	limit := 10
 	totalRows := 3 * limit
 	expected := generateDialogs(totalRows)
@@ -67,21 +67,21 @@ func TestIterator(t *testing.T) {
 	iter := NewQueryBuilder(raw).GetDialogs().BatchSize(10).Iter()
 	i := 0
 	for iter.Next(ctx) {
-		mock.Equal(expected[i].GetPeer(), iter.Value().Dialog.GetPeer())
+		require.Equal(t, expected[i].GetPeer(), iter.Value().Dialog.GetPeer())
 		i++
 	}
-	mock.NoError(iter.Err())
-	mock.Equal(totalRows, i)
+	require.NoError(t, iter.Err())
+	require.Equal(t, totalRows, i)
 
 	total, err := iter.Total(ctx)
-	mock.NoError(err)
-	mock.Equal(totalRows, total)
+	require.NoError(t, err)
+	require.Equal(t, totalRows, total)
 
 	mock.ExpectCall(&tg.MessagesGetDialogsRequest{
 		OffsetPeer: &tg.InputPeerEmpty{},
 		Limit:      1,
 	}).ThenResult(result(expected[:0], totalRows))
 	total, err = iter.FetchTotal(ctx)
-	mock.NoError(err)
-	mock.Equal(totalRows, total)
+	require.NoError(t, err)
+	require.Equal(t, totalRows, total)
 }

@@ -6,6 +6,8 @@ import (
 	"io/fs"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/telegram/uploader"
 	"github.com/gotd/td/telegram/uploader/source"
 	"github.com/gotd/td/tg"
@@ -56,51 +58,51 @@ func TestUpload(t *testing.T) {
 	upd := mockUploader{file: f}
 	dialog := sender.WithUploader(upd).Self()
 
-	expectSendMedia(&tg.InputMediaUploadedPhoto{
+	expectSendMedia(t, &tg.InputMediaUploadedPhoto{
 		File: f,
 	}, mock)
 	_, err := dialog.Upload(FromPath("abc.jpg")).Photo(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 
-	expectSendMedia(&tg.InputMediaUploadedDocument{
+	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      f,
 		ForceFile: true,
 	}, mock)
 	_, err = dialog.Upload(FromReader("abc.jpg", nil)).File(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 
-	expectSendMedia(&tg.InputMediaUploadedDocument{
+	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      f,
 		ForceFile: true,
 	}, mock)
 	_, err = dialog.Upload(FromFS(nil, "abc.jpg")).File(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 
-	expectSendMedia(&tg.InputMediaUploadedDocument{
+	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      f,
 		ForceFile: true,
 	}, mock)
 	_, err = dialog.Upload(FromBytes("abc.jpg", nil)).File(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 
-	expectSendMedia(&tg.InputMediaUploadedDocument{
+	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      f,
 		ForceFile: true,
 	}, mock)
 	_, err = dialog.Upload(FromFile(nil)).File(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 
-	expectSendMedia(&tg.InputMediaUploadedDocument{
+	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      f,
 		ForceFile: true,
 	}, mock)
 	_, err = dialog.Upload(FromURL("http://example.com")).File(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 
-	expectSendMedia(&tg.InputMediaUploadedDocument{
+	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      f,
 		ForceFile: true,
 	}, mock)
 	_, err = dialog.Upload(FromSource(source.NewHTTPSource(), "http://example.com")).File(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 }

@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -12,7 +14,7 @@ func TestMediaDice(t *testing.T) {
 	sender, mock := testSender(t)
 
 	expectDice := func(emoticon string) {
-		expectSendMedia(&tg.InputMediaDice{Emoticon: emoticon}, mock)
+		expectSendMedia(t, &tg.InputMediaDice{Emoticon: emoticon}, mock)
 	}
 
 	expectDice(DiceEmoticon)
@@ -23,15 +25,15 @@ func TestMediaDice(t *testing.T) {
 	expectDice(BowlingEmoticon)
 
 	_, err := sender.Self().Dice(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 	_, err = sender.Self().Darts(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 	_, err = sender.Self().Basketball(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 	_, err = sender.Self().Football(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 	_, err = sender.Self().Casino(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 	_, err = sender.Self().Bowling(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 }

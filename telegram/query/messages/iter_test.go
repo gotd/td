@@ -34,7 +34,7 @@ func messagesClass(r []tg.MessageClass, count int) tg.MessagesMessagesClass {
 
 func TestIterator(t *testing.T) {
 	ctx := context.Background()
-	mock := tgmock.NewMock(t, require.New(t))
+	mock := tgmock.NewRequire(t)
 	limit := 10
 	totalMessages := 3 * limit
 	expected := generateMessages(totalMessages)
@@ -78,15 +78,15 @@ func TestIterator(t *testing.T) {
 		Q("query").BatchSize(10).Iter()
 	i := 0
 	for iter.Next(ctx) {
-		mock.Equal(expected[len(expected)-i-1], iter.Value().Msg)
+		require.Equal(t, expected[len(expected)-i-1], iter.Value().Msg)
 		i++
 	}
-	mock.NoError(iter.Err())
-	mock.Equal(totalMessages, i)
+	require.NoError(t, iter.Err())
+	require.Equal(t, totalMessages, i)
 
 	total, err := iter.Total(ctx)
-	mock.NoError(err)
-	mock.Equal(totalMessages, total)
+	require.NoError(t, err)
+	require.Equal(t, totalMessages, total)
 
 	mock.ExpectCall(&tg.MessagesSearchRequest{
 		Q:        "query",
@@ -97,6 +97,6 @@ func TestIterator(t *testing.T) {
 		Limit:    1,
 	}).ThenResult(messagesClass(expected[:0], totalMessages))
 	total, err = iter.FetchTotal(ctx)
-	mock.NoError(err)
-	mock.Equal(totalMessages, total)
+	require.NoError(t, err)
+	require.Equal(t, totalMessages, total)
 }

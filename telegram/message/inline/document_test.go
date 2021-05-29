@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 )
@@ -15,16 +17,16 @@ func TestDocument(t *testing.T) {
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		v, ok := b.(*tg.MessagesSetInlineBotResultsRequest)
-		mock.True(ok)
-		mock.Equal(int64(10), v.QueryID)
+		require.True(t, ok)
+		require.Equal(t, int64(10), v.QueryID)
 
 		for i := range v.Results {
 			r, ok := v.Results[i].(*tg.InputBotInlineResultDocument)
-			mock.True(ok)
-			mock.NotEmpty(r.ID)
-			mock.Equal(doc, r.Document)
-			mock.Equal(r.Title, r.Type)
-			mock.Equal(r.Description, r.Title)
+			require.True(t, ok)
+			require.NotZero(t, r.ID)
+			require.Equal(t, doc, r.Document)
+			require.Equal(t, r.Title, r.Type)
+			require.Equal(t, r.Description, r.Title)
 		}
 	}).ThenTrue()
 	_, err := builder.Set(ctx,
@@ -43,12 +45,12 @@ func TestDocument(t *testing.T) {
 		Sticker(doc, MessageText("sticker")).ID("10").Title(StickerType).
 			Description(StickerType),
 	)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.Expect().ThenRPCErr(testRPCError())
 	_, err = builder.Set(ctx,
 		Video(doc, MessageText("video")).Title(VideoType).
 			Description(VideoType),
 	)
-	mock.Error(err)
+	require.Error(t, err)
 }

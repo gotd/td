@@ -4,30 +4,32 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/tg"
 )
 
 func TestUnpack(t *testing.T) {
 	ctx := context.Background()
-	sender, mock := testSender(t)
+	sender, _ := testSender(t)
 
 	var p tg.InputPeerClass = &tg.InputPeerUser{
 		UserID:     10,
 		AccessHash: 10,
 	}
 	_, err := sender.To(p).AsInputChannel(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 
 	_, err = sender.To(p).AsInputUser(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	p = &tg.InputPeerChannel{
 		ChannelID:  10,
 		AccessHash: 10,
 	}
 	_, err = sender.To(p).AsInputChannel(ctx)
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	_, err = sender.To(p).AsInputUser(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 }

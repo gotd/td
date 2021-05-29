@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/telegram/message/entity"
 	"github.com/gotd/td/telegram/message/html"
@@ -18,31 +20,31 @@ func TestHTMLBuilder_String(t *testing.T) {
 	send := "<b>" + msg + "</b>"
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendMessageRequest)
-		mock.True(ok)
-		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
-		mock.Equal(msg, req.Message)
-		mock.NotEmpty(req.Entities)
-		mock.Equal(&tg.MessageEntityBold{
+		require.True(t, ok)
+		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
+		require.Equal(t, msg, req.Message)
+		require.NotZero(t, req.Entities)
+		require.Equal(t, &tg.MessageEntityBold{
 			Offset: 0,
 			Length: entity.ComputeLength(msg),
 		}, req.Entities[0])
 	}).ThenResult(&tg.Updates{})
 
 	_, err := sender.Self().StyledText(ctx, html.Format(nil, "<b>%s</b>", msg))
-	mock.NoError(err)
+	require.NoError(t, err)
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendMessageRequest)
-		mock.True(ok)
-		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
-		mock.Equal(msg, req.Message)
-		mock.NotEmpty(req.Entities)
-		mock.Equal(&tg.MessageEntityBold{
+		require.True(t, ok)
+		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
+		require.Equal(t, msg, req.Message)
+		require.NotZero(t, req.Entities)
+		require.Equal(t, &tg.MessageEntityBold{
 			Offset: 0,
 			Length: entity.ComputeLength(msg),
 		}, req.Entities[0])
 	}).ThenRPCErr(testRPCError())
 
 	_, err = sender.Self().StyledText(ctx, html.Bytes(nil, []byte(send)))
-	mock.Error(err)
+	require.Error(t, err)
 }

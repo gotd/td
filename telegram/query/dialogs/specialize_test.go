@@ -13,7 +13,7 @@ import (
 
 func TestElem(t *testing.T) {
 	ctx := context.Background()
-	mock := tgmock.NewMock(t, require.New(t))
+	mock := tgmock.NewRequire(t)
 	raw := tg.NewClient(mock)
 
 	ch := Elem{
@@ -24,31 +24,31 @@ func TestElem(t *testing.T) {
 	var err error
 	mock.Expect().ThenRPCErr(testErr)
 	_, err = ch.Messages(raw).Count(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 	mock.Expect().ThenRPCErr(testErr)
 	_, err = ch.Search(raw).Count(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 	mock.Expect().ThenRPCErr(testErr)
 	_, err = ch.Replies(raw).Count(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 	mock.Expect().ThenRPCErr(testErr)
 	_, err = ch.UnreadMentions(raw).Count(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 	mock.Expect().ThenRPCErr(testErr)
 	_, err = ch.RecentLocations(raw).Count(ctx)
-	mock.Error(err)
+	require.Error(t, err)
 
 	_, ok := ch.Participants(raw)
-	mock.True(ok)
+	require.True(t, ok)
 	_, ok = ch.UserPhotos(raw)
-	mock.False(ok)
+	require.False(t, ok)
 
 	ch = Elem{
 		Peer: &tg.InputPeerUser{},
 	}
 
 	_, ok = ch.Participants(raw)
-	mock.False(ok)
+	require.False(t, ok)
 	_, ok = ch.UserPhotos(raw)
-	mock.True(ok)
+	require.True(t, ok)
 }

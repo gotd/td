@@ -5,6 +5,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgmock"
 )
@@ -32,7 +34,7 @@ func TestTransfer(t *testing.T) {
 		})
 
 		r, err := client.transfer(ctx, tg.NewClient(client), dc)
-		a.NoError(err)
-		a.Equal(auth, r)
+		require.NoError(t, err)
+		require.Equal(t, auth, r)
 	})(t)
 }

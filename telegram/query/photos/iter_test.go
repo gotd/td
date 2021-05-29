@@ -33,7 +33,7 @@ func result(r []tg.PhotoClass, count int) tg.PhotosPhotosClass {
 
 func TestIterator(t *testing.T) {
 	ctx := context.Background()
-	mock := tgmock.NewMock(t, require.New(t))
+	mock := tgmock.NewRequire(t)
 	limit := 10
 	totalRecords := 3 * limit
 	expected := generatePhotos(totalRecords)
@@ -63,15 +63,15 @@ func TestIterator(t *testing.T) {
 	iter := NewQueryBuilder(raw).GetUserPhotos(&tg.InputUserSelf{}).BatchSize(10).Iter()
 	i := 0
 	for iter.Next(ctx) {
-		mock.Equal(expected[i], iter.Value().Photo)
+		require.Equal(t, expected[i], iter.Value().Photo)
 		i++
 	}
-	mock.NoError(iter.Err())
-	mock.Equal(totalRecords, i)
+	require.NoError(t, iter.Err())
+	require.Equal(t, totalRecords, i)
 
 	total, err := iter.Total(ctx)
-	mock.NoError(err)
-	mock.Equal(totalRecords, total)
+	require.NoError(t, err)
+	require.Equal(t, totalRecords, total)
 
 	mock.ExpectCall(&tg.PhotosGetUserPhotosRequest{
 		UserID: &tg.InputUserSelf{},
@@ -79,6 +79,6 @@ func TestIterator(t *testing.T) {
 		Limit:  1,
 	}).ThenResult(result(expected[:0], totalRecords))
 	total, err = iter.FetchTotal(ctx)
-	mock.NoError(err)
-	mock.Equal(totalRecords, total)
+	require.NoError(t, err)
+	require.Equal(t, totalRecords, total)
 }
