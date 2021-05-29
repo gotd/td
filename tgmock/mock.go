@@ -21,6 +21,7 @@ type Mock struct {
 	assert assertions
 }
 
+// Option configures Mock.
 type Option interface {
 	apply(t TestingT, m *Mock)
 }
@@ -34,7 +35,7 @@ type assertAssertions struct {
 	assert *assert.Assertions
 }
 
-func (a assertAssertions) Equal(expected interface{}, actual interface{}, msgAndArgs ...interface{}) {
+func (a assertAssertions) Equal(expected, actual interface{}, msgAndArgs ...interface{}) {
 	a.assert.Equal(expected, actual, msgAndArgs...)
 }
 
@@ -46,12 +47,14 @@ type optionFunc func(t TestingT, m *Mock)
 
 func (o optionFunc) apply(t TestingT, m *Mock) { o(t, m) }
 
+// WithRequire configures mock to use "require" assertions.
 func WithRequire() Option {
 	return optionFunc(func(t TestingT, m *Mock) {
 		m.assert = require.New(t)
 	})
 }
 
+// NewRequire creates new Mock with "require" assertions.
 func NewRequire(t TestingT) *Mock {
 	return New(t, WithRequire())
 }

@@ -56,7 +56,7 @@ func ExampleClient_Auth() {
 	}))
 }
 
-func ExampleTestAuth() {
+func ExampleClient_Auth_test() {
 	// Example of using test server.
 	const dcID = 2
 
