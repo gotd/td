@@ -17,7 +17,10 @@ func TestEncrypt(t *testing.T) {
 	}
 
 	// Testing vector from grammers.
-	msg, err := c.EncryptMessage(authKey.WithID(), []byte("Hello, world! This data should remain secure!"))
+	msg, err := c.encryptMessage(
+		authKey.WithID(),
+		&bin.Buffer{Buf: []byte("Hello, world! This data should remain secure!")},
+	)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -1,6 +1,8 @@
 package crypto
 
 import (
+	"fmt"
+
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -14,6 +16,10 @@ type EncryptedMessageData struct {
 	SeqNo                  int32
 	MessageDataLen         int32
 	MessageDataWithPadding []byte
+
+	// Message to encode to MessageDataWithPadding.
+	// Needed to prevent unnecessary allocations in EncodeWithoutCopy.
+	Message bin.Encoder
 }
 
 // Encode implements bin.Encoder.
@@ -24,6 +30,29 @@ func (e EncryptedMessageData) Encode(b *bin.Buffer) error {
 	b.PutInt32(e.SeqNo)
 	b.PutInt32(e.MessageDataLen)
 	b.Put(e.MessageDataWithPadding)
+	return nil
+}
+
+// EncodeWithoutCopy is like Encode, but tries to encode Message and uses only one buffer
+// to encode. If Message is nil, fallbacks to Encode.
+func (e EncryptedMessageData) EncodeWithoutCopy(b *bin.Buffer) error {
+	if e.Message == nil {
+		return e.Encode(b)
+	}
+
+	b.PutLong(e.Salt)
+	b.PutLong(e.SessionID)
+	b.PutLong(e.MessageID)
+	b.PutInt32(e.SeqNo)
+	lengthOffset := b.Len()
+	b.PutInt32(0)
+	originalLength := b.Len()
+	if err := b.Encode(e.Message); err != nil {
+		return fmt.Errorf("encode inner message: %w", err)
+	}
+	msgLen := b.Len() - originalLength
+
+	(&bin.Buffer{Buf: b.Buf[lengthOffset:lengthOffset]}).PutInt(msgLen)
 	return nil
 }
 
@@ -72,7 +101,7 @@ func (e *EncryptedMessageData) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// DecodeWithoutCopy is like Decode, but EncryptedData references to given buffer instead of
+// DecodeWithoutCopy is like Decode, but MessageDataWithPadding references to given buffer instead of
 // copying.
 func (e *EncryptedMessageData) DecodeWithoutCopy(b *bin.Buffer) error {
 	{
