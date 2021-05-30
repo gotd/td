@@ -8,9 +8,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gotd/neo"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
+
+	"github.com/gotd/neo"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/testutil"

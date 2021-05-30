@@ -5,6 +5,7 @@ import (
 	"io"
 
 	"github.com/gotd/ige"
+
 	"github.com/gotd/td/bin"
 )
 
