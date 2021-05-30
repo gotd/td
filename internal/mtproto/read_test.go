@@ -3,11 +3,9 @@ package mtproto
 import (
 	"context"
 	"crypto/rand"
-	"errors"
 	"fmt"
 	"io"
 	"runtime"
-	"sync"
 	"testing"
 	"time"
 
@@ -53,56 +51,6 @@ func TestCheckMessageID(t *testing.T) {
 	})
 }
 
-type dohuyaData struct {
-	Data []byte
-}
-
-func (d dohuyaData) Decode(b *bin.Buffer) error {
-	_, err := b.Bytes()
-	return err
-}
-
-func (d dohuyaData) Encode(b *bin.Buffer) error {
-	b.PutBytes(d.Data)
-	return nil
-}
-
-type noopBuf struct{}
-
-func (n noopBuf) Consume(id int64) bool {
-	return true
-}
-
-type constantConn struct {
-	data    []byte
-	cancel  context.CancelFunc
-	counter int
-	mux     sync.Mutex
-}
-
-func (c *constantConn) Send(ctx context.Context, b *bin.Buffer) error {
-	return nil
-}
-
-func (c *constantConn) Recv(ctx context.Context, b *bin.Buffer) error {
-	c.mux.Lock()
-	exit := c.counter == 0
-	if exit {
-		c.mux.Unlock()
-		c.cancel()
-		return errors.New("error")
-	}
-	c.counter--
-	c.mux.Unlock()
-
-	b.Put(c.data)
-	return nil
-}
-
-func (c *constantConn) Close() error {
-	return nil
-}
-
 func benchRead(payloadSize int) func(b *testing.B) {
 	return func(b *testing.B) {
 		a := require.New(b)
@@ -123,7 +71,7 @@ func benchRead(payloadSize int) func(b *testing.B) {
 		msg := new(bin.Buffer)
 		serverCipher := crypto.NewServerCipher(random)
 		id := proto.NewMessageIDGen(c.Now).New(proto.MessageServerResponse)
-		a.NoError(msg.Encode(&dohuyaData{
+		a.NoError(msg.Encode(&testPayload{
 			Data: payload,
 		}))
 
@@ -150,7 +98,6 @@ func benchRead(payloadSize int) func(b *testing.B) {
 			rand:            random,
 			cipher:          crypto.NewClientCipher(random),
 			log:             logger,
-			messageID:       proto.NewMessageIDGen(c.Now),
 			messageIDBuf:    noopBuf{},
 			authKey:         authKey,
 			readConcurrency: procs,
@@ -169,12 +116,7 @@ func benchRead(payloadSize int) func(b *testing.B) {
 }
 
 func BenchmarkRead(b *testing.B) {
-	for _, size := range []int{
-		128,
-		1024,
-		16 * 1024,
-		512 * 1024,
-	} {
+	for _, size := range testutil.Payloads() {
 		b.Run(fmt.Sprintf("%db", size), benchRead(size))
 	}
 }

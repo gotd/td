@@ -8,29 +8,19 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/neo"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/testutil"
 )
 
-type testPayload struct {
-	Size int
-}
-
-func (t testPayload) Encode(b *bin.Buffer) error {
-	b.Buf = append(b.Buf, make([]byte, t.Size)...)
-	return nil
-}
-
-func benchPayload(b *testing.B, c *Conn, n int) {
+func benchEncryption(b *testing.B, c *Conn, n int) {
 	b.Helper()
 
-	buf := new(bin.Buffer)
-	p := testPayload{Size: n}
-	if err := c.newEncryptedMessage(12345, 0, p, buf); err != nil {
-		b.Fatal(err)
-	}
+	buf := &bin.Buffer{Buf: make([]byte, 0, n)}
+	p := testPayload{Data: make([]byte, n-4)}
 	b.ReportAllocs()
-	b.SetBytes(int64(buf.Len()))
+	b.SetBytes(int64(n))
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
@@ -52,14 +42,9 @@ func BenchmarkEncryption(b *testing.B) {
 		c.authKey.Value[i] = byte(i)
 	}
 
-	for _, payload := range []int{
-		128,
-		1024,
-		16 * 1024,
-		512 * 1024,
-	} {
-		b.Run(fmt.Sprintf("%d", payload), func(b *testing.B) {
-			benchPayload(b, c, payload)
+	for _, payload := range testutil.Payloads() {
+		b.Run(fmt.Sprintf("%db", payload), func(b *testing.B) {
+			benchEncryption(b, c, payload)
 		})
 	}
 }
