@@ -11,15 +11,15 @@ import (
 
 func countPadding(l int) int { return 16 + (16 - (l % 16)) }
 
-// EncryptMessage encrypts plaintext using AES-IGE.
-func (c Cipher) EncryptMessage(k AuthKey, plaintext []byte) (*EncryptedMessage, error) {
-	plaintextPadded := make([]byte, len(plaintext)+countPadding(len(plaintext)))
-	copy(plaintextPadded, plaintext)
-	if _, err := io.ReadFull(c.rand, plaintextPadded[len(plaintext):]); err != nil {
+// encryptMessage encrypts plaintext using AES-IGE.
+func (c Cipher) encryptMessage(k AuthKey, plaintext *bin.Buffer) (*EncryptedMessage, error) {
+	offset := len(plaintext.Buf)
+	plaintext.Buf = append(plaintext.Buf, make([]byte, countPadding(offset))...)
+	if _, err := io.ReadFull(c.rand, plaintext.Buf[offset:]); err != nil {
 		return nil, err
 	}
 
-	messageKey := MessageKey(k.Value, plaintextPadded, c.encryptSide)
+	messageKey := MessageKey(k.Value, plaintext.Buf, c.encryptSide)
 	key, iv := Keys(k.Value, messageKey, c.encryptSide)
 	aesBlock, err := aes.NewCipher(key[:])
 	if err != nil {
@@ -29,9 +29,9 @@ func (c Cipher) EncryptMessage(k AuthKey, plaintext []byte) (*EncryptedMessage, 
 	msg := &EncryptedMessage{
 		AuthKeyID:     k.ID,
 		MsgKey:        messageKey,
-		EncryptedData: make([]byte, len(plaintextPadded)),
+		EncryptedData: make([]byte, len(plaintext.Buf)),
 	}
-	encrypter.CryptBlocks(msg.EncryptedData, plaintextPadded)
+	encrypter.CryptBlocks(msg.EncryptedData, plaintext.Buf)
 	return msg, nil
 }
 
@@ -42,7 +42,7 @@ func (c Cipher) Encrypt(key AuthKey, data EncryptedMessageData, b *bin.Buffer) e
 		return err
 	}
 
-	msg, err := c.EncryptMessage(key, b.Raw())
+	msg, err := c.encryptMessage(key, b)
 	if err != nil {
 		return err
 	}
