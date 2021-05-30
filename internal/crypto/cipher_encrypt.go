@@ -20,11 +20,11 @@ func (c Cipher) EncryptMessage(k AuthKey, plaintext []byte) (*EncryptedMessage, 
 
 	messageKey := MessageKey(k.Value, plaintextPadded, c.encryptSide)
 	key, iv := Keys(k.Value, messageKey, c.encryptSide)
-	cipher, err := aes.NewCipher(key[:])
+	aesBlock, err := aes.NewCipher(key[:])
 	if err != nil {
 		return nil, err
 	}
-	encrypter := ige.NewIGEEncrypter(cipher, iv[:])
+	encrypter := ige.NewIGEEncrypter(aesBlock, iv[:])
 	msg := &EncryptedMessage{
 		AuthKeyID:     k.ID,
 		MsgKey:        messageKey,
@@ -37,7 +37,7 @@ func (c Cipher) EncryptMessage(k AuthKey, plaintext []byte) (*EncryptedMessage, 
 // Encrypt encrypts EncryptedMessageData using AES-IGE to given buffer.
 func (c Cipher) Encrypt(key AuthKey, data EncryptedMessageData, b *bin.Buffer) error {
 	b.Reset()
-	if err := data.Encode(b); err != nil {
+	if err := data.EncodeWithoutCopy(b); err != nil {
 		return err
 	}
 
