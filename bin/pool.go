@@ -25,13 +25,14 @@ func NewPool(length int) *Pool {
 
 // Put returns buffer to pool.
 func (b *Pool) Put(buf *Buffer) {
-	buf.Reset()
 	b.pool.Put(buf)
 }
 
 // Get takes buffer from pool.
 func (b *Pool) Get() *Buffer {
-	return b.pool.Get().(*Buffer)
+	buf := b.pool.Get().(*Buffer)
+	buf.Reset()
+	return buf
 }
 
 // GetSize takes buffer with given size from pool.
