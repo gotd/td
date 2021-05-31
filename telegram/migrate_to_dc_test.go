@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"fmt"
 	"math/rand"
 	"testing"
 	"time"
@@ -118,29 +119,35 @@ func newMigrationClient(t *testing.T, h migrationTestHandler) *Client {
 }
 
 func TestMigration(t *testing.T) {
-	ctx := context.Background()
-	expected := &tg.BoolTrue{}
-	a := require.New(t)
+	codes := []int{303, 400}
 
-	client := newMigrationClient(t, func(id int64, dc int, body bin.Encoder) (bin.Encoder, error) {
-		switch body.(type) {
-		case *tg.UsersGetUsersRequest:
-			return nil, tgerr.New(401, "AUTH_KEY_UNREGISTERED")
-		case *tg.AuthLogOutRequest:
-			if dc == 2 {
-				return nil, tgerr.New(303, "USER_MIGRATE_10")
-			}
+	for _, code := range codes {
+		t.Run(fmt.Sprintf("Code%d", code), func(t *testing.T) {
+			ctx := context.Background()
+			expected := &tg.BoolTrue{}
+			a := require.New(t)
 
-			a.Equal(10, dc)
-			return expected, nil
-		default:
-			return nil, xerrors.Errorf("unexpected body %T", body)
-		}
-	})
+			client := newMigrationClient(t, func(id int64, dc int, body bin.Encoder) (bin.Encoder, error) {
+				switch body.(type) {
+				case *tg.UsersGetUsersRequest:
+					return nil, tgerr.New(401, "AUTH_KEY_UNREGISTERED")
+				case *tg.AuthLogOutRequest:
+					if dc == 2 {
+						return nil, tgerr.New(code, "USER_MIGRATE_10")
+					}
 
-	err := client.Run(ctx, func(ctx context.Context) error {
-		var result tg.BoolTrue
-		return client.Invoke(ctx, &tg.AuthLogOutRequest{}, &result)
-	})
-	a.NoError(err)
+					a.Equal(10, dc)
+					return expected, nil
+				default:
+					return nil, xerrors.Errorf("unexpected body %T", body)
+				}
+			})
+
+			err := client.Run(ctx, func(ctx context.Context) error {
+				var result tg.BoolTrue
+				return client.Invoke(ctx, &tg.AuthLogOutRequest{}, &result)
+			})
+			a.NoError(err)
+		})
+	}
 }
