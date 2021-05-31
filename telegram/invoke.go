@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"strings"
 
 	"go.uber.org/zap"
 
@@ -19,7 +20,7 @@ func (c *Client) Invoke(ctx context.Context, input bin.Encoder, output bin.Decod
 func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	if err := c.invokeConn(ctx, input, output); err != nil {
 		// Handling datacenter migration request.
-		if rpcErr, ok := tgerr.As(err); ok && rpcErr.IsCode(303) {
+		if rpcErr, ok := tgerr.As(err); ok && strings.HasSuffix(rpcErr.Type, "_MIGRATE") {
 			targetDC := rpcErr.Argument
 			log := c.log.With(
 				zap.String("error_type", rpcErr.Type),
