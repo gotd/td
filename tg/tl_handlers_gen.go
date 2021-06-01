@@ -1013,3 +1013,13 @@ func (u UpdateDispatcher) OnBotStopped(handler BotStoppedHandler) {
 		return handler(ctx, e, update.(*UpdateBotStopped))
 	}
 }
+
+// GroupCallConnectionHandler is a GroupCallConnection event handler.
+type GroupCallConnectionHandler func(ctx context.Context, e Entities, update *UpdateGroupCallConnection) error
+
+// OnGroupCallConnection sets GroupCallConnection handler.
+func (u UpdateDispatcher) OnGroupCallConnection(handler GroupCallConnectionHandler) {
+	u.handlers[UpdateGroupCallConnectionTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateGroupCallConnection))
+	}
+}

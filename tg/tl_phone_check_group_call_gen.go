@@ -29,18 +29,18 @@ var (
 	_ = tgerr.Error{}
 )
 
-// PhoneCheckGroupCallRequest represents TL type `phone.checkGroupCall#b74a7bea`.
+// PhoneCheckGroupCallRequest represents TL type `phone.checkGroupCall#b59cf977`.
 //
 // See https://core.telegram.org/method/phone.checkGroupCall for reference.
 type PhoneCheckGroupCallRequest struct {
 	// Call field of PhoneCheckGroupCallRequest.
 	Call InputGroupCall
-	// Source field of PhoneCheckGroupCallRequest.
-	Source int
+	// Sources field of PhoneCheckGroupCallRequest.
+	Sources []int
 }
 
 // PhoneCheckGroupCallRequestTypeID is TL type id of PhoneCheckGroupCallRequest.
-const PhoneCheckGroupCallRequestTypeID = 0xb74a7bea
+const PhoneCheckGroupCallRequestTypeID = 0xb59cf977
 
 func (c *PhoneCheckGroupCallRequest) Zero() bool {
 	if c == nil {
@@ -49,7 +49,7 @@ func (c *PhoneCheckGroupCallRequest) Zero() bool {
 	if !(c.Call.Zero()) {
 		return false
 	}
-	if !(c.Source == 0) {
+	if !(c.Sources == nil) {
 		return false
 	}
 
@@ -68,10 +68,10 @@ func (c *PhoneCheckGroupCallRequest) String() string {
 // FillFrom fills PhoneCheckGroupCallRequest from given interface.
 func (c *PhoneCheckGroupCallRequest) FillFrom(from interface {
 	GetCall() (value InputGroupCall)
-	GetSource() (value int)
+	GetSources() (value []int)
 }) {
 	c.Call = from.GetCall()
-	c.Source = from.GetSource()
+	c.Sources = from.GetSources()
 }
 
 // TypeID returns type id in TL schema.
@@ -102,8 +102,8 @@ func (c *PhoneCheckGroupCallRequest) TypeInfo() tdp.Type {
 			SchemaName: "call",
 		},
 		{
-			Name:       "Source",
-			SchemaName: "source",
+			Name:       "Sources",
+			SchemaName: "sources",
 		},
 	}
 	return typ
@@ -112,7 +112,7 @@ func (c *PhoneCheckGroupCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *PhoneCheckGroupCallRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode phone.checkGroupCall#b74a7bea as nil")
+		return fmt.Errorf("can't encode phone.checkGroupCall#b59cf977 as nil")
 	}
 	b.PutID(PhoneCheckGroupCallRequestTypeID)
 	return c.EncodeBare(b)
@@ -121,12 +121,15 @@ func (c *PhoneCheckGroupCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *PhoneCheckGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode phone.checkGroupCall#b74a7bea as nil")
+		return fmt.Errorf("can't encode phone.checkGroupCall#b59cf977 as nil")
 	}
 	if err := c.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.checkGroupCall#b74a7bea: field call: %w", err)
+		return fmt.Errorf("unable to encode phone.checkGroupCall#b59cf977: field call: %w", err)
 	}
-	b.PutInt(c.Source)
+	b.PutVectorHeader(len(c.Sources))
+	for _, v := range c.Sources {
+		b.PutInt(v)
+	}
 	return nil
 }
 
@@ -135,18 +138,18 @@ func (c *PhoneCheckGroupCallRequest) GetCall() (value InputGroupCall) {
 	return c.Call
 }
 
-// GetSource returns value of Source field.
-func (c *PhoneCheckGroupCallRequest) GetSource() (value int) {
-	return c.Source
+// GetSources returns value of Sources field.
+func (c *PhoneCheckGroupCallRequest) GetSources() (value []int) {
+	return c.Sources
 }
 
 // Decode implements bin.Decoder.
 func (c *PhoneCheckGroupCallRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode phone.checkGroupCall#b74a7bea to nil")
+		return fmt.Errorf("can't decode phone.checkGroupCall#b59cf977 to nil")
 	}
 	if err := b.ConsumeID(PhoneCheckGroupCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.checkGroupCall#b74a7bea: %w", err)
+		return fmt.Errorf("unable to decode phone.checkGroupCall#b59cf977: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -154,19 +157,25 @@ func (c *PhoneCheckGroupCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *PhoneCheckGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode phone.checkGroupCall#b74a7bea to nil")
+		return fmt.Errorf("can't decode phone.checkGroupCall#b59cf977 to nil")
 	}
 	{
 		if err := c.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.checkGroupCall#b74a7bea: field call: %w", err)
+			return fmt.Errorf("unable to decode phone.checkGroupCall#b59cf977: field call: %w", err)
 		}
 	}
 	{
-		value, err := b.Int()
+		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.checkGroupCall#b74a7bea: field source: %w", err)
+			return fmt.Errorf("unable to decode phone.checkGroupCall#b59cf977: field sources: %w", err)
 		}
-		c.Source = value
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode phone.checkGroupCall#b59cf977: field sources: %w", err)
+			}
+			c.Sources = append(c.Sources, value)
+		}
 	}
 	return nil
 }
@@ -179,15 +188,14 @@ var (
 	_ bin.BareDecoder = &PhoneCheckGroupCallRequest{}
 )
 
-// PhoneCheckGroupCall invokes method phone.checkGroupCall#b74a7bea returning error if any.
+// PhoneCheckGroupCall invokes method phone.checkGroupCall#b59cf977 returning error if any.
 //
 // See https://core.telegram.org/method/phone.checkGroupCall for reference.
-func (c *Client) PhoneCheckGroupCall(ctx context.Context, request *PhoneCheckGroupCallRequest) (bool, error) {
-	var result BoolBox
+func (c *Client) PhoneCheckGroupCall(ctx context.Context, request *PhoneCheckGroupCallRequest) ([]int, error) {
+	var result IntVector
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return false, err
+		return nil, err
 	}
-	_, ok := result.Bool.(*BoolTrue)
-	return ok, nil
+	return []int(result.Elems), nil
 }
