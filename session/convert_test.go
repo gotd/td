@@ -16,8 +16,8 @@ func repeat(i int) []byte {
 
 var (
 	testKey = repeat(256)
-	ipv4    = append([]byte("\x02\xc0\xa8\x00\x01\x01\xbb"), testKey[:]...)
-	ipv6    = append([]byte("\x02 \x01\r\xb8\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\xbb"), testKey[:]...)
+	ipv4    = append([]byte("\x02\xc0\xa8\x00\x01\x01\xbb"), testKey...)
+	ipv6    = append([]byte("\x02 \x01\r\xb8\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\xbb"), testKey...)
 )
 
 func TestStringSession(t *testing.T) {

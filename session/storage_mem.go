@@ -6,7 +6,6 @@ import (
 	"os"
 	"sync"
 
-	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 )
 
@@ -39,17 +38,12 @@ func (s *StorageMemory) Dump(w io.Writer) error {
 
 // WriteFile dumps raw session data to the named file, creating it if necessary.
 // Returns ErrNotFound if storage is nil or if underlying session is empty.
-func (s *StorageMemory) WriteFile(name string, perm os.FileMode) (rErr error) {
-	f, err := os.OpenFile(name, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, perm)
+func (s *StorageMemory) WriteFile(name string, perm os.FileMode) error {
+	data, err := s.Bytes(nil)
 	if err != nil {
-		return xerrors.Errorf("open file: %w", err)
+		return err
 	}
-	defer multierr.AppendInvoke(&err, multierr.Close(f))
-
-	if err := s.Dump(f); err != nil {
-		return xerrors.Errorf("dump: %w", err)
-	}
-	return nil
+	return os.WriteFile(name, data, perm)
 }
 
 // Bytes appends raw session data to the given slice.
