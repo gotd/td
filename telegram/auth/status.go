@@ -46,3 +46,15 @@ func (c *Client) IfNecessary(ctx context.Context, flow Flow) error {
 	}
 	return nil
 }
+
+// Test creates and runs auth flow using Test authenticator
+// if current session is not authorized.
+func (c *Client) Test(ctx context.Context, dc int) error {
+	return c.IfNecessary(ctx, NewFlow(Test(c.rand, dc), SendCodeOptions{}))
+}
+
+// TestUser creates and runs auth flow using TestUser authenticator
+// if current session is not authorized.
+func (c *Client) TestUser(ctx context.Context, phone string, dc int) error {
+	return c.IfNecessary(ctx, NewFlow(TestUser(phone, dc), SendCodeOptions{}))
+}

@@ -266,6 +266,15 @@ func Test(randReader io.Reader, dc int) UserAuthenticator {
 	}
 	phone := fmt.Sprintf("99966%d%04d", dc, n)
 
+	return TestUser(phone, dc)
+}
+
+// TestUser returns UserAuthenticator that authenticates via testing credentials.
+// Uses given phone to sign in/sign up.
+//
+// Can be used only with testing server. Will perform sign up if test user is
+// not registered.
+func TestUser(phone string, dc int) UserAuthenticator {
 	return testAuth{
 		dc:    dc,
 		phone: phone,
