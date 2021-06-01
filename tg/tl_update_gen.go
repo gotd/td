@@ -13230,7 +13230,7 @@ var (
 	_ UpdateClass = &UpdateLoginToken{}
 )
 
-// UpdateMessagePollVote represents TL type `updateMessagePollVote#42f88f2c`.
+// UpdateMessagePollVote represents TL type `updateMessagePollVote#37f69f0b`.
 // A specific user has voted in a poll
 //
 // See https://core.telegram.org/constructor/updateMessagePollVote for reference.
@@ -13241,10 +13241,12 @@ type UpdateMessagePollVote struct {
 	UserID int
 	// Chosen option(s)
 	Options [][]byte
+	// Qts field of UpdateMessagePollVote.
+	Qts int
 }
 
 // UpdateMessagePollVoteTypeID is TL type id of UpdateMessagePollVote.
-const UpdateMessagePollVoteTypeID = 0x42f88f2c
+const UpdateMessagePollVoteTypeID = 0x37f69f0b
 
 func (u *UpdateMessagePollVote) Zero() bool {
 	if u == nil {
@@ -13257,6 +13259,9 @@ func (u *UpdateMessagePollVote) Zero() bool {
 		return false
 	}
 	if !(u.Options == nil) {
+		return false
+	}
+	if !(u.Qts == 0) {
 		return false
 	}
 
@@ -13277,10 +13282,12 @@ func (u *UpdateMessagePollVote) FillFrom(from interface {
 	GetPollID() (value int64)
 	GetUserID() (value int)
 	GetOptions() (value [][]byte)
+	GetQts() (value int)
 }) {
 	u.PollID = from.GetPollID()
 	u.UserID = from.GetUserID()
 	u.Options = from.GetOptions()
+	u.Qts = from.GetQts()
 }
 
 // TypeID returns type id in TL schema.
@@ -13318,6 +13325,10 @@ func (u *UpdateMessagePollVote) TypeInfo() tdp.Type {
 			Name:       "Options",
 			SchemaName: "options",
 		},
+		{
+			Name:       "Qts",
+			SchemaName: "qts",
+		},
 	}
 	return typ
 }
@@ -13325,7 +13336,7 @@ func (u *UpdateMessagePollVote) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateMessagePollVote) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateMessagePollVote#42f88f2c as nil")
+		return fmt.Errorf("can't encode updateMessagePollVote#37f69f0b as nil")
 	}
 	b.PutID(UpdateMessagePollVoteTypeID)
 	return u.EncodeBare(b)
@@ -13334,7 +13345,7 @@ func (u *UpdateMessagePollVote) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateMessagePollVote) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateMessagePollVote#42f88f2c as nil")
+		return fmt.Errorf("can't encode updateMessagePollVote#37f69f0b as nil")
 	}
 	b.PutLong(u.PollID)
 	b.PutInt(u.UserID)
@@ -13342,6 +13353,7 @@ func (u *UpdateMessagePollVote) EncodeBare(b *bin.Buffer) error {
 	for _, v := range u.Options {
 		b.PutBytes(v)
 	}
+	b.PutInt(u.Qts)
 	return nil
 }
 
@@ -13360,13 +13372,18 @@ func (u *UpdateMessagePollVote) GetOptions() (value [][]byte) {
 	return u.Options
 }
 
+// GetQts returns value of Qts field.
+func (u *UpdateMessagePollVote) GetQts() (value int) {
+	return u.Qts
+}
+
 // Decode implements bin.Decoder.
 func (u *UpdateMessagePollVote) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateMessagePollVote#42f88f2c to nil")
+		return fmt.Errorf("can't decode updateMessagePollVote#37f69f0b to nil")
 	}
 	if err := b.ConsumeID(UpdateMessagePollVoteTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateMessagePollVote#42f88f2c: %w", err)
+		return fmt.Errorf("unable to decode updateMessagePollVote#37f69f0b: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -13374,34 +13391,41 @@ func (u *UpdateMessagePollVote) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateMessagePollVote) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateMessagePollVote#42f88f2c to nil")
+		return fmt.Errorf("can't decode updateMessagePollVote#37f69f0b to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateMessagePollVote#42f88f2c: field poll_id: %w", err)
+			return fmt.Errorf("unable to decode updateMessagePollVote#37f69f0b: field poll_id: %w", err)
 		}
 		u.PollID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateMessagePollVote#42f88f2c: field user_id: %w", err)
+			return fmt.Errorf("unable to decode updateMessagePollVote#37f69f0b: field user_id: %w", err)
 		}
 		u.UserID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateMessagePollVote#42f88f2c: field options: %w", err)
+			return fmt.Errorf("unable to decode updateMessagePollVote#37f69f0b: field options: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateMessagePollVote#42f88f2c: field options: %w", err)
+				return fmt.Errorf("unable to decode updateMessagePollVote#37f69f0b: field options: %w", err)
 			}
 			u.Options = append(u.Options, value)
 		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessagePollVote#37f69f0b: field qts: %w", err)
+		}
+		u.Qts = value
 	}
 	return nil
 }
@@ -17326,6 +17350,182 @@ var (
 	_ UpdateClass = &UpdateBotStopped{}
 )
 
+// UpdateGroupCallConnection represents TL type `updateGroupCallConnection#b783982`.
+//
+// See https://core.telegram.org/constructor/updateGroupCallConnection for reference.
+type UpdateGroupCallConnection struct {
+	// Flags field of UpdateGroupCallConnection.
+	Flags bin.Fields
+	// Presentation field of UpdateGroupCallConnection.
+	Presentation bool
+	// Params field of UpdateGroupCallConnection.
+	Params DataJSON
+}
+
+// UpdateGroupCallConnectionTypeID is TL type id of UpdateGroupCallConnection.
+const UpdateGroupCallConnectionTypeID = 0xb783982
+
+func (u *UpdateGroupCallConnection) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Presentation == false) {
+		return false
+	}
+	if !(u.Params.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateGroupCallConnection) String() string {
+	if u == nil {
+		return "UpdateGroupCallConnection(nil)"
+	}
+	type Alias UpdateGroupCallConnection
+	return fmt.Sprintf("UpdateGroupCallConnection%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateGroupCallConnection from given interface.
+func (u *UpdateGroupCallConnection) FillFrom(from interface {
+	GetPresentation() (value bool)
+	GetParams() (value DataJSON)
+}) {
+	u.Presentation = from.GetPresentation()
+	u.Params = from.GetParams()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateGroupCallConnection) TypeID() uint32 {
+	return UpdateGroupCallConnectionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateGroupCallConnection) TypeName() string {
+	return "updateGroupCallConnection"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateGroupCallConnection) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateGroupCallConnection",
+		ID:   UpdateGroupCallConnectionTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Presentation",
+			SchemaName: "presentation",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Params",
+			SchemaName: "params",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateGroupCallConnection) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateGroupCallConnection#b783982 as nil")
+	}
+	b.PutID(UpdateGroupCallConnectionTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateGroupCallConnection) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateGroupCallConnection#b783982 as nil")
+	}
+	if !(u.Presentation == false) {
+		u.Flags.Set(0)
+	}
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateGroupCallConnection#b783982: field flags: %w", err)
+	}
+	if err := u.Params.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateGroupCallConnection#b783982: field params: %w", err)
+	}
+	return nil
+}
+
+// SetPresentation sets value of Presentation conditional field.
+func (u *UpdateGroupCallConnection) SetPresentation(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Presentation = true
+	} else {
+		u.Flags.Unset(0)
+		u.Presentation = false
+	}
+}
+
+// GetPresentation returns value of Presentation conditional field.
+func (u *UpdateGroupCallConnection) GetPresentation() (value bool) {
+	return u.Flags.Has(0)
+}
+
+// GetParams returns value of Params field.
+func (u *UpdateGroupCallConnection) GetParams() (value DataJSON) {
+	return u.Params
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateGroupCallConnection) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateGroupCallConnection#b783982 to nil")
+	}
+	if err := b.ConsumeID(UpdateGroupCallConnectionTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateGroupCallConnection#b783982: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateGroupCallConnection) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateGroupCallConnection#b783982 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateGroupCallConnection#b783982: field flags: %w", err)
+		}
+	}
+	u.Presentation = u.Flags.Has(0)
+	{
+		if err := u.Params.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateGroupCallConnection#b783982: field params: %w", err)
+		}
+	}
+	return nil
+}
+
+// construct implements constructor of UpdateClass.
+func (u UpdateGroupCallConnection) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateGroupCallConnection.
+var (
+	_ bin.Encoder     = &UpdateGroupCallConnection{}
+	_ bin.Decoder     = &UpdateGroupCallConnection{}
+	_ bin.BareEncoder = &UpdateGroupCallConnection{}
+	_ bin.BareDecoder = &UpdateGroupCallConnection{}
+
+	_ UpdateClass = &UpdateGroupCallConnection{}
+)
+
 // UpdateClass represents Update generic type.
 //
 // See https://core.telegram.org/type/Update for reference.
@@ -17408,7 +17608,7 @@ var (
 //  case *tg.UpdateTheme: // updateTheme#8216fba3
 //  case *tg.UpdateGeoLiveViewed: // updateGeoLiveViewed#871fb939
 //  case *tg.UpdateLoginToken: // updateLoginToken#564fe691
-//  case *tg.UpdateMessagePollVote: // updateMessagePollVote#42f88f2c
+//  case *tg.UpdateMessagePollVote: // updateMessagePollVote#37f69f0b
 //  case *tg.UpdateDialogFilter: // updateDialogFilter#26ffde7d
 //  case *tg.UpdateDialogFilterOrder: // updateDialogFilterOrder#a5d72105
 //  case *tg.UpdateDialogFilters: // updateDialogFilters#3504914f
@@ -17427,6 +17627,7 @@ var (
 //  case *tg.UpdateChatParticipant: // updateChatParticipant#f3b3781f
 //  case *tg.UpdateChannelParticipant: // updateChannelParticipant#7fecb1ec
 //  case *tg.UpdateBotStopped: // updateBotStopped#7f9488a
+//  case *tg.UpdateGroupCallConnection: // updateGroupCallConnection#b783982
 //  default: panic(v)
 //  }
 type UpdateClass interface {
@@ -17960,7 +18161,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateMessagePollVoteTypeID:
-		// Decoding updateMessagePollVote#42f88f2c.
+		// Decoding updateMessagePollVote#37f69f0b.
 		v := UpdateMessagePollVote{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -18088,6 +18289,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateBotStoppedTypeID:
 		// Decoding updateBotStopped#7f9488a.
 		v := UpdateBotStopped{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateGroupCallConnectionTypeID:
+		// Decoding updateGroupCallConnection#b783982.
+		v := UpdateGroupCallConnection{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -19249,6 +19457,19 @@ func (s UpdateClassArray) AsUpdateChannelParticipant() (to UpdateChannelParticip
 func (s UpdateClassArray) AsUpdateBotStopped() (to UpdateBotStoppedArray) {
 	for _, elem := range s {
 		value, ok := elem.(*UpdateBotStopped)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateGroupCallConnection returns copy with only UpdateGroupCallConnection constructors.
+func (s UpdateClassArray) AsUpdateGroupCallConnection() (to UpdateGroupCallConnectionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateGroupCallConnection)
 		if !ok {
 			continue
 		}
@@ -26108,4 +26329,86 @@ func (s UpdateBotStoppedArray) SortStableByDate() UpdateBotStoppedArray {
 	return s.SortStable(func(a, b UpdateBotStopped) bool {
 		return a.GetDate() < b.GetDate()
 	})
+}
+
+// UpdateGroupCallConnectionArray is adapter for slice of UpdateGroupCallConnection.
+type UpdateGroupCallConnectionArray []UpdateGroupCallConnection
+
+// Sort sorts slice of UpdateGroupCallConnection.
+func (s UpdateGroupCallConnectionArray) Sort(less func(a, b UpdateGroupCallConnection) bool) UpdateGroupCallConnectionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateGroupCallConnection.
+func (s UpdateGroupCallConnectionArray) SortStable(less func(a, b UpdateGroupCallConnection) bool) UpdateGroupCallConnectionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateGroupCallConnection.
+func (s UpdateGroupCallConnectionArray) Retain(keep func(x UpdateGroupCallConnection) bool) UpdateGroupCallConnectionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateGroupCallConnectionArray) First() (v UpdateGroupCallConnection, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateGroupCallConnectionArray) Last() (v UpdateGroupCallConnection, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateGroupCallConnectionArray) PopFirst() (v UpdateGroupCallConnection, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateGroupCallConnection
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateGroupCallConnectionArray) Pop() (v UpdateGroupCallConnection, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

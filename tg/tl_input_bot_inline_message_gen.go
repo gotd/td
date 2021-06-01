@@ -1709,16 +1709,12 @@ var (
 	_ InputBotInlineMessageClass = &InputBotInlineMessageGame{}
 )
 
-// InputBotInlineMessageMediaInvoice represents TL type `inputBotInlineMessageMediaInvoice#d5348d85`.
+// InputBotInlineMessageMediaInvoice represents TL type `inputBotInlineMessageMediaInvoice#d7e78225`.
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageMediaInvoice for reference.
 type InputBotInlineMessageMediaInvoice struct {
 	// Flags field of InputBotInlineMessageMediaInvoice.
 	Flags bin.Fields
-	// MultipleAllowed field of InputBotInlineMessageMediaInvoice.
-	MultipleAllowed bool
-	// CanForward field of InputBotInlineMessageMediaInvoice.
-	CanForward bool
 	// Title field of InputBotInlineMessageMediaInvoice.
 	Title string
 	// Description field of InputBotInlineMessageMediaInvoice.
@@ -1735,8 +1731,6 @@ type InputBotInlineMessageMediaInvoice struct {
 	Provider string
 	// ProviderData field of InputBotInlineMessageMediaInvoice.
 	ProviderData DataJSON
-	// StartParam field of InputBotInlineMessageMediaInvoice.
-	StartParam string
 	// ReplyMarkup field of InputBotInlineMessageMediaInvoice.
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
@@ -1744,19 +1738,13 @@ type InputBotInlineMessageMediaInvoice struct {
 }
 
 // InputBotInlineMessageMediaInvoiceTypeID is TL type id of InputBotInlineMessageMediaInvoice.
-const InputBotInlineMessageMediaInvoiceTypeID = 0xd5348d85
+const InputBotInlineMessageMediaInvoiceTypeID = 0xd7e78225
 
 func (i *InputBotInlineMessageMediaInvoice) Zero() bool {
 	if i == nil {
 		return true
 	}
 	if !(i.Flags.Zero()) {
-		return false
-	}
-	if !(i.MultipleAllowed == false) {
-		return false
-	}
-	if !(i.CanForward == false) {
 		return false
 	}
 	if !(i.Title == "") {
@@ -1780,9 +1768,6 @@ func (i *InputBotInlineMessageMediaInvoice) Zero() bool {
 	if !(i.ProviderData.Zero()) {
 		return false
 	}
-	if !(i.StartParam == "") {
-		return false
-	}
 	if !(i.ReplyMarkup == nil) {
 		return false
 	}
@@ -1801,8 +1786,6 @@ func (i *InputBotInlineMessageMediaInvoice) String() string {
 
 // FillFrom fills InputBotInlineMessageMediaInvoice from given interface.
 func (i *InputBotInlineMessageMediaInvoice) FillFrom(from interface {
-	GetMultipleAllowed() (value bool)
-	GetCanForward() (value bool)
 	GetTitle() (value string)
 	GetDescription() (value string)
 	GetPhoto() (value InputWebDocument, ok bool)
@@ -1810,11 +1793,8 @@ func (i *InputBotInlineMessageMediaInvoice) FillFrom(from interface {
 	GetPayload() (value []byte)
 	GetProvider() (value string)
 	GetProviderData() (value DataJSON)
-	GetStartParam() (value string)
 	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
 }) {
-	i.MultipleAllowed = from.GetMultipleAllowed()
-	i.CanForward = from.GetCanForward()
 	i.Title = from.GetTitle()
 	i.Description = from.GetDescription()
 	if val, ok := from.GetPhoto(); ok {
@@ -1825,7 +1805,6 @@ func (i *InputBotInlineMessageMediaInvoice) FillFrom(from interface {
 	i.Payload = from.GetPayload()
 	i.Provider = from.GetProvider()
 	i.ProviderData = from.GetProviderData()
-	i.StartParam = from.GetStartParam()
 	if val, ok := from.GetReplyMarkup(); ok {
 		i.ReplyMarkup = val
 	}
@@ -1856,16 +1835,6 @@ func (i *InputBotInlineMessageMediaInvoice) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "MultipleAllowed",
-			SchemaName: "multiple_allowed",
-			Null:       !i.Flags.Has(1),
-		},
-		{
-			Name:       "CanForward",
-			SchemaName: "can_forward",
-			Null:       !i.Flags.Has(3),
-		},
-		{
 			Name:       "Title",
 			SchemaName: "title",
 		},
@@ -1895,10 +1864,6 @@ func (i *InputBotInlineMessageMediaInvoice) TypeInfo() tdp.Type {
 			SchemaName: "provider_data",
 		},
 		{
-			Name:       "StartParam",
-			SchemaName: "start_param",
-		},
-		{
 			Name:       "ReplyMarkup",
 			SchemaName: "reply_markup",
 			Null:       !i.Flags.Has(2),
@@ -1910,7 +1875,7 @@ func (i *InputBotInlineMessageMediaInvoice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaInvoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageMediaInvoice#d5348d85 as nil")
+		return fmt.Errorf("can't encode inputBotInlineMessageMediaInvoice#d7e78225 as nil")
 	}
 	b.PutID(InputBotInlineMessageMediaInvoiceTypeID)
 	return i.EncodeBare(b)
@@ -1919,13 +1884,7 @@ func (i *InputBotInlineMessageMediaInvoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputBotInlineMessageMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageMediaInvoice#d5348d85 as nil")
-	}
-	if !(i.MultipleAllowed == false) {
-		i.Flags.Set(1)
-	}
-	if !(i.CanForward == false) {
-		i.Flags.Set(3)
+		return fmt.Errorf("can't encode inputBotInlineMessageMediaInvoice#d7e78225 as nil")
 	}
 	if !(i.Photo.Zero()) {
 		i.Flags.Set(0)
@@ -1934,65 +1893,32 @@ func (i *InputBotInlineMessageMediaInvoice) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(2)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d5348d85: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field flags: %w", err)
 	}
 	b.PutString(i.Title)
 	b.PutString(i.Description)
 	if i.Flags.Has(0) {
 		if err := i.Photo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d5348d85: field photo: %w", err)
+			return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field photo: %w", err)
 		}
 	}
 	if err := i.Invoice.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d5348d85: field invoice: %w", err)
+		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field invoice: %w", err)
 	}
 	b.PutBytes(i.Payload)
 	b.PutString(i.Provider)
 	if err := i.ProviderData.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d5348d85: field provider_data: %w", err)
+		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field provider_data: %w", err)
 	}
-	b.PutString(i.StartParam)
 	if i.Flags.Has(2) {
 		if i.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d5348d85: field reply_markup is nil")
+			return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field reply_markup is nil")
 		}
 		if err := i.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d5348d85: field reply_markup: %w", err)
+			return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field reply_markup: %w", err)
 		}
 	}
 	return nil
-}
-
-// SetMultipleAllowed sets value of MultipleAllowed conditional field.
-func (i *InputBotInlineMessageMediaInvoice) SetMultipleAllowed(value bool) {
-	if value {
-		i.Flags.Set(1)
-		i.MultipleAllowed = true
-	} else {
-		i.Flags.Unset(1)
-		i.MultipleAllowed = false
-	}
-}
-
-// GetMultipleAllowed returns value of MultipleAllowed conditional field.
-func (i *InputBotInlineMessageMediaInvoice) GetMultipleAllowed() (value bool) {
-	return i.Flags.Has(1)
-}
-
-// SetCanForward sets value of CanForward conditional field.
-func (i *InputBotInlineMessageMediaInvoice) SetCanForward(value bool) {
-	if value {
-		i.Flags.Set(3)
-		i.CanForward = true
-	} else {
-		i.Flags.Unset(3)
-		i.CanForward = false
-	}
-}
-
-// GetCanForward returns value of CanForward conditional field.
-func (i *InputBotInlineMessageMediaInvoice) GetCanForward() (value bool) {
-	return i.Flags.Has(3)
 }
 
 // GetTitle returns value of Title field.
@@ -2040,11 +1966,6 @@ func (i *InputBotInlineMessageMediaInvoice) GetProviderData() (value DataJSON) {
 	return i.ProviderData
 }
 
-// GetStartParam returns value of StartParam field.
-func (i *InputBotInlineMessageMediaInvoice) GetStartParam() (value string) {
-	return i.StartParam
-}
-
 // SetReplyMarkup sets value of ReplyMarkup conditional field.
 func (i *InputBotInlineMessageMediaInvoice) SetReplyMarkup(value ReplyMarkupClass) {
 	i.Flags.Set(2)
@@ -2063,10 +1984,10 @@ func (i *InputBotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupC
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageMediaInvoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaInvoice#d5348d85 to nil")
+		return fmt.Errorf("can't decode inputBotInlineMessageMediaInvoice#d7e78225 to nil")
 	}
 	if err := b.ConsumeID(InputBotInlineMessageMediaInvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: %w", err)
+		return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -2074,69 +1995,60 @@ func (i *InputBotInlineMessageMediaInvoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputBotInlineMessageMediaInvoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaInvoice#d5348d85 to nil")
+		return fmt.Errorf("can't decode inputBotInlineMessageMediaInvoice#d7e78225 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field flags: %w", err)
 		}
 	}
-	i.MultipleAllowed = i.Flags.Has(1)
-	i.CanForward = i.Flags.Has(3)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field title: %w", err)
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field title: %w", err)
 		}
 		i.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field description: %w", err)
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field description: %w", err)
 		}
 		i.Description = value
 	}
 	if i.Flags.Has(0) {
 		if err := i.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field photo: %w", err)
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field photo: %w", err)
 		}
 	}
 	{
 		if err := i.Invoice.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field invoice: %w", err)
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field invoice: %w", err)
 		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field payload: %w", err)
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field payload: %w", err)
 		}
 		i.Payload = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field provider: %w", err)
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field provider: %w", err)
 		}
 		i.Provider = value
 	}
 	{
 		if err := i.ProviderData.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field provider_data: %w", err)
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field provider_data: %w", err)
 		}
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field start_param: %w", err)
-		}
-		i.StartParam = value
 	}
 	if i.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field reply_markup: %w", err)
 		}
 		i.ReplyMarkup = value
 	}
@@ -2172,7 +2084,7 @@ var (
 //  case *tg.InputBotInlineMessageMediaVenue: // inputBotInlineMessageMediaVenue#417bbf11
 //  case *tg.InputBotInlineMessageMediaContact: // inputBotInlineMessageMediaContact#a6edbffd
 //  case *tg.InputBotInlineMessageGame: // inputBotInlineMessageGame#4b425864
-//  case *tg.InputBotInlineMessageMediaInvoice: // inputBotInlineMessageMediaInvoice#d5348d85
+//  case *tg.InputBotInlineMessageMediaInvoice: // inputBotInlineMessageMediaInvoice#d7e78225
 //  default: panic(v)
 //  }
 type InputBotInlineMessageClass interface {
@@ -2247,7 +2159,7 @@ func DecodeInputBotInlineMessage(buf *bin.Buffer) (InputBotInlineMessageClass, e
 		}
 		return &v, nil
 	case InputBotInlineMessageMediaInvoiceTypeID:
-		// Decoding inputBotInlineMessageMediaInvoice#d5348d85.
+		// Decoding inputBotInlineMessageMediaInvoice#d7e78225.
 		v := InputBotInlineMessageMediaInvoice{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", err)

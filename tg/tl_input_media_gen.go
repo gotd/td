@@ -2411,7 +2411,7 @@ var (
 	_ InputMediaClass = &InputMediaGame{}
 )
 
-// InputMediaInvoice represents TL type `inputMediaInvoice#f4e096c3`.
+// InputMediaInvoice represents TL type `inputMediaInvoice#d9799874`.
 // Generated invoice of a bot payment¹
 //
 // Links:
@@ -2424,10 +2424,6 @@ type InputMediaInvoice struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// MultipleAllowed field of InputMediaInvoice.
-	MultipleAllowed bool
-	// CanForward field of InputMediaInvoice.
-	CanForward bool
 	// Product name, 1-32 characters
 	Title string
 	// Product description, 1-255 characters
@@ -2451,23 +2447,19 @@ type InputMediaInvoice struct {
 	// detailed description of required fields should be provided by the payment provider.
 	ProviderData DataJSON
 	// Start parameter
+	//
+	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
 }
 
 // InputMediaInvoiceTypeID is TL type id of InputMediaInvoice.
-const InputMediaInvoiceTypeID = 0xf4e096c3
+const InputMediaInvoiceTypeID = 0xd9799874
 
 func (i *InputMediaInvoice) Zero() bool {
 	if i == nil {
 		return true
 	}
 	if !(i.Flags.Zero()) {
-		return false
-	}
-	if !(i.MultipleAllowed == false) {
-		return false
-	}
-	if !(i.CanForward == false) {
 		return false
 	}
 	if !(i.Title == "") {
@@ -2509,8 +2501,6 @@ func (i *InputMediaInvoice) String() string {
 
 // FillFrom fills InputMediaInvoice from given interface.
 func (i *InputMediaInvoice) FillFrom(from interface {
-	GetMultipleAllowed() (value bool)
-	GetCanForward() (value bool)
 	GetTitle() (value string)
 	GetDescription() (value string)
 	GetPhoto() (value InputWebDocument, ok bool)
@@ -2518,10 +2508,8 @@ func (i *InputMediaInvoice) FillFrom(from interface {
 	GetPayload() (value []byte)
 	GetProvider() (value string)
 	GetProviderData() (value DataJSON)
-	GetStartParam() (value string)
+	GetStartParam() (value string, ok bool)
 }) {
-	i.MultipleAllowed = from.GetMultipleAllowed()
-	i.CanForward = from.GetCanForward()
 	i.Title = from.GetTitle()
 	i.Description = from.GetDescription()
 	if val, ok := from.GetPhoto(); ok {
@@ -2532,7 +2520,10 @@ func (i *InputMediaInvoice) FillFrom(from interface {
 	i.Payload = from.GetPayload()
 	i.Provider = from.GetProvider()
 	i.ProviderData = from.GetProviderData()
-	i.StartParam = from.GetStartParam()
+	if val, ok := from.GetStartParam(); ok {
+		i.StartParam = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -2558,16 +2549,6 @@ func (i *InputMediaInvoice) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "MultipleAllowed",
-			SchemaName: "multiple_allowed",
-			Null:       !i.Flags.Has(1),
-		},
-		{
-			Name:       "CanForward",
-			SchemaName: "can_forward",
-			Null:       !i.Flags.Has(2),
-		},
 		{
 			Name:       "Title",
 			SchemaName: "title",
@@ -2600,6 +2581,7 @@ func (i *InputMediaInvoice) TypeInfo() tdp.Type {
 		{
 			Name:       "StartParam",
 			SchemaName: "start_param",
+			Null:       !i.Flags.Has(1),
 		},
 	}
 	return typ
@@ -2608,7 +2590,7 @@ func (i *InputMediaInvoice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaInvoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaInvoice#f4e096c3 as nil")
+		return fmt.Errorf("can't encode inputMediaInvoice#d9799874 as nil")
 	}
 	b.PutID(InputMediaInvoiceTypeID)
 	return i.EncodeBare(b)
@@ -2617,69 +2599,36 @@ func (i *InputMediaInvoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaInvoice#f4e096c3 as nil")
-	}
-	if !(i.MultipleAllowed == false) {
-		i.Flags.Set(1)
-	}
-	if !(i.CanForward == false) {
-		i.Flags.Set(2)
+		return fmt.Errorf("can't encode inputMediaInvoice#d9799874 as nil")
 	}
 	if !(i.Photo.Zero()) {
 		i.Flags.Set(0)
 	}
+	if !(i.StartParam == "") {
+		i.Flags.Set(1)
+	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaInvoice#f4e096c3: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputMediaInvoice#d9799874: field flags: %w", err)
 	}
 	b.PutString(i.Title)
 	b.PutString(i.Description)
 	if i.Flags.Has(0) {
 		if err := i.Photo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputMediaInvoice#f4e096c3: field photo: %w", err)
+			return fmt.Errorf("unable to encode inputMediaInvoice#d9799874: field photo: %w", err)
 		}
 	}
 	if err := i.Invoice.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaInvoice#f4e096c3: field invoice: %w", err)
+		return fmt.Errorf("unable to encode inputMediaInvoice#d9799874: field invoice: %w", err)
 	}
 	b.PutBytes(i.Payload)
 	b.PutString(i.Provider)
 	if err := i.ProviderData.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaInvoice#f4e096c3: field provider_data: %w", err)
+		return fmt.Errorf("unable to encode inputMediaInvoice#d9799874: field provider_data: %w", err)
 	}
-	b.PutString(i.StartParam)
+	if i.Flags.Has(1) {
+		b.PutString(i.StartParam)
+	}
 	return nil
-}
-
-// SetMultipleAllowed sets value of MultipleAllowed conditional field.
-func (i *InputMediaInvoice) SetMultipleAllowed(value bool) {
-	if value {
-		i.Flags.Set(1)
-		i.MultipleAllowed = true
-	} else {
-		i.Flags.Unset(1)
-		i.MultipleAllowed = false
-	}
-}
-
-// GetMultipleAllowed returns value of MultipleAllowed conditional field.
-func (i *InputMediaInvoice) GetMultipleAllowed() (value bool) {
-	return i.Flags.Has(1)
-}
-
-// SetCanForward sets value of CanForward conditional field.
-func (i *InputMediaInvoice) SetCanForward(value bool) {
-	if value {
-		i.Flags.Set(2)
-		i.CanForward = true
-	} else {
-		i.Flags.Unset(2)
-		i.CanForward = false
-	}
-}
-
-// GetCanForward returns value of CanForward conditional field.
-func (i *InputMediaInvoice) GetCanForward() (value bool) {
-	return i.Flags.Has(2)
 }
 
 // GetTitle returns value of Title field.
@@ -2727,18 +2676,28 @@ func (i *InputMediaInvoice) GetProviderData() (value DataJSON) {
 	return i.ProviderData
 }
 
-// GetStartParam returns value of StartParam field.
-func (i *InputMediaInvoice) GetStartParam() (value string) {
-	return i.StartParam
+// SetStartParam sets value of StartParam conditional field.
+func (i *InputMediaInvoice) SetStartParam(value string) {
+	i.Flags.Set(1)
+	i.StartParam = value
+}
+
+// GetStartParam returns value of StartParam conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaInvoice) GetStartParam() (value string, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.StartParam, true
 }
 
 // Decode implements bin.Decoder.
 func (i *InputMediaInvoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaInvoice#f4e096c3 to nil")
+		return fmt.Errorf("can't decode inputMediaInvoice#d9799874 to nil")
 	}
 	if err := b.ConsumeID(InputMediaInvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: %w", err)
+		return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -2746,62 +2705,60 @@ func (i *InputMediaInvoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaInvoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaInvoice#f4e096c3 to nil")
+		return fmt.Errorf("can't decode inputMediaInvoice#d9799874 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field flags: %w", err)
 		}
 	}
-	i.MultipleAllowed = i.Flags.Has(1)
-	i.CanForward = i.Flags.Has(2)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: field title: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field title: %w", err)
 		}
 		i.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: field description: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field description: %w", err)
 		}
 		i.Description = value
 	}
 	if i.Flags.Has(0) {
 		if err := i.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: field photo: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field photo: %w", err)
 		}
 	}
 	{
 		if err := i.Invoice.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: field invoice: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field invoice: %w", err)
 		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: field payload: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field payload: %w", err)
 		}
 		i.Payload = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: field provider: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field provider: %w", err)
 		}
 		i.Provider = value
 	}
 	{
 		if err := i.ProviderData.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: field provider_data: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field provider_data: %w", err)
 		}
 	}
-	{
+	if i.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: field start_param: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field start_param: %w", err)
 		}
 		i.StartParam = value
 	}
@@ -3624,7 +3581,7 @@ var (
 //  case *tg.InputMediaPhotoExternal: // inputMediaPhotoExternal#e5bbfe1a
 //  case *tg.InputMediaDocumentExternal: // inputMediaDocumentExternal#fb52dc99
 //  case *tg.InputMediaGame: // inputMediaGame#d33f43f3
-//  case *tg.InputMediaInvoice: // inputMediaInvoice#f4e096c3
+//  case *tg.InputMediaInvoice: // inputMediaInvoice#d9799874
 //  case *tg.InputMediaGeoLive: // inputMediaGeoLive#971fa843
 //  case *tg.InputMediaPoll: // inputMediaPoll#f94e5f1
 //  case *tg.InputMediaDice: // inputMediaDice#e66fbf7b
@@ -3734,7 +3691,7 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 		}
 		return &v, nil
 	case InputMediaInvoiceTypeID:
-		// Decoding inputMediaInvoice#f4e096c3.
+		// Decoding inputMediaInvoice#d9799874.
 		v := InputMediaInvoice{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)

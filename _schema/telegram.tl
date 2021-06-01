@@ -2,8 +2,8 @@
 //
 // Source: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/Resources/tl/api.tl
 // Merge:  _schema/help_config_simple.tl
-// Layer:  128
-// SHA256: 3bdd325205d5870c453580bf5f4a0a664e174b9e2af8dcf7eefd7c2d4404a938
+// Layer:  129
+// SHA256: 70452667e1d9a77db09dc9553959a3e769ca9800e3f6719d699293fc162cce06
 
 boolFalse#bc799737 = Bool;
 
@@ -65,7 +65,7 @@ inputMediaDocumentExternal#fb52dc99 flags:# url:string ttl_seconds:flags.0?int =
 
 inputMediaGame#d33f43f3 id:InputGame = InputMedia;
 
-inputMediaInvoice#f4e096c3 flags:# multiple_allowed:flags.1?true can_forward:flags.2?true title:string description:string photo:flags.0?InputWebDocument invoice:Invoice payload:bytes provider:string provider_data:DataJSON start_param:string = InputMedia;
+inputMediaInvoice#d9799874 flags:# title:string description:string photo:flags.0?InputWebDocument invoice:Invoice payload:bytes provider:string provider_data:DataJSON start_param:flags.1?string = InputMedia;
 
 inputMediaGeoLive#971fa843 flags:# stopped:flags.0?true geo_point:InputGeoPoint heading:flags.2?int period:flags.1?int proximity_notification_radius:flags.3?int = InputMedia;
 
@@ -553,7 +553,7 @@ updateGeoLiveViewed#871fb939 peer:Peer msg_id:int = Update;
 
 updateLoginToken#564fe691 = Update;
 
-updateMessagePollVote#42f88f2c poll_id:long user_id:int options:Vector<bytes> = Update;
+updateMessagePollVote#37f69f0b poll_id:long user_id:int options:Vector<bytes> qts:int = Update;
 
 updateDialogFilter#26ffde7d flags:# id:int filter:flags.0?DialogFilter = Update;
 
@@ -590,6 +590,8 @@ updateChatParticipant#f3b3781f flags:# chat_id:int date:int actor_id:int user_id
 updateChannelParticipant#7fecb1ec flags:# channel_id:int date:int actor_id:int user_id:int prev_participant:flags.0?ChannelParticipant new_participant:flags.1?ChannelParticipant invite:flags.2?ExportedChatInvite qts:int = Update;
 
 updateBotStopped#7f9488a user_id:int date:int stopped:Bool qts:int = Update;
+
+updateGroupCallConnection#b783982 flags:# presentation:flags.0?true params:DataJSON = Update;
 
 updates.state#a56c2a3e pts:int qts:int date:int seq:int unread_count:int = updates.State;
 
@@ -631,7 +633,7 @@ config#330b4067 flags:# phonecalls_enabled:flags.1?true default_p2p_contacts:fla
 
 nearestDc#8e1a1775 country:string this_dc:int nearest_dc:int = NearestDc;
 
-help.appUpdate#1da7158f flags:# can_not_skip:flags.0?true id:int version:string text:string entities:Vector<MessageEntity> document:flags.1?Document url:flags.2?string = help.AppUpdate;
+help.appUpdate#ccbbce30 flags:# can_not_skip:flags.0?true id:int version:string text:string entities:Vector<MessageEntity> document:flags.1?Document url:flags.2?string sticker:flags.3?Document = help.AppUpdate;
 
 help.noAppUpdate#c45a6536 = help.AppUpdate;
 
@@ -1007,7 +1009,7 @@ inputBotInlineMessageMediaContact#a6edbffd flags:# phone_number:string first_nam
 
 inputBotInlineMessageGame#4b425864 flags:# reply_markup:flags.2?ReplyMarkup = InputBotInlineMessage;
 
-inputBotInlineMessageMediaInvoice#d5348d85 flags:# multiple_allowed:flags.1?true can_forward:flags.3?true title:string description:string photo:flags.0?InputWebDocument invoice:Invoice payload:bytes provider:string provider_data:DataJSON start_param:string reply_markup:flags.2?ReplyMarkup = InputBotInlineMessage;
+inputBotInlineMessageMediaInvoice#d7e78225 flags:# title:string description:string photo:flags.0?InputWebDocument invoice:Invoice payload:bytes provider:string provider_data:DataJSON reply_markup:flags.2?ReplyMarkup = InputBotInlineMessage;
 
 inputBotInlineResult#88bf9319 flags:# id:string type:string title:flags.1?string description:flags.2?string url:flags.3?string thumb:flags.4?InputWebDocument content:flags.5?InputWebDocument send_message:InputBotInlineMessage = InputBotInlineResult;
 
@@ -1609,7 +1611,7 @@ account.wallPapers#702b65a9 hash:int wallpapers:Vector<WallPaper> = account.Wall
 
 codeSettings#debebe83 flags:# allow_flashcall:flags.0?true current_number:flags.1?true allow_app_hash:flags.4?true = CodeSettings;
 
-wallPaperSettings#5086cf8 flags:# blur:flags.1?true motion:flags.2?true background_color:flags.0?int second_background_color:flags.4?int intensity:flags.3?int rotation:flags.4?int = WallPaperSettings;
+wallPaperSettings#1dc1bca4 flags:# blur:flags.1?true motion:flags.2?true background_color:flags.0?int second_background_color:flags.4?int third_background_color:flags.5?int fourth_background_color:flags.6?int intensity:flags.3?int rotation:flags.4?int = WallPaperSettings;
 
 autoDownloadSettings#e04232f3 flags:# disabled:flags.0?true video_preload_large:flags.1?true audio_preload_next:flags.2?true phonecalls_less_data:flags.3?true photo_size_max:int video_size_max:int file_size_max:int video_upload_maxbitrate:int = AutoDownloadSettings;
 
@@ -1757,11 +1759,11 @@ stats.messageStats#8999f295 views_graph:StatsGraph = stats.MessageStats;
 
 groupCallDiscarded#7780bcb4 id:long access_hash:long duration:int = GroupCall;
 
-groupCall#c95c6654 flags:# join_muted:flags.1?true can_change_join_muted:flags.2?true join_date_asc:flags.6?true schedule_start_subscribed:flags.8?true id:long access_hash:long participants_count:int params:flags.0?DataJSON title:flags.3?string stream_dc_id:flags.4?int record_start_date:flags.5?int schedule_date:flags.7?int version:int = GroupCall;
+groupCall#653dbaad flags:# join_muted:flags.1?true can_change_join_muted:flags.2?true join_date_asc:flags.6?true schedule_start_subscribed:flags.8?true can_start_video:flags.9?true id:long access_hash:long participants_count:int title:flags.3?string stream_dc_id:flags.4?int record_start_date:flags.5?int schedule_date:flags.7?int version:int = GroupCall;
 
 inputGroupCall#d8aa840f id:long access_hash:long = InputGroupCall;
 
-groupCallParticipant#b96b25ee flags:# muted:flags.0?true left:flags.1?true can_self_unmute:flags.2?true just_joined:flags.4?true versioned:flags.5?true min:flags.8?true muted_by_you:flags.9?true volume_by_admin:flags.10?true self:flags.12?true peer:Peer date:int active_date:flags.3?int source:int volume:flags.7?int about:flags.11?string raise_hand_rating:flags.13?long params:flags.6?DataJSON = GroupCallParticipant;
+groupCallParticipant#a8ba51a7 flags:# muted:flags.0?true left:flags.1?true can_self_unmute:flags.2?true just_joined:flags.4?true versioned:flags.5?true min:flags.8?true muted_by_you:flags.9?true volume_by_admin:flags.10?true self:flags.12?true peer:Peer date:int active_date:flags.3?int source:int volume:flags.7?int about:flags.11?string raise_hand_rating:flags.13?long video:flags.6?DataJSON presentation:flags.14?DataJSON = GroupCallParticipant;
 
 phone.groupCall#9e727aad call:GroupCall participants:Vector<GroupCallParticipant> participants_next_offset:string chats:Vector<Chat> users:Vector<User> = phone.GroupCall;
 
@@ -2518,7 +2520,7 @@ phone.sendSignalingData#ff7a9383 peer:InputPhoneCall data:bytes = Bool;
 
 phone.createGroupCall#48cdc6d8 flags:# peer:InputPeer random_id:int title:flags.0?string schedule_date:flags.1?int = Updates;
 
-phone.joinGroupCall#b132ff7b flags:# muted:flags.0?true call:InputGroupCall join_as:InputPeer invite_hash:flags.1?string params:DataJSON = Updates;
+phone.joinGroupCall#b132ff7b flags:# muted:flags.0?true video_muted:flags.2?true call:InputGroupCall join_as:InputPeer invite_hash:flags.1?string params:DataJSON = Updates;
 
 phone.leaveGroupCall#500377f9 call:InputGroupCall source:int = Updates;
 
@@ -2532,11 +2534,11 @@ phone.getGroupCall#c7cb017 call:InputGroupCall = phone.GroupCall;
 
 phone.getGroupParticipants#c558d8ab call:InputGroupCall ids:Vector<InputPeer> sources:Vector<int> offset:string limit:int = phone.GroupParticipants;
 
-phone.checkGroupCall#b74a7bea call:InputGroupCall source:int = Bool;
+phone.checkGroupCall#b59cf977 call:InputGroupCall sources:Vector<int> = Vector<int>;
 
 phone.toggleGroupCallRecord#c02a66d7 flags:# start:flags.0?true call:InputGroupCall title:flags.1?string = Updates;
 
-phone.editGroupCallParticipant#d975eb80 flags:# muted:flags.0?true call:InputGroupCall participant:InputPeer volume:flags.1?int raise_hand:flags.2?Bool = Updates;
+phone.editGroupCallParticipant#aec610e4 flags:# call:InputGroupCall participant:InputPeer muted:flags.0?Bool volume:flags.1?int raise_hand:flags.2?Bool video_muted:flags.3?Bool = Updates;
 
 phone.editGroupCallTitle#1ca6ac0a call:InputGroupCall title:string = Updates;
 
@@ -2549,6 +2551,10 @@ phone.toggleGroupCallStartSubscription#219c34e6 call:InputGroupCall subscribed:B
 phone.startScheduledGroupCall#5680e342 call:InputGroupCall = Updates;
 
 phone.saveDefaultGroupCallJoinAs#575e1f8c peer:InputPeer join_as:InputPeer = Bool;
+
+phone.joinGroupCallPresentation#cbea6bc4 call:InputGroupCall params:DataJSON = Updates;
+
+phone.leaveGroupCallPresentation#1c50d144 call:InputGroupCall = Updates;
 
 langpack.getLangPack#f2f2330a lang_pack:string lang_code:string = LangPackDifference;
 
@@ -2585,4 +2591,4 @@ accessPointRule#4679b65f phone_prefix_rules:string dc_id:int ips:vector<IpPort> 
 
 help.configSimple#5a592a6c date:int expires:int rules:vector<AccessPointRule> = help.ConfigSimple;
 
-// LAYER 128
+// LAYER 129
