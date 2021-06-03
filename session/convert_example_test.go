@@ -13,7 +13,7 @@ FhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYW
 WFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh
 YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWE=`
 
-	data, err := session.StringSession(str)
+	data, err := session.TelethonSession(str)
 	if err != nil {
 		panic(err)
 	}

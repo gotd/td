@@ -14,11 +14,12 @@ import (
 // https://github.com/LonamiWebs/Telethon/blob/master/telethon/sessions/string.py#L11
 const latestTelethonVersion byte = '1'
 
-// StringSession decodes Telethon's StringSession string to the Data.
+// TelethonSession decodes Telethon's StringSession string to the Data.
 // Notice that Telethon does not save tg.Config and server salt.
 //
+// See https://docs.telethon.dev/en/latest/modules/sessions.html#telethon.sessions.string.StringSession.
 // See https://github.com/LonamiWebs/Telethon/blob/master/telethon/sessions/string.py#L29-L46.
-func StringSession(hx string) (*Data, error) {
+func TelethonSession(hx string) (*Data, error) {
 	if len(hx) < 1 {
 		return nil, xerrors.Errorf("given string too small: %d", len(hx))
 	}

@@ -52,7 +52,7 @@ func TestStringSession(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Log(tt.hx)
-			got, err := StringSession(tt.hx)
+			got, err := TelethonSession(tt.hx)
 			if tt.wantErr {
 				require.Error(t, err)
 			} else {
