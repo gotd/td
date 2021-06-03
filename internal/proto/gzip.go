@@ -76,7 +76,6 @@ var (
 	gzipBufPool = sync.Pool{New: func() interface{} {
 		return bytes.NewBuffer(nil)
 	}}
-	copyBufPool = bin.NewPool(0)
 )
 
 // Encode implements bin.Encoder.
@@ -88,10 +87,6 @@ func (g GZIP) Encode(b *bin.Buffer) (rErr error) {
 	buf.Reset()
 	defer gzipBufPool.Put(buf)
 
-	// Copy buffer.
-	copyBuf := copyBufPool.GetSize(b.Len())
-	defer copyBufPool.Put(copyBuf)
-
 	w := gzipRWPool.GetWriter(buf)
 	defer func() {
 		if closeErr := w.Close(); closeErr != nil {
@@ -100,7 +95,7 @@ func (g GZIP) Encode(b *bin.Buffer) (rErr error) {
 		}
 		gzipRWPool.PutWriter(w)
 	}()
-	if _, err := io.CopyBuffer(w, bytes.NewReader(g.Data), copyBuf.Buf); err != nil {
+	if _, err := w.Write(g.Data); err != nil {
 		return xerrors.Errorf("compress: %w", err)
 	}
 	if err := w.Close(); err != nil {
