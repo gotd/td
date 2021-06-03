@@ -6,7 +6,7 @@ import (
 	"github.com/gotd/td/session"
 )
 
-func ExampleStringSession() {
+func ExampleTelethonSession() {
 	// Get a session from Telethon.
 	str := `1AsCoAAEBu2FhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYW
 FhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhY
