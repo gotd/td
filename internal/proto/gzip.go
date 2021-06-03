@@ -70,6 +70,7 @@ type GZIP struct {
 // GZIPTypeID is TL type id of GZIP.
 const GZIPTypeID = 0x3072cfa1
 
+// nolint:gochecknoglobals
 var (
 	gzipRWPool  = newGzipPool()
 	gzipBufPool = sync.Pool{New: func() interface{} {
