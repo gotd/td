@@ -353,16 +353,6 @@ type InputDocumentClass interface {
 	AsNotEmpty() (*InputDocument, bool)
 }
 
-// AsInputDocumentFileLocation tries to map InputDocument to InputDocumentFileLocation.
-func (i *InputDocument) AsInputDocumentFileLocation() *InputDocumentFileLocation {
-	value := new(InputDocumentFileLocation)
-	value.ID = i.GetID()
-	value.AccessHash = i.GetAccessHash()
-	value.FileReference = i.GetFileReference()
-
-	return value
-}
-
 // AsNotEmpty tries to map InputDocumentEmpty to InputDocument.
 func (i *InputDocumentEmpty) AsNotEmpty() (*InputDocument, bool) {
 	return nil, false
