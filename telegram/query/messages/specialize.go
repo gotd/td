@@ -104,6 +104,18 @@ func getDocFilename(doc *tg.Document) string {
 	return filename
 }
 
+type sizedPhoto interface {
+	GetW() int
+	GetH() int
+	GetType() string
+}
+
+var (
+	_ sizedPhoto = (*tg.PhotoSize)(nil)
+	_ sizedPhoto = (*tg.PhotoCachedSize)(nil)
+	_ sizedPhoto = (*tg.PhotoSizeProgressive)(nil)
+)
+
 // File returns file location if message has a file attachment.
 func (e Elem) File() (File, bool) {
 	msg, ok := e.Msg.(*tg.Message)
@@ -122,10 +134,31 @@ func (e Elem) File() (File, bool) {
 			"photo%d_%s.jpg", photo.GetID(),
 			time.Unix(int64(photo.Date), 0).Format(dateLayout),
 		)
+
+		var (
+			thumbSize  string
+			maxW, maxH int
+		)
+		for _, g := range photo.Sizes {
+			// TODO(tdakkota): add helpers to choose photo size.
+			if sz, ok := g.(sizedPhoto); ok && maxW < sz.GetW() && maxH < sz.GetH() {
+				thumbSize = sz.GetType()
+			}
+		}
+
+		if thumbSize == "" {
+			return File{}, false
+		}
+
 		return File{
 			Name:     filename,
 			MIMEType: "image/jpeg",
-			Location: photo.AsInputPhotoFileLocation(),
+			Location: &tg.InputPhotoFileLocation{
+				ID:            photo.ID,
+				AccessHash:    photo.AccessHash,
+				FileReference: photo.FileReference,
+				ThumbSize:     thumbSize,
+			},
 		}, true
 	case *tg.MessageMediaDocument:
 		doc, ok := media.Document.AsNotEmpty()
