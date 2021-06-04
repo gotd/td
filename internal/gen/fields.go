@@ -5,7 +5,7 @@ import (
 )
 
 func optionalField(_ structDef, f fieldDef) bool {
-	return f.Conditional || f.Type == "string" && f.Name == "ThumbSize"
+	return f.Conditional
 }
 
 func hasField(fields []fieldDef, name, typ string) bool {
