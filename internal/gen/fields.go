@@ -4,8 +4,15 @@ import (
 	"strings"
 )
 
-func optionalField(_ structDef, f fieldDef) bool {
-	return f.Conditional
+func optionalField(s structDef, f fieldDef) bool {
+	switch {
+	case f.Conditional:
+		return true
+	case f.Type == "string" && f.Name == "ThumbSize":
+		return s.RawName == "inputDocumentFileLocation"
+	}
+
+	return false
 }
 
 func hasField(fields []fieldDef, name, typ string) bool {
@@ -41,7 +48,7 @@ func mappableFields(constructor, to structDef) (constructorMapping, bool) {
 	// Return false if we can't fill all fields.
 	if len(mapped) != len(to.Fields) {
 		for _, field := range to.Fields {
-			if _, ok := mapped[field.Name]; !ok && !optionalField(constructor, field) {
+			if _, ok := mapped[field.Name]; !ok && !optionalField(to, field) {
 				return constructorMapping{}, false
 			}
 		}
