@@ -99,7 +99,15 @@ func TestElem_File(t *testing.T) {
 		}, results{}},
 		{"Photo", &tg.Message{
 			Media: &tg.MessageMediaPhoto{
-				Photo: &tg.Photo{},
+				Photo: &tg.Photo{
+					Sizes: []tg.PhotoSizeClass{
+						&tg.PhotoSize{
+							Type: "cock",
+							W:    10,
+							H:    10,
+						},
+					},
+				},
 			},
 		}, results{file: true, photo: true}},
 		{"Document", &tg.Message{
