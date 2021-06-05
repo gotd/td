@@ -35,20 +35,7 @@ func (c *Client) createPool(dc int, max int64, creator func() pool.Conn) (*pool.
 	return p, nil
 }
 
-// Pool creates new multi-connection invoker to current DC.
-func (c *Client) Pool(max int64) (CloseInvoker, error) {
-	if max < 0 {
-		return nil, xerrors.Errorf("invalid max value %d", max)
-	}
-
-	s := c.session.Load()
-	return c.createPool(s.DC, max, func() pool.Conn {
-		id := c.connsCounter.Inc()
-		return c.createConn(id, manager.ConnModeData, nil)
-	})
-}
-
-func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dialer) (*pool.DC, error) {
+func (c *Client) dc(ctx context.Context, dcID int, max int64, transfer bool, dialer mtproto.Dialer) (*pool.DC, error) {
 	if max < 0 {
 		return nil, xerrors.Errorf("invalid max value %d", max)
 	}
@@ -93,30 +80,62 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dia
 		return nil, xerrors.Errorf("create pool: %w", err)
 	}
 
-	_, err = c.transfer(ctx, tg.NewClient(p), dcID)
-	if err != nil {
-		// Ignore case then we are not authorized.
-		if unauthorized(err) {
-			return p, nil
-		}
+	if transfer {
+		_, err = c.transfer(ctx, tg.NewClient(p), dcID)
+		if err != nil {
+			// Ignore case then we are not authorized.
+			if unauthorized(err) {
+				return p, nil
+			}
 
-		// Kill pool if we got error.
-		_ = p.Close()
-		return nil, xerrors.Errorf("transfer: %w", err)
+			// Kill pool if we got error.
+			_ = p.Close()
+			return nil, xerrors.Errorf("transfer: %w", err)
+		}
 	}
 
 	return p, nil
 }
 
+func (c *Client) createDC(ctx context.Context, dc int, max int64, dialer mtproto.Dialer) (CloseInvoker, error) {
+	// Lock migrations during creation of pool to prevent current DC changing.
+
+	// Acquire or cancel.
+	select {
+	case c.migration <- struct{}{}:
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+	// Release.
+	defer func() {
+		<-c.migration
+	}()
+
+	currentDC := c.session.Load().DC
+	needTransfer := currentDC != 0 && currentDC == dc
+
+	return c.dc(ctx, dc, max, needTransfer, dialer)
+}
+
 // DC creates new multi-connection invoker to given DC.
 func (c *Client) DC(ctx context.Context, dc int, max int64) (CloseInvoker, error) {
-	return c.dc(ctx, dc, max, c.primaryDC(dc))
+	p, err := c.createDC(ctx, dc, max, c.primaryDC(dc))
+	if err != nil {
+		return nil, err
+	}
+
+	return p, nil
 }
 
 // MediaOnly creates new multi-connection invoker to given DC ID.
 // It connects to MediaOnly DCs.
 func (c *Client) MediaOnly(ctx context.Context, dc int, max int64) (CloseInvoker, error) {
-	return c.dc(ctx, dc, max, func(ctx context.Context) (transport.Conn, error) {
+	p, err := c.createDC(ctx, dc, max, func(ctx context.Context) (transport.Conn, error) {
 		return c.resolver.MediaOnly(ctx, dc, c.dcList())
 	})
+	if err != nil {
+		return nil, err
+	}
+
+	return p, nil
 }
