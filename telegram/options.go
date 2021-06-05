@@ -50,7 +50,9 @@ type Options struct {
 	// UpdateHandler will be called on received update.
 	UpdateHandler UpdateHandler
 	// Middlewares list allows to wrap tg.Invoker. Can be useful for metrics,
-	// tracing, etc. Note that order is important.
+	// tracing, etc. Note that order is important, see ExampleMiddleware.
+	//
+	// Middlewares are called in order from first to last.
 	Middlewares []Middleware
 
 	// AckBatchSize is maximum ack-s to buffer.

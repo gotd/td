@@ -26,6 +26,13 @@ type MiddlewareFunc func(next tg.Invoker) InvokeFunc
 // Handle implements Middleware.
 func (m MiddlewareFunc) Handle(next tg.Invoker) InvokeFunc { return m(next) }
 
+// chainMiddlewares composes new invoker in such order that first element in
+// chain is called first, and latest "next" argument will be "invoker".
+//
+// E.g. we have invoker and two middlewares, so order will be following:
+// 0, 1, (invoker), 1 (after "next"), 0 (after "next").
+//
+// See TestMiddlewareOrder or ExampleMiddleware.
 func chainMiddlewares(invoker tg.Invoker, chain ...Middleware) tg.Invoker {
 	if len(chain) == 0 {
 		return invoker
