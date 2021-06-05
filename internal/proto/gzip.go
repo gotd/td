@@ -2,10 +2,10 @@ package proto
 
 import (
 	"bytes"
-	"compress/gzip"
 	"io"
 	"sync"
 
+	"github.com/klauspost/compress/gzip"
 	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
