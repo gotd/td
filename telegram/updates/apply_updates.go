@@ -42,7 +42,7 @@ func (e *Engine) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err e
 			ptsChanged = true
 			continue
 		case *tg.UpdateChannelTooLong:
-			e.handleChannelTooLong(u)
+			e.handleChannelTooLong(comb.Date, u)
 			continue
 		}
 
@@ -60,7 +60,7 @@ func (e *Engine) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err e
 				continue
 			}
 
-			if err := e.handleChannel(channelID, pts, ptsCount, u, ents); err != nil {
+			if err := e.handleChannel(channelID, comb.Date, pts, ptsCount, u, ents); err != nil {
 				return ptsChanged, err
 			}
 
@@ -91,10 +91,16 @@ func (e *Engine) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err e
 	}
 
 	if comb.Date > 0 {
-		if err := e.storage.SetDate(comb.Date); err != nil {
-			return ptsChanged, err
+		e.dateMux.Lock()
+		defer e.dateMux.Unlock()
+
+		if comb.Date > e.date {
+			if err := e.storage.SetDate(comb.Date); err != nil {
+				return ptsChanged, err
+			}
+
+			e.date = comb.Date
 		}
-		e.date.Store(int64(comb.Date))
 	}
 
 	return ptsChanged, nil
