@@ -93,14 +93,15 @@ func benchRead(payloadSize int) func(b *testing.B) {
 				cancel:  cancel,
 				counter: b.N,
 			},
-			handler:         nopHandler{},
-			clock:           c,
-			rand:            random,
-			cipher:          crypto.NewClientCipher(random),
-			log:             logger,
-			messageIDBuf:    noopBuf{},
-			authKey:         authKey,
-			readConcurrency: procs,
+			handler:           nopHandler{},
+			clock:             c,
+			rand:              random,
+			cipher:            crypto.NewClientCipher(random),
+			log:               logger,
+			messageIDBuf:      noopBuf{},
+			authKey:           authKey,
+			readConcurrency:   procs,
+			compressThreshold: -1,
 		}
 		grp := tdsync.NewCancellableGroup(ctx)
 

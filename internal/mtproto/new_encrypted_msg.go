@@ -24,7 +24,7 @@ func (c *Conn) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b *
 	// 	1) Generate Length() method for every encoder, to count length without encoding.
 	// 	2) Re-use buffer instead of using yet one.
 	// 	3) Do not send proto.GZIP if gzipped size is equal or bigger.
-	if payloadBuf.Len() > c.compressThreshold {
+	if c.compressThreshold > 0 && payloadBuf.Len() > c.compressThreshold {
 		d = crypto.EncryptedMessageData{
 			SessionID: s.ID,
 			Salt:      s.Salt,
