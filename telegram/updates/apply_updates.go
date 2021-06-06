@@ -30,6 +30,7 @@ func (e *Engine) applySeq(state int, updates []update) error {
 	return nil
 }
 
+// nolint:gocognit
 func (e *Engine) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err error) {
 	var (
 		ents   = NewEntities().fromUpdates(comb)
