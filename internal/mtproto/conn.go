@@ -97,6 +97,9 @@ type Conn struct {
 	readConcurrency int
 	gotSession      *tdsync.Ready
 
+	// compressThreshold is a threshold in bytes to determine that message
+	// is large enough to be compressed using gzip.
+	compressThreshold int
 	dialTimeout       time.Duration
 	exchangeTimeout   time.Duration
 	saltFetchInterval time.Duration
@@ -137,6 +140,7 @@ func New(dialer Dialer, opt Options) *Conn {
 		gotSession:      tdsync.NewReady(),
 
 		rpc:               opt.engine,
+		compressThreshold: 1024, // 1 KB
 		dialTimeout:       opt.DialTimeout,
 		exchangeTimeout:   opt.ExchangeTimeout,
 		saltFetchInterval: opt.SaltFetchInterval,
