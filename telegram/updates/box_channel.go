@@ -81,3 +81,20 @@ func (e *Engine) channelGapHandler(channelID int, ch *channelState) func(state g
 		}
 	}
 }
+
+func (e *Engine) channelSubscribeUpdates(channelID, date int, state *channelState) {
+	log := e.log.With(zap.Int("channel_id", channelID))
+	if _, ok := e.getChannelAccessHash(channelID); !ok {
+		if err := e.restoreAccessHashes(date - 1); err != nil {
+			log.Warn("Restore access hash error", zap.Error(err))
+			return
+		}
+
+		if _, ok = e.getChannelAccessHash(channelID); !ok {
+			log.Warn("Failed to restore access hash: getDifference result does not contain expected hash")
+			return
+		}
+	}
+
+	_ = e.recoverChannelState(channelID, state)
+}
