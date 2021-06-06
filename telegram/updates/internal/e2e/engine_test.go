@@ -97,6 +97,23 @@ func testEngine(t *testing.T, f func(s *Server, storage updates.Storage) chan *t
 				return err
 			}
 		}
+
+		var updates []tg.UpdateClass
+		updates = append(updates, &tg.UpdatePtsChanged{})
+		if err := storage.Channels(func(channelID, pts int) {
+			updates = append(updates, &tg.UpdateChannelTooLong{
+				ChannelID: channelID,
+			})
+		}); err != nil {
+			return err
+		}
+
+		if err := e.HandleUpdates(&tg.Updates{
+			Updates: updates,
+		}); err != nil {
+			return err
+		}
+
 		return nil
 	})
 	require.NoError(t, err)
@@ -141,17 +158,13 @@ func loss(in chan *tg.Updates) chan *tg.Updates {
 	go func() {
 		defer close(out)
 
-		prev := <-in
 		for u := range in {
 			if rand.Intn(2) == 1 {
 				continue
 			}
 
-			out <- prev
-			prev = u
+			out <- u
 		}
-
-		out <- prev
 	}()
 
 	return out
