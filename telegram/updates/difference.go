@@ -46,7 +46,7 @@ func (e *Engine) recoverChannelState(channelID int, state *channelState) error {
 	defer state.recovering.Store(false)
 
 	log := e.log.With(zap.Int("channel_id", channelID))
-	accessHash, ok := e.getChannelAccessHash(channelID, 0, state)
+	accessHash, ok := e.getChannelAccessHash(channelID, 0)
 	if !ok {
 		log.Warn("Cannot recover state due to missing access hash.")
 		return nil
@@ -309,7 +309,7 @@ func (e *Engine) saveChannelHashesNoMux(source string, chats []tg.ChatClass) {
 	}
 }
 
-func (e *Engine) getChannelAccessHash(channelID, date int, state *channelState) (int64, bool) {
+func (e *Engine) getChannelAccessHash(channelID, date int) (int64, bool) {
 	e.hashMux.Lock()
 	defer e.hashMux.Unlock()
 

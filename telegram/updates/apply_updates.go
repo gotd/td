@@ -8,7 +8,7 @@ import (
 )
 
 func (e *Engine) applySeq(state int, updates []update) error {
-	recover := false
+	recoverState := false
 	for _, u := range updates {
 		ptsChanged, err := e.applyCombined(u.Value.(*tg.UpdatesCombined))
 		if err != nil {
@@ -16,11 +16,11 @@ func (e *Engine) applySeq(state int, updates []update) error {
 		}
 
 		if ptsChanged {
-			recover = true
+			recoverState = true
 		}
 	}
 
-	if recover {
+	if recoverState {
 		e.recoverGap <- struct{}{}
 	}
 	return nil

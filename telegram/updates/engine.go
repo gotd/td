@@ -200,7 +200,9 @@ func (e *Engine) handleChannel(channelID, date, pts, ptsCount int, u tg.UpdateCl
 	if !ok {
 		state = e.createChannelState(channelID, pts-ptsCount)
 		e.channels[channelID] = state
-		state.recoverGap <- struct{}{}
+		if _, ok := e.getChannelAccessHash(channelID, date); ok {
+			state.recoverGap <- struct{}{}
+		}
 	}
 	e.chanMux.Unlock()
 
@@ -214,9 +216,11 @@ func (e *Engine) handleChannel(channelID, date, pts, ptsCount int, u tg.UpdateCl
 }
 
 func (e *Engine) handleChannelTooLong(date int, long *tg.UpdateChannelTooLong) {
+	e.chanMux.Lock()
+	defer e.chanMux.Unlock()
+
 	log := e.log.With(zap.Int("channel_id", long.ChannelID))
 
-	e.chanMux.Lock()
 	state, ok := e.channels[long.ChannelID]
 	if !ok {
 		pts, havePts := long.GetPts()
@@ -228,8 +232,11 @@ func (e *Engine) handleChannelTooLong(date int, long *tg.UpdateChannelTooLong) {
 
 		state = e.createChannelState(long.ChannelID, pts)
 		e.channels[long.ChannelID] = state
+		if _, ok := e.getChannelAccessHash(long.ChannelID, date); ok {
+			state.recoverGap <- struct{}{}
+		}
+		return
 	}
-	e.chanMux.Unlock()
 
 	state.recoverGap <- struct{}{}
 }

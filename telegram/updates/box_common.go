@@ -1,7 +1,7 @@
 package updates
 
 func (e *Engine) initCommonBoxes(state State) {
-	recover := func() {
+	recoverState := func() {
 		if err := e.recoverState(); err != nil {
 			e.echan <- err
 		}
@@ -11,19 +11,19 @@ func (e *Engine) initCommonBoxes(state State) {
 	e.pts = newSequenceBox(sequenceConfig{
 		InitialState: state.Pts,
 		Apply:        e.applyPts,
-		OnGap:        recover,
+		OnGap:        recoverState,
 		Logger:       e.log.Named("pts"),
 	})
 	e.qts = newSequenceBox(sequenceConfig{
 		InitialState: state.Qts,
 		Apply:        e.applyQts,
-		OnGap:        recover,
+		OnGap:        recoverState,
 		Logger:       e.log.Named("qts"),
 	})
 	e.seq = newSequenceBox(sequenceConfig{
 		InitialState: state.Seq,
 		Apply:        e.applySeq,
-		OnGap:        recover,
+		OnGap:        recoverState,
 		Logger:       e.log.Named("seq"),
 	})
 
