@@ -1,63 +1,56 @@
 package updates
 
-func (e *Engine) initCommonBoxes(state State) error {
+func (e *Engine) initCommonBoxes(state State) {
+	recover := func() {
+		if err := e.recoverState(); err != nil {
+			e.echan <- err
+		}
+	}
+
 	e.setDate(state.Date)
 	e.pts = newSequenceBox(sequenceConfig{
 		InitialState: state.Pts,
 		Apply:        e.applyPts,
-		OnGap:        e.commonGapHandler,
+		OnGap:        recover,
 		Logger:       e.log.Named("pts"),
 	})
 	e.qts = newSequenceBox(sequenceConfig{
 		InitialState: state.Qts,
 		Apply:        e.applyQts,
-		OnGap:        e.commonGapHandler,
+		OnGap:        recover,
 		Logger:       e.log.Named("qts"),
 	})
 	e.seq = newSequenceBox(sequenceConfig{
 		InitialState: state.Seq,
 		Apply:        e.applySeq,
-		OnGap:        e.commonGapHandler,
+		OnGap:        recover,
 		Logger:       e.log.Named("seq"),
 	})
 
-	go e.pts.run(e.ctx)
-	go e.qts.run(e.ctx)
-	go e.seq.run(e.ctx)
+	e.pts.run()
+	e.qts.run()
+	e.seq.run()
 
+	e.wg.Add(1)
 	go func() {
+		defer e.wg.Done()
 		for {
 			select {
-			case <-e.ctx.Done():
+			case <-e.workers:
 				return
+
+			case <-e.recoverGap:
+				if err := e.recoverState(); err != nil {
+					e.echan <- err
+				}
 
 			case <-e.idleTimeout.C:
 				e.log.Info("Idle timeout, recovering state")
-				go func() {
-					if err := e.recoverState(); err != nil {
-						e.echan <- err
-					}
-				}()
+				_ = e.idleTimeout.Reset(idleTimeout)
+				if err := e.recoverState(); err != nil {
+					e.echan <- err
+				}
 			}
 		}
 	}()
-
-	return nil
-}
-
-func (e *Engine) commonGapHandler(state gapState) {
-	switch state {
-	case gapInit:
-		e.wg.Add(1)
-	case gapResolved:
-		e.wg.Done()
-	case gapRecover:
-		go func() {
-			defer e.wg.Done()
-
-			if err := e.recoverState(); err != nil {
-				e.echan <- err
-			}
-		}()
-	}
 }

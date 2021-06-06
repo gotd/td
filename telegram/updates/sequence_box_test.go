@@ -20,7 +20,7 @@ func TestSequenceBox(t *testing.T) {
 			updates = append(updates, u...)
 			return nil
 		},
-		OnGap:  func(gs gapState) {},
+		OnGap:  func() {},
 		Logger: zaptest.NewLogger(t),
 	})
 

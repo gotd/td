@@ -42,7 +42,9 @@ type Engine struct {
 	channelHash map[int]int64
 	hashMux     sync.RWMutex
 
-	echan chan error
+	echan      chan error
+	recoverGap chan struct{}
+	workers    chan struct{}
 
 	diffLim int
 	selfID  int
@@ -69,7 +71,9 @@ func New(cfg Config) *Engine {
 		channels:    map[int]*channelState{},
 		channelHash: map[int]int64{},
 
-		echan: make(chan error),
+		echan:      make(chan error),
+		recoverGap: make(chan struct{}),
+		workers:    make(chan struct{}),
 
 		diffLim: diffLimitUser,
 		selfID:  cfg.SelfID,
@@ -91,9 +95,6 @@ func New(cfg Config) *Engine {
 }
 
 func (e *Engine) handleUpdates(u tg.UpdatesClass) error {
-	e.wg.Add(1)
-	defer e.wg.Done()
-
 	_ = e.idleTimeout.Reset(idleTimeout)
 	switch u := u.(type) {
 	case *tg.Updates:
@@ -127,11 +128,7 @@ func (e *Engine) handleUpdates(u tg.UpdatesClass) error {
 		return e.handleUpdates(e.convertShortSentMessage(u))
 
 	case *tg.UpdatesTooLong:
-		go func() {
-			if err := e.recoverState(); err != nil {
-				e.echan <- err
-			}
-		}()
+		e.recoverGap <- struct{}{}
 		return nil
 
 	default:
@@ -152,11 +149,7 @@ func (e *Engine) handleSeq(u *tg.UpdatesCombined) error {
 		}
 
 		if ptsChanged {
-			go func() {
-				if err := e.recoverState(); err != nil {
-					e.echan <- err
-				}
-			}()
+			e.recoverGap <- struct{}{}
 		}
 		return nil
 	}
@@ -207,12 +200,9 @@ func (e *Engine) handleChannel(channelID, date, pts, ptsCount int, u tg.UpdateCl
 	if !ok {
 		state = e.createChannelState(channelID, pts-ptsCount)
 		e.channels[channelID] = state
+		state.recoverGap <- struct{}{}
 	}
 	e.chanMux.Unlock()
-
-	if !ok {
-		e.channelSubscribeUpdates(channelID, date, state)
-	}
 
 	_ = state.idleTimeout.Reset(idleTimeout)
 	return state.pts.Handle(update{
@@ -241,7 +231,5 @@ func (e *Engine) handleChannelTooLong(date int, long *tg.UpdateChannelTooLong) {
 	}
 	e.chanMux.Unlock()
 
-	if !ok {
-		e.channelSubscribeUpdates(long.ChannelID, date, state)
-	}
+	state.recoverGap <- struct{}{}
 }

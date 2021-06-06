@@ -14,6 +14,8 @@ func (e *Engine) HandleUpdates(u tg.UpdatesClass) error {
 	if e.closed.Load() {
 		return xerrors.Errorf("closed")
 	}
+	e.wg.Add(1)
+	defer e.wg.Done()
 	return e.handleUpdates(u)
 }
 
@@ -23,27 +25,47 @@ func (e *Engine) Run(ctx context.Context, f func(context.Context) error) error {
 		return xerrors.Errorf("closed")
 	}
 
-	defer func() {
-		e.closed.Store(true)
-		e.wg.Wait()
-		e.cancel()
-	}()
-
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-
 	state, err := e.getState(ctx)
 	if err != nil {
 		return err
 	}
 
-	if err := e.initCommonBoxes(state); err != nil {
+	if err := e.storage.Channels(func(channelID, pts int) {
+		e.chanMux.Lock()
+		e.channels[channelID] = e.createChannelState(channelID, pts)
+		e.chanMux.Unlock()
+	}); err != nil {
 		return err
 	}
 
-	if err := e.initChannelBoxes(); err != nil {
-		return err
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	defer func() {
+		e.closed.Store(true)
+		close(e.workers)
+		e.wg.Wait()
+
+		e.seq.stop()
+		e.pts.stop()
+		e.qts.stop()
+
+		e.chanMux.Lock()
+		for _, state := range e.channels {
+			state.pts.stop()
+		}
+		e.chanMux.Unlock()
+		e.cancel()
+	}()
+
+	e.initCommonBoxes(state)
+
+	e.chanMux.Lock()
+	for _, state := range e.channels {
+		state.pts.run()
+		state.recoverGap <- struct{}{}
 	}
+	e.chanMux.Unlock()
 
 	if !e.forget {
 		if err := e.recoverState(); err != nil {

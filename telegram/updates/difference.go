@@ -15,9 +15,6 @@ func (e *Engine) recoverState() error {
 	}
 	defer e.recovering.Store(false)
 
-	e.wg.Add(1)
-	defer e.wg.Done()
-
 	e.pts.EnableRecoverMode()
 	e.qts.EnableRecoverMode()
 	e.seq.EnableRecoverMode()
@@ -48,11 +45,8 @@ func (e *Engine) recoverChannelState(channelID int, state *channelState) error {
 	}
 	defer state.recovering.Store(false)
 
-	e.wg.Add(1)
-	defer e.wg.Done()
-
 	log := e.log.With(zap.Int("channel_id", channelID))
-	accessHash, ok := e.getChannelAccessHash(channelID)
+	accessHash, ok := e.getChannelAccessHash(channelID, 0, state)
 	if !ok {
 		log.Warn("Cannot recover state due to missing access hash.")
 		return nil
@@ -285,7 +279,10 @@ func (e *Engine) getChannelDifference(channelID int, accessHash int64, state *ch
 func (e *Engine) saveChannelHashes(source string, chats []tg.ChatClass) {
 	e.hashMux.Lock()
 	defer e.hashMux.Unlock()
+	e.saveChannelHashesNoMux(source, chats)
+}
 
+func (e *Engine) saveChannelHashesNoMux(source string, chats []tg.ChatClass) {
 	for _, c := range chats {
 		switch c := c.(type) {
 		case *tg.Channel:
@@ -312,32 +309,43 @@ func (e *Engine) saveChannelHashes(source string, chats []tg.ChatClass) {
 	}
 }
 
-func (e *Engine) getChannelAccessHash(channelID int) (int64, bool) {
+func (e *Engine) getChannelAccessHash(channelID, date int, state *channelState) (int64, bool) {
 	e.hashMux.Lock()
 	defer e.hashMux.Unlock()
 
+	log := e.log.With(zap.Int("channel_id", channelID))
 	accessHash, ok := e.channelHash[channelID]
-	return accessHash, ok
-}
+	if !ok {
+		if date == 0 {
+			// Update have no date, fallback to global.
+			date = e.getDate() - 31
+		}
 
-func (e *Engine) restoreAccessHashes(date int) error {
-	diff, err := e.raw.UpdatesGetDifference(e.ctx, &tg.UpdatesGetDifferenceRequest{
-		Pts:  e.pts.State(),
-		Qts:  e.qts.State(),
-		Date: date,
-	})
-	if err != nil {
-		return xerrors.Errorf("getDifference: %w", err)
+		diff, err := e.raw.UpdatesGetDifference(e.ctx, &tg.UpdatesGetDifferenceRequest{
+			Pts:  e.pts.State(),
+			Qts:  e.qts.State(),
+			Date: date - 1,
+		})
+		if err != nil {
+			log.Warn("Restore access hash error", zap.Error(err))
+			return 0, false
+		}
+
+		switch diff := diff.(type) {
+		case *tg.UpdatesDifference:
+			e.saveChannelHashesNoMux("UpdatesDifference", diff.Chats)
+		case *tg.UpdatesDifferenceSlice:
+			e.saveChannelHashesNoMux("UpdatesDifferenceSlice", diff.Chats)
+		}
+
+		accessHash, ok = e.channelHash[channelID]
+		if !ok {
+			log.Warn("Failed to restore access hash: getDifference result does not contain expected hash")
+			return 0, false
+		}
 	}
 
-	switch diff := diff.(type) {
-	case *tg.UpdatesDifference:
-		e.saveChannelHashes("UpdatesDifference", diff.Chats)
-	case *tg.UpdatesDifferenceSlice:
-		e.saveChannelHashes("UpdatesDifferenceSlice", diff.Chats)
-	}
-
-	return nil
+	return accessHash, true
 }
 
 func (e *Engine) getDate() int {

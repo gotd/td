@@ -5,11 +5,11 @@ import (
 
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 )
 
 type channelState struct {
 	pts         *sequenceBox
+	recoverGap  chan struct{}
 	recovering  atomic.Bool
 	idleTimeout *time.Timer
 	diffTimeout time.Time
@@ -17,84 +17,38 @@ type channelState struct {
 
 func (e *Engine) createChannelState(channelID, initialPts int) *channelState {
 	state := new(channelState)
+	state.recoverGap = make(chan struct{}, 2)
+	state.idleTimeout = time.NewTimer(idleTimeout)
 	state.pts = newSequenceBox(sequenceConfig{
 		InitialState: initialPts,
 		Apply:        e.applyChannel(channelID),
-		OnGap:        e.channelGapHandler(channelID, state),
+		OnGap:        func() { state.recoverGap <- struct{}{} },
 		Logger:       e.log.Named("channel_pts").With(zap.Int("channel_id", channelID)),
 	})
-	state.idleTimeout = time.NewTimer(idleTimeout)
+	state.pts.run()
 
-	go state.pts.run(e.ctx)
-
+	e.wg.Add(1)
 	go func() {
+		defer e.wg.Done()
 		for {
 			select {
-			case <-e.ctx.Done():
+			case <-e.workers:
 				return
+
+			case <-state.recoverGap:
+				if err := e.recoverChannelState(channelID, state); err != nil {
+					e.echan <- err
+				}
 
 			case <-state.idleTimeout.C:
 				state.pts.log.Info("Idle timeout, recovering state")
-				go func() {
-					if err := e.recoverChannelState(channelID, state); err != nil {
-						e.echan <- err
-					}
-				}()
+				_ = state.idleTimeout.Reset(idleTimeout)
+				if err := e.recoverChannelState(channelID, state); err != nil {
+					e.echan <- err
+				}
 			}
 		}
 	}()
 
 	return state
-}
-
-func (e *Engine) initChannelBoxes() error {
-	if err := e.storage.Channels(func(channelID, pts int) {
-		e.chanMux.Lock()
-		e.channels[channelID] = e.createChannelState(channelID, pts)
-		e.chanMux.Unlock()
-	}); err != nil {
-		return xerrors.Errorf("restore local channels state: %w", err)
-	}
-
-	for channelID, state := range e.channels {
-		_ = e.recoverChannelState(channelID, state)
-	}
-
-	return nil
-}
-
-func (e *Engine) channelGapHandler(channelID int, ch *channelState) func(state gapState) {
-	return func(state gapState) {
-		switch state {
-		case gapInit:
-			e.wg.Add(1)
-		case gapResolved:
-			e.wg.Done()
-		case gapRecover:
-			go func() {
-				defer e.wg.Done()
-
-				if err := e.recoverChannelState(channelID, ch); err != nil {
-					e.echan <- err
-				}
-			}()
-		}
-	}
-}
-
-func (e *Engine) channelSubscribeUpdates(channelID, date int, state *channelState) {
-	log := e.log.With(zap.Int("channel_id", channelID))
-	if _, ok := e.getChannelAccessHash(channelID); !ok {
-		if err := e.restoreAccessHashes(date - 1); err != nil {
-			log.Warn("Restore access hash error", zap.Error(err))
-			return
-		}
-
-		if _, ok = e.getChannelAccessHash(channelID); !ok {
-			log.Warn("Failed to restore access hash: getDifference result does not contain expected hash")
-			return
-		}
-	}
-
-	_ = e.recoverChannelState(channelID, state)
 }

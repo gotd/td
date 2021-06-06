@@ -1,20 +1,12 @@
 package updates
 
 import (
-	"context"
 	"sort"
 	"sync"
 	"time"
 
 	"go.uber.org/zap"
-)
-
-type gapState uint8
-
-const (
-	gapInit gapState = iota
-	gapResolved
-	gapRecover
+	"golang.org/x/xerrors"
 )
 
 type sequenceBox struct {
@@ -25,8 +17,11 @@ type sequenceBox struct {
 	recovering bool
 
 	apply     func(state int, updates []update) error
-	notifyGap func(gapState)
+	notifyGap func()
+	done      chan struct{}
+	closed    bool
 	mux       sync.Mutex
+	wg        sync.WaitGroup
 
 	log *zap.Logger
 }
@@ -34,7 +29,7 @@ type sequenceBox struct {
 type sequenceConfig struct {
 	InitialState int
 	Apply        func(state int, updates []update) error
-	OnGap        func(gapState)
+	OnGap        func()
 	Logger       *zap.Logger
 }
 
@@ -60,12 +55,17 @@ func newSequenceBox(cfg sequenceConfig) *sequenceBox {
 
 		apply:     cfg.Apply,
 		notifyGap: cfg.OnGap,
+		done:      make(chan struct{}),
 		log:       cfg.Logger,
 	}
 }
 
 func (s *sequenceBox) Handle(u update) error {
 	s.mux.Lock()
+	if s.closed {
+		s.mux.Unlock()
+		return xerrors.Errorf("closed")
+	}
 	defer s.mux.Unlock()
 
 	if s.recovering {
@@ -77,10 +77,9 @@ func (s *sequenceBox) Handle(u update) error {
 		s.pending = append(s.pending, u)
 		if resolved := s.gaps.Consume(u); resolved {
 			if s.gapTimeout.Stop() {
-				s.notifyGap(gapResolved)
+				s.log.Debug("Gap was resolved by waiting")
+				return s.applyPending()
 			}
-			s.log.Debug("Gap was resolved by waiting")
-			return s.applyPending()
 		}
 
 		s.log.Debug("Gap status", zap.Array("gaps", s.gaps))
@@ -109,7 +108,6 @@ func (s *sequenceBox) Handle(u update) error {
 		s.pending = append(s.pending, u)
 		s.gaps.Enable(s.state+1, u.start()-1)
 		s.gapTimeout.Reset(fastgapTimeout)
-		s.notifyGap(gapInit)
 		s.log.Debug("Gap init", zap.Array("gap", s.gaps))
 		return nil
 
@@ -160,17 +158,30 @@ loop:
 	return nil
 }
 
-func (s *sequenceBox) run(ctx context.Context) {
-	for {
-		select {
-		case <-ctx.Done():
-			return
+func (s *sequenceBox) run() {
+	s.wg.Add(1)
 
-		case <-s.gapTimeout.C:
-			s.log.Info("Gap timeout")
-			s.notifyGap(gapRecover)
+	go func() {
+		defer s.wg.Done()
+		for {
+			select {
+			case <-s.done:
+				return
+
+			case <-s.gapTimeout.C:
+				s.log.Info("Gap timeout")
+				s.notifyGap()
+			}
 		}
-	}
+	}()
+}
+
+func (s *sequenceBox) stop() {
+	s.mux.Lock()
+	defer s.mux.Unlock()
+	close(s.done)
+	s.closed = true
+	s.wg.Wait()
 }
 
 func (s *sequenceBox) State() int {
