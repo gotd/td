@@ -25,13 +25,12 @@ func (c Cipher) encryptMessage(k AuthKey, plaintext *bin.Buffer) (*EncryptedMess
 	if err != nil {
 		return nil, err
 	}
-	encrypter := ige.NewIGEEncrypter(aesBlock, iv[:])
 	msg := &EncryptedMessage{
 		AuthKeyID:     k.ID,
 		MsgKey:        messageKey,
 		EncryptedData: make([]byte, len(plaintext.Buf)),
 	}
-	encrypter.CryptBlocks(msg.EncryptedData, plaintext.Buf)
+	ige.EncryptBlocks(aesBlock, iv[:], msg.EncryptedData, plaintext.Buf)
 	return msg, nil
 }
 

@@ -33,10 +33,10 @@ func benchEncryption(b *testing.B, c *Conn, n int) {
 
 func BenchmarkEncryption(b *testing.B) {
 	c := &Conn{
-		rand:   Zero{},
-		log:    zap.NewNop(),
-		cipher: crypto.NewClientCipher(Zero{}),
-		clock:  neo.NewTime(time.Now()),
+		rand:              Zero{},
+		log:               zap.NewNop(),
+		cipher:            crypto.NewClientCipher(Zero{}),
+		clock:             neo.NewTime(time.Now()),
 		compressThreshold: -1,
 	}
 	for i := 0; i < 256; i++ {

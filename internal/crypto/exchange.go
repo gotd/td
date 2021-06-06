@@ -9,6 +9,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/ige"
+
 	"github.com/gotd/td/bin"
 )
 
@@ -20,13 +21,12 @@ func DecryptExchangeAnswer(data, key, iv []byte) (dst []byte, err error) {
 		return nil, xerrors.Errorf("failed to init aes cipher: %w", err)
 	}
 
-	d := ige.NewIGEDecrypter(cipher, iv)
 	dataWithHash := make([]byte, len(data))
 	// Checking length. Invalid length will lead to panic in CryptBlocks.
 	if len(dataWithHash)%cipher.BlockSize() != 0 {
 		return nil, xerrors.Errorf("invalid len of data_with_hash (%d %% 16 != 0)", len(dataWithHash))
 	}
-	d.CryptBlocks(dataWithHash, data)
+	ige.DecryptBlocks(cipher, iv, dataWithHash, data)
 
 	dst = GuessDataWithHash(dataWithHash)
 	if data == nil {
@@ -52,8 +52,7 @@ func EncryptExchangeAnswer(rand io.Reader, answer, key, iv []byte) (dst []byte, 
 	}
 
 	dst = make([]byte, len(answerWithHash))
-	i := ige.NewIGEEncrypter(cipher, iv)
-	i.CryptBlocks(dst, answerWithHash)
+	ige.EncryptBlocks(cipher, iv, dst, answerWithHash)
 	return
 }
 
