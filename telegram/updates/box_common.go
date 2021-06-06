@@ -1,7 +1,7 @@
 package updates
 
 func (e *Engine) initCommonBoxes(state State) error {
-	e.date.Store(int64(state.Date))
+	e.setDate(state.Date)
 	e.pts = newSequenceBox(sequenceConfig{
 		InitialState: state.Pts,
 		Apply:        e.applyPts,

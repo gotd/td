@@ -27,7 +27,8 @@ type Engine struct {
 	pts         *sequenceBox
 	qts         *sequenceBox
 	seq         *sequenceBox
-	date        atomic.Int64
+	date        int
+	dateMux     sync.Mutex
 	recovering  atomic.Bool
 	idleTimeout *time.Timer
 
@@ -195,7 +196,7 @@ func (e *Engine) handleQts(qts int, u tg.UpdateClass, ents *Entities) error {
 	})
 }
 
-func (e *Engine) handleChannel(channelID, pts, ptsCount int, u tg.UpdateClass, ents *Entities) error {
+func (e *Engine) handleChannel(channelID, date, pts, ptsCount int, u tg.UpdateClass, ents *Entities) error {
 	if err := validatePts(pts, ptsCount); err != nil {
 		e.log.Warn("Pts validation failed", zap.Error(err))
 		return nil
@@ -210,7 +211,7 @@ func (e *Engine) handleChannel(channelID, pts, ptsCount int, u tg.UpdateClass, e
 	e.chanMux.Unlock()
 
 	if !ok {
-		_ = e.recoverChannelState(channelID, state)
+		e.channelSubscribeUpdates(channelID, date, state)
 	}
 
 	_ = state.idleTimeout.Reset(idleTimeout)
@@ -222,7 +223,7 @@ func (e *Engine) handleChannel(channelID, pts, ptsCount int, u tg.UpdateClass, e
 	})
 }
 
-func (e *Engine) handleChannelTooLong(long *tg.UpdateChannelTooLong) {
+func (e *Engine) handleChannelTooLong(date int, long *tg.UpdateChannelTooLong) {
 	log := e.log.With(zap.Int("channel_id", long.ChannelID))
 
 	e.chanMux.Lock()
@@ -241,6 +242,6 @@ func (e *Engine) handleChannelTooLong(long *tg.UpdateChannelTooLong) {
 	e.chanMux.Unlock()
 
 	if !ok {
-		_ = e.recoverChannelState(long.ChannelID, state)
+		e.channelSubscribeUpdates(long.ChannelID, date, state)
 	}
 }
