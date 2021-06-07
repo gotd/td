@@ -48,7 +48,7 @@ func (e *Engine) createChannelState(channelID, initialPts int) *channelState {
 				recoverState()
 
 			case <-state.idleTimeout.C:
-				state.pts.log.Info("Idle timeout, recovering state")
+				state.pts.log.Debug("Idle timeout, recovering state")
 				_ = state.idleTimeout.Reset(idleTimeout)
 				recoverState()
 			}

@@ -45,7 +45,7 @@ func (e *Engine) initCommonBoxes(state State) {
 				recoverState()
 
 			case <-e.idleTimeout.C:
-				e.log.Info("Idle timeout, recovering state")
+				e.log.Debug("Idle timeout, recovering state")
 				_ = e.idleTimeout.Reset(idleTimeout)
 				recoverState()
 			}

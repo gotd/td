@@ -196,7 +196,7 @@ func (s *sequenceBox) run() {
 				return
 
 			case <-s.gapTimeout.C:
-				s.log.Info("Gap timeout")
+				s.log.Debug("Gap timeout")
 				s.notifyGap()
 			}
 		}

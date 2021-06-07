@@ -283,7 +283,7 @@ func (e *Engine) saveChannelHashesNoMux(source string, chats []tg.ChatClass) {
 		case *tg.Channel:
 			if hash, ok := c.GetAccessHash(); ok && !c.Min {
 				if _, ok := e.channelHash[c.ID]; !ok {
-					e.log.Info("New channel access hash",
+					e.log.Debug("New channel access hash",
 						zap.Int("channel_id", c.ID),
 						zap.String("channel_name", c.Username),
 						zap.String("source", source),
@@ -293,7 +293,7 @@ func (e *Engine) saveChannelHashesNoMux(source string, chats []tg.ChatClass) {
 			}
 		case *tg.ChannelForbidden:
 			if _, ok := e.channelHash[c.ID]; !ok {
-				e.log.Info("New forbidden channel access hash",
+				e.log.Debug("New forbidden channel access hash",
 					zap.Int("channel_id", c.ID),
 					zap.String("channel_title", c.Title),
 					zap.String("source", source),
