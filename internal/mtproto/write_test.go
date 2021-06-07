@@ -35,12 +35,13 @@ func benchWrite(payloadSize int) func(b *testing.B) {
 		data := &testPayload{Data: payload}
 
 		conn := Conn{
-			conn:    &constantConn{},
-			clock:   c,
-			rand:    random,
-			cipher:  crypto.NewClientCipher(random),
-			log:     logger,
-			authKey: authKey,
+			conn:              &constantConn{},
+			clock:             c,
+			rand:              random,
+			cipher:            crypto.NewClientCipher(random),
+			log:               logger,
+			authKey:           authKey,
+			compressThreshold: -1,
 		}
 		b.ResetTimer()
 		b.ReportAllocs()

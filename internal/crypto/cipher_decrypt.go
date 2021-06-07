@@ -6,6 +6,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/ige"
+
 	"github.com/gotd/td/bin"
 )
 
@@ -76,8 +77,7 @@ func (c Cipher) decryptMessage(k AuthKey, encrypted *EncryptedMessage) ([]byte, 
 		return nil, err
 	}
 	plaintext := make([]byte, len(encrypted.EncryptedData))
-	d := ige.NewIGEDecrypter(cipher, iv[:])
-	d.CryptBlocks(plaintext, encrypted.EncryptedData)
+	ige.DecryptBlocks(cipher, iv[:], plaintext, encrypted.EncryptedData)
 
 	return plaintext, nil
 }

@@ -82,6 +82,7 @@ func (s *Server) SendVector(req *Request, msgs ...bin.Encoder) error {
 
 func (s *Server) sendSessionCreated(ctx context.Context, k Session, serverSalt int64) error {
 	if err := s.Send(ctx, k, proto.MessageFromServer, &mt.NewSessionCreated{
+		FirstMsgID: s.msgID.New(proto.MessageFromClient),
 		ServerSalt: serverSalt,
 	}); err != nil {
 		return xerrors.Errorf("send sessionCreated: %w", err)

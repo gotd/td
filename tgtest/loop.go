@@ -5,12 +5,14 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 
+	"go.uber.org/multierr"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/transport"
 )
@@ -85,6 +87,7 @@ func (s *Server) handle(req *Request) error {
 		zap.String("type", s.types.Get(id)),
 	)
 
+	// TODO(tdakkota): unpack all containers
 	switch id {
 	case mt.PingDelayDisconnectRequestTypeID:
 		pingReq := mt.PingDelayDisconnectRequest{}
@@ -118,6 +121,31 @@ func (s *Server) handle(req *Request) error {
 		return s.SendResult(req, &mt.RPCAnswerDropped{
 			MsgID: req.MsgID,
 		})
+
+	case proto.GZIPTypeID:
+		var content proto.GZIP
+		if err := content.Decode(in); err != nil {
+			return xerrors.Errorf("gzip: %w", err)
+		}
+		req.Buf = &bin.Buffer{Buf: content.Data}
+
+	case proto.MessageContainerTypeID:
+		var container proto.MessageContainer
+		if err := container.Decode(in); err != nil {
+			return xerrors.Errorf("container: %w", err)
+		}
+
+		var err error
+		for _, msg := range container.Messages {
+			err = multierr.Append(err, s.handle(&Request{
+				DC:         req.DC,
+				Session:    req.Session,
+				MsgID:      msg.ID,
+				Buf:        &bin.Buffer{Buf: msg.Body},
+				RequestCtx: req.RequestCtx,
+			}))
+		}
+		return err
 	}
 
 	if err := s.dispatcher.OnMessage(s, req); err != nil {
