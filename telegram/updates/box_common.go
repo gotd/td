@@ -1,9 +1,11 @@
 package updates
 
+import "go.uber.org/zap"
+
 func (e *Engine) initCommonBoxes(state State) {
 	recoverState := func() {
 		if err := e.recoverState(); err != nil {
-			e.echan <- err
+			e.log.Warn("Recover state error", zap.Error(err))
 		}
 	}
 
@@ -40,16 +42,12 @@ func (e *Engine) initCommonBoxes(state State) {
 				return
 
 			case <-e.recoverGap:
-				if err := e.recoverState(); err != nil {
-					e.echan <- err
-				}
+				recoverState()
 
 			case <-e.idleTimeout.C:
 				e.log.Info("Idle timeout, recovering state")
 				_ = e.idleTimeout.Reset(idleTimeout)
-				if err := e.recoverState(); err != nil {
-					e.echan <- err
-				}
+				recoverState()
 			}
 		}
 	}()

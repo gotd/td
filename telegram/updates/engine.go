@@ -42,7 +42,6 @@ type Engine struct {
 	channelHash map[int]int64
 	hashMux     sync.RWMutex
 
-	echan      chan error
 	uchan      chan tg.UpdatesClass
 	recoverGap chan struct{}
 	workers    chan struct{}
@@ -72,7 +71,6 @@ func New(cfg Config) *Engine {
 		channels:    map[int]*channelState{},
 		channelHash: map[int]int64{},
 
-		echan:      make(chan error),
 		uchan:      make(chan tg.UpdatesClass, 10),
 		recoverGap: make(chan struct{}),
 		workers:    make(chan struct{}),

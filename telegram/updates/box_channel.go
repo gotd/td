@@ -27,6 +27,15 @@ func (e *Engine) createChannelState(channelID, initialPts int) *channelState {
 	})
 	state.pts.run()
 
+	recoverState := func() {
+		if err := e.recoverChannelState(channelID, state); err != nil {
+			e.log.Warn("Recover channel state error",
+				zap.Int("channel_id", channelID),
+				zap.Error(err),
+			)
+		}
+	}
+
 	e.wg.Add(1)
 	go func() {
 		defer e.wg.Done()
@@ -36,16 +45,12 @@ func (e *Engine) createChannelState(channelID, initialPts int) *channelState {
 				return
 
 			case <-state.recoverGap:
-				if err := e.recoverChannelState(channelID, state); err != nil {
-					e.echan <- err
-				}
+				recoverState()
 
 			case <-state.idleTimeout.C:
 				state.pts.log.Info("Idle timeout, recovering state")
 				_ = state.idleTimeout.Reset(idleTimeout)
-				if err := e.recoverChannelState(channelID, state); err != nil {
-					e.echan <- err
-				}
+				recoverState()
 			}
 		}
 	}()
