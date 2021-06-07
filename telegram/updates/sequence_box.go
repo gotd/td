@@ -115,7 +115,7 @@ func (s *sequenceBox) Handle(u update) error {
 
 	case gapRefetch:
 		s.pending = append(s.pending, u)
-		s.gaps.Enable(s.state+1, u.start()-1)
+		s.gaps.Enable(s.state, u.start())
 
 		// Check if we already have acceptable updates in buffer.
 		for _, u := range s.pending {

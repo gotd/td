@@ -180,7 +180,12 @@ func (e *Engine) getDifference() error {
 
 func (e *Engine) getChannelDifference(channelID int, accessHash int64, state *channelState) error {
 	if now := time.Now(); now.Before(state.diffTimeout) {
-		time.Sleep(state.diffTimeout.Sub(now))
+		dur := state.diffTimeout.Sub(now)
+		e.log.Debug("GetChannelDifference timeout",
+			zap.Int("channel_id", channelID),
+			zap.Duration("duration", dur),
+		)
+		time.Sleep(dur)
 	}
 
 	diff, err := e.raw.UpdatesGetChannelDifference(e.ctx, &tg.UpdatesGetChannelDifferenceRequest{
