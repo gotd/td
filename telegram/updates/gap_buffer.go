@@ -26,10 +26,10 @@ func (b *gapBuffer) Consume(u update) (accepted bool) {
 	for i, g := range b.gaps {
 		if g.from <= u.start() && g.to >= u.end() {
 			if g.from < u.start() {
-				b.gaps = append(b.gaps, gap{from: g.from, to: u.start() - 1})
+				b.gaps = append(b.gaps, gap{from: g.from, to: u.start()})
 			}
 			if g.to > u.end() {
-				b.gaps = append(b.gaps, gap{from: u.end() + 1, to: g.to})
+				b.gaps = append(b.gaps, gap{from: u.end(), to: g.to})
 			}
 
 			b.gaps = append(b.gaps[:i], b.gaps[i+1:]...)

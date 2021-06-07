@@ -9,7 +9,7 @@ type update struct {
 	Ents  *Entities
 }
 
-func (u update) start() int { return u.State - u.Count + 1 }
+func (u update) start() int { return u.State - u.Count }
 
 func (u update) end() int { return u.State }
 

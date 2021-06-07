@@ -81,7 +81,7 @@ func TestSequenceBox(t *testing.T) {
 	require.Equal(t, []update{{3, 8, 1, nil}}, box.pending)
 	<-box.gapTimeout.C
 
-	require.Equal(t, []gap{{7, 7}}, box.gaps.gaps)
+	require.Equal(t, []gap{{6, 7}}, box.gaps.gaps)
 	box.EnableRecoverMode()
 	require.True(t, box.recovering)
 	require.False(t, box.gaps.Has())
