@@ -22,7 +22,7 @@ func (b *gapBuffer) Enable(from, to int) {
 	b.gaps = append(b.gaps, gap{from, to})
 }
 
-func (b *gapBuffer) Consume(u update) (resolved bool) {
+func (b *gapBuffer) Consume(u update) (accepted bool) {
 	for i, g := range b.gaps {
 		if g.from <= u.start() && g.to >= u.end() {
 			if g.from < u.start() {
@@ -33,10 +33,11 @@ func (b *gapBuffer) Consume(u update) (resolved bool) {
 			}
 
 			b.gaps = append(b.gaps[:i], b.gaps[i+1:]...)
+			return true
 		}
 	}
 
-	return len(b.gaps) == 0
+	return false
 }
 
 func (b *gapBuffer) MarshalLogArray(e zapcore.ArrayEncoder) error {

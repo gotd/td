@@ -9,6 +9,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
+	"golang.org/x/sync/errgroup"
 
 	"github.com/gotd/td/telegram/updates"
 	"github.com/gotd/td/tg"
@@ -25,7 +26,7 @@ func TestE2E(t *testing.T) {
 		)
 
 		var channels []*tg.PeerChannel
-		for i := 0; i < 10; i++ {
+		for i := 0; i < 0; i++ {
 			c := s.peers.createChannel(fmt.Sprintf("channel-%d", i))
 			require.NoError(t, storage.SetChannelPts(c.ChannelID, 0))
 			channels = append(channels, c)
@@ -82,7 +83,7 @@ func testEngine(t *testing.T, f func(s *Server, storage updates.Storage) chan *t
 		storage = updates.NewMemStorage()
 	)
 
-	uchan := f(s, storage)
+	uchan := loss(f(s, storage))
 	e := updates.New(updates.Config{
 		RawClient: s,
 		Handler:   h,
@@ -91,65 +92,56 @@ func testEngine(t *testing.T, f func(s *Server, storage updates.Storage) chan *t
 		Logger:    log.Named("gaps"),
 	})
 
-	err := e.Run(context.Background(), func(ctx context.Context) error {
-		for u := range reorder(loss(uchan)) {
-			if err := e.HandleUpdates(u); err != nil {
-				return err
-			}
-		}
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
-		var updates []tg.UpdateClass
-		updates = append(updates, &tg.UpdatePtsChanged{})
-		if err := storage.Channels(func(channelID, pts int) {
-			updates = append(updates, &tg.UpdateChannelTooLong{
-				ChannelID: channelID,
+	g, ctx := errgroup.WithContext(ctx)
+	g.Go(func() error { return e.Run(ctx) })
+	g.Go(func() error {
+		defer cancel()
+
+		var g errgroup.Group
+		for i := 0; i < 2; i++ {
+			g.Go(func() error {
+				for {
+					select {
+					case <-ctx.Done():
+						return ctx.Err()
+					case u, ok := <-uchan:
+						if !ok {
+							return nil
+						}
+
+						if err := e.HandleUpdates(u); err != nil {
+							return err
+						}
+					}
+				}
 			})
+		}
+
+		if err := g.Wait(); err != nil {
+			return err
+		}
+
+		ups := []tg.UpdateClass{&tg.UpdatePtsChanged{}}
+		if err := storage.Channels(func(channelID, pts int) {
+			ups = append(ups, &tg.UpdateChannelTooLong{ChannelID: channelID})
 		}); err != nil {
 			return err
 		}
 
-		if err := e.HandleUpdates(&tg.Updates{
-			Updates: updates,
-		}); err != nil {
-			return err
-		}
-
-		return nil
+		return e.HandleUpdates(&tg.Updates{
+			Updates: ups,
+		})
 	})
-	require.NoError(t, err)
+
+	require.ErrorIs(t, g.Wait(), context.Canceled)
 
 	require.Equal(t, s.messages, h.messages)
 	require.Equal(t, s.peers.channels, h.ents.Channels)
 	require.Equal(t, s.peers.chats, h.ents.Chats)
 	require.Equal(t, s.peers.users, h.ents.Users)
-}
-
-func reorder(in chan *tg.Updates) chan *tg.Updates {
-	out := make(chan *tg.Updates)
-	var buf []*tg.Updates
-
-	go func() {
-		defer close(out)
-
-		for u := range in {
-			if rand.Intn(2) == 1 {
-				buf = append(buf, u)
-				continue
-			}
-
-			out <- u
-
-			for _, u := range buf {
-				out <- u
-			}
-		}
-
-		for _, u := range buf {
-			out <- u
-		}
-	}()
-
-	return out
 }
 
 func loss(in chan *tg.Updates) chan *tg.Updates {
@@ -159,7 +151,7 @@ func loss(in chan *tg.Updates) chan *tg.Updates {
 		defer close(out)
 
 		for u := range in {
-			if rand.Intn(2) == 1 {
+			if rand.Intn(5) == 1 {
 				continue
 			}
 

@@ -8,12 +8,17 @@ import (
 
 func TestGapBuffer(t *testing.T) {
 	buf := new(gapBuffer)
-	buf.Enable(1, 15)
+	buf.Enable(1, 7)
 
-	require.False(t, buf.Consume(update{State: 4, Count: 3}))
-	require.Equal(t, []gap{{1, 1}, {5, 15}}, buf.gaps)
-	require.False(t, buf.Consume(update{State: 1, Count: 1}))
-	require.Equal(t, []gap{{5, 15}}, buf.gaps)
-	require.True(t, buf.Consume(update{State: 15, Count: 11}))
+	require.True(t, buf.Consume(update{State: 4, Count: 3}))
+	require.Equal(t, []gap{{1, 1}, {5, 7}}, buf.gaps)
+
+	require.True(t, buf.Consume(update{State: 1, Count: 1}))
+	require.Equal(t, []gap{{5, 7}}, buf.gaps)
+
+	require.False(t, buf.Consume(update{State: 8, Count: 1}))
+	require.Equal(t, []gap{{5, 7}}, buf.gaps)
+
+	require.True(t, buf.Consume(update{State: 7, Count: 3}))
 	require.Empty(t, buf.gaps)
 }

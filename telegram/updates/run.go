@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 
+	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
@@ -14,16 +15,15 @@ func (e *Engine) HandleUpdates(u tg.UpdatesClass) error {
 	if e.closed.Load() {
 		return xerrors.Errorf("closed")
 	}
-	e.wg.Add(1)
-	defer e.wg.Done()
-	return e.handleUpdates(u)
+
+	e.uchan <- u
+	return nil
 }
 
-// Run starts the engine and calls f after initialization.
-func (e *Engine) Run(ctx context.Context, f func(context.Context) error) error {
-	if e.closed.Load() {
-		return xerrors.Errorf("closed")
-	}
+// Run engine.
+func (e *Engine) Run(ctx context.Context) error {
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
 
 	state, err := e.getState(ctx)
 	if err != nil {
@@ -38,28 +38,7 @@ func (e *Engine) Run(ctx context.Context, f func(context.Context) error) error {
 		return err
 	}
 
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-
-	defer func() {
-		e.closed.Store(true)
-		close(e.workers)
-		e.wg.Wait()
-
-		e.seq.stop()
-		e.pts.stop()
-		e.qts.stop()
-
-		e.chanMux.Lock()
-		for _, state := range e.channels {
-			state.pts.stop()
-		}
-		e.chanMux.Unlock()
-		e.cancel()
-	}()
-
 	e.initCommonBoxes(state)
-
 	e.chanMux.Lock()
 	for _, state := range e.channels {
 		state.pts.run()
@@ -67,14 +46,52 @@ func (e *Engine) Run(ctx context.Context, f func(context.Context) error) error {
 	}
 	e.chanMux.Unlock()
 
+	defer func() {
+		// Stop recover workers.
+		close(e.workers)
+		e.wg.Wait()
+
+		// Stop sequence box workers.
+		e.seq.stop()
+		e.pts.stop()
+		e.qts.stop()
+		e.chanMux.Lock()
+		for _, state := range e.channels {
+			state.pts.stop()
+		}
+		e.chanMux.Unlock()
+
+		e.cancel()
+	}()
+
 	if !e.forget {
 		if err := e.recoverState(); err != nil {
 			return xerrors.Errorf("recover common state: %w", err)
 		}
 	}
 
-	go func() { e.echan <- f(ctx) }()
-	return <-e.echan
+	g, ctx := errgroup.WithContext(ctx)
+	g.Go(func() error {
+		for u := range e.uchan {
+			if err := e.handleUpdates(u); err != nil {
+				return err
+			}
+		}
+
+		return nil
+	})
+
+	g.Go(func() error {
+		defer func() {
+			e.closed.Store(true)
+			close(e.uchan)
+		}()
+
+		<-ctx.Done()
+		return ctx.Err()
+	})
+
+	return g.Wait()
 }
 
 func (e *Engine) getState(ctx context.Context) (State, error) {

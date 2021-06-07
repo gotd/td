@@ -20,22 +20,18 @@ func (e *Engine) recoverState() error {
 	e.seq.EnableRecoverMode()
 
 	defer func() {
-		_ = e.pts.ExtractBuffer()
-		_ = e.qts.ExtractBuffer()
-		_ = e.seq.ExtractBuffer()
-
 		e.pts.DisableRecoverMode()
 		e.qts.DisableRecoverMode()
 		e.seq.DisableRecoverMode()
 	}()
 
-	e.log.Info("Recovering state")
+	e.log.Debug("Recovering state")
 	if err := e.getDifference(); err != nil {
 		e.log.Error("Recover state error", zap.Error(err))
 		return xerrors.Errorf("getDifference: %w", err)
 	}
 
-	e.log.Info("State recovered")
+	e.log.Debug("State recovered")
 	return nil
 }
 
@@ -53,18 +49,15 @@ func (e *Engine) recoverChannelState(channelID int, state *channelState) error {
 	}
 
 	state.pts.EnableRecoverMode()
-	defer func() {
-		_ = state.pts.ExtractBuffer()
-		state.pts.DisableRecoverMode()
-	}()
+	defer state.pts.DisableRecoverMode()
 
-	log.Info("Recovering state")
+	log.Debug("Recovering state")
 	if err := e.getChannelDifference(channelID, accessHash, state); err != nil {
 		log.Error("Recover channel state error", zap.Error(err))
 		return xerrors.Errorf("getChannelDifference(id: %d): %w", channelID, err)
 	}
 
-	log.Info("State recovered")
+	log.Debug("State recovered")
 	return nil
 }
 

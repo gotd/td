@@ -68,6 +68,7 @@ func TestSequenceBox(t *testing.T) {
 	}))
 	require.Equal(t, 6, state)
 	require.Equal(t, []update{{2, 5, 1, nil}, {1, 6, 1, nil}}, updates)
+	require.Empty(t, box.pending)
 	updates = nil
 
 	require.Nil(t, box.Handle(update{
@@ -84,4 +85,85 @@ func TestSequenceBox(t *testing.T) {
 	box.EnableRecoverMode()
 	require.True(t, box.recovering)
 	require.False(t, box.gaps.Has())
+}
+
+func TestSequenceBoxApplyPending(t *testing.T) {
+	tests := []struct {
+		InitialState int
+		Pending      []update
+		PendingAfter []update
+		Applied      []update
+	}{
+		{
+			InitialState: 5,
+			Pending: []update{
+				{1, 3, 1, nil},
+				{1, 4, 1, nil},
+				{1, 1, 1, nil},
+			},
+			PendingAfter: []update{},
+			Applied:      []update{},
+		},
+		{
+			InitialState: 5,
+			Pending: []update{
+				{1, 3, 1, nil},
+				{1, 8, 1, nil},
+				{1, 7, 1, nil},
+				{1, 4, 1, nil},
+				{1, 1, 1, nil},
+			},
+			PendingAfter: []update{
+				{1, 7, 1, nil},
+				{1, 8, 1, nil},
+			},
+			Applied: []update{},
+		},
+		{
+			InitialState: 5,
+			Pending: []update{
+				{1, 8, 1, nil},
+				{1, 7, 1, nil},
+			},
+			PendingAfter: []update{
+				{1, 7, 1, nil},
+				{1, 8, 1, nil},
+			},
+			Applied: []update{},
+		},
+		{
+			InitialState: 5,
+			Pending: []update{
+				{1, 3, 1, nil},
+				{1, 6, 1, nil},
+				{1, 8, 1, nil},
+				{1, 4, 1, nil},
+				{1, 1, 1, nil},
+			},
+			PendingAfter: []update{
+				{1, 8, 1, nil},
+			},
+			Applied: []update{
+				{1, 6, 1, nil},
+			},
+		},
+	}
+
+	for _, test := range tests {
+		applied := make([]update, 0)
+		box := newSequenceBox(sequenceConfig{
+			InitialState: 5,
+			Apply: func(s int, u []update) error {
+				applied = append(applied, u...)
+				return nil
+			},
+			OnGap:  func() {},
+			Logger: zaptest.NewLogger(t),
+		})
+
+		box.pending = test.Pending
+		require.NoError(t, box.applyPending())
+		require.Equal(t, test.PendingAfter, box.pending)
+		require.Equal(t, test.Applied, applied)
+	}
 }

@@ -68,21 +68,33 @@ func (s *sequenceBox) Handle(u update) error {
 	}
 	defer s.mux.Unlock()
 
+	log := s.log.With(zap.Int("upd_from", u.start()), zap.Int("upd_to", u.end()))
+	if checkGap(s.state, u.State, u.Count) == gapIgnore {
+		log.Debug("Outdated update, skip", zap.Int("state", s.state))
+		return nil
+	}
+
 	if s.recovering {
 		s.pending = append(s.pending, u)
+		log.Debug("Postponed", zap.Int("pending_count", len(s.pending)))
 		return nil
 	}
 
 	if s.gaps.Has() {
 		s.pending = append(s.pending, u)
-		if resolved := s.gaps.Consume(u); resolved {
-			if s.gapTimeout.Stop() {
-				s.log.Debug("Gap was resolved by waiting")
-				return s.applyPending()
-			}
+		accepted := s.gaps.Consume(u)
+		if !accepted {
+			log.Debug("Out of gap range, postponed", zap.Array("gaps", s.gaps))
+			return nil
 		}
 
-		s.log.Debug("Gap status", zap.Array("gaps", s.gaps))
+		log.Debug("Gap accepted", zap.Array("gaps", s.gaps))
+		if !s.gaps.Has() {
+			_ = s.gapTimeout.Stop()
+			s.log.Debug("Gap was resolved by waiting")
+			return s.applyPending()
+		}
+
 		return nil
 	}
 
@@ -97,17 +109,25 @@ func (s *sequenceBox) Handle(u update) error {
 			return err
 		}
 
+		log.Debug("Accepted")
 		s.state = u.State
-		return nil
-
-	case gapIgnore:
-		s.log.Debug("Old update", zap.Int("state", u.State))
 		return nil
 
 	case gapRefetch:
 		s.pending = append(s.pending, u)
 		s.gaps.Enable(s.state+1, u.start()-1)
-		s.gapTimeout.Reset(fastgapTimeout)
+
+		// Check if we already have acceptable updates in buffer.
+		for _, u := range s.pending {
+			_ = s.gaps.Consume(u)
+		}
+
+		if !s.gaps.Has() {
+			log.Debug("Gap was resolved by pending updates")
+			return s.applyPending()
+		}
+
+		_ = s.gapTimeout.Reset(fastgapTimeout)
 		s.log.Debug("Gap init", zap.Array("gap", s.gaps))
 		return nil
 
@@ -129,14 +149,15 @@ func (s *sequenceBox) applyPending() error {
 
 loop:
 	for i, update := range s.pending {
-		cursor = i
 		switch checkGap(state, update.State, update.Count) {
 		case gapApply:
 			accepted = append(accepted, update)
 			state = update.State
+			cursor = i + 1
 			continue
 
 		case gapIgnore:
+			cursor = i + 1
 			continue
 
 		case gapRefetch:
@@ -144,6 +165,7 @@ loop:
 		}
 	}
 
+	s.pending = s.pending[cursor:]
 	if len(accepted) == 0 {
 		s.log.Warn("Empty buffer", zap.Any("pending", s.pending), zap.Int("state", s.state))
 		return nil
@@ -153,7 +175,12 @@ loop:
 		return err
 	}
 
-	s.pending = s.pending[cursor+1:]
+	s.log.Debug("Pending updates applied",
+		zap.Int("prev_state", s.state),
+		zap.Int("new_state", state),
+		zap.Int("updates_count", len(accepted)),
+	)
+
 	s.state = state
 	return nil
 }
@@ -222,11 +249,4 @@ func (s *sequenceBox) DisableRecoverMode() {
 
 	s.recovering = false
 	s.log.Debug("Recover mode disabled")
-}
-
-func (s *sequenceBox) ExtractBuffer() []update {
-	s.mux.Lock()
-	defer s.mux.Unlock()
-	defer func() { s.pending = nil }()
-	return s.pending
 }
