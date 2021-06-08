@@ -83,11 +83,6 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, transfer bool, dia
 	if transfer {
 		_, err = c.transfer(ctx, tg.NewClient(p), dcID)
 		if err != nil {
-			// Ignore case then we are not authorized.
-			if unauthorized(err) {
-				return p, nil
-			}
-
 			// Kill pool if we got error.
 			_ = p.Close()
 			return nil, xerrors.Errorf("transfer: %w", err)
