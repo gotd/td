@@ -79,6 +79,7 @@ func (c *Conn) OnSession(session mtproto.Session) error {
 	select {
 	case <-c.gotConfig.Ready():
 	case <-c.dead.Ready():
+		return nil
 	}
 
 	c.mux.Lock()
