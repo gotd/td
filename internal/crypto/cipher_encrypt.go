@@ -12,20 +12,20 @@ import (
 func countPadding(l int) int { return 16 + (16 - (l % 16)) }
 
 // encryptMessage encrypts plaintext using AES-IGE.
-func (c Cipher) encryptMessage(k AuthKey, plaintext *bin.Buffer) (*EncryptedMessage, error) {
+func (c Cipher) encryptMessage(k AuthKey, plaintext *bin.Buffer) (EncryptedMessage, error) {
 	offset := len(plaintext.Buf)
 	plaintext.Buf = append(plaintext.Buf, make([]byte, countPadding(offset))...)
 	if _, err := io.ReadFull(c.rand, plaintext.Buf[offset:]); err != nil {
-		return nil, err
+		return EncryptedMessage{}, err
 	}
 
 	messageKey := MessageKey(k.Value, plaintext.Buf, c.encryptSide)
 	key, iv := Keys(k.Value, messageKey, c.encryptSide)
 	aesBlock, err := aes.NewCipher(key[:])
 	if err != nil {
-		return nil, err
+		return EncryptedMessage{}, err
 	}
-	msg := &EncryptedMessage{
+	msg := EncryptedMessage{
 		AuthKeyID:     k.ID,
 		MsgKey:        messageKey,
 		EncryptedData: make([]byte, len(plaintext.Buf)),
