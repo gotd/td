@@ -1,6 +1,7 @@
 package updates
 
 import (
+	"github.com/gotd/td/tg"
 	"golang.org/x/xerrors"
 )
 
@@ -34,4 +35,18 @@ func validateSeq(seq, seqStart int) error {
 	}
 
 	return nil
+}
+
+func getDialogPts(dialog tg.DialogClass) (int, error) {
+	d, ok := dialog.(*tg.Dialog)
+	if !ok {
+		return 0, xerrors.Errorf("unexpected dialog type: %T", dialog)
+	}
+
+	pts, ok := d.GetPts()
+	if !ok {
+		return 0, xerrors.Errorf("dialog has no pts field")
+	}
+
+	return pts, nil
 }

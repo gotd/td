@@ -57,3 +57,15 @@ func (e *Engine) createChannelState(channelID, initialPts int) *channelState {
 
 	return state
 }
+
+func (e *Engine) removeChannelState(channelID int) {
+	e.chanMux.Lock()
+	defer e.chanMux.Unlock()
+	state, ok := e.channels[channelID]
+	if !ok {
+		return
+	}
+
+	delete(e.channels, channelID)
+	state.pts.stop()
+}

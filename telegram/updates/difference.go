@@ -254,16 +254,19 @@ func (e *Engine) getChannelDifference(channelID int, accessHash int64, state *ch
 	case *tg.UpdatesChannelDifferenceTooLong:
 		e.saveChannelHashes("UpdatesChannelDifferenceTooLong", diff.Chats)
 
-		// Reset channel state.
-		e.chanMux.Lock()
-		delete(e.channels, channelID)
-		e.chanMux.Unlock()
-
-		e.handler.ChannelTooLong(channelID)
 		if seconds, ok := diff.GetTimeout(); ok {
 			state.diffTimeout = time.Now().Add(time.Second * time.Duration(seconds))
 		}
 
+		remotePts, err := getDialogPts(diff.Dialog)
+		if err != nil {
+			e.log.Warn("UpdatesChannelDifferenceTooLong invalid Dialog", zap.Error(err))
+			e.removeChannelState(channelID)
+		} else {
+			state.pts.SetState(remotePts)
+		}
+
+		e.handler.ChannelTooLong(channelID)
 		return nil
 
 	default:
