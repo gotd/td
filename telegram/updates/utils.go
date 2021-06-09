@@ -1,8 +1,9 @@
 package updates
 
 import (
-	"github.com/gotd/td/tg"
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/tg"
 )
 
 func validatePts(pts, ptsCount int) error {

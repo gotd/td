@@ -65,9 +65,7 @@ func (e *Engine) Run(ctx context.Context) error {
 	}()
 
 	if !e.forget {
-		if err := e.recoverState(); err != nil {
-			return xerrors.Errorf("recover common state: %w", err)
-		}
+		e.recoverGap <- struct{}{}
 	}
 
 	g, ctx := errgroup.WithContext(ctx)
