@@ -2,6 +2,8 @@ package updates
 
 import (
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/tg"
 )
 
 func validatePts(pts, ptsCount int) error {
@@ -34,4 +36,18 @@ func validateSeq(seq, seqStart int) error {
 	}
 
 	return nil
+}
+
+func getDialogPts(dialog tg.DialogClass) (int, error) {
+	d, ok := dialog.(*tg.Dialog)
+	if !ok {
+		return 0, xerrors.Errorf("unexpected dialog type: %T", dialog)
+	}
+
+	pts, ok := d.GetPts()
+	if !ok {
+		return 0, xerrors.Errorf("dialog has no pts field")
+	}
+
+	return pts, nil
 }
