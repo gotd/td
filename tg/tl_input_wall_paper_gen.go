@@ -317,19 +317,24 @@ var (
 	_ InputWallPaperClass = &InputWallPaperSlug{}
 )
 
-// InputWallPaperNoFile represents TL type `inputWallPaperNoFile#8427bbac`.
+// InputWallPaperNoFile represents TL type `inputWallPaperNoFile#967a462e`.
 // Wallpaper with no file
 //
 // See https://core.telegram.org/constructor/inputWallPaperNoFile for reference.
 type InputWallPaperNoFile struct {
+	// ID field of InputWallPaperNoFile.
+	ID int64
 }
 
 // InputWallPaperNoFileTypeID is TL type id of InputWallPaperNoFile.
-const InputWallPaperNoFileTypeID = 0x8427bbac
+const InputWallPaperNoFileTypeID = 0x967a462e
 
 func (i *InputWallPaperNoFile) Zero() bool {
 	if i == nil {
 		return true
+	}
+	if !(i.ID == 0) {
+		return false
 	}
 
 	return true
@@ -342,6 +347,13 @@ func (i *InputWallPaperNoFile) String() string {
 	}
 	type Alias InputWallPaperNoFile
 	return fmt.Sprintf("InputWallPaperNoFile%+v", Alias(*i))
+}
+
+// FillFrom fills InputWallPaperNoFile from given interface.
+func (i *InputWallPaperNoFile) FillFrom(from interface {
+	GetID() (value int64)
+}) {
+	i.ID = from.GetID()
 }
 
 // TypeID returns type id in TL schema.
@@ -366,14 +378,19 @@ func (i *InputWallPaperNoFile) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (i *InputWallPaperNoFile) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWallPaperNoFile#8427bbac as nil")
+		return fmt.Errorf("can't encode inputWallPaperNoFile#967a462e as nil")
 	}
 	b.PutID(InputWallPaperNoFileTypeID)
 	return i.EncodeBare(b)
@@ -382,18 +399,24 @@ func (i *InputWallPaperNoFile) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputWallPaperNoFile) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWallPaperNoFile#8427bbac as nil")
+		return fmt.Errorf("can't encode inputWallPaperNoFile#967a462e as nil")
 	}
+	b.PutLong(i.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputWallPaperNoFile) GetID() (value int64) {
+	return i.ID
 }
 
 // Decode implements bin.Decoder.
 func (i *InputWallPaperNoFile) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWallPaperNoFile#8427bbac to nil")
+		return fmt.Errorf("can't decode inputWallPaperNoFile#967a462e to nil")
 	}
 	if err := b.ConsumeID(InputWallPaperNoFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputWallPaperNoFile#8427bbac: %w", err)
+		return fmt.Errorf("unable to decode inputWallPaperNoFile#967a462e: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -401,7 +424,14 @@ func (i *InputWallPaperNoFile) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputWallPaperNoFile) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWallPaperNoFile#8427bbac to nil")
+		return fmt.Errorf("can't decode inputWallPaperNoFile#967a462e to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputWallPaperNoFile#967a462e: field id: %w", err)
+		}
+		i.ID = value
 	}
 	return nil
 }
@@ -431,7 +461,7 @@ var (
 //  switch v := g.(type) {
 //  case *tg.InputWallPaper: // inputWallPaper#e630b979
 //  case *tg.InputWallPaperSlug: // inputWallPaperSlug#72091c80
-//  case *tg.InputWallPaperNoFile: // inputWallPaperNoFile#8427bbac
+//  case *tg.InputWallPaperNoFile: // inputWallPaperNoFile#967a462e
 //  default: panic(v)
 //  }
 type InputWallPaperClass interface {
@@ -475,7 +505,7 @@ func DecodeInputWallPaper(buf *bin.Buffer) (InputWallPaperClass, error) {
 		}
 		return &v, nil
 	case InputWallPaperNoFileTypeID:
-		// Decoding inputWallPaperNoFile#8427bbac.
+		// Decoding inputWallPaperNoFile#967a462e.
 		v := InputWallPaperNoFile{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputWallPaperClass: %w", err)
@@ -611,6 +641,19 @@ func (s InputWallPaperClassArray) AsInputWallPaper() (to InputWallPaperArray) {
 func (s InputWallPaperClassArray) AsInputWallPaperSlug() (to InputWallPaperSlugArray) {
 	for _, elem := range s {
 		value, ok := elem.(*InputWallPaperSlug)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputWallPaperNoFile returns copy with only InputWallPaperNoFile constructors.
+func (s InputWallPaperClassArray) AsInputWallPaperNoFile() (to InputWallPaperNoFileArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputWallPaperNoFile)
 		if !ok {
 			continue
 		}
@@ -772,6 +815,88 @@ func (s *InputWallPaperSlugArray) PopFirst() (v InputWallPaperSlug, ok bool) {
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputWallPaperSlugArray) Pop() (v InputWallPaperSlug, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputWallPaperNoFileArray is adapter for slice of InputWallPaperNoFile.
+type InputWallPaperNoFileArray []InputWallPaperNoFile
+
+// Sort sorts slice of InputWallPaperNoFile.
+func (s InputWallPaperNoFileArray) Sort(less func(a, b InputWallPaperNoFile) bool) InputWallPaperNoFileArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputWallPaperNoFile.
+func (s InputWallPaperNoFileArray) SortStable(less func(a, b InputWallPaperNoFile) bool) InputWallPaperNoFileArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputWallPaperNoFile.
+func (s InputWallPaperNoFileArray) Retain(keep func(x InputWallPaperNoFile) bool) InputWallPaperNoFileArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputWallPaperNoFileArray) First() (v InputWallPaperNoFile, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputWallPaperNoFileArray) Last() (v InputWallPaperNoFile, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputWallPaperNoFileArray) PopFirst() (v InputWallPaperNoFile, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputWallPaperNoFile
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputWallPaperNoFileArray) Pop() (v InputWallPaperNoFile, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

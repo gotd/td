@@ -427,11 +427,13 @@ var (
 	_ WallPaperClass = &WallPaper{}
 )
 
-// WallPaperNoFile represents TL type `wallPaperNoFile#8af40b25`.
+// WallPaperNoFile represents TL type `wallPaperNoFile#e0804116`.
 // No file wallpaper
 //
 // See https://core.telegram.org/constructor/wallPaperNoFile for reference.
 type WallPaperNoFile struct {
+	// ID field of WallPaperNoFile.
+	ID int64
 	// Flags, see TL conditional fields¹
 	//
 	// Links:
@@ -448,11 +450,14 @@ type WallPaperNoFile struct {
 }
 
 // WallPaperNoFileTypeID is TL type id of WallPaperNoFile.
-const WallPaperNoFileTypeID = 0x8af40b25
+const WallPaperNoFileTypeID = 0xe0804116
 
 func (w *WallPaperNoFile) Zero() bool {
 	if w == nil {
 		return true
+	}
+	if !(w.ID == 0) {
+		return false
 	}
 	if !(w.Flags.Zero()) {
 		return false
@@ -481,10 +486,12 @@ func (w *WallPaperNoFile) String() string {
 
 // FillFrom fills WallPaperNoFile from given interface.
 func (w *WallPaperNoFile) FillFrom(from interface {
+	GetID() (value int64)
 	GetDefault() (value bool)
 	GetDark() (value bool)
 	GetSettings() (value WallPaperSettings, ok bool)
 }) {
+	w.ID = from.GetID()
 	w.Default = from.GetDefault()
 	w.Dark = from.GetDark()
 	if val, ok := from.GetSettings(); ok {
@@ -517,6 +524,10 @@ func (w *WallPaperNoFile) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
 			Name:       "Default",
 			SchemaName: "default",
 			Null:       !w.Flags.Has(1),
@@ -538,7 +549,7 @@ func (w *WallPaperNoFile) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WallPaperNoFile) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode wallPaperNoFile#8af40b25 as nil")
+		return fmt.Errorf("can't encode wallPaperNoFile#e0804116 as nil")
 	}
 	b.PutID(WallPaperNoFileTypeID)
 	return w.EncodeBare(b)
@@ -547,7 +558,7 @@ func (w *WallPaperNoFile) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WallPaperNoFile) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode wallPaperNoFile#8af40b25 as nil")
+		return fmt.Errorf("can't encode wallPaperNoFile#e0804116 as nil")
 	}
 	if !(w.Default == false) {
 		w.Flags.Set(1)
@@ -558,15 +569,21 @@ func (w *WallPaperNoFile) EncodeBare(b *bin.Buffer) error {
 	if !(w.Settings.Zero()) {
 		w.Flags.Set(2)
 	}
+	b.PutLong(w.ID)
 	if err := w.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode wallPaperNoFile#8af40b25: field flags: %w", err)
+		return fmt.Errorf("unable to encode wallPaperNoFile#e0804116: field flags: %w", err)
 	}
 	if w.Flags.Has(2) {
 		if err := w.Settings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode wallPaperNoFile#8af40b25: field settings: %w", err)
+			return fmt.Errorf("unable to encode wallPaperNoFile#e0804116: field settings: %w", err)
 		}
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (w *WallPaperNoFile) GetID() (value int64) {
+	return w.ID
 }
 
 // SetDefault sets value of Default conditional field.
@@ -619,10 +636,10 @@ func (w *WallPaperNoFile) GetSettings() (value WallPaperSettings, ok bool) {
 // Decode implements bin.Decoder.
 func (w *WallPaperNoFile) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode wallPaperNoFile#8af40b25 to nil")
+		return fmt.Errorf("can't decode wallPaperNoFile#e0804116 to nil")
 	}
 	if err := b.ConsumeID(WallPaperNoFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode wallPaperNoFile#8af40b25: %w", err)
+		return fmt.Errorf("unable to decode wallPaperNoFile#e0804116: %w", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -630,18 +647,25 @@ func (w *WallPaperNoFile) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WallPaperNoFile) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode wallPaperNoFile#8af40b25 to nil")
+		return fmt.Errorf("can't decode wallPaperNoFile#e0804116 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode wallPaperNoFile#e0804116: field id: %w", err)
+		}
+		w.ID = value
 	}
 	{
 		if err := w.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode wallPaperNoFile#8af40b25: field flags: %w", err)
+			return fmt.Errorf("unable to decode wallPaperNoFile#e0804116: field flags: %w", err)
 		}
 	}
 	w.Default = w.Flags.Has(1)
 	w.Dark = w.Flags.Has(4)
 	if w.Flags.Has(2) {
 		if err := w.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode wallPaperNoFile#8af40b25: field settings: %w", err)
+			return fmt.Errorf("unable to decode wallPaperNoFile#e0804116: field settings: %w", err)
 		}
 	}
 	return nil
@@ -671,7 +695,7 @@ var (
 //  }
 //  switch v := g.(type) {
 //  case *tg.WallPaper: // wallPaper#a437c3ed
-//  case *tg.WallPaperNoFile: // wallPaperNoFile#8af40b25
+//  case *tg.WallPaperNoFile: // wallPaperNoFile#e0804116
 //  default: panic(v)
 //  }
 type WallPaperClass interface {
@@ -691,6 +715,9 @@ type WallPaperClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Identifier
+	GetID() (value int64)
 
 	// Whether this is the default wallpaper
 	GetDefault() (value bool)
@@ -719,6 +746,22 @@ func (w *WallPaper) AsInputWallPaperSlug() *InputWallPaperSlug {
 	return value
 }
 
+// AsInputWallPaperNoFile tries to map WallPaper to InputWallPaperNoFile.
+func (w *WallPaper) AsInputWallPaperNoFile() *InputWallPaperNoFile {
+	value := new(InputWallPaperNoFile)
+	value.ID = w.GetID()
+
+	return value
+}
+
+// AsInput tries to map WallPaperNoFile to InputWallPaperNoFile.
+func (w *WallPaperNoFile) AsInput() *InputWallPaperNoFile {
+	value := new(InputWallPaperNoFile)
+	value.ID = w.GetID()
+
+	return value
+}
+
 // DecodeWallPaper implements binary de-serialization for WallPaperClass.
 func DecodeWallPaper(buf *bin.Buffer) (WallPaperClass, error) {
 	id, err := buf.PeekID()
@@ -734,7 +777,7 @@ func DecodeWallPaper(buf *bin.Buffer) (WallPaperClass, error) {
 		}
 		return &v, nil
 	case WallPaperNoFileTypeID:
-		// Decoding wallPaperNoFile#8af40b25.
+		// Decoding wallPaperNoFile#e0804116.
 		v := WallPaperNoFile{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode WallPaperClass: %w", err)

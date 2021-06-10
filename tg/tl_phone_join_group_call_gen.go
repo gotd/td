@@ -37,8 +37,8 @@ type PhoneJoinGroupCallRequest struct {
 	Flags bin.Fields
 	// Muted field of PhoneJoinGroupCallRequest.
 	Muted bool
-	// VideoMuted field of PhoneJoinGroupCallRequest.
-	VideoMuted bool
+	// VideoStopped field of PhoneJoinGroupCallRequest.
+	VideoStopped bool
 	// Call field of PhoneJoinGroupCallRequest.
 	Call InputGroupCall
 	// JoinAs field of PhoneJoinGroupCallRequest.
@@ -64,7 +64,7 @@ func (j *PhoneJoinGroupCallRequest) Zero() bool {
 	if !(j.Muted == false) {
 		return false
 	}
-	if !(j.VideoMuted == false) {
+	if !(j.VideoStopped == false) {
 		return false
 	}
 	if !(j.Call.Zero()) {
@@ -95,14 +95,14 @@ func (j *PhoneJoinGroupCallRequest) String() string {
 // FillFrom fills PhoneJoinGroupCallRequest from given interface.
 func (j *PhoneJoinGroupCallRequest) FillFrom(from interface {
 	GetMuted() (value bool)
-	GetVideoMuted() (value bool)
+	GetVideoStopped() (value bool)
 	GetCall() (value InputGroupCall)
 	GetJoinAs() (value InputPeerClass)
 	GetInviteHash() (value string, ok bool)
 	GetParams() (value DataJSON)
 }) {
 	j.Muted = from.GetMuted()
-	j.VideoMuted = from.GetVideoMuted()
+	j.VideoStopped = from.GetVideoStopped()
 	j.Call = from.GetCall()
 	j.JoinAs = from.GetJoinAs()
 	if val, ok := from.GetInviteHash(); ok {
@@ -141,8 +141,8 @@ func (j *PhoneJoinGroupCallRequest) TypeInfo() tdp.Type {
 			Null:       !j.Flags.Has(0),
 		},
 		{
-			Name:       "VideoMuted",
-			SchemaName: "video_muted",
+			Name:       "VideoStopped",
+			SchemaName: "video_stopped",
 			Null:       !j.Flags.Has(2),
 		},
 		{
@@ -183,7 +183,7 @@ func (j *PhoneJoinGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if !(j.Muted == false) {
 		j.Flags.Set(0)
 	}
-	if !(j.VideoMuted == false) {
+	if !(j.VideoStopped == false) {
 		j.Flags.Set(2)
 	}
 	if !(j.InviteHash == "") {
@@ -226,19 +226,19 @@ func (j *PhoneJoinGroupCallRequest) GetMuted() (value bool) {
 	return j.Flags.Has(0)
 }
 
-// SetVideoMuted sets value of VideoMuted conditional field.
-func (j *PhoneJoinGroupCallRequest) SetVideoMuted(value bool) {
+// SetVideoStopped sets value of VideoStopped conditional field.
+func (j *PhoneJoinGroupCallRequest) SetVideoStopped(value bool) {
 	if value {
 		j.Flags.Set(2)
-		j.VideoMuted = true
+		j.VideoStopped = true
 	} else {
 		j.Flags.Unset(2)
-		j.VideoMuted = false
+		j.VideoStopped = false
 	}
 }
 
-// GetVideoMuted returns value of VideoMuted conditional field.
-func (j *PhoneJoinGroupCallRequest) GetVideoMuted() (value bool) {
+// GetVideoStopped returns value of VideoStopped conditional field.
+func (j *PhoneJoinGroupCallRequest) GetVideoStopped() (value bool) {
 	return j.Flags.Has(2)
 }
 
@@ -294,7 +294,7 @@ func (j *PhoneJoinGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	j.Muted = j.Flags.Has(0)
-	j.VideoMuted = j.Flags.Has(2)
+	j.VideoStopped = j.Flags.Has(2)
 	{
 		if err := j.Call.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field call: %w", err)

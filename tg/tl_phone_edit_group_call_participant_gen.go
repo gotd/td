@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// PhoneEditGroupCallParticipantRequest represents TL type `phone.editGroupCallParticipant#aec610e4`.
+// PhoneEditGroupCallParticipantRequest represents TL type `phone.editGroupCallParticipant#a5273abf`.
 //
 // See https://core.telegram.org/method/phone.editGroupCallParticipant for reference.
 type PhoneEditGroupCallParticipantRequest struct {
@@ -51,14 +51,22 @@ type PhoneEditGroupCallParticipantRequest struct {
 	//
 	// Use SetRaiseHand and GetRaiseHand helpers.
 	RaiseHand bool
-	// VideoMuted field of PhoneEditGroupCallParticipantRequest.
+	// VideoStopped field of PhoneEditGroupCallParticipantRequest.
 	//
-	// Use SetVideoMuted and GetVideoMuted helpers.
-	VideoMuted bool
+	// Use SetVideoStopped and GetVideoStopped helpers.
+	VideoStopped bool
+	// VideoPaused field of PhoneEditGroupCallParticipantRequest.
+	//
+	// Use SetVideoPaused and GetVideoPaused helpers.
+	VideoPaused bool
+	// PresentationPaused field of PhoneEditGroupCallParticipantRequest.
+	//
+	// Use SetPresentationPaused and GetPresentationPaused helpers.
+	PresentationPaused bool
 }
 
 // PhoneEditGroupCallParticipantRequestTypeID is TL type id of PhoneEditGroupCallParticipantRequest.
-const PhoneEditGroupCallParticipantRequestTypeID = 0xaec610e4
+const PhoneEditGroupCallParticipantRequestTypeID = 0xa5273abf
 
 func (e *PhoneEditGroupCallParticipantRequest) Zero() bool {
 	if e == nil {
@@ -82,7 +90,13 @@ func (e *PhoneEditGroupCallParticipantRequest) Zero() bool {
 	if !(e.RaiseHand == false) {
 		return false
 	}
-	if !(e.VideoMuted == false) {
+	if !(e.VideoStopped == false) {
+		return false
+	}
+	if !(e.VideoPaused == false) {
+		return false
+	}
+	if !(e.PresentationPaused == false) {
 		return false
 	}
 
@@ -105,7 +119,9 @@ func (e *PhoneEditGroupCallParticipantRequest) FillFrom(from interface {
 	GetMuted() (value bool, ok bool)
 	GetVolume() (value int, ok bool)
 	GetRaiseHand() (value bool, ok bool)
-	GetVideoMuted() (value bool, ok bool)
+	GetVideoStopped() (value bool, ok bool)
+	GetVideoPaused() (value bool, ok bool)
+	GetPresentationPaused() (value bool, ok bool)
 }) {
 	e.Call = from.GetCall()
 	e.Participant = from.GetParticipant()
@@ -121,8 +137,16 @@ func (e *PhoneEditGroupCallParticipantRequest) FillFrom(from interface {
 		e.RaiseHand = val
 	}
 
-	if val, ok := from.GetVideoMuted(); ok {
-		e.VideoMuted = val
+	if val, ok := from.GetVideoStopped(); ok {
+		e.VideoStopped = val
+	}
+
+	if val, ok := from.GetVideoPaused(); ok {
+		e.VideoPaused = val
+	}
+
+	if val, ok := from.GetPresentationPaused(); ok {
+		e.PresentationPaused = val
 	}
 
 }
@@ -174,9 +198,19 @@ func (e *PhoneEditGroupCallParticipantRequest) TypeInfo() tdp.Type {
 			Null:       !e.Flags.Has(2),
 		},
 		{
-			Name:       "VideoMuted",
-			SchemaName: "video_muted",
+			Name:       "VideoStopped",
+			SchemaName: "video_stopped",
 			Null:       !e.Flags.Has(3),
+		},
+		{
+			Name:       "VideoPaused",
+			SchemaName: "video_paused",
+			Null:       !e.Flags.Has(4),
+		},
+		{
+			Name:       "PresentationPaused",
+			SchemaName: "presentation_paused",
+			Null:       !e.Flags.Has(5),
 		},
 	}
 	return typ
@@ -185,7 +219,7 @@ func (e *PhoneEditGroupCallParticipantRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *PhoneEditGroupCallParticipantRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode phone.editGroupCallParticipant#aec610e4 as nil")
+		return fmt.Errorf("can't encode phone.editGroupCallParticipant#a5273abf as nil")
 	}
 	b.PutID(PhoneEditGroupCallParticipantRequestTypeID)
 	return e.EncodeBare(b)
@@ -194,7 +228,7 @@ func (e *PhoneEditGroupCallParticipantRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *PhoneEditGroupCallParticipantRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode phone.editGroupCallParticipant#aec610e4 as nil")
+		return fmt.Errorf("can't encode phone.editGroupCallParticipant#a5273abf as nil")
 	}
 	if !(e.Muted == false) {
 		e.Flags.Set(0)
@@ -205,20 +239,26 @@ func (e *PhoneEditGroupCallParticipantRequest) EncodeBare(b *bin.Buffer) error {
 	if !(e.RaiseHand == false) {
 		e.Flags.Set(2)
 	}
-	if !(e.VideoMuted == false) {
+	if !(e.VideoStopped == false) {
 		e.Flags.Set(3)
 	}
+	if !(e.VideoPaused == false) {
+		e.Flags.Set(4)
+	}
+	if !(e.PresentationPaused == false) {
+		e.Flags.Set(5)
+	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#aec610e4: field flags: %w", err)
+		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#a5273abf: field flags: %w", err)
 	}
 	if err := e.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#aec610e4: field call: %w", err)
+		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#a5273abf: field call: %w", err)
 	}
 	if e.Participant == nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#aec610e4: field participant is nil")
+		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#a5273abf: field participant is nil")
 	}
 	if err := e.Participant.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#aec610e4: field participant: %w", err)
+		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#a5273abf: field participant: %w", err)
 	}
 	if e.Flags.Has(0) {
 		b.PutBool(e.Muted)
@@ -230,7 +270,13 @@ func (e *PhoneEditGroupCallParticipantRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutBool(e.RaiseHand)
 	}
 	if e.Flags.Has(3) {
-		b.PutBool(e.VideoMuted)
+		b.PutBool(e.VideoStopped)
+	}
+	if e.Flags.Has(4) {
+		b.PutBool(e.VideoPaused)
+	}
+	if e.Flags.Has(5) {
+		b.PutBool(e.PresentationPaused)
 	}
 	return nil
 }
@@ -290,28 +336,58 @@ func (e *PhoneEditGroupCallParticipantRequest) GetRaiseHand() (value bool, ok bo
 	return e.RaiseHand, true
 }
 
-// SetVideoMuted sets value of VideoMuted conditional field.
-func (e *PhoneEditGroupCallParticipantRequest) SetVideoMuted(value bool) {
+// SetVideoStopped sets value of VideoStopped conditional field.
+func (e *PhoneEditGroupCallParticipantRequest) SetVideoStopped(value bool) {
 	e.Flags.Set(3)
-	e.VideoMuted = value
+	e.VideoStopped = value
 }
 
-// GetVideoMuted returns value of VideoMuted conditional field and
+// GetVideoStopped returns value of VideoStopped conditional field and
 // boolean which is true if field was set.
-func (e *PhoneEditGroupCallParticipantRequest) GetVideoMuted() (value bool, ok bool) {
+func (e *PhoneEditGroupCallParticipantRequest) GetVideoStopped() (value bool, ok bool) {
 	if !e.Flags.Has(3) {
 		return value, false
 	}
-	return e.VideoMuted, true
+	return e.VideoStopped, true
+}
+
+// SetVideoPaused sets value of VideoPaused conditional field.
+func (e *PhoneEditGroupCallParticipantRequest) SetVideoPaused(value bool) {
+	e.Flags.Set(4)
+	e.VideoPaused = value
+}
+
+// GetVideoPaused returns value of VideoPaused conditional field and
+// boolean which is true if field was set.
+func (e *PhoneEditGroupCallParticipantRequest) GetVideoPaused() (value bool, ok bool) {
+	if !e.Flags.Has(4) {
+		return value, false
+	}
+	return e.VideoPaused, true
+}
+
+// SetPresentationPaused sets value of PresentationPaused conditional field.
+func (e *PhoneEditGroupCallParticipantRequest) SetPresentationPaused(value bool) {
+	e.Flags.Set(5)
+	e.PresentationPaused = value
+}
+
+// GetPresentationPaused returns value of PresentationPaused conditional field and
+// boolean which is true if field was set.
+func (e *PhoneEditGroupCallParticipantRequest) GetPresentationPaused() (value bool, ok bool) {
+	if !e.Flags.Has(5) {
+		return value, false
+	}
+	return e.PresentationPaused, true
 }
 
 // Decode implements bin.Decoder.
 func (e *PhoneEditGroupCallParticipantRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode phone.editGroupCallParticipant#aec610e4 to nil")
+		return fmt.Errorf("can't decode phone.editGroupCallParticipant#a5273abf to nil")
 	}
 	if err := b.ConsumeID(PhoneEditGroupCallParticipantRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.editGroupCallParticipant#aec610e4: %w", err)
+		return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -319,52 +395,66 @@ func (e *PhoneEditGroupCallParticipantRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *PhoneEditGroupCallParticipantRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode phone.editGroupCallParticipant#aec610e4 to nil")
+		return fmt.Errorf("can't decode phone.editGroupCallParticipant#a5273abf to nil")
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#aec610e4: field flags: %w", err)
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field flags: %w", err)
 		}
 	}
 	{
 		if err := e.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#aec610e4: field call: %w", err)
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field call: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#aec610e4: field participant: %w", err)
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field participant: %w", err)
 		}
 		e.Participant = value
 	}
 	if e.Flags.Has(0) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#aec610e4: field muted: %w", err)
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field muted: %w", err)
 		}
 		e.Muted = value
 	}
 	if e.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#aec610e4: field volume: %w", err)
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field volume: %w", err)
 		}
 		e.Volume = value
 	}
 	if e.Flags.Has(2) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#aec610e4: field raise_hand: %w", err)
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field raise_hand: %w", err)
 		}
 		e.RaiseHand = value
 	}
 	if e.Flags.Has(3) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#aec610e4: field video_muted: %w", err)
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field video_stopped: %w", err)
 		}
-		e.VideoMuted = value
+		e.VideoStopped = value
+	}
+	if e.Flags.Has(4) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field video_paused: %w", err)
+		}
+		e.VideoPaused = value
+	}
+	if e.Flags.Has(5) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field presentation_paused: %w", err)
+		}
+		e.PresentationPaused = value
 	}
 	return nil
 }
@@ -377,7 +467,7 @@ var (
 	_ bin.BareDecoder = &PhoneEditGroupCallParticipantRequest{}
 )
 
-// PhoneEditGroupCallParticipant invokes method phone.editGroupCallParticipant#aec610e4 returning error if any.
+// PhoneEditGroupCallParticipant invokes method phone.editGroupCallParticipant#a5273abf returning error if any.
 //
 // See https://core.telegram.org/method/phone.editGroupCallParticipant for reference.
 func (c *Client) PhoneEditGroupCallParticipant(ctx context.Context, request *PhoneEditGroupCallParticipantRequest) (UpdatesClass, error) {
