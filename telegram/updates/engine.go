@@ -225,7 +225,7 @@ func (e *Engine) handleChannelTooLong(date int, long *tg.UpdateChannelTooLong) {
 	if !ok {
 		pts, havePts := long.GetPts()
 		if !havePts {
-			log.Warn("Got UpdateChannelTooLong without pts field")
+			log.Info("Got UpdateChannelTooLong without pts field")
 			return
 		}
 
