@@ -3,7 +3,6 @@ package mtproto
 import (
 	"context"
 	"crypto/rand"
-	"fmt"
 	"io"
 	"testing"
 	"time"
@@ -54,7 +53,5 @@ func benchWrite(payloadSize int) func(b *testing.B) {
 }
 
 func BenchmarkWrite(b *testing.B) {
-	for _, size := range testutil.Payloads() {
-		b.Run(fmt.Sprintf("%db", size), benchWrite(size))
-	}
+	testutil.RunPayloads(b, benchWrite)
 }

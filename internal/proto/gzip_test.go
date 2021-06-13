@@ -3,7 +3,6 @@ package proto
 import (
 	"bytes"
 	"crypto/rand"
-	"fmt"
 	"io"
 	"testing"
 
@@ -59,9 +58,7 @@ func benchmarkGZIPEncode(payloadSize int) func(b *testing.B) {
 }
 
 func BenchmarkGZIP_Encode(b *testing.B) {
-	for _, size := range testutil.Payloads() {
-		b.Run(fmt.Sprintf("%db", size), benchmarkGZIPEncode(size))
-	}
+	testutil.RunPayloads(b, benchmarkGZIPEncode)
 }
 
 func benchmarkGZIPDecode(payloadSize int) func(b *testing.B) {
@@ -83,7 +80,5 @@ func benchmarkGZIPDecode(payloadSize int) func(b *testing.B) {
 }
 
 func BenchmarkGZIP_Decode(b *testing.B) {
-	for _, size := range testutil.Payloads() {
-		b.Run(fmt.Sprintf("%db", size), benchmarkGZIPDecode(size))
-	}
+	testutil.RunPayloads(b, benchmarkGZIPDecode)
 }
