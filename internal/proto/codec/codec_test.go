@@ -60,8 +60,11 @@ func testGood(c codecTest, p payload) func(t *testing.T) {
 			buf := bytes.NewBuffer(nil)
 			payload := &bin.Buffer{Buf: []byte(p.testData)}
 
+			l := payload.Len()
 			// Encode
 			a.NoError(codec.Write(buf, payload))
+			a.Equal(l, payload.Len(), "Codec must not change buffer length")
+
 			// Decode
 			payload.Reset()
 			a.NoError(codec.Read(buf, payload))
@@ -74,10 +77,13 @@ func testGood(c codecTest, p payload) func(t *testing.T) {
 			buf := bytes.NewBuffer(nil)
 			payload := &bin.Buffer{Buf: []byte(p.testData)}
 
+			l := payload.Len()
 			// Encode twice
 			a.NoError(codec.Write(buf, payload))
 			payload.ResetTo([]byte(p.testData))
 			a.NoError(codec.Write(buf, payload))
+			a.Equal(l, payload.Len(), "Codec must not change buffer length")
+
 			// Decode twice
 			payload.Reset()
 			a.NoError(codec.Read(buf, payload))
