@@ -79,18 +79,31 @@ func (i Abridged) Read(r io.Reader, b *bin.Buffer) error {
 }
 
 func writeAbridged(w io.Writer, b *bin.Buffer) error {
-	length := b.Len() >> 2
+	length := b.Len()
+	// Re-using b.Buf if possible to reduce allocations.
+	b.Expand(4)
+	b.Buf = b.Buf[:length]
 
 	// Re-using b.Buf if possible to reduce allocations.
-	buf := append(b.Buf[len(b.Buf):], make([]byte, 0, 4)...)
-	inner := bin.Buffer{Buf: buf}
+	inner := bin.Buffer{Buf: b.Buf[length:length]}
 
-	if length < 127 {
-		inner.Put([]byte{byte(length)})
+	encodeLength := b.Len() >> 2
+	// `0x7f == 127`, literally use one bit to distinguish length byte size.
+	if encodeLength < 127 {
+		// Payloads are wrapped in the following envelope:
+		//
+		// Length: payload length, divided by four, and encoded as a single byte,
+		// only if the resulting packet length is a value between 0x01..0x7e.
+		inner.Put([]byte{byte(encodeLength)})
 	} else {
+		// If the packet length divided by four is bigger than or equal to 127 (>= 0x7f),
+		// the following envelope must be used, instead:
+		//
 		var buf [5]byte
+		// Header: A single byte of value 0x7f
 		buf[0] = 0x7f
-		binary.LittleEndian.PutUint32(buf[1:], uint32(length))
+		// Length: payload length, divided by four, and encoded as 3 length bytes (little endian)
+		binary.LittleEndian.PutUint32(buf[1:], uint32(encodeLength))
 		inner.Put(buf[:4])
 	}
 
