@@ -33,7 +33,6 @@ func (c *Conn) logWithType(b *bin.Buffer) *zap.Logger {
 	return c.logWithTypeID(id)
 }
 
-
 func (c *Conn) logWithTypeID(id uint32) *zap.Logger {
 	return c.log.With(zap.Inline(logType{
 		ID:   id,
