@@ -6,7 +6,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.1.1
 	github.com/go-openapi/inflect v0.19.0
 	github.com/gotd/getdoc v0.6.2
-	github.com/gotd/ige v0.2.0
+	github.com/gotd/ige v0.2.1
 	github.com/gotd/neo v0.1.3
 	github.com/gotd/tl v0.4.0
 	github.com/gotd/xor v0.1.1
