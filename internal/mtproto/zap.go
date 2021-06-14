@@ -4,9 +4,24 @@ import (
 	"fmt"
 
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 
 	"github.com/gotd/td/bin"
 )
+
+type logType struct {
+	ID   uint32
+	Name string
+}
+
+func (l logType) MarshalLogObject(e zapcore.ObjectEncoder) error {
+	typeIDStr := fmt.Sprintf("0x%x", l.ID)
+	e.AddString("type_id", typeIDStr)
+	if l.Name != "" {
+		e.AddString("type_name", l.Name)
+	}
+	return nil
+}
 
 func (c *Conn) logWithType(b *bin.Buffer) *zap.Logger {
 	id, err := b.PeekID()
@@ -15,15 +30,13 @@ func (c *Conn) logWithType(b *bin.Buffer) *zap.Logger {
 		return c.log
 	}
 
-	// Adding hex id of type.
-	typeIDStr := fmt.Sprintf("0x%x", id)
-	log := c.log.With(zap.String("type_id", typeIDStr))
+	return c.logWithTypeID(id)
+}
 
-	// Adding verbose type name if available.
-	typeName := c.types.Get(id)
-	if typeName != "" {
-		log = log.With(zap.String("type_name", typeName))
-	}
 
-	return log
+func (c *Conn) logWithTypeID(id uint32) *zap.Logger {
+	return c.log.With(zap.Inline(logType{
+		ID:   id,
+		Name: c.types.Get(id),
+	}))
 }
