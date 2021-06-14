@@ -86,6 +86,9 @@ func writePaddedIntermediate(randSource io.Reader, w io.Writer, b *bin.Buffer) e
 		return err
 	}
 	b.Expand(int(n))
+	defer func() {
+		b.Buf = b.Buf[:length]
+	}()
 
 	_, err = io.ReadFull(randSource, b.Buf[length:length+int(n)])
 	if err != nil {

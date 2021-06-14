@@ -75,14 +75,17 @@ func (i Intermediate) Read(r io.Reader, b *bin.Buffer) error {
 
 // writeIntermediate encodes b as payload to w.
 func writeIntermediate(w io.Writer, b *bin.Buffer) error {
+	length := b.Len()
 	// Re-using b.Buf if possible to reduce allocations.
-	buf := append(b.Buf[len(b.Buf):], make([]byte, 0, 4)...)
-	inner := bin.Buffer{Buf: buf}
+	b.Expand(4)
+	b.Buf = b.Buf[:length]
+
+	inner := bin.Buffer{Buf: b.Buf[length:length]}
 	inner.PutInt(b.Len())
 	if _, err := w.Write(inner.Buf); err != nil {
 		return err
 	}
-	if _, err := w.Write(b.Raw()); err != nil {
+	if _, err := w.Write(b.Buf); err != nil {
 		return err
 	}
 	return nil

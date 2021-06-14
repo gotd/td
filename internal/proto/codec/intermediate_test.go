@@ -10,48 +10,6 @@ import (
 	"github.com/gotd/td/bin"
 )
 
-func BenchmarkWriteIntermediate(b *testing.B) {
-	out := new(bytes.Buffer)
-	buf := new(bin.Buffer)
-	buf.PutString("Hello world")
-	buf.PutString("Wake up")
-	buf.PutString("Neo")
-
-	b.ReportAllocs()
-	b.SetBytes(int64(buf.Len() + 4))
-
-	for i := 0; i < b.N; i++ {
-		if err := writeIntermediate(out, buf); err != nil {
-			b.Fatal(err)
-		}
-		out.Reset()
-	}
-}
-
-func BenchmarkReadIntermediate(b *testing.B) {
-	out := new(bytes.Buffer)
-	buf := new(bin.Buffer)
-	buf.PutString("Hello world")
-	buf.PutString("Wake up")
-	buf.PutString("Neo")
-	if err := writeIntermediate(out, buf); err != nil {
-		b.Fatal(err)
-	}
-	raw := out.Bytes()
-	reader := bytes.NewReader(nil)
-
-	b.ReportAllocs()
-	b.SetBytes(int64(buf.Len() + 4))
-
-	for i := 0; i < b.N; i++ {
-		reader.Reset(raw)
-		if err := readIntermediate(reader, buf, false); err != nil {
-			b.Fatal(err)
-		}
-		buf.Reset()
-	}
-}
-
 func TestIntermediate(t *testing.T) {
 	t.Run("Ok", func(t *testing.T) {
 		msg := bytes.Repeat([]byte{1, 2, 3}, 100)
