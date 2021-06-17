@@ -41,7 +41,7 @@ jobs:
         run: make coverage
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2.2.3
+        uses: actions/upload-artifact@v2.2.4
         with:
           name: coverage
           path: profile.out
