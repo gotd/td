@@ -176,7 +176,6 @@ func (c *Conn) wrapRequest(req bin.Object) bin.Object {
 }
 
 func (c *Conn) init(ctx context.Context) error {
-	defer c.gotConfig.Signal()
 	c.log.Debug("Initializing")
 
 	q := c.wrapRequest(&tg.InitConnectionRequest{
@@ -210,5 +209,6 @@ func (c *Conn) init(ctx context.Context) error {
 	c.cfg = cfg
 	c.mux.Unlock()
 
+	c.gotConfig.Signal()
 	return nil
 }
