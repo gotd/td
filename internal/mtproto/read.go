@@ -143,7 +143,11 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 	}()
 
 	for {
-		b.Reset()
+		if !c.noBufferReuse {
+			b.Reset()
+		} else {
+			b.ResetTo(nil)
+		}
 
 		err = c.conn.Recv(ctx, b)
 		if err == nil {
