@@ -64,6 +64,13 @@ type Options struct {
 	// ReadConcurrency is a count of workers to decrypt and decode incoming messages.
 	// Should be more than 2 to make effect. Otherwise ignored.
 	ReadConcurrency int
+	// NoBufferReuse disables buffer reuse for workers that decrypt and decode
+	// incoming messages. Each worker adds around 0.5 MiB to the total used
+	// memory. The default behavior is to keep the buffer for reuse, but in
+	// programs that maintain many connections this quickly adds up to hundreds
+	// of megabytes (buffer size multiplied by the number of connections and read
+	// concurrency).
+	NoBufferReuse bool
 
 	// Device is device config.
 	// Will be sent with session creation request.
@@ -104,7 +111,7 @@ func (opt *Options) setDefaults() {
 	if opt.MaxRetries == 0 {
 		opt.MaxRetries = 5
 	}
-	// Keep ReadConcurrency is zero, mtproto.Options will set default value.
+	// Keep ReadConcurrency as zero, mtproto.Options will set default value.
 	opt.Device.SetDefaults()
 	if opt.Clock == nil {
 		opt.Clock = clock.System

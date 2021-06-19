@@ -209,6 +209,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		RetryInterval:   opt.RetryInterval,
 		MaxRetries:      opt.MaxRetries,
 		ReadConcurrency: opt.ReadConcurrency,
+		NoBufferReuse:   opt.NoBufferReuse,
 		MessageID:       opt.MessageID,
 		Clock:           opt.Clock,
 

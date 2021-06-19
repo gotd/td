@@ -66,6 +66,13 @@ type Options struct {
 	// Can be CPU or IO bound depending on message handlers.
 	// Defaults to GOMAXPROCS if it is not less than 10.
 	ReadConcurrency int
+	// NoBufferReuse disables buffer reuse for concurrently handled messages.
+	// Each concurrent message handler adds around 0.5 MiB to the total used
+	// memory. The default behavior is to keep the buffer for reuse, but in
+	// programs that maintain many connections this quickly adds up to hundreds
+	// of megabytes (buffer size multiplied by the number of connections and read
+	// concurrency).
+	NoBufferReuse bool
 	// Cipher defines message crypto.
 	Cipher Cipher
 
