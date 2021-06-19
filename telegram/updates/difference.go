@@ -34,14 +34,14 @@ func (e *Engine) recoverState() error {
 	return nil
 }
 
-func (e *Engine) recoverChannelState(channelID int, state *channelState) error {
+func (e *Engine) recoverChannelState(state *channelState) error {
 	if !state.recovering.CAS(false, true) {
 		return nil
 	}
 	defer state.recovering.Store(false)
 
-	log := e.log.With(zap.Int("channel_id", channelID))
-	accessHash, ok := e.getChannelAccessHash(channelID, 0)
+	log := e.log.With(zap.Int("channel_id", state.channelID))
+	accessHash, ok := e.getChannelAccessHash(state.channelID, 0)
 	if !ok {
 		return xerrors.Errorf("missing access hash")
 	}
@@ -50,7 +50,7 @@ func (e *Engine) recoverChannelState(channelID int, state *channelState) error {
 	defer state.pts.DisableRecoverMode()
 
 	log.Debug("Recovering state")
-	if err := e.getChannelDifference(channelID, accessHash, state); err != nil {
+	if err := e.getChannelDifference(state.channelID, accessHash, state); err != nil {
 		return xerrors.Errorf("getChannelDifference: %w", err)
 	}
 

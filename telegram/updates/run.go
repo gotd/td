@@ -30,6 +30,7 @@ func (e *Engine) Run(ctx context.Context) error {
 		return err
 	}
 
+	e.initCommonBoxes(state)
 	if err := e.storage.Channels(func(channelID, pts int) {
 		e.chanMux.Lock()
 		e.channels[channelID] = e.createChannelState(channelID, pts)
@@ -37,14 +38,6 @@ func (e *Engine) Run(ctx context.Context) error {
 	}); err != nil {
 		return err
 	}
-
-	e.initCommonBoxes(state)
-	e.chanMux.Lock()
-	for _, state := range e.channels {
-		state.pts.run()
-		state.recoverGap <- struct{}{}
-	}
-	e.chanMux.Unlock()
 
 	defer func() {
 		// Stop recover workers.
@@ -57,7 +50,7 @@ func (e *Engine) Run(ctx context.Context) error {
 		e.qts.stop()
 		e.chanMux.Lock()
 		for _, state := range e.channels {
-			state.pts.stop()
+			state.stop()
 		}
 		e.chanMux.Unlock()
 
