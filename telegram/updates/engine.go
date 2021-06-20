@@ -44,7 +44,10 @@ type Engine struct {
 
 	uchan      chan tg.UpdatesClass
 	recoverGap chan struct{}
-	workers    chan struct{}
+
+	shutdownMux sync.Mutex
+	closed      bool
+	done        chan struct{}
 
 	diffLim int
 	selfID  int
@@ -56,7 +59,6 @@ type Engine struct {
 
 	ctx    context.Context
 	cancel context.CancelFunc
-	closed atomic.Bool
 
 	wg sync.WaitGroup
 }
@@ -73,7 +75,7 @@ func New(cfg Config) *Engine {
 
 		uchan:      make(chan tg.UpdatesClass, 10),
 		recoverGap: make(chan struct{}),
-		workers:    make(chan struct{}),
+		done:       make(chan struct{}),
 
 		diffLim: diffLimitUser,
 		selfID:  cfg.SelfID,
