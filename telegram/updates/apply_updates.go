@@ -45,7 +45,7 @@ func (e *Engine) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err e
 
 		if pts, ptsCount, ok := isCommonPtsUpdate(u); ok {
 			if err := e.handlePts(pts, ptsCount, u, ents); err != nil {
-				return ptsChanged, err
+				return false, err
 			}
 
 			continue
@@ -58,7 +58,7 @@ func (e *Engine) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err e
 			}
 
 			if err := e.handleChannel(channelID, comb.Date, pts, ptsCount, u, ents); err != nil {
-				return ptsChanged, err
+				return false, err
 			}
 
 			continue
@@ -66,7 +66,7 @@ func (e *Engine) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err e
 
 		if qts, ok := isCommonQtsUpdate(u); ok {
 			if err := e.handleQts(qts, u, ents); err != nil {
-				return ptsChanged, err
+				return false, err
 			}
 
 			continue
@@ -77,13 +77,13 @@ func (e *Engine) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err e
 
 	if len(others) > 0 {
 		if err := e.handler.HandleUpdates(ents, others); err != nil {
-			return ptsChanged, xerrors.Errorf("handle updates: %w", err)
+			return false, xerrors.Errorf("handle updates: %w", err)
 		}
 	}
 
 	if comb.Seq > 0 {
 		if err := e.storage.SetSeq(comb.Seq); err != nil {
-			return ptsChanged, err
+			return false, err
 		}
 	}
 
@@ -93,7 +93,7 @@ func (e *Engine) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err e
 
 		if comb.Date > e.date {
 			if err := e.storage.SetDate(comb.Date); err != nil {
-				return ptsChanged, err
+				return false, err
 			}
 
 			e.date = comb.Date

@@ -39,7 +39,6 @@ func (e *Engine) createChannelState(channelID, initialPts int) *channelState {
 	}
 
 	state.run()
-	recoverGap <- struct{}{}
 	return state
 }
 
@@ -60,7 +59,6 @@ func (s *channelState) run() {
 
 			case <-s.idleTimeout.C:
 				s.pts.log.Debug("Idle timeout, recovering state")
-				_ = s.idleTimeout.Reset(idleTimeout)
 				s.recoverState()
 			}
 		}
@@ -75,6 +73,7 @@ func (s *channelState) stop() {
 }
 
 func (s *channelState) recoverState() {
+	_ = s.idleTimeout.Reset(idleTimeout)
 	if err := s.e.recoverChannelState(s); err != nil {
 		s.e.log.Warn("Recover channel state error",
 			zap.Int("channel_id", s.channelID),

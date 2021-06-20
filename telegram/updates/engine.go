@@ -34,13 +34,13 @@ type Engine struct {
 
 	// Channels state.
 	channels map[int]*channelState
-	chanMux  sync.RWMutex
+	chanMux  sync.Mutex
 
 	// Channel access hashes.
 	// Needed to perform updates.getChannelDifference.
 	// Obtained lazily.
 	channelHash map[int]int64
-	hashMux     sync.RWMutex
+	hashMux     sync.Mutex
 
 	uchan      chan tg.UpdatesClass
 	recoverGap chan struct{}

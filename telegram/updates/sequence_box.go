@@ -62,11 +62,10 @@ func newSequenceBox(cfg sequenceConfig) *sequenceBox {
 
 func (s *sequenceBox) Handle(u update) error {
 	s.mux.Lock()
+	defer s.mux.Unlock()
 	if s.closed {
-		s.mux.Unlock()
 		return xerrors.Errorf("closed")
 	}
-	defer s.mux.Unlock()
 
 	log := s.log.With(zap.Int("upd_from", u.start()), zap.Int("upd_to", u.end()))
 	if checkGap(s.state, u.State, u.Count) == gapIgnore {
@@ -82,8 +81,7 @@ func (s *sequenceBox) Handle(u update) error {
 
 	if s.gaps.Has() {
 		s.pending = append(s.pending, u)
-		accepted := s.gaps.Consume(u)
-		if !accepted {
+		if accepted := s.gaps.Consume(u); !accepted {
 			log.Debug("Out of gap range, postponed", zap.Array("gaps", s.gaps))
 			return nil
 		}
