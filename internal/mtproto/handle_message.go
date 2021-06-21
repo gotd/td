@@ -16,7 +16,7 @@ func (c *Conn) handleMessage(msgID int64, b *bin.Buffer) error {
 		return xerrors.Errorf("failed to determine message type: %w", err)
 	}
 
-	c.logWithType(b).Debug("Handle message", zap.Int64("msg_id", msgID))
+	c.logWithBuffer(b).Debug("Handle message", zap.Int64("msg_id", msgID))
 	switch id {
 	case mt.NewSessionCreatedTypeID:
 		return c.handleSessionCreated(b)

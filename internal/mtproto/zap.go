@@ -23,6 +23,10 @@ func (l logType) MarshalLogObject(e zapcore.ObjectEncoder) error {
 	return nil
 }
 
+func (c *Conn) logWithBuffer(b *bin.Buffer) *zap.Logger {
+	return c.logWithType(b).With(zap.Int("size_bytes", b.Len()))
+}
+
 func (c *Conn) logWithType(b *bin.Buffer) *zap.Logger {
 	id, err := b.PeekID()
 	if err != nil {
