@@ -3,7 +3,6 @@ package downloader
 import (
 	"context"
 	"io"
-	"sync"
 
 	"golang.org/x/xerrors"
 
@@ -13,15 +12,12 @@ import (
 
 func (d *Downloader) stream(ctx context.Context, r *reader, w io.Writer) (tg.StorageFileTypeClass, error) {
 	var typ tg.StorageFileTypeClass
-	typOnce := &sync.Once{}
 
 	g := tdsync.NewCancellableGroup(ctx)
 	toWrite := make(chan block, 1)
 
 	stop := func(t tg.StorageFileTypeClass) {
-		typOnce.Do(func() {
-			typ = t
-		})
+		typ = t
 		close(toWrite)
 	}
 	// Download loop
