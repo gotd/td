@@ -2,7 +2,6 @@ package manager
 
 import (
 	"context"
-	"errors"
 	"sync"
 	"time"
 
@@ -117,11 +116,19 @@ func (c *Conn) trackInvoke() func() {
 func (c *Conn) Run(ctx context.Context) (err error) {
 	defer c.dead.Signal()
 	defer func() {
-		if !errors.Is(err, ctx.Err()) {
+		if err != nil && ctx.Err() == nil {
 			c.log.Debug("Connection dead", zap.Error(err))
 		}
 	}()
-	return c.proto.Run(ctx, c.init)
+	return c.proto.Run(ctx, func(ctx context.Context) error {
+		// Signal death on init error. Otherwise connection shutdown
+		// deadlocks in OnSession that occurs before init fails.
+		err := c.init(ctx)
+		if err != nil {
+			c.dead.Signal()
+		}
+		return err
+	})
 }
 
 func (c *Conn) waitSession(ctx context.Context) error {
