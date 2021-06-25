@@ -163,6 +163,9 @@ loop:
 		}
 	}
 
+	for i := 0; i < cursor; i++ {
+		s.pending[i] = update{}
+	}
 	s.pending = s.pending[cursor:]
 	if len(accepted) == 0 {
 		s.log.Warn("Empty buffer", zap.Any("pending", s.pending), zap.Int("state", s.state))

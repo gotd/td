@@ -301,10 +301,9 @@ func (e *Engine) saveChannelHashes(source string, chats []tg.ChatClass) {
 	}
 }
 
-func (e *Engine) getChannelAccessHash(channelID, date int) (int64, bool) {
+func (e *Engine) restoreHash(channelID, date int) bool {
 	log := e.log.With(zap.Int("channel_id", channelID))
-	accessHash, ok := e.channelHashes.Get(channelID)
-	if !ok {
+	if _, ok := e.channelHashes.Get(channelID); !ok {
 		if date == 0 {
 			// Update have no date, fallback to global.
 			date = e.getDate() - 31
@@ -317,7 +316,7 @@ func (e *Engine) getChannelAccessHash(channelID, date int) (int64, bool) {
 		})
 		if err != nil {
 			log.Warn("Restore access hash error", zap.Error(err))
-			return 0, false
+			return false
 		}
 
 		switch diff := diff.(type) {
@@ -327,14 +326,13 @@ func (e *Engine) getChannelAccessHash(channelID, date int) (int64, bool) {
 			e.saveChannelHashes("UpdatesDifferenceSlice", diff.Chats)
 		}
 
-		accessHash, ok = e.channelHashes.Get(channelID)
-		if !ok {
+		if _, ok = e.channelHashes.Get(channelID); !ok {
 			log.Warn("Failed to restore access hash: getDifference result does not contain expected hash")
-			return 0, false
+			return false
 		}
 	}
 
-	return accessHash, true
+	return true
 }
 
 func (e *Engine) getDate() int {

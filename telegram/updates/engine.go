@@ -204,7 +204,7 @@ func (e *Engine) handleChannel(channelID, date, pts, ptsCount int, u tg.UpdateCl
 	if !ok {
 		state = e.createChannelState(channelID, pts-ptsCount)
 		e.channels[channelID] = state
-		if _, ok := e.getChannelAccessHash(channelID, date); ok {
+		if e.restoreHash(channelID, date) {
 			state.recoverGap <- struct{}{}
 		}
 	}
@@ -235,7 +235,7 @@ func (e *Engine) handleChannelTooLong(date int, long *tg.UpdateChannelTooLong) {
 
 		state = e.createChannelState(long.ChannelID, pts)
 		e.channels[long.ChannelID] = state
-		if _, ok := e.getChannelAccessHash(long.ChannelID, date); ok {
+		if e.restoreHash(long.ChannelID, date) {
 			state.recoverGap <- struct{}{}
 		}
 		return

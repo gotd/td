@@ -34,11 +34,14 @@ func (e *Engine) Run(ctx context.Context) error {
 	}
 
 	e.initCommonBoxes(state)
-	if err := e.storage.Channels(func(channelID, pts int) {
+	if err := func() error {
 		e.chanMux.Lock()
-		e.channels[channelID] = e.createChannelState(channelID, pts)
-		e.chanMux.Unlock()
-	}); err != nil {
+		defer e.chanMux.Unlock()
+
+		return e.storage.Channels(func(channelID, pts int) {
+			e.channels[channelID] = e.createChannelState(channelID, pts)
+		})
+	}(); err != nil {
 		return err
 	}
 
