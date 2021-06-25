@@ -12,7 +12,10 @@ import (
 
 // HandleUpdates handles updates.
 func (e *Engine) HandleUpdates(u tg.UpdatesClass) error {
-	if e.closed.Load() {
+	e.shutdownMux.Lock()
+	closed := e.closed
+	e.shutdownMux.Unlock()
+	if closed {
 		return xerrors.Errorf("closed")
 	}
 
@@ -30,34 +33,24 @@ func (e *Engine) Run(ctx context.Context) error {
 		return err
 	}
 
-	if err := e.storage.Channels(func(channelID, pts int) {
+	e.initCommonBoxes(state)
+	if err := func() error {
 		e.chanMux.Lock()
-		e.channels[channelID] = e.createChannelState(channelID, pts)
-		e.chanMux.Unlock()
-	}); err != nil {
+		defer e.chanMux.Unlock()
+
+		return e.storage.Channels(func(channelID, pts int) {
+			e.channels[channelID] = e.createChannelState(channelID, pts)
+		})
+	}(); err != nil {
 		return err
 	}
 
-	e.initCommonBoxes(state)
-	e.chanMux.Lock()
-	for _, state := range e.channels {
-		state.pts.run()
-		state.recoverGap <- struct{}{}
-	}
-	e.chanMux.Unlock()
-
 	defer func() {
-		// Stop recover workers.
-		close(e.workers)
-		e.wg.Wait()
+		e.stopCommonBoxes()
 
-		// Stop sequence box workers.
-		e.seq.stop()
-		e.pts.stop()
-		e.qts.stop()
 		e.chanMux.Lock()
 		for _, state := range e.channels {
-			state.pts.stop()
+			state.stop()
 		}
 		e.chanMux.Unlock()
 
@@ -81,8 +74,10 @@ func (e *Engine) Run(ctx context.Context) error {
 
 	g.Go(func() error {
 		defer func() {
-			e.closed.Store(true)
+			e.shutdownMux.Lock()
 			close(e.uchan)
+			e.closed = true
+			e.shutdownMux.Unlock()
 		}()
 
 		<-ctx.Done()

@@ -152,7 +152,7 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 	for _, test := range tests {
 		applied := make([]update, 0)
 		box := newSequenceBox(sequenceConfig{
-			InitialState: 5,
+			InitialState: test.InitialState,
 			Apply: func(s int, u []update) error {
 				applied = append(applied, u...)
 				return nil

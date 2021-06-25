@@ -34,17 +34,19 @@ type Engine struct {
 
 	// Channels state.
 	channels map[int]*channelState
-	chanMux  sync.RWMutex
+	chanMux  sync.Mutex
 
 	// Channel access hashes.
 	// Needed to perform updates.getChannelDifference.
 	// Obtained lazily.
-	channelHash map[int]int64
-	hashMux     sync.RWMutex
+	channelHashes *hashStorage
 
 	uchan      chan tg.UpdatesClass
 	recoverGap chan struct{}
-	workers    chan struct{}
+
+	shutdownMux sync.Mutex
+	closed      bool
+	done        chan struct{}
 
 	diffLim int
 	selfID  int
@@ -56,7 +58,6 @@ type Engine struct {
 
 	ctx    context.Context
 	cancel context.CancelFunc
-	closed atomic.Bool
 
 	wg sync.WaitGroup
 }
@@ -69,11 +70,14 @@ func New(cfg Config) *Engine {
 	e := &Engine{
 		idleTimeout: time.NewTimer(idleTimeout),
 		channels:    map[int]*channelState{},
-		channelHash: map[int]int64{},
+		channelHashes: &hashStorage{
+			hasher: cfg.AccessHasher,
+			log:    cfg.Logger.Named("hasher"),
+		},
 
 		uchan:      make(chan tg.UpdatesClass, 10),
 		recoverGap: make(chan struct{}),
-		workers:    make(chan struct{}),
+		done:       make(chan struct{}),
 
 		diffLim: diffLimitUser,
 		selfID:  cfg.SelfID,
@@ -200,7 +204,7 @@ func (e *Engine) handleChannel(channelID, date, pts, ptsCount int, u tg.UpdateCl
 	if !ok {
 		state = e.createChannelState(channelID, pts-ptsCount)
 		e.channels[channelID] = state
-		if _, ok := e.getChannelAccessHash(channelID, date); ok {
+		if e.restoreHash(channelID, date) {
 			state.recoverGap <- struct{}{}
 		}
 	}
@@ -231,7 +235,7 @@ func (e *Engine) handleChannelTooLong(date int, long *tg.UpdateChannelTooLong) {
 
 		state = e.createChannelState(long.ChannelID, pts)
 		e.channels[long.ChannelID] = state
-		if _, ok := e.getChannelAccessHash(long.ChannelID, date); ok {
+		if e.restoreHash(long.ChannelID, date) {
 			state.recoverGap <- struct{}{}
 		}
 		return

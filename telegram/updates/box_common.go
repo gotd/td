@@ -29,16 +29,16 @@ func (e *Engine) initCommonBoxes(state State) {
 		Logger:       e.log.Named("seq"),
 	})
 
+	e.seq.run()
 	e.pts.run()
 	e.qts.run()
-	e.seq.run()
 
 	e.wg.Add(1)
 	go func() {
 		defer e.wg.Done()
 		for {
 			select {
-			case <-e.workers:
+			case <-e.done:
 				return
 
 			case <-e.recoverGap:
@@ -51,4 +51,13 @@ func (e *Engine) initCommonBoxes(state State) {
 			}
 		}
 	}()
+}
+
+func (e *Engine) stopCommonBoxes() {
+	close(e.done)
+	e.wg.Wait()
+
+	e.seq.stop()
+	e.pts.stop()
+	e.qts.stop()
 }

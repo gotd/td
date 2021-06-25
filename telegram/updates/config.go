@@ -18,13 +18,14 @@ type RawClient interface {
 
 // Config of the engine.
 type Config struct {
-	RawClient RawClient
-	Handler   Handler
-	Storage   Storage
-	SelfID    int
-	IsBot     bool
-	Forget    bool
-	Logger    *zap.Logger
+	RawClient    RawClient
+	Handler      Handler
+	Storage      Storage
+	AccessHasher AccessHasher
+	SelfID       int
+	IsBot        bool
+	Forget       bool
+	Logger       *zap.Logger
 }
 
 func (cfg *Config) setDefaults() {
@@ -36,6 +37,9 @@ func (cfg *Config) setDefaults() {
 	}
 	if cfg.Storage == nil {
 		cfg.Storage = NewMemStorage()
+	}
+	if cfg.AccessHasher == nil {
+		cfg.AccessHasher = newMemAccessHasher()
 	}
 	if cfg.Logger == nil {
 		cfg.Logger = zap.NewNop()

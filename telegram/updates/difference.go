@@ -34,14 +34,14 @@ func (e *Engine) recoverState() error {
 	return nil
 }
 
-func (e *Engine) recoverChannelState(channelID int, state *channelState) error {
+func (e *Engine) recoverChannelState(state *channelState) error {
 	if !state.recovering.CAS(false, true) {
 		return nil
 	}
 	defer state.recovering.Store(false)
 
-	log := e.log.With(zap.Int("channel_id", channelID))
-	accessHash, ok := e.getChannelAccessHash(channelID, 0)
+	log := e.log.With(zap.Int("channel_id", state.channelID))
+	accessHash, ok := e.channelHashes.Get(state.channelID)
 	if !ok {
 		return xerrors.Errorf("missing access hash")
 	}
@@ -50,7 +50,7 @@ func (e *Engine) recoverChannelState(channelID int, state *channelState) error {
 	defer state.pts.DisableRecoverMode()
 
 	log.Debug("Recovering state")
-	if err := e.getChannelDifference(channelID, accessHash, state); err != nil {
+	if err := e.getChannelDifference(state.channelID, accessHash, state); err != nil {
 		return xerrors.Errorf("getChannelDifference: %w", err)
 	}
 
@@ -275,45 +275,35 @@ func (e *Engine) getChannelDifference(channelID int, accessHash int64, state *ch
 }
 
 func (e *Engine) saveChannelHashes(source string, chats []tg.ChatClass) {
-	e.hashMux.Lock()
-	defer e.hashMux.Unlock()
-	e.saveChannelHashesNoMux(source, chats)
-}
-
-func (e *Engine) saveChannelHashesNoMux(source string, chats []tg.ChatClass) {
 	for _, c := range chats {
 		switch c := c.(type) {
 		case *tg.Channel:
 			if hash, ok := c.GetAccessHash(); ok && !c.Min {
-				if _, ok := e.channelHash[c.ID]; !ok {
+				if _, ok := e.channelHashes.Get(c.ID); !ok {
 					e.log.Debug("New channel access hash",
 						zap.Int("channel_id", c.ID),
 						zap.String("channel_name", c.Username),
 						zap.String("source", source),
 					)
+					e.channelHashes.Set(c.ID, hash)
 				}
-				e.channelHash[c.ID] = hash
 			}
 		case *tg.ChannelForbidden:
-			if _, ok := e.channelHash[c.ID]; !ok {
+			if _, ok := e.channelHashes.Get(c.ID); !ok {
 				e.log.Debug("New forbidden channel access hash",
 					zap.Int("channel_id", c.ID),
 					zap.String("channel_title", c.Title),
 					zap.String("source", source),
 				)
+				e.channelHashes.Set(c.ID, c.AccessHash)
 			}
-			e.channelHash[c.ID] = c.AccessHash
 		}
 	}
 }
 
-func (e *Engine) getChannelAccessHash(channelID, date int) (int64, bool) {
-	e.hashMux.Lock()
-	defer e.hashMux.Unlock()
-
+func (e *Engine) restoreHash(channelID, date int) bool {
 	log := e.log.With(zap.Int("channel_id", channelID))
-	accessHash, ok := e.channelHash[channelID]
-	if !ok {
+	if _, ok := e.channelHashes.Get(channelID); !ok {
 		if date == 0 {
 			// Update have no date, fallback to global.
 			date = e.getDate() - 31
@@ -326,24 +316,23 @@ func (e *Engine) getChannelAccessHash(channelID, date int) (int64, bool) {
 		})
 		if err != nil {
 			log.Warn("Restore access hash error", zap.Error(err))
-			return 0, false
+			return false
 		}
 
 		switch diff := diff.(type) {
 		case *tg.UpdatesDifference:
-			e.saveChannelHashesNoMux("UpdatesDifference", diff.Chats)
+			e.saveChannelHashes("UpdatesDifference", diff.Chats)
 		case *tg.UpdatesDifferenceSlice:
-			e.saveChannelHashesNoMux("UpdatesDifferenceSlice", diff.Chats)
+			e.saveChannelHashes("UpdatesDifferenceSlice", diff.Chats)
 		}
 
-		accessHash, ok = e.channelHash[channelID]
-		if !ok {
+		if _, ok = e.channelHashes.Get(channelID); !ok {
 			log.Warn("Failed to restore access hash: getDifference result does not contain expected hash")
-			return 0, false
+			return false
 		}
 	}
 
-	return accessHash, true
+	return true
 }
 
 func (e *Engine) getDate() int {

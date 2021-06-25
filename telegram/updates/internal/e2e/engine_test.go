@@ -26,7 +26,7 @@ func TestE2E(t *testing.T) {
 		)
 
 		var channels []*tg.PeerChannel
-		for i := 0; i < 0; i++ {
+		for i := 0; i < 30; i++ {
 			c := s.peers.createChannel(fmt.Sprintf("channel-%d", i))
 			require.NoError(t, storage.SetChannelPts(c.ChannelID, 0))
 			channels = append(channels, c)
