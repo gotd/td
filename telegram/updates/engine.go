@@ -39,8 +39,7 @@ type Engine struct {
 	// Channel access hashes.
 	// Needed to perform updates.getChannelDifference.
 	// Obtained lazily.
-	channelHash map[int]int64
-	hashMux     sync.Mutex
+	channelHashes *hashStorage
 
 	uchan      chan tg.UpdatesClass
 	recoverGap chan struct{}
@@ -71,7 +70,10 @@ func New(cfg Config) *Engine {
 	e := &Engine{
 		idleTimeout: time.NewTimer(idleTimeout),
 		channels:    map[int]*channelState{},
-		channelHash: map[int]int64{},
+		channelHashes: &hashStorage{
+			hasher: cfg.AccessHasher,
+			log:    cfg.Logger.Named("hasher"),
+		},
 
 		uchan:      make(chan tg.UpdatesClass, 10),
 		recoverGap: make(chan struct{}),

@@ -41,7 +41,7 @@ func (e *Engine) recoverChannelState(state *channelState) error {
 	defer state.recovering.Store(false)
 
 	log := e.log.With(zap.Int("channel_id", state.channelID))
-	accessHash, ok := e.getChannelAccessHash(state.channelID, 0)
+	accessHash, ok := e.channelHashes.Get(state.channelID)
 	if !ok {
 		return xerrors.Errorf("missing access hash")
 	}
@@ -275,44 +275,35 @@ func (e *Engine) getChannelDifference(channelID int, accessHash int64, state *ch
 }
 
 func (e *Engine) saveChannelHashes(source string, chats []tg.ChatClass) {
-	e.hashMux.Lock()
-	defer e.hashMux.Unlock()
-	e.saveChannelHashesNoMux(source, chats)
-}
-
-func (e *Engine) saveChannelHashesNoMux(source string, chats []tg.ChatClass) {
 	for _, c := range chats {
 		switch c := c.(type) {
 		case *tg.Channel:
 			if hash, ok := c.GetAccessHash(); ok && !c.Min {
-				if _, ok := e.channelHash[c.ID]; !ok {
+				if _, ok := e.channelHashes.Get(c.ID); !ok {
 					e.log.Debug("New channel access hash",
 						zap.Int("channel_id", c.ID),
 						zap.String("channel_name", c.Username),
 						zap.String("source", source),
 					)
+					e.channelHashes.Set(c.ID, hash)
 				}
-				e.channelHash[c.ID] = hash
 			}
 		case *tg.ChannelForbidden:
-			if _, ok := e.channelHash[c.ID]; !ok {
+			if _, ok := e.channelHashes.Get(c.ID); !ok {
 				e.log.Debug("New forbidden channel access hash",
 					zap.Int("channel_id", c.ID),
 					zap.String("channel_title", c.Title),
 					zap.String("source", source),
 				)
+				e.channelHashes.Set(c.ID, c.AccessHash)
 			}
-			e.channelHash[c.ID] = c.AccessHash
 		}
 	}
 }
 
 func (e *Engine) getChannelAccessHash(channelID, date int) (int64, bool) {
-	e.hashMux.Lock()
-	defer e.hashMux.Unlock()
-
 	log := e.log.With(zap.Int("channel_id", channelID))
-	accessHash, ok := e.channelHash[channelID]
+	accessHash, ok := e.channelHashes.Get(channelID)
 	if !ok {
 		if date == 0 {
 			// Update have no date, fallback to global.
@@ -331,12 +322,12 @@ func (e *Engine) getChannelAccessHash(channelID, date int) (int64, bool) {
 
 		switch diff := diff.(type) {
 		case *tg.UpdatesDifference:
-			e.saveChannelHashesNoMux("UpdatesDifference", diff.Chats)
+			e.saveChannelHashes("UpdatesDifference", diff.Chats)
 		case *tg.UpdatesDifferenceSlice:
-			e.saveChannelHashesNoMux("UpdatesDifferenceSlice", diff.Chats)
+			e.saveChannelHashes("UpdatesDifferenceSlice", diff.Chats)
 		}
 
-		accessHash, ok = e.channelHash[channelID]
+		accessHash, ok = e.channelHashes.Get(channelID)
 		if !ok {
 			log.Warn("Failed to restore access hash: getDifference result does not contain expected hash")
 			return 0, false
