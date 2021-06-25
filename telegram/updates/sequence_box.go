@@ -163,10 +163,15 @@ loop:
 		}
 	}
 
-	for i := 0; i < cursor; i++ {
+	// Trim processed updates. Setting zero values for the rest
+	// of the slice lets GC collect referenced objects.
+	end := len(s.pending)
+	trim := end - cursor
+	copy(s.pending, s.pending[cursor:])
+	for i := trim; i < end; i++ {
 		s.pending[i] = update{}
 	}
-	s.pending = s.pending[cursor:]
+	s.pending = s.pending[:trim]
 	if len(accepted) == 0 {
 		s.log.Warn("Empty buffer", zap.Any("pending", s.pending), zap.Int("state", s.state))
 		return nil
