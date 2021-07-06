@@ -2,8 +2,8 @@
 //
 // Source: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/Resources/tl/api.tl
 // Merge:  _schema/help_config_simple.tl
-// Layer:  129
-// SHA256: 0dbb81906dd35d803385decea91b1e103ba392cd16bff4c772d349735c94587c
+// Layer:  130
+// SHA256: d024dc994b05128e5f6b8770fe30bc3decf310fb5b3f41623c72c214e64ad5b5
 
 boolFalse#bc799737 = Bool;
 
@@ -893,9 +893,9 @@ keyboardButtonRow#77608b83 buttons:Vector<KeyboardButton> = KeyboardButtonRow;
 
 replyKeyboardHide#a03e5b85 flags:# selective:flags.2?true = ReplyMarkup;
 
-replyKeyboardForceReply#f4108aa0 flags:# single_use:flags.1?true selective:flags.2?true = ReplyMarkup;
+replyKeyboardForceReply#86b40b08 flags:# single_use:flags.1?true selective:flags.2?true placeholder:flags.3?string = ReplyMarkup;
 
-replyKeyboardMarkup#3502758c flags:# resize:flags.0?true single_use:flags.1?true selective:flags.2?true rows:Vector<KeyboardButtonRow> = ReplyMarkup;
+replyKeyboardMarkup#85dd99d1 flags:# resize:flags.0?true single_use:flags.1?true selective:flags.2?true rows:Vector<KeyboardButtonRow> placeholder:flags.3?string = ReplyMarkup;
 
 replyInlineMarkup#48a30254 rows:Vector<KeyboardButtonRow> = ReplyMarkup;
 
@@ -1809,6 +1809,22 @@ groupCallParticipantVideoSourceGroup#dcb118b7 semantics:string sources:Vector<in
 
 groupCallParticipantVideo#78e41663 flags:# paused:flags.0?true endpoint:string source_groups:Vector<GroupCallParticipantVideoSourceGroup> = GroupCallParticipantVideo;
 
+stickers.suggestedShortName#85fea03f short_name:string = stickers.SuggestedShortName;
+
+botCommandScopeDefault#2f6cb2ab = BotCommandScope;
+
+botCommandScopeUsers#3c4f04d8 = BotCommandScope;
+
+botCommandScopeChats#6fe1a881 = BotCommandScope;
+
+botCommandScopeChatAdmins#b9aa606a = BotCommandScope;
+
+botCommandScopePeer#db9d897d peer:InputPeer = BotCommandScope;
+
+botCommandScopePeerAdmins#3fd863d1 peer:InputPeer = BotCommandScope;
+
+botCommandScopePeerUser#a1321f3 peer:InputPeer user_id:InputUser = BotCommandScope;
+
 
 ---functions---
 
@@ -2478,7 +2494,11 @@ bots.sendCustomRequest#aa2769ed custom_method:string params:DataJSON = DataJSON;
 
 bots.answerWebhookJSONQuery#e6213f4d query_id:long data:DataJSON = Bool;
 
-bots.setBotCommands#805d46f6 commands:Vector<BotCommand> = Bool;
+bots.setBotCommands#517165a scope:BotCommandScope lang_code:string commands:Vector<BotCommand> = Bool;
+
+bots.resetBotCommands#3d8de0f9 scope:BotCommandScope lang_code:string = Bool;
+
+bots.getBotCommands#e34c0dd6 scope:BotCommandScope lang_code:string = Vector<BotCommand>;
 
 payments.getPaymentForm#8a333c8d flags:# peer:InputPeer msg_id:int theme_params:flags.0?DataJSON = payments.PaymentForm;
 
@@ -2494,7 +2514,7 @@ payments.clearSavedInfo#d83d70c1 flags:# credentials:flags.0?true info:flags.1?t
 
 payments.getBankCardData#2e79d779 number:string = payments.BankCardData;
 
-stickers.createStickerSet#f1036780 flags:# masks:flags.0?true animated:flags.1?true user_id:InputUser title:string short_name:string thumb:flags.2?InputDocument stickers:Vector<InputStickerSetItem> = messages.StickerSet;
+stickers.createStickerSet#9021ab67 flags:# masks:flags.0?true animated:flags.1?true user_id:InputUser title:string short_name:string thumb:flags.2?InputDocument stickers:Vector<InputStickerSetItem> software:flags.3?string = messages.StickerSet;
 
 stickers.removeStickerFromSet#f7760f51 sticker:InputDocument = messages.StickerSet;
 
@@ -2503,6 +2523,10 @@ stickers.changeStickerPosition#ffb6d4ca sticker:InputDocument position:int = mes
 stickers.addStickerToSet#8653febe stickerset:InputStickerSet sticker:InputStickerSetItem = messages.StickerSet;
 
 stickers.setStickerSetThumb#9a364e30 stickerset:InputStickerSet thumb:InputDocument = messages.StickerSet;
+
+stickers.checkShortName#284b3639 short_name:string = Bool;
+
+stickers.suggestShortName#4dafc503 title:string = stickers.SuggestedShortName;
 
 phone.getCallConfig#55451fa9 = DataJSON;
 
@@ -2595,4 +2619,4 @@ accessPointRule#4679b65f phone_prefix_rules:string dc_id:int ips:vector<IpPort> 
 
 help.configSimple#5a592a6c date:int expires:int rules:vector<AccessPointRule> = help.ConfigSimple;
 
-// LAYER 129
+// LAYER 130
