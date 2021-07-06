@@ -29,21 +29,31 @@ var (
 	_ = tgerr.Error{}
 )
 
-// BotsSetBotCommandsRequest represents TL type `bots.setBotCommands#805d46f6`.
+// BotsSetBotCommandsRequest represents TL type `bots.setBotCommands#517165a`.
 // Set bot command list
 //
 // See https://core.telegram.org/method/bots.setBotCommands for reference.
 type BotsSetBotCommandsRequest struct {
+	// Scope field of BotsSetBotCommandsRequest.
+	Scope BotCommandScopeClass
+	// LangCode field of BotsSetBotCommandsRequest.
+	LangCode string
 	// Bot commands
 	Commands []BotCommand
 }
 
 // BotsSetBotCommandsRequestTypeID is TL type id of BotsSetBotCommandsRequest.
-const BotsSetBotCommandsRequestTypeID = 0x805d46f6
+const BotsSetBotCommandsRequestTypeID = 0x517165a
 
 func (s *BotsSetBotCommandsRequest) Zero() bool {
 	if s == nil {
 		return true
+	}
+	if !(s.Scope == nil) {
+		return false
+	}
+	if !(s.LangCode == "") {
+		return false
 	}
 	if !(s.Commands == nil) {
 		return false
@@ -63,8 +73,12 @@ func (s *BotsSetBotCommandsRequest) String() string {
 
 // FillFrom fills BotsSetBotCommandsRequest from given interface.
 func (s *BotsSetBotCommandsRequest) FillFrom(from interface {
+	GetScope() (value BotCommandScopeClass)
+	GetLangCode() (value string)
 	GetCommands() (value []BotCommand)
 }) {
+	s.Scope = from.GetScope()
+	s.LangCode = from.GetLangCode()
 	s.Commands = from.GetCommands()
 }
 
@@ -92,6 +106,14 @@ func (s *BotsSetBotCommandsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Scope",
+			SchemaName: "scope",
+		},
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+		},
+		{
 			Name:       "Commands",
 			SchemaName: "commands",
 		},
@@ -102,7 +124,7 @@ func (s *BotsSetBotCommandsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *BotsSetBotCommandsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode bots.setBotCommands#805d46f6 as nil")
+		return fmt.Errorf("can't encode bots.setBotCommands#517165a as nil")
 	}
 	b.PutID(BotsSetBotCommandsRequestTypeID)
 	return s.EncodeBare(b)
@@ -111,15 +133,32 @@ func (s *BotsSetBotCommandsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *BotsSetBotCommandsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode bots.setBotCommands#805d46f6 as nil")
+		return fmt.Errorf("can't encode bots.setBotCommands#517165a as nil")
 	}
+	if s.Scope == nil {
+		return fmt.Errorf("unable to encode bots.setBotCommands#517165a: field scope is nil")
+	}
+	if err := s.Scope.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode bots.setBotCommands#517165a: field scope: %w", err)
+	}
+	b.PutString(s.LangCode)
 	b.PutVectorHeader(len(s.Commands))
 	for idx, v := range s.Commands {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode bots.setBotCommands#805d46f6: field commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bots.setBotCommands#517165a: field commands element with index %d: %w", idx, err)
 		}
 	}
 	return nil
+}
+
+// GetScope returns value of Scope field.
+func (s *BotsSetBotCommandsRequest) GetScope() (value BotCommandScopeClass) {
+	return s.Scope
+}
+
+// GetLangCode returns value of LangCode field.
+func (s *BotsSetBotCommandsRequest) GetLangCode() (value string) {
+	return s.LangCode
 }
 
 // GetCommands returns value of Commands field.
@@ -130,10 +169,10 @@ func (s *BotsSetBotCommandsRequest) GetCommands() (value []BotCommand) {
 // Decode implements bin.Decoder.
 func (s *BotsSetBotCommandsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode bots.setBotCommands#805d46f6 to nil")
+		return fmt.Errorf("can't decode bots.setBotCommands#517165a to nil")
 	}
 	if err := b.ConsumeID(BotsSetBotCommandsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode bots.setBotCommands#805d46f6: %w", err)
+		return fmt.Errorf("unable to decode bots.setBotCommands#517165a: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -141,17 +180,31 @@ func (s *BotsSetBotCommandsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *BotsSetBotCommandsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode bots.setBotCommands#805d46f6 to nil")
+		return fmt.Errorf("can't decode bots.setBotCommands#517165a to nil")
+	}
+	{
+		value, err := DecodeBotCommandScope(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode bots.setBotCommands#517165a: field scope: %w", err)
+		}
+		s.Scope = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode bots.setBotCommands#517165a: field lang_code: %w", err)
+		}
+		s.LangCode = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.setBotCommands#805d46f6: field commands: %w", err)
+			return fmt.Errorf("unable to decode bots.setBotCommands#517165a: field commands: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode bots.setBotCommands#805d46f6: field commands: %w", err)
+				return fmt.Errorf("unable to decode bots.setBotCommands#517165a: field commands: %w", err)
 			}
 			s.Commands = append(s.Commands, value)
 		}
@@ -167,17 +220,14 @@ var (
 	_ bin.BareDecoder = &BotsSetBotCommandsRequest{}
 )
 
-// BotsSetBotCommands invokes method bots.setBotCommands#805d46f6 returning error if any.
+// BotsSetBotCommands invokes method bots.setBotCommands#517165a returning error if any.
 // Set bot command list
 //
 // See https://core.telegram.org/method/bots.setBotCommands for reference.
 // Can be used by bots.
-func (c *Client) BotsSetBotCommands(ctx context.Context, commands []BotCommand) (bool, error) {
+func (c *Client) BotsSetBotCommands(ctx context.Context, request *BotsSetBotCommandsRequest) (bool, error) {
 	var result BoolBox
 
-	request := &BotsSetBotCommandsRequest{
-		Commands: commands,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}
