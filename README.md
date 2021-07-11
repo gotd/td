@@ -53,7 +53,7 @@ This project is fully non-commercial and not affiliated with any commercial orga
 
 ## Examples
 
-See `examples` directory.
+See [examples](examples) directory.
 
 Also take a look at
 * [gotd/bot](https://github.com/gotd/bot) with updates recovery enabled, used as canary for stability testing
