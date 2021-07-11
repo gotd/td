@@ -219,7 +219,7 @@ Status by 11.07.2021
 | Features        | MTProxy support, websocket transport, helpers for uploads, downloads, messages, text styling, datacenter redirects handling and more, but you can still use raw API | Raw MTProto API |
 | Platforms       | All platforms including WASM and special stability features for Windows that considers clock resolution | Limited support for Windows |
 | Performance     | Multiple optimizations for zero allocations | Uses reflection in runtime |
-| Stability       | Lots of unit tests (237 tests, 943 including subtests), e2e tests with self-made Telegram server in go, e2e tests with real staging server | 12 unit tests, 41 including sub-tests
+| Stability       | Lots of unit tests (237 tests, 943 including subtests), e2e tests with self-made Telegram server in go, e2e tests with real staging server, fuzzing | 12 unit tests, 41 including sub-tests
 | Github stars    | Has only 173 stars | Has 631 stars, which is much higher
 
 ## License
