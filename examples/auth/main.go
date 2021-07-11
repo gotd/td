@@ -1,4 +1,7 @@
 // Binary termAuth implements authentication example for user using terminal.
+//
+// +build !windows
+
 package main
 
 import (
