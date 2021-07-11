@@ -3,10 +3,13 @@
 Please use [project](https://github.com/gotd/td/projects) as source of truth for
 features status.
 
-## Current focus: [Update management](https://github.com/gotd/td/issues/91)
+## Current focus: documentation
 
-Implement robust update dispatcher and helpers for it.
+Epic: [#166](https://github.com/gotd/td/issues/166)
 
-## Secondary focus: media
+Add documentation for every helper
 
-Implement helpers for uploading or downloading media.
+## Secondary focus: sugared client
+
+Design an API for sugared client that will bundle helpers.
+
