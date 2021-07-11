@@ -14,7 +14,7 @@ Please don't share `APP_ID` or `APP_HASH`, it can't be easily rotated.
 | [auth](auth/main.go)                        | User authentication from terminal input | Custom `UserAuthenticator`
 | [bot-auth-manual](bot-auth-manual/main.go)  | Bot authentication  | `session.Storage`, setup without environment variables
 | [bot-echo](bot-echo/main.go)                | Echo bot            | UpdateDispatcher, message sender
-| [bot-upload](bot-upload/main.go)            | One-shot uploader for bot | Uploads with MIME, custom file name and as audio, resolving peer by username, HTML message
+| [bot-upload](bot-upload/main.go)            | One-shot uploader for bot | NoUpdates flag, uploads with MIME, custom file name and as audio, resolving peer by username, HTML message
 
 ## Environment variables
 

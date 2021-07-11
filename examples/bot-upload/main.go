@@ -77,6 +77,9 @@ func main() {
 
 			return nil
 		}
-		return telegram.BotFromEnvironment(ctx, telegram.Options{Logger: log}, nil, performUpload)
+		return telegram.BotFromEnvironment(ctx, telegram.Options{
+			Logger:    log,
+			NoUpdates: true, // don't subscribe to updates in one-shot mode
+		}, nil, performUpload)
 	})
 }
