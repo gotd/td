@@ -2,6 +2,7 @@
 
 Fast Telegram client fully in go.
 
+* [Examples](examples)
 * [Security policy](.github/SECURITY.md)
 * [User support and dev chat](.github/SUPPORT.md)
 * [Roadmap](ROADMAP.md)
@@ -20,6 +21,8 @@ providing simple and convenient API, including feature parity with TDLib.
 
 This project is fully non-commercial and not affiliated with any commercial organization
 (including Telegram LLC).
+
+Also see [comparison](#difference-to-other-projects) with other Go Telegram clients.
 
 ## Features
 
