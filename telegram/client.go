@@ -109,10 +109,8 @@ type Client struct {
 	cancel context.CancelFunc
 
 	// Client config.
-	appID int // immutable
-
-	// Deprecated: use auth package.
-	appHash string // immutable, deprecated
+	appID   int    // immutable
+	appHash string // immutable
 	// Session storage.
 	storage clientStorage // immutable, nillable
 
