@@ -168,7 +168,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 		e.mux.Unlock()
 
 		if err := e.drop(req); err != nil {
-			log.Warn("Failed to drop request", zap.Error(err))
+			log.Info("Failed to drop request", zap.Error(err))
 			return ctx.Err()
 		}
 
