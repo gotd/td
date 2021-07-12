@@ -105,8 +105,8 @@ type Client struct {
 	clock clock.Clock // immutable
 
 	// Client context. Will be canceled by Run on exit.
-	ctx    context.Context    // immutable
-	cancel context.CancelFunc // immutable
+	ctx    context.Context
+	cancel context.CancelFunc
 
 	// Client config.
 	appID int // immutable
@@ -161,12 +161,9 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	if opt.NoUpdates {
 		mode = manager.ConnModeData
 	}
-	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
 		rand:          opt.Random,
 		log:           opt.Logger,
-		ctx:           clientCtx,
-		cancel:        clientCancel,
 		appID:         appID,
 		appHash:       appHash,
 		updateHandler: opt.UpdateHandler,
@@ -369,17 +366,23 @@ func (c *Client) resetReady() {
 	c.ready.Reset()
 }
 
-// Run starts client session and block until connection close.
+// Run starts client session and blocks until connection close.
 // The f callback is called on successful session initialization and Run
 // will return on f() result.
 //
 // Context of callback will be canceled if fatal error is detected.
 func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (err error) {
-	select {
-	case <-c.ctx.Done():
-		return xerrors.Errorf("client already closed: %w", c.ctx.Err())
-	default:
+	if c.ctx != nil {
+		select {
+		case <-c.ctx.Done():
+			return xerrors.Errorf("client already closed: %w", c.ctx.Err())
+		default:
+		}
 	}
+
+	// Setting up client context for background operations like updates
+	// handling or pool creation.
+	c.ctx, c.cancel = context.WithCancel(ctx)
 
 	c.log.Info("Starting")
 	defer c.log.Info("Closed")
