@@ -15,6 +15,7 @@ Please don't share `APP_ID` or `APP_HASH`, it can't be easily rotated.
 | [bot-auth-manual](bot-auth-manual/main.go)  | Bot authentication  | `session.Storage`, setup without environment variables
 | [bot-echo](bot-echo/main.go)                | Echo bot            | UpdateDispatcher, message sender
 | [bot-upload](bot-upload/main.go)            | One-shot uploader for bot | NoUpdates flag, uploads with MIME, custom file name and as audio, resolving peer by username, HTML message
+| [gif-download](gif-download/main.go)        | Saved gif backup (and restore) for user | Download, upload, middlewares with rate limit, unpack
 
 ## Environment variables
 
