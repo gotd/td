@@ -1,7 +1,4 @@
-// Binary termAuth implements authentication example for user using terminal.
-//
-// +build !windows
-
+// Binary auth implements authentication example for user using terminal.
 package main
 
 import (
@@ -11,7 +8,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"syscall"
 
 	"go.uber.org/zap"
 	"golang.org/x/crypto/ssh/terminal"
@@ -47,7 +43,7 @@ func (a termAuth) Phone(_ context.Context) (string, error) {
 
 func (a termAuth) Password(_ context.Context) (string, error) {
 	fmt.Print("Enter 2FA password: ")
-	bytePwd, err := terminal.ReadPassword(syscall.Stdin)
+	bytePwd, err := terminal.ReadPassword(0)
 	if err != nil {
 		return "", err
 	}
