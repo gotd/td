@@ -33,7 +33,10 @@ func (p ProtocolErr) Error() string {
 	}
 }
 
-const maxMessageSize = 1024 * 1024 // 1mb
+// Can be bigger that 1mb.
+//
+// See https://github.com/gotd/td/issues/412
+const maxMessageSize = (1024 + 512) * 1024 // ~1.5mb
 
 func checkOutgoingMessage(b *bin.Buffer) error {
 	length := b.Len()

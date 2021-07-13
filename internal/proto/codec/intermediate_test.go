@@ -27,7 +27,7 @@ func TestIntermediate(t *testing.T) {
 		codec := Intermediate{}
 		t.Run("Read", func(t *testing.T) {
 			var b bin.Buffer
-			b.PutInt(1024*1024 + 10)
+			b.PutInt((1024+512)*1024 + 10)
 
 			var out bin.Buffer
 			if err := codec.Read(&b, &out); !errors.Is(err, invalidMsgLenErr{}) {
