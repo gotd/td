@@ -11,6 +11,27 @@ Fast Telegram client fully in go.
 
 Before using this library, read [How Not To Get Banned](.github/SUPPORT.md#how-not-to-get-banned) guide.
 
+## Usage
+
+```console
+$ go get github.com/gotd/td/telegram
+```
+
+```go
+client := telegram.NewClient(appID, appHash, telegram.Options{})
+client.Run(ctx, func(ctx context) error {
+	api := tg.NewClient(client)
+
+	// Now you can invoke MTProto RPC requests by calling api.
+	// ...
+
+	// Return to close client connection and free up resources.
+	return nil
+})
+```
+
+See [examples](examples) for more info.
+
 ## Status
 
 Work is still in progress (mostly helpers and convenience wrappers), but basic functionality were tested in production and works fine.

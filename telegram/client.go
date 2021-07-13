@@ -369,6 +369,10 @@ func (c *Client) resetReady() {
 // will return on f() result.
 //
 // Context of callback will be canceled if fatal error is detected.
+// The ctx is used for background operations like updates handling or pools.
+//
+// See `examples/bg-run` and `contrib/gb` package for classic approach without
+// explicit callback, with Connect and defer close().
 func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (err error) {
 	if c.ctx != nil {
 		select {
