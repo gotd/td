@@ -123,7 +123,11 @@ func (opt *Options) setDefaults() {
 		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now)
 	}
 	if opt.UpdateHandler == nil {
-		// opt.NoUpdates = true
+		// No updates handler passed, so no sense to subscribe for updates.
+		// User should explicitly ignore updates using custom UpdateHandler.
+		opt.NoUpdates = true
+
+		// Using no-op handler.
 		opt.UpdateHandler = UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
 			return nil
 		})
