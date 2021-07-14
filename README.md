@@ -19,7 +19,7 @@ $ go get github.com/gotd/td/telegram
 
 ```go
 client := telegram.NewClient(appID, appHash, telegram.Options{})
-client.Run(ctx, func(ctx context) error {
+client.Run(ctx, func(ctx context.Context) error {
 	api := tg.NewClient(client)
 
 	// Now you can invoke MTProto RPC requests by calling api.
