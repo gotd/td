@@ -5,6 +5,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
@@ -14,6 +15,7 @@ import (
 	"github.com/gotd/td/internal/pool"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 type protoConn interface {
@@ -67,6 +69,8 @@ type Conn struct {
 	sessionInit *tdsync.Ready // immutable
 	gotConfig   *tdsync.Ready // immutable
 	dead        *tdsync.Ready // immutable
+
+	connBackoff func(ctx context.Context) backoff.BackOff // immutable
 }
 
 // OnSession implements mtproto.Handler.
@@ -201,8 +205,26 @@ func (c *Conn) init(ctx context.Context) error {
 	})
 
 	var cfg tg.Config
-	if err := c.proto.Invoke(ctx, req, &cfg); err != nil {
-		return xerrors.Errorf("invoke: %w", err)
+	if err := backoff.RetryNotify(func() error {
+		if err := c.proto.Invoke(ctx, req, &cfg); err != nil {
+			if tgerr.Is(err, tgerr.ErrFloodWait) {
+				// Server sometimes returns FLOOD_WAIT(0) if you create
+				// multiple connections in short period of time.
+				//
+				// See https://github.com/gotd/td/issues/388.
+				return xerrors.Errorf("flood wait: %w", err)
+			}
+			// Not retrying other errors.
+			return backoff.Permanent(xerrors.Errorf("invoke: %w", err))
+		}
+
+		return nil
+	}, c.connBackoff(ctx), func(err error, duration time.Duration) {
+		c.log.Debug("Retrying connection initialization",
+			zap.Error(err), zap.Duration("duration", duration),
+		)
+	}); err != nil {
+		return xerrors.Errorf("initConnection: %w", err)
 	}
 
 	if c.setup != nil {
