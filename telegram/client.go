@@ -486,10 +486,6 @@ func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
 		return nil
 	}
 
-	if err := c.saveSession(cfg, s); err != nil {
-		return xerrors.Errorf("save: %w", err)
-	}
-
 	c.connMux.Lock()
 	c.session.Store(pool.Session{
 		DC:      cfg.ThisDC,
@@ -499,6 +495,10 @@ func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
 	c.cfg.Store(cfg)
 	c.onReady()
 	c.connMux.Unlock()
+
+	if err := c.saveSession(cfg, s); err != nil {
+		return xerrors.Errorf("save: %w", err)
+	}
 
 	return nil
 }
