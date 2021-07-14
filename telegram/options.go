@@ -35,6 +35,8 @@ type Options struct {
 	// Resolver to use.
 	Resolver dcs.Resolver
 	// NoUpdates enables no updates mode.
+	//
+	// Enabled by default if no UpdateHandler is provided.
 	NoUpdates bool
 	// ReconnectionBackoff configures and returns reconnection backoff object.
 	ReconnectionBackoff func() backoff.BackOff
