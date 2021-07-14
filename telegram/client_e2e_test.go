@@ -70,6 +70,10 @@ func testCluster(
 			return run(ctx, clientSetup{
 				TB: t,
 				Options: telegram.Options{
+					UpdateHandler: telegram.UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
+						// No-op update handler.
+						return nil
+					}),
 					PublicKeys:     c.Keys(),
 					Resolver:       dcs.Plain(dcs.PlainOptions{Protocol: p}),
 					Logger:         log.Named("client"),
