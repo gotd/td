@@ -2,7 +2,11 @@ package manager
 
 import (
 	"context"
+	"time"
 
+	"github.com/cenkalti/backoff/v4"
+
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/tg"
@@ -17,16 +21,30 @@ type ConnOptions struct {
 	Device  DeviceConfig
 	Handler Handler
 	Setup   SetupCallback
+	Backoff func(ctx context.Context) backoff.BackOff
 }
 
-// SetDefaults sets default values.
-func (c *ConnOptions) SetDefaults() {
+func defaultBackoff(c clock.Clock) func(ctx context.Context) backoff.BackOff {
+	return func(ctx context.Context) backoff.BackOff {
+		b := backoff.NewExponentialBackOff()
+		b.Clock = c
+		b.MaxElapsedTime = time.Second * 30
+		b.MaxInterval = time.Second * 5
+		return backoff.WithContext(b, ctx)
+	}
+}
+
+// setDefaults sets default values.
+func (c *ConnOptions) setDefaults(connClock clock.Clock) {
 	if c.DC == 0 {
 		c.DC = 2
 	}
 	c.Device.SetDefaults()
 	if c.Handler == nil {
 		c.Handler = NoopHandler{}
+	}
+	if c.Backoff == nil {
+		c.Backoff = defaultBackoff(connClock)
 	}
 }
 
@@ -38,7 +56,7 @@ func CreateConn(
 	opts mtproto.Options,
 	connOpts ConnOptions,
 ) *Conn {
-	connOpts.SetDefaults()
+	connOpts.setDefaults(opts.Clock)
 	conn := &Conn{
 		mode:        mode,
 		appID:       appID,
@@ -49,6 +67,7 @@ func CreateConn(
 		gotConfig:   tdsync.NewReady(),
 		dead:        tdsync.NewReady(),
 		setup:       connOpts.Setup,
+		connBackoff: connOpts.Backoff,
 	}
 
 	conn.log = opts.Logger
