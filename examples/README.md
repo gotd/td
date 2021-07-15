@@ -3,7 +3,7 @@
 Most examples use environment variable client builders.
 You can do it manually, see `bot-auth-manual` for example.
 
-1. Go to [https://my.telegram.org/apps](https://my.telegram.org/apps) and grab `APP_ID`, `APP_HASH`
+1. Obtain [api_id and api_hash](https://core.telegram.org/api/obtaining_api_id) for your application and set as `APP_ID`, `APP_HASH`
 2. Set `SESSION_FILE` to something like `~/session.yourbot.json` for persistent auth
 3. Run example.
 
@@ -22,7 +22,7 @@ Please don't share `APP_ID` or `APP_HASH`, it can't be easily rotated.
 
 | Name             | Description
 |------------------|---------------
-| `BOT_TOKEN`      | Token from [BotFather](https://telegram.me/BotFather)
+| `BOT_TOKEN`      | Token from [BotFather](https://core.telegram.org/bots#6-botfather)
 | `APP_ID`         | **api_id** of Telegram app from [my.telegram.org](https://my.telegram.org/apps)
 | `APP_HASH`       | **api_hash** of Telegram app from [my.telegram.org](https://my.telegram.org/apps)
 | `SESSION_FILE`   | Path to session file, like `/home/super-bot/.gotd/session.super-bot.json`
