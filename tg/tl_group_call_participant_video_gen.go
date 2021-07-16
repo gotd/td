@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// GroupCallParticipantVideo represents TL type `groupCallParticipantVideo#78e41663`.
+// GroupCallParticipantVideo represents TL type `groupCallParticipantVideo#67753ac8`.
 //
 // See https://core.telegram.org/constructor/groupCallParticipantVideo for reference.
 type GroupCallParticipantVideo struct {
@@ -41,10 +41,14 @@ type GroupCallParticipantVideo struct {
 	Endpoint string
 	// SourceGroups field of GroupCallParticipantVideo.
 	SourceGroups []GroupCallParticipantVideoSourceGroup
+	// AudioSource field of GroupCallParticipantVideo.
+	//
+	// Use SetAudioSource and GetAudioSource helpers.
+	AudioSource int
 }
 
 // GroupCallParticipantVideoTypeID is TL type id of GroupCallParticipantVideo.
-const GroupCallParticipantVideoTypeID = 0x78e41663
+const GroupCallParticipantVideoTypeID = 0x67753ac8
 
 func (g *GroupCallParticipantVideo) Zero() bool {
 	if g == nil {
@@ -60,6 +64,9 @@ func (g *GroupCallParticipantVideo) Zero() bool {
 		return false
 	}
 	if !(g.SourceGroups == nil) {
+		return false
+	}
+	if !(g.AudioSource == 0) {
 		return false
 	}
 
@@ -80,10 +87,15 @@ func (g *GroupCallParticipantVideo) FillFrom(from interface {
 	GetPaused() (value bool)
 	GetEndpoint() (value string)
 	GetSourceGroups() (value []GroupCallParticipantVideoSourceGroup)
+	GetAudioSource() (value int, ok bool)
 }) {
 	g.Paused = from.GetPaused()
 	g.Endpoint = from.GetEndpoint()
 	g.SourceGroups = from.GetSourceGroups()
+	if val, ok := from.GetAudioSource(); ok {
+		g.AudioSource = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -122,6 +134,11 @@ func (g *GroupCallParticipantVideo) TypeInfo() tdp.Type {
 			Name:       "SourceGroups",
 			SchemaName: "source_groups",
 		},
+		{
+			Name:       "AudioSource",
+			SchemaName: "audio_source",
+			Null:       !g.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -129,7 +146,7 @@ func (g *GroupCallParticipantVideo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GroupCallParticipantVideo) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipantVideo#78e41663 as nil")
+		return fmt.Errorf("can't encode groupCallParticipantVideo#67753ac8 as nil")
 	}
 	b.PutID(GroupCallParticipantVideoTypeID)
 	return g.EncodeBare(b)
@@ -138,20 +155,26 @@ func (g *GroupCallParticipantVideo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GroupCallParticipantVideo) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipantVideo#78e41663 as nil")
+		return fmt.Errorf("can't encode groupCallParticipantVideo#67753ac8 as nil")
 	}
 	if !(g.Paused == false) {
 		g.Flags.Set(0)
 	}
+	if !(g.AudioSource == 0) {
+		g.Flags.Set(1)
+	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode groupCallParticipantVideo#78e41663: field flags: %w", err)
+		return fmt.Errorf("unable to encode groupCallParticipantVideo#67753ac8: field flags: %w", err)
 	}
 	b.PutString(g.Endpoint)
 	b.PutVectorHeader(len(g.SourceGroups))
 	for idx, v := range g.SourceGroups {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode groupCallParticipantVideo#78e41663: field source_groups element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode groupCallParticipantVideo#67753ac8: field source_groups element with index %d: %w", idx, err)
 		}
+	}
+	if g.Flags.Has(1) {
+		b.PutInt(g.AudioSource)
 	}
 	return nil
 }
@@ -182,13 +205,28 @@ func (g *GroupCallParticipantVideo) GetSourceGroups() (value []GroupCallParticip
 	return g.SourceGroups
 }
 
+// SetAudioSource sets value of AudioSource conditional field.
+func (g *GroupCallParticipantVideo) SetAudioSource(value int) {
+	g.Flags.Set(1)
+	g.AudioSource = value
+}
+
+// GetAudioSource returns value of AudioSource conditional field and
+// boolean which is true if field was set.
+func (g *GroupCallParticipantVideo) GetAudioSource() (value int, ok bool) {
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return g.AudioSource, true
+}
+
 // Decode implements bin.Decoder.
 func (g *GroupCallParticipantVideo) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipantVideo#78e41663 to nil")
+		return fmt.Errorf("can't decode groupCallParticipantVideo#67753ac8 to nil")
 	}
 	if err := b.ConsumeID(GroupCallParticipantVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCallParticipantVideo#78e41663: %w", err)
+		return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -196,33 +234,40 @@ func (g *GroupCallParticipantVideo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GroupCallParticipantVideo) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipantVideo#78e41663 to nil")
+		return fmt.Errorf("can't decode groupCallParticipantVideo#67753ac8 to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipantVideo#78e41663: field flags: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: field flags: %w", err)
 		}
 	}
 	g.Paused = g.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipantVideo#78e41663: field endpoint: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: field endpoint: %w", err)
 		}
 		g.Endpoint = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipantVideo#78e41663: field source_groups: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: field source_groups: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value GroupCallParticipantVideoSourceGroup
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode groupCallParticipantVideo#78e41663: field source_groups: %w", err)
+				return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: field source_groups: %w", err)
 			}
 			g.SourceGroups = append(g.SourceGroups, value)
 		}
+	}
+	if g.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: field audio_source: %w", err)
+		}
+		g.AudioSource = value
 	}
 	return nil
 }

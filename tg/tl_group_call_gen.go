@@ -208,7 +208,7 @@ var (
 	_ GroupCallClass = &GroupCallDiscarded{}
 )
 
-// GroupCall represents TL type `groupCall#653dbaad`.
+// GroupCall represents TL type `groupCall#d597650c`.
 //
 // See https://core.telegram.org/constructor/groupCall for reference.
 type GroupCall struct {
@@ -246,12 +246,18 @@ type GroupCall struct {
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
+	// UnmutedVideoCount field of GroupCall.
+	//
+	// Use SetUnmutedVideoCount and GetUnmutedVideoCount helpers.
+	UnmutedVideoCount int
+	// UnmutedVideoLimit field of GroupCall.
+	UnmutedVideoLimit int
 	// Version field of GroupCall.
 	Version int
 }
 
 // GroupCallTypeID is TL type id of GroupCall.
-const GroupCallTypeID = 0x653dbaad
+const GroupCallTypeID = 0xd597650c
 
 func (g *GroupCall) Zero() bool {
 	if g == nil {
@@ -296,6 +302,12 @@ func (g *GroupCall) Zero() bool {
 	if !(g.ScheduleDate == 0) {
 		return false
 	}
+	if !(g.UnmutedVideoCount == 0) {
+		return false
+	}
+	if !(g.UnmutedVideoLimit == 0) {
+		return false
+	}
 	if !(g.Version == 0) {
 		return false
 	}
@@ -326,6 +338,8 @@ func (g *GroupCall) FillFrom(from interface {
 	GetStreamDCID() (value int, ok bool)
 	GetRecordStartDate() (value int, ok bool)
 	GetScheduleDate() (value int, ok bool)
+	GetUnmutedVideoCount() (value int, ok bool)
+	GetUnmutedVideoLimit() (value int)
 	GetVersion() (value int)
 }) {
 	g.JoinMuted = from.GetJoinMuted()
@@ -352,6 +366,11 @@ func (g *GroupCall) FillFrom(from interface {
 		g.ScheduleDate = val
 	}
 
+	if val, ok := from.GetUnmutedVideoCount(); ok {
+		g.UnmutedVideoCount = val
+	}
+
+	g.UnmutedVideoLimit = from.GetUnmutedVideoLimit()
 	g.Version = from.GetVersion()
 }
 
@@ -436,6 +455,15 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(7),
 		},
 		{
+			Name:       "UnmutedVideoCount",
+			SchemaName: "unmuted_video_count",
+			Null:       !g.Flags.Has(10),
+		},
+		{
+			Name:       "UnmutedVideoLimit",
+			SchemaName: "unmuted_video_limit",
+		},
+		{
 			Name:       "Version",
 			SchemaName: "version",
 		},
@@ -446,7 +474,7 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GroupCall) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCall#653dbaad as nil")
+		return fmt.Errorf("can't encode groupCall#d597650c as nil")
 	}
 	b.PutID(GroupCallTypeID)
 	return g.EncodeBare(b)
@@ -455,7 +483,7 @@ func (g *GroupCall) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCall#653dbaad as nil")
+		return fmt.Errorf("can't encode groupCall#d597650c as nil")
 	}
 	if !(g.JoinMuted == false) {
 		g.Flags.Set(1)
@@ -484,8 +512,11 @@ func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
 	if !(g.ScheduleDate == 0) {
 		g.Flags.Set(7)
 	}
+	if !(g.UnmutedVideoCount == 0) {
+		g.Flags.Set(10)
+	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode groupCall#653dbaad: field flags: %w", err)
+		return fmt.Errorf("unable to encode groupCall#d597650c: field flags: %w", err)
 	}
 	b.PutLong(g.ID)
 	b.PutLong(g.AccessHash)
@@ -502,6 +533,10 @@ func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
 	if g.Flags.Has(7) {
 		b.PutInt(g.ScheduleDate)
 	}
+	if g.Flags.Has(10) {
+		b.PutInt(g.UnmutedVideoCount)
+	}
+	b.PutInt(g.UnmutedVideoLimit)
 	b.PutInt(g.Version)
 	return nil
 }
@@ -661,6 +696,26 @@ func (g *GroupCall) GetScheduleDate() (value int, ok bool) {
 	return g.ScheduleDate, true
 }
 
+// SetUnmutedVideoCount sets value of UnmutedVideoCount conditional field.
+func (g *GroupCall) SetUnmutedVideoCount(value int) {
+	g.Flags.Set(10)
+	g.UnmutedVideoCount = value
+}
+
+// GetUnmutedVideoCount returns value of UnmutedVideoCount conditional field and
+// boolean which is true if field was set.
+func (g *GroupCall) GetUnmutedVideoCount() (value int, ok bool) {
+	if !g.Flags.Has(10) {
+		return value, false
+	}
+	return g.UnmutedVideoCount, true
+}
+
+// GetUnmutedVideoLimit returns value of UnmutedVideoLimit field.
+func (g *GroupCall) GetUnmutedVideoLimit() (value int) {
+	return g.UnmutedVideoLimit
+}
+
 // GetVersion returns value of Version field.
 func (g *GroupCall) GetVersion() (value int) {
 	return g.Version
@@ -669,10 +724,10 @@ func (g *GroupCall) GetVersion() (value int) {
 // Decode implements bin.Decoder.
 func (g *GroupCall) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCall#653dbaad to nil")
+		return fmt.Errorf("can't decode groupCall#d597650c to nil")
 	}
 	if err := b.ConsumeID(GroupCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCall#653dbaad: %w", err)
+		return fmt.Errorf("unable to decode groupCall#d597650c: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -680,11 +735,11 @@ func (g *GroupCall) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCall#653dbaad to nil")
+		return fmt.Errorf("can't decode groupCall#d597650c to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCall#653dbaad: field flags: %w", err)
+			return fmt.Errorf("unable to decode groupCall#d597650c: field flags: %w", err)
 		}
 	}
 	g.JoinMuted = g.Flags.Has(1)
@@ -695,56 +750,70 @@ func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#653dbaad: field id: %w", err)
+			return fmt.Errorf("unable to decode groupCall#d597650c: field id: %w", err)
 		}
 		g.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#653dbaad: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode groupCall#d597650c: field access_hash: %w", err)
 		}
 		g.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#653dbaad: field participants_count: %w", err)
+			return fmt.Errorf("unable to decode groupCall#d597650c: field participants_count: %w", err)
 		}
 		g.ParticipantsCount = value
 	}
 	if g.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#653dbaad: field title: %w", err)
+			return fmt.Errorf("unable to decode groupCall#d597650c: field title: %w", err)
 		}
 		g.Title = value
 	}
 	if g.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#653dbaad: field stream_dc_id: %w", err)
+			return fmt.Errorf("unable to decode groupCall#d597650c: field stream_dc_id: %w", err)
 		}
 		g.StreamDCID = value
 	}
 	if g.Flags.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#653dbaad: field record_start_date: %w", err)
+			return fmt.Errorf("unable to decode groupCall#d597650c: field record_start_date: %w", err)
 		}
 		g.RecordStartDate = value
 	}
 	if g.Flags.Has(7) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#653dbaad: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode groupCall#d597650c: field schedule_date: %w", err)
 		}
 		g.ScheduleDate = value
+	}
+	if g.Flags.Has(10) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field unmuted_video_count: %w", err)
+		}
+		g.UnmutedVideoCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#653dbaad: field version: %w", err)
+			return fmt.Errorf("unable to decode groupCall#d597650c: field unmuted_video_limit: %w", err)
+		}
+		g.UnmutedVideoLimit = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field version: %w", err)
 		}
 		g.Version = value
 	}
@@ -775,7 +844,7 @@ var (
 //  }
 //  switch v := g.(type) {
 //  case *tg.GroupCallDiscarded: // groupCallDiscarded#7780bcb4
-//  case *tg.GroupCall: // groupCall#653dbaad
+//  case *tg.GroupCall: // groupCall#d597650c
 //  default: panic(v)
 //  }
 type GroupCallClass interface {
@@ -827,7 +896,7 @@ func DecodeGroupCall(buf *bin.Buffer) (GroupCallClass, error) {
 		}
 		return &v, nil
 	case GroupCallTypeID:
-		// Decoding groupCall#653dbaad.
+		// Decoding groupCall#d597650c.
 		v := GroupCall{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode GroupCallClass: %w", err)

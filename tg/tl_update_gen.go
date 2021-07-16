@@ -17526,6 +17526,201 @@ var (
 	_ UpdateClass = &UpdateGroupCallConnection{}
 )
 
+// UpdateBotCommands represents TL type `updateBotCommands#cf7e0873`.
+//
+// See https://core.telegram.org/constructor/updateBotCommands for reference.
+type UpdateBotCommands struct {
+	// Peer field of UpdateBotCommands.
+	Peer PeerClass
+	// BotID field of UpdateBotCommands.
+	BotID int
+	// Commands field of UpdateBotCommands.
+	Commands []BotCommand
+}
+
+// UpdateBotCommandsTypeID is TL type id of UpdateBotCommands.
+const UpdateBotCommandsTypeID = 0xcf7e0873
+
+func (u *UpdateBotCommands) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.BotID == 0) {
+		return false
+	}
+	if !(u.Commands == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBotCommands) String() string {
+	if u == nil {
+		return "UpdateBotCommands(nil)"
+	}
+	type Alias UpdateBotCommands
+	return fmt.Sprintf("UpdateBotCommands%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotCommands from given interface.
+func (u *UpdateBotCommands) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetBotID() (value int)
+	GetCommands() (value []BotCommand)
+}) {
+	u.Peer = from.GetPeer()
+	u.BotID = from.GetBotID()
+	u.Commands = from.GetCommands()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBotCommands) TypeID() uint32 {
+	return UpdateBotCommandsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBotCommands) TypeName() string {
+	return "updateBotCommands"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotCommands) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotCommands",
+		ID:   UpdateBotCommandsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "Commands",
+			SchemaName: "commands",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBotCommands) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotCommands#cf7e0873 as nil")
+	}
+	b.PutID(UpdateBotCommandsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBotCommands) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotCommands#cf7e0873 as nil")
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updateBotCommands#cf7e0873: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotCommands#cf7e0873: field peer: %w", err)
+	}
+	b.PutInt(u.BotID)
+	b.PutVectorHeader(len(u.Commands))
+	for idx, v := range u.Commands {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateBotCommands#cf7e0873: field commands element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateBotCommands) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetBotID returns value of BotID field.
+func (u *UpdateBotCommands) GetBotID() (value int) {
+	return u.BotID
+}
+
+// GetCommands returns value of Commands field.
+func (u *UpdateBotCommands) GetCommands() (value []BotCommand) {
+	return u.Commands
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBotCommands) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotCommands#cf7e0873 to nil")
+	}
+	if err := b.ConsumeID(UpdateBotCommandsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBotCommands#cf7e0873: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBotCommands) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotCommands#cf7e0873 to nil")
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotCommands#cf7e0873: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotCommands#cf7e0873: field bot_id: %w", err)
+		}
+		u.BotID = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotCommands#cf7e0873: field commands: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value BotCommand
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode updateBotCommands#cf7e0873: field commands: %w", err)
+			}
+			u.Commands = append(u.Commands, value)
+		}
+	}
+	return nil
+}
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotCommands) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotCommands.
+var (
+	_ bin.Encoder     = &UpdateBotCommands{}
+	_ bin.Decoder     = &UpdateBotCommands{}
+	_ bin.BareEncoder = &UpdateBotCommands{}
+	_ bin.BareDecoder = &UpdateBotCommands{}
+
+	_ UpdateClass = &UpdateBotCommands{}
+)
+
 // UpdateClass represents Update generic type.
 //
 // See https://core.telegram.org/type/Update for reference.
@@ -17628,6 +17823,7 @@ var (
 //  case *tg.UpdateChannelParticipant: // updateChannelParticipant#7fecb1ec
 //  case *tg.UpdateBotStopped: // updateBotStopped#7f9488a
 //  case *tg.UpdateGroupCallConnection: // updateGroupCallConnection#b783982
+//  case *tg.UpdateBotCommands: // updateBotCommands#cf7e0873
 //  default: panic(v)
 //  }
 type UpdateClass interface {
@@ -18296,6 +18492,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateGroupCallConnectionTypeID:
 		// Decoding updateGroupCallConnection#b783982.
 		v := UpdateGroupCallConnection{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBotCommandsTypeID:
+		// Decoding updateBotCommands#cf7e0873.
+		v := UpdateBotCommands{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -19470,6 +19673,19 @@ func (s UpdateClassArray) AsUpdateBotStopped() (to UpdateBotStoppedArray) {
 func (s UpdateClassArray) AsUpdateGroupCallConnection() (to UpdateGroupCallConnectionArray) {
 	for _, elem := range s {
 		value, ok := elem.(*UpdateGroupCallConnection)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateBotCommands returns copy with only UpdateBotCommands constructors.
+func (s UpdateClassArray) AsUpdateBotCommands() (to UpdateBotCommandsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateBotCommands)
 		if !ok {
 			continue
 		}
@@ -26401,6 +26617,88 @@ func (s *UpdateGroupCallConnectionArray) PopFirst() (v UpdateGroupCallConnection
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateGroupCallConnectionArray) Pop() (v UpdateGroupCallConnection, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateBotCommandsArray is adapter for slice of UpdateBotCommands.
+type UpdateBotCommandsArray []UpdateBotCommands
+
+// Sort sorts slice of UpdateBotCommands.
+func (s UpdateBotCommandsArray) Sort(less func(a, b UpdateBotCommands) bool) UpdateBotCommandsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateBotCommands.
+func (s UpdateBotCommandsArray) SortStable(less func(a, b UpdateBotCommands) bool) UpdateBotCommandsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateBotCommands.
+func (s UpdateBotCommandsArray) Retain(keep func(x UpdateBotCommands) bool) UpdateBotCommandsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateBotCommandsArray) First() (v UpdateBotCommands, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateBotCommandsArray) Last() (v UpdateBotCommands, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateBotCommandsArray) PopFirst() (v UpdateBotCommands, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateBotCommands
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateBotCommandsArray) Pop() (v UpdateBotCommands, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

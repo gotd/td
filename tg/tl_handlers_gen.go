@@ -1023,3 +1023,13 @@ func (u UpdateDispatcher) OnGroupCallConnection(handler GroupCallConnectionHandl
 		return handler(ctx, e, update.(*UpdateGroupCallConnection))
 	}
 }
+
+// BotCommandsHandler is a BotCommands event handler.
+type BotCommandsHandler func(ctx context.Context, e Entities, update *UpdateBotCommands) error
+
+// OnBotCommands sets BotCommands handler.
+func (u UpdateDispatcher) OnBotCommands(handler BotCommandsHandler) {
+	u.handlers[UpdateBotCommandsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotCommands))
+	}
+}
