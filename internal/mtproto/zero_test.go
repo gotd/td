@@ -1,5 +1,3 @@
-// +build !fuzz
-
 package mtproto
 
 type Zero struct{}
