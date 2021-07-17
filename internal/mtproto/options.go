@@ -72,6 +72,8 @@ type Options struct {
 	// programs that maintain many connections this quickly adds up to hundreds
 	// of megabytes (buffer size multiplied by the number of connections and read
 	// concurrency).
+	//
+	// Deprecated: no longer needed, will be removed in v0.48.
 	NoBufferReuse bool
 	// Cipher defines message crypto.
 	Cipher Cipher

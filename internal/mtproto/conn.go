@@ -94,7 +94,6 @@ type Conn struct {
 	pingInterval time.Duration
 
 	readConcurrency int
-	noBufferReuse   bool
 	gotSession      *tdsync.Ready
 
 	// compressThreshold is a threshold in bytes to determine that message
@@ -137,7 +136,6 @@ func New(dialer Dialer, opt Options) *Conn {
 		pingInterval: opt.PingInterval,
 
 		readConcurrency: opt.ReadConcurrency,
-		noBufferReuse:   opt.NoBufferReuse,
 		gotSession:      tdsync.NewReady(),
 
 		rpc:               opt.engine,

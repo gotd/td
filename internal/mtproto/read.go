@@ -170,6 +170,15 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 		for {
 			buf := bufPool.Get()
 			if err := c.conn.Recv(ctx, buf); err != nil {
+				select {
+				case <-ctx.Done():
+					return ctx.Err()
+				default:
+					if c.noUpdates(err) {
+						continue
+					}
+				}
+
 				var protoErr *codec.ProtocolErr
 				if errors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
 					if err := c.handleAuthKeyNotFound(ctx); err != nil {
