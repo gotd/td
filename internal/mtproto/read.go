@@ -70,9 +70,7 @@ func (c *Conn) decryptMessage(b *bin.Buffer) (*crypto.EncryptedMessageData, erro
 	return msg, nil
 }
 
-func (c *Conn) consumeMessageAndPut(ctx context.Context, buf *bin.Buffer) error {
-	defer bufPool.Put(buf)
-
+func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
 	msg, err := c.decryptMessage(buf)
 	if errors.Is(err, errRejected) {
 		c.log.Warn("Ignoring rejected message", zap.Error(err))
@@ -148,13 +146,21 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 	g, ctx := errgroup.WithContext(ctx)
 	for i := 0; i < c.readConcurrency; i++ {
 		g.Go(func() error {
+			consume := func(ctx context.Context, b *bin.Buffer) error {
+				defer bufPool.Put(b)
+				if err := c.consumeMessage(ctx, b); err != nil {
+					return xerrors.Errorf("consume: %w", err)
+				}
+
+				return nil
+			}
 			for {
 				select {
 				case b, ok := <-incoming:
 					if !ok {
 						return nil
 					}
-					if err := c.consumeMessageAndPut(ctx, b); err != nil {
+					if err := consume(ctx, b); err != nil {
 						return xerrors.Errorf("consume: %w", err)
 					}
 				case <-ctx.Done():
