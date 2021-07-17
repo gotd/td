@@ -44,23 +44,51 @@ type Generator struct {
 	docBase      *url.URL
 	doc          *getdoc.Doc
 	docLineLimit int
+
+	generateServer bool
+}
+
+type generateOptions struct {
+	docBaseURL     string
+	generateServer bool
+}
+
+// Option that configures generation.
+type Option func(o *generateOptions)
+
+// WithServer enables experimental server generation.
+func WithServer() Option {
+	return func(o *generateOptions) {
+		o.generateServer = true
+	}
+}
+
+// WithDocumentation will embed documentation references to generated code.
+//
+// If base is https://core.telegram.org, documentation content will be also
+// embedded.
+func WithDocumentation(base string) Option {
+	return func(o *generateOptions) {
+		o.docBaseURL = base
+	}
 }
 
 // NewGenerator initializes and returns new Generator from tl.Schema.
-//
-// The docBase value is base url for documentation, like:
-// 	* https://core.telegram.org/
-// If blank string provided, no documentation links are generated.
-func NewGenerator(s *tl.Schema, docBase string) (*Generator, error) {
-	g := &Generator{
-		schema:       s,
-		classes:      map[string]classBinding{},
-		types:        map[string]typeBinding{},
-		mappings:     map[string][]constructorMapping{},
-		docLineLimit: 87,
+func NewGenerator(s *tl.Schema, options ...Option) (*Generator, error) {
+	genOpt := &generateOptions{}
+	for _, opt := range options {
+		opt(genOpt)
 	}
-	if docBase != "" {
-		u, err := url.Parse(docBase)
+	g := &Generator{
+		schema:         s,
+		classes:        map[string]classBinding{},
+		types:          map[string]typeBinding{},
+		mappings:       map[string][]constructorMapping{},
+		docLineLimit:   87,
+		generateServer: genOpt.generateServer,
+	}
+	if genOpt.docBaseURL != "" {
+		u, err := url.Parse(genOpt.docBaseURL)
 		if err != nil {
 			return nil, xerrors.Errorf("failed to parse docBase: %w", err)
 		}

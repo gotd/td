@@ -9,8 +9,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gotd/td/internal/gen"
 	"github.com/gotd/tl"
+
+	"github.com/gotd/td/internal/gen"
 )
 
 type formattedSource struct {
@@ -37,6 +38,7 @@ func main() {
 	performFormat := flag.Bool("format", true, "perform code formatting")
 	docBase := flag.String("doc", "", "base documentation url")
 	clean := flag.Bool("clean", false, "Clean generated files before generation")
+	server := flag.Bool("server", false, "Generate server handlers")
 	flag.Parse()
 	if *schemaPath == "" {
 		panic("no schema provided")
@@ -82,10 +84,18 @@ func main() {
 		Root:   *targetDir,
 		Format: *performFormat,
 	}
-	g, err := gen.NewGenerator(schema, *docBase)
+	var opts []gen.Option
+	if *server {
+		opts = append(opts, gen.WithServer())
+	}
+	if *docBase != "" {
+		opts = append(opts, gen.WithDocumentation(*docBase))
+	}
+	g, err := gen.NewGenerator(schema, opts...)
 	if err != nil {
 		panic(fmt.Sprintf("%+v", err))
 	}
+
 	if err := g.WriteSource(fs, *packageName, gen.Template()); err != nil {
 		panic(fmt.Sprintf("%+v", err))
 	}
