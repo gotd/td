@@ -4,7 +4,6 @@ import (
 	"context"
 	"crypto/rsa"
 	"io"
-	"strconv"
 	"sync"
 	"time"
 
@@ -204,10 +203,8 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 		g.Go("ackLoop", c.ackLoop)
 		g.Go("saltsLoop", c.saltLoop)
 		g.Go("userCallback", f)
+		g.Go("readLoop", c.readLoop)
 
-		for i := 0; i < c.readConcurrency; i++ {
-			g.Go("readLoop-"+strconv.Itoa(i), c.readLoop)
-		}
 		if err := g.Wait(); err != nil {
 			return xerrors.Errorf("group: %w", err)
 		}
