@@ -14,7 +14,7 @@ Before using this library, read [How Not To Get Banned](.github/SUPPORT.md#how-n
 ## Usage
 
 ```console
-$ go get github.com/gotd/td/telegram
+go get github.com/gotd/td/telegram
 ```
 
 ```go
