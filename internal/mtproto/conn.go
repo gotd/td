@@ -4,7 +4,6 @@ import (
 	"context"
 	"crypto/rsa"
 	"io"
-	"strconv"
 	"sync"
 	"time"
 
@@ -95,7 +94,6 @@ type Conn struct {
 	pingInterval time.Duration
 
 	readConcurrency int
-	noBufferReuse   bool
 	gotSession      *tdsync.Ready
 
 	// compressThreshold is a threshold in bytes to determine that message
@@ -138,7 +136,6 @@ func New(dialer Dialer, opt Options) *Conn {
 		pingInterval: opt.PingInterval,
 
 		readConcurrency: opt.ReadConcurrency,
-		noBufferReuse:   opt.NoBufferReuse,
 		gotSession:      tdsync.NewReady(),
 
 		rpc:               opt.engine,
@@ -204,10 +201,8 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 		g.Go("ackLoop", c.ackLoop)
 		g.Go("saltsLoop", c.saltLoop)
 		g.Go("userCallback", f)
+		g.Go("readLoop", c.readLoop)
 
-		for i := 0; i < c.readConcurrency; i++ {
-			g.Go("readLoop-"+strconv.Itoa(i), c.readLoop)
-		}
 		if err := g.Wait(); err != nil {
 			return xerrors.Errorf("group: %w", err)
 		}

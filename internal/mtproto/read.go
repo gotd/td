@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"go.uber.org/zap"
+	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -130,8 +131,6 @@ func (c *Conn) handleAuthKeyNotFound(ctx context.Context) error {
 }
 
 func (c *Conn) readLoop(ctx context.Context) (err error) {
-	b := new(bin.Buffer)
-
 	log := c.log.Named("read")
 	log.Debug("Read loop started")
 	defer func() {
@@ -142,44 +141,73 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 		l.Debug("Read loop done")
 	}()
 
-	for {
-		if !c.noBufferReuse {
-			b.Reset()
-		} else {
-			b.ResetTo(nil)
-		}
+	incoming := make(chan *bin.Buffer, c.readConcurrency)
 
-		err = c.conn.Recv(ctx, b)
-		if err == nil {
-			if err := c.consumeMessage(ctx, b); err != nil {
-				return err
+	g, ctx := errgroup.WithContext(ctx)
+	for i := 0; i < c.readConcurrency; i++ {
+		g.Go(func() error {
+			consume := func(ctx context.Context, b *bin.Buffer) error {
+				defer bufPool.Put(b)
+				if err := c.consumeMessage(ctx, b); err != nil {
+					return xerrors.Errorf("consume: %w", err)
+				}
+
+				return nil
 			}
-
-			continue
-		}
-
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		default:
-			if c.noUpdates(err) {
-				continue
+			for {
+				select {
+				case b, ok := <-incoming:
+					if !ok {
+						return nil
+					}
+					if err := consume(ctx, b); err != nil {
+						return xerrors.Errorf("consume: %w", err)
+					}
+				case <-ctx.Done():
+					return ctx.Err()
+				}
 			}
-		}
-
-		var protoErr *codec.ProtocolErr
-		if errors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
-			if err := c.handleAuthKeyNotFound(ctx); err != nil {
-				return xerrors.Errorf("auth key not found: %w", err)
-			}
-			continue
-		}
-
-		select {
-		case <-ctx.Done():
-			return xerrors.Errorf("read loop: %w", ctx.Err())
-		default:
-			return xerrors.Errorf("read: %w", err)
-		}
+		})
 	}
+
+	g.Go(func() error {
+		defer close(incoming)
+
+		for {
+			buf := bufPool.Get()
+			if err := c.conn.Recv(ctx, buf); err != nil {
+				select {
+				case <-ctx.Done():
+					return ctx.Err()
+				default:
+					if c.noUpdates(err) {
+						continue
+					}
+				}
+
+				var protoErr *codec.ProtocolErr
+				if errors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
+					if err := c.handleAuthKeyNotFound(ctx); err != nil {
+						return xerrors.Errorf("auth key not found: %w", err)
+					}
+					continue
+				}
+
+				select {
+				case <-ctx.Done():
+					return xerrors.Errorf("read loop: %w", ctx.Err())
+				default:
+					return xerrors.Errorf("read: %w", err)
+				}
+			}
+
+			select {
+			case incoming <- buf:
+			case <-ctx.Done():
+				return ctx.Err()
+			}
+		}
+	})
+
+	return g.Wait()
 }
