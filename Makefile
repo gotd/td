@@ -12,7 +12,7 @@ generate:
 .PHONY: generate
 
 download_schema:
-	go run ./cmd/dltl -f api.tl -o _schema/telegram.tl -merge _schema/help_config_simple.tl
+	go run ./cmd/dltl -o _schema/telegram.tl
 .PHONY: download_schema
 
 download_public_keys:
@@ -20,7 +20,7 @@ download_public_keys:
 .PHONY: download_public_keys
 
 download_e2e_schema:
-	go run ./cmd/dltl -base https://raw.githubusercontent.com/tdlib/td -branch master -dir td/generate/scheme -f secret_api.tl -o _schema/encrypted.tl
+	go run ./cmd/dltl -f secret_api.tl -o _schema/encrypted.tl
 .PHONY: download_e2e_schema
 
 check_generated: generate

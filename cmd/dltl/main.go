@@ -2,6 +2,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"crypto/sha256"
 	"flag"
@@ -11,6 +12,7 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"strconv"
 	"strings"
 
 	"github.com/gotd/tl"
@@ -41,10 +43,10 @@ Classes:
 
 func main() {
 	var (
-		name   = flag.String("f", "api.tl", "file name to download; api.tl or mtproto.tl")
-		base   = flag.String("base", "https://raw.githubusercontent.com/telegramdesktop/tdesktop", "base url")
-		branch = flag.String("branch", "dev", "branch to use")
-		dir    = flag.String("dir", "Telegram/Resources/tl", "directory of schemas")
+		name   = flag.String("f", "telegram_api.tl", "file name to download; api.tl or mtproto.tl")
+		base   = flag.String("base", "https://raw.githubusercontent.com/tdlib/td", "base url")
+		branch = flag.String("branch", "master", "branch to use")
+		dir    = flag.String("dir", "td/generate/scheme", "directory of schemas")
 		out    = flag.String("o", "", "output file name (blank to stdout)")
 		merge  = flag.String("merge", "", "path to schema(s) to merge with, comma-separated")
 	)
@@ -87,6 +89,43 @@ func main() {
 
 			mergeSchema(s, m)
 		}
+	}
+
+	// Trying to detect layer of tdlib schema.
+	if s.Layer == 0 && *name == "telegram_api.tl" {
+		layerURL, err := url.Parse(*base)
+		if err != nil {
+			panic(err)
+		}
+		layerURL.Path = path.Join(layerURL.Path, *branch, "td/telegram/Version.h")
+		res, err := http.Get(layerURL.String())
+		if err != nil {
+			panic(err)
+		}
+		if res.StatusCode == http.StatusOK {
+			scanner := bufio.NewScanner(res.Body)
+			for scanner.Scan() {
+				t := strings.TrimSpace(scanner.Text())
+				// constexpr int32 MTPROTO_LAYER = 131;
+				const (
+					prefix = `constexpr int32 MTPROTO_LAYER = `
+					suffix = `;`
+				)
+				if !strings.HasPrefix(t, prefix) {
+					continue
+				}
+				t = strings.TrimPrefix(t, prefix)
+				t = strings.TrimSuffix(t, suffix)
+				t = strings.TrimSpace(t)
+				if layer, err := strconv.Atoi(t); err == nil {
+					s.Layer = layer
+				}
+			}
+		}
+	}
+	if s.Layer == 0 && *name == "telegram_api.tl" {
+		// Still failed.
+		panic("failed to detect layer")
 	}
 
 	var outWriter io.Writer = os.Stdout

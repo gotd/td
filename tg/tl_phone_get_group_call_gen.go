@@ -29,22 +29,27 @@ var (
 	_ = tgerr.Error{}
 )
 
-// PhoneGetGroupCallRequest represents TL type `phone.getGroupCall#c7cb017`.
+// PhoneGetGroupCallRequest represents TL type `phone.getGroupCall#41845db`.
 //
 // See https://core.telegram.org/method/phone.getGroupCall for reference.
 type PhoneGetGroupCallRequest struct {
 	// Call field of PhoneGetGroupCallRequest.
 	Call InputGroupCall
+	// Limit field of PhoneGetGroupCallRequest.
+	Limit int
 }
 
 // PhoneGetGroupCallRequestTypeID is TL type id of PhoneGetGroupCallRequest.
-const PhoneGetGroupCallRequestTypeID = 0xc7cb017
+const PhoneGetGroupCallRequestTypeID = 0x41845db
 
 func (g *PhoneGetGroupCallRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
 	if !(g.Call.Zero()) {
+		return false
+	}
+	if !(g.Limit == 0) {
 		return false
 	}
 
@@ -63,8 +68,10 @@ func (g *PhoneGetGroupCallRequest) String() string {
 // FillFrom fills PhoneGetGroupCallRequest from given interface.
 func (g *PhoneGetGroupCallRequest) FillFrom(from interface {
 	GetCall() (value InputGroupCall)
+	GetLimit() (value int)
 }) {
 	g.Call = from.GetCall()
+	g.Limit = from.GetLimit()
 }
 
 // TypeID returns type id in TL schema.
@@ -94,6 +101,10 @@ func (g *PhoneGetGroupCallRequest) TypeInfo() tdp.Type {
 			Name:       "Call",
 			SchemaName: "call",
 		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
 	}
 	return typ
 }
@@ -101,7 +112,7 @@ func (g *PhoneGetGroupCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PhoneGetGroupCallRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getGroupCall#c7cb017 as nil")
+		return fmt.Errorf("can't encode phone.getGroupCall#41845db as nil")
 	}
 	b.PutID(PhoneGetGroupCallRequestTypeID)
 	return g.EncodeBare(b)
@@ -110,11 +121,12 @@ func (g *PhoneGetGroupCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PhoneGetGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getGroupCall#c7cb017 as nil")
+		return fmt.Errorf("can't encode phone.getGroupCall#41845db as nil")
 	}
 	if err := g.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.getGroupCall#c7cb017: field call: %w", err)
+		return fmt.Errorf("unable to encode phone.getGroupCall#41845db: field call: %w", err)
 	}
+	b.PutInt(g.Limit)
 	return nil
 }
 
@@ -123,13 +135,18 @@ func (g *PhoneGetGroupCallRequest) GetCall() (value InputGroupCall) {
 	return g.Call
 }
 
+// GetLimit returns value of Limit field.
+func (g *PhoneGetGroupCallRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
 // Decode implements bin.Decoder.
 func (g *PhoneGetGroupCallRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getGroupCall#c7cb017 to nil")
+		return fmt.Errorf("can't decode phone.getGroupCall#41845db to nil")
 	}
 	if err := b.ConsumeID(PhoneGetGroupCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.getGroupCall#c7cb017: %w", err)
+		return fmt.Errorf("unable to decode phone.getGroupCall#41845db: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -137,12 +154,19 @@ func (g *PhoneGetGroupCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PhoneGetGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getGroupCall#c7cb017 to nil")
+		return fmt.Errorf("can't decode phone.getGroupCall#41845db to nil")
 	}
 	{
 		if err := g.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupCall#c7cb017: field call: %w", err)
+			return fmt.Errorf("unable to decode phone.getGroupCall#41845db: field call: %w", err)
 		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.getGroupCall#41845db: field limit: %w", err)
+		}
+		g.Limit = value
 	}
 	return nil
 }
@@ -155,15 +179,12 @@ var (
 	_ bin.BareDecoder = &PhoneGetGroupCallRequest{}
 )
 
-// PhoneGetGroupCall invokes method phone.getGroupCall#c7cb017 returning error if any.
+// PhoneGetGroupCall invokes method phone.getGroupCall#41845db returning error if any.
 //
 // See https://core.telegram.org/method/phone.getGroupCall for reference.
-func (c *Client) PhoneGetGroupCall(ctx context.Context, call InputGroupCall) (*PhoneGroupCall, error) {
+func (c *Client) PhoneGetGroupCall(ctx context.Context, request *PhoneGetGroupCallRequest) (*PhoneGroupCall, error) {
 	var result PhoneGroupCall
 
-	request := &PhoneGetGroupCallRequest{
-		Call: call,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
