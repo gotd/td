@@ -33,9 +33,11 @@ func TestGZIP_Decode(t *testing.T) {
 	var b bin.Buffer
 	require.NoError(t, b.Encode(g))
 
-	var decoded GZIP
-	// TODO(ernado): fail explicitly if limit is reached
-	require.NoError(t, b.Decode(&decoded))
+	var (
+		decoded GZIP
+		target  *DecompressionBombErr
+	)
+	require.ErrorAs(t, b.Decode(&decoded), &target)
 	require.Less(t, len(decoded.Data), len(g.Data))
 }
 
