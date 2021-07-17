@@ -9,6 +9,8 @@ import (
 	"sort"
 	"strings"
 
+	"go.uber.org/multierr"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
@@ -21,6 +23,7 @@ var (
 	_ = fmt.Stringer(nil)
 	_ = strings.Builder{}
 	_ = errors.Is
+	_ = multierr.AppendInto
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
@@ -50,6 +53,40 @@ func (s *ServerDispatcher) Handle(ctx context.Context, b *bin.Buffer) (bin.Encod
 	}
 
 	return f(ctx, b)
+}
+
+func (s *ServerDispatcher) OnTestUseError(f func(ctx context.Context) (*Error, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request TestUseErrorRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[TestUseErrorRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnTestUseConfigSimple(f func(ctx context.Context) (*HelpConfigSimple, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request TestUseConfigSimpleRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[TestUseConfigSimpleRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnAuthSendCode(f func(ctx context.Context, request *AuthSendCodeRequest) (*AuthSentCode, error)) {
@@ -251,14 +288,14 @@ func (s *ServerDispatcher) OnAuthRequestPasswordRecovery(f func(ctx context.Cont
 	s.handlers[AuthRequestPasswordRecoveryRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAuthRecoverPassword(f func(ctx context.Context, code string) (AuthAuthorizationClass, error)) {
+func (s *ServerDispatcher) OnAuthRecoverPassword(f func(ctx context.Context, request *AuthRecoverPasswordRequest) (AuthAuthorizationClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AuthRecoverPasswordRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Code)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -376,6 +413,27 @@ func (s *ServerDispatcher) OnAuthAcceptLoginToken(f func(ctx context.Context, to
 	}
 
 	s.handlers[AuthAcceptLoginTokenRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAuthCheckRecoveryPassword(f func(ctx context.Context, code string) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AuthCheckRecoveryPasswordRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Code)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AuthCheckRecoveryPasswordRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnAccountRegisterDevice(f func(ctx context.Context, request *AccountRegisterDeviceRequest) (bool, error)) {
@@ -1664,6 +1722,44 @@ func (s *ServerDispatcher) OnAccountReportProfilePhoto(f func(ctx context.Contex
 	}
 
 	s.handlers[AccountReportProfilePhotoRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountResetPassword(f func(ctx context.Context) (AccountResetPasswordResultClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountResetPasswordRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return &AccountResetPasswordResultBox{ResetPasswordResult: response}, nil
+	}
+
+	s.handlers[AccountResetPasswordRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountDeclinePasswordReset(f func(ctx context.Context) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountDeclinePasswordResetRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountDeclinePasswordResetRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []InputUserClass) ([]UserClass, error)) {
@@ -5986,14 +6082,14 @@ func (s *ServerDispatcher) OnBotsAnswerWebhookJSONQuery(f func(ctx context.Conte
 	s.handlers[BotsAnswerWebhookJSONQueryRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnBotsSetBotCommands(f func(ctx context.Context, commands []BotCommand) (bool, error)) {
+func (s *ServerDispatcher) OnBotsSetBotCommands(f func(ctx context.Context, request *BotsSetBotCommandsRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request BotsSetBotCommandsRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Commands)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -6007,14 +6103,52 @@ func (s *ServerDispatcher) OnBotsSetBotCommands(f func(ctx context.Context, comm
 	s.handlers[BotsSetBotCommandsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPaymentsGetPaymentForm(f func(ctx context.Context, msgid int) (*PaymentsPaymentForm, error)) {
+func (s *ServerDispatcher) OnBotsResetBotCommands(f func(ctx context.Context, request *BotsResetBotCommandsRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsResetBotCommandsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsResetBotCommandsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsGetBotCommands(f func(ctx context.Context, request *BotsGetBotCommandsRequest) ([]BotCommand, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsGetBotCommandsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &BotCommandVector{Elems: response}, nil
+	}
+
+	s.handlers[BotsGetBotCommandsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetPaymentForm(f func(ctx context.Context, request *PaymentsGetPaymentFormRequest) (*PaymentsPaymentForm, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PaymentsGetPaymentFormRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.MsgID)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -6024,14 +6158,14 @@ func (s *ServerDispatcher) OnPaymentsGetPaymentForm(f func(ctx context.Context, 
 	s.handlers[PaymentsGetPaymentFormRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPaymentsGetPaymentReceipt(f func(ctx context.Context, msgid int) (*PaymentsPaymentReceipt, error)) {
+func (s *ServerDispatcher) OnPaymentsGetPaymentReceipt(f func(ctx context.Context, request *PaymentsGetPaymentReceiptRequest) (*PaymentsPaymentReceipt, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PaymentsGetPaymentReceiptRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.MsgID)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -6213,6 +6347,44 @@ func (s *ServerDispatcher) OnStickersSetStickerSetThumb(f func(ctx context.Conte
 	}
 
 	s.handlers[StickersSetStickerSetThumbRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStickersCheckShortName(f func(ctx context.Context, shortname string) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StickersCheckShortNameRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.ShortName)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[StickersCheckShortNameRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStickersSuggestShortName(f func(ctx context.Context, title string) (*StickersSuggestedShortName, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StickersSuggestShortNameRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Title)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StickersSuggestShortNameRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnPhoneGetCallConfig(f func(ctx context.Context) (*DataJSON, error)) {
@@ -6482,14 +6654,14 @@ func (s *ServerDispatcher) OnPhoneToggleGroupCallSettings(f func(ctx context.Con
 	s.handlers[PhoneToggleGroupCallSettingsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPhoneGetGroupCall(f func(ctx context.Context, call InputGroupCall) (*PhoneGroupCall, error)) {
+func (s *ServerDispatcher) OnPhoneGetGroupCall(f func(ctx context.Context, request *PhoneGetGroupCallRequest) (*PhoneGroupCall, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PhoneGetGroupCallRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Call)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -6516,7 +6688,7 @@ func (s *ServerDispatcher) OnPhoneGetGroupParticipants(f func(ctx context.Contex
 	s.handlers[PhoneGetGroupParticipantsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPhoneCheckGroupCall(f func(ctx context.Context, request *PhoneCheckGroupCallRequest) (bool, error)) {
+func (s *ServerDispatcher) OnPhoneCheckGroupCall(f func(ctx context.Context, request *PhoneCheckGroupCallRequest) ([]int, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PhoneCheckGroupCallRequest
 		if err := request.Decode(b); err != nil {
@@ -6527,11 +6699,7 @@ func (s *ServerDispatcher) OnPhoneCheckGroupCall(f func(ctx context.Context, req
 		if err != nil {
 			return nil, err
 		}
-		if response {
-			return &BoolBox{Bool: &BoolTrue{}}, nil
-		}
-
-		return &BoolBox{Bool: &BoolFalse{}}, nil
+		return &IntVector{Elems: response}, nil
 	}
 
 	s.handlers[PhoneCheckGroupCallRequestTypeID] = handler
@@ -6620,6 +6788,95 @@ func (s *ServerDispatcher) OnPhoneExportGroupCallInvite(f func(ctx context.Conte
 	}
 
 	s.handlers[PhoneExportGroupCallInviteRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhoneToggleGroupCallStartSubscription(f func(ctx context.Context, request *PhoneToggleGroupCallStartSubscriptionRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneToggleGroupCallStartSubscriptionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[PhoneToggleGroupCallStartSubscriptionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhoneStartScheduledGroupCall(f func(ctx context.Context, call InputGroupCall) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneStartScheduledGroupCallRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Call)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[PhoneStartScheduledGroupCallRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhoneSaveDefaultGroupCallJoinAs(f func(ctx context.Context, request *PhoneSaveDefaultGroupCallJoinAsRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneSaveDefaultGroupCallJoinAsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[PhoneSaveDefaultGroupCallJoinAsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhoneJoinGroupCallPresentation(f func(ctx context.Context, request *PhoneJoinGroupCallPresentationRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneJoinGroupCallPresentationRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[PhoneJoinGroupCallPresentationRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhoneLeaveGroupCallPresentation(f func(ctx context.Context, call InputGroupCall) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneLeaveGroupCallPresentationRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Call)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[PhoneLeaveGroupCallPresentationRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnLangpackGetLangPack(f func(ctx context.Context, request *LangpackGetLangPackRequest) (*LangPackDifference, error)) {
