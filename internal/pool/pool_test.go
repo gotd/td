@@ -2,6 +2,7 @@ package pool
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"math/rand"
 	"runtime"
@@ -24,6 +25,10 @@ type mockConn struct {
 	stop   *tdsync.Ready
 	locker *sync.RWMutex
 	invoke invokerFunc
+}
+
+func (mockConn) Ping(ctx context.Context) error {
+	return errors.New("not implemented")
 }
 
 func newMockConn(invoke invokerFunc) mockConn {

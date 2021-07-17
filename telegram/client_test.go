@@ -3,6 +3,7 @@ package telegram
 import (
 	"context"
 	"crypto/md5"
+	"errors"
 	"fmt"
 	"math/rand"
 	"net"
@@ -36,6 +37,10 @@ type testConn struct {
 	id     atomic.Int64
 	engine *rpc.Engine
 	ready  *tdsync.Ready
+}
+
+func (t *testConn) Ping(ctx context.Context) error {
+	return errors.New("not implemented")
 }
 
 func (t *testConn) Ready() <-chan struct{} {

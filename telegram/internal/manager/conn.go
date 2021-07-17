@@ -21,6 +21,7 @@ import (
 type protoConn interface {
 	Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error
 	Run(ctx context.Context, f func(ctx context.Context) error) error
+	Ping(ctx context.Context) error
 }
 
 //go:generate go run -modfile=../../../_tools/go.mod golang.org/x/tools/cmd/stringer -type=ConnMode
@@ -240,4 +241,9 @@ func (c *Conn) init(ctx context.Context) error {
 
 	c.gotConfig.Signal()
 	return nil
+}
+
+// Ping calls ping for underlying protocol connection.
+func (c *Conn) Ping(ctx context.Context) error {
+	return c.proto.Ping(ctx)
 }

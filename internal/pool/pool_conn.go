@@ -17,6 +17,7 @@ var ErrConnDead = xerrors.New("connection dead")
 type Conn interface {
 	Run(ctx context.Context) error
 	Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error
+	Ping(ctx context.Context) error
 	Ready() <-chan struct{}
 }
 

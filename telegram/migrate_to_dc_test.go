@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"math/rand"
 	"testing"
@@ -31,6 +32,10 @@ type migrateTestConn struct {
 	cfg    tg.Config
 	opts   mtproto.Options
 	client *Client
+}
+
+func (c *migrateTestConn) Ping(ctx context.Context) error {
+	return errors.New("not implemented")
 }
 
 func (c *migrateTestConn) Run(ctx context.Context) error {
