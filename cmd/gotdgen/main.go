@@ -9,8 +9,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gotd/td/internal/gen"
 	"github.com/gotd/tl"
+
+	"github.com/gotd/td/internal/gen"
 )
 
 type formattedSource struct {
@@ -83,11 +84,17 @@ func main() {
 		Root:   *targetDir,
 		Format: *performFormat,
 	}
-	g, err := gen.NewGenerator(schema, *docBase)
+	var opts []gen.Option
+	if *server {
+		opts = append(opts, gen.WithServer())
+	}
+	if *docBase != "" {
+		opts = append(opts, gen.WithDocumentation(*docBase))
+	}
+	g, err := gen.NewGenerator(schema, opts...)
 	if err != nil {
 		panic(fmt.Sprintf("%+v", err))
 	}
-	g.GenerateServer = *server
 
 	if err := g.WriteSource(fs, *packageName, gen.Template()); err != nil {
 		panic(fmt.Sprintf("%+v", err))

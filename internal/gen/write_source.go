@@ -142,7 +142,7 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 	if err := w.WriteStructs(g.structs, g.mappings); err != nil {
 		return xerrors.Errorf("structs: %w", err)
 	}
-	if g.GenerateServer {
+	if g.generateServer {
 		if err := w.Generate("server", "tl_server_gen.go", config{
 			Structs: g.structs,
 		}); err != nil {
