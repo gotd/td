@@ -2,8 +2,10 @@ package proto
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"sync"
+	"sync/atomic"
 
 	"github.com/klauspost/compress/gzip"
 	"go.uber.org/multierr"
@@ -108,6 +110,35 @@ func (g GZIP) Encode(b *bin.Buffer) (rErr error) {
 	return nil
 }
 
+type countReader struct {
+	reader io.Reader
+	read   int64
+}
+
+func (c *countReader) Total() int64 {
+	return atomic.LoadInt64(&c.read)
+}
+
+func (c *countReader) Read(p []byte) (n int, err error) {
+	n, err = c.reader.Read(p)
+	atomic.AddInt64(&c.read, int64(n))
+	return n, err
+}
+
+// DecompressionBombErr means that GZIP decode detected decompression bomb
+// which decompressed payload is significantly higher than initial compressed
+// size and stopped decompression to prevent OOM.
+type DecompressionBombErr struct {
+	Compressed   int
+	Decompressed int
+}
+
+func (d *DecompressionBombErr) Error() string {
+	return fmt.Sprintf("payload too big (expanded %d bytes to greater than %d)",
+		d.Compressed, d.Decompressed,
+	)
+}
+
 // Decode implements bin.Decoder.
 func (g *GZIP) Decode(b *bin.Buffer) (rErr error) {
 	if err := b.ConsumeID(GZIPTypeID); err != nil {
@@ -132,14 +163,21 @@ func (g *GZIP) Decode(b *bin.Buffer) (rErr error) {
 
 	// Apply mitigation for reading too much data which can result in OOM.
 	const maxUncompressedSize = 1024 * 1024 * 10 // 10 mb
-	// TODO(ernado): fail explicitly if limit is reached
-	// Currently we just return nil, but it is better than failing with OOM.
-	if g.Data, err = io.ReadAll(io.LimitReader(r, maxUncompressedSize)); err != nil {
+	reader := &countReader{
+		reader: io.LimitReader(r, maxUncompressedSize),
+	}
+	if g.Data, err = io.ReadAll(reader); err != nil {
 		return xerrors.Errorf("decompress: %w", err)
+	}
+	if reader.Total() >= maxUncompressedSize {
+		// Read limit reached, possible decompression bomb detected.
+		return xerrors.Errorf("decompress: %w", &DecompressionBombErr{
+			Compressed:   maxUncompressedSize,
+			Decompressed: int(reader.Total()),
+		})
 	}
 
 	if err := r.Close(); err != nil {
-		// This will verify checksum only if limit is not reached.
 		return xerrors.Errorf("checksum: %w", err)
 	}
 
