@@ -56,5 +56,5 @@ func decodeString(b []byte) (n int, v string, err error) {
 	if strLen > maxSmallStringLength {
 		return 0, "", errors.New("invalid length")
 	}
-	return nearestPaddedValueLength(int(strLen) + 1), string(b[1 : strLen+1]), nil
+	return nearestPaddedValueLength(int(strLen) + 1), strFromBytes(b[1 : strLen+1]), nil
 }

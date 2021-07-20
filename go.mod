@@ -10,6 +10,7 @@ require (
 	github.com/gotd/neo v0.1.3
 	github.com/gotd/tl v0.4.0
 	github.com/gotd/xor v0.1.1
+	github.com/josharian/intern v1.0.0
 	github.com/k0kubun/pp/v3 v3.0.7
 	github.com/klauspost/compress v1.13.1
 	github.com/pkg/errors v0.9.1 // indirect
