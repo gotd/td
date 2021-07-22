@@ -251,15 +251,50 @@ formal security audit were performed.
 
 Status by 11.07.2021
 
-| Topic           | gotd        | [xelaj/mtproto](https://github.com/xelaj/mtproto)  |
-| ----------------| ----------- | ------ |
-| Maintainers     | At least 3 core contributors, 1.7K commits, actively maintained, [automatically updated to latest layer](https://github.com/gotd/td/pull/409)   | Single core contributor, 150 commits, effectively not maintaned from March 2021, [failed to update](https://github.com/xelaj/mtproto/issues/88) to 129 layer  |
-| Security        | MTProto v2, [conforms](https://github.com/gotd/td/issues/155) to security guidelines        |  MTProto v1 that is insecure and [deprecated](https://core.telegram.org/mtproto_v1) since 2017 (sha1 [is used](https://github.com/xelaj/mtproto/blob/216789b95a5d644ebbdd1acb7eb46ff61647960a/internal/aes_ige/ige_cipher.go#L194-L197) instead of sha256), code was probably copied from [sdidyk/mtproto](https://github.com/sdidyk/mtproto) or [cjongseok/mtproto](https://github.com/cjongseok/mtproto) with [little understanding](https://github.com/xelaj/mtproto/blob/216789b95a5d644ebbdd1acb7eb46ff61647960a/internal/aes_ige/ige_cipher.go#L160) [](https://github.com/xelaj/mtproto/blob/216789b95a5d644ebbdd1acb7eb46ff61647960a/internal/aes_ige/ige_cipher.go#L160) |
-| Features        | MTProxy support, websocket transport, helpers for uploads, downloads, messages, text styling, datacenter redirects handling and more, but you can still use raw API | Raw MTProto API |
-| Platforms       | All platforms including WASM and special stability features for Windows that considers clock resolution | Limited support for Windows |
-| Performance     | Multiple optimizations for zero allocations | Uses reflection in runtime |
-| Stability       | Lots of unit tests (237 tests, 943 including subtests), e2e tests with self-made Telegram server in go, e2e tests with real staging server, fuzzing | 12 unit tests, 41 including sub-tests
-| Github stars    | Has only 173 stars | Has 631 stars, which is much higher
+<table>
+  <tr>
+   <th>Topic</th>
+   <th colspan="2">gotd</th>
+   <th colspan="2"><a href="https://github.com/xelaj/mtproto">xelaj/mtproto</a></th>
+  <tr>
+   <td align="center">🚧<br>Maintainers</td>
+   <td colspan="2">At least 3 core contributors, 1.7K commits, actively maintained, <a href="https://github.com/gotd/td/pull/409">automatically updated to latest layer</a></td>
+   <td colspan="2">Single core contributor, 150 commits, effectively not maintaned from March 2021, <a href="https://github.com/xelaj/mtproto/issues/88">failed to update</a> to 129 layer</td>
+  <tr>
+   <td align="center">🔒️<br>Security</td>
+   <td colspan="2">MTProto v2, <a href="https://github.com/gotd/td/issues/155">conforms</a> to security guidelines</td>
+   <td colspan="2">MTProto v1 that is insecure and <a href="https://core.telegram.org/mtproto_v1">deprecated</a> since 2017 (SHA-1 <a href="https://github.com/xelaj/mtproto/blob/216789b95a5d644ebbdd1acb7eb46ff61647960a/internal/aes_ige/ige_cipher.go#L194-L197">is used</a> instead of SHA-256), code was probably copied from <a href="https://github.com/sdidyk/mtproto">sdidyk/mtproto</a> or <a href="https://github.com/cjongseok/mtproto">cjongseok/mtproto</a> with <a href="https://github.com/xelaj/mtproto/blob/216789b95a5d644ebbdd1acb7eb46ff61647960a/internal/aes_ige/ige_cipher.go#L160">little understanding</a></td>
+  <tr>
+   <td align="center">🚀<br>Features</td>
+   <td colspan="2">MTProxy support, WebSocket transport, helpers for uploads, downloads, messages, text styling, datacenter redirects handling and more, but you can still use the raw API</td>
+   <td colspan="2">Raw MTProto API</td>
+  <tr>
+   <td align="center">🔨<br>Platforms</td>
+   <td colspan="2">All platforms including WASM and special stability features for Windows that considers clock resolution</td>
+   <td colspan="2">Limited support for Windows</td>
+  <tr>
+   <td align="center">⚡️<br>Performance</td>
+   <td colspan="2">Multiple optimizations for zero allocations</td>
+   <td colspan="2">Uses reflection in runtime</td>
+  <tr>
+   <td align="center">🧪<br>Stability</td>
+   <td colspan="2">Lots of unit tests (237 tests, 943 including subtests), end-to-end tests with self-made Telegram server in Go, end-to-end tests with real staging server, fuzzing</td>
+   <td colspan="2">12 unit tests, 41 including sub-tests</td>
+  <tr>
+   <td align="center">⭐<br>GitHub Stargazers</td>
+   <td align="center" width="20%">Has only 192 stars</td>
+   <td align="center" width="20%">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/gotd/td?style=for-the-badge">
+    <br>
+    <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/gotd/td?style=for-the-badge">
+   </td>
+   <td align="center" width="20%">Has 643 stars, which is much higher</td>
+   <td align="center" width="20%">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/xelaj/mtproto?style=for-the-badge">
+    <br>
+    <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/xelaj/mtproto?style=for-the-badge">
+   </td>
+</table>
 
 ## License
 MIT License
