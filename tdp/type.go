@@ -12,7 +12,7 @@ type Type struct {
 	// Name in TL schema.
 	Name string
 	// ID is type id.
-	ID int
+	ID uint32
 	// Fields of type.
 	Fields []Field
 	// Null denotes whether value is null.
