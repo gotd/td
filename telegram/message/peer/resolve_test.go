@@ -101,7 +101,7 @@ func Test_cleanupPhone(t *testing.T) {
 		t.Run(tt.phone, func(t *testing.T) {
 			r := cleanupPhone(tt.phone)
 			require.Equal(t, tt.want, r)
-			_, err := strconv.Atoi(r)
+			_, err := strconv.ParseInt(r, 10, 64)
 			require.NoError(t, err)
 		})
 	}

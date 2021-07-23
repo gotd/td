@@ -11,6 +11,10 @@ on:
 jobs:
   golangci-lint:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [amd64, 386]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2.3.4
@@ -21,6 +25,8 @@ jobs:
           go-version: 1.16
 
       - name: Lint
+        env:
+          GOARCH: ${{ matrix.arch }}
         uses: golangci/golangci-lint-action@v2.5.2
         with:
           version: latest

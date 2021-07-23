@@ -3,8 +3,7 @@ package file
 import (
 	"io"
 	"sync"
-
-	"go.uber.org/atomic"
+	"sync/atomic"
 
 	"github.com/gotd/td/internal/syncio"
 )
@@ -26,7 +25,8 @@ type Storage interface {
 
 type memFile struct {
 	syncio.BufWriterAt
-	partSize atomic.Int64
+	partSize int32
+	_        [4]byte
 }
 
 func (m *memFile) Size() int {
@@ -38,11 +38,11 @@ func (m *memFile) Close() error {
 }
 
 func (m *memFile) PartSize() int {
-	return int(m.partSize.Load())
+	return int(atomic.LoadInt32(&m.partSize))
 }
 
 func (m *memFile) SetPartSize(v int) {
-	m.partSize.Store(int64(v))
+	atomic.StoreInt32(&m.partSize, int32(v))
 }
 
 // InMemory is a inmemory implementation of file storage.
