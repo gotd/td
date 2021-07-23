@@ -11,6 +11,7 @@ type reqKey int64
 type reqMap struct {
 	m   map[reqKey]chan *poolConn
 	mux sync.Mutex
+	_   [4]byte
 
 	nextRequest atomic.Int64
 }
