@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  benchmark:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout latest code
@@ -35,7 +35,7 @@ jobs:
         run: go mod download && go mod tidy
 
       # Run all benchmarks.
-      - name: Run tests
+      - name: Run benchmarks
         run: go test -v -bench . -run ^$ ./... | tee benchmark.txt
 
       - name: Upload artifact
