@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"go.uber.org/zap"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -141,73 +140,47 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 		l.Debug("Read loop done")
 	}()
 
-	incoming := make(chan *bin.Buffer, c.readConcurrency)
+	for {
+		// We've tried multiple ways to reduce allocations via reusing buffer,
+		// but naive implementation induces high idle memory waste.
+		//
+		// Proper optimization will probably require total rework of bin.Buffer
+		// with sharded (by payload size?) pool that can be used after message
+		// size read (after readLen).
+		//
+		// Such optimization can introduce additional complexity overhead and
+		// is probably not worth it.
+		buf := &bin.Buffer{}
 
-	g, ctx := errgroup.WithContext(ctx)
-	for i := 0; i < c.readConcurrency; i++ {
-		g.Go(func() error {
-			consume := func(ctx context.Context, b *bin.Buffer) error {
-				defer bufPool.Put(b)
-				if err := c.consumeMessage(ctx, b); err != nil {
-					return xerrors.Errorf("consume: %w", err)
-				}
-
-				return nil
-			}
-			for {
-				select {
-				case b, ok := <-incoming:
-					if !ok {
-						return nil
-					}
-					if err := consume(ctx, b); err != nil {
-						return xerrors.Errorf("consume: %w", err)
-					}
-				case <-ctx.Done():
-					return ctx.Err()
-				}
-			}
-		})
-	}
-
-	g.Go(func() error {
-		defer close(incoming)
-
-		for {
-			buf := bufPool.Get()
-			if err := c.conn.Recv(ctx, buf); err != nil {
-				select {
-				case <-ctx.Done():
-					return ctx.Err()
-				default:
-					if c.noUpdates(err) {
-						continue
-					}
-				}
-
-				var protoErr *codec.ProtocolErr
-				if errors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
-					if err := c.handleAuthKeyNotFound(ctx); err != nil {
-						return xerrors.Errorf("auth key not found: %w", err)
-					}
+		if err := c.conn.Recv(ctx, buf); err != nil {
+			select {
+			case <-ctx.Done():
+				return ctx.Err()
+			default:
+				if c.noUpdates(err) {
 					continue
 				}
+			}
 
-				select {
-				case <-ctx.Done():
-					return xerrors.Errorf("read loop: %w", ctx.Err())
-				default:
-					return xerrors.Errorf("read: %w", err)
+			var protoErr *codec.ProtocolErr
+			if errors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
+				if err := c.handleAuthKeyNotFound(ctx); err != nil {
+					return xerrors.Errorf("auth key not found: %w", err)
 				}
+
+				continue
 			}
 
 			select {
-			case incoming <- buf:
 			case <-ctx.Done():
-				return ctx.Err()
+				return xerrors.Errorf("read loop: %w", ctx.Err())
+			default:
+				return xerrors.Errorf("read: %w", err)
 			}
 		}
-	})
 
-	return g.Wait()
+		if err := c.consumeMessage(ctx, buf); err != nil {
+			return xerrors.Errorf("consume: %w", err)
+		}
+	}
 }
