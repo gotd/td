@@ -4,7 +4,6 @@ import (
 	"context"
 	"crypto/rand"
 	"io"
-	"runtime"
 	"testing"
 	"time"
 
@@ -53,7 +52,6 @@ func TestCheckMessageID(t *testing.T) {
 func benchRead(payloadSize int) func(b *testing.B) {
 	return func(b *testing.B) {
 		a := require.New(b)
-		procs := runtime.GOMAXPROCS(0)
 		logger := zap.NewNop()
 		random := rand.Reader
 		c := neo.NewTime(time.Now())
@@ -107,9 +105,7 @@ func benchRead(payloadSize int) func(b *testing.B) {
 		b.ReportAllocs()
 		b.SetBytes(int64(payloadSize))
 
-		for i := 0; i < procs; i++ {
-			grp.Go(conn.readLoop)
-		}
+		grp.Go(conn.readLoop)
 		a.ErrorIs(grp.Wait(), context.Canceled)
 	}
 }
