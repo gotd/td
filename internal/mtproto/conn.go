@@ -94,8 +94,7 @@ type Conn struct {
 	// pingInterval is duration between ping_delay_disconnect request.
 	pingInterval time.Duration
 
-	readConcurrency int
-	gotSession      *tdsync.Ready
+	gotSession *tdsync.Ready
 
 	// compressThreshold is a threshold in bytes to determine that message
 	// is large enough to be compressed using gzip.
@@ -136,8 +135,7 @@ func New(dialer Dialer, opt Options) *Conn {
 		pingTimeout:  opt.PingTimeout,
 		pingInterval: opt.PingInterval,
 
-		readConcurrency: opt.ReadConcurrency,
-		gotSession:      tdsync.NewReady(),
+		gotSession: tdsync.NewReady(),
 
 		rpc:               opt.engine,
 		compressThreshold: 1024, // 1 KB
@@ -202,12 +200,7 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 		g.Go("ackLoop", c.ackLoop)
 		g.Go("saltsLoop", c.saltLoop)
 		g.Go("userCallback", f)
-
-		// Running multiple readLoop-s to allow concurrent decryption and
-		// message handlers.
-		for i := 0; i < c.readConcurrency; i++ {
-			g.Go(fmt.Sprintf("readLoop-%d", i), c.readLoop)
-		}
+		g.Go(fmt.Sprintf("readLoop"), c.readLoop)
 
 		if err := g.Wait(); err != nil {
 			return xerrors.Errorf("group: %w", err)

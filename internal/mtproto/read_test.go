@@ -99,7 +99,6 @@ func benchRead(payloadSize int) func(b *testing.B) {
 			log:               logger,
 			messageIDBuf:      noopBuf{},
 			authKey:           authKey,
-			readConcurrency:   procs,
 			compressThreshold: -1,
 		}
 		grp := tdsync.NewCancellableGroup(ctx)

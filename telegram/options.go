@@ -65,6 +65,8 @@ type Options struct {
 	MaxRetries    int
 	// ReadConcurrency is a count of workers to decrypt and decode incoming messages.
 	// Should be more than 2 to make effect. Otherwise ignored.
+	//
+	// Deprecated: no longer used.
 	ReadConcurrency int
 	// NoBufferReuse disables buffer reuse for workers that decrypt and decode
 	// incoming messages. Each worker adds around 0.5 MiB to the total used
@@ -72,6 +74,8 @@ type Options struct {
 	// programs that maintain many connections this quickly adds up to hundreds
 	// of megabytes (buffer size multiplied by the number of connections and read
 	// concurrency).
+	//
+	// Deprecated: no longer used.
 	NoBufferReuse bool
 
 	// Device is device config.

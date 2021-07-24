@@ -213,17 +213,15 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	}
 
 	client.opts = mtproto.Options{
-		PublicKeys:      opt.PublicKeys,
-		Random:          opt.Random,
-		Logger:          opt.Logger,
-		AckBatchSize:    opt.AckBatchSize,
-		AckInterval:     opt.AckInterval,
-		RetryInterval:   opt.RetryInterval,
-		MaxRetries:      opt.MaxRetries,
-		ReadConcurrency: opt.ReadConcurrency,
-		NoBufferReuse:   opt.NoBufferReuse,
-		MessageID:       opt.MessageID,
-		Clock:           opt.Clock,
+		PublicKeys:    opt.PublicKeys,
+		Random:        opt.Random,
+		Logger:        opt.Logger,
+		AckBatchSize:  opt.AckBatchSize,
+		AckInterval:   opt.AckInterval,
+		RetryInterval: opt.RetryInterval,
+		MaxRetries:    opt.MaxRetries,
+		MessageID:     opt.MessageID,
+		Clock:         opt.Clock,
 
 		Types: getTypesMapping(),
 	}

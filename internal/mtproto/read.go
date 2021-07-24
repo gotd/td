@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"net"
+	"sync/atomic"
 	"time"
 
 	"go.uber.org/zap"
@@ -140,6 +141,9 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 		l.Debug("Read loop done")
 	}()
 
+	// Last error encountered by consumeMessage.
+	var lastErr atomic.Value
+
 	for {
 		// We've tried multiple ways to reduce allocations via reusing buffer,
 		// but naive implementation induces high idle memory waste.
@@ -151,6 +155,12 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 		// Such optimization can introduce additional complexity overhead and
 		// is probably not worth it.
 		buf := &bin.Buffer{}
+
+		// Halting if consumeMessage encountered error.
+		// Should be something critical with crypto.
+		if err, ok := lastErr.Load().(error); ok && err != nil {
+			return xerrors.Errorf("halting: %w", err)
+		}
 
 		if err := c.conn.Recv(ctx, buf); err != nil {
 			select {
@@ -179,8 +189,17 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 			}
 		}
 
-		if err := c.consumeMessage(ctx, buf); err != nil {
-			return xerrors.Errorf("consume: %w", err)
-		}
+		go func() {
+			// Spawning goroutine per incoming message to utilize as much
+			// resources as possible while keeping idle utilization low.
+			//
+			// The "worker" model was replaced by this due to idle utilization
+			// overhead, especially on multi-CPU systems with multiple running
+			// clients.
+			if err := c.consumeMessage(ctx, buf); err != nil {
+				log.Error("Failed to process message", zap.Error(err))
+				lastErr.Store(xerrors.Errorf("consume: %w", err))
+			}
+		}()
 	}
 }
