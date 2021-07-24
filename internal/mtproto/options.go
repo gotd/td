@@ -4,7 +4,6 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"io"
-	"runtime"
 	"time"
 
 	"go.uber.org/zap"
@@ -65,6 +64,8 @@ type Options struct {
 	// ReadConcurrency limits maximum concurrently handled messages.
 	// Can be CPU or IO bound depending on message handlers.
 	// Defaults to GOMAXPROCS if it is not less than 10.
+	//
+	// Deprecated: no longer used.
 	ReadConcurrency int
 	// NoBufferReuse disables buffer reuse for concurrently handled messages.
 	// Each concurrent message handler adds around 0.5 MiB to the total used
@@ -100,19 +101,6 @@ func (opt *Options) setDefaultPublicKeys() {
 		panic(xerrors.Errorf("load vendored keys: %w", err))
 	}
 	opt.PublicKeys = keys
-}
-
-func (opt *Options) setDefaultConcurrency() {
-	opt.ReadConcurrency = runtime.GOMAXPROCS(0)
-
-	// In container environment small GOMAXPROCS are common (like 1 or 2),
-	// but such low concurrency is unfortunate, because most calls will
-	// be io bound.
-	const minConcurrency = 10
-
-	if opt.ReadConcurrency < minConcurrency {
-		opt.ReadConcurrency = minConcurrency
-	}
 }
 
 func (opt *Options) setDefaults() {
@@ -165,9 +153,6 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.Handler == nil {
 		opt.Handler = nopHandler{}
-	}
-	if opt.ReadConcurrency < 2 {
-		opt.setDefaultConcurrency()
 	}
 	if opt.Cipher == nil {
 		opt.Cipher = crypto.NewClientCipher(opt.Random)

@@ -15,7 +15,7 @@ func (c *Conn) writeServiceMessage(ctx context.Context, message bin.Encoder) err
 	return c.write(ctx, msgID, seqNo, message)
 }
 
-var bufPool = bin.NewPool(0) //nolint:gochecknoglobals
+var bufPool = bin.NewPool(0)
 
 func (c *Conn) write(ctx context.Context, msgID int64, seqNo int32, message bin.Encoder) error {
 	b := bufPool.Get()

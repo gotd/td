@@ -11,7 +11,7 @@ import (
 )
 
 //go:embed _data/public_keys.pem
-var publicKeys []byte // nolint:gochecknoglobals
+var publicKeys []byte
 
 // vendoredKeys parses vendored file _data/public_keys.pem as list of
 // PEM-encoded public RSA keys.

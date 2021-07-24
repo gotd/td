@@ -16,7 +16,6 @@ func SHA256(from ...[]byte) []byte {
 	return h.Sum(nil)
 }
 
-// nolint:gochecknoglobals // optimization for sha256-hash reuse
 var sha256Pool = &sync.Pool{
 	New: func() interface{} {
 		return sha256.New()

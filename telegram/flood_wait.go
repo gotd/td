@@ -12,4 +12,4 @@ const ErrFloodWait = tgerr.ErrFloodWait
 //
 // Client should wait for that duration before issuing new requests with
 // same method.
-var AsFloodWait = tgerr.AsFloodWait // nolint:gochecknoglobals
+var AsFloodWait = tgerr.AsFloodWait
