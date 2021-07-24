@@ -152,6 +152,22 @@ func getVersion() string {
 // Port is default port used by telegram.
 const Port = 443
 
+var (
+	typesMap  *tmap.Map
+	typesOnce sync.Once
+)
+
+func getTypesMapping() *tmap.Map {
+	typesOnce.Do(func() {
+		typesMap = tmap.New(
+			tg.TypesMap(),
+			mt.TypesMap(),
+			proto.TypesMap(),
+		)
+	})
+	return typesMap
+}
+
 // NewClient creates new unstarted client.
 func NewClient(appID int, appHash string, opt Options) *Client {
 	opt.setDefaults()
@@ -209,11 +225,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		MessageID:       opt.MessageID,
 		Clock:           opt.Clock,
 
-		Types: tmap.New(
-			tg.TypesMap(),
-			mt.TypesMap(),
-			proto.TypesMap(),
-		),
+		Types: getTypesMapping(),
 	}
 	client.conn = client.createPrimaryConn(nil)
 
