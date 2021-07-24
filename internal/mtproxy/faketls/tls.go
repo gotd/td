@@ -26,7 +26,7 @@ const (
 	HandshakeTypeServer HandshakeType = 0x02
 )
 
-// nolint:gochecknoglobals
+// Possible versions.
 var (
 	Version10Bytes = [2]byte{0x03, 0x01}
 	Version11Bytes = [2]byte{0x03, 0x02}

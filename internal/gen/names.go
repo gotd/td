@@ -32,7 +32,6 @@ func pascalWords(words []string) string {
 	return strings.Join(words, "")
 }
 
-// nolint:gochecknoglobals
 var (
 	rules    = ruleset()
 	acronyms = make(map[string]struct{})

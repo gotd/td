@@ -65,7 +65,6 @@ linters:
     - unused
     - varcheck
     - whitespace
-    - gochecknoglobals
 
   # Do not enable:
   # - wsl       (too opinionated about newlines)
@@ -74,6 +73,7 @@ linters:
   # - prealloc  (not worth it in scope of this project)
   # - maligned  (same as prealloc)
   # - funlen    (gocyclo is enough)
+  # - gochecknoglobals (we know when it is ok to use globals)
 
 issues:
   exclude-use-default: false
@@ -87,20 +87,9 @@ issues:
     - path: tlstypes
       linters: [gochecknoglobals, gosec, golint]
 
-    # default transport protocols are stateless const-like vars.
-    - path: transport
-      linters: [gochecknoglobals]
-
     - linters: [gocritic]
       text: "commentedOutCode"
       source: "SHA1"
-
-    - path: codec
-      linters: [gochecknoglobals]
-
-    # Allow embed globals
-    - source: "embed\\.FS"
-      linters: [gochecknoglobals]
 
     # Exclude go:generate from lll
     - source: "//go:generate"
@@ -118,13 +107,12 @@ issues:
         - gocognit
         - scopelint
         - lll
-        - gochecknoglobals
     # Ignore shadowing of err.
     - linters: [govet]
       text: 'declaration of "(err|ctx|log)"'
     # Ignore linters in main packages.
     - path: main\.go
-      linters: [gochecknoglobals, goconst, funlen, gocognit, gocyclo]
+      linters: [goconst, funlen, gocognit, gocyclo]
     - linters: [goconst]
       text: 'string `bool`'
 

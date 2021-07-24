@@ -3,7 +3,6 @@ package mtproto
 import (
 	"context"
 	"crypto/rsa"
-	"fmt"
 	"io"
 	"sync"
 	"time"
@@ -200,7 +199,7 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 		g.Go("ackLoop", c.ackLoop)
 		g.Go("saltsLoop", c.saltLoop)
 		g.Go("userCallback", f)
-		g.Go(fmt.Sprintf("readLoop"), c.readLoop)
+		g.Go("readLoop", c.readLoop)
 
 		if err := g.Wait(); err != nil {
 			return xerrors.Errorf("group: %w", err)

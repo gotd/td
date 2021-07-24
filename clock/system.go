@@ -47,4 +47,4 @@ func (systemClock) Timer(d time.Duration) Timer {
 func (systemClock) Now() time.Time { return time.Now() }
 
 // System Clock.
-var System Clock = systemClock{} // nolint:gochecknoglobals
+var System Clock = systemClock{}
