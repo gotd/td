@@ -56,6 +56,21 @@ func BenchmarkMessageKey(b *testing.B) {
 	}
 }
 
+func BenchmarkMessageKeySIMD(b *testing.B) {
+	k, _ := genMessageAndAuthKeys()
+	payload := make([]byte, 1024*512)
+	if _, err := io.ReadFull(rand.Reader, payload); err != nil {
+		b.Error(err)
+	}
+
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		_ = MessageKeySIMD(k, payload, Client)
+	}
+}
+
 func TestMessageKey(t *testing.T) {
 	k, _ := genMessageAndAuthKeys()
 	payload := make([]byte, 1024)

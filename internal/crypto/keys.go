@@ -3,6 +3,8 @@ package crypto
 import (
 	"crypto/sha256"
 
+	sha256simd "github.com/minio/sha256-simd"
+
 	"github.com/gotd/td/bin"
 )
 
@@ -30,6 +32,15 @@ func getX(mode Side) int {
 	default:
 		return 0
 	}
+}
+
+func msgKeyLargeSIMD(r []byte, authKey Key, plaintextPadded []byte, mode Side) []byte {
+	h := sha256simd.New()
+
+	x := getX(mode)
+	_, _ = h.Write(authKey[88+x : 32+88+x])
+	_, _ = h.Write(plaintextPadded)
+	return h.Sum(r)
 }
 
 // Message keys are defined here:
@@ -125,6 +136,15 @@ func MessageKey(authKey Key, plaintextPadded []byte, mode Side) bin.Int128 {
 	r := make([]byte, 0, 256)
 	// `msg_key_large = SHA256 (substr (auth_key, 88+x, 32) + plaintext + random_padding);`
 	msgKeyLarge := msgKeyLarge(r, authKey, plaintextPadded, mode)
+	// `msg_key = substr (msg_key_large, 8, 16);`
+	return messageKey(msgKeyLarge)
+}
+
+// MessageKeySIMD computes message key for provided auth_key and padded payload.
+func MessageKeySIMD(authKey Key, plaintextPadded []byte, mode Side) bin.Int128 {
+	r := make([]byte, 0, 256)
+	// `msg_key_large = SHA256 (substr (auth_key, 88+x, 32) + plaintext + random_padding);`
+	msgKeyLarge := msgKeyLargeSIMD(r, authKey, plaintextPadded, mode)
 	// `msg_key = substr (msg_key_large, 8, 16);`
 	return messageKey(msgKeyLarge)
 }

@@ -30,8 +30,12 @@ func (c Cipher) Decrypt(k AuthKey, encrypted *EncryptedMessage) (*EncryptedMessa
 	}
 
 	side := c.encryptSide.DecryptSide()
-	// Checking SHA256 hash value of msg_key
-	msgKey := MessageKey(k.Value, plaintext, side)
+	var msgKey bin.Int128
+	if len(plaintext) < 512*1024 {
+		msgKey = MessageKey(k.Value, plaintext, side)
+	} else {
+		msgKey = MessageKeySIMD(k.Value, plaintext, side)
+	}
 	if msgKey != encrypted.MsgKey {
 		return nil, xerrors.Errorf("msg_key is invalid")
 	}
