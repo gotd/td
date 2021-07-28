@@ -41,15 +41,18 @@ func convertOptional(msg *tg.Message, i tg.UpdatesClass) {
 // ShortMessage converts UpdateShortMessage to UpdateShort.
 func ShortMessage(u *tg.UpdateShortMessage) *tg.UpdateShort {
 	msg := &tg.Message{
-		Out:         u.Out,
-		Mentioned:   u.Mentioned,
-		MediaUnread: u.MediaUnread,
-		Silent:      u.Silent,
-		ID:          u.ID,
-		PeerID:      &tg.PeerUser{UserID: u.UserID},
-		Message:     u.Message,
-		Date:        u.Date,
+		ID:      u.ID,
+		PeerID:  &tg.PeerUser{UserID: u.UserID},
+		Message: u.Message,
+		Date:    u.Date,
 	}
+	// Optional fields should set by SetXXX(), so GetXXX and Flags.Has()
+	// can return the right values even we hav't call .Encode()
+	msg.SetOut(u.Out)
+	msg.SetMentioned(u.Mentioned)
+	msg.SetMediaUnread(u.MediaUnread)
+	msg.SetSilent(u.Silent)
+
 	if !u.Out {
 		msg.SetFromID(&tg.PeerUser{UserID: u.UserID})
 	}
@@ -68,16 +71,18 @@ func ShortMessage(u *tg.UpdateShortMessage) *tg.UpdateShort {
 // ShortChatMessage converts UpdateShortChatMessage to UpdateShort.
 func ShortChatMessage(u *tg.UpdateShortChatMessage) *tg.UpdateShort {
 	msg := &tg.Message{
-		Out:         u.Out,
-		Mentioned:   u.Mentioned,
-		MediaUnread: u.MediaUnread,
-		Silent:      u.Silent,
-		ID:          u.ID,
-		FromID:      &tg.PeerUser{UserID: u.FromID},
-		PeerID:      &tg.PeerChat{ChatID: u.ChatID},
-		Message:     u.Message,
-		Date:        u.Date,
+		ID:      u.ID,
+		PeerID:  &tg.PeerChat{ChatID: u.ChatID},
+		Message: u.Message,
+		Date:    u.Date,
 	}
+
+	msg.SetFromID(&tg.PeerUser{UserID: u.FromID})
+	msg.SetOut(u.Out)
+	msg.SetMentioned(u.Mentioned)
+	msg.SetMediaUnread(u.MediaUnread)
+	msg.SetSilent(u.Silent)
+
 	convertOptional(msg, u)
 
 	return &tg.UpdateShort{
@@ -93,10 +98,10 @@ func ShortChatMessage(u *tg.UpdateShortChatMessage) *tg.UpdateShort {
 // ShortSentMessage converts UpdateShortSentMessage to UpdateShort.
 func ShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort {
 	msg := &tg.Message{
-		Out:  u.Out,
 		ID:   u.ID,
 		Date: u.Date,
 	}
+	msg.SetOut(u.Out)
 	convertOptional(msg, u)
 
 	return &tg.UpdateShort{
