@@ -19,6 +19,7 @@ var (
 	}
 )
 
+//nolint:gochecknoinits
 func init() {
 	parsedKeys.Once.Do(func() {
 		keys, err := crypto.ParseRSAPublicKeys(publicKeys)
