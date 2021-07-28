@@ -91,11 +91,8 @@ func (nopHandler) OnSession(session Session) error { return nil }
 
 func (opt *Options) setDefaultPublicKeys() {
 	// Using public keys that are included with distribution if not
-	// provided.
-	//
-	// This should never fail and keys should be valid for recent
-	// library versions.
-	opt.PublicKeys = vendoredKeys()
+	// provided. Keys should be valid for recent library versions.
+	opt.PublicKeys = vendoredKeys
 }
 
 func (opt *Options) setDefaults() {
