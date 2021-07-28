@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -96,11 +95,7 @@ func (opt *Options) setDefaultPublicKeys() {
 	//
 	// This should never fail and keys should be valid for recent
 	// library versions.
-	keys, err := vendoredKeys()
-	if err != nil {
-		panic(xerrors.Errorf("load vendored keys: %w", err))
-	}
-	opt.PublicKeys = keys
+	opt.PublicKeys = vendoredKeys()
 }
 
 func (opt *Options) setDefaults() {
