@@ -46,8 +46,6 @@ func TestSender_Resolve(t *testing.T) {
 		{"Good with numbers", "telegram123", false},
 		{"Good with _", "telegram_test", false},
 		{"Good with numbers and _", "telegram_test123", false},
-		{"Bad", "", true},
-		{"Bad", "gotd", true},
 		{"Bad", "_gotd_test", true},
 		{"Bad", "gotd_test_", true},
 		{"Bad", "_gotd_test123", true},

@@ -102,11 +102,6 @@ func ResolveDomain(r Resolver, domain string) Promise {
 }
 
 func validateDomain(domain string) error {
-	const minDomainLength = 5
-	if len(domain) < minDomainLength {
-		return xerrors.Errorf("domain %q is too small", domain)
-	}
-
 	if err := checkDomainSymbols(domain); err != nil {
 		return err
 	}
