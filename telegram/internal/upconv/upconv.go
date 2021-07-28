@@ -98,13 +98,10 @@ func ShortChatMessage(u *tg.UpdateShortChatMessage) *tg.UpdateShort {
 // ShortSentMessage converts UpdateShortSentMessage to UpdateShort.
 func ShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort {
 	msg := &tg.Message{
-		// UpdateShortSentMessage is shortened constructor containing info
-		// on one **outgoing** message to a contact, so `Message.Out` should
-		// always be true
-		Out:  true,
 		ID:   u.ID,
 		Date: u.Date,
 	}
+	msg.SetOut(u.Out)
 	convertOptional(msg, u)
 
 	return &tg.UpdateShort{
