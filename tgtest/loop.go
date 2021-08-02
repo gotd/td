@@ -3,7 +3,6 @@ package tgtest
 import (
 	"context"
 	"encoding/binary"
-	"encoding/hex"
 
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
@@ -16,14 +15,6 @@ import (
 	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/transport"
 )
-
-// Session represents connection session.
-type Session struct {
-	// ID is a Session ID.
-	ID int64
-	// AuthKey is a attached key.
-	AuthKey crypto.AuthKey
-}
 
 func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 	var (
@@ -63,7 +54,7 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 		if !conn.didSentCreated() {
 			s.users.addConnection(msg.SessionID, conn)
 
-			s.log.Debug("Send handleSessionCreated event")
+			s.log.Debug("Send handleSessionCreated event", zap.Inline(session))
 			salt := int64(binary.LittleEndian.Uint64(key.ID[:]))
 			if err := s.sendSessionCreated(ctx, session, salt); err != nil {
 				return err
@@ -94,7 +85,7 @@ func (s *Server) handle(req *Request) error {
 	}
 
 	s.log.Debug("Got request",
-		zap.String("key_id", hex.EncodeToString(req.Session.AuthKey.ID[:])),
+		zap.Inline(req.Session),
 		zap.Int64("msg_id", req.MsgID),
 		zap.String("type", s.types.Get(id)),
 	)
