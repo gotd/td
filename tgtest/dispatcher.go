@@ -26,7 +26,7 @@ func NewDispatcher() *Dispatcher {
 func (d *Dispatcher) OnMessage(server *Server, req *Request) error {
 	id, err := req.Buf.PeekID()
 	if err != nil {
-		return xerrors.Errorf("peer id: %w", err)
+		return xerrors.Errorf("peek id: %w", err)
 	}
 
 	d.mux.Lock()
