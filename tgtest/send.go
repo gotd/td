@@ -24,9 +24,9 @@ const (
 // Send sends given message to user session k.
 // Parameter t denotes MTProto message type. It should be MessageServerResponse or MessageFromServer.
 func (s *Server) Send(ctx context.Context, k Session, t proto.MessageType, message bin.Encoder) error {
-	conn, ok := s.users.getConnection(k.AuthKey)
+	conn, ok := s.users.getConnection(k.ID)
 	if !ok {
-		return xerrors.Errorf("send %T: invalid key: connection %s not found", message, k.String())
+		return xerrors.Errorf("send %T: invalid key: connection %s not found", message, k.AuthKey.String())
 	}
 
 	var b bin.Buffer
@@ -35,7 +35,7 @@ func (s *Server) Send(ctx context.Context, k Session, t proto.MessageType, messa
 	}
 
 	data := crypto.EncryptedMessageData{
-		SessionID:              k.SessionID,
+		SessionID:              k.ID,
 		MessageDataLen:         int32(b.Len()),
 		MessageDataWithPadding: b.Copy(),
 		MessageID:              s.msgID.New(t),
@@ -169,5 +169,5 @@ func (s *Server) SendAck(ctx context.Context, k Session, ids ...int64) error {
 // ForceDisconnect forcibly disconnect user from server.
 // It deletes MTProto session (session_id), but not auth key.
 func (s *Server) ForceDisconnect(k Session) {
-	s.users.deleteConnection(k.AuthKey)
+	s.users.deleteConnection(k.ID)
 }

@@ -2,6 +2,7 @@ package tgtest
 
 import (
 	"context"
+	"crypto/rand"
 	"crypto/rsa"
 	"net"
 	"sync"
@@ -9,6 +10,7 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
@@ -67,8 +69,18 @@ func (c *Cluster) Common() *Dispatcher {
 
 // DC registers new server and returns it.
 func (c *Cluster) DC(id int, name string) *Server {
+	key, err := rsa.GenerateKey(rand.Reader, crypto.RSAKeyBits)
+	if err != nil {
+		// TODO(tdakkota): Return error instead.
+		panic(err)
+	}
+
 	logger := c.log.Named(name).With(zap.Int("dc_id", id))
-	server := NewUnstartedServer(id, logger, c.codec)
+	server := NewServer(key, ServerOptions{
+		DC:     id,
+		Logger: logger,
+		Codec:  c.codec,
+	})
 	c.servers[id] = server
 	c.keys = append(c.keys, server.Key())
 
@@ -133,7 +145,7 @@ func (c *Cluster) Up(ctx context.Context) error {
 	for id := range c.servers {
 		l, err := newLocalListener(ctx)
 		if err != nil {
-			return xerrors.Errorf("tgtest: failed to listen on a port: %w", err)
+			return xerrors.Errorf("tgtest, DC %d: listen port: %w", id, err)
 		}
 
 		addr, ok := l.Addr().(*net.TCPAddr)

@@ -17,13 +17,23 @@ import (
 	"github.com/gotd/td/transport"
 )
 
+// Session represents connection session.
 type Session struct {
-	SessionID int64
-	crypto.AuthKey
+	// ID is a Session ID.
+	ID int64
+	// AuthKey is a attached key.
+	AuthKey crypto.AuthKey
 }
 
 func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
-	var b bin.Buffer
+	var (
+		session Session
+		b       bin.Buffer
+	)
+
+	defer func() {
+		s.users.deleteConnection(session.ID)
+	}()
 	for {
 		b.Reset()
 		if err := conn.Recv(ctx, &b); err != nil {
@@ -46,11 +56,13 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 			return xerrors.Errorf("failed to decrypt: %w", err)
 		}
 
-		session := Session{
-			SessionID: msg.SessionID,
-			AuthKey:   key,
+		session = Session{
+			ID:      msg.SessionID,
+			AuthKey: key,
 		}
 		if !conn.didSentCreated() {
+			s.users.addConnection(msg.SessionID, conn)
+
 			s.log.Debug("Send handleSessionCreated event")
 			salt := int64(binary.LittleEndian.Uint64(key.ID[:]))
 			if err := s.sendSessionCreated(ctx, session, salt); err != nil {
@@ -82,7 +94,7 @@ func (s *Server) handle(req *Request) error {
 	}
 
 	s.log.Debug("Got request",
-		zap.String("key_id", hex.EncodeToString(req.Session.ID[:])),
+		zap.String("key_id", hex.EncodeToString(req.Session.AuthKey.ID[:])),
 		zap.Int64("msg_id", req.MsgID),
 		zap.String("type", s.types.Get(id)),
 	)
@@ -162,9 +174,8 @@ func (s *Server) handle(req *Request) error {
 func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error) {
 	s.log.Debug("User connected")
 
-	var k crypto.AuthKey
+	var key crypto.AuthKey
 	defer func() {
-		s.users.deleteConnection(k)
 		_ = conn.Close()
 	}()
 
@@ -178,24 +189,23 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error)
 		return xerrors.Errorf("peek id: %w", err)
 	}
 
-	k, ok := s.users.getSession(authKeyID)
+	key, ok := s.users.getSession(authKeyID)
 	if !ok {
 		conn := newBufferedConn(conn)
 		conn.Push(b)
 
 		s.log.Debug("Starting key exchange")
-		k, err = s.exchange(ctx, conn)
+		key, err = s.exchange(ctx, conn)
 		if err != nil {
 			return xerrors.Errorf("key exchange failed: %w", err)
 		}
-		s.users.addSession(k)
+		s.users.addSession(key)
 	} else {
 		s.log.Debug("Session already created, skip key exchange")
 	}
 	wrappedConn := &connection{
 		Conn: conn,
 	}
-	s.users.addConnection(k, wrappedConn)
 
 	return s.rpcHandle(ctx, wrappedConn)
 }
