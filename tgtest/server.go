@@ -2,7 +2,6 @@ package tgtest
 
 import (
 	"context"
-	"crypto/rand"
 	"crypto/rsa"
 	"io"
 	"net"
@@ -12,13 +11,12 @@ import (
 
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/tmap"
-	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
 
+// Server is a MTProto server structure.
 type Server struct {
 	dcID   int
 	codec  func() transport.Codec // immutable
@@ -28,52 +26,45 @@ type Server struct {
 	dispatcher *Dispatcher
 	ctx        context.Context
 
-	clock clock.Clock         // immutable
-	log   *zap.Logger         // immutable
-	msgID *proto.MessageIDGen // immutable
+	clock clock.Clock             // immutable
+	log   *zap.Logger             // immutable
+	msgID mtproto.MessageIDSource // immutable
 
 	users *users
 	types *tmap.Map
 }
 
+// NewServer creates new Server.
+func NewServer(key *rsa.PrivateKey, opts ServerOptions) *Server {
+	opts.setDefaults()
+
+	s := &Server{
+		dcID:       opts.DC,
+		codec:      opts.Codec,
+		key:        key,
+		cipher:     crypto.NewServerCipher(opts.Random),
+		clock:      opts.Clock,
+		log:        opts.Logger,
+		dispatcher: NewDispatcher(),
+		users:      newUsers(),
+		msgID:      opts.MessageID,
+		types:      opts.Types,
+	}
+	return s
+}
+
+// Key returns public key of this server.
 func (s *Server) Key() *rsa.PublicKey {
 	return &s.key.PublicKey
 }
 
+// Serve runs server loop using given listener.
 func (s *Server) Serve(ctx context.Context, l net.Listener) error {
 	s.ctx = ctx
 	return s.serve(l)
 }
 
-func (s *Server) AddSession(key crypto.AuthKey) {
-	s.users.addSession(key)
-}
-
-func NewUnstartedServer(dcID int, log *zap.Logger, codec func() transport.Codec) *Server {
-	k, err := rsa.GenerateKey(rand.Reader, crypto.RSAKeyBits)
-	if err != nil {
-		panic(err)
-	}
-
-	s := &Server{
-		dcID:       dcID,
-		codec:      codec,
-		key:        k,
-		cipher:     crypto.NewServerCipher(rand.Reader),
-		clock:      clock.System,
-		log:        log,
-		dispatcher: NewDispatcher(),
-		users:      newUsers(),
-		msgID:      proto.NewMessageIDGen(clock.System.Now),
-		types: tmap.New(
-			tg.TypesMap(),
-			mt.TypesMap(),
-			proto.TypesMap(),
-		),
-	}
-	return s
-}
-
+// Dispatcher returns server RPC dispatcher.
 func (s *Server) Dispatcher() *Dispatcher {
 	return s.dispatcher
 }
