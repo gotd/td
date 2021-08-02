@@ -41,7 +41,7 @@ func (d *Dispatcher) OnMessage(server *Server, req *Request) error {
 		return fallback.OnMessage(server, req)
 	}
 
-	return xerrors.Errorf("unexpected type %d", id)
+	return xerrors.Errorf("unexpected type %#x", id)
 }
 
 // Handle sets handler for given TypeID.
