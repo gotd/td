@@ -29,7 +29,7 @@ func NewUser(suite *Suite, text []string, username string) User {
 		suite:    suite,
 		text:     text,
 		username: username,
-		logger:   suite.Log.Named("terentyev"),
+		logger:   suite.logger.Named("terentyev"),
 		message:  make(chan string, 1),
 	}
 }

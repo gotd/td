@@ -27,7 +27,7 @@ type EchoBot struct {
 func NewEchoBot(suite *Suite, auth chan<- *tg.User) EchoBot {
 	return EchoBot{
 		suite:  suite,
-		logger: suite.Log.Named("echobot"),
+		logger: suite.logger.Named("echobot"),
 		auth:   auth,
 	}
 }

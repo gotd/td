@@ -2,7 +2,6 @@ package telegram_test
 
 import (
 	"context"
-	"crypto/rand"
 	"strings"
 	"testing"
 	"time"
@@ -20,7 +19,6 @@ import (
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/e2etest"
 	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgtest"
 	"github.com/gotd/td/transport"
 )
 
@@ -86,12 +84,10 @@ func TestExternalE2EUsersDialog(t *testing.T) {
 	defer cancel()
 	log := zaptest.NewLogger(t).WithOptions(zap.IncreaseLevel(zapcore.InfoLevel))
 
-	cfg := e2etest.TestConfig{
-		AppID:   telegram.TestAppID,
-		AppHash: telegram.TestAppHash,
-		DC:      2,
+	cfg := e2etest.TestOptions{
+		Logger:  log,
 	}
-	suite := e2etest.NewSuite(tgtest.NewSuite(ctx, t, log), cfg, rand.Reader)
+	suite := e2etest.NewSuite(t, cfg)
 
 	auth := make(chan *tg.User, 1)
 	g := tdsync.NewLogGroup(ctx, log.Named("group"))
