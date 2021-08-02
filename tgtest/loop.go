@@ -180,7 +180,7 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error)
 
 	k, ok := s.users.getSession(authKeyID)
 	if !ok {
-		conn := NewBufferedConn(conn)
+		conn := newBufferedConn(conn)
 		conn.Push(b)
 
 		s.log.Debug("Starting key exchange")

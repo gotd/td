@@ -8,24 +8,24 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-type BufferedConn struct {
+type bufferedConn struct {
 	conn transport.Conn
 
 	recv    []bin.Buffer
 	recvMux sync.Mutex
 }
 
-func NewBufferedConn(conn transport.Conn) *BufferedConn {
-	return &BufferedConn{conn: conn}
+func newBufferedConn(conn transport.Conn) *bufferedConn {
+	return &bufferedConn{conn: conn}
 }
 
-func (c *BufferedConn) push(b *bin.Buffer) {
+func (c *bufferedConn) push(b *bin.Buffer) {
 	c.recvMux.Lock()
 	c.recv = append(c.recv, bin.Buffer{Buf: b.Copy()})
 	c.recvMux.Unlock()
 }
 
-func (c *BufferedConn) pop() (r bin.Buffer, ok bool) {
+func (c *bufferedConn) pop() (r bin.Buffer, ok bool) {
 	c.recvMux.Lock()
 	defer c.recvMux.Unlock()
 	if len(c.recv) < 1 {
@@ -36,15 +36,15 @@ func (c *BufferedConn) pop() (r bin.Buffer, ok bool) {
 	return
 }
 
-func (c *BufferedConn) Push(b *bin.Buffer) {
+func (c *bufferedConn) Push(b *bin.Buffer) {
 	c.push(b)
 }
 
-func (c *BufferedConn) Send(ctx context.Context, b *bin.Buffer) error {
+func (c *bufferedConn) Send(ctx context.Context, b *bin.Buffer) error {
 	return c.conn.Send(ctx, b)
 }
 
-func (c *BufferedConn) Recv(ctx context.Context, b *bin.Buffer) error {
+func (c *bufferedConn) Recv(ctx context.Context, b *bin.Buffer) error {
 	e, ok := c.pop()
 	if ok {
 		b.ResetTo(e.Copy())
@@ -54,6 +54,6 @@ func (c *BufferedConn) Recv(ctx context.Context, b *bin.Buffer) error {
 	return c.conn.Recv(ctx, b)
 }
 
-func (c *BufferedConn) Close() error {
+func (c *bufferedConn) Close() error {
 	return c.conn.Close()
 }

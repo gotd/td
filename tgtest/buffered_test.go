@@ -25,7 +25,7 @@ func TestBufferedConn(t *testing.T) {
 		a.NoError(c2.Send(ctx, b1))
 	}()
 
-	b := &BufferedConn{conn: c1}
+	b := &bufferedConn{conn: c1}
 	recvBuf := &bin.Buffer{}
 	a.NoError(b.Recv(ctx, recvBuf))
 	a.Equal(payload, recvBuf.Buf)
