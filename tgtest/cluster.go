@@ -10,6 +10,7 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/tg"
@@ -97,6 +98,23 @@ func (c *Cluster) Dispatch(id int, name string) *Dispatcher {
 	return c.DC(id, name).Dispatcher()
 }
 
+type typeIDObject struct {
+	TypeID uint32
+}
+
+func (t *typeIDObject) Decode(b *bin.Buffer) error {
+	id, err := b.PeekID()
+	if err != nil {
+		return xerrors.Errorf("peek id: %w", err)
+	}
+	t.TypeID = id
+	return nil
+}
+
+func (t *typeIDObject) Encode(*bin.Buffer) error {
+	return xerrors.New("typeIDObject must not be encoded")
+}
+
 func (c *Cluster) fallback() HandlerFunc {
 	return func(srv *Server, req *Request) error {
 		cfg := c.Config()
@@ -109,18 +127,33 @@ func (c *Cluster) fallback() HandlerFunc {
 
 		switch id {
 		case tg.InvokeWithLayerRequestTypeID:
-			layerInvoke := tg.InvokeWithLayerRequest{
-				Query: &tg.InitConnectionRequest{
-					Query: &tg.HelpGetConfigRequest{},
-				},
+			obj := typeIDObject{}
+			r := &tg.InvokeWithLayerRequest{
+				Query: &obj,
 			}
+			if err := r.Decode(req.Buf); err != nil {
+				return err
+			}
+			req.Session.Layer.Store(int32(r.Layer))
 
-			if err := layerInvoke.Decode(req.Buf); err != nil {
+			return c.common.OnMessage(srv, req)
+		case tg.InitConnectionRequestTypeID:
+			obj := typeIDObject{}
+			r := &tg.InitConnectionRequest{
+				Query: &obj,
+			}
+			if err := r.Decode(req.Buf); err != nil {
+				return err
+			}
+			c.log.Debug("Init connection call", zap.Inline(req.Session))
+
+			return c.common.OnMessage(srv, req)
+		case tg.HelpGetConfigRequestTypeID:
+			var r tg.HelpGetConfigRequest
+			if err := r.Decode(req.Buf); err != nil {
 				return err
 			}
 
-			return srv.SendResult(req, &cfg)
-		case tg.HelpGetConfigRequestTypeID:
 			return srv.SendResult(req, &cfg)
 		default:
 			return xerrors.Errorf("unexpected TypeID %x call", id)
