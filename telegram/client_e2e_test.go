@@ -183,7 +183,7 @@ func testMigrate(p dcs.Protocol) func(t *testing.T) {
 				case <-req.RequestCtx.Done():
 					return req.RequestCtx.Err()
 				}
-				return server.SendResult(req, &tg.Updates{})
+				return server.SendGZIP(req, &tg.Updates{})
 			},
 		)
 		c.Dispatch(2, "migrate").HandleFunc(tg.MessagesSendMessageRequestTypeID,
