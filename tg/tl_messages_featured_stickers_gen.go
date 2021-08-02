@@ -102,7 +102,7 @@ func (f *MessagesFeaturedStickersNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *MessagesFeaturedStickersNotModified) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.featuredStickersNotModified#c6dc0c66 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.featuredStickersNotModified#c6dc0c66")
 	}
 	b.PutID(MessagesFeaturedStickersNotModifiedTypeID)
 	return f.EncodeBare(b)
@@ -111,7 +111,7 @@ func (f *MessagesFeaturedStickersNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *MessagesFeaturedStickersNotModified) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.featuredStickersNotModified#c6dc0c66 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.featuredStickersNotModified#c6dc0c66")
 	}
 	b.PutInt(f.Count)
 	return nil
@@ -125,10 +125,10 @@ func (f *MessagesFeaturedStickersNotModified) GetCount() (value int) {
 // Decode implements bin.Decoder.
 func (f *MessagesFeaturedStickersNotModified) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.featuredStickersNotModified#c6dc0c66 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.featuredStickersNotModified#c6dc0c66")
 	}
 	if err := b.ConsumeID(MessagesFeaturedStickersNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.featuredStickersNotModified#c6dc0c66: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.featuredStickersNotModified#c6dc0c66", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (f *MessagesFeaturedStickersNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *MessagesFeaturedStickersNotModified) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.featuredStickersNotModified#c6dc0c66 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.featuredStickersNotModified#c6dc0c66")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.featuredStickersNotModified#c6dc0c66: field count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.featuredStickersNotModified#c6dc0c66", "count", err)
 		}
 		f.Count = value
 	}
@@ -270,7 +270,7 @@ func (f *MessagesFeaturedStickers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *MessagesFeaturedStickers) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.featuredStickers#b6abc341 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.featuredStickers#b6abc341")
 	}
 	b.PutID(MessagesFeaturedStickersTypeID)
 	return f.EncodeBare(b)
@@ -279,17 +279,17 @@ func (f *MessagesFeaturedStickers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *MessagesFeaturedStickers) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.featuredStickers#b6abc341 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.featuredStickers#b6abc341")
 	}
 	b.PutInt(f.Hash)
 	b.PutInt(f.Count)
 	b.PutVectorHeader(len(f.Sets))
 	for idx, v := range f.Sets {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.featuredStickers#b6abc341: field sets element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.featuredStickers#b6abc341", "sets", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.featuredStickers#b6abc341: field sets element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.featuredStickers#b6abc341", "sets", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(f.Unread))
@@ -327,10 +327,10 @@ func (f *MessagesFeaturedStickers) GetUnread() (value []int64) {
 // Decode implements bin.Decoder.
 func (f *MessagesFeaturedStickers) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.featuredStickers#b6abc341 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.featuredStickers#b6abc341")
 	}
 	if err := b.ConsumeID(MessagesFeaturedStickersTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.featuredStickers#b6abc341: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.featuredStickers#b6abc341", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -338,31 +338,31 @@ func (f *MessagesFeaturedStickers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *MessagesFeaturedStickers) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.featuredStickers#b6abc341 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.featuredStickers#b6abc341")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.featuredStickers#b6abc341: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.featuredStickers#b6abc341", "hash", err)
 		}
 		f.Hash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.featuredStickers#b6abc341: field count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.featuredStickers#b6abc341", "count", err)
 		}
 		f.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.featuredStickers#b6abc341: field sets: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.featuredStickers#b6abc341", "sets", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStickerSetCovered(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.featuredStickers#b6abc341: field sets: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.featuredStickers#b6abc341", "sets", err)
 			}
 			f.Sets = append(f.Sets, value)
 		}
@@ -370,12 +370,12 @@ func (f *MessagesFeaturedStickers) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.featuredStickers#b6abc341: field unread: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.featuredStickers#b6abc341", "unread", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.featuredStickers#b6abc341: field unread: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.featuredStickers#b6abc341", "unread", err)
 			}
 			f.Unread = append(f.Unread, value)
 		}
@@ -456,18 +456,18 @@ func DecodeMessagesFeaturedStickers(buf *bin.Buffer) (MessagesFeaturedStickersCl
 		// Decoding messages.featuredStickersNotModified#c6dc0c66.
 		v := MessagesFeaturedStickersNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFeaturedStickersClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFeaturedStickersClass", err)
 		}
 		return &v, nil
 	case MessagesFeaturedStickersTypeID:
 		// Decoding messages.featuredStickers#b6abc341.
 		v := MessagesFeaturedStickers{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFeaturedStickersClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFeaturedStickersClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessagesFeaturedStickersClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFeaturedStickersClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -479,7 +479,7 @@ type MessagesFeaturedStickersBox struct {
 // Decode implements bin.Decoder for MessagesFeaturedStickersBox.
 func (b *MessagesFeaturedStickersBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode MessagesFeaturedStickersBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "MessagesFeaturedStickers")
 	}
 	v, err := DecodeMessagesFeaturedStickers(buf)
 	if err != nil {
@@ -492,7 +492,7 @@ func (b *MessagesFeaturedStickersBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for MessagesFeaturedStickersBox.
 func (b *MessagesFeaturedStickersBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.FeaturedStickers == nil {
-		return fmt.Errorf("unable to encode MessagesFeaturedStickersClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "MessagesFeaturedStickersClass")
 	}
 	return b.FeaturedStickers.Encode(buf)
 }

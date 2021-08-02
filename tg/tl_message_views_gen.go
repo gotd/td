@@ -153,7 +153,7 @@ func (m *MessageViews) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageViews) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageViews#455b853d as nil")
+		return fmt.Errorf("can't encode %s as nil", "messageViews#455b853d")
 	}
 	b.PutID(MessageViewsTypeID)
 	return m.EncodeBare(b)
@@ -162,7 +162,7 @@ func (m *MessageViews) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageViews) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageViews#455b853d as nil")
+		return fmt.Errorf("can't encode %s as nil", "messageViews#455b853d")
 	}
 	if !(m.Views == 0) {
 		m.Flags.Set(0)
@@ -174,7 +174,7 @@ func (m *MessageViews) EncodeBare(b *bin.Buffer) error {
 		m.Flags.Set(2)
 	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageViews#455b853d: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messageViews#455b853d", "flags", err)
 	}
 	if m.Flags.Has(0) {
 		b.PutInt(m.Views)
@@ -184,7 +184,7 @@ func (m *MessageViews) EncodeBare(b *bin.Buffer) error {
 	}
 	if m.Flags.Has(2) {
 		if err := m.Replies.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageViews#455b853d: field replies: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "messageViews#455b853d", "replies", err)
 		}
 	}
 	return nil
@@ -238,10 +238,10 @@ func (m *MessageViews) GetReplies() (value MessageReplies, ok bool) {
 // Decode implements bin.Decoder.
 func (m *MessageViews) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageViews#455b853d to nil")
+		return fmt.Errorf("can't decode %s to nil", "messageViews#455b853d")
 	}
 	if err := b.ConsumeID(MessageViewsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageViews#455b853d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messageViews#455b853d", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -249,30 +249,30 @@ func (m *MessageViews) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageViews) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageViews#455b853d to nil")
+		return fmt.Errorf("can't decode %s to nil", "messageViews#455b853d")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageViews#455b853d: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageViews#455b853d", "flags", err)
 		}
 	}
 	if m.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageViews#455b853d: field views: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageViews#455b853d", "views", err)
 		}
 		m.Views = value
 	}
 	if m.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageViews#455b853d: field forwards: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageViews#455b853d", "forwards", err)
 		}
 		m.Forwards = value
 	}
 	if m.Flags.Has(2) {
 		if err := m.Replies.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageViews#455b853d: field replies: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageViews#455b853d", "replies", err)
 		}
 	}
 	return nil

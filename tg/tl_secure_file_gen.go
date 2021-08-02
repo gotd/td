@@ -85,7 +85,7 @@ func (s *SecureFileEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureFileEmpty) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureFileEmpty#64199744 as nil")
+		return fmt.Errorf("can't encode %s as nil", "secureFileEmpty#64199744")
 	}
 	b.PutID(SecureFileEmptyTypeID)
 	return s.EncodeBare(b)
@@ -94,7 +94,7 @@ func (s *SecureFileEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureFileEmpty) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureFileEmpty#64199744 as nil")
+		return fmt.Errorf("can't encode %s as nil", "secureFileEmpty#64199744")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (s *SecureFileEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureFileEmpty) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureFileEmpty#64199744 to nil")
+		return fmt.Errorf("can't decode %s to nil", "secureFileEmpty#64199744")
 	}
 	if err := b.ConsumeID(SecureFileEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureFileEmpty#64199744: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "secureFileEmpty#64199744", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (s *SecureFileEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureFileEmpty) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureFileEmpty#64199744 to nil")
+		return fmt.Errorf("can't decode %s to nil", "secureFileEmpty#64199744")
 	}
 	return nil
 }
@@ -274,7 +274,7 @@ func (s *SecureFile) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureFile) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureFile#e0277a62 as nil")
+		return fmt.Errorf("can't encode %s as nil", "secureFile#e0277a62")
 	}
 	b.PutID(SecureFileTypeID)
 	return s.EncodeBare(b)
@@ -283,7 +283,7 @@ func (s *SecureFile) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureFile) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureFile#e0277a62 as nil")
+		return fmt.Errorf("can't encode %s as nil", "secureFile#e0277a62")
 	}
 	b.PutLong(s.ID)
 	b.PutLong(s.AccessHash)
@@ -333,10 +333,10 @@ func (s *SecureFile) GetSecret() (value []byte) {
 // Decode implements bin.Decoder.
 func (s *SecureFile) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureFile#e0277a62 to nil")
+		return fmt.Errorf("can't decode %s to nil", "secureFile#e0277a62")
 	}
 	if err := b.ConsumeID(SecureFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureFile#e0277a62: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "secureFile#e0277a62", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -344,54 +344,54 @@ func (s *SecureFile) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureFile) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureFile#e0277a62 to nil")
+		return fmt.Errorf("can't decode %s to nil", "secureFile#e0277a62")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureFile#e0277a62: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureFile#e0277a62", "id", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureFile#e0277a62: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureFile#e0277a62", "access_hash", err)
 		}
 		s.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureFile#e0277a62: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureFile#e0277a62", "size", err)
 		}
 		s.Size = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureFile#e0277a62: field dc_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureFile#e0277a62", "dc_id", err)
 		}
 		s.DCID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureFile#e0277a62: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureFile#e0277a62", "date", err)
 		}
 		s.Date = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureFile#e0277a62: field file_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureFile#e0277a62", "file_hash", err)
 		}
 		s.FileHash = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureFile#e0277a62: field secret: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureFile#e0277a62", "secret", err)
 		}
 		s.Secret = value
 	}
@@ -486,18 +486,18 @@ func DecodeSecureFile(buf *bin.Buffer) (SecureFileClass, error) {
 		// Decoding secureFileEmpty#64199744.
 		v := SecureFileEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureFileClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "SecureFileClass", err)
 		}
 		return &v, nil
 	case SecureFileTypeID:
 		// Decoding secureFile#e0277a62.
 		v := SecureFile{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureFileClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "SecureFileClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode SecureFileClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "SecureFileClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -509,7 +509,7 @@ type SecureFileBox struct {
 // Decode implements bin.Decoder for SecureFileBox.
 func (b *SecureFileBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode SecureFileBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "SecureFile")
 	}
 	v, err := DecodeSecureFile(buf)
 	if err != nil {
@@ -522,7 +522,7 @@ func (b *SecureFileBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for SecureFileBox.
 func (b *SecureFileBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.SecureFile == nil {
-		return fmt.Errorf("unable to encode SecureFileClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "SecureFileClass")
 	}
 	return b.SecureFile.Encode(buf)
 }

@@ -220,7 +220,7 @@ func (b *BotInlineResult) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotInlineResult) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInlineResult#11965f3a as nil")
+		return fmt.Errorf("can't encode %s as nil", "botInlineResult#11965f3a")
 	}
 	buf.PutID(BotInlineResultTypeID)
 	return b.EncodeBare(buf)
@@ -229,7 +229,7 @@ func (b *BotInlineResult) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotInlineResult) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInlineResult#11965f3a as nil")
+		return fmt.Errorf("can't encode %s as nil", "botInlineResult#11965f3a")
 	}
 	if !(b.Title == "") {
 		b.Flags.Set(1)
@@ -247,7 +247,7 @@ func (b *BotInlineResult) EncodeBare(buf *bin.Buffer) error {
 		b.Flags.Set(5)
 	}
 	if err := b.Flags.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInlineResult#11965f3a: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "botInlineResult#11965f3a", "flags", err)
 	}
 	buf.PutString(b.ID)
 	buf.PutString(b.Type)
@@ -262,25 +262,25 @@ func (b *BotInlineResult) EncodeBare(buf *bin.Buffer) error {
 	}
 	if b.Flags.Has(4) {
 		if b.Thumb == nil {
-			return fmt.Errorf("unable to encode botInlineResult#11965f3a: field thumb is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "botInlineResult#11965f3a", "thumb")
 		}
 		if err := b.Thumb.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode botInlineResult#11965f3a: field thumb: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "botInlineResult#11965f3a", "thumb", err)
 		}
 	}
 	if b.Flags.Has(5) {
 		if b.Content == nil {
-			return fmt.Errorf("unable to encode botInlineResult#11965f3a: field content is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "botInlineResult#11965f3a", "content")
 		}
 		if err := b.Content.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode botInlineResult#11965f3a: field content: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "botInlineResult#11965f3a", "content", err)
 		}
 	}
 	if b.SendMessage == nil {
-		return fmt.Errorf("unable to encode botInlineResult#11965f3a: field send_message is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "botInlineResult#11965f3a", "send_message")
 	}
 	if err := b.SendMessage.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInlineResult#11965f3a: field send_message: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "botInlineResult#11965f3a", "send_message", err)
 	}
 	return nil
 }
@@ -378,10 +378,10 @@ func (b *BotInlineResult) GetSendMessage() (value BotInlineMessageClass) {
 // Decode implements bin.Decoder.
 func (b *BotInlineResult) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInlineResult#11965f3a to nil")
+		return fmt.Errorf("can't decode %s to nil", "botInlineResult#11965f3a")
 	}
 	if err := buf.ConsumeID(BotInlineResultTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInlineResult#11965f3a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "botInlineResult#11965f3a", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -389,66 +389,66 @@ func (b *BotInlineResult) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotInlineResult) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInlineResult#11965f3a to nil")
+		return fmt.Errorf("can't decode %s to nil", "botInlineResult#11965f3a")
 	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineResult#11965f3a", "flags", err)
 		}
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineResult#11965f3a", "id", err)
 		}
 		b.ID = value
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineResult#11965f3a", "type", err)
 		}
 		b.Type = value
 	}
 	if b.Flags.Has(1) {
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineResult#11965f3a", "title", err)
 		}
 		b.Title = value
 	}
 	if b.Flags.Has(2) {
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field description: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineResult#11965f3a", "description", err)
 		}
 		b.Description = value
 	}
 	if b.Flags.Has(3) {
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineResult#11965f3a", "url", err)
 		}
 		b.URL = value
 	}
 	if b.Flags.Has(4) {
 		value, err := DecodeWebDocument(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineResult#11965f3a", "thumb", err)
 		}
 		b.Thumb = value
 	}
 	if b.Flags.Has(5) {
 		value, err := DecodeWebDocument(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field content: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineResult#11965f3a", "content", err)
 		}
 		b.Content = value
 	}
 	{
 		value, err := DecodeBotInlineMessage(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field send_message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineResult#11965f3a", "send_message", err)
 		}
 		b.SendMessage = value
 	}
@@ -646,7 +646,7 @@ func (b *BotInlineMediaResult) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotInlineMediaResult) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInlineMediaResult#17db940b as nil")
+		return fmt.Errorf("can't encode %s as nil", "botInlineMediaResult#17db940b")
 	}
 	buf.PutID(BotInlineMediaResultTypeID)
 	return b.EncodeBare(buf)
@@ -655,7 +655,7 @@ func (b *BotInlineMediaResult) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotInlineMediaResult) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInlineMediaResult#17db940b as nil")
+		return fmt.Errorf("can't encode %s as nil", "botInlineMediaResult#17db940b")
 	}
 	if !(b.Photo == nil) {
 		b.Flags.Set(0)
@@ -670,24 +670,24 @@ func (b *BotInlineMediaResult) EncodeBare(buf *bin.Buffer) error {
 		b.Flags.Set(3)
 	}
 	if err := b.Flags.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInlineMediaResult#17db940b: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "botInlineMediaResult#17db940b", "flags", err)
 	}
 	buf.PutString(b.ID)
 	buf.PutString(b.Type)
 	if b.Flags.Has(0) {
 		if b.Photo == nil {
-			return fmt.Errorf("unable to encode botInlineMediaResult#17db940b: field photo is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "botInlineMediaResult#17db940b", "photo")
 		}
 		if err := b.Photo.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode botInlineMediaResult#17db940b: field photo: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "botInlineMediaResult#17db940b", "photo", err)
 		}
 	}
 	if b.Flags.Has(1) {
 		if b.Document == nil {
-			return fmt.Errorf("unable to encode botInlineMediaResult#17db940b: field document is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "botInlineMediaResult#17db940b", "document")
 		}
 		if err := b.Document.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode botInlineMediaResult#17db940b: field document: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "botInlineMediaResult#17db940b", "document", err)
 		}
 	}
 	if b.Flags.Has(2) {
@@ -697,10 +697,10 @@ func (b *BotInlineMediaResult) EncodeBare(buf *bin.Buffer) error {
 		buf.PutString(b.Description)
 	}
 	if b.SendMessage == nil {
-		return fmt.Errorf("unable to encode botInlineMediaResult#17db940b: field send_message is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "botInlineMediaResult#17db940b", "send_message")
 	}
 	if err := b.SendMessage.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInlineMediaResult#17db940b: field send_message: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "botInlineMediaResult#17db940b", "send_message", err)
 	}
 	return nil
 }
@@ -783,10 +783,10 @@ func (b *BotInlineMediaResult) GetSendMessage() (value BotInlineMessageClass) {
 // Decode implements bin.Decoder.
 func (b *BotInlineMediaResult) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInlineMediaResult#17db940b to nil")
+		return fmt.Errorf("can't decode %s to nil", "botInlineMediaResult#17db940b")
 	}
 	if err := buf.ConsumeID(BotInlineMediaResultTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "botInlineMediaResult#17db940b", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -794,59 +794,59 @@ func (b *BotInlineMediaResult) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotInlineMediaResult) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInlineMediaResult#17db940b to nil")
+		return fmt.Errorf("can't decode %s to nil", "botInlineMediaResult#17db940b")
 	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineMediaResult#17db940b", "flags", err)
 		}
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineMediaResult#17db940b", "id", err)
 		}
 		b.ID = value
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineMediaResult#17db940b", "type", err)
 		}
 		b.Type = value
 	}
 	if b.Flags.Has(0) {
 		value, err := DecodePhoto(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field photo: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineMediaResult#17db940b", "photo", err)
 		}
 		b.Photo = value
 	}
 	if b.Flags.Has(1) {
 		value, err := DecodeDocument(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field document: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineMediaResult#17db940b", "document", err)
 		}
 		b.Document = value
 	}
 	if b.Flags.Has(2) {
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineMediaResult#17db940b", "title", err)
 		}
 		b.Title = value
 	}
 	if b.Flags.Has(3) {
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field description: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineMediaResult#17db940b", "description", err)
 		}
 		b.Description = value
 	}
 	{
 		value, err := DecodeBotInlineMessage(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field send_message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botInlineMediaResult#17db940b", "send_message", err)
 		}
 		b.SendMessage = value
 	}
@@ -928,18 +928,18 @@ func DecodeBotInlineResult(buf *bin.Buffer) (BotInlineResultClass, error) {
 		// Decoding botInlineResult#11965f3a.
 		v := BotInlineResult{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BotInlineResultClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "BotInlineResultClass", err)
 		}
 		return &v, nil
 	case BotInlineMediaResultTypeID:
 		// Decoding botInlineMediaResult#17db940b.
 		v := BotInlineMediaResult{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BotInlineResultClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "BotInlineResultClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode BotInlineResultClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "BotInlineResultClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -951,7 +951,7 @@ type BotInlineResultBox struct {
 // Decode implements bin.Decoder for BotInlineResultBox.
 func (b *BotInlineResultBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode BotInlineResultBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "BotInlineResult")
 	}
 	v, err := DecodeBotInlineResult(buf)
 	if err != nil {
@@ -964,7 +964,7 @@ func (b *BotInlineResultBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for BotInlineResultBox.
 func (b *BotInlineResultBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.BotInlineResult == nil {
-		return fmt.Errorf("unable to encode BotInlineResultClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "BotInlineResultClass")
 	}
 	return b.BotInlineResult.Encode(buf)
 }

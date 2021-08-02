@@ -103,7 +103,7 @@ func (r *MessagesReadMessageContentsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesReadMessageContentsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readMessageContents#36a73f77 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.readMessageContents#36a73f77")
 	}
 	b.PutID(MessagesReadMessageContentsRequestTypeID)
 	return r.EncodeBare(b)
@@ -112,7 +112,7 @@ func (r *MessagesReadMessageContentsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReadMessageContentsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readMessageContents#36a73f77 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.readMessageContents#36a73f77")
 	}
 	b.PutVectorHeader(len(r.ID))
 	for _, v := range r.ID {
@@ -129,10 +129,10 @@ func (r *MessagesReadMessageContentsRequest) GetID() (value []int) {
 // Decode implements bin.Decoder.
 func (r *MessagesReadMessageContentsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readMessageContents#36a73f77 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.readMessageContents#36a73f77")
 	}
 	if err := b.ConsumeID(MessagesReadMessageContentsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.readMessageContents#36a73f77: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.readMessageContents#36a73f77", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -140,17 +140,17 @@ func (r *MessagesReadMessageContentsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReadMessageContentsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readMessageContents#36a73f77 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.readMessageContents#36a73f77")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.readMessageContents#36a73f77: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.readMessageContents#36a73f77", "id", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.readMessageContents#36a73f77: field id: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.readMessageContents#36a73f77", "id", err)
 			}
 			r.ID = append(r.ID, value)
 		}

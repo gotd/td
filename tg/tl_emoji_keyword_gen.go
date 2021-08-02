@@ -113,7 +113,7 @@ func (e *EmojiKeyword) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EmojiKeyword) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiKeyword#d5b3b9f9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "emojiKeyword#d5b3b9f9")
 	}
 	b.PutID(EmojiKeywordTypeID)
 	return e.EncodeBare(b)
@@ -122,7 +122,7 @@ func (e *EmojiKeyword) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EmojiKeyword) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiKeyword#d5b3b9f9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "emojiKeyword#d5b3b9f9")
 	}
 	b.PutString(e.Keyword)
 	b.PutVectorHeader(len(e.Emoticons))
@@ -145,10 +145,10 @@ func (e *EmojiKeyword) GetEmoticons() (value []string) {
 // Decode implements bin.Decoder.
 func (e *EmojiKeyword) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiKeyword#d5b3b9f9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "emojiKeyword#d5b3b9f9")
 	}
 	if err := b.ConsumeID(EmojiKeywordTypeID); err != nil {
-		return fmt.Errorf("unable to decode emojiKeyword#d5b3b9f9: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "emojiKeyword#d5b3b9f9", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -156,24 +156,24 @@ func (e *EmojiKeyword) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EmojiKeyword) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiKeyword#d5b3b9f9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "emojiKeyword#d5b3b9f9")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiKeyword#d5b3b9f9: field keyword: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "emojiKeyword#d5b3b9f9", "keyword", err)
 		}
 		e.Keyword = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiKeyword#d5b3b9f9: field emoticons: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "emojiKeyword#d5b3b9f9", "emoticons", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode emojiKeyword#d5b3b9f9: field emoticons: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "emojiKeyword#d5b3b9f9", "emoticons", err)
 			}
 			e.Emoticons = append(e.Emoticons, value)
 		}
@@ -278,7 +278,7 @@ func (e *EmojiKeywordDeleted) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EmojiKeywordDeleted) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiKeywordDeleted#236df622 as nil")
+		return fmt.Errorf("can't encode %s as nil", "emojiKeywordDeleted#236df622")
 	}
 	b.PutID(EmojiKeywordDeletedTypeID)
 	return e.EncodeBare(b)
@@ -287,7 +287,7 @@ func (e *EmojiKeywordDeleted) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EmojiKeywordDeleted) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiKeywordDeleted#236df622 as nil")
+		return fmt.Errorf("can't encode %s as nil", "emojiKeywordDeleted#236df622")
 	}
 	b.PutString(e.Keyword)
 	b.PutVectorHeader(len(e.Emoticons))
@@ -310,10 +310,10 @@ func (e *EmojiKeywordDeleted) GetEmoticons() (value []string) {
 // Decode implements bin.Decoder.
 func (e *EmojiKeywordDeleted) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiKeywordDeleted#236df622 to nil")
+		return fmt.Errorf("can't decode %s to nil", "emojiKeywordDeleted#236df622")
 	}
 	if err := b.ConsumeID(EmojiKeywordDeletedTypeID); err != nil {
-		return fmt.Errorf("unable to decode emojiKeywordDeleted#236df622: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "emojiKeywordDeleted#236df622", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -321,24 +321,24 @@ func (e *EmojiKeywordDeleted) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EmojiKeywordDeleted) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiKeywordDeleted#236df622 to nil")
+		return fmt.Errorf("can't decode %s to nil", "emojiKeywordDeleted#236df622")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiKeywordDeleted#236df622: field keyword: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "emojiKeywordDeleted#236df622", "keyword", err)
 		}
 		e.Keyword = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiKeywordDeleted#236df622: field emoticons: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "emojiKeywordDeleted#236df622", "emoticons", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode emojiKeywordDeleted#236df622: field emoticons: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "emojiKeywordDeleted#236df622", "emoticons", err)
 			}
 			e.Emoticons = append(e.Emoticons, value)
 		}
@@ -409,18 +409,18 @@ func DecodeEmojiKeyword(buf *bin.Buffer) (EmojiKeywordClass, error) {
 		// Decoding emojiKeyword#d5b3b9f9.
 		v := EmojiKeyword{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode EmojiKeywordClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "EmojiKeywordClass", err)
 		}
 		return &v, nil
 	case EmojiKeywordDeletedTypeID:
 		// Decoding emojiKeywordDeleted#236df622.
 		v := EmojiKeywordDeleted{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode EmojiKeywordClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "EmojiKeywordClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode EmojiKeywordClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "EmojiKeywordClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -432,7 +432,7 @@ type EmojiKeywordBox struct {
 // Decode implements bin.Decoder for EmojiKeywordBox.
 func (b *EmojiKeywordBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode EmojiKeywordBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "EmojiKeyword")
 	}
 	v, err := DecodeEmojiKeyword(buf)
 	if err != nil {
@@ -445,7 +445,7 @@ func (b *EmojiKeywordBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for EmojiKeywordBox.
 func (b *EmojiKeywordBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.EmojiKeyword == nil {
-		return fmt.Errorf("unable to encode EmojiKeywordClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "EmojiKeywordClass")
 	}
 	return b.EmojiKeyword.Encode(buf)
 }

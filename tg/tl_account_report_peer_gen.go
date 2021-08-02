@@ -124,7 +124,7 @@ func (r *AccountReportPeerRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountReportPeerRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.reportPeer#c5ba3d86 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.reportPeer#c5ba3d86")
 	}
 	b.PutID(AccountReportPeerRequestTypeID)
 	return r.EncodeBare(b)
@@ -133,19 +133,19 @@ func (r *AccountReportPeerRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountReportPeerRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.reportPeer#c5ba3d86 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.reportPeer#c5ba3d86")
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "account.reportPeer#c5ba3d86", "peer")
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.reportPeer#c5ba3d86", "peer", err)
 	}
 	if r.Reason == nil {
-		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field reason is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "account.reportPeer#c5ba3d86", "reason")
 	}
 	if err := r.Reason.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field reason: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.reportPeer#c5ba3d86", "reason", err)
 	}
 	b.PutString(r.Message)
 	return nil
@@ -169,10 +169,10 @@ func (r *AccountReportPeerRequest) GetMessage() (value string) {
 // Decode implements bin.Decoder.
 func (r *AccountReportPeerRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.reportPeer#c5ba3d86 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.reportPeer#c5ba3d86")
 	}
 	if err := b.ConsumeID(AccountReportPeerRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.reportPeer#c5ba3d86", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -180,26 +180,26 @@ func (r *AccountReportPeerRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountReportPeerRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.reportPeer#c5ba3d86 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.reportPeer#c5ba3d86")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.reportPeer#c5ba3d86", "peer", err)
 		}
 		r.Peer = value
 	}
 	{
 		value, err := DecodeReportReason(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: field reason: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.reportPeer#c5ba3d86", "reason", err)
 		}
 		r.Reason = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: field message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.reportPeer#c5ba3d86", "message", err)
 		}
 		r.Message = value
 	}

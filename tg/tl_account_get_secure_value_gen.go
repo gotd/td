@@ -106,7 +106,7 @@ func (g *AccountGetSecureValueRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetSecureValueRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getSecureValue#73665bc2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getSecureValue#73665bc2")
 	}
 	b.PutID(AccountGetSecureValueRequestTypeID)
 	return g.EncodeBare(b)
@@ -115,15 +115,15 @@ func (g *AccountGetSecureValueRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetSecureValueRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getSecureValue#73665bc2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getSecureValue#73665bc2")
 	}
 	b.PutVectorHeader(len(g.Types))
 	for idx, v := range g.Types {
 		if v == nil {
-			return fmt.Errorf("unable to encode account.getSecureValue#73665bc2: field types element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "account.getSecureValue#73665bc2", "types", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.getSecureValue#73665bc2: field types element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "account.getSecureValue#73665bc2", "types", idx, err)
 		}
 	}
 	return nil
@@ -142,10 +142,10 @@ func (g *AccountGetSecureValueRequest) MapTypes() (value SecureValueTypeClassArr
 // Decode implements bin.Decoder.
 func (g *AccountGetSecureValueRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getSecureValue#73665bc2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getSecureValue#73665bc2")
 	}
 	if err := b.ConsumeID(AccountGetSecureValueRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getSecureValue#73665bc2: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.getSecureValue#73665bc2", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -153,17 +153,17 @@ func (g *AccountGetSecureValueRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetSecureValueRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getSecureValue#73665bc2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getSecureValue#73665bc2")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getSecureValue#73665bc2: field types: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.getSecureValue#73665bc2", "types", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureValueType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode account.getSecureValue#73665bc2: field types: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "account.getSecureValue#73665bc2", "types", err)
 			}
 			g.Types = append(g.Types, value)
 		}

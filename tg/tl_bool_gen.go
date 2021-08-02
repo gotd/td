@@ -85,7 +85,7 @@ func (b *BoolFalse) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BoolFalse) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode boolFalse#bc799737 as nil")
+		return fmt.Errorf("can't encode %s as nil", "boolFalse#bc799737")
 	}
 	buf.PutID(BoolFalseTypeID)
 	return b.EncodeBare(buf)
@@ -94,7 +94,7 @@ func (b *BoolFalse) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BoolFalse) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode boolFalse#bc799737 as nil")
+		return fmt.Errorf("can't encode %s as nil", "boolFalse#bc799737")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (b *BoolFalse) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BoolFalse) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode boolFalse#bc799737 to nil")
+		return fmt.Errorf("can't decode %s to nil", "boolFalse#bc799737")
 	}
 	if err := buf.ConsumeID(BoolFalseTypeID); err != nil {
-		return fmt.Errorf("unable to decode boolFalse#bc799737: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "boolFalse#bc799737", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -113,7 +113,7 @@ func (b *BoolFalse) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BoolFalse) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode boolFalse#bc799737 to nil")
+		return fmt.Errorf("can't decode %s to nil", "boolFalse#bc799737")
 	}
 	return nil
 }
@@ -187,7 +187,7 @@ func (b *BoolTrue) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BoolTrue) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode boolTrue#997275b5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "boolTrue#997275b5")
 	}
 	buf.PutID(BoolTrueTypeID)
 	return b.EncodeBare(buf)
@@ -196,7 +196,7 @@ func (b *BoolTrue) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BoolTrue) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode boolTrue#997275b5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "boolTrue#997275b5")
 	}
 	return nil
 }
@@ -204,10 +204,10 @@ func (b *BoolTrue) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BoolTrue) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode boolTrue#997275b5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "boolTrue#997275b5")
 	}
 	if err := buf.ConsumeID(BoolTrueTypeID); err != nil {
-		return fmt.Errorf("unable to decode boolTrue#997275b5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "boolTrue#997275b5", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -215,7 +215,7 @@ func (b *BoolTrue) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BoolTrue) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode boolTrue#997275b5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "boolTrue#997275b5")
 	}
 	return nil
 }
@@ -277,18 +277,18 @@ func DecodeBool(buf *bin.Buffer) (BoolClass, error) {
 		// Decoding boolFalse#bc799737.
 		v := BoolFalse{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BoolClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "BoolClass", err)
 		}
 		return &v, nil
 	case BoolTrueTypeID:
 		// Decoding boolTrue#997275b5.
 		v := BoolTrue{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BoolClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "BoolClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode BoolClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "BoolClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -300,7 +300,7 @@ type BoolBox struct {
 // Decode implements bin.Decoder for BoolBox.
 func (b *BoolBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode BoolBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "Bool")
 	}
 	v, err := DecodeBool(buf)
 	if err != nil {
@@ -313,7 +313,7 @@ func (b *BoolBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for BoolBox.
 func (b *BoolBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Bool == nil {
-		return fmt.Errorf("unable to encode BoolClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "BoolClass")
 	}
 	return b.Bool.Encode(buf)
 }

@@ -102,7 +102,7 @@ func (p *PageTableRow) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageTableRow) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageTableRow#e0c0c5e5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "pageTableRow#e0c0c5e5")
 	}
 	b.PutID(PageTableRowTypeID)
 	return p.EncodeBare(b)
@@ -111,12 +111,12 @@ func (p *PageTableRow) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageTableRow) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageTableRow#e0c0c5e5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "pageTableRow#e0c0c5e5")
 	}
 	b.PutVectorHeader(len(p.Cells))
 	for idx, v := range p.Cells {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageTableRow#e0c0c5e5: field cells element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "pageTableRow#e0c0c5e5", "cells", idx, err)
 		}
 	}
 	return nil
@@ -130,10 +130,10 @@ func (p *PageTableRow) GetCells() (value []PageTableCell) {
 // Decode implements bin.Decoder.
 func (p *PageTableRow) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageTableRow#e0c0c5e5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "pageTableRow#e0c0c5e5")
 	}
 	if err := b.ConsumeID(PageTableRowTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageTableRow#e0c0c5e5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "pageTableRow#e0c0c5e5", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -141,17 +141,17 @@ func (p *PageTableRow) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageTableRow) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageTableRow#e0c0c5e5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "pageTableRow#e0c0c5e5")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageTableRow#e0c0c5e5: field cells: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageTableRow#e0c0c5e5", "cells", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PageTableCell
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode pageTableRow#e0c0c5e5: field cells: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "pageTableRow#e0c0c5e5", "cells", err)
 			}
 			p.Cells = append(p.Cells, value)
 		}

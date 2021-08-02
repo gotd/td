@@ -119,7 +119,7 @@ func (g *MessagesGetWebPageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetWebPageRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getWebPage#32ca8f91 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getWebPage#32ca8f91")
 	}
 	b.PutID(MessagesGetWebPageRequestTypeID)
 	return g.EncodeBare(b)
@@ -128,7 +128,7 @@ func (g *MessagesGetWebPageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetWebPageRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getWebPage#32ca8f91 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getWebPage#32ca8f91")
 	}
 	b.PutString(g.URL)
 	b.PutInt(g.Hash)
@@ -148,10 +148,10 @@ func (g *MessagesGetWebPageRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetWebPageRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getWebPage#32ca8f91 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getWebPage#32ca8f91")
 	}
 	if err := b.ConsumeID(MessagesGetWebPageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getWebPage#32ca8f91: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getWebPage#32ca8f91", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -159,19 +159,19 @@ func (g *MessagesGetWebPageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetWebPageRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getWebPage#32ca8f91 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getWebPage#32ca8f91")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getWebPage#32ca8f91: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getWebPage#32ca8f91", "url", err)
 		}
 		g.URL = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getWebPage#32ca8f91: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getWebPage#32ca8f91", "hash", err)
 		}
 		g.Hash = value
 	}

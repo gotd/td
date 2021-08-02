@@ -127,7 +127,7 @@ func (e *ChannelsEditLocationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *ChannelsEditLocationRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editLocation#58e63f6d as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.editLocation#58e63f6d")
 	}
 	b.PutID(ChannelsEditLocationRequestTypeID)
 	return e.EncodeBare(b)
@@ -136,19 +136,19 @@ func (e *ChannelsEditLocationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsEditLocationRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editLocation#58e63f6d as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.editLocation#58e63f6d")
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.editLocation#58e63f6d: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.editLocation#58e63f6d", "channel")
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editLocation#58e63f6d: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.editLocation#58e63f6d", "channel", err)
 	}
 	if e.GeoPoint == nil {
-		return fmt.Errorf("unable to encode channels.editLocation#58e63f6d: field geo_point is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.editLocation#58e63f6d", "geo_point")
 	}
 	if err := e.GeoPoint.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editLocation#58e63f6d: field geo_point: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.editLocation#58e63f6d", "geo_point", err)
 	}
 	b.PutString(e.Address)
 	return nil
@@ -182,10 +182,10 @@ func (e *ChannelsEditLocationRequest) GetAddress() (value string) {
 // Decode implements bin.Decoder.
 func (e *ChannelsEditLocationRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editLocation#58e63f6d to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.editLocation#58e63f6d")
 	}
 	if err := b.ConsumeID(ChannelsEditLocationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.editLocation#58e63f6d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.editLocation#58e63f6d", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -193,26 +193,26 @@ func (e *ChannelsEditLocationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsEditLocationRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editLocation#58e63f6d to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.editLocation#58e63f6d")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editLocation#58e63f6d: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editLocation#58e63f6d", "channel", err)
 		}
 		e.Channel = value
 	}
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editLocation#58e63f6d: field geo_point: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editLocation#58e63f6d", "geo_point", err)
 		}
 		e.GeoPoint = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editLocation#58e63f6d: field address: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editLocation#58e63f6d", "address", err)
 		}
 		e.Address = value
 	}

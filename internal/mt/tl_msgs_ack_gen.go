@@ -99,7 +99,7 @@ func (m *MsgsAck) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MsgsAck) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msgs_ack#62d6b459 as nil")
+		return fmt.Errorf("can't encode %s as nil", "msgs_ack#62d6b459")
 	}
 	b.PutID(MsgsAckTypeID)
 	return m.EncodeBare(b)
@@ -108,7 +108,7 @@ func (m *MsgsAck) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MsgsAck) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msgs_ack#62d6b459 as nil")
+		return fmt.Errorf("can't encode %s as nil", "msgs_ack#62d6b459")
 	}
 	b.PutVectorHeader(len(m.MsgIDs))
 	for _, v := range m.MsgIDs {
@@ -125,10 +125,10 @@ func (m *MsgsAck) GetMsgIDs() (value []int64) {
 // Decode implements bin.Decoder.
 func (m *MsgsAck) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msgs_ack#62d6b459 to nil")
+		return fmt.Errorf("can't decode %s to nil", "msgs_ack#62d6b459")
 	}
 	if err := b.ConsumeID(MsgsAckTypeID); err != nil {
-		return fmt.Errorf("unable to decode msgs_ack#62d6b459: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "msgs_ack#62d6b459", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -136,17 +136,17 @@ func (m *MsgsAck) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MsgsAck) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msgs_ack#62d6b459 to nil")
+		return fmt.Errorf("can't decode %s to nil", "msgs_ack#62d6b459")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode msgs_ack#62d6b459: field msg_ids: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "msgs_ack#62d6b459", "msg_ids", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode msgs_ack#62d6b459: field msg_ids: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "msgs_ack#62d6b459", "msg_ids", err)
 			}
 			m.MsgIDs = append(m.MsgIDs, value)
 		}

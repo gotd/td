@@ -210,7 +210,7 @@ func (p *PageTableCell) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageTableCell) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageTableCell#34566b6a as nil")
+		return fmt.Errorf("can't encode %s as nil", "pageTableCell#34566b6a")
 	}
 	b.PutID(PageTableCellTypeID)
 	return p.EncodeBare(b)
@@ -219,7 +219,7 @@ func (p *PageTableCell) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageTableCell) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageTableCell#34566b6a as nil")
+		return fmt.Errorf("can't encode %s as nil", "pageTableCell#34566b6a")
 	}
 	if !(p.Header == false) {
 		p.Flags.Set(0)
@@ -246,14 +246,14 @@ func (p *PageTableCell) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(2)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageTableCell#34566b6a: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "pageTableCell#34566b6a", "flags", err)
 	}
 	if p.Flags.Has(7) {
 		if p.Text == nil {
-			return fmt.Errorf("unable to encode pageTableCell#34566b6a: field text is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "pageTableCell#34566b6a", "text")
 		}
 		if err := p.Text.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageTableCell#34566b6a: field text: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "pageTableCell#34566b6a", "text", err)
 		}
 	}
 	if p.Flags.Has(1) {
@@ -393,10 +393,10 @@ func (p *PageTableCell) GetRowspan() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (p *PageTableCell) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageTableCell#34566b6a to nil")
+		return fmt.Errorf("can't decode %s to nil", "pageTableCell#34566b6a")
 	}
 	if err := b.ConsumeID(PageTableCellTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageTableCell#34566b6a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "pageTableCell#34566b6a", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -404,11 +404,11 @@ func (p *PageTableCell) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageTableCell) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageTableCell#34566b6a to nil")
+		return fmt.Errorf("can't decode %s to nil", "pageTableCell#34566b6a")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageTableCell#34566b6a", "flags", err)
 		}
 	}
 	p.Header = p.Flags.Has(0)
@@ -419,21 +419,21 @@ func (p *PageTableCell) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(7) {
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageTableCell#34566b6a", "text", err)
 		}
 		p.Text = value
 	}
 	if p.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field colspan: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageTableCell#34566b6a", "colspan", err)
 		}
 		p.Colspan = value
 	}
 	if p.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field rowspan: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageTableCell#34566b6a", "rowspan", err)
 		}
 		p.Rowspan = value
 	}

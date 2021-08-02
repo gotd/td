@@ -102,7 +102,7 @@ func (u *UserEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserEmpty) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userEmpty#200250ba as nil")
+		return fmt.Errorf("can't encode %s as nil", "userEmpty#200250ba")
 	}
 	b.PutID(UserEmptyTypeID)
 	return u.EncodeBare(b)
@@ -111,7 +111,7 @@ func (u *UserEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserEmpty) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userEmpty#200250ba as nil")
+		return fmt.Errorf("can't encode %s as nil", "userEmpty#200250ba")
 	}
 	b.PutInt(u.ID)
 	return nil
@@ -125,10 +125,10 @@ func (u *UserEmpty) GetID() (value int) {
 // Decode implements bin.Decoder.
 func (u *UserEmpty) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userEmpty#200250ba to nil")
+		return fmt.Errorf("can't decode %s to nil", "userEmpty#200250ba")
 	}
 	if err := b.ConsumeID(UserEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode userEmpty#200250ba: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "userEmpty#200250ba", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (u *UserEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserEmpty) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userEmpty#200250ba to nil")
+		return fmt.Errorf("can't decode %s to nil", "userEmpty#200250ba")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userEmpty#200250ba: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userEmpty#200250ba", "id", err)
 		}
 		u.ID = value
 	}
@@ -615,7 +615,7 @@ func (u *User) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *User) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode user#938458c1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "user#938458c1")
 	}
 	b.PutID(UserTypeID)
 	return u.EncodeBare(b)
@@ -624,7 +624,7 @@ func (u *User) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *User) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode user#938458c1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "user#938458c1")
 	}
 	if !(u.Self == false) {
 		u.Flags.Set(10)
@@ -705,7 +705,7 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 		u.Flags.Set(22)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode user#938458c1: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "user#938458c1", "flags", err)
 	}
 	b.PutInt(u.ID)
 	if u.Flags.Has(0) {
@@ -725,18 +725,18 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 	}
 	if u.Flags.Has(5) {
 		if u.Photo == nil {
-			return fmt.Errorf("unable to encode user#938458c1: field photo is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "user#938458c1", "photo")
 		}
 		if err := u.Photo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode user#938458c1: field photo: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "user#938458c1", "photo", err)
 		}
 	}
 	if u.Flags.Has(6) {
 		if u.Status == nil {
-			return fmt.Errorf("unable to encode user#938458c1: field status is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "user#938458c1", "status")
 		}
 		if err := u.Status.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode user#938458c1: field status: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "user#938458c1", "status", err)
 		}
 	}
 	if u.Flags.Has(14) {
@@ -746,7 +746,7 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(u.RestrictionReason))
 		for idx, v := range u.RestrictionReason {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode user#938458c1: field restriction_reason element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "user#938458c1", "restriction_reason", idx, err)
 			}
 		}
 	}
@@ -1172,10 +1172,10 @@ func (u *User) GetLangCode() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (u *User) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode user#938458c1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "user#938458c1")
 	}
 	if err := b.ConsumeID(UserTypeID); err != nil {
-		return fmt.Errorf("unable to decode user#938458c1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "user#938458c1", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -1183,11 +1183,11 @@ func (u *User) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *User) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode user#938458c1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "user#938458c1")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "flags", err)
 		}
 	}
 	u.Self = u.Flags.Has(10)
@@ -1208,75 +1208,75 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "id", err)
 		}
 		u.ID = value
 	}
 	if u.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "access_hash", err)
 		}
 		u.AccessHash = value
 	}
 	if u.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field first_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "first_name", err)
 		}
 		u.FirstName = value
 	}
 	if u.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field last_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "last_name", err)
 		}
 		u.LastName = value
 	}
 	if u.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field username: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "username", err)
 		}
 		u.Username = value
 	}
 	if u.Flags.Has(4) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field phone: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "phone", err)
 		}
 		u.Phone = value
 	}
 	if u.Flags.Has(5) {
 		value, err := DecodeUserProfilePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field photo: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "photo", err)
 		}
 		u.Photo = value
 	}
 	if u.Flags.Has(6) {
 		value, err := DecodeUserStatus(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field status: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "status", err)
 		}
 		u.Status = value
 	}
 	if u.Flags.Has(14) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field bot_info_version: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "bot_info_version", err)
 		}
 		u.BotInfoVersion = value
 	}
 	if u.Flags.Has(18) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "restriction_reason", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value RestrictionReason
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "restriction_reason", err)
 			}
 			u.RestrictionReason = append(u.RestrictionReason, value)
 		}
@@ -1284,14 +1284,14 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	if u.Flags.Has(19) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field bot_inline_placeholder: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "bot_inline_placeholder", err)
 		}
 		u.BotInlinePlaceholder = value
 	}
 	if u.Flags.Has(22) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user#938458c1", "lang_code", err)
 		}
 		u.LangCode = value
 	}
@@ -1393,18 +1393,18 @@ func DecodeUser(buf *bin.Buffer) (UserClass, error) {
 		// Decoding userEmpty#200250ba.
 		v := UserEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UserClass", err)
 		}
 		return &v, nil
 	case UserTypeID:
 		// Decoding user#938458c1.
 		v := User{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UserClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode UserClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "UserClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -1416,7 +1416,7 @@ type UserBox struct {
 // Decode implements bin.Decoder for UserBox.
 func (b *UserBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode UserBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "User")
 	}
 	v, err := DecodeUser(buf)
 	if err != nil {
@@ -1429,7 +1429,7 @@ func (b *UserBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for UserBox.
 func (b *UserBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.User == nil {
-		return fmt.Errorf("unable to encode UserClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "UserClass")
 	}
 	return b.User.Encode(buf)
 }

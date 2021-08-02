@@ -102,7 +102,7 @@ func (h *HelpHidePromoDataRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (h *HelpHidePromoDataRequest) Encode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode help.hidePromoData#1e251c95 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.hidePromoData#1e251c95")
 	}
 	b.PutID(HelpHidePromoDataRequestTypeID)
 	return h.EncodeBare(b)
@@ -111,13 +111,13 @@ func (h *HelpHidePromoDataRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (h *HelpHidePromoDataRequest) EncodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode help.hidePromoData#1e251c95 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.hidePromoData#1e251c95")
 	}
 	if h.Peer == nil {
-		return fmt.Errorf("unable to encode help.hidePromoData#1e251c95: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "help.hidePromoData#1e251c95", "peer")
 	}
 	if err := h.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.hidePromoData#1e251c95: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "help.hidePromoData#1e251c95", "peer", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (h *HelpHidePromoDataRequest) GetPeer() (value InputPeerClass) {
 // Decode implements bin.Decoder.
 func (h *HelpHidePromoDataRequest) Decode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode help.hidePromoData#1e251c95 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.hidePromoData#1e251c95")
 	}
 	if err := b.ConsumeID(HelpHidePromoDataRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.hidePromoData#1e251c95: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.hidePromoData#1e251c95", err)
 	}
 	return h.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (h *HelpHidePromoDataRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (h *HelpHidePromoDataRequest) DecodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode help.hidePromoData#1e251c95 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.hidePromoData#1e251c95")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode help.hidePromoData#1e251c95: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.hidePromoData#1e251c95", "peer", err)
 		}
 		h.Peer = value
 	}

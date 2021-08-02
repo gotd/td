@@ -219,7 +219,7 @@ func (e *PhoneEditGroupCallParticipantRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *PhoneEditGroupCallParticipantRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode phone.editGroupCallParticipant#a5273abf as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.editGroupCallParticipant#a5273abf")
 	}
 	b.PutID(PhoneEditGroupCallParticipantRequestTypeID)
 	return e.EncodeBare(b)
@@ -228,7 +228,7 @@ func (e *PhoneEditGroupCallParticipantRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *PhoneEditGroupCallParticipantRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode phone.editGroupCallParticipant#a5273abf as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.editGroupCallParticipant#a5273abf")
 	}
 	if !(e.Muted == false) {
 		e.Flags.Set(0)
@@ -249,16 +249,16 @@ func (e *PhoneEditGroupCallParticipantRequest) EncodeBare(b *bin.Buffer) error {
 		e.Flags.Set(5)
 	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#a5273abf: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.editGroupCallParticipant#a5273abf", "flags", err)
 	}
 	if err := e.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#a5273abf: field call: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.editGroupCallParticipant#a5273abf", "call", err)
 	}
 	if e.Participant == nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#a5273abf: field participant is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "phone.editGroupCallParticipant#a5273abf", "participant")
 	}
 	if err := e.Participant.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#a5273abf: field participant: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.editGroupCallParticipant#a5273abf", "participant", err)
 	}
 	if e.Flags.Has(0) {
 		b.PutBool(e.Muted)
@@ -384,10 +384,10 @@ func (e *PhoneEditGroupCallParticipantRequest) GetPresentationPaused() (value bo
 // Decode implements bin.Decoder.
 func (e *PhoneEditGroupCallParticipantRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode phone.editGroupCallParticipant#a5273abf to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.editGroupCallParticipant#a5273abf")
 	}
 	if err := b.ConsumeID(PhoneEditGroupCallParticipantRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.editGroupCallParticipant#a5273abf", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -395,64 +395,64 @@ func (e *PhoneEditGroupCallParticipantRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *PhoneEditGroupCallParticipantRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode phone.editGroupCallParticipant#a5273abf to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.editGroupCallParticipant#a5273abf")
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.editGroupCallParticipant#a5273abf", "flags", err)
 		}
 	}
 	{
 		if err := e.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field call: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.editGroupCallParticipant#a5273abf", "call", err)
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field participant: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.editGroupCallParticipant#a5273abf", "participant", err)
 		}
 		e.Participant = value
 	}
 	if e.Flags.Has(0) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field muted: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.editGroupCallParticipant#a5273abf", "muted", err)
 		}
 		e.Muted = value
 	}
 	if e.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field volume: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.editGroupCallParticipant#a5273abf", "volume", err)
 		}
 		e.Volume = value
 	}
 	if e.Flags.Has(2) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field raise_hand: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.editGroupCallParticipant#a5273abf", "raise_hand", err)
 		}
 		e.RaiseHand = value
 	}
 	if e.Flags.Has(3) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field video_stopped: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.editGroupCallParticipant#a5273abf", "video_stopped", err)
 		}
 		e.VideoStopped = value
 	}
 	if e.Flags.Has(4) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field video_paused: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.editGroupCallParticipant#a5273abf", "video_paused", err)
 		}
 		e.VideoPaused = value
 	}
 	if e.Flags.Has(5) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field presentation_paused: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.editGroupCallParticipant#a5273abf", "presentation_paused", err)
 		}
 		e.PresentationPaused = value
 	}

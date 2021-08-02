@@ -102,7 +102,7 @@ func (k *KeyboardButton) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (k *KeyboardButton) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButton#a2fa4880 as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButton#a2fa4880")
 	}
 	b.PutID(KeyboardButtonTypeID)
 	return k.EncodeBare(b)
@@ -111,7 +111,7 @@ func (k *KeyboardButton) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButton) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButton#a2fa4880 as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButton#a2fa4880")
 	}
 	b.PutString(k.Text)
 	return nil
@@ -125,10 +125,10 @@ func (k *KeyboardButton) GetText() (value string) {
 // Decode implements bin.Decoder.
 func (k *KeyboardButton) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButton#a2fa4880 to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButton#a2fa4880")
 	}
 	if err := b.ConsumeID(KeyboardButtonTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButton#a2fa4880: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "keyboardButton#a2fa4880", err)
 	}
 	return k.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (k *KeyboardButton) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButton) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButton#a2fa4880 to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButton#a2fa4880")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButton#a2fa4880: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButton#a2fa4880", "text", err)
 		}
 		k.Text = value
 	}
@@ -245,7 +245,7 @@ func (k *KeyboardButtonURL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonURL) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonUrl#258aff05 as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonUrl#258aff05")
 	}
 	b.PutID(KeyboardButtonURLTypeID)
 	return k.EncodeBare(b)
@@ -254,7 +254,7 @@ func (k *KeyboardButtonURL) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButtonURL) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonUrl#258aff05 as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonUrl#258aff05")
 	}
 	b.PutString(k.Text)
 	b.PutString(k.URL)
@@ -274,10 +274,10 @@ func (k *KeyboardButtonURL) GetURL() (value string) {
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonURL) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonUrl#258aff05 to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonUrl#258aff05")
 	}
 	if err := b.ConsumeID(KeyboardButtonURLTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButtonUrl#258aff05: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "keyboardButtonUrl#258aff05", err)
 	}
 	return k.DecodeBare(b)
 }
@@ -285,19 +285,19 @@ func (k *KeyboardButtonURL) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButtonURL) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonUrl#258aff05 to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonUrl#258aff05")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonUrl#258aff05: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonUrl#258aff05", "text", err)
 		}
 		k.Text = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonUrl#258aff05: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonUrl#258aff05", "url", err)
 		}
 		k.URL = value
 	}
@@ -431,7 +431,7 @@ func (k *KeyboardButtonCallback) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonCallback) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonCallback#35bbdb6b as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonCallback#35bbdb6b")
 	}
 	b.PutID(KeyboardButtonCallbackTypeID)
 	return k.EncodeBare(b)
@@ -440,13 +440,13 @@ func (k *KeyboardButtonCallback) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButtonCallback) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonCallback#35bbdb6b as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonCallback#35bbdb6b")
 	}
 	if !(k.RequiresPassword == false) {
 		k.Flags.Set(0)
 	}
 	if err := k.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode keyboardButtonCallback#35bbdb6b: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "keyboardButtonCallback#35bbdb6b", "flags", err)
 	}
 	b.PutString(k.Text)
 	b.PutBytes(k.Data)
@@ -482,10 +482,10 @@ func (k *KeyboardButtonCallback) GetData() (value []byte) {
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonCallback) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonCallback#35bbdb6b to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonCallback#35bbdb6b")
 	}
 	if err := b.ConsumeID(KeyboardButtonCallbackTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButtonCallback#35bbdb6b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "keyboardButtonCallback#35bbdb6b", err)
 	}
 	return k.DecodeBare(b)
 }
@@ -493,25 +493,25 @@ func (k *KeyboardButtonCallback) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButtonCallback) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonCallback#35bbdb6b to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonCallback#35bbdb6b")
 	}
 	{
 		if err := k.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonCallback#35bbdb6b: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonCallback#35bbdb6b", "flags", err)
 		}
 	}
 	k.RequiresPassword = k.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonCallback#35bbdb6b: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonCallback#35bbdb6b", "text", err)
 		}
 		k.Text = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonCallback#35bbdb6b: field data: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonCallback#35bbdb6b", "data", err)
 		}
 		k.Data = value
 	}
@@ -604,7 +604,7 @@ func (k *KeyboardButtonRequestPhone) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRequestPhone) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonRequestPhone#b16a6c29 as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonRequestPhone#b16a6c29")
 	}
 	b.PutID(KeyboardButtonRequestPhoneTypeID)
 	return k.EncodeBare(b)
@@ -613,7 +613,7 @@ func (k *KeyboardButtonRequestPhone) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButtonRequestPhone) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonRequestPhone#b16a6c29 as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonRequestPhone#b16a6c29")
 	}
 	b.PutString(k.Text)
 	return nil
@@ -627,10 +627,10 @@ func (k *KeyboardButtonRequestPhone) GetText() (value string) {
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonRequestPhone) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonRequestPhone#b16a6c29 to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonRequestPhone#b16a6c29")
 	}
 	if err := b.ConsumeID(KeyboardButtonRequestPhoneTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButtonRequestPhone#b16a6c29: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "keyboardButtonRequestPhone#b16a6c29", err)
 	}
 	return k.DecodeBare(b)
 }
@@ -638,12 +638,12 @@ func (k *KeyboardButtonRequestPhone) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButtonRequestPhone) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonRequestPhone#b16a6c29 to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonRequestPhone#b16a6c29")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonRequestPhone#b16a6c29: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonRequestPhone#b16a6c29", "text", err)
 		}
 		k.Text = value
 	}
@@ -736,7 +736,7 @@ func (k *KeyboardButtonRequestGeoLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRequestGeoLocation) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonRequestGeoLocation#fc796b3f as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonRequestGeoLocation#fc796b3f")
 	}
 	b.PutID(KeyboardButtonRequestGeoLocationTypeID)
 	return k.EncodeBare(b)
@@ -745,7 +745,7 @@ func (k *KeyboardButtonRequestGeoLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButtonRequestGeoLocation) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonRequestGeoLocation#fc796b3f as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonRequestGeoLocation#fc796b3f")
 	}
 	b.PutString(k.Text)
 	return nil
@@ -759,10 +759,10 @@ func (k *KeyboardButtonRequestGeoLocation) GetText() (value string) {
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonRequestGeoLocation) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonRequestGeoLocation#fc796b3f to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonRequestGeoLocation#fc796b3f")
 	}
 	if err := b.ConsumeID(KeyboardButtonRequestGeoLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButtonRequestGeoLocation#fc796b3f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "keyboardButtonRequestGeoLocation#fc796b3f", err)
 	}
 	return k.DecodeBare(b)
 }
@@ -770,12 +770,12 @@ func (k *KeyboardButtonRequestGeoLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButtonRequestGeoLocation) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonRequestGeoLocation#fc796b3f to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonRequestGeoLocation#fc796b3f")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonRequestGeoLocation#fc796b3f: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonRequestGeoLocation#fc796b3f", "text", err)
 		}
 		k.Text = value
 	}
@@ -902,7 +902,7 @@ func (k *KeyboardButtonSwitchInline) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonSwitchInline) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonSwitchInline#568a748 as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonSwitchInline#568a748")
 	}
 	b.PutID(KeyboardButtonSwitchInlineTypeID)
 	return k.EncodeBare(b)
@@ -911,13 +911,13 @@ func (k *KeyboardButtonSwitchInline) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButtonSwitchInline) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonSwitchInline#568a748 as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonSwitchInline#568a748")
 	}
 	if !(k.SamePeer == false) {
 		k.Flags.Set(0)
 	}
 	if err := k.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode keyboardButtonSwitchInline#568a748: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "keyboardButtonSwitchInline#568a748", "flags", err)
 	}
 	b.PutString(k.Text)
 	b.PutString(k.Query)
@@ -953,10 +953,10 @@ func (k *KeyboardButtonSwitchInline) GetQuery() (value string) {
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonSwitchInline) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonSwitchInline#568a748 to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonSwitchInline#568a748")
 	}
 	if err := b.ConsumeID(KeyboardButtonSwitchInlineTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButtonSwitchInline#568a748: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "keyboardButtonSwitchInline#568a748", err)
 	}
 	return k.DecodeBare(b)
 }
@@ -964,25 +964,25 @@ func (k *KeyboardButtonSwitchInline) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButtonSwitchInline) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonSwitchInline#568a748 to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonSwitchInline#568a748")
 	}
 	{
 		if err := k.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonSwitchInline#568a748: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonSwitchInline#568a748", "flags", err)
 		}
 	}
 	k.SamePeer = k.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonSwitchInline#568a748: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonSwitchInline#568a748", "text", err)
 		}
 		k.Text = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonSwitchInline#568a748: field query: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonSwitchInline#568a748", "query", err)
 		}
 		k.Query = value
 	}
@@ -1075,7 +1075,7 @@ func (k *KeyboardButtonGame) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonGame) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonGame#50f41ccf as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonGame#50f41ccf")
 	}
 	b.PutID(KeyboardButtonGameTypeID)
 	return k.EncodeBare(b)
@@ -1084,7 +1084,7 @@ func (k *KeyboardButtonGame) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButtonGame) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonGame#50f41ccf as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonGame#50f41ccf")
 	}
 	b.PutString(k.Text)
 	return nil
@@ -1098,10 +1098,10 @@ func (k *KeyboardButtonGame) GetText() (value string) {
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonGame) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonGame#50f41ccf to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonGame#50f41ccf")
 	}
 	if err := b.ConsumeID(KeyboardButtonGameTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButtonGame#50f41ccf: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "keyboardButtonGame#50f41ccf", err)
 	}
 	return k.DecodeBare(b)
 }
@@ -1109,12 +1109,12 @@ func (k *KeyboardButtonGame) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButtonGame) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonGame#50f41ccf to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonGame#50f41ccf")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonGame#50f41ccf: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonGame#50f41ccf", "text", err)
 		}
 		k.Text = value
 	}
@@ -1207,7 +1207,7 @@ func (k *KeyboardButtonBuy) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonBuy) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonBuy#afd93fbb as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonBuy#afd93fbb")
 	}
 	b.PutID(KeyboardButtonBuyTypeID)
 	return k.EncodeBare(b)
@@ -1216,7 +1216,7 @@ func (k *KeyboardButtonBuy) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButtonBuy) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonBuy#afd93fbb as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonBuy#afd93fbb")
 	}
 	b.PutString(k.Text)
 	return nil
@@ -1230,10 +1230,10 @@ func (k *KeyboardButtonBuy) GetText() (value string) {
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonBuy) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonBuy#afd93fbb to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonBuy#afd93fbb")
 	}
 	if err := b.ConsumeID(KeyboardButtonBuyTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButtonBuy#afd93fbb: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "keyboardButtonBuy#afd93fbb", err)
 	}
 	return k.DecodeBare(b)
 }
@@ -1241,12 +1241,12 @@ func (k *KeyboardButtonBuy) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButtonBuy) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonBuy#afd93fbb to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonBuy#afd93fbb")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonBuy#afd93fbb: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonBuy#afd93fbb", "text", err)
 		}
 		k.Text = value
 	}
@@ -1416,7 +1416,7 @@ func (k *KeyboardButtonURLAuth) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonURLAuth) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonUrlAuth#10b78d29 as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonUrlAuth#10b78d29")
 	}
 	b.PutID(KeyboardButtonURLAuthTypeID)
 	return k.EncodeBare(b)
@@ -1425,13 +1425,13 @@ func (k *KeyboardButtonURLAuth) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButtonURLAuth) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonUrlAuth#10b78d29 as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonUrlAuth#10b78d29")
 	}
 	if !(k.FwdText == "") {
 		k.Flags.Set(0)
 	}
 	if err := k.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode keyboardButtonUrlAuth#10b78d29: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "keyboardButtonUrlAuth#10b78d29", "flags", err)
 	}
 	b.PutString(k.Text)
 	if k.Flags.Has(0) {
@@ -1475,10 +1475,10 @@ func (k *KeyboardButtonURLAuth) GetButtonID() (value int) {
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonURLAuth) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonUrlAuth#10b78d29 to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonUrlAuth#10b78d29")
 	}
 	if err := b.ConsumeID(KeyboardButtonURLAuthTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButtonUrlAuth#10b78d29: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "keyboardButtonUrlAuth#10b78d29", err)
 	}
 	return k.DecodeBare(b)
 }
@@ -1486,38 +1486,38 @@ func (k *KeyboardButtonURLAuth) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButtonURLAuth) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonUrlAuth#10b78d29 to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonUrlAuth#10b78d29")
 	}
 	{
 		if err := k.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonUrlAuth#10b78d29: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonUrlAuth#10b78d29", "flags", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonUrlAuth#10b78d29: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonUrlAuth#10b78d29", "text", err)
 		}
 		k.Text = value
 	}
 	if k.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonUrlAuth#10b78d29: field fwd_text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonUrlAuth#10b78d29", "fwd_text", err)
 		}
 		k.FwdText = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonUrlAuth#10b78d29: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonUrlAuth#10b78d29", "url", err)
 		}
 		k.URL = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonUrlAuth#10b78d29: field button_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonUrlAuth#10b78d29", "button_id", err)
 		}
 		k.ButtonID = value
 	}
@@ -1689,7 +1689,7 @@ func (i *InputKeyboardButtonURLAuth) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputKeyboardButtonURLAuth) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputKeyboardButtonUrlAuth#d02e7fd4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputKeyboardButtonUrlAuth#d02e7fd4")
 	}
 	b.PutID(InputKeyboardButtonURLAuthTypeID)
 	return i.EncodeBare(b)
@@ -1698,7 +1698,7 @@ func (i *InputKeyboardButtonURLAuth) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputKeyboardButtonURLAuth) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputKeyboardButtonUrlAuth#d02e7fd4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputKeyboardButtonUrlAuth#d02e7fd4")
 	}
 	if !(i.RequestWriteAccess == false) {
 		i.Flags.Set(0)
@@ -1707,7 +1707,7 @@ func (i *InputKeyboardButtonURLAuth) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(1)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputKeyboardButtonUrlAuth#d02e7fd4: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputKeyboardButtonUrlAuth#d02e7fd4", "flags", err)
 	}
 	b.PutString(i.Text)
 	if i.Flags.Has(1) {
@@ -1715,10 +1715,10 @@ func (i *InputKeyboardButtonURLAuth) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutString(i.URL)
 	if i.Bot == nil {
-		return fmt.Errorf("unable to encode inputKeyboardButtonUrlAuth#d02e7fd4: field bot is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputKeyboardButtonUrlAuth#d02e7fd4", "bot")
 	}
 	if err := i.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputKeyboardButtonUrlAuth#d02e7fd4: field bot: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputKeyboardButtonUrlAuth#d02e7fd4", "bot", err)
 	}
 	return nil
 }
@@ -1772,10 +1772,10 @@ func (i *InputKeyboardButtonURLAuth) GetBot() (value InputUserClass) {
 // Decode implements bin.Decoder.
 func (i *InputKeyboardButtonURLAuth) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputKeyboardButtonUrlAuth#d02e7fd4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputKeyboardButtonUrlAuth#d02e7fd4")
 	}
 	if err := b.ConsumeID(InputKeyboardButtonURLAuthTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputKeyboardButtonUrlAuth#d02e7fd4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputKeyboardButtonUrlAuth#d02e7fd4", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1783,39 +1783,39 @@ func (i *InputKeyboardButtonURLAuth) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputKeyboardButtonURLAuth) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputKeyboardButtonUrlAuth#d02e7fd4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputKeyboardButtonUrlAuth#d02e7fd4")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputKeyboardButtonUrlAuth#d02e7fd4: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputKeyboardButtonUrlAuth#d02e7fd4", "flags", err)
 		}
 	}
 	i.RequestWriteAccess = i.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputKeyboardButtonUrlAuth#d02e7fd4: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputKeyboardButtonUrlAuth#d02e7fd4", "text", err)
 		}
 		i.Text = value
 	}
 	if i.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputKeyboardButtonUrlAuth#d02e7fd4: field fwd_text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputKeyboardButtonUrlAuth#d02e7fd4", "fwd_text", err)
 		}
 		i.FwdText = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputKeyboardButtonUrlAuth#d02e7fd4: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputKeyboardButtonUrlAuth#d02e7fd4", "url", err)
 		}
 		i.URL = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputKeyboardButtonUrlAuth#d02e7fd4: field bot: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputKeyboardButtonUrlAuth#d02e7fd4", "bot", err)
 		}
 		i.Bot = value
 	}
@@ -1934,7 +1934,7 @@ func (k *KeyboardButtonRequestPoll) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRequestPoll) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonRequestPoll#bbc7515d as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonRequestPoll#bbc7515d")
 	}
 	b.PutID(KeyboardButtonRequestPollTypeID)
 	return k.EncodeBare(b)
@@ -1943,13 +1943,13 @@ func (k *KeyboardButtonRequestPoll) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButtonRequestPoll) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonRequestPoll#bbc7515d as nil")
+		return fmt.Errorf("can't encode %s as nil", "keyboardButtonRequestPoll#bbc7515d")
 	}
 	if !(k.Quiz == false) {
 		k.Flags.Set(0)
 	}
 	if err := k.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode keyboardButtonRequestPoll#bbc7515d: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "keyboardButtonRequestPoll#bbc7515d", "flags", err)
 	}
 	if k.Flags.Has(0) {
 		b.PutBool(k.Quiz)
@@ -1981,10 +1981,10 @@ func (k *KeyboardButtonRequestPoll) GetText() (value string) {
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonRequestPoll) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonRequestPoll#bbc7515d to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonRequestPoll#bbc7515d")
 	}
 	if err := b.ConsumeID(KeyboardButtonRequestPollTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButtonRequestPoll#bbc7515d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "keyboardButtonRequestPoll#bbc7515d", err)
 	}
 	return k.DecodeBare(b)
 }
@@ -1992,24 +1992,24 @@ func (k *KeyboardButtonRequestPoll) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButtonRequestPoll) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonRequestPoll#bbc7515d to nil")
+		return fmt.Errorf("can't decode %s to nil", "keyboardButtonRequestPoll#bbc7515d")
 	}
 	{
 		if err := k.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonRequestPoll#bbc7515d: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonRequestPoll#bbc7515d", "flags", err)
 		}
 	}
 	if k.Flags.Has(0) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonRequestPoll#bbc7515d: field quiz: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonRequestPoll#bbc7515d", "quiz", err)
 		}
 		k.Quiz = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonRequestPoll#bbc7515d: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "keyboardButtonRequestPoll#bbc7515d", "text", err)
 		}
 		k.Text = value
 	}
@@ -2085,81 +2085,81 @@ func DecodeKeyboardButton(buf *bin.Buffer) (KeyboardButtonClass, error) {
 		// Decoding keyboardButton#a2fa4880.
 		v := KeyboardButton{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "KeyboardButtonClass", err)
 		}
 		return &v, nil
 	case KeyboardButtonURLTypeID:
 		// Decoding keyboardButtonUrl#258aff05.
 		v := KeyboardButtonURL{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "KeyboardButtonClass", err)
 		}
 		return &v, nil
 	case KeyboardButtonCallbackTypeID:
 		// Decoding keyboardButtonCallback#35bbdb6b.
 		v := KeyboardButtonCallback{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "KeyboardButtonClass", err)
 		}
 		return &v, nil
 	case KeyboardButtonRequestPhoneTypeID:
 		// Decoding keyboardButtonRequestPhone#b16a6c29.
 		v := KeyboardButtonRequestPhone{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "KeyboardButtonClass", err)
 		}
 		return &v, nil
 	case KeyboardButtonRequestGeoLocationTypeID:
 		// Decoding keyboardButtonRequestGeoLocation#fc796b3f.
 		v := KeyboardButtonRequestGeoLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "KeyboardButtonClass", err)
 		}
 		return &v, nil
 	case KeyboardButtonSwitchInlineTypeID:
 		// Decoding keyboardButtonSwitchInline#568a748.
 		v := KeyboardButtonSwitchInline{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "KeyboardButtonClass", err)
 		}
 		return &v, nil
 	case KeyboardButtonGameTypeID:
 		// Decoding keyboardButtonGame#50f41ccf.
 		v := KeyboardButtonGame{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "KeyboardButtonClass", err)
 		}
 		return &v, nil
 	case KeyboardButtonBuyTypeID:
 		// Decoding keyboardButtonBuy#afd93fbb.
 		v := KeyboardButtonBuy{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "KeyboardButtonClass", err)
 		}
 		return &v, nil
 	case KeyboardButtonURLAuthTypeID:
 		// Decoding keyboardButtonUrlAuth#10b78d29.
 		v := KeyboardButtonURLAuth{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "KeyboardButtonClass", err)
 		}
 		return &v, nil
 	case InputKeyboardButtonURLAuthTypeID:
 		// Decoding inputKeyboardButtonUrlAuth#d02e7fd4.
 		v := InputKeyboardButtonURLAuth{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "KeyboardButtonClass", err)
 		}
 		return &v, nil
 	case KeyboardButtonRequestPollTypeID:
 		// Decoding keyboardButtonRequestPoll#bbc7515d.
 		v := KeyboardButtonRequestPoll{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "KeyboardButtonClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "KeyboardButtonClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -2171,7 +2171,7 @@ type KeyboardButtonBox struct {
 // Decode implements bin.Decoder for KeyboardButtonBox.
 func (b *KeyboardButtonBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode KeyboardButtonBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "KeyboardButton")
 	}
 	v, err := DecodeKeyboardButton(buf)
 	if err != nil {
@@ -2184,7 +2184,7 @@ func (b *KeyboardButtonBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for KeyboardButtonBox.
 func (b *KeyboardButtonBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.KeyboardButton == nil {
-		return fmt.Errorf("unable to encode KeyboardButtonClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "KeyboardButtonClass")
 	}
 	return b.KeyboardButton.Encode(buf)
 }

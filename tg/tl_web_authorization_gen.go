@@ -193,7 +193,7 @@ func (w *WebAuthorization) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WebAuthorization) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webAuthorization#cac943f2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "webAuthorization#cac943f2")
 	}
 	b.PutID(WebAuthorizationTypeID)
 	return w.EncodeBare(b)
@@ -202,7 +202,7 @@ func (w *WebAuthorization) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebAuthorization) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webAuthorization#cac943f2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "webAuthorization#cac943f2")
 	}
 	b.PutLong(w.Hash)
 	b.PutInt(w.BotID)
@@ -264,10 +264,10 @@ func (w *WebAuthorization) GetRegion() (value string) {
 // Decode implements bin.Decoder.
 func (w *WebAuthorization) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webAuthorization#cac943f2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "webAuthorization#cac943f2")
 	}
 	if err := b.ConsumeID(WebAuthorizationTypeID); err != nil {
-		return fmt.Errorf("unable to decode webAuthorization#cac943f2: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "webAuthorization#cac943f2", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -275,68 +275,68 @@ func (w *WebAuthorization) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebAuthorization) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webAuthorization#cac943f2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "webAuthorization#cac943f2")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webAuthorization#cac943f2", "hash", err)
 		}
 		w.Hash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field bot_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webAuthorization#cac943f2", "bot_id", err)
 		}
 		w.BotID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field domain: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webAuthorization#cac943f2", "domain", err)
 		}
 		w.Domain = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field browser: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webAuthorization#cac943f2", "browser", err)
 		}
 		w.Browser = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field platform: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webAuthorization#cac943f2", "platform", err)
 		}
 		w.Platform = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field date_created: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webAuthorization#cac943f2", "date_created", err)
 		}
 		w.DateCreated = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field date_active: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webAuthorization#cac943f2", "date_active", err)
 		}
 		w.DateActive = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field ip: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webAuthorization#cac943f2", "ip", err)
 		}
 		w.IP = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field region: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webAuthorization#cac943f2", "region", err)
 		}
 		w.Region = value
 	}

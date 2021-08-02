@@ -116,7 +116,7 @@ func (s *StatsDateRangeDays) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsDateRangeDays) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsDateRangeDays#b637edaf as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsDateRangeDays#b637edaf")
 	}
 	b.PutID(StatsDateRangeDaysTypeID)
 	return s.EncodeBare(b)
@@ -125,7 +125,7 @@ func (s *StatsDateRangeDays) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsDateRangeDays) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsDateRangeDays#b637edaf as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsDateRangeDays#b637edaf")
 	}
 	b.PutInt(s.MinDate)
 	b.PutInt(s.MaxDate)
@@ -145,10 +145,10 @@ func (s *StatsDateRangeDays) GetMaxDate() (value int) {
 // Decode implements bin.Decoder.
 func (s *StatsDateRangeDays) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsDateRangeDays#b637edaf to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsDateRangeDays#b637edaf")
 	}
 	if err := b.ConsumeID(StatsDateRangeDaysTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsDateRangeDays#b637edaf: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "statsDateRangeDays#b637edaf", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -156,19 +156,19 @@ func (s *StatsDateRangeDays) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsDateRangeDays) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsDateRangeDays#b637edaf to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsDateRangeDays#b637edaf")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsDateRangeDays#b637edaf: field min_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsDateRangeDays#b637edaf", "min_date", err)
 		}
 		s.MinDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsDateRangeDays#b637edaf: field max_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsDateRangeDays#b637edaf", "max_date", err)
 		}
 		s.MaxDate = value
 	}

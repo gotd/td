@@ -102,7 +102,7 @@ func (g *MessagesGetChatsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetChatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getChats#3c6aa187 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getChats#3c6aa187")
 	}
 	b.PutID(MessagesGetChatsRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,7 +111,7 @@ func (g *MessagesGetChatsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetChatsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getChats#3c6aa187 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getChats#3c6aa187")
 	}
 	b.PutVectorHeader(len(g.ID))
 	for _, v := range g.ID {
@@ -128,10 +128,10 @@ func (g *MessagesGetChatsRequest) GetID() (value []int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetChatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getChats#3c6aa187 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getChats#3c6aa187")
 	}
 	if err := b.ConsumeID(MessagesGetChatsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getChats#3c6aa187: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getChats#3c6aa187", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -139,17 +139,17 @@ func (g *MessagesGetChatsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetChatsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getChats#3c6aa187 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getChats#3c6aa187")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getChats#3c6aa187: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getChats#3c6aa187", "id", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.getChats#3c6aa187: field id: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getChats#3c6aa187", "id", err)
 			}
 			g.ID = append(g.ID, value)
 		}

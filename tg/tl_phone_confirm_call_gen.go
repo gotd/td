@@ -141,7 +141,7 @@ func (c *PhoneConfirmCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *PhoneConfirmCallRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode phone.confirmCall#2efe1722 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.confirmCall#2efe1722")
 	}
 	b.PutID(PhoneConfirmCallRequestTypeID)
 	return c.EncodeBare(b)
@@ -150,15 +150,15 @@ func (c *PhoneConfirmCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *PhoneConfirmCallRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode phone.confirmCall#2efe1722 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.confirmCall#2efe1722")
 	}
 	if err := c.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.confirmCall#2efe1722: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.confirmCall#2efe1722", "peer", err)
 	}
 	b.PutBytes(c.GA)
 	b.PutLong(c.KeyFingerprint)
 	if err := c.Protocol.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.confirmCall#2efe1722: field protocol: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.confirmCall#2efe1722", "protocol", err)
 	}
 	return nil
 }
@@ -186,10 +186,10 @@ func (c *PhoneConfirmCallRequest) GetProtocol() (value PhoneCallProtocol) {
 // Decode implements bin.Decoder.
 func (c *PhoneConfirmCallRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode phone.confirmCall#2efe1722 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.confirmCall#2efe1722")
 	}
 	if err := b.ConsumeID(PhoneConfirmCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.confirmCall#2efe1722: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.confirmCall#2efe1722", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -197,30 +197,30 @@ func (c *PhoneConfirmCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *PhoneConfirmCallRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode phone.confirmCall#2efe1722 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.confirmCall#2efe1722")
 	}
 	{
 		if err := c.Peer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.confirmCall#2efe1722: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.confirmCall#2efe1722", "peer", err)
 		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.confirmCall#2efe1722: field g_a: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.confirmCall#2efe1722", "g_a", err)
 		}
 		c.GA = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.confirmCall#2efe1722: field key_fingerprint: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.confirmCall#2efe1722", "key_fingerprint", err)
 		}
 		c.KeyFingerprint = value
 	}
 	{
 		if err := c.Protocol.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.confirmCall#2efe1722: field protocol: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.confirmCall#2efe1722", "protocol", err)
 		}
 	}
 	return nil

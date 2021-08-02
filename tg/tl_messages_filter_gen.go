@@ -85,7 +85,7 @@ func (i *InputMessagesFilterEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterEmpty#57e2f66c as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterEmpty#57e2f66c")
 	}
 	b.PutID(InputMessagesFilterEmptyTypeID)
 	return i.EncodeBare(b)
@@ -94,7 +94,7 @@ func (i *InputMessagesFilterEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterEmpty) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterEmpty#57e2f66c as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterEmpty#57e2f66c")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (i *InputMessagesFilterEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterEmpty) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterEmpty#57e2f66c to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterEmpty#57e2f66c")
 	}
 	if err := b.ConsumeID(InputMessagesFilterEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterEmpty#57e2f66c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterEmpty#57e2f66c", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (i *InputMessagesFilterEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterEmpty) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterEmpty#57e2f66c to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterEmpty#57e2f66c")
 	}
 	return nil
 }
@@ -187,7 +187,7 @@ func (i *InputMessagesFilterPhotos) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterPhotos) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterPhotos#9609a51c as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterPhotos#9609a51c")
 	}
 	b.PutID(InputMessagesFilterPhotosTypeID)
 	return i.EncodeBare(b)
@@ -196,7 +196,7 @@ func (i *InputMessagesFilterPhotos) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterPhotos) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterPhotos#9609a51c as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterPhotos#9609a51c")
 	}
 	return nil
 }
@@ -204,10 +204,10 @@ func (i *InputMessagesFilterPhotos) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterPhotos) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterPhotos#9609a51c to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterPhotos#9609a51c")
 	}
 	if err := b.ConsumeID(InputMessagesFilterPhotosTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterPhotos#9609a51c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterPhotos#9609a51c", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -215,7 +215,7 @@ func (i *InputMessagesFilterPhotos) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterPhotos) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterPhotos#9609a51c to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterPhotos#9609a51c")
 	}
 	return nil
 }
@@ -289,7 +289,7 @@ func (i *InputMessagesFilterVideo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterVideo) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterVideo#9fc00e65 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterVideo#9fc00e65")
 	}
 	b.PutID(InputMessagesFilterVideoTypeID)
 	return i.EncodeBare(b)
@@ -298,7 +298,7 @@ func (i *InputMessagesFilterVideo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterVideo) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterVideo#9fc00e65 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterVideo#9fc00e65")
 	}
 	return nil
 }
@@ -306,10 +306,10 @@ func (i *InputMessagesFilterVideo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterVideo) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterVideo#9fc00e65 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterVideo#9fc00e65")
 	}
 	if err := b.ConsumeID(InputMessagesFilterVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterVideo#9fc00e65: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterVideo#9fc00e65", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -317,7 +317,7 @@ func (i *InputMessagesFilterVideo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterVideo) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterVideo#9fc00e65 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterVideo#9fc00e65")
 	}
 	return nil
 }
@@ -391,7 +391,7 @@ func (i *InputMessagesFilterPhotoVideo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterPhotoVideo) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterPhotoVideo#56e9f0e4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterPhotoVideo#56e9f0e4")
 	}
 	b.PutID(InputMessagesFilterPhotoVideoTypeID)
 	return i.EncodeBare(b)
@@ -400,7 +400,7 @@ func (i *InputMessagesFilterPhotoVideo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterPhotoVideo) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterPhotoVideo#56e9f0e4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterPhotoVideo#56e9f0e4")
 	}
 	return nil
 }
@@ -408,10 +408,10 @@ func (i *InputMessagesFilterPhotoVideo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterPhotoVideo) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterPhotoVideo#56e9f0e4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterPhotoVideo#56e9f0e4")
 	}
 	if err := b.ConsumeID(InputMessagesFilterPhotoVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterPhotoVideo#56e9f0e4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterPhotoVideo#56e9f0e4", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -419,7 +419,7 @@ func (i *InputMessagesFilterPhotoVideo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterPhotoVideo) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterPhotoVideo#56e9f0e4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterPhotoVideo#56e9f0e4")
 	}
 	return nil
 }
@@ -493,7 +493,7 @@ func (i *InputMessagesFilterDocument) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterDocument#9eddf188 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterDocument#9eddf188")
 	}
 	b.PutID(InputMessagesFilterDocumentTypeID)
 	return i.EncodeBare(b)
@@ -502,7 +502,7 @@ func (i *InputMessagesFilterDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterDocument) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterDocument#9eddf188 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterDocument#9eddf188")
 	}
 	return nil
 }
@@ -510,10 +510,10 @@ func (i *InputMessagesFilterDocument) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterDocument#9eddf188 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterDocument#9eddf188")
 	}
 	if err := b.ConsumeID(InputMessagesFilterDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterDocument#9eddf188: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterDocument#9eddf188", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -521,7 +521,7 @@ func (i *InputMessagesFilterDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterDocument) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterDocument#9eddf188 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterDocument#9eddf188")
 	}
 	return nil
 }
@@ -595,7 +595,7 @@ func (i *InputMessagesFilterURL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterURL) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterUrl#7ef0dd87 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterUrl#7ef0dd87")
 	}
 	b.PutID(InputMessagesFilterURLTypeID)
 	return i.EncodeBare(b)
@@ -604,7 +604,7 @@ func (i *InputMessagesFilterURL) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterURL) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterUrl#7ef0dd87 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterUrl#7ef0dd87")
 	}
 	return nil
 }
@@ -612,10 +612,10 @@ func (i *InputMessagesFilterURL) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterURL) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterUrl#7ef0dd87 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterUrl#7ef0dd87")
 	}
 	if err := b.ConsumeID(InputMessagesFilterURLTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterUrl#7ef0dd87: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterUrl#7ef0dd87", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -623,7 +623,7 @@ func (i *InputMessagesFilterURL) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterURL) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterUrl#7ef0dd87 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterUrl#7ef0dd87")
 	}
 	return nil
 }
@@ -697,7 +697,7 @@ func (i *InputMessagesFilterGif) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterGif) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterGif#ffc86587 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterGif#ffc86587")
 	}
 	b.PutID(InputMessagesFilterGifTypeID)
 	return i.EncodeBare(b)
@@ -706,7 +706,7 @@ func (i *InputMessagesFilterGif) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterGif) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterGif#ffc86587 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterGif#ffc86587")
 	}
 	return nil
 }
@@ -714,10 +714,10 @@ func (i *InputMessagesFilterGif) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterGif) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterGif#ffc86587 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterGif#ffc86587")
 	}
 	if err := b.ConsumeID(InputMessagesFilterGifTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterGif#ffc86587: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterGif#ffc86587", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -725,7 +725,7 @@ func (i *InputMessagesFilterGif) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterGif) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterGif#ffc86587 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterGif#ffc86587")
 	}
 	return nil
 }
@@ -799,7 +799,7 @@ func (i *InputMessagesFilterVoice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterVoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterVoice#50f5c392 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterVoice#50f5c392")
 	}
 	b.PutID(InputMessagesFilterVoiceTypeID)
 	return i.EncodeBare(b)
@@ -808,7 +808,7 @@ func (i *InputMessagesFilterVoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterVoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterVoice#50f5c392 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterVoice#50f5c392")
 	}
 	return nil
 }
@@ -816,10 +816,10 @@ func (i *InputMessagesFilterVoice) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterVoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterVoice#50f5c392 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterVoice#50f5c392")
 	}
 	if err := b.ConsumeID(InputMessagesFilterVoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterVoice#50f5c392: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterVoice#50f5c392", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -827,7 +827,7 @@ func (i *InputMessagesFilterVoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterVoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterVoice#50f5c392 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterVoice#50f5c392")
 	}
 	return nil
 }
@@ -901,7 +901,7 @@ func (i *InputMessagesFilterMusic) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterMusic) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterMusic#3751b49e as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterMusic#3751b49e")
 	}
 	b.PutID(InputMessagesFilterMusicTypeID)
 	return i.EncodeBare(b)
@@ -910,7 +910,7 @@ func (i *InputMessagesFilterMusic) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterMusic) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterMusic#3751b49e as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterMusic#3751b49e")
 	}
 	return nil
 }
@@ -918,10 +918,10 @@ func (i *InputMessagesFilterMusic) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterMusic) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterMusic#3751b49e to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterMusic#3751b49e")
 	}
 	if err := b.ConsumeID(InputMessagesFilterMusicTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterMusic#3751b49e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterMusic#3751b49e", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -929,7 +929,7 @@ func (i *InputMessagesFilterMusic) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterMusic) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterMusic#3751b49e to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterMusic#3751b49e")
 	}
 	return nil
 }
@@ -1003,7 +1003,7 @@ func (i *InputMessagesFilterChatPhotos) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterChatPhotos) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterChatPhotos#3a20ecb8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterChatPhotos#3a20ecb8")
 	}
 	b.PutID(InputMessagesFilterChatPhotosTypeID)
 	return i.EncodeBare(b)
@@ -1012,7 +1012,7 @@ func (i *InputMessagesFilterChatPhotos) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterChatPhotos) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterChatPhotos#3a20ecb8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterChatPhotos#3a20ecb8")
 	}
 	return nil
 }
@@ -1020,10 +1020,10 @@ func (i *InputMessagesFilterChatPhotos) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterChatPhotos) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterChatPhotos#3a20ecb8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterChatPhotos#3a20ecb8")
 	}
 	if err := b.ConsumeID(InputMessagesFilterChatPhotosTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterChatPhotos#3a20ecb8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterChatPhotos#3a20ecb8", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1031,7 +1031,7 @@ func (i *InputMessagesFilterChatPhotos) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterChatPhotos) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterChatPhotos#3a20ecb8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterChatPhotos#3a20ecb8")
 	}
 	return nil
 }
@@ -1131,7 +1131,7 @@ func (i *InputMessagesFilterPhoneCalls) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterPhoneCalls) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterPhoneCalls#80c99768 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterPhoneCalls#80c99768")
 	}
 	b.PutID(InputMessagesFilterPhoneCallsTypeID)
 	return i.EncodeBare(b)
@@ -1140,13 +1140,13 @@ func (i *InputMessagesFilterPhoneCalls) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterPhoneCalls) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterPhoneCalls#80c99768 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterPhoneCalls#80c99768")
 	}
 	if !(i.Missed == false) {
 		i.Flags.Set(0)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessagesFilterPhoneCalls#80c99768: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMessagesFilterPhoneCalls#80c99768", "flags", err)
 	}
 	return nil
 }
@@ -1170,10 +1170,10 @@ func (i *InputMessagesFilterPhoneCalls) GetMissed() (value bool) {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterPhoneCalls) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterPhoneCalls#80c99768 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterPhoneCalls#80c99768")
 	}
 	if err := b.ConsumeID(InputMessagesFilterPhoneCallsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterPhoneCalls#80c99768: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterPhoneCalls#80c99768", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1181,11 +1181,11 @@ func (i *InputMessagesFilterPhoneCalls) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterPhoneCalls) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterPhoneCalls#80c99768 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterPhoneCalls#80c99768")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessagesFilterPhoneCalls#80c99768: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMessagesFilterPhoneCalls#80c99768", "flags", err)
 		}
 	}
 	i.Missed = i.Flags.Has(0)
@@ -1261,7 +1261,7 @@ func (i *InputMessagesFilterRoundVoice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterRoundVoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterRoundVoice#7a7c17a4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterRoundVoice#7a7c17a4")
 	}
 	b.PutID(InputMessagesFilterRoundVoiceTypeID)
 	return i.EncodeBare(b)
@@ -1270,7 +1270,7 @@ func (i *InputMessagesFilterRoundVoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterRoundVoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterRoundVoice#7a7c17a4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterRoundVoice#7a7c17a4")
 	}
 	return nil
 }
@@ -1278,10 +1278,10 @@ func (i *InputMessagesFilterRoundVoice) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterRoundVoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterRoundVoice#7a7c17a4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterRoundVoice#7a7c17a4")
 	}
 	if err := b.ConsumeID(InputMessagesFilterRoundVoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterRoundVoice#7a7c17a4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterRoundVoice#7a7c17a4", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1289,7 +1289,7 @@ func (i *InputMessagesFilterRoundVoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterRoundVoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterRoundVoice#7a7c17a4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterRoundVoice#7a7c17a4")
 	}
 	return nil
 }
@@ -1363,7 +1363,7 @@ func (i *InputMessagesFilterRoundVideo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterRoundVideo) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterRoundVideo#b549da53 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterRoundVideo#b549da53")
 	}
 	b.PutID(InputMessagesFilterRoundVideoTypeID)
 	return i.EncodeBare(b)
@@ -1372,7 +1372,7 @@ func (i *InputMessagesFilterRoundVideo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterRoundVideo) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterRoundVideo#b549da53 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterRoundVideo#b549da53")
 	}
 	return nil
 }
@@ -1380,10 +1380,10 @@ func (i *InputMessagesFilterRoundVideo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterRoundVideo) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterRoundVideo#b549da53 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterRoundVideo#b549da53")
 	}
 	if err := b.ConsumeID(InputMessagesFilterRoundVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterRoundVideo#b549da53: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterRoundVideo#b549da53", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1391,7 +1391,7 @@ func (i *InputMessagesFilterRoundVideo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterRoundVideo) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterRoundVideo#b549da53 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterRoundVideo#b549da53")
 	}
 	return nil
 }
@@ -1468,7 +1468,7 @@ func (i *InputMessagesFilterMyMentions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterMyMentions) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterMyMentions#c1f8e69a as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterMyMentions#c1f8e69a")
 	}
 	b.PutID(InputMessagesFilterMyMentionsTypeID)
 	return i.EncodeBare(b)
@@ -1477,7 +1477,7 @@ func (i *InputMessagesFilterMyMentions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterMyMentions) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterMyMentions#c1f8e69a as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterMyMentions#c1f8e69a")
 	}
 	return nil
 }
@@ -1485,10 +1485,10 @@ func (i *InputMessagesFilterMyMentions) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterMyMentions) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterMyMentions#c1f8e69a to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterMyMentions#c1f8e69a")
 	}
 	if err := b.ConsumeID(InputMessagesFilterMyMentionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterMyMentions#c1f8e69a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterMyMentions#c1f8e69a", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1496,7 +1496,7 @@ func (i *InputMessagesFilterMyMentions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterMyMentions) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterMyMentions#c1f8e69a to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterMyMentions#c1f8e69a")
 	}
 	return nil
 }
@@ -1570,7 +1570,7 @@ func (i *InputMessagesFilterGeo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterGeo) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterGeo#e7026d0d as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterGeo#e7026d0d")
 	}
 	b.PutID(InputMessagesFilterGeoTypeID)
 	return i.EncodeBare(b)
@@ -1579,7 +1579,7 @@ func (i *InputMessagesFilterGeo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterGeo) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterGeo#e7026d0d as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterGeo#e7026d0d")
 	}
 	return nil
 }
@@ -1587,10 +1587,10 @@ func (i *InputMessagesFilterGeo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterGeo) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterGeo#e7026d0d to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterGeo#e7026d0d")
 	}
 	if err := b.ConsumeID(InputMessagesFilterGeoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterGeo#e7026d0d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterGeo#e7026d0d", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1598,7 +1598,7 @@ func (i *InputMessagesFilterGeo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterGeo) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterGeo#e7026d0d to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterGeo#e7026d0d")
 	}
 	return nil
 }
@@ -1672,7 +1672,7 @@ func (i *InputMessagesFilterContacts) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterContacts#e062db83 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterContacts#e062db83")
 	}
 	b.PutID(InputMessagesFilterContactsTypeID)
 	return i.EncodeBare(b)
@@ -1681,7 +1681,7 @@ func (i *InputMessagesFilterContacts) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterContacts) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterContacts#e062db83 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterContacts#e062db83")
 	}
 	return nil
 }
@@ -1689,10 +1689,10 @@ func (i *InputMessagesFilterContacts) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterContacts) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterContacts#e062db83 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterContacts#e062db83")
 	}
 	if err := b.ConsumeID(InputMessagesFilterContactsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterContacts#e062db83: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterContacts#e062db83", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1700,7 +1700,7 @@ func (i *InputMessagesFilterContacts) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterContacts) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterContacts#e062db83 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterContacts#e062db83")
 	}
 	return nil
 }
@@ -1774,7 +1774,7 @@ func (i *InputMessagesFilterPinned) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterPinned) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterPinned#1bb00451 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterPinned#1bb00451")
 	}
 	b.PutID(InputMessagesFilterPinnedTypeID)
 	return i.EncodeBare(b)
@@ -1783,7 +1783,7 @@ func (i *InputMessagesFilterPinned) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagesFilterPinned) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagesFilterPinned#1bb00451 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMessagesFilterPinned#1bb00451")
 	}
 	return nil
 }
@@ -1791,10 +1791,10 @@ func (i *InputMessagesFilterPinned) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterPinned) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterPinned#1bb00451 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterPinned#1bb00451")
 	}
 	if err := b.ConsumeID(InputMessagesFilterPinnedTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagesFilterPinned#1bb00451: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMessagesFilterPinned#1bb00451", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1802,7 +1802,7 @@ func (i *InputMessagesFilterPinned) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagesFilterPinned) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagesFilterPinned#1bb00451 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMessagesFilterPinned#1bb00451")
 	}
 	return nil
 }
@@ -1879,123 +1879,123 @@ func DecodeMessagesFilter(buf *bin.Buffer) (MessagesFilterClass, error) {
 		// Decoding inputMessagesFilterEmpty#57e2f66c.
 		v := InputMessagesFilterEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterPhotosTypeID:
 		// Decoding inputMessagesFilterPhotos#9609a51c.
 		v := InputMessagesFilterPhotos{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterVideoTypeID:
 		// Decoding inputMessagesFilterVideo#9fc00e65.
 		v := InputMessagesFilterVideo{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterPhotoVideoTypeID:
 		// Decoding inputMessagesFilterPhotoVideo#56e9f0e4.
 		v := InputMessagesFilterPhotoVideo{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterDocumentTypeID:
 		// Decoding inputMessagesFilterDocument#9eddf188.
 		v := InputMessagesFilterDocument{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterURLTypeID:
 		// Decoding inputMessagesFilterUrl#7ef0dd87.
 		v := InputMessagesFilterURL{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterGifTypeID:
 		// Decoding inputMessagesFilterGif#ffc86587.
 		v := InputMessagesFilterGif{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterVoiceTypeID:
 		// Decoding inputMessagesFilterVoice#50f5c392.
 		v := InputMessagesFilterVoice{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterMusicTypeID:
 		// Decoding inputMessagesFilterMusic#3751b49e.
 		v := InputMessagesFilterMusic{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterChatPhotosTypeID:
 		// Decoding inputMessagesFilterChatPhotos#3a20ecb8.
 		v := InputMessagesFilterChatPhotos{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterPhoneCallsTypeID:
 		// Decoding inputMessagesFilterPhoneCalls#80c99768.
 		v := InputMessagesFilterPhoneCalls{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterRoundVoiceTypeID:
 		// Decoding inputMessagesFilterRoundVoice#7a7c17a4.
 		v := InputMessagesFilterRoundVoice{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterRoundVideoTypeID:
 		// Decoding inputMessagesFilterRoundVideo#b549da53.
 		v := InputMessagesFilterRoundVideo{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterMyMentionsTypeID:
 		// Decoding inputMessagesFilterMyMentions#c1f8e69a.
 		v := InputMessagesFilterMyMentions{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterGeoTypeID:
 		// Decoding inputMessagesFilterGeo#e7026d0d.
 		v := InputMessagesFilterGeo{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterContactsTypeID:
 		// Decoding inputMessagesFilterContacts#e062db83.
 		v := InputMessagesFilterContacts{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	case InputMessagesFilterPinnedTypeID:
 		// Decoding inputMessagesFilterPinned#1bb00451.
 		v := InputMessagesFilterPinned{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "MessagesFilterClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -2007,7 +2007,7 @@ type MessagesFilterBox struct {
 // Decode implements bin.Decoder for MessagesFilterBox.
 func (b *MessagesFilterBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode MessagesFilterBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "MessagesFilter")
 	}
 	v, err := DecodeMessagesFilter(buf)
 	if err != nil {
@@ -2020,7 +2020,7 @@ func (b *MessagesFilterBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for MessagesFilterBox.
 func (b *MessagesFilterBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.MessagesFilter == nil {
-		return fmt.Errorf("unable to encode MessagesFilterClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "MessagesFilterClass")
 	}
 	return b.MessagesFilter.Encode(buf)
 }

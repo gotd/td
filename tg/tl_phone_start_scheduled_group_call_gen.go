@@ -101,7 +101,7 @@ func (s *PhoneStartScheduledGroupCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *PhoneStartScheduledGroupCallRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode phone.startScheduledGroupCall#5680e342 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.startScheduledGroupCall#5680e342")
 	}
 	b.PutID(PhoneStartScheduledGroupCallRequestTypeID)
 	return s.EncodeBare(b)
@@ -110,10 +110,10 @@ func (s *PhoneStartScheduledGroupCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PhoneStartScheduledGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode phone.startScheduledGroupCall#5680e342 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.startScheduledGroupCall#5680e342")
 	}
 	if err := s.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.startScheduledGroupCall#5680e342: field call: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.startScheduledGroupCall#5680e342", "call", err)
 	}
 	return nil
 }
@@ -126,10 +126,10 @@ func (s *PhoneStartScheduledGroupCallRequest) GetCall() (value InputGroupCall) {
 // Decode implements bin.Decoder.
 func (s *PhoneStartScheduledGroupCallRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode phone.startScheduledGroupCall#5680e342 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.startScheduledGroupCall#5680e342")
 	}
 	if err := b.ConsumeID(PhoneStartScheduledGroupCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.startScheduledGroupCall#5680e342: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.startScheduledGroupCall#5680e342", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -137,11 +137,11 @@ func (s *PhoneStartScheduledGroupCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PhoneStartScheduledGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode phone.startScheduledGroupCall#5680e342 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.startScheduledGroupCall#5680e342")
 	}
 	{
 		if err := s.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.startScheduledGroupCall#5680e342: field call: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.startScheduledGroupCall#5680e342", "call", err)
 		}
 	}
 	return nil

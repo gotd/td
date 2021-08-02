@@ -121,7 +121,7 @@ func (f *FutureSalts) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *FutureSalts) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode future_salts#ae500895 as nil")
+		return fmt.Errorf("can't encode %s as nil", "future_salts#ae500895")
 	}
 	b.PutID(FutureSaltsTypeID)
 	return f.EncodeBare(b)
@@ -130,14 +130,14 @@ func (f *FutureSalts) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *FutureSalts) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode future_salts#ae500895 as nil")
+		return fmt.Errorf("can't encode %s as nil", "future_salts#ae500895")
 	}
 	b.PutLong(f.ReqMsgID)
 	b.PutInt(f.Now)
 	b.PutInt(len(f.Salts))
 	for idx, v := range f.Salts {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare future_salts#ae500895: field salts element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare %s: field %s element with index %d: %w", "future_salts#ae500895", "salts", idx, err)
 		}
 	}
 	return nil
@@ -161,10 +161,10 @@ func (f *FutureSalts) GetSalts() (value []FutureSalt) {
 // Decode implements bin.Decoder.
 func (f *FutureSalts) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode future_salts#ae500895 to nil")
+		return fmt.Errorf("can't decode %s to nil", "future_salts#ae500895")
 	}
 	if err := b.ConsumeID(FutureSaltsTypeID); err != nil {
-		return fmt.Errorf("unable to decode future_salts#ae500895: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "future_salts#ae500895", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -172,31 +172,31 @@ func (f *FutureSalts) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *FutureSalts) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode future_salts#ae500895 to nil")
+		return fmt.Errorf("can't decode %s to nil", "future_salts#ae500895")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode future_salts#ae500895: field req_msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "future_salts#ae500895", "req_msg_id", err)
 		}
 		f.ReqMsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode future_salts#ae500895: field now: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "future_salts#ae500895", "now", err)
 		}
 		f.Now = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode future_salts#ae500895: field salts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "future_salts#ae500895", "salts", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value FutureSalt
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare future_salts#ae500895: field salts: %w", err)
+				return fmt.Errorf("unable to decode bare %s: field %s: %w", "future_salts#ae500895", "salts", err)
 			}
 			f.Salts = append(f.Salts, value)
 		}

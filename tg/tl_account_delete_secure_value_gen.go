@@ -106,7 +106,7 @@ func (d *AccountDeleteSecureValueRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *AccountDeleteSecureValueRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode account.deleteSecureValue#b880bc4b as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.deleteSecureValue#b880bc4b")
 	}
 	b.PutID(AccountDeleteSecureValueRequestTypeID)
 	return d.EncodeBare(b)
@@ -115,15 +115,15 @@ func (d *AccountDeleteSecureValueRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *AccountDeleteSecureValueRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode account.deleteSecureValue#b880bc4b as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.deleteSecureValue#b880bc4b")
 	}
 	b.PutVectorHeader(len(d.Types))
 	for idx, v := range d.Types {
 		if v == nil {
-			return fmt.Errorf("unable to encode account.deleteSecureValue#b880bc4b: field types element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "account.deleteSecureValue#b880bc4b", "types", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.deleteSecureValue#b880bc4b: field types element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "account.deleteSecureValue#b880bc4b", "types", idx, err)
 		}
 	}
 	return nil
@@ -142,10 +142,10 @@ func (d *AccountDeleteSecureValueRequest) MapTypes() (value SecureValueTypeClass
 // Decode implements bin.Decoder.
 func (d *AccountDeleteSecureValueRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode account.deleteSecureValue#b880bc4b to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.deleteSecureValue#b880bc4b")
 	}
 	if err := b.ConsumeID(AccountDeleteSecureValueRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.deleteSecureValue#b880bc4b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.deleteSecureValue#b880bc4b", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -153,17 +153,17 @@ func (d *AccountDeleteSecureValueRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *AccountDeleteSecureValueRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode account.deleteSecureValue#b880bc4b to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.deleteSecureValue#b880bc4b")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.deleteSecureValue#b880bc4b: field types: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.deleteSecureValue#b880bc4b", "types", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureValueType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode account.deleteSecureValue#b880bc4b: field types: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "account.deleteSecureValue#b880bc4b", "types", err)
 			}
 			d.Types = append(d.Types, value)
 		}

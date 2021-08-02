@@ -105,7 +105,7 @@ func (u *MessagesUnpinAllMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *MessagesUnpinAllMessagesRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.unpinAllMessages#f025bc8b as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.unpinAllMessages#f025bc8b")
 	}
 	b.PutID(MessagesUnpinAllMessagesRequestTypeID)
 	return u.EncodeBare(b)
@@ -114,13 +114,13 @@ func (u *MessagesUnpinAllMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *MessagesUnpinAllMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.unpinAllMessages#f025bc8b as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.unpinAllMessages#f025bc8b")
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode messages.unpinAllMessages#f025bc8b: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.unpinAllMessages#f025bc8b", "peer")
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.unpinAllMessages#f025bc8b: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.unpinAllMessages#f025bc8b", "peer", err)
 	}
 	return nil
 }
@@ -133,10 +133,10 @@ func (u *MessagesUnpinAllMessagesRequest) GetPeer() (value InputPeerClass) {
 // Decode implements bin.Decoder.
 func (u *MessagesUnpinAllMessagesRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.unpinAllMessages#f025bc8b to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.unpinAllMessages#f025bc8b")
 	}
 	if err := b.ConsumeID(MessagesUnpinAllMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.unpinAllMessages#f025bc8b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.unpinAllMessages#f025bc8b", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -144,12 +144,12 @@ func (u *MessagesUnpinAllMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *MessagesUnpinAllMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.unpinAllMessages#f025bc8b to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.unpinAllMessages#f025bc8b")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.unpinAllMessages#f025bc8b: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.unpinAllMessages#f025bc8b", "peer", err)
 		}
 		u.Peer = value
 	}

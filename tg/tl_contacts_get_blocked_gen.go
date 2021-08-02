@@ -113,7 +113,7 @@ func (g *ContactsGetBlockedRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ContactsGetBlockedRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getBlocked#f57c350f as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.getBlocked#f57c350f")
 	}
 	b.PutID(ContactsGetBlockedRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,7 +122,7 @@ func (g *ContactsGetBlockedRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ContactsGetBlockedRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getBlocked#f57c350f as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.getBlocked#f57c350f")
 	}
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
@@ -142,10 +142,10 @@ func (g *ContactsGetBlockedRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *ContactsGetBlockedRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getBlocked#f57c350f to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.getBlocked#f57c350f")
 	}
 	if err := b.ConsumeID(ContactsGetBlockedRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.getBlocked#f57c350f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.getBlocked#f57c350f", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -153,19 +153,19 @@ func (g *ContactsGetBlockedRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ContactsGetBlockedRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getBlocked#f57c350f to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.getBlocked#f57c350f")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getBlocked#f57c350f: field offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.getBlocked#f57c350f", "offset", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getBlocked#f57c350f: field limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.getBlocked#f57c350f", "limit", err)
 		}
 		g.Limit = value
 	}

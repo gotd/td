@@ -202,7 +202,7 @@ func (c *StickersCreateStickerSetRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *StickersCreateStickerSetRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode stickers.createStickerSet#9021ab67 as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickers.createStickerSet#9021ab67")
 	}
 	b.PutID(StickersCreateStickerSetRequestTypeID)
 	return c.EncodeBare(b)
@@ -211,7 +211,7 @@ func (c *StickersCreateStickerSetRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *StickersCreateStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode stickers.createStickerSet#9021ab67 as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickers.createStickerSet#9021ab67")
 	}
 	if !(c.Masks == false) {
 		c.Flags.Set(0)
@@ -226,28 +226,28 @@ func (c *StickersCreateStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(3)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickers.createStickerSet#9021ab67: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stickers.createStickerSet#9021ab67", "flags", err)
 	}
 	if c.UserID == nil {
-		return fmt.Errorf("unable to encode stickers.createStickerSet#9021ab67: field user_id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stickers.createStickerSet#9021ab67", "user_id")
 	}
 	if err := c.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickers.createStickerSet#9021ab67: field user_id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stickers.createStickerSet#9021ab67", "user_id", err)
 	}
 	b.PutString(c.Title)
 	b.PutString(c.ShortName)
 	if c.Flags.Has(2) {
 		if c.Thumb == nil {
-			return fmt.Errorf("unable to encode stickers.createStickerSet#9021ab67: field thumb is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "stickers.createStickerSet#9021ab67", "thumb")
 		}
 		if err := c.Thumb.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stickers.createStickerSet#9021ab67: field thumb: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "stickers.createStickerSet#9021ab67", "thumb", err)
 		}
 	}
 	b.PutVectorHeader(len(c.Stickers))
 	for idx, v := range c.Stickers {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stickers.createStickerSet#9021ab67: field stickers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "stickers.createStickerSet#9021ab67", "stickers", idx, err)
 		}
 	}
 	if c.Flags.Has(3) {
@@ -350,10 +350,10 @@ func (c *StickersCreateStickerSetRequest) GetSoftware() (value string, ok bool) 
 // Decode implements bin.Decoder.
 func (c *StickersCreateStickerSetRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode stickers.createStickerSet#9021ab67 to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickers.createStickerSet#9021ab67")
 	}
 	if err := b.ConsumeID(StickersCreateStickerSetRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickers.createStickerSet#9021ab67: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "stickers.createStickerSet#9021ab67", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -361,11 +361,11 @@ func (c *StickersCreateStickerSetRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *StickersCreateStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode stickers.createStickerSet#9021ab67 to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickers.createStickerSet#9021ab67")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stickers.createStickerSet#9021ab67: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.createStickerSet#9021ab67", "flags", err)
 		}
 	}
 	c.Masks = c.Flags.Has(0)
@@ -373,40 +373,40 @@ func (c *StickersCreateStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.createStickerSet#9021ab67: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.createStickerSet#9021ab67", "user_id", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.createStickerSet#9021ab67: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.createStickerSet#9021ab67", "title", err)
 		}
 		c.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.createStickerSet#9021ab67: field short_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.createStickerSet#9021ab67", "short_name", err)
 		}
 		c.ShortName = value
 	}
 	if c.Flags.Has(2) {
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.createStickerSet#9021ab67: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.createStickerSet#9021ab67", "thumb", err)
 		}
 		c.Thumb = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.createStickerSet#9021ab67: field stickers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.createStickerSet#9021ab67", "stickers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value InputStickerSetItem
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode stickers.createStickerSet#9021ab67: field stickers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.createStickerSet#9021ab67", "stickers", err)
 			}
 			c.Stickers = append(c.Stickers, value)
 		}
@@ -414,7 +414,7 @@ func (c *StickersCreateStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	if c.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.createStickerSet#9021ab67: field software: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.createStickerSet#9021ab67", "software", err)
 		}
 		c.Software = value
 	}

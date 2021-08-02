@@ -189,7 +189,7 @@ func (u *AccountUpdateThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUpdateThemeRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateTheme#5cb367d5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.updateTheme#5cb367d5")
 	}
 	b.PutID(AccountUpdateThemeRequestTypeID)
 	return u.EncodeBare(b)
@@ -198,7 +198,7 @@ func (u *AccountUpdateThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUpdateThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateTheme#5cb367d5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.updateTheme#5cb367d5")
 	}
 	if !(u.Slug == "") {
 		u.Flags.Set(0)
@@ -213,14 +213,14 @@ func (u *AccountUpdateThemeRequest) EncodeBare(b *bin.Buffer) error {
 		u.Flags.Set(3)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.updateTheme#5cb367d5", "flags", err)
 	}
 	b.PutString(u.Format)
 	if u.Theme == nil {
-		return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field theme is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "account.updateTheme#5cb367d5", "theme")
 	}
 	if err := u.Theme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field theme: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.updateTheme#5cb367d5", "theme", err)
 	}
 	if u.Flags.Has(0) {
 		b.PutString(u.Slug)
@@ -230,15 +230,15 @@ func (u *AccountUpdateThemeRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if u.Flags.Has(2) {
 		if u.Document == nil {
-			return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field document is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "account.updateTheme#5cb367d5", "document")
 		}
 		if err := u.Document.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field document: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "account.updateTheme#5cb367d5", "document", err)
 		}
 	}
 	if u.Flags.Has(3) {
 		if err := u.Settings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field settings: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "account.updateTheme#5cb367d5", "settings", err)
 		}
 	}
 	return nil
@@ -326,10 +326,10 @@ func (u *AccountUpdateThemeRequest) GetSettings() (value InputThemeSettings, ok 
 // Decode implements bin.Decoder.
 func (u *AccountUpdateThemeRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateTheme#5cb367d5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.updateTheme#5cb367d5")
 	}
 	if err := b.ConsumeID(AccountUpdateThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.updateTheme#5cb367d5", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -337,51 +337,51 @@ func (u *AccountUpdateThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUpdateThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateTheme#5cb367d5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.updateTheme#5cb367d5")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.updateTheme#5cb367d5", "flags", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field format: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.updateTheme#5cb367d5", "format", err)
 		}
 		u.Format = value
 	}
 	{
 		value, err := DecodeInputTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field theme: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.updateTheme#5cb367d5", "theme", err)
 		}
 		u.Theme = value
 	}
 	if u.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field slug: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.updateTheme#5cb367d5", "slug", err)
 		}
 		u.Slug = value
 	}
 	if u.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.updateTheme#5cb367d5", "title", err)
 		}
 		u.Title = value
 	}
 	if u.Flags.Has(2) {
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field document: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.updateTheme#5cb367d5", "document", err)
 		}
 		u.Document = value
 	}
 	if u.Flags.Has(3) {
 		if err := u.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.updateTheme#5cb367d5", "settings", err)
 		}
 	}
 	return nil

@@ -136,7 +136,7 @@ func (g *PhotosGetUserPhotosRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PhotosGetUserPhotosRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode photos.getUserPhotos#91cd32a8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "photos.getUserPhotos#91cd32a8")
 	}
 	b.PutID(PhotosGetUserPhotosRequestTypeID)
 	return g.EncodeBare(b)
@@ -145,13 +145,13 @@ func (g *PhotosGetUserPhotosRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PhotosGetUserPhotosRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode photos.getUserPhotos#91cd32a8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "photos.getUserPhotos#91cd32a8")
 	}
 	if g.UserID == nil {
-		return fmt.Errorf("unable to encode photos.getUserPhotos#91cd32a8: field user_id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "photos.getUserPhotos#91cd32a8", "user_id")
 	}
 	if err := g.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photos.getUserPhotos#91cd32a8: field user_id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "photos.getUserPhotos#91cd32a8", "user_id", err)
 	}
 	b.PutInt(g.Offset)
 	b.PutLong(g.MaxID)
@@ -182,10 +182,10 @@ func (g *PhotosGetUserPhotosRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *PhotosGetUserPhotosRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode photos.getUserPhotos#91cd32a8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "photos.getUserPhotos#91cd32a8")
 	}
 	if err := b.ConsumeID(PhotosGetUserPhotosRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode photos.getUserPhotos#91cd32a8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "photos.getUserPhotos#91cd32a8", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -193,33 +193,33 @@ func (g *PhotosGetUserPhotosRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PhotosGetUserPhotosRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode photos.getUserPhotos#91cd32a8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "photos.getUserPhotos#91cd32a8")
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.getUserPhotos#91cd32a8: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "photos.getUserPhotos#91cd32a8", "user_id", err)
 		}
 		g.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.getUserPhotos#91cd32a8: field offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "photos.getUserPhotos#91cd32a8", "offset", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.getUserPhotos#91cd32a8: field max_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "photos.getUserPhotos#91cd32a8", "max_id", err)
 		}
 		g.MaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.getUserPhotos#91cd32a8: field limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "photos.getUserPhotos#91cd32a8", "limit", err)
 		}
 		g.Limit = value
 	}

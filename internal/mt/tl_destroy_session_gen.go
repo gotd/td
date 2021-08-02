@@ -99,7 +99,7 @@ func (d *DestroySessionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DestroySessionRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode destroy_session#e7512126 as nil")
+		return fmt.Errorf("can't encode %s as nil", "destroy_session#e7512126")
 	}
 	b.PutID(DestroySessionRequestTypeID)
 	return d.EncodeBare(b)
@@ -108,7 +108,7 @@ func (d *DestroySessionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DestroySessionRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode destroy_session#e7512126 as nil")
+		return fmt.Errorf("can't encode %s as nil", "destroy_session#e7512126")
 	}
 	b.PutLong(d.SessionID)
 	return nil
@@ -122,10 +122,10 @@ func (d *DestroySessionRequest) GetSessionID() (value int64) {
 // Decode implements bin.Decoder.
 func (d *DestroySessionRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode destroy_session#e7512126 to nil")
+		return fmt.Errorf("can't decode %s to nil", "destroy_session#e7512126")
 	}
 	if err := b.ConsumeID(DestroySessionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode destroy_session#e7512126: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "destroy_session#e7512126", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -133,12 +133,12 @@ func (d *DestroySessionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DestroySessionRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode destroy_session#e7512126 to nil")
+		return fmt.Errorf("can't decode %s to nil", "destroy_session#e7512126")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode destroy_session#e7512126: field session_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "destroy_session#e7512126", "session_id", err)
 		}
 		d.SessionID = value
 	}

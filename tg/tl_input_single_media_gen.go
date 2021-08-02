@@ -156,7 +156,7 @@ func (i *InputSingleMedia) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputSingleMedia) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputSingleMedia#1cc6e91f as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputSingleMedia#1cc6e91f")
 	}
 	b.PutID(InputSingleMediaTypeID)
 	return i.EncodeBare(b)
@@ -165,19 +165,19 @@ func (i *InputSingleMedia) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputSingleMedia) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputSingleMedia#1cc6e91f as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputSingleMedia#1cc6e91f")
 	}
 	if !(i.Entities == nil) {
 		i.Flags.Set(0)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputSingleMedia#1cc6e91f: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputSingleMedia#1cc6e91f", "flags", err)
 	}
 	if i.Media == nil {
-		return fmt.Errorf("unable to encode inputSingleMedia#1cc6e91f: field media is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputSingleMedia#1cc6e91f", "media")
 	}
 	if err := i.Media.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputSingleMedia#1cc6e91f: field media: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputSingleMedia#1cc6e91f", "media", err)
 	}
 	b.PutLong(i.RandomID)
 	b.PutString(i.Message)
@@ -185,10 +185,10 @@ func (i *InputSingleMedia) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(i.Entities))
 		for idx, v := range i.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode inputSingleMedia#1cc6e91f: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "inputSingleMedia#1cc6e91f", "entities", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputSingleMedia#1cc6e91f: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "inputSingleMedia#1cc6e91f", "entities", idx, err)
 			}
 		}
 	}
@@ -236,10 +236,10 @@ func (i *InputSingleMedia) MapEntities() (value MessageEntityClassArray, ok bool
 // Decode implements bin.Decoder.
 func (i *InputSingleMedia) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputSingleMedia#1cc6e91f to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputSingleMedia#1cc6e91f")
 	}
 	if err := b.ConsumeID(InputSingleMediaTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputSingleMedia#1cc6e91f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputSingleMedia#1cc6e91f", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -247,43 +247,43 @@ func (i *InputSingleMedia) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputSingleMedia) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputSingleMedia#1cc6e91f to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputSingleMedia#1cc6e91f")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputSingleMedia#1cc6e91f: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputSingleMedia#1cc6e91f", "flags", err)
 		}
 	}
 	{
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSingleMedia#1cc6e91f: field media: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputSingleMedia#1cc6e91f", "media", err)
 		}
 		i.Media = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSingleMedia#1cc6e91f: field random_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputSingleMedia#1cc6e91f", "random_id", err)
 		}
 		i.RandomID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSingleMedia#1cc6e91f: field message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputSingleMedia#1cc6e91f", "message", err)
 		}
 		i.Message = value
 	}
 	if i.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSingleMedia#1cc6e91f: field entities: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputSingleMedia#1cc6e91f", "entities", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputSingleMedia#1cc6e91f: field entities: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "inputSingleMedia#1cc6e91f", "entities", err)
 			}
 			i.Entities = append(i.Entities, value)
 		}

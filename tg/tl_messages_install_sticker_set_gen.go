@@ -113,7 +113,7 @@ func (i *MessagesInstallStickerSetRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *MessagesInstallStickerSetRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode messages.installStickerSet#c78fe460 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.installStickerSet#c78fe460")
 	}
 	b.PutID(MessagesInstallStickerSetRequestTypeID)
 	return i.EncodeBare(b)
@@ -122,13 +122,13 @@ func (i *MessagesInstallStickerSetRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *MessagesInstallStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode messages.installStickerSet#c78fe460 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.installStickerSet#c78fe460")
 	}
 	if i.Stickerset == nil {
-		return fmt.Errorf("unable to encode messages.installStickerSet#c78fe460: field stickerset is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.installStickerSet#c78fe460", "stickerset")
 	}
 	if err := i.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.installStickerSet#c78fe460: field stickerset: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.installStickerSet#c78fe460", "stickerset", err)
 	}
 	b.PutBool(i.Archived)
 	return nil
@@ -147,10 +147,10 @@ func (i *MessagesInstallStickerSetRequest) GetArchived() (value bool) {
 // Decode implements bin.Decoder.
 func (i *MessagesInstallStickerSetRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode messages.installStickerSet#c78fe460 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.installStickerSet#c78fe460")
 	}
 	if err := b.ConsumeID(MessagesInstallStickerSetRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.installStickerSet#c78fe460: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.installStickerSet#c78fe460", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -158,19 +158,19 @@ func (i *MessagesInstallStickerSetRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *MessagesInstallStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode messages.installStickerSet#c78fe460 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.installStickerSet#c78fe460")
 	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.installStickerSet#c78fe460: field stickerset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.installStickerSet#c78fe460", "stickerset", err)
 		}
 		i.Stickerset = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.installStickerSet#c78fe460: field archived: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.installStickerSet#c78fe460", "archived", err)
 		}
 		i.Archived = value
 	}

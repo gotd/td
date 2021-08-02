@@ -113,7 +113,7 @@ func (s *StickerSetCovered) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StickerSetCovered) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerSetCovered#6410a5d2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickerSetCovered#6410a5d2")
 	}
 	b.PutID(StickerSetCoveredTypeID)
 	return s.EncodeBare(b)
@@ -122,16 +122,16 @@ func (s *StickerSetCovered) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StickerSetCovered) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerSetCovered#6410a5d2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickerSetCovered#6410a5d2")
 	}
 	if err := s.Set.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickerSetCovered#6410a5d2: field set: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stickerSetCovered#6410a5d2", "set", err)
 	}
 	if s.Cover == nil {
-		return fmt.Errorf("unable to encode stickerSetCovered#6410a5d2: field cover is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stickerSetCovered#6410a5d2", "cover")
 	}
 	if err := s.Cover.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickerSetCovered#6410a5d2: field cover: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stickerSetCovered#6410a5d2", "cover", err)
 	}
 	return nil
 }
@@ -149,10 +149,10 @@ func (s *StickerSetCovered) GetCover() (value DocumentClass) {
 // Decode implements bin.Decoder.
 func (s *StickerSetCovered) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerSetCovered#6410a5d2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickerSetCovered#6410a5d2")
 	}
 	if err := b.ConsumeID(StickerSetCoveredTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickerSetCovered#6410a5d2: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "stickerSetCovered#6410a5d2", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -160,17 +160,17 @@ func (s *StickerSetCovered) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StickerSetCovered) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerSetCovered#6410a5d2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickerSetCovered#6410a5d2")
 	}
 	{
 		if err := s.Set.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stickerSetCovered#6410a5d2: field set: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSetCovered#6410a5d2", "set", err)
 		}
 	}
 	{
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSetCovered#6410a5d2: field cover: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSetCovered#6410a5d2", "cover", err)
 		}
 		s.Cover = value
 	}
@@ -274,7 +274,7 @@ func (s *StickerSetMultiCovered) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StickerSetMultiCovered) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerSetMultiCovered#3407e51b as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickerSetMultiCovered#3407e51b")
 	}
 	b.PutID(StickerSetMultiCoveredTypeID)
 	return s.EncodeBare(b)
@@ -283,18 +283,18 @@ func (s *StickerSetMultiCovered) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StickerSetMultiCovered) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerSetMultiCovered#3407e51b as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickerSetMultiCovered#3407e51b")
 	}
 	if err := s.Set.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickerSetMultiCovered#3407e51b: field set: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stickerSetMultiCovered#3407e51b", "set", err)
 	}
 	b.PutVectorHeader(len(s.Covers))
 	for idx, v := range s.Covers {
 		if v == nil {
-			return fmt.Errorf("unable to encode stickerSetMultiCovered#3407e51b: field covers element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "stickerSetMultiCovered#3407e51b", "covers", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stickerSetMultiCovered#3407e51b: field covers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "stickerSetMultiCovered#3407e51b", "covers", idx, err)
 		}
 	}
 	return nil
@@ -318,10 +318,10 @@ func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
 // Decode implements bin.Decoder.
 func (s *StickerSetMultiCovered) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerSetMultiCovered#3407e51b to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickerSetMultiCovered#3407e51b")
 	}
 	if err := b.ConsumeID(StickerSetMultiCoveredTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickerSetMultiCovered#3407e51b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "stickerSetMultiCovered#3407e51b", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -329,22 +329,22 @@ func (s *StickerSetMultiCovered) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StickerSetMultiCovered) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerSetMultiCovered#3407e51b to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickerSetMultiCovered#3407e51b")
 	}
 	{
 		if err := s.Set.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stickerSetMultiCovered#3407e51b: field set: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSetMultiCovered#3407e51b", "set", err)
 		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSetMultiCovered#3407e51b: field covers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSetMultiCovered#3407e51b", "covers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stickerSetMultiCovered#3407e51b: field covers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSetMultiCovered#3407e51b", "covers", err)
 			}
 			s.Covers = append(s.Covers, value)
 		}
@@ -412,18 +412,18 @@ func DecodeStickerSetCovered(buf *bin.Buffer) (StickerSetCoveredClass, error) {
 		// Decoding stickerSetCovered#6410a5d2.
 		v := StickerSetCovered{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StickerSetCoveredClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StickerSetCoveredClass", err)
 		}
 		return &v, nil
 	case StickerSetMultiCoveredTypeID:
 		// Decoding stickerSetMultiCovered#3407e51b.
 		v := StickerSetMultiCovered{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StickerSetCoveredClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StickerSetCoveredClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode StickerSetCoveredClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "StickerSetCoveredClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -435,7 +435,7 @@ type StickerSetCoveredBox struct {
 // Decode implements bin.Decoder for StickerSetCoveredBox.
 func (b *StickerSetCoveredBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode StickerSetCoveredBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "StickerSetCovered")
 	}
 	v, err := DecodeStickerSetCovered(buf)
 	if err != nil {
@@ -448,7 +448,7 @@ func (b *StickerSetCoveredBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for StickerSetCoveredBox.
 func (b *StickerSetCoveredBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.StickerSetCovered == nil {
-		return fmt.Errorf("unable to encode StickerSetCoveredClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "StickerSetCoveredClass")
 	}
 	return b.StickerSetCovered.Encode(buf)
 }

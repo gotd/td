@@ -111,7 +111,7 @@ func (m *MessagesMessageEditData) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessagesMessageEditData) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messages.messageEditData#26b5dde6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.messageEditData#26b5dde6")
 	}
 	b.PutID(MessagesMessageEditDataTypeID)
 	return m.EncodeBare(b)
@@ -120,13 +120,13 @@ func (m *MessagesMessageEditData) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessagesMessageEditData) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messages.messageEditData#26b5dde6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.messageEditData#26b5dde6")
 	}
 	if !(m.Caption == false) {
 		m.Flags.Set(0)
 	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.messageEditData#26b5dde6: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.messageEditData#26b5dde6", "flags", err)
 	}
 	return nil
 }
@@ -150,10 +150,10 @@ func (m *MessagesMessageEditData) GetCaption() (value bool) {
 // Decode implements bin.Decoder.
 func (m *MessagesMessageEditData) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messages.messageEditData#26b5dde6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.messageEditData#26b5dde6")
 	}
 	if err := b.ConsumeID(MessagesMessageEditDataTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.messageEditData#26b5dde6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.messageEditData#26b5dde6", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -161,11 +161,11 @@ func (m *MessagesMessageEditData) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessagesMessageEditData) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messages.messageEditData#26b5dde6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.messageEditData#26b5dde6")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.messageEditData#26b5dde6: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.messageEditData#26b5dde6", "flags", err)
 		}
 	}
 	m.Caption = m.Flags.Has(0)

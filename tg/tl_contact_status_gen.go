@@ -113,7 +113,7 @@ func (c *ContactStatus) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ContactStatus) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contactStatus#d3680c61 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contactStatus#d3680c61")
 	}
 	b.PutID(ContactStatusTypeID)
 	return c.EncodeBare(b)
@@ -122,14 +122,14 @@ func (c *ContactStatus) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ContactStatus) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contactStatus#d3680c61 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contactStatus#d3680c61")
 	}
 	b.PutInt(c.UserID)
 	if c.Status == nil {
-		return fmt.Errorf("unable to encode contactStatus#d3680c61: field status is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "contactStatus#d3680c61", "status")
 	}
 	if err := c.Status.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contactStatus#d3680c61: field status: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "contactStatus#d3680c61", "status", err)
 	}
 	return nil
 }
@@ -147,10 +147,10 @@ func (c *ContactStatus) GetStatus() (value UserStatusClass) {
 // Decode implements bin.Decoder.
 func (c *ContactStatus) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contactStatus#d3680c61 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contactStatus#d3680c61")
 	}
 	if err := b.ConsumeID(ContactStatusTypeID); err != nil {
-		return fmt.Errorf("unable to decode contactStatus#d3680c61: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contactStatus#d3680c61", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -158,19 +158,19 @@ func (c *ContactStatus) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ContactStatus) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contactStatus#d3680c61 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contactStatus#d3680c61")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contactStatus#d3680c61: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contactStatus#d3680c61", "user_id", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := DecodeUserStatus(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode contactStatus#d3680c61: field status: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contactStatus#d3680c61", "status", err)
 		}
 		c.Status = value
 	}

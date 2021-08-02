@@ -138,7 +138,7 @@ func (i *InputWebDocument) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputWebDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWebDocument#9bed434d as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputWebDocument#9bed434d")
 	}
 	b.PutID(InputWebDocumentTypeID)
 	return i.EncodeBare(b)
@@ -147,7 +147,7 @@ func (i *InputWebDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputWebDocument) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWebDocument#9bed434d as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputWebDocument#9bed434d")
 	}
 	b.PutString(i.URL)
 	b.PutInt(i.Size)
@@ -155,10 +155,10 @@ func (i *InputWebDocument) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(i.Attributes))
 	for idx, v := range i.Attributes {
 		if v == nil {
-			return fmt.Errorf("unable to encode inputWebDocument#9bed434d: field attributes element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "inputWebDocument#9bed434d", "attributes", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputWebDocument#9bed434d: field attributes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "inputWebDocument#9bed434d", "attributes", idx, err)
 		}
 	}
 	return nil
@@ -192,10 +192,10 @@ func (i *InputWebDocument) MapAttributes() (value DocumentAttributeClassArray) {
 // Decode implements bin.Decoder.
 func (i *InputWebDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWebDocument#9bed434d to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputWebDocument#9bed434d")
 	}
 	if err := b.ConsumeID(InputWebDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputWebDocument#9bed434d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputWebDocument#9bed434d", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -203,38 +203,38 @@ func (i *InputWebDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputWebDocument) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWebDocument#9bed434d to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputWebDocument#9bed434d")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWebDocument#9bed434d: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputWebDocument#9bed434d", "url", err)
 		}
 		i.URL = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWebDocument#9bed434d: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputWebDocument#9bed434d", "size", err)
 		}
 		i.Size = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWebDocument#9bed434d: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputWebDocument#9bed434d", "mime_type", err)
 		}
 		i.MimeType = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWebDocument#9bed434d: field attributes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputWebDocument#9bed434d", "attributes", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputWebDocument#9bed434d: field attributes: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "inputWebDocument#9bed434d", "attributes", err)
 			}
 			i.Attributes = append(i.Attributes, value)
 		}

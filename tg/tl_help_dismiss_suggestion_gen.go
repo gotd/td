@@ -113,7 +113,7 @@ func (d *HelpDismissSuggestionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *HelpDismissSuggestionRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode help.dismissSuggestion#f50dbaa1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.dismissSuggestion#f50dbaa1")
 	}
 	b.PutID(HelpDismissSuggestionRequestTypeID)
 	return d.EncodeBare(b)
@@ -122,13 +122,13 @@ func (d *HelpDismissSuggestionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *HelpDismissSuggestionRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode help.dismissSuggestion#f50dbaa1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.dismissSuggestion#f50dbaa1")
 	}
 	if d.Peer == nil {
-		return fmt.Errorf("unable to encode help.dismissSuggestion#f50dbaa1: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "help.dismissSuggestion#f50dbaa1", "peer")
 	}
 	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.dismissSuggestion#f50dbaa1: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "help.dismissSuggestion#f50dbaa1", "peer", err)
 	}
 	b.PutString(d.Suggestion)
 	return nil
@@ -147,10 +147,10 @@ func (d *HelpDismissSuggestionRequest) GetSuggestion() (value string) {
 // Decode implements bin.Decoder.
 func (d *HelpDismissSuggestionRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode help.dismissSuggestion#f50dbaa1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.dismissSuggestion#f50dbaa1")
 	}
 	if err := b.ConsumeID(HelpDismissSuggestionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.dismissSuggestion#f50dbaa1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.dismissSuggestion#f50dbaa1", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -158,19 +158,19 @@ func (d *HelpDismissSuggestionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *HelpDismissSuggestionRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode help.dismissSuggestion#f50dbaa1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.dismissSuggestion#f50dbaa1")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode help.dismissSuggestion#f50dbaa1: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.dismissSuggestion#f50dbaa1", "peer", err)
 		}
 		d.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.dismissSuggestion#f50dbaa1: field suggestion: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.dismissSuggestion#f50dbaa1", "suggestion", err)
 		}
 		d.Suggestion = value
 	}

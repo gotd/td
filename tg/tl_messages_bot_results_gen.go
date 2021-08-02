@@ -189,7 +189,7 @@ func (b *MessagesBotResults) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *MessagesBotResults) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode messages.botResults#947ca848 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.botResults#947ca848")
 	}
 	buf.PutID(MessagesBotResultsTypeID)
 	return b.EncodeBare(buf)
@@ -198,7 +198,7 @@ func (b *MessagesBotResults) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *MessagesBotResults) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode messages.botResults#947ca848 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.botResults#947ca848")
 	}
 	if !(b.Gallery == false) {
 		b.Flags.Set(0)
@@ -210,7 +210,7 @@ func (b *MessagesBotResults) EncodeBare(buf *bin.Buffer) error {
 		b.Flags.Set(2)
 	}
 	if err := b.Flags.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode messages.botResults#947ca848: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.botResults#947ca848", "flags", err)
 	}
 	buf.PutLong(b.QueryID)
 	if b.Flags.Has(1) {
@@ -218,26 +218,26 @@ func (b *MessagesBotResults) EncodeBare(buf *bin.Buffer) error {
 	}
 	if b.Flags.Has(2) {
 		if err := b.SwitchPm.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode messages.botResults#947ca848: field switch_pm: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "messages.botResults#947ca848", "switch_pm", err)
 		}
 	}
 	buf.PutVectorHeader(len(b.Results))
 	for idx, v := range b.Results {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.botResults#947ca848: field results element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.botResults#947ca848", "results", idx)
 		}
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode messages.botResults#947ca848: field results element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.botResults#947ca848", "results", idx, err)
 		}
 	}
 	buf.PutInt(b.CacheTime)
 	buf.PutVectorHeader(len(b.Users))
 	for idx, v := range b.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.botResults#947ca848: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.botResults#947ca848", "users", idx)
 		}
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode messages.botResults#947ca848: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.botResults#947ca848", "users", idx, err)
 		}
 	}
 	return nil
@@ -322,10 +322,10 @@ func (b *MessagesBotResults) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (b *MessagesBotResults) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode messages.botResults#947ca848 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.botResults#947ca848")
 	}
 	if err := buf.ConsumeID(MessagesBotResultsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.botResults#947ca848: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.botResults#947ca848", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -333,42 +333,42 @@ func (b *MessagesBotResults) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *MessagesBotResults) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode messages.botResults#947ca848 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.botResults#947ca848")
 	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode messages.botResults#947ca848: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botResults#947ca848", "flags", err)
 		}
 	}
 	b.Gallery = b.Flags.Has(0)
 	{
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.botResults#947ca848: field query_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botResults#947ca848", "query_id", err)
 		}
 		b.QueryID = value
 	}
 	if b.Flags.Has(1) {
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.botResults#947ca848: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botResults#947ca848", "next_offset", err)
 		}
 		b.NextOffset = value
 	}
 	if b.Flags.Has(2) {
 		if err := b.SwitchPm.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode messages.botResults#947ca848: field switch_pm: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botResults#947ca848", "switch_pm", err)
 		}
 	}
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.botResults#947ca848: field results: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botResults#947ca848", "results", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeBotInlineResult(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.botResults#947ca848: field results: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botResults#947ca848", "results", err)
 			}
 			b.Results = append(b.Results, value)
 		}
@@ -376,19 +376,19 @@ func (b *MessagesBotResults) DecodeBare(buf *bin.Buffer) error {
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.botResults#947ca848: field cache_time: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botResults#947ca848", "cache_time", err)
 		}
 		b.CacheTime = value
 	}
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.botResults#947ca848: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botResults#947ca848", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.botResults#947ca848: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botResults#947ca848", "users", err)
 			}
 			b.Users = append(b.Users, value)
 		}

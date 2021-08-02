@@ -189,7 +189,7 @@ func (i *InputThemeSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputThemeSettings) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputThemeSettings#bd507cd1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputThemeSettings#bd507cd1")
 	}
 	b.PutID(InputThemeSettingsTypeID)
 	return i.EncodeBare(b)
@@ -198,7 +198,7 @@ func (i *InputThemeSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputThemeSettings) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputThemeSettings#bd507cd1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputThemeSettings#bd507cd1")
 	}
 	if !(i.MessageTopColor == 0) {
 		i.Flags.Set(0)
@@ -213,13 +213,13 @@ func (i *InputThemeSettings) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(1)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputThemeSettings#bd507cd1: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputThemeSettings#bd507cd1", "flags", err)
 	}
 	if i.BaseTheme == nil {
-		return fmt.Errorf("unable to encode inputThemeSettings#bd507cd1: field base_theme is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputThemeSettings#bd507cd1", "base_theme")
 	}
 	if err := i.BaseTheme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputThemeSettings#bd507cd1: field base_theme: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputThemeSettings#bd507cd1", "base_theme", err)
 	}
 	b.PutInt(i.AccentColor)
 	if i.Flags.Has(0) {
@@ -230,15 +230,15 @@ func (i *InputThemeSettings) EncodeBare(b *bin.Buffer) error {
 	}
 	if i.Flags.Has(1) {
 		if i.Wallpaper == nil {
-			return fmt.Errorf("unable to encode inputThemeSettings#bd507cd1: field wallpaper is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "inputThemeSettings#bd507cd1", "wallpaper")
 		}
 		if err := i.Wallpaper.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputThemeSettings#bd507cd1: field wallpaper: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "inputThemeSettings#bd507cd1", "wallpaper", err)
 		}
 	}
 	if i.Flags.Has(1) {
 		if err := i.WallpaperSettings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputThemeSettings#bd507cd1: field wallpaper_settings: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "inputThemeSettings#bd507cd1", "wallpaper_settings", err)
 		}
 	}
 	return nil
@@ -317,10 +317,10 @@ func (i *InputThemeSettings) GetWallpaperSettings() (value WallPaperSettings, ok
 // Decode implements bin.Decoder.
 func (i *InputThemeSettings) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputThemeSettings#bd507cd1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputThemeSettings#bd507cd1")
 	}
 	if err := b.ConsumeID(InputThemeSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputThemeSettings#bd507cd1", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -328,51 +328,51 @@ func (i *InputThemeSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputThemeSettings) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputThemeSettings#bd507cd1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputThemeSettings#bd507cd1")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputThemeSettings#bd507cd1", "flags", err)
 		}
 	}
 	{
 		value, err := DecodeBaseTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field base_theme: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputThemeSettings#bd507cd1", "base_theme", err)
 		}
 		i.BaseTheme = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field accent_color: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputThemeSettings#bd507cd1", "accent_color", err)
 		}
 		i.AccentColor = value
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field message_top_color: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputThemeSettings#bd507cd1", "message_top_color", err)
 		}
 		i.MessageTopColor = value
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field message_bottom_color: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputThemeSettings#bd507cd1", "message_bottom_color", err)
 		}
 		i.MessageBottomColor = value
 	}
 	if i.Flags.Has(1) {
 		value, err := DecodeInputWallPaper(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field wallpaper: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputThemeSettings#bd507cd1", "wallpaper", err)
 		}
 		i.Wallpaper = value
 	}
 	if i.Flags.Has(1) {
 		if err := i.WallpaperSettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field wallpaper_settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputThemeSettings#bd507cd1", "wallpaper_settings", err)
 		}
 	}
 	return nil

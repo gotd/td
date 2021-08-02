@@ -88,7 +88,7 @@ func (g *MessagesGetAllDraftsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetAllDraftsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getAllDrafts#6a3f8d65 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getAllDrafts#6a3f8d65")
 	}
 	b.PutID(MessagesGetAllDraftsRequestTypeID)
 	return g.EncodeBare(b)
@@ -97,7 +97,7 @@ func (g *MessagesGetAllDraftsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetAllDraftsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getAllDrafts#6a3f8d65 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getAllDrafts#6a3f8d65")
 	}
 	return nil
 }
@@ -105,10 +105,10 @@ func (g *MessagesGetAllDraftsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetAllDraftsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getAllDrafts#6a3f8d65 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getAllDrafts#6a3f8d65")
 	}
 	if err := b.ConsumeID(MessagesGetAllDraftsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getAllDrafts#6a3f8d65: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getAllDrafts#6a3f8d65", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -116,7 +116,7 @@ func (g *MessagesGetAllDraftsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetAllDraftsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getAllDrafts#6a3f8d65 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getAllDrafts#6a3f8d65")
 	}
 	return nil
 }

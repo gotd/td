@@ -163,7 +163,7 @@ func (v *VideoSize) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (v *VideoSize) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode videoSize#de33b094 as nil")
+		return fmt.Errorf("can't encode %s as nil", "videoSize#de33b094")
 	}
 	b.PutID(VideoSizeTypeID)
 	return v.EncodeBare(b)
@@ -172,13 +172,13 @@ func (v *VideoSize) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *VideoSize) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode videoSize#de33b094 as nil")
+		return fmt.Errorf("can't encode %s as nil", "videoSize#de33b094")
 	}
 	if !(v.VideoStartTs == 0) {
 		v.Flags.Set(0)
 	}
 	if err := v.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode videoSize#de33b094: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "videoSize#de33b094", "flags", err)
 	}
 	b.PutString(v.Type)
 	b.PutInt(v.W)
@@ -228,10 +228,10 @@ func (v *VideoSize) GetVideoStartTs() (value float64, ok bool) {
 // Decode implements bin.Decoder.
 func (v *VideoSize) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode videoSize#de33b094 to nil")
+		return fmt.Errorf("can't decode %s to nil", "videoSize#de33b094")
 	}
 	if err := b.ConsumeID(VideoSizeTypeID); err != nil {
-		return fmt.Errorf("unable to decode videoSize#de33b094: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "videoSize#de33b094", err)
 	}
 	return v.DecodeBare(b)
 }
@@ -239,45 +239,45 @@ func (v *VideoSize) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *VideoSize) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode videoSize#de33b094 to nil")
+		return fmt.Errorf("can't decode %s to nil", "videoSize#de33b094")
 	}
 	{
 		if err := v.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode videoSize#de33b094: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "videoSize#de33b094", "flags", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode videoSize#de33b094: field type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "videoSize#de33b094", "type", err)
 		}
 		v.Type = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode videoSize#de33b094: field w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "videoSize#de33b094", "w", err)
 		}
 		v.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode videoSize#de33b094: field h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "videoSize#de33b094", "h", err)
 		}
 		v.H = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode videoSize#de33b094: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "videoSize#de33b094", "size", err)
 		}
 		v.Size = value
 	}
 	if v.Flags.Has(0) {
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode videoSize#de33b094: field video_start_ts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "videoSize#de33b094", "video_start_ts", err)
 		}
 		v.VideoStartTs = value
 	}

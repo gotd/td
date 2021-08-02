@@ -112,7 +112,7 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *PhoneToggleGroupCallStartSubscriptionRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode phone.toggleGroupCallStartSubscription#219c34e6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.toggleGroupCallStartSubscription#219c34e6")
 	}
 	b.PutID(PhoneToggleGroupCallStartSubscriptionRequestTypeID)
 	return t.EncodeBare(b)
@@ -121,10 +121,10 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) Encode(b *bin.Buffer) err
 // EncodeBare implements bin.BareEncoder.
 func (t *PhoneToggleGroupCallStartSubscriptionRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode phone.toggleGroupCallStartSubscription#219c34e6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.toggleGroupCallStartSubscription#219c34e6")
 	}
 	if err := t.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.toggleGroupCallStartSubscription#219c34e6: field call: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.toggleGroupCallStartSubscription#219c34e6", "call", err)
 	}
 	b.PutBool(t.Subscribed)
 	return nil
@@ -143,10 +143,10 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) GetSubscribed() (value bo
 // Decode implements bin.Decoder.
 func (t *PhoneToggleGroupCallStartSubscriptionRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode phone.toggleGroupCallStartSubscription#219c34e6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.toggleGroupCallStartSubscription#219c34e6")
 	}
 	if err := b.ConsumeID(PhoneToggleGroupCallStartSubscriptionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.toggleGroupCallStartSubscription#219c34e6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.toggleGroupCallStartSubscription#219c34e6", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -154,17 +154,17 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) Decode(b *bin.Buffer) err
 // DecodeBare implements bin.BareDecoder.
 func (t *PhoneToggleGroupCallStartSubscriptionRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode phone.toggleGroupCallStartSubscription#219c34e6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.toggleGroupCallStartSubscription#219c34e6")
 	}
 	{
 		if err := t.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallStartSubscription#219c34e6: field call: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.toggleGroupCallStartSubscription#219c34e6", "call", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallStartSubscription#219c34e6: field subscribed: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.toggleGroupCallStartSubscription#219c34e6", "subscribed", err)
 		}
 		t.Subscribed = value
 	}

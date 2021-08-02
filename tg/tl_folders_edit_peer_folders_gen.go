@@ -105,7 +105,7 @@ func (e *FoldersEditPeerFoldersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *FoldersEditPeerFoldersRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode folders.editPeerFolders#6847d0ab as nil")
+		return fmt.Errorf("can't encode %s as nil", "folders.editPeerFolders#6847d0ab")
 	}
 	b.PutID(FoldersEditPeerFoldersRequestTypeID)
 	return e.EncodeBare(b)
@@ -114,12 +114,12 @@ func (e *FoldersEditPeerFoldersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *FoldersEditPeerFoldersRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode folders.editPeerFolders#6847d0ab as nil")
+		return fmt.Errorf("can't encode %s as nil", "folders.editPeerFolders#6847d0ab")
 	}
 	b.PutVectorHeader(len(e.FolderPeers))
 	for idx, v := range e.FolderPeers {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode folders.editPeerFolders#6847d0ab: field folder_peers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "folders.editPeerFolders#6847d0ab", "folder_peers", idx, err)
 		}
 	}
 	return nil
@@ -133,10 +133,10 @@ func (e *FoldersEditPeerFoldersRequest) GetFolderPeers() (value []InputFolderPee
 // Decode implements bin.Decoder.
 func (e *FoldersEditPeerFoldersRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode folders.editPeerFolders#6847d0ab to nil")
+		return fmt.Errorf("can't decode %s to nil", "folders.editPeerFolders#6847d0ab")
 	}
 	if err := b.ConsumeID(FoldersEditPeerFoldersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode folders.editPeerFolders#6847d0ab: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "folders.editPeerFolders#6847d0ab", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -144,17 +144,17 @@ func (e *FoldersEditPeerFoldersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *FoldersEditPeerFoldersRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode folders.editPeerFolders#6847d0ab to nil")
+		return fmt.Errorf("can't decode %s to nil", "folders.editPeerFolders#6847d0ab")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode folders.editPeerFolders#6847d0ab: field folder_peers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "folders.editPeerFolders#6847d0ab", "folder_peers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value InputFolderPeer
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode folders.editPeerFolders#6847d0ab: field folder_peers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "folders.editPeerFolders#6847d0ab", "folder_peers", err)
 			}
 			e.FolderPeers = append(e.FolderPeers, value)
 		}

@@ -85,7 +85,7 @@ func (g *AccountGetAccountTTLRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetAccountTTLRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getAccountTTL#8fc711d as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getAccountTTL#8fc711d")
 	}
 	b.PutID(AccountGetAccountTTLRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +94,7 @@ func (g *AccountGetAccountTTLRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetAccountTTLRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getAccountTTL#8fc711d as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getAccountTTL#8fc711d")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (g *AccountGetAccountTTLRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *AccountGetAccountTTLRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getAccountTTL#8fc711d to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getAccountTTL#8fc711d")
 	}
 	if err := b.ConsumeID(AccountGetAccountTTLRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getAccountTTL#8fc711d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.getAccountTTL#8fc711d", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (g *AccountGetAccountTTLRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetAccountTTLRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getAccountTTL#8fc711d to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getAccountTTL#8fc711d")
 	}
 	return nil
 }

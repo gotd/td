@@ -99,7 +99,7 @@ func (vec *LangPackStringClassVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *LangPackStringClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<LangPackString> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<LangPackString>")
 	}
 
 	return vec.EncodeBare(b)
@@ -108,15 +108,15 @@ func (vec *LangPackStringClassVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *LangPackStringClassVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<LangPackString> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<LangPackString>")
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if v == nil {
-			return fmt.Errorf("unable to encode Vector<LangPackString>: field Elems element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "Vector<LangPackString>", "Elems", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<LangPackString>: field Elems element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "Vector<LangPackString>", "Elems", idx, err)
 		}
 	}
 	return nil
@@ -135,7 +135,7 @@ func (vec *LangPackStringClassVector) MapElems() (value LangPackStringClassArray
 // Decode implements bin.Decoder.
 func (vec *LangPackStringClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<LangPackString> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<LangPackString>")
 	}
 
 	return vec.DecodeBare(b)
@@ -144,17 +144,17 @@ func (vec *LangPackStringClassVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *LangPackStringClassVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<LangPackString> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<LangPackString>")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<LangPackString>: field Elems: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<LangPackString>", "Elems", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeLangPackString(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode Vector<LangPackString>: field Elems: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<LangPackString>", "Elems", err)
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

@@ -146,7 +146,7 @@ func (p *PhoneConnection) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhoneConnection) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneConnection#9d4c17c0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phoneConnection#9d4c17c0")
 	}
 	b.PutID(PhoneConnectionTypeID)
 	return p.EncodeBare(b)
@@ -155,7 +155,7 @@ func (p *PhoneConnection) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneConnection) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneConnection#9d4c17c0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phoneConnection#9d4c17c0")
 	}
 	b.PutLong(p.ID)
 	b.PutString(p.IP)
@@ -193,10 +193,10 @@ func (p *PhoneConnection) GetPeerTag() (value []byte) {
 // Decode implements bin.Decoder.
 func (p *PhoneConnection) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneConnection#9d4c17c0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phoneConnection#9d4c17c0")
 	}
 	if err := b.ConsumeID(PhoneConnectionTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phoneConnection#9d4c17c0", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -204,40 +204,40 @@ func (p *PhoneConnection) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneConnection) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneConnection#9d4c17c0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phoneConnection#9d4c17c0")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneConnection#9d4c17c0", "id", err)
 		}
 		p.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: field ip: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneConnection#9d4c17c0", "ip", err)
 		}
 		p.IP = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: field ipv6: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneConnection#9d4c17c0", "ipv6", err)
 		}
 		p.Ipv6 = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: field port: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneConnection#9d4c17c0", "port", err)
 		}
 		p.Port = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: field peer_tag: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneConnection#9d4c17c0", "peer_tag", err)
 		}
 		p.PeerTag = value
 	}
@@ -417,7 +417,7 @@ func (p *PhoneConnectionWebrtc) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhoneConnectionWebrtc) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneConnectionWebrtc#635fe375 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phoneConnectionWebrtc#635fe375")
 	}
 	b.PutID(PhoneConnectionWebrtcTypeID)
 	return p.EncodeBare(b)
@@ -426,7 +426,7 @@ func (p *PhoneConnectionWebrtc) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneConnectionWebrtc) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneConnectionWebrtc#635fe375 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phoneConnectionWebrtc#635fe375")
 	}
 	if !(p.Turn == false) {
 		p.Flags.Set(0)
@@ -435,7 +435,7 @@ func (p *PhoneConnectionWebrtc) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(1)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneConnectionWebrtc#635fe375: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phoneConnectionWebrtc#635fe375", "flags", err)
 	}
 	b.PutLong(p.ID)
 	b.PutString(p.IP)
@@ -511,10 +511,10 @@ func (p *PhoneConnectionWebrtc) GetPassword() (value string) {
 // Decode implements bin.Decoder.
 func (p *PhoneConnectionWebrtc) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneConnectionWebrtc#635fe375 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phoneConnectionWebrtc#635fe375")
 	}
 	if err := b.ConsumeID(PhoneConnectionWebrtcTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneConnectionWebrtc#635fe375: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phoneConnectionWebrtc#635fe375", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -522,11 +522,11 @@ func (p *PhoneConnectionWebrtc) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneConnectionWebrtc) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneConnectionWebrtc#635fe375 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phoneConnectionWebrtc#635fe375")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneConnectionWebrtc#635fe375: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneConnectionWebrtc#635fe375", "flags", err)
 		}
 	}
 	p.Turn = p.Flags.Has(0)
@@ -534,42 +534,42 @@ func (p *PhoneConnectionWebrtc) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnectionWebrtc#635fe375: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneConnectionWebrtc#635fe375", "id", err)
 		}
 		p.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnectionWebrtc#635fe375: field ip: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneConnectionWebrtc#635fe375", "ip", err)
 		}
 		p.IP = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnectionWebrtc#635fe375: field ipv6: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneConnectionWebrtc#635fe375", "ipv6", err)
 		}
 		p.Ipv6 = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnectionWebrtc#635fe375: field port: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneConnectionWebrtc#635fe375", "port", err)
 		}
 		p.Port = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnectionWebrtc#635fe375: field username: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneConnectionWebrtc#635fe375", "username", err)
 		}
 		p.Username = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnectionWebrtc#635fe375: field password: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneConnectionWebrtc#635fe375", "password", err)
 		}
 		p.Password = value
 	}
@@ -645,18 +645,18 @@ func DecodePhoneConnection(buf *bin.Buffer) (PhoneConnectionClass, error) {
 		// Decoding phoneConnection#9d4c17c0.
 		v := PhoneConnection{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PhoneConnectionClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "PhoneConnectionClass", err)
 		}
 		return &v, nil
 	case PhoneConnectionWebrtcTypeID:
 		// Decoding phoneConnectionWebrtc#635fe375.
 		v := PhoneConnectionWebrtc{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PhoneConnectionClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "PhoneConnectionClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode PhoneConnectionClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "PhoneConnectionClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -668,7 +668,7 @@ type PhoneConnectionBox struct {
 // Decode implements bin.Decoder for PhoneConnectionBox.
 func (b *PhoneConnectionBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode PhoneConnectionBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "PhoneConnection")
 	}
 	v, err := DecodePhoneConnection(buf)
 	if err != nil {
@@ -681,7 +681,7 @@ func (b *PhoneConnectionBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for PhoneConnectionBox.
 func (b *PhoneConnectionBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.PhoneConnection == nil {
-		return fmt.Errorf("unable to encode PhoneConnectionClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "PhoneConnectionClass")
 	}
 	return b.PhoneConnection.Encode(buf)
 }

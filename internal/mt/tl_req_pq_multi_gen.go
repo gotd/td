@@ -99,7 +99,7 @@ func (r *ReqPqMultiRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReqPqMultiRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode req_pq_multi#be7e8ef1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "req_pq_multi#be7e8ef1")
 	}
 	b.PutID(ReqPqMultiRequestTypeID)
 	return r.EncodeBare(b)
@@ -108,7 +108,7 @@ func (r *ReqPqMultiRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReqPqMultiRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode req_pq_multi#be7e8ef1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "req_pq_multi#be7e8ef1")
 	}
 	b.PutInt128(r.Nonce)
 	return nil
@@ -122,10 +122,10 @@ func (r *ReqPqMultiRequest) GetNonce() (value bin.Int128) {
 // Decode implements bin.Decoder.
 func (r *ReqPqMultiRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode req_pq_multi#be7e8ef1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "req_pq_multi#be7e8ef1")
 	}
 	if err := b.ConsumeID(ReqPqMultiRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode req_pq_multi#be7e8ef1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "req_pq_multi#be7e8ef1", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -133,12 +133,12 @@ func (r *ReqPqMultiRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReqPqMultiRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode req_pq_multi#be7e8ef1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "req_pq_multi#be7e8ef1")
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode req_pq_multi#be7e8ef1: field nonce: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "req_pq_multi#be7e8ef1", "nonce", err)
 		}
 		r.Nonce = value
 	}

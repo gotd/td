@@ -145,7 +145,7 @@ func (b *BigMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BigMessage) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bigMessage#7490dcc5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "bigMessage#7490dcc5")
 	}
 	buf.PutID(BigMessageTypeID)
 	return b.EncodeBare(buf)
@@ -154,7 +154,7 @@ func (b *BigMessage) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BigMessage) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bigMessage#7490dcc5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "bigMessage#7490dcc5")
 	}
 	buf.PutInt32(b.ID)
 	buf.PutInt32(b.Count)
@@ -192,10 +192,10 @@ func (b *BigMessage) GetSummary() (value bool) {
 // Decode implements bin.Decoder.
 func (b *BigMessage) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bigMessage#7490dcc5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "bigMessage#7490dcc5")
 	}
 	if err := buf.ConsumeID(BigMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode bigMessage#7490dcc5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "bigMessage#7490dcc5", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -203,40 +203,40 @@ func (b *BigMessage) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BigMessage) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bigMessage#7490dcc5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "bigMessage#7490dcc5")
 	}
 	{
 		value, err := buf.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode bigMessage#7490dcc5: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bigMessage#7490dcc5", "id", err)
 		}
 		b.ID = value
 	}
 	{
 		value, err := buf.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode bigMessage#7490dcc5: field count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bigMessage#7490dcc5", "count", err)
 		}
 		b.Count = value
 	}
 	{
 		value, err := buf.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode bigMessage#7490dcc5: field targetId: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bigMessage#7490dcc5", "targetId", err)
 		}
 		b.TargetID = value
 	}
 	{
 		value, err := buf.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode bigMessage#7490dcc5: field escape: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bigMessage#7490dcc5", "escape", err)
 		}
 		b.Escape = value
 	}
 	{
 		value, err := buf.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode bigMessage#7490dcc5: field summary: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bigMessage#7490dcc5", "summary", err)
 		}
 		b.Summary = value
 	}
@@ -311,7 +311,7 @@ func (n *NoMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (n *NoMessage) Encode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode noMessage#ee6324c4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "noMessage#ee6324c4")
 	}
 	b.PutID(NoMessageTypeID)
 	return n.EncodeBare(b)
@@ -320,7 +320,7 @@ func (n *NoMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (n *NoMessage) EncodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode noMessage#ee6324c4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "noMessage#ee6324c4")
 	}
 	return nil
 }
@@ -328,10 +328,10 @@ func (n *NoMessage) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (n *NoMessage) Decode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode noMessage#ee6324c4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "noMessage#ee6324c4")
 	}
 	if err := b.ConsumeID(NoMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode noMessage#ee6324c4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "noMessage#ee6324c4", err)
 	}
 	return n.DecodeBare(b)
 }
@@ -339,7 +339,7 @@ func (n *NoMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (n *NoMessage) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode noMessage#ee6324c4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "noMessage#ee6324c4")
 	}
 	return nil
 }
@@ -429,7 +429,7 @@ func (t *TargetsMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TargetsMessage) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode targetsMessage#cc6136f1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "targetsMessage#cc6136f1")
 	}
 	b.PutID(TargetsMessageTypeID)
 	return t.EncodeBare(b)
@@ -438,7 +438,7 @@ func (t *TargetsMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TargetsMessage) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode targetsMessage#cc6136f1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "targetsMessage#cc6136f1")
 	}
 	b.PutInt(len(t.Targets))
 	for _, v := range t.Targets {
@@ -455,10 +455,10 @@ func (t *TargetsMessage) GetTargets() (value []int32) {
 // Decode implements bin.Decoder.
 func (t *TargetsMessage) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode targetsMessage#cc6136f1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "targetsMessage#cc6136f1")
 	}
 	if err := b.ConsumeID(TargetsMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode targetsMessage#cc6136f1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "targetsMessage#cc6136f1", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -466,17 +466,17 @@ func (t *TargetsMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TargetsMessage) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode targetsMessage#cc6136f1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "targetsMessage#cc6136f1")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode targetsMessage#cc6136f1: field targets: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "targetsMessage#cc6136f1", "targets", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode targetsMessage#cc6136f1: field targets: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "targetsMessage#cc6136f1", "targets", err)
 			}
 			t.Targets = append(t.Targets, value)
 		}
@@ -597,7 +597,7 @@ func (f *FieldsMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *FieldsMessage) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode fieldsMessage#947225b5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "fieldsMessage#947225b5")
 	}
 	b.PutID(FieldsMessageTypeID)
 	return f.EncodeBare(b)
@@ -606,7 +606,7 @@ func (f *FieldsMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *FieldsMessage) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode fieldsMessage#947225b5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "fieldsMessage#947225b5")
 	}
 	if !(f.Escape == false) {
 		f.Flags.Set(0)
@@ -615,7 +615,7 @@ func (f *FieldsMessage) EncodeBare(b *bin.Buffer) error {
 		f.Flags.Set(1)
 	}
 	if err := f.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode fieldsMessage#947225b5: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "fieldsMessage#947225b5", "flags", err)
 	}
 	if f.Flags.Has(0) {
 		b.PutBool(f.Escape)
@@ -659,10 +659,10 @@ func (f *FieldsMessage) GetTTLSeconds() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (f *FieldsMessage) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode fieldsMessage#947225b5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "fieldsMessage#947225b5")
 	}
 	if err := b.ConsumeID(FieldsMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode fieldsMessage#947225b5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "fieldsMessage#947225b5", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -670,24 +670,24 @@ func (f *FieldsMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *FieldsMessage) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode fieldsMessage#947225b5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "fieldsMessage#947225b5")
 	}
 	{
 		if err := f.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode fieldsMessage#947225b5: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "fieldsMessage#947225b5", "flags", err)
 		}
 	}
 	if f.Flags.Has(0) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode fieldsMessage#947225b5: field escape: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "fieldsMessage#947225b5", "escape", err)
 		}
 		f.Escape = value
 	}
 	if f.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode fieldsMessage#947225b5: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "fieldsMessage#947225b5", "ttl_seconds", err)
 		}
 		f.TTLSeconds = value
 	}
@@ -779,7 +779,7 @@ func (b *BytesMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BytesMessage) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bytesMessage#f990a67d as nil")
+		return fmt.Errorf("can't encode %s as nil", "bytesMessage#f990a67d")
 	}
 	buf.PutID(BytesMessageTypeID)
 	return b.EncodeBare(buf)
@@ -788,7 +788,7 @@ func (b *BytesMessage) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BytesMessage) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bytesMessage#f990a67d as nil")
+		return fmt.Errorf("can't encode %s as nil", "bytesMessage#f990a67d")
 	}
 	buf.PutBytes(b.Data)
 	return nil
@@ -802,10 +802,10 @@ func (b *BytesMessage) GetData() (value []byte) {
 // Decode implements bin.Decoder.
 func (b *BytesMessage) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bytesMessage#f990a67d to nil")
+		return fmt.Errorf("can't decode %s to nil", "bytesMessage#f990a67d")
 	}
 	if err := buf.ConsumeID(BytesMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode bytesMessage#f990a67d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "bytesMessage#f990a67d", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -813,12 +813,12 @@ func (b *BytesMessage) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BytesMessage) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bytesMessage#f990a67d to nil")
+		return fmt.Errorf("can't decode %s to nil", "bytesMessage#f990a67d")
 	}
 	{
 		value, err := buf.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode bytesMessage#f990a67d: field data: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bytesMessage#f990a67d", "data", err)
 		}
 		b.Data = value
 	}
@@ -885,39 +885,39 @@ func DecodeAbstractMessage(buf *bin.Buffer) (AbstractMessageClass, error) {
 		// Decoding bigMessage#7490dcc5.
 		v := BigMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AbstractMessageClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "AbstractMessageClass", err)
 		}
 		return &v, nil
 	case NoMessageTypeID:
 		// Decoding noMessage#ee6324c4.
 		v := NoMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AbstractMessageClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "AbstractMessageClass", err)
 		}
 		return &v, nil
 	case TargetsMessageTypeID:
 		// Decoding targetsMessage#cc6136f1.
 		v := TargetsMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AbstractMessageClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "AbstractMessageClass", err)
 		}
 		return &v, nil
 	case FieldsMessageTypeID:
 		// Decoding fieldsMessage#947225b5.
 		v := FieldsMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AbstractMessageClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "AbstractMessageClass", err)
 		}
 		return &v, nil
 	case BytesMessageTypeID:
 		// Decoding bytesMessage#f990a67d.
 		v := BytesMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AbstractMessageClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "AbstractMessageClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode AbstractMessageClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "AbstractMessageClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -929,7 +929,7 @@ type AbstractMessageBox struct {
 // Decode implements bin.Decoder for AbstractMessageBox.
 func (b *AbstractMessageBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode AbstractMessageBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "AbstractMessage")
 	}
 	v, err := DecodeAbstractMessage(buf)
 	if err != nil {
@@ -942,7 +942,7 @@ func (b *AbstractMessageBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for AbstractMessageBox.
 func (b *AbstractMessageBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.AbstractMessage == nil {
-		return fmt.Errorf("unable to encode AbstractMessageClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "AbstractMessageClass")
 	}
 	return b.AbstractMessage.Encode(buf)
 }

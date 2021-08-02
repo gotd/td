@@ -102,7 +102,7 @@ func (g *MessagesGetMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetMessagesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getMessages#63c66506 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getMessages#63c66506")
 	}
 	b.PutID(MessagesGetMessagesRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,15 +111,15 @@ func (g *MessagesGetMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getMessages#63c66506 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getMessages#63c66506")
 	}
 	b.PutVectorHeader(len(g.ID))
 	for idx, v := range g.ID {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.getMessages#63c66506: field id element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.getMessages#63c66506", "id", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.getMessages#63c66506: field id element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.getMessages#63c66506", "id", idx, err)
 		}
 	}
 	return nil
@@ -138,10 +138,10 @@ func (g *MessagesGetMessagesRequest) MapID() (value InputMessageClassArray) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetMessagesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getMessages#63c66506 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getMessages#63c66506")
 	}
 	if err := b.ConsumeID(MessagesGetMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getMessages#63c66506: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getMessages#63c66506", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -149,17 +149,17 @@ func (g *MessagesGetMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getMessages#63c66506 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getMessages#63c66506")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMessages#63c66506: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getMessages#63c66506", "id", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.getMessages#63c66506: field id: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getMessages#63c66506", "id", err)
 			}
 			g.ID = append(g.ID, value)
 		}

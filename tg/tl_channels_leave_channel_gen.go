@@ -108,7 +108,7 @@ func (l *ChannelsLeaveChannelRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *ChannelsLeaveChannelRequest) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode channels.leaveChannel#f836aa95 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.leaveChannel#f836aa95")
 	}
 	b.PutID(ChannelsLeaveChannelRequestTypeID)
 	return l.EncodeBare(b)
@@ -117,13 +117,13 @@ func (l *ChannelsLeaveChannelRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *ChannelsLeaveChannelRequest) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode channels.leaveChannel#f836aa95 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.leaveChannel#f836aa95")
 	}
 	if l.Channel == nil {
-		return fmt.Errorf("unable to encode channels.leaveChannel#f836aa95: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.leaveChannel#f836aa95", "channel")
 	}
 	if err := l.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.leaveChannel#f836aa95: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.leaveChannel#f836aa95", "channel", err)
 	}
 	return nil
 }
@@ -141,10 +141,10 @@ func (l *ChannelsLeaveChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChann
 // Decode implements bin.Decoder.
 func (l *ChannelsLeaveChannelRequest) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode channels.leaveChannel#f836aa95 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.leaveChannel#f836aa95")
 	}
 	if err := b.ConsumeID(ChannelsLeaveChannelRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.leaveChannel#f836aa95: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.leaveChannel#f836aa95", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -152,12 +152,12 @@ func (l *ChannelsLeaveChannelRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *ChannelsLeaveChannelRequest) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode channels.leaveChannel#f836aa95 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.leaveChannel#f836aa95")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.leaveChannel#f836aa95: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.leaveChannel#f836aa95", "channel", err)
 		}
 		l.Channel = value
 	}

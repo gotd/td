@@ -112,7 +112,7 @@ func (d *MessagesDeleteRevokedExportedChatInvitesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteRevokedExportedChatInvitesRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteRevokedExportedChatInvites#56987bd5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.deleteRevokedExportedChatInvites#56987bd5")
 	}
 	b.PutID(MessagesDeleteRevokedExportedChatInvitesRequestTypeID)
 	return d.EncodeBare(b)
@@ -121,19 +121,19 @@ func (d *MessagesDeleteRevokedExportedChatInvitesRequest) Encode(b *bin.Buffer) 
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDeleteRevokedExportedChatInvitesRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteRevokedExportedChatInvites#56987bd5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.deleteRevokedExportedChatInvites#56987bd5")
 	}
 	if d.Peer == nil {
-		return fmt.Errorf("unable to encode messages.deleteRevokedExportedChatInvites#56987bd5: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.deleteRevokedExportedChatInvites#56987bd5", "peer")
 	}
 	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteRevokedExportedChatInvites#56987bd5: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.deleteRevokedExportedChatInvites#56987bd5", "peer", err)
 	}
 	if d.AdminID == nil {
-		return fmt.Errorf("unable to encode messages.deleteRevokedExportedChatInvites#56987bd5: field admin_id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.deleteRevokedExportedChatInvites#56987bd5", "admin_id")
 	}
 	if err := d.AdminID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteRevokedExportedChatInvites#56987bd5: field admin_id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.deleteRevokedExportedChatInvites#56987bd5", "admin_id", err)
 	}
 	return nil
 }
@@ -151,10 +151,10 @@ func (d *MessagesDeleteRevokedExportedChatInvitesRequest) GetAdminID() (value In
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteRevokedExportedChatInvitesRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteRevokedExportedChatInvites#56987bd5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.deleteRevokedExportedChatInvites#56987bd5")
 	}
 	if err := b.ConsumeID(MessagesDeleteRevokedExportedChatInvitesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.deleteRevokedExportedChatInvites#56987bd5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.deleteRevokedExportedChatInvites#56987bd5", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -162,19 +162,19 @@ func (d *MessagesDeleteRevokedExportedChatInvitesRequest) Decode(b *bin.Buffer) 
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDeleteRevokedExportedChatInvitesRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteRevokedExportedChatInvites#56987bd5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.deleteRevokedExportedChatInvites#56987bd5")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteRevokedExportedChatInvites#56987bd5: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.deleteRevokedExportedChatInvites#56987bd5", "peer", err)
 		}
 		d.Peer = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteRevokedExportedChatInvites#56987bd5: field admin_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.deleteRevokedExportedChatInvites#56987bd5", "admin_id", err)
 		}
 		d.AdminID = value
 	}

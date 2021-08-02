@@ -116,7 +116,7 @@ func (e *ChannelsEditPhotoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *ChannelsEditPhotoRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editPhoto#f12e57c9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.editPhoto#f12e57c9")
 	}
 	b.PutID(ChannelsEditPhotoRequestTypeID)
 	return e.EncodeBare(b)
@@ -125,19 +125,19 @@ func (e *ChannelsEditPhotoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsEditPhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editPhoto#f12e57c9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.editPhoto#f12e57c9")
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.editPhoto#f12e57c9: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.editPhoto#f12e57c9", "channel")
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editPhoto#f12e57c9: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.editPhoto#f12e57c9", "channel", err)
 	}
 	if e.Photo == nil {
-		return fmt.Errorf("unable to encode channels.editPhoto#f12e57c9: field photo is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.editPhoto#f12e57c9", "photo")
 	}
 	if err := e.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editPhoto#f12e57c9: field photo: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.editPhoto#f12e57c9", "photo", err)
 	}
 	return nil
 }
@@ -160,10 +160,10 @@ func (e *ChannelsEditPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
 // Decode implements bin.Decoder.
 func (e *ChannelsEditPhotoRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editPhoto#f12e57c9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.editPhoto#f12e57c9")
 	}
 	if err := b.ConsumeID(ChannelsEditPhotoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.editPhoto#f12e57c9: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.editPhoto#f12e57c9", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -171,19 +171,19 @@ func (e *ChannelsEditPhotoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsEditPhotoRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editPhoto#f12e57c9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.editPhoto#f12e57c9")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editPhoto#f12e57c9: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editPhoto#f12e57c9", "channel", err)
 		}
 		e.Channel = value
 	}
 	{
 		value, err := DecodeInputChatPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editPhoto#f12e57c9: field photo: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editPhoto#f12e57c9", "photo", err)
 		}
 		e.Photo = value
 	}

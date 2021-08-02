@@ -119,7 +119,7 @@ func (l *LabeledPrice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LabeledPrice) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode labeledPrice#cb296bf8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "labeledPrice#cb296bf8")
 	}
 	b.PutID(LabeledPriceTypeID)
 	return l.EncodeBare(b)
@@ -128,7 +128,7 @@ func (l *LabeledPrice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LabeledPrice) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode labeledPrice#cb296bf8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "labeledPrice#cb296bf8")
 	}
 	b.PutString(l.Label)
 	b.PutLong(l.Amount)
@@ -148,10 +148,10 @@ func (l *LabeledPrice) GetAmount() (value int64) {
 // Decode implements bin.Decoder.
 func (l *LabeledPrice) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode labeledPrice#cb296bf8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "labeledPrice#cb296bf8")
 	}
 	if err := b.ConsumeID(LabeledPriceTypeID); err != nil {
-		return fmt.Errorf("unable to decode labeledPrice#cb296bf8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "labeledPrice#cb296bf8", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -159,19 +159,19 @@ func (l *LabeledPrice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LabeledPrice) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode labeledPrice#cb296bf8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "labeledPrice#cb296bf8")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode labeledPrice#cb296bf8: field label: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "labeledPrice#cb296bf8", "label", err)
 		}
 		l.Label = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode labeledPrice#cb296bf8: field amount: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "labeledPrice#cb296bf8", "amount", err)
 		}
 		l.Amount = value
 	}

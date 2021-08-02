@@ -205,7 +205,7 @@ func (d *DCOption) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DCOption) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dcOption#18b7a10d as nil")
+		return fmt.Errorf("can't encode %s as nil", "dcOption#18b7a10d")
 	}
 	b.PutID(DCOptionTypeID)
 	return d.EncodeBare(b)
@@ -214,7 +214,7 @@ func (d *DCOption) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DCOption) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dcOption#18b7a10d as nil")
+		return fmt.Errorf("can't encode %s as nil", "dcOption#18b7a10d")
 	}
 	if !(d.Ipv6 == false) {
 		d.Flags.Set(0)
@@ -235,7 +235,7 @@ func (d *DCOption) EncodeBare(b *bin.Buffer) error {
 		d.Flags.Set(10)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dcOption#18b7a10d: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "dcOption#18b7a10d", "flags", err)
 	}
 	b.PutInt(d.ID)
 	b.PutString(d.IPAddress)
@@ -359,10 +359,10 @@ func (d *DCOption) GetSecret() (value []byte, ok bool) {
 // Decode implements bin.Decoder.
 func (d *DCOption) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dcOption#18b7a10d to nil")
+		return fmt.Errorf("can't decode %s to nil", "dcOption#18b7a10d")
 	}
 	if err := b.ConsumeID(DCOptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode dcOption#18b7a10d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "dcOption#18b7a10d", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -370,11 +370,11 @@ func (d *DCOption) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DCOption) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dcOption#18b7a10d to nil")
+		return fmt.Errorf("can't decode %s to nil", "dcOption#18b7a10d")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dcOption#18b7a10d: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dcOption#18b7a10d", "flags", err)
 		}
 	}
 	d.Ipv6 = d.Flags.Has(0)
@@ -385,28 +385,28 @@ func (d *DCOption) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dcOption#18b7a10d: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dcOption#18b7a10d", "id", err)
 		}
 		d.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode dcOption#18b7a10d: field ip_address: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dcOption#18b7a10d", "ip_address", err)
 		}
 		d.IPAddress = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dcOption#18b7a10d: field port: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dcOption#18b7a10d", "port", err)
 		}
 		d.Port = value
 	}
 	if d.Flags.Has(10) {
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode dcOption#18b7a10d: field secret: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dcOption#18b7a10d", "secret", err)
 		}
 		d.Secret = value
 	}

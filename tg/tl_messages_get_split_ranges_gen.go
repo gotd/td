@@ -85,7 +85,7 @@ func (g *MessagesGetSplitRangesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetSplitRangesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSplitRanges#1cff7e08 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getSplitRanges#1cff7e08")
 	}
 	b.PutID(MessagesGetSplitRangesRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +94,7 @@ func (g *MessagesGetSplitRangesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetSplitRangesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSplitRanges#1cff7e08 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getSplitRanges#1cff7e08")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (g *MessagesGetSplitRangesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetSplitRangesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSplitRanges#1cff7e08 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getSplitRanges#1cff7e08")
 	}
 	if err := b.ConsumeID(MessagesGetSplitRangesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getSplitRanges#1cff7e08: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getSplitRanges#1cff7e08", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (g *MessagesGetSplitRangesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetSplitRangesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSplitRanges#1cff7e08 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getSplitRanges#1cff7e08")
 	}
 	return nil
 }

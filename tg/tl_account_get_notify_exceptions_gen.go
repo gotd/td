@@ -128,7 +128,7 @@ func (g *AccountGetNotifyExceptionsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetNotifyExceptionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getNotifyExceptions#53577479 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getNotifyExceptions#53577479")
 	}
 	b.PutID(AccountGetNotifyExceptionsRequestTypeID)
 	return g.EncodeBare(b)
@@ -137,7 +137,7 @@ func (g *AccountGetNotifyExceptionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetNotifyExceptionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getNotifyExceptions#53577479 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getNotifyExceptions#53577479")
 	}
 	if !(g.CompareSound == false) {
 		g.Flags.Set(1)
@@ -146,14 +146,14 @@ func (g *AccountGetNotifyExceptionsRequest) EncodeBare(b *bin.Buffer) error {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.getNotifyExceptions#53577479: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.getNotifyExceptions#53577479", "flags", err)
 	}
 	if g.Flags.Has(0) {
 		if g.Peer == nil {
-			return fmt.Errorf("unable to encode account.getNotifyExceptions#53577479: field peer is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "account.getNotifyExceptions#53577479", "peer")
 		}
 		if err := g.Peer.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.getNotifyExceptions#53577479: field peer: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "account.getNotifyExceptions#53577479", "peer", err)
 		}
 	}
 	return nil
@@ -193,10 +193,10 @@ func (g *AccountGetNotifyExceptionsRequest) GetPeer() (value InputNotifyPeerClas
 // Decode implements bin.Decoder.
 func (g *AccountGetNotifyExceptionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getNotifyExceptions#53577479 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getNotifyExceptions#53577479")
 	}
 	if err := b.ConsumeID(AccountGetNotifyExceptionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getNotifyExceptions#53577479: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.getNotifyExceptions#53577479", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -204,18 +204,18 @@ func (g *AccountGetNotifyExceptionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetNotifyExceptionsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getNotifyExceptions#53577479 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getNotifyExceptions#53577479")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.getNotifyExceptions#53577479: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.getNotifyExceptions#53577479", "flags", err)
 		}
 	}
 	g.CompareSound = g.Flags.Has(1)
 	if g.Flags.Has(0) {
 		value, err := DecodeInputNotifyPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getNotifyExceptions#53577479: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.getNotifyExceptions#53577479", "peer", err)
 		}
 		g.Peer = value
 	}

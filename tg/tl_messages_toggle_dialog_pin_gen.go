@@ -122,7 +122,7 @@ func (t *MessagesToggleDialogPinRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *MessagesToggleDialogPinRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.toggleDialogPin#a731e257 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.toggleDialogPin#a731e257")
 	}
 	b.PutID(MessagesToggleDialogPinRequestTypeID)
 	return t.EncodeBare(b)
@@ -131,19 +131,19 @@ func (t *MessagesToggleDialogPinRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *MessagesToggleDialogPinRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.toggleDialogPin#a731e257 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.toggleDialogPin#a731e257")
 	}
 	if !(t.Pinned == false) {
 		t.Flags.Set(0)
 	}
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.toggleDialogPin#a731e257: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.toggleDialogPin#a731e257", "flags", err)
 	}
 	if t.Peer == nil {
-		return fmt.Errorf("unable to encode messages.toggleDialogPin#a731e257: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.toggleDialogPin#a731e257", "peer")
 	}
 	if err := t.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.toggleDialogPin#a731e257: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.toggleDialogPin#a731e257", "peer", err)
 	}
 	return nil
 }
@@ -172,10 +172,10 @@ func (t *MessagesToggleDialogPinRequest) GetPeer() (value InputDialogPeerClass) 
 // Decode implements bin.Decoder.
 func (t *MessagesToggleDialogPinRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.toggleDialogPin#a731e257 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.toggleDialogPin#a731e257")
 	}
 	if err := b.ConsumeID(MessagesToggleDialogPinRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.toggleDialogPin#a731e257: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.toggleDialogPin#a731e257", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -183,18 +183,18 @@ func (t *MessagesToggleDialogPinRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *MessagesToggleDialogPinRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.toggleDialogPin#a731e257 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.toggleDialogPin#a731e257")
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.toggleDialogPin#a731e257: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.toggleDialogPin#a731e257", "flags", err)
 		}
 	}
 	t.Pinned = t.Flags.Has(0)
 	{
 		value, err := DecodeInputDialogPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.toggleDialogPin#a731e257: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.toggleDialogPin#a731e257", "peer", err)
 		}
 		t.Peer = value
 	}

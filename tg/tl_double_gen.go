@@ -84,7 +84,7 @@ func (d *Double) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *Double) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode double#2210c154 as nil")
+		return fmt.Errorf("can't encode %s as nil", "double#2210c154")
 	}
 	b.PutID(DoubleTypeID)
 	return d.EncodeBare(b)
@@ -93,7 +93,7 @@ func (d *Double) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *Double) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode double#2210c154 as nil")
+		return fmt.Errorf("can't encode %s as nil", "double#2210c154")
 	}
 	return nil
 }
@@ -101,10 +101,10 @@ func (d *Double) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *Double) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode double#2210c154 to nil")
+		return fmt.Errorf("can't decode %s to nil", "double#2210c154")
 	}
 	if err := b.ConsumeID(DoubleTypeID); err != nil {
-		return fmt.Errorf("unable to decode double#2210c154: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "double#2210c154", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -112,7 +112,7 @@ func (d *Double) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *Double) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode double#2210c154 to nil")
+		return fmt.Errorf("can't decode %s to nil", "double#2210c154")
 	}
 	return nil
 }

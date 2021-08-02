@@ -110,7 +110,7 @@ func (m *MsgsAllInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MsgsAllInfo) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msgs_all_info#8cc0d131 as nil")
+		return fmt.Errorf("can't encode %s as nil", "msgs_all_info#8cc0d131")
 	}
 	b.PutID(MsgsAllInfoTypeID)
 	return m.EncodeBare(b)
@@ -119,7 +119,7 @@ func (m *MsgsAllInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MsgsAllInfo) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msgs_all_info#8cc0d131 as nil")
+		return fmt.Errorf("can't encode %s as nil", "msgs_all_info#8cc0d131")
 	}
 	b.PutVectorHeader(len(m.MsgIDs))
 	for _, v := range m.MsgIDs {
@@ -142,10 +142,10 @@ func (m *MsgsAllInfo) GetInfo() (value []byte) {
 // Decode implements bin.Decoder.
 func (m *MsgsAllInfo) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msgs_all_info#8cc0d131 to nil")
+		return fmt.Errorf("can't decode %s to nil", "msgs_all_info#8cc0d131")
 	}
 	if err := b.ConsumeID(MsgsAllInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode msgs_all_info#8cc0d131: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "msgs_all_info#8cc0d131", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -153,17 +153,17 @@ func (m *MsgsAllInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MsgsAllInfo) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msgs_all_info#8cc0d131 to nil")
+		return fmt.Errorf("can't decode %s to nil", "msgs_all_info#8cc0d131")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode msgs_all_info#8cc0d131: field msg_ids: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "msgs_all_info#8cc0d131", "msg_ids", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode msgs_all_info#8cc0d131: field msg_ids: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "msgs_all_info#8cc0d131", "msg_ids", err)
 			}
 			m.MsgIDs = append(m.MsgIDs, value)
 		}
@@ -171,7 +171,7 @@ func (m *MsgsAllInfo) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode msgs_all_info#8cc0d131: field info: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "msgs_all_info#8cc0d131", "info", err)
 		}
 		m.Info = value
 	}

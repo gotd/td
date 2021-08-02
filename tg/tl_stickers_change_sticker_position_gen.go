@@ -114,7 +114,7 @@ func (c *StickersChangeStickerPositionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *StickersChangeStickerPositionRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode stickers.changeStickerPosition#ffb6d4ca as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickers.changeStickerPosition#ffb6d4ca")
 	}
 	b.PutID(StickersChangeStickerPositionRequestTypeID)
 	return c.EncodeBare(b)
@@ -123,13 +123,13 @@ func (c *StickersChangeStickerPositionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *StickersChangeStickerPositionRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode stickers.changeStickerPosition#ffb6d4ca as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickers.changeStickerPosition#ffb6d4ca")
 	}
 	if c.Sticker == nil {
-		return fmt.Errorf("unable to encode stickers.changeStickerPosition#ffb6d4ca: field sticker is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stickers.changeStickerPosition#ffb6d4ca", "sticker")
 	}
 	if err := c.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickers.changeStickerPosition#ffb6d4ca: field sticker: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stickers.changeStickerPosition#ffb6d4ca", "sticker", err)
 	}
 	b.PutInt(c.Position)
 	return nil
@@ -153,10 +153,10 @@ func (c *StickersChangeStickerPositionRequest) GetPosition() (value int) {
 // Decode implements bin.Decoder.
 func (c *StickersChangeStickerPositionRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode stickers.changeStickerPosition#ffb6d4ca to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickers.changeStickerPosition#ffb6d4ca")
 	}
 	if err := b.ConsumeID(StickersChangeStickerPositionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickers.changeStickerPosition#ffb6d4ca: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "stickers.changeStickerPosition#ffb6d4ca", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -164,19 +164,19 @@ func (c *StickersChangeStickerPositionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *StickersChangeStickerPositionRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode stickers.changeStickerPosition#ffb6d4ca to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickers.changeStickerPosition#ffb6d4ca")
 	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.changeStickerPosition#ffb6d4ca: field sticker: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.changeStickerPosition#ffb6d4ca", "sticker", err)
 		}
 		c.Sticker = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.changeStickerPosition#ffb6d4ca: field position: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.changeStickerPosition#ffb6d4ca", "position", err)
 		}
 		c.Position = value
 	}

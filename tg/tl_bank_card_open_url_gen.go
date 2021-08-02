@@ -113,7 +113,7 @@ func (b *BankCardOpenURL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BankCardOpenURL) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bankCardOpenUrl#f568028a as nil")
+		return fmt.Errorf("can't encode %s as nil", "bankCardOpenUrl#f568028a")
 	}
 	buf.PutID(BankCardOpenURLTypeID)
 	return b.EncodeBare(buf)
@@ -122,7 +122,7 @@ func (b *BankCardOpenURL) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BankCardOpenURL) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bankCardOpenUrl#f568028a as nil")
+		return fmt.Errorf("can't encode %s as nil", "bankCardOpenUrl#f568028a")
 	}
 	buf.PutString(b.URL)
 	buf.PutString(b.Name)
@@ -142,10 +142,10 @@ func (b *BankCardOpenURL) GetName() (value string) {
 // Decode implements bin.Decoder.
 func (b *BankCardOpenURL) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bankCardOpenUrl#f568028a to nil")
+		return fmt.Errorf("can't decode %s to nil", "bankCardOpenUrl#f568028a")
 	}
 	if err := buf.ConsumeID(BankCardOpenURLTypeID); err != nil {
-		return fmt.Errorf("unable to decode bankCardOpenUrl#f568028a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "bankCardOpenUrl#f568028a", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -153,19 +153,19 @@ func (b *BankCardOpenURL) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BankCardOpenURL) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bankCardOpenUrl#f568028a to nil")
+		return fmt.Errorf("can't decode %s to nil", "bankCardOpenUrl#f568028a")
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bankCardOpenUrl#f568028a: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bankCardOpenUrl#f568028a", "url", err)
 		}
 		b.URL = value
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bankCardOpenUrl#f568028a: field name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bankCardOpenUrl#f568028a", "name", err)
 		}
 		b.Name = value
 	}

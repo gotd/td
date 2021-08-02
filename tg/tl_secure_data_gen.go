@@ -128,7 +128,7 @@ func (s *SecureData) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureData) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureData#8aeabec3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "secureData#8aeabec3")
 	}
 	b.PutID(SecureDataTypeID)
 	return s.EncodeBare(b)
@@ -137,7 +137,7 @@ func (s *SecureData) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureData) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureData#8aeabec3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "secureData#8aeabec3")
 	}
 	b.PutBytes(s.Data)
 	b.PutBytes(s.DataHash)
@@ -163,10 +163,10 @@ func (s *SecureData) GetSecret() (value []byte) {
 // Decode implements bin.Decoder.
 func (s *SecureData) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureData#8aeabec3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "secureData#8aeabec3")
 	}
 	if err := b.ConsumeID(SecureDataTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureData#8aeabec3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "secureData#8aeabec3", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -174,26 +174,26 @@ func (s *SecureData) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureData) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureData#8aeabec3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "secureData#8aeabec3")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureData#8aeabec3: field data: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureData#8aeabec3", "data", err)
 		}
 		s.Data = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureData#8aeabec3: field data_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureData#8aeabec3", "data_hash", err)
 		}
 		s.DataHash = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureData#8aeabec3: field secret: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureData#8aeabec3", "secret", err)
 		}
 		s.Secret = value
 	}

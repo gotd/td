@@ -197,7 +197,7 @@ func (s *MessagesSendMultiMediaRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSendMultiMediaRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMultiMedia#cc0110cb as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.sendMultiMedia#cc0110cb")
 	}
 	b.PutID(MessagesSendMultiMediaRequestTypeID)
 	return s.EncodeBare(b)
@@ -206,7 +206,7 @@ func (s *MessagesSendMultiMediaRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendMultiMediaRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMultiMedia#cc0110cb as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.sendMultiMedia#cc0110cb")
 	}
 	if !(s.Silent == false) {
 		s.Flags.Set(5)
@@ -224,13 +224,13 @@ func (s *MessagesSendMultiMediaRequest) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(10)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendMultiMedia#cc0110cb: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.sendMultiMedia#cc0110cb", "flags", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendMultiMedia#cc0110cb: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.sendMultiMedia#cc0110cb", "peer")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendMultiMedia#cc0110cb: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.sendMultiMedia#cc0110cb", "peer", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutInt(s.ReplyToMsgID)
@@ -238,7 +238,7 @@ func (s *MessagesSendMultiMediaRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(s.MultiMedia))
 	for idx, v := range s.MultiMedia {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sendMultiMedia#cc0110cb: field multi_media element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.sendMultiMedia#cc0110cb", "multi_media", idx, err)
 		}
 	}
 	if s.Flags.Has(10) {
@@ -338,10 +338,10 @@ func (s *MessagesSendMultiMediaRequest) GetScheduleDate() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (s *MessagesSendMultiMediaRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMultiMedia#cc0110cb to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.sendMultiMedia#cc0110cb")
 	}
 	if err := b.ConsumeID(MessagesSendMultiMediaRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.sendMultiMedia#cc0110cb", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -349,11 +349,11 @@ func (s *MessagesSendMultiMediaRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendMultiMediaRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMultiMedia#cc0110cb to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.sendMultiMedia#cc0110cb")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMultiMedia#cc0110cb", "flags", err)
 		}
 	}
 	s.Silent = s.Flags.Has(5)
@@ -362,26 +362,26 @@ func (s *MessagesSendMultiMediaRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMultiMedia#cc0110cb", "peer", err)
 		}
 		s.Peer = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMultiMedia#cc0110cb", "reply_to_msg_id", err)
 		}
 		s.ReplyToMsgID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field multi_media: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMultiMedia#cc0110cb", "multi_media", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value InputSingleMedia
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field multi_media: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMultiMedia#cc0110cb", "multi_media", err)
 			}
 			s.MultiMedia = append(s.MultiMedia, value)
 		}
@@ -389,7 +389,7 @@ func (s *MessagesSendMultiMediaRequest) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMultiMedia#cc0110cb", "schedule_date", err)
 		}
 		s.ScheduleDate = value
 	}

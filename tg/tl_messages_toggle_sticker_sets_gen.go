@@ -146,7 +146,7 @@ func (t *MessagesToggleStickerSetsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *MessagesToggleStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.toggleStickerSets#b5052fea as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.toggleStickerSets#b5052fea")
 	}
 	b.PutID(MessagesToggleStickerSetsRequestTypeID)
 	return t.EncodeBare(b)
@@ -155,7 +155,7 @@ func (t *MessagesToggleStickerSetsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *MessagesToggleStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.toggleStickerSets#b5052fea as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.toggleStickerSets#b5052fea")
 	}
 	if !(t.Uninstall == false) {
 		t.Flags.Set(0)
@@ -167,15 +167,15 @@ func (t *MessagesToggleStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 		t.Flags.Set(2)
 	}
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.toggleStickerSets#b5052fea: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.toggleStickerSets#b5052fea", "flags", err)
 	}
 	b.PutVectorHeader(len(t.Stickersets))
 	for idx, v := range t.Stickersets {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.toggleStickerSets#b5052fea: field stickersets element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.toggleStickerSets#b5052fea", "stickersets", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.toggleStickerSets#b5052fea: field stickersets element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.toggleStickerSets#b5052fea", "stickersets", idx, err)
 		}
 	}
 	return nil
@@ -242,10 +242,10 @@ func (t *MessagesToggleStickerSetsRequest) MapStickersets() (value InputStickerS
 // Decode implements bin.Decoder.
 func (t *MessagesToggleStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.toggleStickerSets#b5052fea to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.toggleStickerSets#b5052fea")
 	}
 	if err := b.ConsumeID(MessagesToggleStickerSetsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.toggleStickerSets#b5052fea", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -253,11 +253,11 @@ func (t *MessagesToggleStickerSetsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *MessagesToggleStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.toggleStickerSets#b5052fea to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.toggleStickerSets#b5052fea")
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.toggleStickerSets#b5052fea", "flags", err)
 		}
 	}
 	t.Uninstall = t.Flags.Has(0)
@@ -266,12 +266,12 @@ func (t *MessagesToggleStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: field stickersets: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.toggleStickerSets#b5052fea", "stickersets", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputStickerSet(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: field stickersets: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.toggleStickerSets#b5052fea", "stickersets", err)
 			}
 			t.Stickersets = append(t.Stickersets, value)
 		}

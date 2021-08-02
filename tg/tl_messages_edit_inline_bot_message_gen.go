@@ -193,7 +193,7 @@ func (e *MessagesEditInlineBotMessageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *MessagesEditInlineBotMessageRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editInlineBotMessage#83557dba as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.editInlineBotMessage#83557dba")
 	}
 	b.PutID(MessagesEditInlineBotMessageRequestTypeID)
 	return e.EncodeBare(b)
@@ -202,7 +202,7 @@ func (e *MessagesEditInlineBotMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesEditInlineBotMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editInlineBotMessage#83557dba as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.editInlineBotMessage#83557dba")
 	}
 	if !(e.NoWebpage == false) {
 		e.Flags.Set(1)
@@ -220,38 +220,38 @@ func (e *MessagesEditInlineBotMessageRequest) EncodeBare(b *bin.Buffer) error {
 		e.Flags.Set(3)
 	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editInlineBotMessage#83557dba: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.editInlineBotMessage#83557dba", "flags", err)
 	}
 	if err := e.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editInlineBotMessage#83557dba: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.editInlineBotMessage#83557dba", "id", err)
 	}
 	if e.Flags.Has(11) {
 		b.PutString(e.Message)
 	}
 	if e.Flags.Has(14) {
 		if e.Media == nil {
-			return fmt.Errorf("unable to encode messages.editInlineBotMessage#83557dba: field media is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "messages.editInlineBotMessage#83557dba", "media")
 		}
 		if err := e.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.editInlineBotMessage#83557dba: field media: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "messages.editInlineBotMessage#83557dba", "media", err)
 		}
 	}
 	if e.Flags.Has(2) {
 		if e.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode messages.editInlineBotMessage#83557dba: field reply_markup is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "messages.editInlineBotMessage#83557dba", "reply_markup")
 		}
 		if err := e.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.editInlineBotMessage#83557dba: field reply_markup: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "messages.editInlineBotMessage#83557dba", "reply_markup", err)
 		}
 	}
 	if e.Flags.Has(3) {
 		b.PutVectorHeader(len(e.Entities))
 		for idx, v := range e.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode messages.editInlineBotMessage#83557dba: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.editInlineBotMessage#83557dba", "entities", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messages.editInlineBotMessage#83557dba: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.editInlineBotMessage#83557dba", "entities", idx, err)
 			}
 		}
 	}
@@ -350,10 +350,10 @@ func (e *MessagesEditInlineBotMessageRequest) MapEntities() (value MessageEntity
 // Decode implements bin.Decoder.
 func (e *MessagesEditInlineBotMessageRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editInlineBotMessage#83557dba to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.editInlineBotMessage#83557dba")
 	}
 	if err := b.ConsumeID(MessagesEditInlineBotMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editInlineBotMessage#83557dba: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.editInlineBotMessage#83557dba", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -361,49 +361,49 @@ func (e *MessagesEditInlineBotMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesEditInlineBotMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editInlineBotMessage#83557dba to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.editInlineBotMessage#83557dba")
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.editInlineBotMessage#83557dba: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.editInlineBotMessage#83557dba", "flags", err)
 		}
 	}
 	e.NoWebpage = e.Flags.Has(1)
 	{
 		if err := e.ID.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.editInlineBotMessage#83557dba: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.editInlineBotMessage#83557dba", "id", err)
 		}
 	}
 	if e.Flags.Has(11) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editInlineBotMessage#83557dba: field message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.editInlineBotMessage#83557dba", "message", err)
 		}
 		e.Message = value
 	}
 	if e.Flags.Has(14) {
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editInlineBotMessage#83557dba: field media: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.editInlineBotMessage#83557dba", "media", err)
 		}
 		e.Media = value
 	}
 	if e.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editInlineBotMessage#83557dba: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.editInlineBotMessage#83557dba", "reply_markup", err)
 		}
 		e.ReplyMarkup = value
 	}
 	if e.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editInlineBotMessage#83557dba: field entities: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.editInlineBotMessage#83557dba", "entities", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.editInlineBotMessage#83557dba: field entities: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.editInlineBotMessage#83557dba", "entities", err)
 			}
 			e.Entities = append(e.Entities, value)
 		}

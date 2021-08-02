@@ -135,7 +135,7 @@ func (e *EmojiKeywordsDifference) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EmojiKeywordsDifference) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiKeywordsDifference#5cc761bd as nil")
+		return fmt.Errorf("can't encode %s as nil", "emojiKeywordsDifference#5cc761bd")
 	}
 	b.PutID(EmojiKeywordsDifferenceTypeID)
 	return e.EncodeBare(b)
@@ -144,7 +144,7 @@ func (e *EmojiKeywordsDifference) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EmojiKeywordsDifference) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiKeywordsDifference#5cc761bd as nil")
+		return fmt.Errorf("can't encode %s as nil", "emojiKeywordsDifference#5cc761bd")
 	}
 	b.PutString(e.LangCode)
 	b.PutInt(e.FromVersion)
@@ -152,10 +152,10 @@ func (e *EmojiKeywordsDifference) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(e.Keywords))
 	for idx, v := range e.Keywords {
 		if v == nil {
-			return fmt.Errorf("unable to encode emojiKeywordsDifference#5cc761bd: field keywords element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "emojiKeywordsDifference#5cc761bd", "keywords", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode emojiKeywordsDifference#5cc761bd: field keywords element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "emojiKeywordsDifference#5cc761bd", "keywords", idx, err)
 		}
 	}
 	return nil
@@ -189,10 +189,10 @@ func (e *EmojiKeywordsDifference) MapKeywords() (value EmojiKeywordClassArray) {
 // Decode implements bin.Decoder.
 func (e *EmojiKeywordsDifference) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiKeywordsDifference#5cc761bd to nil")
+		return fmt.Errorf("can't decode %s to nil", "emojiKeywordsDifference#5cc761bd")
 	}
 	if err := b.ConsumeID(EmojiKeywordsDifferenceTypeID); err != nil {
-		return fmt.Errorf("unable to decode emojiKeywordsDifference#5cc761bd: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "emojiKeywordsDifference#5cc761bd", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -200,38 +200,38 @@ func (e *EmojiKeywordsDifference) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EmojiKeywordsDifference) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiKeywordsDifference#5cc761bd to nil")
+		return fmt.Errorf("can't decode %s to nil", "emojiKeywordsDifference#5cc761bd")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiKeywordsDifference#5cc761bd: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "emojiKeywordsDifference#5cc761bd", "lang_code", err)
 		}
 		e.LangCode = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiKeywordsDifference#5cc761bd: field from_version: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "emojiKeywordsDifference#5cc761bd", "from_version", err)
 		}
 		e.FromVersion = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiKeywordsDifference#5cc761bd: field version: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "emojiKeywordsDifference#5cc761bd", "version", err)
 		}
 		e.Version = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiKeywordsDifference#5cc761bd: field keywords: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "emojiKeywordsDifference#5cc761bd", "keywords", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeEmojiKeyword(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode emojiKeywordsDifference#5cc761bd: field keywords: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "emojiKeywordsDifference#5cc761bd", "keywords", err)
 			}
 			e.Keywords = append(e.Keywords, value)
 		}

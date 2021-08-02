@@ -116,7 +116,7 @@ func (g *MessagesGetStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getStickers#43d4f2c as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getStickers#43d4f2c")
 	}
 	b.PutID(MessagesGetStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -125,7 +125,7 @@ func (g *MessagesGetStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getStickers#43d4f2c as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getStickers#43d4f2c")
 	}
 	b.PutString(g.Emoticon)
 	b.PutInt(g.Hash)
@@ -145,10 +145,10 @@ func (g *MessagesGetStickersRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getStickers#43d4f2c to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getStickers#43d4f2c")
 	}
 	if err := b.ConsumeID(MessagesGetStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getStickers#43d4f2c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getStickers#43d4f2c", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -156,19 +156,19 @@ func (g *MessagesGetStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getStickers#43d4f2c to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getStickers#43d4f2c")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getStickers#43d4f2c: field emoticon: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getStickers#43d4f2c", "emoticon", err)
 		}
 		g.Emoticon = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getStickers#43d4f2c: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getStickers#43d4f2c", "hash", err)
 		}
 		g.Hash = value
 	}

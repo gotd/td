@@ -195,7 +195,7 @@ func (d *MessagesDiscussionMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDiscussionMessage) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.discussionMessage#f5dd8f9d as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.discussionMessage#f5dd8f9d")
 	}
 	b.PutID(MessagesDiscussionMessageTypeID)
 	return d.EncodeBare(b)
@@ -204,7 +204,7 @@ func (d *MessagesDiscussionMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDiscussionMessage) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.discussionMessage#f5dd8f9d as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.discussionMessage#f5dd8f9d")
 	}
 	if !(d.MaxID == 0) {
 		d.Flags.Set(0)
@@ -216,15 +216,15 @@ func (d *MessagesDiscussionMessage) EncodeBare(b *bin.Buffer) error {
 		d.Flags.Set(2)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.discussionMessage#f5dd8f9d: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.discussionMessage#f5dd8f9d", "flags", err)
 	}
 	b.PutVectorHeader(len(d.Messages))
 	for idx, v := range d.Messages {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.discussionMessage#f5dd8f9d: field messages element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.discussionMessage#f5dd8f9d", "messages", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.discussionMessage#f5dd8f9d: field messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.discussionMessage#f5dd8f9d", "messages", idx, err)
 		}
 	}
 	if d.Flags.Has(0) {
@@ -239,19 +239,19 @@ func (d *MessagesDiscussionMessage) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(d.Chats))
 	for idx, v := range d.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.discussionMessage#f5dd8f9d: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.discussionMessage#f5dd8f9d", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.discussionMessage#f5dd8f9d: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.discussionMessage#f5dd8f9d", "chats", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(d.Users))
 	for idx, v := range d.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.discussionMessage#f5dd8f9d: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.discussionMessage#f5dd8f9d", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.discussionMessage#f5dd8f9d: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.discussionMessage#f5dd8f9d", "users", idx, err)
 		}
 	}
 	return nil
@@ -335,10 +335,10 @@ func (d *MessagesDiscussionMessage) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (d *MessagesDiscussionMessage) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.discussionMessage#f5dd8f9d to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.discussionMessage#f5dd8f9d")
 	}
 	if err := b.ConsumeID(MessagesDiscussionMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.discussionMessage#f5dd8f9d", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -346,22 +346,22 @@ func (d *MessagesDiscussionMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDiscussionMessage) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.discussionMessage#f5dd8f9d to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.discussionMessage#f5dd8f9d")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.discussionMessage#f5dd8f9d", "flags", err)
 		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field messages: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.discussionMessage#f5dd8f9d", "messages", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field messages: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.discussionMessage#f5dd8f9d", "messages", err)
 			}
 			d.Messages = append(d.Messages, value)
 		}
@@ -369,33 +369,33 @@ func (d *MessagesDiscussionMessage) DecodeBare(b *bin.Buffer) error {
 	if d.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field max_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.discussionMessage#f5dd8f9d", "max_id", err)
 		}
 		d.MaxID = value
 	}
 	if d.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field read_inbox_max_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.discussionMessage#f5dd8f9d", "read_inbox_max_id", err)
 		}
 		d.ReadInboxMaxID = value
 	}
 	if d.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field read_outbox_max_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.discussionMessage#f5dd8f9d", "read_outbox_max_id", err)
 		}
 		d.ReadOutboxMaxID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.discussionMessage#f5dd8f9d", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.discussionMessage#f5dd8f9d", "chats", err)
 			}
 			d.Chats = append(d.Chats, value)
 		}
@@ -403,12 +403,12 @@ func (d *MessagesDiscussionMessage) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.discussionMessage#f5dd8f9d", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.discussionMessage#f5dd8f9d", "users", err)
 			}
 			d.Users = append(d.Users, value)
 		}

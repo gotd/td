@@ -102,7 +102,7 @@ func (g *AccountGetMultiWallPapersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetMultiWallPapersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getMultiWallPapers#65ad71dc as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getMultiWallPapers#65ad71dc")
 	}
 	b.PutID(AccountGetMultiWallPapersRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,15 +111,15 @@ func (g *AccountGetMultiWallPapersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetMultiWallPapersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getMultiWallPapers#65ad71dc as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getMultiWallPapers#65ad71dc")
 	}
 	b.PutVectorHeader(len(g.Wallpapers))
 	for idx, v := range g.Wallpapers {
 		if v == nil {
-			return fmt.Errorf("unable to encode account.getMultiWallPapers#65ad71dc: field wallpapers element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "account.getMultiWallPapers#65ad71dc", "wallpapers", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.getMultiWallPapers#65ad71dc: field wallpapers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "account.getMultiWallPapers#65ad71dc", "wallpapers", idx, err)
 		}
 	}
 	return nil
@@ -138,10 +138,10 @@ func (g *AccountGetMultiWallPapersRequest) MapWallpapers() (value InputWallPaper
 // Decode implements bin.Decoder.
 func (g *AccountGetMultiWallPapersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getMultiWallPapers#65ad71dc to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getMultiWallPapers#65ad71dc")
 	}
 	if err := b.ConsumeID(AccountGetMultiWallPapersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getMultiWallPapers#65ad71dc: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.getMultiWallPapers#65ad71dc", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -149,17 +149,17 @@ func (g *AccountGetMultiWallPapersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetMultiWallPapersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getMultiWallPapers#65ad71dc to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getMultiWallPapers#65ad71dc")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getMultiWallPapers#65ad71dc: field wallpapers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.getMultiWallPapers#65ad71dc", "wallpapers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputWallPaper(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode account.getMultiWallPapers#65ad71dc: field wallpapers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "account.getMultiWallPapers#65ad71dc", "wallpapers", err)
 			}
 			g.Wallpapers = append(g.Wallpapers, value)
 		}

@@ -85,7 +85,7 @@ func (l *AuthLogOutRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *AuthLogOutRequest) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode auth.logOut#5717da40 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.logOut#5717da40")
 	}
 	b.PutID(AuthLogOutRequestTypeID)
 	return l.EncodeBare(b)
@@ -94,7 +94,7 @@ func (l *AuthLogOutRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *AuthLogOutRequest) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode auth.logOut#5717da40 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.logOut#5717da40")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (l *AuthLogOutRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (l *AuthLogOutRequest) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode auth.logOut#5717da40 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.logOut#5717da40")
 	}
 	if err := b.ConsumeID(AuthLogOutRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.logOut#5717da40: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "auth.logOut#5717da40", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (l *AuthLogOutRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *AuthLogOutRequest) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode auth.logOut#5717da40 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.logOut#5717da40")
 	}
 	return nil
 }

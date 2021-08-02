@@ -124,7 +124,7 @@ func (g *LangpackGetStringsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *LangpackGetStringsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode langpack.getStrings#efea3803 as nil")
+		return fmt.Errorf("can't encode %s as nil", "langpack.getStrings#efea3803")
 	}
 	b.PutID(LangpackGetStringsRequestTypeID)
 	return g.EncodeBare(b)
@@ -133,7 +133,7 @@ func (g *LangpackGetStringsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *LangpackGetStringsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode langpack.getStrings#efea3803 as nil")
+		return fmt.Errorf("can't encode %s as nil", "langpack.getStrings#efea3803")
 	}
 	b.PutString(g.LangPack)
 	b.PutString(g.LangCode)
@@ -162,10 +162,10 @@ func (g *LangpackGetStringsRequest) GetKeys() (value []string) {
 // Decode implements bin.Decoder.
 func (g *LangpackGetStringsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode langpack.getStrings#efea3803 to nil")
+		return fmt.Errorf("can't decode %s to nil", "langpack.getStrings#efea3803")
 	}
 	if err := b.ConsumeID(LangpackGetStringsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode langpack.getStrings#efea3803: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "langpack.getStrings#efea3803", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -173,31 +173,31 @@ func (g *LangpackGetStringsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *LangpackGetStringsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode langpack.getStrings#efea3803 to nil")
+		return fmt.Errorf("can't decode %s to nil", "langpack.getStrings#efea3803")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langpack.getStrings#efea3803: field lang_pack: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "langpack.getStrings#efea3803", "lang_pack", err)
 		}
 		g.LangPack = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langpack.getStrings#efea3803: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "langpack.getStrings#efea3803", "lang_code", err)
 		}
 		g.LangCode = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode langpack.getStrings#efea3803: field keys: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "langpack.getStrings#efea3803", "keys", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode langpack.getStrings#efea3803: field keys: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "langpack.getStrings#efea3803", "keys", err)
 			}
 			g.Keys = append(g.Keys, value)
 		}

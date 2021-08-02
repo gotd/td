@@ -124,7 +124,7 @@ func (r *HelpRecentMeURLs) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *HelpRecentMeURLs) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode help.recentMeUrls#e0310d7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.recentMeUrls#e0310d7")
 	}
 	b.PutID(HelpRecentMeURLsTypeID)
 	return r.EncodeBare(b)
@@ -133,33 +133,33 @@ func (r *HelpRecentMeURLs) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *HelpRecentMeURLs) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode help.recentMeUrls#e0310d7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.recentMeUrls#e0310d7")
 	}
 	b.PutVectorHeader(len(r.URLs))
 	for idx, v := range r.URLs {
 		if v == nil {
-			return fmt.Errorf("unable to encode help.recentMeUrls#e0310d7: field urls element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "help.recentMeUrls#e0310d7", "urls", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.recentMeUrls#e0310d7: field urls element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "help.recentMeUrls#e0310d7", "urls", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(r.Chats))
 	for idx, v := range r.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode help.recentMeUrls#e0310d7: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "help.recentMeUrls#e0310d7", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.recentMeUrls#e0310d7: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "help.recentMeUrls#e0310d7", "chats", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(r.Users))
 	for idx, v := range r.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode help.recentMeUrls#e0310d7: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "help.recentMeUrls#e0310d7", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.recentMeUrls#e0310d7: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "help.recentMeUrls#e0310d7", "users", idx, err)
 		}
 	}
 	return nil
@@ -198,10 +198,10 @@ func (r *HelpRecentMeURLs) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (r *HelpRecentMeURLs) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode help.recentMeUrls#e0310d7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.recentMeUrls#e0310d7")
 	}
 	if err := b.ConsumeID(HelpRecentMeURLsTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.recentMeUrls#e0310d7", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -209,17 +209,17 @@ func (r *HelpRecentMeURLs) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *HelpRecentMeURLs) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode help.recentMeUrls#e0310d7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.recentMeUrls#e0310d7")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: field urls: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.recentMeUrls#e0310d7", "urls", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeRecentMeURL(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: field urls: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "help.recentMeUrls#e0310d7", "urls", err)
 			}
 			r.URLs = append(r.URLs, value)
 		}
@@ -227,12 +227,12 @@ func (r *HelpRecentMeURLs) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.recentMeUrls#e0310d7", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "help.recentMeUrls#e0310d7", "chats", err)
 			}
 			r.Chats = append(r.Chats, value)
 		}
@@ -240,12 +240,12 @@ func (r *HelpRecentMeURLs) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.recentMeUrls#e0310d7", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "help.recentMeUrls#e0310d7", "users", err)
 			}
 			r.Users = append(r.Users, value)
 		}

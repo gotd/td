@@ -152,7 +152,7 @@ func (b *ContactsBlockFromRepliesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *ContactsBlockFromRepliesRequest) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode contacts.blockFromReplies#29a8962c as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.blockFromReplies#29a8962c")
 	}
 	buf.PutID(ContactsBlockFromRepliesRequestTypeID)
 	return b.EncodeBare(buf)
@@ -161,7 +161,7 @@ func (b *ContactsBlockFromRepliesRequest) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *ContactsBlockFromRepliesRequest) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode contacts.blockFromReplies#29a8962c as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.blockFromReplies#29a8962c")
 	}
 	if !(b.DeleteMessage == false) {
 		b.Flags.Set(0)
@@ -173,7 +173,7 @@ func (b *ContactsBlockFromRepliesRequest) EncodeBare(buf *bin.Buffer) error {
 		b.Flags.Set(2)
 	}
 	if err := b.Flags.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode contacts.blockFromReplies#29a8962c: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "contacts.blockFromReplies#29a8962c", "flags", err)
 	}
 	buf.PutInt(b.MsgID)
 	return nil
@@ -235,10 +235,10 @@ func (b *ContactsBlockFromRepliesRequest) GetMsgID() (value int) {
 // Decode implements bin.Decoder.
 func (b *ContactsBlockFromRepliesRequest) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode contacts.blockFromReplies#29a8962c to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.blockFromReplies#29a8962c")
 	}
 	if err := buf.ConsumeID(ContactsBlockFromRepliesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.blockFromReplies#29a8962c", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -246,11 +246,11 @@ func (b *ContactsBlockFromRepliesRequest) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *ContactsBlockFromRepliesRequest) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode contacts.blockFromReplies#29a8962c to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.blockFromReplies#29a8962c")
 	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blockFromReplies#29a8962c", "flags", err)
 		}
 	}
 	b.DeleteMessage = b.Flags.Has(0)
@@ -259,7 +259,7 @@ func (b *ContactsBlockFromRepliesRequest) DecodeBare(buf *bin.Buffer) error {
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blockFromReplies#29a8962c", "msg_id", err)
 		}
 		b.MsgID = value
 	}

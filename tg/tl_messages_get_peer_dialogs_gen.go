@@ -102,7 +102,7 @@ func (g *MessagesGetPeerDialogsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetPeerDialogsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPeerDialogs#e470bcfd as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getPeerDialogs#e470bcfd")
 	}
 	b.PutID(MessagesGetPeerDialogsRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,15 +111,15 @@ func (g *MessagesGetPeerDialogsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetPeerDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPeerDialogs#e470bcfd as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getPeerDialogs#e470bcfd")
 	}
 	b.PutVectorHeader(len(g.Peers))
 	for idx, v := range g.Peers {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.getPeerDialogs#e470bcfd: field peers element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.getPeerDialogs#e470bcfd", "peers", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.getPeerDialogs#e470bcfd: field peers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.getPeerDialogs#e470bcfd", "peers", idx, err)
 		}
 	}
 	return nil
@@ -138,10 +138,10 @@ func (g *MessagesGetPeerDialogsRequest) MapPeers() (value InputDialogPeerClassAr
 // Decode implements bin.Decoder.
 func (g *MessagesGetPeerDialogsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPeerDialogs#e470bcfd to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getPeerDialogs#e470bcfd")
 	}
 	if err := b.ConsumeID(MessagesGetPeerDialogsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getPeerDialogs#e470bcfd: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getPeerDialogs#e470bcfd", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -149,17 +149,17 @@ func (g *MessagesGetPeerDialogsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetPeerDialogsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPeerDialogs#e470bcfd to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getPeerDialogs#e470bcfd")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPeerDialogs#e470bcfd: field peers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getPeerDialogs#e470bcfd", "peers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputDialogPeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.getPeerDialogs#e470bcfd: field peers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getPeerDialogs#e470bcfd", "peers", err)
 			}
 			g.Peers = append(g.Peers, value)
 		}

@@ -113,7 +113,7 @@ func (u *ChannelsUpdateUsernameRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *ChannelsUpdateUsernameRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode channels.updateUsername#3514b3de as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.updateUsername#3514b3de")
 	}
 	b.PutID(ChannelsUpdateUsernameRequestTypeID)
 	return u.EncodeBare(b)
@@ -122,13 +122,13 @@ func (u *ChannelsUpdateUsernameRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *ChannelsUpdateUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode channels.updateUsername#3514b3de as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.updateUsername#3514b3de")
 	}
 	if u.Channel == nil {
-		return fmt.Errorf("unable to encode channels.updateUsername#3514b3de: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.updateUsername#3514b3de", "channel")
 	}
 	if err := u.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.updateUsername#3514b3de: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.updateUsername#3514b3de", "channel", err)
 	}
 	b.PutString(u.Username)
 	return nil
@@ -152,10 +152,10 @@ func (u *ChannelsUpdateUsernameRequest) GetUsername() (value string) {
 // Decode implements bin.Decoder.
 func (u *ChannelsUpdateUsernameRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode channels.updateUsername#3514b3de to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.updateUsername#3514b3de")
 	}
 	if err := b.ConsumeID(ChannelsUpdateUsernameRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.updateUsername#3514b3de: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.updateUsername#3514b3de", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -163,19 +163,19 @@ func (u *ChannelsUpdateUsernameRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *ChannelsUpdateUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode channels.updateUsername#3514b3de to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.updateUsername#3514b3de")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.updateUsername#3514b3de: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.updateUsername#3514b3de", "channel", err)
 		}
 		u.Channel = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.updateUsername#3514b3de: field username: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.updateUsername#3514b3de", "username", err)
 		}
 		u.Username = value
 	}

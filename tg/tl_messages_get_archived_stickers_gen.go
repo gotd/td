@@ -139,7 +139,7 @@ func (g *MessagesGetArchivedStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetArchivedStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getArchivedStickers#57f17692 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getArchivedStickers#57f17692")
 	}
 	b.PutID(MessagesGetArchivedStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -148,13 +148,13 @@ func (g *MessagesGetArchivedStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetArchivedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getArchivedStickers#57f17692 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getArchivedStickers#57f17692")
 	}
 	if !(g.Masks == false) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getArchivedStickers#57f17692: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getArchivedStickers#57f17692", "flags", err)
 	}
 	b.PutLong(g.OffsetID)
 	b.PutInt(g.Limit)
@@ -190,10 +190,10 @@ func (g *MessagesGetArchivedStickersRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetArchivedStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getArchivedStickers#57f17692 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getArchivedStickers#57f17692")
 	}
 	if err := b.ConsumeID(MessagesGetArchivedStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getArchivedStickers#57f17692: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getArchivedStickers#57f17692", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -201,25 +201,25 @@ func (g *MessagesGetArchivedStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetArchivedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getArchivedStickers#57f17692 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getArchivedStickers#57f17692")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getArchivedStickers#57f17692: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getArchivedStickers#57f17692", "flags", err)
 		}
 	}
 	g.Masks = g.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getArchivedStickers#57f17692: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getArchivedStickers#57f17692", "offset_id", err)
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getArchivedStickers#57f17692: field limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getArchivedStickers#57f17692", "limit", err)
 		}
 		g.Limit = value
 	}

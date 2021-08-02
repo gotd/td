@@ -124,7 +124,7 @@ func (s *AccountSaveWallPaperRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSaveWallPaperRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.saveWallPaper#6c5a5b37 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.saveWallPaper#6c5a5b37")
 	}
 	b.PutID(AccountSaveWallPaperRequestTypeID)
 	return s.EncodeBare(b)
@@ -133,17 +133,17 @@ func (s *AccountSaveWallPaperRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSaveWallPaperRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.saveWallPaper#6c5a5b37 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.saveWallPaper#6c5a5b37")
 	}
 	if s.Wallpaper == nil {
-		return fmt.Errorf("unable to encode account.saveWallPaper#6c5a5b37: field wallpaper is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "account.saveWallPaper#6c5a5b37", "wallpaper")
 	}
 	if err := s.Wallpaper.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.saveWallPaper#6c5a5b37: field wallpaper: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.saveWallPaper#6c5a5b37", "wallpaper", err)
 	}
 	b.PutBool(s.Unsave)
 	if err := s.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.saveWallPaper#6c5a5b37: field settings: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.saveWallPaper#6c5a5b37", "settings", err)
 	}
 	return nil
 }
@@ -166,10 +166,10 @@ func (s *AccountSaveWallPaperRequest) GetSettings() (value WallPaperSettings) {
 // Decode implements bin.Decoder.
 func (s *AccountSaveWallPaperRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.saveWallPaper#6c5a5b37 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.saveWallPaper#6c5a5b37")
 	}
 	if err := b.ConsumeID(AccountSaveWallPaperRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.saveWallPaper#6c5a5b37: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.saveWallPaper#6c5a5b37", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -177,25 +177,25 @@ func (s *AccountSaveWallPaperRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSaveWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.saveWallPaper#6c5a5b37 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.saveWallPaper#6c5a5b37")
 	}
 	{
 		value, err := DecodeInputWallPaper(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.saveWallPaper#6c5a5b37: field wallpaper: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.saveWallPaper#6c5a5b37", "wallpaper", err)
 		}
 		s.Wallpaper = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.saveWallPaper#6c5a5b37: field unsave: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.saveWallPaper#6c5a5b37", "unsave", err)
 		}
 		s.Unsave = value
 	}
 	{
 		if err := s.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.saveWallPaper#6c5a5b37: field settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.saveWallPaper#6c5a5b37", "settings", err)
 		}
 	}
 	return nil

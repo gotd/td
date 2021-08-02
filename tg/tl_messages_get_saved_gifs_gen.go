@@ -105,7 +105,7 @@ func (g *MessagesGetSavedGifsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetSavedGifsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSavedGifs#83bf3d52 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getSavedGifs#83bf3d52")
 	}
 	b.PutID(MessagesGetSavedGifsRequestTypeID)
 	return g.EncodeBare(b)
@@ -114,7 +114,7 @@ func (g *MessagesGetSavedGifsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetSavedGifsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSavedGifs#83bf3d52 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getSavedGifs#83bf3d52")
 	}
 	b.PutInt(g.Hash)
 	return nil
@@ -128,10 +128,10 @@ func (g *MessagesGetSavedGifsRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetSavedGifsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSavedGifs#83bf3d52 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getSavedGifs#83bf3d52")
 	}
 	if err := b.ConsumeID(MessagesGetSavedGifsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getSavedGifs#83bf3d52: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getSavedGifs#83bf3d52", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -139,12 +139,12 @@ func (g *MessagesGetSavedGifsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetSavedGifsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSavedGifs#83bf3d52 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getSavedGifs#83bf3d52")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedGifs#83bf3d52: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getSavedGifs#83bf3d52", "hash", err)
 		}
 		g.Hash = value
 	}

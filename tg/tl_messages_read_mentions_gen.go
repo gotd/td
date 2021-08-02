@@ -102,7 +102,7 @@ func (r *MessagesReadMentionsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesReadMentionsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readMentions#f0189d3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.readMentions#f0189d3")
 	}
 	b.PutID(MessagesReadMentionsRequestTypeID)
 	return r.EncodeBare(b)
@@ -111,13 +111,13 @@ func (r *MessagesReadMentionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReadMentionsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readMentions#f0189d3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.readMentions#f0189d3")
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode messages.readMentions#f0189d3: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.readMentions#f0189d3", "peer")
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.readMentions#f0189d3: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.readMentions#f0189d3", "peer", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (r *MessagesReadMentionsRequest) GetPeer() (value InputPeerClass) {
 // Decode implements bin.Decoder.
 func (r *MessagesReadMentionsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readMentions#f0189d3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.readMentions#f0189d3")
 	}
 	if err := b.ConsumeID(MessagesReadMentionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.readMentions#f0189d3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.readMentions#f0189d3", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (r *MessagesReadMentionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReadMentionsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readMentions#f0189d3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.readMentions#f0189d3")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.readMentions#f0189d3: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.readMentions#f0189d3", "peer", err)
 		}
 		r.Peer = value
 	}

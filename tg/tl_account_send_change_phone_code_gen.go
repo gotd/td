@@ -113,7 +113,7 @@ func (s *AccountSendChangePhoneCodeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSendChangePhoneCodeRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.sendChangePhoneCode#82574ae5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.sendChangePhoneCode#82574ae5")
 	}
 	b.PutID(AccountSendChangePhoneCodeRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,11 +122,11 @@ func (s *AccountSendChangePhoneCodeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSendChangePhoneCodeRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.sendChangePhoneCode#82574ae5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.sendChangePhoneCode#82574ae5")
 	}
 	b.PutString(s.PhoneNumber)
 	if err := s.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.sendChangePhoneCode#82574ae5: field settings: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.sendChangePhoneCode#82574ae5", "settings", err)
 	}
 	return nil
 }
@@ -144,10 +144,10 @@ func (s *AccountSendChangePhoneCodeRequest) GetSettings() (value CodeSettings) {
 // Decode implements bin.Decoder.
 func (s *AccountSendChangePhoneCodeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.sendChangePhoneCode#82574ae5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.sendChangePhoneCode#82574ae5")
 	}
 	if err := b.ConsumeID(AccountSendChangePhoneCodeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.sendChangePhoneCode#82574ae5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.sendChangePhoneCode#82574ae5", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -155,18 +155,18 @@ func (s *AccountSendChangePhoneCodeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSendChangePhoneCodeRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.sendChangePhoneCode#82574ae5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.sendChangePhoneCode#82574ae5")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.sendChangePhoneCode#82574ae5: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.sendChangePhoneCode#82574ae5", "phone_number", err)
 		}
 		s.PhoneNumber = value
 	}
 	{
 		if err := s.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.sendChangePhoneCode#82574ae5: field settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.sendChangePhoneCode#82574ae5", "settings", err)
 		}
 	}
 	return nil

@@ -102,7 +102,7 @@ func (g *MessagesGetAttachedStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetAttachedStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getAttachedStickers#cc5b67cc as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getAttachedStickers#cc5b67cc")
 	}
 	b.PutID(MessagesGetAttachedStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,13 +111,13 @@ func (g *MessagesGetAttachedStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetAttachedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getAttachedStickers#cc5b67cc as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getAttachedStickers#cc5b67cc")
 	}
 	if g.Media == nil {
-		return fmt.Errorf("unable to encode messages.getAttachedStickers#cc5b67cc: field media is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.getAttachedStickers#cc5b67cc", "media")
 	}
 	if err := g.Media.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getAttachedStickers#cc5b67cc: field media: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getAttachedStickers#cc5b67cc", "media", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (g *MessagesGetAttachedStickersRequest) GetMedia() (value InputStickeredMed
 // Decode implements bin.Decoder.
 func (g *MessagesGetAttachedStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getAttachedStickers#cc5b67cc to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getAttachedStickers#cc5b67cc")
 	}
 	if err := b.ConsumeID(MessagesGetAttachedStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getAttachedStickers#cc5b67cc: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getAttachedStickers#cc5b67cc", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (g *MessagesGetAttachedStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetAttachedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getAttachedStickers#cc5b67cc to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getAttachedStickers#cc5b67cc")
 	}
 	{
 		value, err := DecodeInputStickeredMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getAttachedStickers#cc5b67cc: field media: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getAttachedStickers#cc5b67cc", "media", err)
 		}
 		g.Media = value
 	}

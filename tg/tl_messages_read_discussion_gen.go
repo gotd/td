@@ -127,7 +127,7 @@ func (r *MessagesReadDiscussionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesReadDiscussionRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readDiscussion#f731a9f4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.readDiscussion#f731a9f4")
 	}
 	b.PutID(MessagesReadDiscussionRequestTypeID)
 	return r.EncodeBare(b)
@@ -136,13 +136,13 @@ func (r *MessagesReadDiscussionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReadDiscussionRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readDiscussion#f731a9f4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.readDiscussion#f731a9f4")
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode messages.readDiscussion#f731a9f4: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.readDiscussion#f731a9f4", "peer")
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.readDiscussion#f731a9f4: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.readDiscussion#f731a9f4", "peer", err)
 	}
 	b.PutInt(r.MsgID)
 	b.PutInt(r.ReadMaxID)
@@ -167,10 +167,10 @@ func (r *MessagesReadDiscussionRequest) GetReadMaxID() (value int) {
 // Decode implements bin.Decoder.
 func (r *MessagesReadDiscussionRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readDiscussion#f731a9f4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.readDiscussion#f731a9f4")
 	}
 	if err := b.ConsumeID(MessagesReadDiscussionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.readDiscussion#f731a9f4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.readDiscussion#f731a9f4", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -178,26 +178,26 @@ func (r *MessagesReadDiscussionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReadDiscussionRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readDiscussion#f731a9f4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.readDiscussion#f731a9f4")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.readDiscussion#f731a9f4: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.readDiscussion#f731a9f4", "peer", err)
 		}
 		r.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.readDiscussion#f731a9f4: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.readDiscussion#f731a9f4", "msg_id", err)
 		}
 		r.MsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.readDiscussion#f731a9f4: field read_max_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.readDiscussion#f731a9f4", "read_max_id", err)
 		}
 		r.ReadMaxID = value
 	}

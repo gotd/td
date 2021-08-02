@@ -85,7 +85,7 @@ func (g *ContactsGetSavedRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ContactsGetSavedRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getSaved#82f1e39f as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.getSaved#82f1e39f")
 	}
 	b.PutID(ContactsGetSavedRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +94,7 @@ func (g *ContactsGetSavedRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ContactsGetSavedRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getSaved#82f1e39f as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.getSaved#82f1e39f")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (g *ContactsGetSavedRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *ContactsGetSavedRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getSaved#82f1e39f to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.getSaved#82f1e39f")
 	}
 	if err := b.ConsumeID(ContactsGetSavedRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.getSaved#82f1e39f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.getSaved#82f1e39f", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (g *ContactsGetSavedRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ContactsGetSavedRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getSaved#82f1e39f to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.getSaved#82f1e39f")
 	}
 	return nil
 }

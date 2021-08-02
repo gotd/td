@@ -85,7 +85,7 @@ func (c *ChannelLocationEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelLocationEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelLocationEmpty#bfb5ad8b as nil")
+		return fmt.Errorf("can't encode %s as nil", "channelLocationEmpty#bfb5ad8b")
 	}
 	b.PutID(ChannelLocationEmptyTypeID)
 	return c.EncodeBare(b)
@@ -94,7 +94,7 @@ func (c *ChannelLocationEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelLocationEmpty) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelLocationEmpty#bfb5ad8b as nil")
+		return fmt.Errorf("can't encode %s as nil", "channelLocationEmpty#bfb5ad8b")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (c *ChannelLocationEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChannelLocationEmpty) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelLocationEmpty#bfb5ad8b to nil")
+		return fmt.Errorf("can't decode %s to nil", "channelLocationEmpty#bfb5ad8b")
 	}
 	if err := b.ConsumeID(ChannelLocationEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelLocationEmpty#bfb5ad8b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channelLocationEmpty#bfb5ad8b", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (c *ChannelLocationEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelLocationEmpty) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelLocationEmpty#bfb5ad8b to nil")
+		return fmt.Errorf("can't decode %s to nil", "channelLocationEmpty#bfb5ad8b")
 	}
 	return nil
 }
@@ -215,7 +215,7 @@ func (c *ChannelLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelLocation) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelLocation#209b82db as nil")
+		return fmt.Errorf("can't encode %s as nil", "channelLocation#209b82db")
 	}
 	b.PutID(ChannelLocationTypeID)
 	return c.EncodeBare(b)
@@ -224,13 +224,13 @@ func (c *ChannelLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelLocation) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelLocation#209b82db as nil")
+		return fmt.Errorf("can't encode %s as nil", "channelLocation#209b82db")
 	}
 	if c.GeoPoint == nil {
-		return fmt.Errorf("unable to encode channelLocation#209b82db: field geo_point is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channelLocation#209b82db", "geo_point")
 	}
 	if err := c.GeoPoint.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channelLocation#209b82db: field geo_point: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channelLocation#209b82db", "geo_point", err)
 	}
 	b.PutString(c.Address)
 	return nil
@@ -249,10 +249,10 @@ func (c *ChannelLocation) GetAddress() (value string) {
 // Decode implements bin.Decoder.
 func (c *ChannelLocation) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelLocation#209b82db to nil")
+		return fmt.Errorf("can't decode %s to nil", "channelLocation#209b82db")
 	}
 	if err := b.ConsumeID(ChannelLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelLocation#209b82db: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channelLocation#209b82db", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -260,19 +260,19 @@ func (c *ChannelLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelLocation) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelLocation#209b82db to nil")
+		return fmt.Errorf("can't decode %s to nil", "channelLocation#209b82db")
 	}
 	{
 		value, err := DecodeGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channelLocation#209b82db: field geo_point: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channelLocation#209b82db", "geo_point", err)
 		}
 		c.GeoPoint = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelLocation#209b82db: field address: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channelLocation#209b82db", "address", err)
 		}
 		c.Address = value
 	}
@@ -349,18 +349,18 @@ func DecodeChannelLocation(buf *bin.Buffer) (ChannelLocationClass, error) {
 		// Decoding channelLocationEmpty#bfb5ad8b.
 		v := ChannelLocationEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChannelLocationClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ChannelLocationClass", err)
 		}
 		return &v, nil
 	case ChannelLocationTypeID:
 		// Decoding channelLocation#209b82db.
 		v := ChannelLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChannelLocationClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ChannelLocationClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ChannelLocationClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "ChannelLocationClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -372,7 +372,7 @@ type ChannelLocationBox struct {
 // Decode implements bin.Decoder for ChannelLocationBox.
 func (b *ChannelLocationBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode ChannelLocationBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "ChannelLocation")
 	}
 	v, err := DecodeChannelLocation(buf)
 	if err != nil {
@@ -385,7 +385,7 @@ func (b *ChannelLocationBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for ChannelLocationBox.
 func (b *ChannelLocationBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.ChannelLocation == nil {
-		return fmt.Errorf("unable to encode ChannelLocationClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "ChannelLocationClass")
 	}
 	return b.ChannelLocation.Encode(buf)
 }

@@ -88,7 +88,7 @@ func (u *UpdatesTooLong) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdatesTooLong) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updatesTooLong#e317af7e as nil")
+		return fmt.Errorf("can't encode %s as nil", "updatesTooLong#e317af7e")
 	}
 	b.PutID(UpdatesTooLongTypeID)
 	return u.EncodeBare(b)
@@ -97,7 +97,7 @@ func (u *UpdatesTooLong) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdatesTooLong) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updatesTooLong#e317af7e as nil")
+		return fmt.Errorf("can't encode %s as nil", "updatesTooLong#e317af7e")
 	}
 	return nil
 }
@@ -105,10 +105,10 @@ func (u *UpdatesTooLong) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdatesTooLong) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updatesTooLong#e317af7e to nil")
+		return fmt.Errorf("can't decode %s to nil", "updatesTooLong#e317af7e")
 	}
 	if err := b.ConsumeID(UpdatesTooLongTypeID); err != nil {
-		return fmt.Errorf("unable to decode updatesTooLong#e317af7e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "updatesTooLong#e317af7e", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -116,7 +116,7 @@ func (u *UpdatesTooLong) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdatesTooLong) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updatesTooLong#e317af7e to nil")
+		return fmt.Errorf("can't decode %s to nil", "updatesTooLong#e317af7e")
 	}
 	return nil
 }
@@ -418,7 +418,7 @@ func (u *UpdateShortMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateShortMessage#faeff833 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updateShortMessage#faeff833")
 	}
 	b.PutID(UpdateShortMessageTypeID)
 	return u.EncodeBare(b)
@@ -427,7 +427,7 @@ func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateShortMessage) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateShortMessage#faeff833 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updateShortMessage#faeff833")
 	}
 	if !(u.Out == false) {
 		u.Flags.Set(1)
@@ -457,7 +457,7 @@ func (u *UpdateShortMessage) EncodeBare(b *bin.Buffer) error {
 		u.Flags.Set(25)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateShortMessage#faeff833: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "updateShortMessage#faeff833", "flags", err)
 	}
 	b.PutInt(u.ID)
 	b.PutInt(u.UserID)
@@ -467,7 +467,7 @@ func (u *UpdateShortMessage) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(u.Date)
 	if u.Flags.Has(2) {
 		if err := u.FwdFrom.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateShortMessage#faeff833: field fwd_from: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "updateShortMessage#faeff833", "fwd_from", err)
 		}
 	}
 	if u.Flags.Has(11) {
@@ -475,17 +475,17 @@ func (u *UpdateShortMessage) EncodeBare(b *bin.Buffer) error {
 	}
 	if u.Flags.Has(3) {
 		if err := u.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateShortMessage#faeff833: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "updateShortMessage#faeff833", "reply_to", err)
 		}
 	}
 	if u.Flags.Has(7) {
 		b.PutVectorHeader(len(u.Entities))
 		for idx, v := range u.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode updateShortMessage#faeff833: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updateShortMessage#faeff833", "entities", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode updateShortMessage#faeff833: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updateShortMessage#faeff833", "entities", idx, err)
 			}
 		}
 	}
@@ -675,10 +675,10 @@ func (u *UpdateShortMessage) GetTTLPeriod() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (u *UpdateShortMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateShortMessage#faeff833 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updateShortMessage#faeff833")
 	}
 	if err := b.ConsumeID(UpdateShortMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateShortMessage#faeff833: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "updateShortMessage#faeff833", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -686,11 +686,11 @@ func (u *UpdateShortMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateShortMessage) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateShortMessage#faeff833 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updateShortMessage#faeff833")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "flags", err)
 		}
 	}
 	u.Out = u.Flags.Has(1)
@@ -700,71 +700,71 @@ func (u *UpdateShortMessage) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "id", err)
 		}
 		u.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "user_id", err)
 		}
 		u.UserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "message", err)
 		}
 		u.Message = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field pts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "pts", err)
 		}
 		u.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field pts_count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "pts_count", err)
 		}
 		u.PtsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "date", err)
 		}
 		u.Date = value
 	}
 	if u.Flags.Has(2) {
 		if err := u.FwdFrom.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field fwd_from: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "fwd_from", err)
 		}
 	}
 	if u.Flags.Has(11) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field via_bot_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "via_bot_id", err)
 		}
 		u.ViaBotID = value
 	}
 	if u.Flags.Has(3) {
 		if err := u.ReplyTo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "reply_to", err)
 		}
 	}
 	if u.Flags.Has(7) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field entities: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "entities", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updateShortMessage#faeff833: field entities: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "entities", err)
 			}
 			u.Entities = append(u.Entities, value)
 		}
@@ -772,7 +772,7 @@ func (u *UpdateShortMessage) DecodeBare(b *bin.Buffer) error {
 	if u.Flags.Has(25) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field ttl_period: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortMessage#faeff833", "ttl_period", err)
 		}
 		u.TTLPeriod = value
 	}
@@ -1084,7 +1084,7 @@ func (u *UpdateShortChatMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateShortChatMessage#1157b858 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updateShortChatMessage#1157b858")
 	}
 	b.PutID(UpdateShortChatMessageTypeID)
 	return u.EncodeBare(b)
@@ -1093,7 +1093,7 @@ func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateShortChatMessage) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateShortChatMessage#1157b858 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updateShortChatMessage#1157b858")
 	}
 	if !(u.Out == false) {
 		u.Flags.Set(1)
@@ -1123,7 +1123,7 @@ func (u *UpdateShortChatMessage) EncodeBare(b *bin.Buffer) error {
 		u.Flags.Set(25)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateShortChatMessage#1157b858: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "updateShortChatMessage#1157b858", "flags", err)
 	}
 	b.PutInt(u.ID)
 	b.PutInt(u.FromID)
@@ -1134,7 +1134,7 @@ func (u *UpdateShortChatMessage) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(u.Date)
 	if u.Flags.Has(2) {
 		if err := u.FwdFrom.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateShortChatMessage#1157b858: field fwd_from: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "updateShortChatMessage#1157b858", "fwd_from", err)
 		}
 	}
 	if u.Flags.Has(11) {
@@ -1142,17 +1142,17 @@ func (u *UpdateShortChatMessage) EncodeBare(b *bin.Buffer) error {
 	}
 	if u.Flags.Has(3) {
 		if err := u.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateShortChatMessage#1157b858: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "updateShortChatMessage#1157b858", "reply_to", err)
 		}
 	}
 	if u.Flags.Has(7) {
 		b.PutVectorHeader(len(u.Entities))
 		for idx, v := range u.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode updateShortChatMessage#1157b858: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updateShortChatMessage#1157b858", "entities", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode updateShortChatMessage#1157b858: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updateShortChatMessage#1157b858", "entities", idx, err)
 			}
 		}
 	}
@@ -1347,10 +1347,10 @@ func (u *UpdateShortChatMessage) GetTTLPeriod() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (u *UpdateShortChatMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateShortChatMessage#1157b858 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updateShortChatMessage#1157b858")
 	}
 	if err := b.ConsumeID(UpdateShortChatMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "updateShortChatMessage#1157b858", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -1358,11 +1358,11 @@ func (u *UpdateShortChatMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateShortChatMessage) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateShortChatMessage#1157b858 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updateShortChatMessage#1157b858")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "flags", err)
 		}
 	}
 	u.Out = u.Flags.Has(1)
@@ -1372,78 +1372,78 @@ func (u *UpdateShortChatMessage) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "id", err)
 		}
 		u.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field from_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "from_id", err)
 		}
 		u.FromID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "chat_id", err)
 		}
 		u.ChatID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "message", err)
 		}
 		u.Message = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field pts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "pts", err)
 		}
 		u.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field pts_count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "pts_count", err)
 		}
 		u.PtsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "date", err)
 		}
 		u.Date = value
 	}
 	if u.Flags.Has(2) {
 		if err := u.FwdFrom.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field fwd_from: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "fwd_from", err)
 		}
 	}
 	if u.Flags.Has(11) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field via_bot_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "via_bot_id", err)
 		}
 		u.ViaBotID = value
 	}
 	if u.Flags.Has(3) {
 		if err := u.ReplyTo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "reply_to", err)
 		}
 	}
 	if u.Flags.Has(7) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field entities: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "entities", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field entities: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "entities", err)
 			}
 			u.Entities = append(u.Entities, value)
 		}
@@ -1451,7 +1451,7 @@ func (u *UpdateShortChatMessage) DecodeBare(b *bin.Buffer) error {
 	if u.Flags.Has(25) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field ttl_period: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortChatMessage#1157b858", "ttl_period", err)
 		}
 		u.TTLPeriod = value
 	}
@@ -1555,7 +1555,7 @@ func (u *UpdateShort) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateShort) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateShort#78d4dec1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updateShort#78d4dec1")
 	}
 	b.PutID(UpdateShortTypeID)
 	return u.EncodeBare(b)
@@ -1564,13 +1564,13 @@ func (u *UpdateShort) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateShort) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateShort#78d4dec1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updateShort#78d4dec1")
 	}
 	if u.Update == nil {
-		return fmt.Errorf("unable to encode updateShort#78d4dec1: field update is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "updateShort#78d4dec1", "update")
 	}
 	if err := u.Update.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateShort#78d4dec1: field update: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "updateShort#78d4dec1", "update", err)
 	}
 	b.PutInt(u.Date)
 	return nil
@@ -1589,10 +1589,10 @@ func (u *UpdateShort) GetDate() (value int) {
 // Decode implements bin.Decoder.
 func (u *UpdateShort) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateShort#78d4dec1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updateShort#78d4dec1")
 	}
 	if err := b.ConsumeID(UpdateShortTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateShort#78d4dec1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "updateShort#78d4dec1", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -1600,19 +1600,19 @@ func (u *UpdateShort) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateShort) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateShort#78d4dec1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updateShort#78d4dec1")
 	}
 	{
 		value, err := DecodeUpdate(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShort#78d4dec1: field update: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShort#78d4dec1", "update", err)
 		}
 		u.Update = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShort#78d4dec1: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShort#78d4dec1", "date", err)
 		}
 		u.Date = value
 	}
@@ -1760,7 +1760,7 @@ func (u *UpdatesCombined) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdatesCombined) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updatesCombined#725b04c3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updatesCombined#725b04c3")
 	}
 	b.PutID(UpdatesCombinedTypeID)
 	return u.EncodeBare(b)
@@ -1769,33 +1769,33 @@ func (u *UpdatesCombined) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdatesCombined) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updatesCombined#725b04c3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updatesCombined#725b04c3")
 	}
 	b.PutVectorHeader(len(u.Updates))
 	for idx, v := range u.Updates {
 		if v == nil {
-			return fmt.Errorf("unable to encode updatesCombined#725b04c3: field updates element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updatesCombined#725b04c3", "updates", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updatesCombined#725b04c3: field updates element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updatesCombined#725b04c3", "updates", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(u.Users))
 	for idx, v := range u.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode updatesCombined#725b04c3: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updatesCombined#725b04c3", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updatesCombined#725b04c3: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updatesCombined#725b04c3", "users", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(u.Chats))
 	for idx, v := range u.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode updatesCombined#725b04c3: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updatesCombined#725b04c3", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updatesCombined#725b04c3: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updatesCombined#725b04c3", "chats", idx, err)
 		}
 	}
 	b.PutInt(u.Date)
@@ -1852,10 +1852,10 @@ func (u *UpdatesCombined) GetSeq() (value int) {
 // Decode implements bin.Decoder.
 func (u *UpdatesCombined) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updatesCombined#725b04c3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updatesCombined#725b04c3")
 	}
 	if err := b.ConsumeID(UpdatesCombinedTypeID); err != nil {
-		return fmt.Errorf("unable to decode updatesCombined#725b04c3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "updatesCombined#725b04c3", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -1863,17 +1863,17 @@ func (u *UpdatesCombined) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdatesCombined) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updatesCombined#725b04c3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updatesCombined#725b04c3")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updatesCombined#725b04c3: field updates: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updatesCombined#725b04c3", "updates", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUpdate(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updatesCombined#725b04c3: field updates: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updatesCombined#725b04c3", "updates", err)
 			}
 			u.Updates = append(u.Updates, value)
 		}
@@ -1881,12 +1881,12 @@ func (u *UpdatesCombined) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updatesCombined#725b04c3: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updatesCombined#725b04c3", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updatesCombined#725b04c3: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updatesCombined#725b04c3", "users", err)
 			}
 			u.Users = append(u.Users, value)
 		}
@@ -1894,12 +1894,12 @@ func (u *UpdatesCombined) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updatesCombined#725b04c3: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updatesCombined#725b04c3", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updatesCombined#725b04c3: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updatesCombined#725b04c3", "chats", err)
 			}
 			u.Chats = append(u.Chats, value)
 		}
@@ -1907,21 +1907,21 @@ func (u *UpdatesCombined) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updatesCombined#725b04c3: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updatesCombined#725b04c3", "date", err)
 		}
 		u.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updatesCombined#725b04c3: field seq_start: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updatesCombined#725b04c3", "seq_start", err)
 		}
 		u.SeqStart = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updatesCombined#725b04c3: field seq: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updatesCombined#725b04c3", "seq", err)
 		}
 		u.Seq = value
 	}
@@ -2057,7 +2057,7 @@ func (u *Updates) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *Updates) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updates#74ae4240 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updates#74ae4240")
 	}
 	b.PutID(UpdatesTypeID)
 	return u.EncodeBare(b)
@@ -2066,33 +2066,33 @@ func (u *Updates) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *Updates) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updates#74ae4240 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updates#74ae4240")
 	}
 	b.PutVectorHeader(len(u.Updates))
 	for idx, v := range u.Updates {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates#74ae4240: field updates element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updates#74ae4240", "updates", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates#74ae4240: field updates element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updates#74ae4240", "updates", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(u.Users))
 	for idx, v := range u.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates#74ae4240: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updates#74ae4240", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates#74ae4240: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updates#74ae4240", "users", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(u.Chats))
 	for idx, v := range u.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates#74ae4240: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updates#74ae4240", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates#74ae4240: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updates#74ae4240", "chats", idx, err)
 		}
 	}
 	b.PutInt(u.Date)
@@ -2143,10 +2143,10 @@ func (u *Updates) GetSeq() (value int) {
 // Decode implements bin.Decoder.
 func (u *Updates) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updates#74ae4240 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updates#74ae4240")
 	}
 	if err := b.ConsumeID(UpdatesTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates#74ae4240: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "updates#74ae4240", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -2154,17 +2154,17 @@ func (u *Updates) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *Updates) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updates#74ae4240 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updates#74ae4240")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates#74ae4240: field updates: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates#74ae4240", "updates", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUpdate(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates#74ae4240: field updates: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updates#74ae4240", "updates", err)
 			}
 			u.Updates = append(u.Updates, value)
 		}
@@ -2172,12 +2172,12 @@ func (u *Updates) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates#74ae4240: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates#74ae4240", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates#74ae4240: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updates#74ae4240", "users", err)
 			}
 			u.Users = append(u.Users, value)
 		}
@@ -2185,12 +2185,12 @@ func (u *Updates) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates#74ae4240: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates#74ae4240", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates#74ae4240: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updates#74ae4240", "chats", err)
 			}
 			u.Chats = append(u.Chats, value)
 		}
@@ -2198,14 +2198,14 @@ func (u *Updates) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates#74ae4240: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates#74ae4240", "date", err)
 		}
 		u.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates#74ae4240: field seq: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates#74ae4240", "seq", err)
 		}
 		u.Seq = value
 	}
@@ -2415,7 +2415,7 @@ func (u *UpdateShortSentMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateShortSentMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateShortSentMessage#9015e101 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updateShortSentMessage#9015e101")
 	}
 	b.PutID(UpdateShortSentMessageTypeID)
 	return u.EncodeBare(b)
@@ -2424,7 +2424,7 @@ func (u *UpdateShortSentMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateShortSentMessage) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateShortSentMessage#9015e101 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updateShortSentMessage#9015e101")
 	}
 	if !(u.Out == false) {
 		u.Flags.Set(1)
@@ -2439,7 +2439,7 @@ func (u *UpdateShortSentMessage) EncodeBare(b *bin.Buffer) error {
 		u.Flags.Set(25)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateShortSentMessage#9015e101: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "updateShortSentMessage#9015e101", "flags", err)
 	}
 	b.PutInt(u.ID)
 	b.PutInt(u.Pts)
@@ -2447,20 +2447,20 @@ func (u *UpdateShortSentMessage) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(u.Date)
 	if u.Flags.Has(9) {
 		if u.Media == nil {
-			return fmt.Errorf("unable to encode updateShortSentMessage#9015e101: field media is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "updateShortSentMessage#9015e101", "media")
 		}
 		if err := u.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateShortSentMessage#9015e101: field media: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "updateShortSentMessage#9015e101", "media", err)
 		}
 	}
 	if u.Flags.Has(7) {
 		b.PutVectorHeader(len(u.Entities))
 		for idx, v := range u.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode updateShortSentMessage#9015e101: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updateShortSentMessage#9015e101", "entities", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode updateShortSentMessage#9015e101: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updateShortSentMessage#9015e101", "entities", idx, err)
 			}
 		}
 	}
@@ -2562,10 +2562,10 @@ func (u *UpdateShortSentMessage) GetTTLPeriod() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (u *UpdateShortSentMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateShortSentMessage#9015e101 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updateShortSentMessage#9015e101")
 	}
 	if err := b.ConsumeID(UpdateShortSentMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "updateShortSentMessage#9015e101", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -2573,58 +2573,58 @@ func (u *UpdateShortSentMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateShortSentMessage) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateShortSentMessage#9015e101 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updateShortSentMessage#9015e101")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortSentMessage#9015e101", "flags", err)
 		}
 	}
 	u.Out = u.Flags.Has(1)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortSentMessage#9015e101", "id", err)
 		}
 		u.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field pts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortSentMessage#9015e101", "pts", err)
 		}
 		u.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field pts_count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortSentMessage#9015e101", "pts_count", err)
 		}
 		u.PtsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortSentMessage#9015e101", "date", err)
 		}
 		u.Date = value
 	}
 	if u.Flags.Has(9) {
 		value, err := DecodeMessageMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field media: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortSentMessage#9015e101", "media", err)
 		}
 		u.Media = value
 	}
 	if u.Flags.Has(7) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field entities: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortSentMessage#9015e101", "entities", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field entities: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortSentMessage#9015e101", "entities", err)
 			}
 			u.Entities = append(u.Entities, value)
 		}
@@ -2632,7 +2632,7 @@ func (u *UpdateShortSentMessage) DecodeBare(b *bin.Buffer) error {
 	if u.Flags.Has(25) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field ttl_period: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updateShortSentMessage#9015e101", "ttl_period", err)
 		}
 		u.TTLPeriod = value
 	}
@@ -2701,53 +2701,53 @@ func DecodeUpdates(buf *bin.Buffer) (UpdatesClass, error) {
 		// Decoding updatesTooLong#e317af7e.
 		v := UpdatesTooLong{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UpdatesClass", err)
 		}
 		return &v, nil
 	case UpdateShortMessageTypeID:
 		// Decoding updateShortMessage#faeff833.
 		v := UpdateShortMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UpdatesClass", err)
 		}
 		return &v, nil
 	case UpdateShortChatMessageTypeID:
 		// Decoding updateShortChatMessage#1157b858.
 		v := UpdateShortChatMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UpdatesClass", err)
 		}
 		return &v, nil
 	case UpdateShortTypeID:
 		// Decoding updateShort#78d4dec1.
 		v := UpdateShort{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UpdatesClass", err)
 		}
 		return &v, nil
 	case UpdatesCombinedTypeID:
 		// Decoding updatesCombined#725b04c3.
 		v := UpdatesCombined{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UpdatesClass", err)
 		}
 		return &v, nil
 	case UpdatesTypeID:
 		// Decoding updates#74ae4240.
 		v := Updates{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UpdatesClass", err)
 		}
 		return &v, nil
 	case UpdateShortSentMessageTypeID:
 		// Decoding updateShortSentMessage#9015e101.
 		v := UpdateShortSentMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UpdatesClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode UpdatesClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "UpdatesClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -2759,7 +2759,7 @@ type UpdatesBox struct {
 // Decode implements bin.Decoder for UpdatesBox.
 func (b *UpdatesBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode UpdatesBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "Updates")
 	}
 	v, err := DecodeUpdates(buf)
 	if err != nil {
@@ -2772,7 +2772,7 @@ func (b *UpdatesBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for UpdatesBox.
 func (b *UpdatesBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Updates == nil {
-		return fmt.Errorf("unable to encode UpdatesClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "UpdatesClass")
 	}
 	return b.Updates.Encode(buf)
 }

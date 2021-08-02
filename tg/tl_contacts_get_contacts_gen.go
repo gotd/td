@@ -108,7 +108,7 @@ func (g *ContactsGetContactsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ContactsGetContactsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getContacts#c023849f as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.getContacts#c023849f")
 	}
 	b.PutID(ContactsGetContactsRequestTypeID)
 	return g.EncodeBare(b)
@@ -117,7 +117,7 @@ func (g *ContactsGetContactsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ContactsGetContactsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getContacts#c023849f as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.getContacts#c023849f")
 	}
 	b.PutInt(g.Hash)
 	return nil
@@ -131,10 +131,10 @@ func (g *ContactsGetContactsRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *ContactsGetContactsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getContacts#c023849f to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.getContacts#c023849f")
 	}
 	if err := b.ConsumeID(ContactsGetContactsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.getContacts#c023849f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.getContacts#c023849f", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (g *ContactsGetContactsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ContactsGetContactsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getContacts#c023849f to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.getContacts#c023849f")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getContacts#c023849f: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.getContacts#c023849f", "hash", err)
 		}
 		g.Hash = value
 	}

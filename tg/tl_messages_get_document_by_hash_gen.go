@@ -124,7 +124,7 @@ func (g *MessagesGetDocumentByHashRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetDocumentByHashRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDocumentByHash#338e2464 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getDocumentByHash#338e2464")
 	}
 	b.PutID(MessagesGetDocumentByHashRequestTypeID)
 	return g.EncodeBare(b)
@@ -133,7 +133,7 @@ func (g *MessagesGetDocumentByHashRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetDocumentByHashRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDocumentByHash#338e2464 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getDocumentByHash#338e2464")
 	}
 	b.PutBytes(g.SHA256)
 	b.PutInt(g.Size)
@@ -159,10 +159,10 @@ func (g *MessagesGetDocumentByHashRequest) GetMimeType() (value string) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetDocumentByHashRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDocumentByHash#338e2464 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getDocumentByHash#338e2464")
 	}
 	if err := b.ConsumeID(MessagesGetDocumentByHashRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getDocumentByHash#338e2464: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getDocumentByHash#338e2464", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -170,26 +170,26 @@ func (g *MessagesGetDocumentByHashRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetDocumentByHashRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDocumentByHash#338e2464 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getDocumentByHash#338e2464")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDocumentByHash#338e2464: field sha256: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getDocumentByHash#338e2464", "sha256", err)
 		}
 		g.SHA256 = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDocumentByHash#338e2464: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getDocumentByHash#338e2464", "size", err)
 		}
 		g.Size = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDocumentByHash#338e2464: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getDocumentByHash#338e2464", "mime_type", err)
 		}
 		g.MimeType = value
 	}

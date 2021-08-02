@@ -84,7 +84,7 @@ func (l *Long) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *Long) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode long#22076cba as nil")
+		return fmt.Errorf("can't encode %s as nil", "long#22076cba")
 	}
 	b.PutID(LongTypeID)
 	return l.EncodeBare(b)
@@ -93,7 +93,7 @@ func (l *Long) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *Long) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode long#22076cba as nil")
+		return fmt.Errorf("can't encode %s as nil", "long#22076cba")
 	}
 	return nil
 }
@@ -101,10 +101,10 @@ func (l *Long) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (l *Long) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode long#22076cba to nil")
+		return fmt.Errorf("can't decode %s to nil", "long#22076cba")
 	}
 	if err := b.ConsumeID(LongTypeID); err != nil {
-		return fmt.Errorf("unable to decode long#22076cba: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "long#22076cba", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -112,7 +112,7 @@ func (l *Long) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *Long) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode long#22076cba to nil")
+		return fmt.Errorf("can't decode %s to nil", "long#22076cba")
 	}
 	return nil
 }

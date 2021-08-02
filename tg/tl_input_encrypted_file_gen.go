@@ -85,7 +85,7 @@ func (i *InputEncryptedFileEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputEncryptedFileEmpty#1837c364 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputEncryptedFileEmpty#1837c364")
 	}
 	b.PutID(InputEncryptedFileEmptyTypeID)
 	return i.EncodeBare(b)
@@ -94,7 +94,7 @@ func (i *InputEncryptedFileEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputEncryptedFileEmpty) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputEncryptedFileEmpty#1837c364 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputEncryptedFileEmpty#1837c364")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (i *InputEncryptedFileEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputEncryptedFileEmpty) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputEncryptedFileEmpty#1837c364 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputEncryptedFileEmpty#1837c364")
 	}
 	if err := b.ConsumeID(InputEncryptedFileEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputEncryptedFileEmpty#1837c364: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputEncryptedFileEmpty#1837c364", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (i *InputEncryptedFileEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputEncryptedFileEmpty) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputEncryptedFileEmpty#1837c364 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputEncryptedFileEmpty#1837c364")
 	}
 	return nil
 }
@@ -241,7 +241,7 @@ func (i *InputEncryptedFileUploaded) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileUploaded) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputEncryptedFileUploaded#64bd0306 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputEncryptedFileUploaded#64bd0306")
 	}
 	b.PutID(InputEncryptedFileUploadedTypeID)
 	return i.EncodeBare(b)
@@ -250,7 +250,7 @@ func (i *InputEncryptedFileUploaded) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputEncryptedFileUploaded) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputEncryptedFileUploaded#64bd0306 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputEncryptedFileUploaded#64bd0306")
 	}
 	b.PutLong(i.ID)
 	b.PutInt(i.Parts)
@@ -282,10 +282,10 @@ func (i *InputEncryptedFileUploaded) GetKeyFingerprint() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputEncryptedFileUploaded) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputEncryptedFileUploaded#64bd0306 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputEncryptedFileUploaded#64bd0306")
 	}
 	if err := b.ConsumeID(InputEncryptedFileUploadedTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputEncryptedFileUploaded#64bd0306: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputEncryptedFileUploaded#64bd0306", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -293,33 +293,33 @@ func (i *InputEncryptedFileUploaded) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputEncryptedFileUploaded) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputEncryptedFileUploaded#64bd0306 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputEncryptedFileUploaded#64bd0306")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedFileUploaded#64bd0306: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputEncryptedFileUploaded#64bd0306", "id", err)
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedFileUploaded#64bd0306: field parts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputEncryptedFileUploaded#64bd0306", "parts", err)
 		}
 		i.Parts = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedFileUploaded#64bd0306: field md5_checksum: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputEncryptedFileUploaded#64bd0306", "md5_checksum", err)
 		}
 		i.MD5Checksum = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedFileUploaded#64bd0306: field key_fingerprint: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputEncryptedFileUploaded#64bd0306", "key_fingerprint", err)
 		}
 		i.KeyFingerprint = value
 	}
@@ -429,7 +429,7 @@ func (i *InputEncryptedFile) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFile) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputEncryptedFile#5a17b5e5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputEncryptedFile#5a17b5e5")
 	}
 	b.PutID(InputEncryptedFileTypeID)
 	return i.EncodeBare(b)
@@ -438,7 +438,7 @@ func (i *InputEncryptedFile) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputEncryptedFile) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputEncryptedFile#5a17b5e5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputEncryptedFile#5a17b5e5")
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -458,10 +458,10 @@ func (i *InputEncryptedFile) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputEncryptedFile) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputEncryptedFile#5a17b5e5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputEncryptedFile#5a17b5e5")
 	}
 	if err := b.ConsumeID(InputEncryptedFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputEncryptedFile#5a17b5e5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputEncryptedFile#5a17b5e5", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -469,19 +469,19 @@ func (i *InputEncryptedFile) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputEncryptedFile) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputEncryptedFile#5a17b5e5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputEncryptedFile#5a17b5e5")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedFile#5a17b5e5: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputEncryptedFile#5a17b5e5", "id", err)
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedFile#5a17b5e5: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputEncryptedFile#5a17b5e5", "access_hash", err)
 		}
 		i.AccessHash = value
 	}
@@ -600,7 +600,7 @@ func (i *InputEncryptedFileBigUploaded) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileBigUploaded) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputEncryptedFileBigUploaded#2dc173c8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputEncryptedFileBigUploaded#2dc173c8")
 	}
 	b.PutID(InputEncryptedFileBigUploadedTypeID)
 	return i.EncodeBare(b)
@@ -609,7 +609,7 @@ func (i *InputEncryptedFileBigUploaded) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputEncryptedFileBigUploaded) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputEncryptedFileBigUploaded#2dc173c8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputEncryptedFileBigUploaded#2dc173c8")
 	}
 	b.PutLong(i.ID)
 	b.PutInt(i.Parts)
@@ -635,10 +635,10 @@ func (i *InputEncryptedFileBigUploaded) GetKeyFingerprint() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputEncryptedFileBigUploaded) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputEncryptedFileBigUploaded#2dc173c8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputEncryptedFileBigUploaded#2dc173c8")
 	}
 	if err := b.ConsumeID(InputEncryptedFileBigUploadedTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputEncryptedFileBigUploaded#2dc173c8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputEncryptedFileBigUploaded#2dc173c8", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -646,26 +646,26 @@ func (i *InputEncryptedFileBigUploaded) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputEncryptedFileBigUploaded) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputEncryptedFileBigUploaded#2dc173c8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputEncryptedFileBigUploaded#2dc173c8")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedFileBigUploaded#2dc173c8: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputEncryptedFileBigUploaded#2dc173c8", "id", err)
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedFileBigUploaded#2dc173c8: field parts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputEncryptedFileBigUploaded#2dc173c8", "parts", err)
 		}
 		i.Parts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedFileBigUploaded#2dc173c8: field key_fingerprint: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputEncryptedFileBigUploaded#2dc173c8", "key_fingerprint", err)
 		}
 		i.KeyFingerprint = value
 	}
@@ -790,32 +790,32 @@ func DecodeInputEncryptedFile(buf *bin.Buffer) (InputEncryptedFileClass, error) 
 		// Decoding inputEncryptedFileEmpty#1837c364.
 		v := InputEncryptedFileEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputEncryptedFileClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputEncryptedFileClass", err)
 		}
 		return &v, nil
 	case InputEncryptedFileUploadedTypeID:
 		// Decoding inputEncryptedFileUploaded#64bd0306.
 		v := InputEncryptedFileUploaded{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputEncryptedFileClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputEncryptedFileClass", err)
 		}
 		return &v, nil
 	case InputEncryptedFileTypeID:
 		// Decoding inputEncryptedFile#5a17b5e5.
 		v := InputEncryptedFile{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputEncryptedFileClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputEncryptedFileClass", err)
 		}
 		return &v, nil
 	case InputEncryptedFileBigUploadedTypeID:
 		// Decoding inputEncryptedFileBigUploaded#2dc173c8.
 		v := InputEncryptedFileBigUploaded{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputEncryptedFileClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputEncryptedFileClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputEncryptedFileClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "InputEncryptedFileClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -827,7 +827,7 @@ type InputEncryptedFileBox struct {
 // Decode implements bin.Decoder for InputEncryptedFileBox.
 func (b *InputEncryptedFileBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputEncryptedFileBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "InputEncryptedFile")
 	}
 	v, err := DecodeInputEncryptedFile(buf)
 	if err != nil {
@@ -840,7 +840,7 @@ func (b *InputEncryptedFileBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputEncryptedFileBox.
 func (b *InputEncryptedFileBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputEncryptedFile == nil {
-		return fmt.Errorf("unable to encode InputEncryptedFileClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "InputEncryptedFileClass")
 	}
 	return b.InputEncryptedFile.Encode(buf)
 }

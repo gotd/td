@@ -112,7 +112,7 @@ func (i *IPPort) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *IPPort) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode ipPort#d433ad73 as nil")
+		return fmt.Errorf("can't encode %s as nil", "ipPort#d433ad73")
 	}
 	b.PutID(IPPortTypeID)
 	return i.EncodeBare(b)
@@ -121,7 +121,7 @@ func (i *IPPort) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *IPPort) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode ipPort#d433ad73 as nil")
+		return fmt.Errorf("can't encode %s as nil", "ipPort#d433ad73")
 	}
 	b.PutInt(i.Ipv4)
 	b.PutInt(i.Port)
@@ -141,10 +141,10 @@ func (i *IPPort) GetPort() (value int) {
 // Decode implements bin.Decoder.
 func (i *IPPort) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode ipPort#d433ad73 to nil")
+		return fmt.Errorf("can't decode %s to nil", "ipPort#d433ad73")
 	}
 	if err := b.ConsumeID(IPPortTypeID); err != nil {
-		return fmt.Errorf("unable to decode ipPort#d433ad73: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "ipPort#d433ad73", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -152,19 +152,19 @@ func (i *IPPort) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *IPPort) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode ipPort#d433ad73 to nil")
+		return fmt.Errorf("can't decode %s to nil", "ipPort#d433ad73")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode ipPort#d433ad73: field ipv4: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "ipPort#d433ad73", "ipv4", err)
 		}
 		i.Ipv4 = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode ipPort#d433ad73: field port: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "ipPort#d433ad73", "port", err)
 		}
 		i.Port = value
 	}
@@ -278,7 +278,7 @@ func (i *IPPortSecret) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *IPPortSecret) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode ipPortSecret#37982646 as nil")
+		return fmt.Errorf("can't encode %s as nil", "ipPortSecret#37982646")
 	}
 	b.PutID(IPPortSecretTypeID)
 	return i.EncodeBare(b)
@@ -287,7 +287,7 @@ func (i *IPPortSecret) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *IPPortSecret) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode ipPortSecret#37982646 as nil")
+		return fmt.Errorf("can't encode %s as nil", "ipPortSecret#37982646")
 	}
 	b.PutInt(i.Ipv4)
 	b.PutInt(i.Port)
@@ -313,10 +313,10 @@ func (i *IPPortSecret) GetSecret() (value []byte) {
 // Decode implements bin.Decoder.
 func (i *IPPortSecret) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode ipPortSecret#37982646 to nil")
+		return fmt.Errorf("can't decode %s to nil", "ipPortSecret#37982646")
 	}
 	if err := b.ConsumeID(IPPortSecretTypeID); err != nil {
-		return fmt.Errorf("unable to decode ipPortSecret#37982646: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "ipPortSecret#37982646", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -324,26 +324,26 @@ func (i *IPPortSecret) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *IPPortSecret) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode ipPortSecret#37982646 to nil")
+		return fmt.Errorf("can't decode %s to nil", "ipPortSecret#37982646")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode ipPortSecret#37982646: field ipv4: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "ipPortSecret#37982646", "ipv4", err)
 		}
 		i.Ipv4 = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode ipPortSecret#37982646: field port: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "ipPortSecret#37982646", "port", err)
 		}
 		i.Port = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode ipPortSecret#37982646: field secret: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "ipPortSecret#37982646", "secret", err)
 		}
 		i.Secret = value
 	}
@@ -413,18 +413,18 @@ func DecodeIPPort(buf *bin.Buffer) (IPPortClass, error) {
 		// Decoding ipPort#d433ad73.
 		v := IPPort{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode IPPortClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "IPPortClass", err)
 		}
 		return &v, nil
 	case IPPortSecretTypeID:
 		// Decoding ipPortSecret#37982646.
 		v := IPPortSecret{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode IPPortClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "IPPortClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode IPPortClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "IPPortClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -436,7 +436,7 @@ type IPPortBox struct {
 // Decode implements bin.Decoder for IPPortBox.
 func (b *IPPortBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode IPPortBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "IPPort")
 	}
 	v, err := DecodeIPPort(buf)
 	if err != nil {
@@ -449,7 +449,7 @@ func (b *IPPortBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for IPPortBox.
 func (b *IPPortBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.IpPort == nil {
-		return fmt.Errorf("unable to encode IPPortClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "IPPortClass")
 	}
 	return b.IpPort.Encode(buf)
 }

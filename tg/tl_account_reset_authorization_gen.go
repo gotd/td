@@ -105,7 +105,7 @@ func (r *AccountResetAuthorizationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountResetAuthorizationRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetAuthorization#df77f3bc as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.resetAuthorization#df77f3bc")
 	}
 	b.PutID(AccountResetAuthorizationRequestTypeID)
 	return r.EncodeBare(b)
@@ -114,7 +114,7 @@ func (r *AccountResetAuthorizationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountResetAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetAuthorization#df77f3bc as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.resetAuthorization#df77f3bc")
 	}
 	b.PutLong(r.Hash)
 	return nil
@@ -128,10 +128,10 @@ func (r *AccountResetAuthorizationRequest) GetHash() (value int64) {
 // Decode implements bin.Decoder.
 func (r *AccountResetAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetAuthorization#df77f3bc to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.resetAuthorization#df77f3bc")
 	}
 	if err := b.ConsumeID(AccountResetAuthorizationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.resetAuthorization#df77f3bc: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.resetAuthorization#df77f3bc", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -139,12 +139,12 @@ func (r *AccountResetAuthorizationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountResetAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetAuthorization#df77f3bc to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.resetAuthorization#df77f3bc")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.resetAuthorization#df77f3bc: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.resetAuthorization#df77f3bc", "hash", err)
 		}
 		r.Hash = value
 	}

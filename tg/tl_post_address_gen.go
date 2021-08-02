@@ -157,7 +157,7 @@ func (p *PostAddress) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PostAddress) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode postAddress#1e8caaeb as nil")
+		return fmt.Errorf("can't encode %s as nil", "postAddress#1e8caaeb")
 	}
 	b.PutID(PostAddressTypeID)
 	return p.EncodeBare(b)
@@ -166,7 +166,7 @@ func (p *PostAddress) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PostAddress) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode postAddress#1e8caaeb as nil")
+		return fmt.Errorf("can't encode %s as nil", "postAddress#1e8caaeb")
 	}
 	b.PutString(p.StreetLine1)
 	b.PutString(p.StreetLine2)
@@ -210,10 +210,10 @@ func (p *PostAddress) GetPostCode() (value string) {
 // Decode implements bin.Decoder.
 func (p *PostAddress) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode postAddress#1e8caaeb to nil")
+		return fmt.Errorf("can't decode %s to nil", "postAddress#1e8caaeb")
 	}
 	if err := b.ConsumeID(PostAddressTypeID); err != nil {
-		return fmt.Errorf("unable to decode postAddress#1e8caaeb: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "postAddress#1e8caaeb", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -221,47 +221,47 @@ func (p *PostAddress) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PostAddress) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode postAddress#1e8caaeb to nil")
+		return fmt.Errorf("can't decode %s to nil", "postAddress#1e8caaeb")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode postAddress#1e8caaeb: field street_line1: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "postAddress#1e8caaeb", "street_line1", err)
 		}
 		p.StreetLine1 = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode postAddress#1e8caaeb: field street_line2: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "postAddress#1e8caaeb", "street_line2", err)
 		}
 		p.StreetLine2 = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode postAddress#1e8caaeb: field city: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "postAddress#1e8caaeb", "city", err)
 		}
 		p.City = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode postAddress#1e8caaeb: field state: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "postAddress#1e8caaeb", "state", err)
 		}
 		p.State = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode postAddress#1e8caaeb: field country_iso2: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "postAddress#1e8caaeb", "country_iso2", err)
 		}
 		p.CountryIso2 = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode postAddress#1e8caaeb: field post_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "postAddress#1e8caaeb", "post_code", err)
 		}
 		p.PostCode = value
 	}

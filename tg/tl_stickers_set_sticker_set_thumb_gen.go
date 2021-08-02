@@ -113,7 +113,7 @@ func (s *StickersSetStickerSetThumbRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StickersSetStickerSetThumbRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickers.setStickerSetThumb#9a364e30 as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickers.setStickerSetThumb#9a364e30")
 	}
 	b.PutID(StickersSetStickerSetThumbRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,19 +122,19 @@ func (s *StickersSetStickerSetThumbRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StickersSetStickerSetThumbRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickers.setStickerSetThumb#9a364e30 as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickers.setStickerSetThumb#9a364e30")
 	}
 	if s.Stickerset == nil {
-		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field stickerset is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stickers.setStickerSetThumb#9a364e30", "stickerset")
 	}
 	if err := s.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field stickerset: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stickers.setStickerSetThumb#9a364e30", "stickerset", err)
 	}
 	if s.Thumb == nil {
-		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field thumb is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stickers.setStickerSetThumb#9a364e30", "thumb")
 	}
 	if err := s.Thumb.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field thumb: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stickers.setStickerSetThumb#9a364e30", "thumb", err)
 	}
 	return nil
 }
@@ -157,10 +157,10 @@ func (s *StickersSetStickerSetThumbRequest) GetThumbAsNotEmpty() (*InputDocument
 // Decode implements bin.Decoder.
 func (s *StickersSetStickerSetThumbRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickers.setStickerSetThumb#9a364e30 to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickers.setStickerSetThumb#9a364e30")
 	}
 	if err := b.ConsumeID(StickersSetStickerSetThumbRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickers.setStickerSetThumb#9a364e30: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "stickers.setStickerSetThumb#9a364e30", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -168,19 +168,19 @@ func (s *StickersSetStickerSetThumbRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StickersSetStickerSetThumbRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickers.setStickerSetThumb#9a364e30 to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickers.setStickerSetThumb#9a364e30")
 	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.setStickerSetThumb#9a364e30: field stickerset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.setStickerSetThumb#9a364e30", "stickerset", err)
 		}
 		s.Stickerset = value
 	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.setStickerSetThumb#9a364e30: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.setStickerSetThumb#9a364e30", "thumb", err)
 		}
 		s.Thumb = value
 	}

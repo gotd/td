@@ -112,7 +112,7 @@ func (g *MessagesGetExportedChatInviteRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetExportedChatInviteRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getExportedChatInvite#73746f5c as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getExportedChatInvite#73746f5c")
 	}
 	b.PutID(MessagesGetExportedChatInviteRequestTypeID)
 	return g.EncodeBare(b)
@@ -121,13 +121,13 @@ func (g *MessagesGetExportedChatInviteRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetExportedChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getExportedChatInvite#73746f5c as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getExportedChatInvite#73746f5c")
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getExportedChatInvite#73746f5c: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.getExportedChatInvite#73746f5c", "peer")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getExportedChatInvite#73746f5c: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getExportedChatInvite#73746f5c", "peer", err)
 	}
 	b.PutString(g.Link)
 	return nil
@@ -146,10 +146,10 @@ func (g *MessagesGetExportedChatInviteRequest) GetLink() (value string) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetExportedChatInviteRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getExportedChatInvite#73746f5c to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getExportedChatInvite#73746f5c")
 	}
 	if err := b.ConsumeID(MessagesGetExportedChatInviteRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getExportedChatInvite#73746f5c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getExportedChatInvite#73746f5c", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -157,19 +157,19 @@ func (g *MessagesGetExportedChatInviteRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetExportedChatInviteRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getExportedChatInvite#73746f5c to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getExportedChatInvite#73746f5c")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getExportedChatInvite#73746f5c: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getExportedChatInvite#73746f5c", "peer", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getExportedChatInvite#73746f5c: field link: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getExportedChatInvite#73746f5c", "link", err)
 		}
 		g.Link = value
 	}

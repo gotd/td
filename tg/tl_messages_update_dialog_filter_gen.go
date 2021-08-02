@@ -136,7 +136,7 @@ func (u *MessagesUpdateDialogFilterRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *MessagesUpdateDialogFilterRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.updateDialogFilter#1ad4a04a as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.updateDialogFilter#1ad4a04a")
 	}
 	b.PutID(MessagesUpdateDialogFilterRequestTypeID)
 	return u.EncodeBare(b)
@@ -145,18 +145,18 @@ func (u *MessagesUpdateDialogFilterRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *MessagesUpdateDialogFilterRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.updateDialogFilter#1ad4a04a as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.updateDialogFilter#1ad4a04a")
 	}
 	if !(u.Filter.Zero()) {
 		u.Flags.Set(0)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.updateDialogFilter#1ad4a04a: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.updateDialogFilter#1ad4a04a", "flags", err)
 	}
 	b.PutInt(u.ID)
 	if u.Flags.Has(0) {
 		if err := u.Filter.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.updateDialogFilter#1ad4a04a: field filter: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "messages.updateDialogFilter#1ad4a04a", "filter", err)
 		}
 	}
 	return nil
@@ -185,10 +185,10 @@ func (u *MessagesUpdateDialogFilterRequest) GetFilter() (value DialogFilter, ok 
 // Decode implements bin.Decoder.
 func (u *MessagesUpdateDialogFilterRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.updateDialogFilter#1ad4a04a to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.updateDialogFilter#1ad4a04a")
 	}
 	if err := b.ConsumeID(MessagesUpdateDialogFilterRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.updateDialogFilter#1ad4a04a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.updateDialogFilter#1ad4a04a", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -196,23 +196,23 @@ func (u *MessagesUpdateDialogFilterRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *MessagesUpdateDialogFilterRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.updateDialogFilter#1ad4a04a to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.updateDialogFilter#1ad4a04a")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.updateDialogFilter#1ad4a04a: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.updateDialogFilter#1ad4a04a", "flags", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.updateDialogFilter#1ad4a04a: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.updateDialogFilter#1ad4a04a", "id", err)
 		}
 		u.ID = value
 	}
 	if u.Flags.Has(0) {
 		if err := u.Filter.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.updateDialogFilter#1ad4a04a: field filter: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.updateDialogFilter#1ad4a04a", "filter", err)
 		}
 	}
 	return nil

@@ -112,7 +112,7 @@ func (g *BotsGetBotCommandsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *BotsGetBotCommandsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode bots.getBotCommands#e34c0dd6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "bots.getBotCommands#e34c0dd6")
 	}
 	b.PutID(BotsGetBotCommandsRequestTypeID)
 	return g.EncodeBare(b)
@@ -121,13 +121,13 @@ func (g *BotsGetBotCommandsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *BotsGetBotCommandsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode bots.getBotCommands#e34c0dd6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "bots.getBotCommands#e34c0dd6")
 	}
 	if g.Scope == nil {
-		return fmt.Errorf("unable to encode bots.getBotCommands#e34c0dd6: field scope is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "bots.getBotCommands#e34c0dd6", "scope")
 	}
 	if err := g.Scope.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode bots.getBotCommands#e34c0dd6: field scope: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "bots.getBotCommands#e34c0dd6", "scope", err)
 	}
 	b.PutString(g.LangCode)
 	return nil
@@ -146,10 +146,10 @@ func (g *BotsGetBotCommandsRequest) GetLangCode() (value string) {
 // Decode implements bin.Decoder.
 func (g *BotsGetBotCommandsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode bots.getBotCommands#e34c0dd6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "bots.getBotCommands#e34c0dd6")
 	}
 	if err := b.ConsumeID(BotsGetBotCommandsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode bots.getBotCommands#e34c0dd6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "bots.getBotCommands#e34c0dd6", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -157,19 +157,19 @@ func (g *BotsGetBotCommandsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *BotsGetBotCommandsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode bots.getBotCommands#e34c0dd6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "bots.getBotCommands#e34c0dd6")
 	}
 	{
 		value, err := DecodeBotCommandScope(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.getBotCommands#e34c0dd6: field scope: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bots.getBotCommands#e34c0dd6", "scope", err)
 		}
 		g.Scope = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.getBotCommands#e34c0dd6: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bots.getBotCommands#e34c0dd6", "lang_code", err)
 		}
 		g.LangCode = value
 	}

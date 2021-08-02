@@ -197,7 +197,7 @@ func (f *MessagesForwardMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.forwardMessages#d9fee60e as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.forwardMessages#d9fee60e")
 	}
 	b.PutID(MessagesForwardMessagesRequestTypeID)
 	return f.EncodeBare(b)
@@ -206,7 +206,7 @@ func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.forwardMessages#d9fee60e as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.forwardMessages#d9fee60e")
 	}
 	if !(f.Silent == false) {
 		f.Flags.Set(5)
@@ -221,13 +221,13 @@ func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 		f.Flags.Set(10)
 	}
 	if err := f.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#d9fee60e: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.forwardMessages#d9fee60e", "flags", err)
 	}
 	if f.FromPeer == nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#d9fee60e: field from_peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.forwardMessages#d9fee60e", "from_peer")
 	}
 	if err := f.FromPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#d9fee60e: field from_peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.forwardMessages#d9fee60e", "from_peer", err)
 	}
 	b.PutVectorHeader(len(f.ID))
 	for _, v := range f.ID {
@@ -238,10 +238,10 @@ func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutLong(v)
 	}
 	if f.ToPeer == nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#d9fee60e: field to_peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.forwardMessages#d9fee60e", "to_peer")
 	}
 	if err := f.ToPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#d9fee60e: field to_peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.forwardMessages#d9fee60e", "to_peer", err)
 	}
 	if f.Flags.Has(10) {
 		b.PutInt(f.ScheduleDate)
@@ -335,10 +335,10 @@ func (f *MessagesForwardMessagesRequest) GetScheduleDate() (value int, ok bool) 
 // Decode implements bin.Decoder.
 func (f *MessagesForwardMessagesRequest) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.forwardMessages#d9fee60e to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.forwardMessages#d9fee60e")
 	}
 	if err := b.ConsumeID(MessagesForwardMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.forwardMessages#d9fee60e", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -346,11 +346,11 @@ func (f *MessagesForwardMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.forwardMessages#d9fee60e to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.forwardMessages#d9fee60e")
 	}
 	{
 		if err := f.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.forwardMessages#d9fee60e", "flags", err)
 		}
 	}
 	f.Silent = f.Flags.Has(5)
@@ -359,19 +359,19 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: field from_peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.forwardMessages#d9fee60e", "from_peer", err)
 		}
 		f.FromPeer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.forwardMessages#d9fee60e", "id", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: field id: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.forwardMessages#d9fee60e", "id", err)
 			}
 			f.ID = append(f.ID, value)
 		}
@@ -379,12 +379,12 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: field random_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.forwardMessages#d9fee60e", "random_id", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: field random_id: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.forwardMessages#d9fee60e", "random_id", err)
 			}
 			f.RandomID = append(f.RandomID, value)
 		}
@@ -392,14 +392,14 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: field to_peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.forwardMessages#d9fee60e", "to_peer", err)
 		}
 		f.ToPeer = value
 	}
 	if f.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.forwardMessages#d9fee60e", "schedule_date", err)
 		}
 		f.ScheduleDate = value
 	}

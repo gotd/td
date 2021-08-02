@@ -102,7 +102,7 @@ func (g *HelpGetUserInfoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetUserInfoRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getUserInfo#38a08d3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getUserInfo#38a08d3")
 	}
 	b.PutID(HelpGetUserInfoRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,13 +111,13 @@ func (g *HelpGetUserInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetUserInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getUserInfo#38a08d3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getUserInfo#38a08d3")
 	}
 	if g.UserID == nil {
-		return fmt.Errorf("unable to encode help.getUserInfo#38a08d3: field user_id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "help.getUserInfo#38a08d3", "user_id")
 	}
 	if err := g.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.getUserInfo#38a08d3: field user_id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "help.getUserInfo#38a08d3", "user_id", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (g *HelpGetUserInfoRequest) GetUserID() (value InputUserClass) {
 // Decode implements bin.Decoder.
 func (g *HelpGetUserInfoRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getUserInfo#38a08d3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getUserInfo#38a08d3")
 	}
 	if err := b.ConsumeID(HelpGetUserInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getUserInfo#38a08d3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.getUserInfo#38a08d3", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (g *HelpGetUserInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetUserInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getUserInfo#38a08d3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getUserInfo#38a08d3")
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode help.getUserInfo#38a08d3: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.getUserInfo#38a08d3", "user_id", err)
 		}
 		g.UserID = value
 	}

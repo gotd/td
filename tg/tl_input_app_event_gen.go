@@ -136,7 +136,7 @@ func (i *InputAppEvent) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputAppEvent) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputAppEvent#1d1b1245 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputAppEvent#1d1b1245")
 	}
 	b.PutID(InputAppEventTypeID)
 	return i.EncodeBare(b)
@@ -145,16 +145,16 @@ func (i *InputAppEvent) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputAppEvent) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputAppEvent#1d1b1245 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputAppEvent#1d1b1245")
 	}
 	b.PutDouble(i.Time)
 	b.PutString(i.Type)
 	b.PutLong(i.Peer)
 	if i.Data == nil {
-		return fmt.Errorf("unable to encode inputAppEvent#1d1b1245: field data is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputAppEvent#1d1b1245", "data")
 	}
 	if err := i.Data.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputAppEvent#1d1b1245: field data: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputAppEvent#1d1b1245", "data", err)
 	}
 	return nil
 }
@@ -182,10 +182,10 @@ func (i *InputAppEvent) GetData() (value JSONValueClass) {
 // Decode implements bin.Decoder.
 func (i *InputAppEvent) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputAppEvent#1d1b1245 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputAppEvent#1d1b1245")
 	}
 	if err := b.ConsumeID(InputAppEventTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputAppEvent#1d1b1245: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputAppEvent#1d1b1245", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -193,33 +193,33 @@ func (i *InputAppEvent) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputAppEvent) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputAppEvent#1d1b1245 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputAppEvent#1d1b1245")
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputAppEvent#1d1b1245: field time: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputAppEvent#1d1b1245", "time", err)
 		}
 		i.Time = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputAppEvent#1d1b1245: field type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputAppEvent#1d1b1245", "type", err)
 		}
 		i.Type = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputAppEvent#1d1b1245: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputAppEvent#1d1b1245", "peer", err)
 		}
 		i.Peer = value
 	}
 	{
 		value, err := DecodeJSONValue(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputAppEvent#1d1b1245: field data: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputAppEvent#1d1b1245", "data", err)
 		}
 		i.Data = value
 	}

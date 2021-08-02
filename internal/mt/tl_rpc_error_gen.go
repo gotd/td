@@ -110,7 +110,7 @@ func (r *RPCError) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RPCError) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode rpc_error#2144ca19 as nil")
+		return fmt.Errorf("can't encode %s as nil", "rpc_error#2144ca19")
 	}
 	b.PutID(RPCErrorTypeID)
 	return r.EncodeBare(b)
@@ -119,7 +119,7 @@ func (r *RPCError) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RPCError) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode rpc_error#2144ca19 as nil")
+		return fmt.Errorf("can't encode %s as nil", "rpc_error#2144ca19")
 	}
 	b.PutInt(r.ErrorCode)
 	b.PutString(r.ErrorMessage)
@@ -139,10 +139,10 @@ func (r *RPCError) GetErrorMessage() (value string) {
 // Decode implements bin.Decoder.
 func (r *RPCError) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode rpc_error#2144ca19 to nil")
+		return fmt.Errorf("can't decode %s to nil", "rpc_error#2144ca19")
 	}
 	if err := b.ConsumeID(RPCErrorTypeID); err != nil {
-		return fmt.Errorf("unable to decode rpc_error#2144ca19: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "rpc_error#2144ca19", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -150,19 +150,19 @@ func (r *RPCError) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RPCError) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode rpc_error#2144ca19 to nil")
+		return fmt.Errorf("can't decode %s to nil", "rpc_error#2144ca19")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode rpc_error#2144ca19: field error_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "rpc_error#2144ca19", "error_code", err)
 		}
 		r.ErrorCode = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode rpc_error#2144ca19: field error_message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "rpc_error#2144ca19", "error_message", err)
 		}
 		r.ErrorMessage = value
 	}

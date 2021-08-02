@@ -167,7 +167,7 @@ func (p *PeerNotifySettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PeerNotifySettings) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerNotifySettings#af509d20 as nil")
+		return fmt.Errorf("can't encode %s as nil", "peerNotifySettings#af509d20")
 	}
 	b.PutID(PeerNotifySettingsTypeID)
 	return p.EncodeBare(b)
@@ -176,7 +176,7 @@ func (p *PeerNotifySettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerNotifySettings#af509d20 as nil")
+		return fmt.Errorf("can't encode %s as nil", "peerNotifySettings#af509d20")
 	}
 	if !(p.ShowPreviews == false) {
 		p.Flags.Set(0)
@@ -191,7 +191,7 @@ func (p *PeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(3)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode peerNotifySettings#af509d20: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "peerNotifySettings#af509d20", "flags", err)
 	}
 	if p.Flags.Has(0) {
 		b.PutBool(p.ShowPreviews)
@@ -271,10 +271,10 @@ func (p *PeerNotifySettings) GetSound() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (p *PeerNotifySettings) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerNotifySettings#af509d20 to nil")
+		return fmt.Errorf("can't decode %s to nil", "peerNotifySettings#af509d20")
 	}
 	if err := b.ConsumeID(PeerNotifySettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode peerNotifySettings#af509d20: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "peerNotifySettings#af509d20", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -282,38 +282,38 @@ func (p *PeerNotifySettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PeerNotifySettings) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerNotifySettings#af509d20 to nil")
+		return fmt.Errorf("can't decode %s to nil", "peerNotifySettings#af509d20")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "peerNotifySettings#af509d20", "flags", err)
 		}
 	}
 	if p.Flags.Has(0) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field show_previews: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "peerNotifySettings#af509d20", "show_previews", err)
 		}
 		p.ShowPreviews = value
 	}
 	if p.Flags.Has(1) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field silent: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "peerNotifySettings#af509d20", "silent", err)
 		}
 		p.Silent = value
 	}
 	if p.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field mute_until: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "peerNotifySettings#af509d20", "mute_until", err)
 		}
 		p.MuteUntil = value
 	}
 	if p.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field sound: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "peerNotifySettings#af509d20", "sound", err)
 		}
 		p.Sound = value
 	}

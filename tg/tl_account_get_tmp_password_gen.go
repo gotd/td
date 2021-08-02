@@ -114,7 +114,7 @@ func (g *AccountGetTmpPasswordRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetTmpPasswordRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getTmpPassword#449e0b51 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getTmpPassword#449e0b51")
 	}
 	b.PutID(AccountGetTmpPasswordRequestTypeID)
 	return g.EncodeBare(b)
@@ -123,13 +123,13 @@ func (g *AccountGetTmpPasswordRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetTmpPasswordRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getTmpPassword#449e0b51 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getTmpPassword#449e0b51")
 	}
 	if g.Password == nil {
-		return fmt.Errorf("unable to encode account.getTmpPassword#449e0b51: field password is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "account.getTmpPassword#449e0b51", "password")
 	}
 	if err := g.Password.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.getTmpPassword#449e0b51: field password: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.getTmpPassword#449e0b51", "password", err)
 	}
 	b.PutInt(g.Period)
 	return nil
@@ -153,10 +153,10 @@ func (g *AccountGetTmpPasswordRequest) GetPeriod() (value int) {
 // Decode implements bin.Decoder.
 func (g *AccountGetTmpPasswordRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getTmpPassword#449e0b51 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getTmpPassword#449e0b51")
 	}
 	if err := b.ConsumeID(AccountGetTmpPasswordRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getTmpPassword#449e0b51: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.getTmpPassword#449e0b51", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -164,19 +164,19 @@ func (g *AccountGetTmpPasswordRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetTmpPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getTmpPassword#449e0b51 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getTmpPassword#449e0b51")
 	}
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getTmpPassword#449e0b51: field password: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.getTmpPassword#449e0b51", "password", err)
 		}
 		g.Password = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getTmpPassword#449e0b51: field period: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.getTmpPassword#449e0b51", "period", err)
 		}
 		g.Period = value
 	}

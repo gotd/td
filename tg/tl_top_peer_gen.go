@@ -116,7 +116,7 @@ func (t *TopPeer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TopPeer) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeer#edcdc05b as nil")
+		return fmt.Errorf("can't encode %s as nil", "topPeer#edcdc05b")
 	}
 	b.PutID(TopPeerTypeID)
 	return t.EncodeBare(b)
@@ -125,13 +125,13 @@ func (t *TopPeer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TopPeer) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeer#edcdc05b as nil")
+		return fmt.Errorf("can't encode %s as nil", "topPeer#edcdc05b")
 	}
 	if t.Peer == nil {
-		return fmt.Errorf("unable to encode topPeer#edcdc05b: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "topPeer#edcdc05b", "peer")
 	}
 	if err := t.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode topPeer#edcdc05b: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "topPeer#edcdc05b", "peer", err)
 	}
 	b.PutDouble(t.Rating)
 	return nil
@@ -150,10 +150,10 @@ func (t *TopPeer) GetRating() (value float64) {
 // Decode implements bin.Decoder.
 func (t *TopPeer) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeer#edcdc05b to nil")
+		return fmt.Errorf("can't decode %s to nil", "topPeer#edcdc05b")
 	}
 	if err := b.ConsumeID(TopPeerTypeID); err != nil {
-		return fmt.Errorf("unable to decode topPeer#edcdc05b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "topPeer#edcdc05b", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -161,19 +161,19 @@ func (t *TopPeer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TopPeer) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeer#edcdc05b to nil")
+		return fmt.Errorf("can't decode %s to nil", "topPeer#edcdc05b")
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode topPeer#edcdc05b: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "topPeer#edcdc05b", "peer", err)
 		}
 		t.Peer = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode topPeer#edcdc05b: field rating: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "topPeer#edcdc05b", "rating", err)
 		}
 		t.Rating = value
 	}

@@ -133,7 +133,7 @@ func (u *AccountUnregisterDeviceRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUnregisterDeviceRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.unregisterDevice#3076c4bf as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.unregisterDevice#3076c4bf")
 	}
 	b.PutID(AccountUnregisterDeviceRequestTypeID)
 	return u.EncodeBare(b)
@@ -142,7 +142,7 @@ func (u *AccountUnregisterDeviceRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUnregisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.unregisterDevice#3076c4bf as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.unregisterDevice#3076c4bf")
 	}
 	b.PutInt(u.TokenType)
 	b.PutString(u.Token)
@@ -171,10 +171,10 @@ func (u *AccountUnregisterDeviceRequest) GetOtherUIDs() (value []int) {
 // Decode implements bin.Decoder.
 func (u *AccountUnregisterDeviceRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.unregisterDevice#3076c4bf to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.unregisterDevice#3076c4bf")
 	}
 	if err := b.ConsumeID(AccountUnregisterDeviceRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.unregisterDevice#3076c4bf", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -182,31 +182,31 @@ func (u *AccountUnregisterDeviceRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUnregisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.unregisterDevice#3076c4bf to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.unregisterDevice#3076c4bf")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: field token_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.unregisterDevice#3076c4bf", "token_type", err)
 		}
 		u.TokenType = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: field token: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.unregisterDevice#3076c4bf", "token", err)
 		}
 		u.Token = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: field other_uids: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.unregisterDevice#3076c4bf", "other_uids", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: field other_uids: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "account.unregisterDevice#3076c4bf", "other_uids", err)
 			}
 			u.OtherUIDs = append(u.OtherUIDs, value)
 		}

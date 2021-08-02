@@ -102,7 +102,7 @@ func (g *AccountGetPrivacyRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetPrivacyRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getPrivacy#dadbc950 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getPrivacy#dadbc950")
 	}
 	b.PutID(AccountGetPrivacyRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,13 +111,13 @@ func (g *AccountGetPrivacyRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetPrivacyRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getPrivacy#dadbc950 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getPrivacy#dadbc950")
 	}
 	if g.Key == nil {
-		return fmt.Errorf("unable to encode account.getPrivacy#dadbc950: field key is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "account.getPrivacy#dadbc950", "key")
 	}
 	if err := g.Key.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.getPrivacy#dadbc950: field key: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.getPrivacy#dadbc950", "key", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (g *AccountGetPrivacyRequest) GetKey() (value InputPrivacyKeyClass) {
 // Decode implements bin.Decoder.
 func (g *AccountGetPrivacyRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getPrivacy#dadbc950 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getPrivacy#dadbc950")
 	}
 	if err := b.ConsumeID(AccountGetPrivacyRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getPrivacy#dadbc950: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.getPrivacy#dadbc950", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (g *AccountGetPrivacyRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetPrivacyRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getPrivacy#dadbc950 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getPrivacy#dadbc950")
 	}
 	{
 		value, err := DecodeInputPrivacyKey(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getPrivacy#dadbc950: field key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.getPrivacy#dadbc950", "key", err)
 		}
 		g.Key = value
 	}

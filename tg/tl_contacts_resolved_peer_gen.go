@@ -124,7 +124,7 @@ func (r *ContactsResolvedPeer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ContactsResolvedPeer) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode contacts.resolvedPeer#7f077ad9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.resolvedPeer#7f077ad9")
 	}
 	b.PutID(ContactsResolvedPeerTypeID)
 	return r.EncodeBare(b)
@@ -133,30 +133,30 @@ func (r *ContactsResolvedPeer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ContactsResolvedPeer) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode contacts.resolvedPeer#7f077ad9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.resolvedPeer#7f077ad9")
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode contacts.resolvedPeer#7f077ad9: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "contacts.resolvedPeer#7f077ad9", "peer")
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contacts.resolvedPeer#7f077ad9: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "contacts.resolvedPeer#7f077ad9", "peer", err)
 	}
 	b.PutVectorHeader(len(r.Chats))
 	for idx, v := range r.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.resolvedPeer#7f077ad9: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "contacts.resolvedPeer#7f077ad9", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.resolvedPeer#7f077ad9: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.resolvedPeer#7f077ad9", "chats", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(r.Users))
 	for idx, v := range r.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.resolvedPeer#7f077ad9: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "contacts.resolvedPeer#7f077ad9", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.resolvedPeer#7f077ad9: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.resolvedPeer#7f077ad9", "users", idx, err)
 		}
 	}
 	return nil
@@ -190,10 +190,10 @@ func (r *ContactsResolvedPeer) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (r *ContactsResolvedPeer) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode contacts.resolvedPeer#7f077ad9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.resolvedPeer#7f077ad9")
 	}
 	if err := b.ConsumeID(ContactsResolvedPeerTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.resolvedPeer#7f077ad9: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.resolvedPeer#7f077ad9", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -201,24 +201,24 @@ func (r *ContactsResolvedPeer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ContactsResolvedPeer) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode contacts.resolvedPeer#7f077ad9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.resolvedPeer#7f077ad9")
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.resolvedPeer#7f077ad9: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.resolvedPeer#7f077ad9", "peer", err)
 		}
 		r.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.resolvedPeer#7f077ad9: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.resolvedPeer#7f077ad9", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.resolvedPeer#7f077ad9: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.resolvedPeer#7f077ad9", "chats", err)
 			}
 			r.Chats = append(r.Chats, value)
 		}
@@ -226,12 +226,12 @@ func (r *ContactsResolvedPeer) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.resolvedPeer#7f077ad9: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.resolvedPeer#7f077ad9", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.resolvedPeer#7f077ad9: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.resolvedPeer#7f077ad9", "users", err)
 			}
 			r.Users = append(r.Users, value)
 		}

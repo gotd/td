@@ -102,7 +102,7 @@ func (i *InputDialogPeer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputDialogPeer) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputDialogPeer#fcaafeb7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputDialogPeer#fcaafeb7")
 	}
 	b.PutID(InputDialogPeerTypeID)
 	return i.EncodeBare(b)
@@ -111,13 +111,13 @@ func (i *InputDialogPeer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputDialogPeer) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputDialogPeer#fcaafeb7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputDialogPeer#fcaafeb7")
 	}
 	if i.Peer == nil {
-		return fmt.Errorf("unable to encode inputDialogPeer#fcaafeb7: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputDialogPeer#fcaafeb7", "peer")
 	}
 	if err := i.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputDialogPeer#fcaafeb7: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputDialogPeer#fcaafeb7", "peer", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (i *InputDialogPeer) GetPeer() (value InputPeerClass) {
 // Decode implements bin.Decoder.
 func (i *InputDialogPeer) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputDialogPeer#fcaafeb7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputDialogPeer#fcaafeb7")
 	}
 	if err := b.ConsumeID(InputDialogPeerTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputDialogPeer#fcaafeb7: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputDialogPeer#fcaafeb7", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (i *InputDialogPeer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputDialogPeer) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputDialogPeer#fcaafeb7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputDialogPeer#fcaafeb7")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputDialogPeer#fcaafeb7: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputDialogPeer#fcaafeb7", "peer", err)
 		}
 		i.Peer = value
 	}
@@ -245,7 +245,7 @@ func (i *InputDialogPeerFolder) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputDialogPeerFolder) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputDialogPeerFolder#64600527 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputDialogPeerFolder#64600527")
 	}
 	b.PutID(InputDialogPeerFolderTypeID)
 	return i.EncodeBare(b)
@@ -254,7 +254,7 @@ func (i *InputDialogPeerFolder) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputDialogPeerFolder) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputDialogPeerFolder#64600527 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputDialogPeerFolder#64600527")
 	}
 	b.PutInt(i.FolderID)
 	return nil
@@ -268,10 +268,10 @@ func (i *InputDialogPeerFolder) GetFolderID() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputDialogPeerFolder) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputDialogPeerFolder#64600527 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputDialogPeerFolder#64600527")
 	}
 	if err := b.ConsumeID(InputDialogPeerFolderTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputDialogPeerFolder#64600527: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputDialogPeerFolder#64600527", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -279,12 +279,12 @@ func (i *InputDialogPeerFolder) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputDialogPeerFolder) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputDialogPeerFolder#64600527 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputDialogPeerFolder#64600527")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputDialogPeerFolder#64600527: field folder_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputDialogPeerFolder#64600527", "folder_id", err)
 		}
 		i.FolderID = value
 	}
@@ -348,18 +348,18 @@ func DecodeInputDialogPeer(buf *bin.Buffer) (InputDialogPeerClass, error) {
 		// Decoding inputDialogPeer#fcaafeb7.
 		v := InputDialogPeer{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputDialogPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputDialogPeerClass", err)
 		}
 		return &v, nil
 	case InputDialogPeerFolderTypeID:
 		// Decoding inputDialogPeerFolder#64600527.
 		v := InputDialogPeerFolder{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputDialogPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputDialogPeerClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputDialogPeerClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "InputDialogPeerClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -371,7 +371,7 @@ type InputDialogPeerBox struct {
 // Decode implements bin.Decoder for InputDialogPeerBox.
 func (b *InputDialogPeerBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputDialogPeerBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "InputDialogPeer")
 	}
 	v, err := DecodeInputDialogPeer(buf)
 	if err != nil {
@@ -384,7 +384,7 @@ func (b *InputDialogPeerBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputDialogPeerBox.
 func (b *InputDialogPeerBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputDialogPeer == nil {
-		return fmt.Errorf("unable to encode InputDialogPeerClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "InputDialogPeerClass")
 	}
 	return b.InputDialogPeer.Encode(buf)
 }

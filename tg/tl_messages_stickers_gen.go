@@ -85,7 +85,7 @@ func (s *MessagesStickersNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesStickersNotModified) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.stickersNotModified#f1749a22 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.stickersNotModified#f1749a22")
 	}
 	b.PutID(MessagesStickersNotModifiedTypeID)
 	return s.EncodeBare(b)
@@ -94,7 +94,7 @@ func (s *MessagesStickersNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesStickersNotModified) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.stickersNotModified#f1749a22 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.stickersNotModified#f1749a22")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (s *MessagesStickersNotModified) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesStickersNotModified) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.stickersNotModified#f1749a22 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.stickersNotModified#f1749a22")
 	}
 	if err := b.ConsumeID(MessagesStickersNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.stickersNotModified#f1749a22: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.stickersNotModified#f1749a22", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (s *MessagesStickersNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesStickersNotModified) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.stickersNotModified#f1749a22 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.stickersNotModified#f1749a22")
 	}
 	return nil
 }
@@ -218,7 +218,7 @@ func (s *MessagesStickers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesStickers) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.stickers#e4599bbd as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.stickers#e4599bbd")
 	}
 	b.PutID(MessagesStickersTypeID)
 	return s.EncodeBare(b)
@@ -227,16 +227,16 @@ func (s *MessagesStickers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesStickers) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.stickers#e4599bbd as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.stickers#e4599bbd")
 	}
 	b.PutInt(s.Hash)
 	b.PutVectorHeader(len(s.Stickers))
 	for idx, v := range s.Stickers {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.stickers#e4599bbd: field stickers element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.stickers#e4599bbd", "stickers", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.stickers#e4599bbd: field stickers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.stickers#e4599bbd", "stickers", idx, err)
 		}
 	}
 	return nil
@@ -260,10 +260,10 @@ func (s *MessagesStickers) MapStickers() (value DocumentClassArray) {
 // Decode implements bin.Decoder.
 func (s *MessagesStickers) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.stickers#e4599bbd to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.stickers#e4599bbd")
 	}
 	if err := b.ConsumeID(MessagesStickersTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.stickers#e4599bbd: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.stickers#e4599bbd", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -271,24 +271,24 @@ func (s *MessagesStickers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesStickers) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.stickers#e4599bbd to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.stickers#e4599bbd")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.stickers#e4599bbd: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.stickers#e4599bbd", "hash", err)
 		}
 		s.Hash = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.stickers#e4599bbd: field stickers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.stickers#e4599bbd", "stickers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.stickers#e4599bbd: field stickers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.stickers#e4599bbd", "stickers", err)
 			}
 			s.Stickers = append(s.Stickers, value)
 		}
@@ -366,18 +366,18 @@ func DecodeMessagesStickers(buf *bin.Buffer) (MessagesStickersClass, error) {
 		// Decoding messages.stickersNotModified#f1749a22.
 		v := MessagesStickersNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesStickersClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesStickersClass", err)
 		}
 		return &v, nil
 	case MessagesStickersTypeID:
 		// Decoding messages.stickers#e4599bbd.
 		v := MessagesStickers{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesStickersClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesStickersClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessagesStickersClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "MessagesStickersClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -389,7 +389,7 @@ type MessagesStickersBox struct {
 // Decode implements bin.Decoder for MessagesStickersBox.
 func (b *MessagesStickersBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode MessagesStickersBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "MessagesStickers")
 	}
 	v, err := DecodeMessagesStickers(buf)
 	if err != nil {
@@ -402,7 +402,7 @@ func (b *MessagesStickersBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for MessagesStickersBox.
 func (b *MessagesStickersBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Stickers == nil {
-		return fmt.Errorf("unable to encode MessagesStickersClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "MessagesStickersClass")
 	}
 	return b.Stickers.Encode(buf)
 }

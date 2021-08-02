@@ -170,7 +170,7 @@ func (s *MessagesSetGameScoreRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSetGameScoreRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setGameScore#8ef8ecc0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.setGameScore#8ef8ecc0")
 	}
 	b.PutID(MessagesSetGameScoreRequestTypeID)
 	return s.EncodeBare(b)
@@ -179,7 +179,7 @@ func (s *MessagesSetGameScoreRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSetGameScoreRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setGameScore#8ef8ecc0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.setGameScore#8ef8ecc0")
 	}
 	if !(s.EditMessage == false) {
 		s.Flags.Set(0)
@@ -188,20 +188,20 @@ func (s *MessagesSetGameScoreRequest) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(1)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setGameScore#8ef8ecc0: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.setGameScore#8ef8ecc0", "flags", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.setGameScore#8ef8ecc0: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.setGameScore#8ef8ecc0", "peer")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setGameScore#8ef8ecc0: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.setGameScore#8ef8ecc0", "peer", err)
 	}
 	b.PutInt(s.ID)
 	if s.UserID == nil {
-		return fmt.Errorf("unable to encode messages.setGameScore#8ef8ecc0: field user_id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.setGameScore#8ef8ecc0", "user_id")
 	}
 	if err := s.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setGameScore#8ef8ecc0: field user_id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.setGameScore#8ef8ecc0", "user_id", err)
 	}
 	b.PutInt(s.Score)
 	return nil
@@ -262,10 +262,10 @@ func (s *MessagesSetGameScoreRequest) GetScore() (value int) {
 // Decode implements bin.Decoder.
 func (s *MessagesSetGameScoreRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setGameScore#8ef8ecc0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.setGameScore#8ef8ecc0")
 	}
 	if err := b.ConsumeID(MessagesSetGameScoreRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setGameScore#8ef8ecc0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.setGameScore#8ef8ecc0", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -273,11 +273,11 @@ func (s *MessagesSetGameScoreRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSetGameScoreRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setGameScore#8ef8ecc0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.setGameScore#8ef8ecc0")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setGameScore#8ef8ecc0: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setGameScore#8ef8ecc0", "flags", err)
 		}
 	}
 	s.EditMessage = s.Flags.Has(0)
@@ -285,28 +285,28 @@ func (s *MessagesSetGameScoreRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setGameScore#8ef8ecc0: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setGameScore#8ef8ecc0", "peer", err)
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setGameScore#8ef8ecc0: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setGameScore#8ef8ecc0", "id", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setGameScore#8ef8ecc0: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setGameScore#8ef8ecc0", "user_id", err)
 		}
 		s.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setGameScore#8ef8ecc0: field score: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setGameScore#8ef8ecc0", "score", err)
 		}
 		s.Score = value
 	}

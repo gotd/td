@@ -107,7 +107,7 @@ func (d *MessagesDeletePhoneCallHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDeletePhoneCallHistoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deletePhoneCallHistory#f9cbe409 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.deletePhoneCallHistory#f9cbe409")
 	}
 	b.PutID(MessagesDeletePhoneCallHistoryRequestTypeID)
 	return d.EncodeBare(b)
@@ -116,13 +116,13 @@ func (d *MessagesDeletePhoneCallHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDeletePhoneCallHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deletePhoneCallHistory#f9cbe409 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.deletePhoneCallHistory#f9cbe409")
 	}
 	if !(d.Revoke == false) {
 		d.Flags.Set(0)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deletePhoneCallHistory#f9cbe409: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.deletePhoneCallHistory#f9cbe409", "flags", err)
 	}
 	return nil
 }
@@ -146,10 +146,10 @@ func (d *MessagesDeletePhoneCallHistoryRequest) GetRevoke() (value bool) {
 // Decode implements bin.Decoder.
 func (d *MessagesDeletePhoneCallHistoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deletePhoneCallHistory#f9cbe409 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.deletePhoneCallHistory#f9cbe409")
 	}
 	if err := b.ConsumeID(MessagesDeletePhoneCallHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.deletePhoneCallHistory#f9cbe409: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.deletePhoneCallHistory#f9cbe409", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -157,11 +157,11 @@ func (d *MessagesDeletePhoneCallHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDeletePhoneCallHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deletePhoneCallHistory#f9cbe409 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.deletePhoneCallHistory#f9cbe409")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.deletePhoneCallHistory#f9cbe409: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.deletePhoneCallHistory#f9cbe409", "flags", err)
 		}
 	}
 	d.Revoke = d.Flags.Has(0)

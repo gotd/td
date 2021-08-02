@@ -124,7 +124,7 @@ func (h *HighScore) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (h *HighScore) Encode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode highScore#58fffcd0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "highScore#58fffcd0")
 	}
 	b.PutID(HighScoreTypeID)
 	return h.EncodeBare(b)
@@ -133,7 +133,7 @@ func (h *HighScore) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (h *HighScore) EncodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode highScore#58fffcd0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "highScore#58fffcd0")
 	}
 	b.PutInt(h.Pos)
 	b.PutInt(h.UserID)
@@ -159,10 +159,10 @@ func (h *HighScore) GetScore() (value int) {
 // Decode implements bin.Decoder.
 func (h *HighScore) Decode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode highScore#58fffcd0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "highScore#58fffcd0")
 	}
 	if err := b.ConsumeID(HighScoreTypeID); err != nil {
-		return fmt.Errorf("unable to decode highScore#58fffcd0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "highScore#58fffcd0", err)
 	}
 	return h.DecodeBare(b)
 }
@@ -170,26 +170,26 @@ func (h *HighScore) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (h *HighScore) DecodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode highScore#58fffcd0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "highScore#58fffcd0")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode highScore#58fffcd0: field pos: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "highScore#58fffcd0", "pos", err)
 		}
 		h.Pos = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode highScore#58fffcd0: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "highScore#58fffcd0", "user_id", err)
 		}
 		h.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode highScore#58fffcd0: field score: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "highScore#58fffcd0", "score", err)
 		}
 		h.Score = value
 	}

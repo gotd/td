@@ -109,7 +109,7 @@ func (c *UploadCDNFileReuploadNeeded) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *UploadCDNFileReuploadNeeded) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode upload.cdnFileReuploadNeeded#eea8e46e as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.cdnFileReuploadNeeded#eea8e46e")
 	}
 	b.PutID(UploadCDNFileReuploadNeededTypeID)
 	return c.EncodeBare(b)
@@ -118,7 +118,7 @@ func (c *UploadCDNFileReuploadNeeded) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *UploadCDNFileReuploadNeeded) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode upload.cdnFileReuploadNeeded#eea8e46e as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.cdnFileReuploadNeeded#eea8e46e")
 	}
 	b.PutBytes(c.RequestToken)
 	return nil
@@ -132,10 +132,10 @@ func (c *UploadCDNFileReuploadNeeded) GetRequestToken() (value []byte) {
 // Decode implements bin.Decoder.
 func (c *UploadCDNFileReuploadNeeded) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode upload.cdnFileReuploadNeeded#eea8e46e to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.cdnFileReuploadNeeded#eea8e46e")
 	}
 	if err := b.ConsumeID(UploadCDNFileReuploadNeededTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.cdnFileReuploadNeeded#eea8e46e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "upload.cdnFileReuploadNeeded#eea8e46e", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -143,12 +143,12 @@ func (c *UploadCDNFileReuploadNeeded) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *UploadCDNFileReuploadNeeded) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode upload.cdnFileReuploadNeeded#eea8e46e to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.cdnFileReuploadNeeded#eea8e46e")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.cdnFileReuploadNeeded#eea8e46e: field request_token: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.cdnFileReuploadNeeded#eea8e46e", "request_token", err)
 		}
 		c.RequestToken = value
 	}
@@ -244,7 +244,7 @@ func (c *UploadCDNFile) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *UploadCDNFile) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode upload.cdnFile#a99fca4f as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.cdnFile#a99fca4f")
 	}
 	b.PutID(UploadCDNFileTypeID)
 	return c.EncodeBare(b)
@@ -253,7 +253,7 @@ func (c *UploadCDNFile) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *UploadCDNFile) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode upload.cdnFile#a99fca4f as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.cdnFile#a99fca4f")
 	}
 	b.PutBytes(c.Bytes)
 	return nil
@@ -267,10 +267,10 @@ func (c *UploadCDNFile) GetBytes() (value []byte) {
 // Decode implements bin.Decoder.
 func (c *UploadCDNFile) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode upload.cdnFile#a99fca4f to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.cdnFile#a99fca4f")
 	}
 	if err := b.ConsumeID(UploadCDNFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.cdnFile#a99fca4f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "upload.cdnFile#a99fca4f", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -278,12 +278,12 @@ func (c *UploadCDNFile) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *UploadCDNFile) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode upload.cdnFile#a99fca4f to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.cdnFile#a99fca4f")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.cdnFile#a99fca4f: field bytes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.cdnFile#a99fca4f", "bytes", err)
 		}
 		c.Bytes = value
 	}
@@ -347,18 +347,18 @@ func DecodeUploadCDNFile(buf *bin.Buffer) (UploadCDNFileClass, error) {
 		// Decoding upload.cdnFileReuploadNeeded#eea8e46e.
 		v := UploadCDNFileReuploadNeeded{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UploadCDNFileClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UploadCDNFileClass", err)
 		}
 		return &v, nil
 	case UploadCDNFileTypeID:
 		// Decoding upload.cdnFile#a99fca4f.
 		v := UploadCDNFile{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UploadCDNFileClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UploadCDNFileClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode UploadCDNFileClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "UploadCDNFileClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -370,7 +370,7 @@ type UploadCDNFileBox struct {
 // Decode implements bin.Decoder for UploadCDNFileBox.
 func (b *UploadCDNFileBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode UploadCDNFileBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "UploadCDNFile")
 	}
 	v, err := DecodeUploadCDNFile(buf)
 	if err != nil {
@@ -383,7 +383,7 @@ func (b *UploadCDNFileBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for UploadCDNFileBox.
 func (b *UploadCDNFileBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.CdnFile == nil {
-		return fmt.Errorf("unable to encode UploadCDNFileClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "UploadCDNFileClass")
 	}
 	return b.CdnFile.Encode(buf)
 }

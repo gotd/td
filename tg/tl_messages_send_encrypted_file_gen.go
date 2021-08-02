@@ -159,7 +159,7 @@ func (s *MessagesSendEncryptedFileRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSendEncryptedFileRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendEncryptedFile#5559481d as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.sendEncryptedFile#5559481d")
 	}
 	b.PutID(MessagesSendEncryptedFileRequestTypeID)
 	return s.EncodeBare(b)
@@ -168,24 +168,24 @@ func (s *MessagesSendEncryptedFileRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendEncryptedFileRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendEncryptedFile#5559481d as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.sendEncryptedFile#5559481d")
 	}
 	if !(s.Silent == false) {
 		s.Flags.Set(0)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendEncryptedFile#5559481d: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.sendEncryptedFile#5559481d", "flags", err)
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendEncryptedFile#5559481d: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.sendEncryptedFile#5559481d", "peer", err)
 	}
 	b.PutLong(s.RandomID)
 	b.PutBytes(s.Data)
 	if s.File == nil {
-		return fmt.Errorf("unable to encode messages.sendEncryptedFile#5559481d: field file is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.sendEncryptedFile#5559481d", "file")
 	}
 	if err := s.File.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendEncryptedFile#5559481d: field file: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.sendEncryptedFile#5559481d", "file", err)
 	}
 	return nil
 }
@@ -234,10 +234,10 @@ func (s *MessagesSendEncryptedFileRequest) GetFileAsNotEmpty() (NotEmptyInputEnc
 // Decode implements bin.Decoder.
 func (s *MessagesSendEncryptedFileRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendEncryptedFile#5559481d to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.sendEncryptedFile#5559481d")
 	}
 	if err := b.ConsumeID(MessagesSendEncryptedFileRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendEncryptedFile#5559481d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.sendEncryptedFile#5559481d", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -245,37 +245,37 @@ func (s *MessagesSendEncryptedFileRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendEncryptedFileRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendEncryptedFile#5559481d to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.sendEncryptedFile#5559481d")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendEncryptedFile#5559481d: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendEncryptedFile#5559481d", "flags", err)
 		}
 	}
 	s.Silent = s.Flags.Has(0)
 	{
 		if err := s.Peer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendEncryptedFile#5559481d: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendEncryptedFile#5559481d", "peer", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendEncryptedFile#5559481d: field random_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendEncryptedFile#5559481d", "random_id", err)
 		}
 		s.RandomID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendEncryptedFile#5559481d: field data: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendEncryptedFile#5559481d", "data", err)
 		}
 		s.Data = value
 	}
 	{
 		value, err := DecodeInputEncryptedFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendEncryptedFile#5559481d: field file: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendEncryptedFile#5559481d", "file", err)
 		}
 		s.File = value
 	}

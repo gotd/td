@@ -108,7 +108,7 @@ func (i *AuthImportLoginTokenRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *AuthImportLoginTokenRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode auth.importLoginToken#95ac5ce4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.importLoginToken#95ac5ce4")
 	}
 	b.PutID(AuthImportLoginTokenRequestTypeID)
 	return i.EncodeBare(b)
@@ -117,7 +117,7 @@ func (i *AuthImportLoginTokenRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *AuthImportLoginTokenRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode auth.importLoginToken#95ac5ce4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.importLoginToken#95ac5ce4")
 	}
 	b.PutBytes(i.Token)
 	return nil
@@ -131,10 +131,10 @@ func (i *AuthImportLoginTokenRequest) GetToken() (value []byte) {
 // Decode implements bin.Decoder.
 func (i *AuthImportLoginTokenRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode auth.importLoginToken#95ac5ce4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.importLoginToken#95ac5ce4")
 	}
 	if err := b.ConsumeID(AuthImportLoginTokenRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.importLoginToken#95ac5ce4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "auth.importLoginToken#95ac5ce4", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (i *AuthImportLoginTokenRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *AuthImportLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode auth.importLoginToken#95ac5ce4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.importLoginToken#95ac5ce4")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.importLoginToken#95ac5ce4: field token: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.importLoginToken#95ac5ce4", "token", err)
 		}
 		i.Token = value
 	}

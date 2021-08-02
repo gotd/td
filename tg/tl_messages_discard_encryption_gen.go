@@ -119,7 +119,7 @@ func (d *MessagesDiscardEncryptionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDiscardEncryptionRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.discardEncryption#f393aea0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.discardEncryption#f393aea0")
 	}
 	b.PutID(MessagesDiscardEncryptionRequestTypeID)
 	return d.EncodeBare(b)
@@ -128,13 +128,13 @@ func (d *MessagesDiscardEncryptionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDiscardEncryptionRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.discardEncryption#f393aea0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.discardEncryption#f393aea0")
 	}
 	if !(d.DeleteHistory == false) {
 		d.Flags.Set(0)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.discardEncryption#f393aea0: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.discardEncryption#f393aea0", "flags", err)
 	}
 	b.PutInt(d.ChatID)
 	return nil
@@ -164,10 +164,10 @@ func (d *MessagesDiscardEncryptionRequest) GetChatID() (value int) {
 // Decode implements bin.Decoder.
 func (d *MessagesDiscardEncryptionRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.discardEncryption#f393aea0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.discardEncryption#f393aea0")
 	}
 	if err := b.ConsumeID(MessagesDiscardEncryptionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.discardEncryption#f393aea0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.discardEncryption#f393aea0", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -175,18 +175,18 @@ func (d *MessagesDiscardEncryptionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDiscardEncryptionRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.discardEncryption#f393aea0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.discardEncryption#f393aea0")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.discardEncryption#f393aea0: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.discardEncryption#f393aea0", "flags", err)
 		}
 	}
 	d.DeleteHistory = d.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.discardEncryption#f393aea0: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.discardEncryption#f393aea0", "chat_id", err)
 		}
 		d.ChatID = value
 	}

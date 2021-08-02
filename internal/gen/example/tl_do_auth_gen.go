@@ -84,7 +84,7 @@ func (d *DoAuthRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DoAuthRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode doAuth#fd2f6687 as nil")
+		return fmt.Errorf("can't encode %s as nil", "doAuth#fd2f6687")
 	}
 	b.PutID(DoAuthRequestTypeID)
 	return d.EncodeBare(b)
@@ -93,7 +93,7 @@ func (d *DoAuthRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DoAuthRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode doAuth#fd2f6687 as nil")
+		return fmt.Errorf("can't encode %s as nil", "doAuth#fd2f6687")
 	}
 	return nil
 }
@@ -101,10 +101,10 @@ func (d *DoAuthRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *DoAuthRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode doAuth#fd2f6687 to nil")
+		return fmt.Errorf("can't decode %s to nil", "doAuth#fd2f6687")
 	}
 	if err := b.ConsumeID(DoAuthRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode doAuth#fd2f6687: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "doAuth#fd2f6687", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -112,7 +112,7 @@ func (d *DoAuthRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DoAuthRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode doAuth#fd2f6687 to nil")
+		return fmt.Errorf("can't decode %s to nil", "doAuth#fd2f6687")
 	}
 	return nil
 }

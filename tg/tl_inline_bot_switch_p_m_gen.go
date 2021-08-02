@@ -114,7 +114,7 @@ func (i *InlineBotSwitchPM) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InlineBotSwitchPM) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineBotSwitchPM#3c20629f as nil")
+		return fmt.Errorf("can't encode %s as nil", "inlineBotSwitchPM#3c20629f")
 	}
 	b.PutID(InlineBotSwitchPMTypeID)
 	return i.EncodeBare(b)
@@ -123,7 +123,7 @@ func (i *InlineBotSwitchPM) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InlineBotSwitchPM) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineBotSwitchPM#3c20629f as nil")
+		return fmt.Errorf("can't encode %s as nil", "inlineBotSwitchPM#3c20629f")
 	}
 	b.PutString(i.Text)
 	b.PutString(i.StartParam)
@@ -143,10 +143,10 @@ func (i *InlineBotSwitchPM) GetStartParam() (value string) {
 // Decode implements bin.Decoder.
 func (i *InlineBotSwitchPM) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineBotSwitchPM#3c20629f to nil")
+		return fmt.Errorf("can't decode %s to nil", "inlineBotSwitchPM#3c20629f")
 	}
 	if err := b.ConsumeID(InlineBotSwitchPMTypeID); err != nil {
-		return fmt.Errorf("unable to decode inlineBotSwitchPM#3c20629f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inlineBotSwitchPM#3c20629f", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -154,19 +154,19 @@ func (i *InlineBotSwitchPM) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InlineBotSwitchPM) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineBotSwitchPM#3c20629f to nil")
+		return fmt.Errorf("can't decode %s to nil", "inlineBotSwitchPM#3c20629f")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inlineBotSwitchPM#3c20629f: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inlineBotSwitchPM#3c20629f", "text", err)
 		}
 		i.Text = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inlineBotSwitchPM#3c20629f: field start_param: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inlineBotSwitchPM#3c20629f", "start_param", err)
 		}
 		i.StartParam = value
 	}

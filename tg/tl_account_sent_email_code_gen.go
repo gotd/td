@@ -116,7 +116,7 @@ func (s *AccountSentEmailCode) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSentEmailCode) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.sentEmailCode#811f854f as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.sentEmailCode#811f854f")
 	}
 	b.PutID(AccountSentEmailCodeTypeID)
 	return s.EncodeBare(b)
@@ -125,7 +125,7 @@ func (s *AccountSentEmailCode) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSentEmailCode) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.sentEmailCode#811f854f as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.sentEmailCode#811f854f")
 	}
 	b.PutString(s.EmailPattern)
 	b.PutInt(s.Length)
@@ -145,10 +145,10 @@ func (s *AccountSentEmailCode) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (s *AccountSentEmailCode) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.sentEmailCode#811f854f to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.sentEmailCode#811f854f")
 	}
 	if err := b.ConsumeID(AccountSentEmailCodeTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.sentEmailCode#811f854f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.sentEmailCode#811f854f", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -156,19 +156,19 @@ func (s *AccountSentEmailCode) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSentEmailCode) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.sentEmailCode#811f854f to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.sentEmailCode#811f854f")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.sentEmailCode#811f854f: field email_pattern: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.sentEmailCode#811f854f", "email_pattern", err)
 		}
 		s.EmailPattern = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.sentEmailCode#811f854f: field length: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.sentEmailCode#811f854f", "length", err)
 		}
 		s.Length = value
 	}

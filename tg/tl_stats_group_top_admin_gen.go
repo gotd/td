@@ -144,7 +144,7 @@ func (s *StatsGroupTopAdmin) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsGroupTopAdmin) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGroupTopAdmin#6014f412 as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsGroupTopAdmin#6014f412")
 	}
 	b.PutID(StatsGroupTopAdminTypeID)
 	return s.EncodeBare(b)
@@ -153,7 +153,7 @@ func (s *StatsGroupTopAdmin) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsGroupTopAdmin) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGroupTopAdmin#6014f412 as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsGroupTopAdmin#6014f412")
 	}
 	b.PutInt(s.UserID)
 	b.PutInt(s.Deleted)
@@ -185,10 +185,10 @@ func (s *StatsGroupTopAdmin) GetBanned() (value int) {
 // Decode implements bin.Decoder.
 func (s *StatsGroupTopAdmin) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGroupTopAdmin#6014f412 to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsGroupTopAdmin#6014f412")
 	}
 	if err := b.ConsumeID(StatsGroupTopAdminTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsGroupTopAdmin#6014f412: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "statsGroupTopAdmin#6014f412", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -196,33 +196,33 @@ func (s *StatsGroupTopAdmin) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsGroupTopAdmin) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGroupTopAdmin#6014f412 to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsGroupTopAdmin#6014f412")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopAdmin#6014f412: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGroupTopAdmin#6014f412", "user_id", err)
 		}
 		s.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopAdmin#6014f412: field deleted: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGroupTopAdmin#6014f412", "deleted", err)
 		}
 		s.Deleted = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopAdmin#6014f412: field kicked: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGroupTopAdmin#6014f412", "kicked", err)
 		}
 		s.Kicked = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopAdmin#6014f412: field banned: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGroupTopAdmin#6014f412", "banned", err)
 		}
 		s.Banned = value
 	}

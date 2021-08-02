@@ -137,7 +137,7 @@ func (e *AuthExportLoginTokenRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *AuthExportLoginTokenRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode auth.exportLoginToken#b1b41517 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.exportLoginToken#b1b41517")
 	}
 	b.PutID(AuthExportLoginTokenRequestTypeID)
 	return e.EncodeBare(b)
@@ -146,7 +146,7 @@ func (e *AuthExportLoginTokenRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *AuthExportLoginTokenRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode auth.exportLoginToken#b1b41517 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.exportLoginToken#b1b41517")
 	}
 	b.PutInt(e.APIID)
 	b.PutString(e.APIHash)
@@ -175,10 +175,10 @@ func (e *AuthExportLoginTokenRequest) GetExceptIDs() (value []int) {
 // Decode implements bin.Decoder.
 func (e *AuthExportLoginTokenRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode auth.exportLoginToken#b1b41517 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.exportLoginToken#b1b41517")
 	}
 	if err := b.ConsumeID(AuthExportLoginTokenRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "auth.exportLoginToken#b1b41517", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -186,31 +186,31 @@ func (e *AuthExportLoginTokenRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *AuthExportLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode auth.exportLoginToken#b1b41517 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.exportLoginToken#b1b41517")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: field api_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.exportLoginToken#b1b41517", "api_id", err)
 		}
 		e.APIID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: field api_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.exportLoginToken#b1b41517", "api_hash", err)
 		}
 		e.APIHash = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: field except_ids: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.exportLoginToken#b1b41517", "except_ids", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: field except_ids: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "auth.exportLoginToken#b1b41517", "except_ids", err)
 			}
 			e.ExceptIDs = append(e.ExceptIDs, value)
 		}

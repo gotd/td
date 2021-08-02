@@ -105,7 +105,7 @@ func (m *MessagesMigrateChatRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessagesMigrateChatRequest) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messages.migrateChat#15a3b8e3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.migrateChat#15a3b8e3")
 	}
 	b.PutID(MessagesMigrateChatRequestTypeID)
 	return m.EncodeBare(b)
@@ -114,7 +114,7 @@ func (m *MessagesMigrateChatRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessagesMigrateChatRequest) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messages.migrateChat#15a3b8e3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.migrateChat#15a3b8e3")
 	}
 	b.PutInt(m.ChatID)
 	return nil
@@ -128,10 +128,10 @@ func (m *MessagesMigrateChatRequest) GetChatID() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessagesMigrateChatRequest) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messages.migrateChat#15a3b8e3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.migrateChat#15a3b8e3")
 	}
 	if err := b.ConsumeID(MessagesMigrateChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.migrateChat#15a3b8e3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.migrateChat#15a3b8e3", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -139,12 +139,12 @@ func (m *MessagesMigrateChatRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessagesMigrateChatRequest) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messages.migrateChat#15a3b8e3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.migrateChat#15a3b8e3")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.migrateChat#15a3b8e3: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.migrateChat#15a3b8e3", "chat_id", err)
 		}
 		m.ChatID = value
 	}

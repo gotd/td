@@ -117,7 +117,7 @@ func (g *MessagesGetDhConfigRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetDhConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDhConfig#26cf8950 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getDhConfig#26cf8950")
 	}
 	b.PutID(MessagesGetDhConfigRequestTypeID)
 	return g.EncodeBare(b)
@@ -126,7 +126,7 @@ func (g *MessagesGetDhConfigRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetDhConfigRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDhConfig#26cf8950 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getDhConfig#26cf8950")
 	}
 	b.PutInt(g.Version)
 	b.PutInt(g.RandomLength)
@@ -146,10 +146,10 @@ func (g *MessagesGetDhConfigRequest) GetRandomLength() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetDhConfigRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDhConfig#26cf8950 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getDhConfig#26cf8950")
 	}
 	if err := b.ConsumeID(MessagesGetDhConfigRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getDhConfig#26cf8950: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getDhConfig#26cf8950", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -157,19 +157,19 @@ func (g *MessagesGetDhConfigRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetDhConfigRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDhConfig#26cf8950 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getDhConfig#26cf8950")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDhConfig#26cf8950: field version: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getDhConfig#26cf8950", "version", err)
 		}
 		g.Version = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDhConfig#26cf8950: field random_length: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getDhConfig#26cf8950", "random_length", err)
 		}
 		g.RandomLength = value
 	}

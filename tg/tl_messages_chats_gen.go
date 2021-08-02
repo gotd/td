@@ -102,7 +102,7 @@ func (c *MessagesChats) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *MessagesChats) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.chats#64ff9fd5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.chats#64ff9fd5")
 	}
 	b.PutID(MessagesChatsTypeID)
 	return c.EncodeBare(b)
@@ -111,15 +111,15 @@ func (c *MessagesChats) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesChats) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.chats#64ff9fd5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.chats#64ff9fd5")
 	}
 	b.PutVectorHeader(len(c.Chats))
 	for idx, v := range c.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.chats#64ff9fd5: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.chats#64ff9fd5", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.chats#64ff9fd5: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.chats#64ff9fd5", "chats", idx, err)
 		}
 	}
 	return nil
@@ -138,10 +138,10 @@ func (c *MessagesChats) MapChats() (value ChatClassArray) {
 // Decode implements bin.Decoder.
 func (c *MessagesChats) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.chats#64ff9fd5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.chats#64ff9fd5")
 	}
 	if err := b.ConsumeID(MessagesChatsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.chats#64ff9fd5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.chats#64ff9fd5", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -149,17 +149,17 @@ func (c *MessagesChats) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesChats) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.chats#64ff9fd5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.chats#64ff9fd5")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.chats#64ff9fd5: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.chats#64ff9fd5", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.chats#64ff9fd5: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.chats#64ff9fd5", "chats", err)
 			}
 			c.Chats = append(c.Chats, value)
 		}
@@ -267,7 +267,7 @@ func (c *MessagesChatsSlice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *MessagesChatsSlice) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.chatsSlice#9cd81144 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.chatsSlice#9cd81144")
 	}
 	b.PutID(MessagesChatsSliceTypeID)
 	return c.EncodeBare(b)
@@ -276,16 +276,16 @@ func (c *MessagesChatsSlice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesChatsSlice) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.chatsSlice#9cd81144 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.chatsSlice#9cd81144")
 	}
 	b.PutInt(c.Count)
 	b.PutVectorHeader(len(c.Chats))
 	for idx, v := range c.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.chatsSlice#9cd81144: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.chatsSlice#9cd81144", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.chatsSlice#9cd81144: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.chatsSlice#9cd81144", "chats", idx, err)
 		}
 	}
 	return nil
@@ -309,10 +309,10 @@ func (c *MessagesChatsSlice) MapChats() (value ChatClassArray) {
 // Decode implements bin.Decoder.
 func (c *MessagesChatsSlice) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.chatsSlice#9cd81144 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.chatsSlice#9cd81144")
 	}
 	if err := b.ConsumeID(MessagesChatsSliceTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.chatsSlice#9cd81144: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.chatsSlice#9cd81144", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -320,24 +320,24 @@ func (c *MessagesChatsSlice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesChatsSlice) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.chatsSlice#9cd81144 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.chatsSlice#9cd81144")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.chatsSlice#9cd81144: field count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.chatsSlice#9cd81144", "count", err)
 		}
 		c.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.chatsSlice#9cd81144: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.chatsSlice#9cd81144", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.chatsSlice#9cd81144: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.chatsSlice#9cd81144", "chats", err)
 			}
 			c.Chats = append(c.Chats, value)
 		}
@@ -407,18 +407,18 @@ func DecodeMessagesChats(buf *bin.Buffer) (MessagesChatsClass, error) {
 		// Decoding messages.chats#64ff9fd5.
 		v := MessagesChats{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesChatsClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesChatsClass", err)
 		}
 		return &v, nil
 	case MessagesChatsSliceTypeID:
 		// Decoding messages.chatsSlice#9cd81144.
 		v := MessagesChatsSlice{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesChatsClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "MessagesChatsClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessagesChatsClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "MessagesChatsClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -430,7 +430,7 @@ type MessagesChatsBox struct {
 // Decode implements bin.Decoder for MessagesChatsBox.
 func (b *MessagesChatsBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode MessagesChatsBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "MessagesChats")
 	}
 	v, err := DecodeMessagesChats(buf)
 	if err != nil {
@@ -443,7 +443,7 @@ func (b *MessagesChatsBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for MessagesChatsBox.
 func (b *MessagesChatsBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Chats == nil {
-		return fmt.Errorf("unable to encode MessagesChatsClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "MessagesChatsClass")
 	}
 	return b.Chats.Encode(buf)
 }

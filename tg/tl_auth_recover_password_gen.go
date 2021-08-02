@@ -129,7 +129,7 @@ func (r *AuthRecoverPasswordRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AuthRecoverPasswordRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode auth.recoverPassword#37096c70 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.recoverPassword#37096c70")
 	}
 	b.PutID(AuthRecoverPasswordRequestTypeID)
 	return r.EncodeBare(b)
@@ -138,18 +138,18 @@ func (r *AuthRecoverPasswordRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AuthRecoverPasswordRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode auth.recoverPassword#37096c70 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.recoverPassword#37096c70")
 	}
 	if !(r.NewSettings.Zero()) {
 		r.Flags.Set(0)
 	}
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode auth.recoverPassword#37096c70: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "auth.recoverPassword#37096c70", "flags", err)
 	}
 	b.PutString(r.Code)
 	if r.Flags.Has(0) {
 		if err := r.NewSettings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode auth.recoverPassword#37096c70: field new_settings: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "auth.recoverPassword#37096c70", "new_settings", err)
 		}
 	}
 	return nil
@@ -178,10 +178,10 @@ func (r *AuthRecoverPasswordRequest) GetNewSettings() (value AccountPasswordInpu
 // Decode implements bin.Decoder.
 func (r *AuthRecoverPasswordRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode auth.recoverPassword#37096c70 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.recoverPassword#37096c70")
 	}
 	if err := b.ConsumeID(AuthRecoverPasswordRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.recoverPassword#37096c70: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "auth.recoverPassword#37096c70", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -189,23 +189,23 @@ func (r *AuthRecoverPasswordRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AuthRecoverPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode auth.recoverPassword#37096c70 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.recoverPassword#37096c70")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode auth.recoverPassword#37096c70: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.recoverPassword#37096c70", "flags", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.recoverPassword#37096c70: field code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.recoverPassword#37096c70", "code", err)
 		}
 		r.Code = value
 	}
 	if r.Flags.Has(0) {
 		if err := r.NewSettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode auth.recoverPassword#37096c70: field new_settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.recoverPassword#37096c70", "new_settings", err)
 		}
 	}
 	return nil

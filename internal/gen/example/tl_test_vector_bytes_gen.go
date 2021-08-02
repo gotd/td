@@ -101,7 +101,7 @@ func (t *TestVectorBytes) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TestVectorBytes) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testVectorBytes#a590fb25 as nil")
+		return fmt.Errorf("can't encode %s as nil", "testVectorBytes#a590fb25")
 	}
 	b.PutID(TestVectorBytesTypeID)
 	return t.EncodeBare(b)
@@ -110,7 +110,7 @@ func (t *TestVectorBytes) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TestVectorBytes) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testVectorBytes#a590fb25 as nil")
+		return fmt.Errorf("can't encode %s as nil", "testVectorBytes#a590fb25")
 	}
 	b.PutInt(len(t.Value))
 	for _, v := range t.Value {
@@ -127,10 +127,10 @@ func (t *TestVectorBytes) GetValue() (value [][]byte) {
 // Decode implements bin.Decoder.
 func (t *TestVectorBytes) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testVectorBytes#a590fb25 to nil")
+		return fmt.Errorf("can't decode %s to nil", "testVectorBytes#a590fb25")
 	}
 	if err := b.ConsumeID(TestVectorBytesTypeID); err != nil {
-		return fmt.Errorf("unable to decode testVectorBytes#a590fb25: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "testVectorBytes#a590fb25", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -138,17 +138,17 @@ func (t *TestVectorBytes) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TestVectorBytes) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testVectorBytes#a590fb25 to nil")
+		return fmt.Errorf("can't decode %s to nil", "testVectorBytes#a590fb25")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode testVectorBytes#a590fb25: field value: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "testVectorBytes#a590fb25", "value", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode testVectorBytes#a590fb25: field value: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "testVectorBytes#a590fb25", "value", err)
 			}
 			t.Value = append(t.Value, value)
 		}

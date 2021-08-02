@@ -116,7 +116,7 @@ func (i *InputClientProxy) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputClientProxy) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputClientProxy#75588b3f as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputClientProxy#75588b3f")
 	}
 	b.PutID(InputClientProxyTypeID)
 	return i.EncodeBare(b)
@@ -125,7 +125,7 @@ func (i *InputClientProxy) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputClientProxy) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputClientProxy#75588b3f as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputClientProxy#75588b3f")
 	}
 	b.PutString(i.Address)
 	b.PutInt(i.Port)
@@ -145,10 +145,10 @@ func (i *InputClientProxy) GetPort() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputClientProxy) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputClientProxy#75588b3f to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputClientProxy#75588b3f")
 	}
 	if err := b.ConsumeID(InputClientProxyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputClientProxy#75588b3f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputClientProxy#75588b3f", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -156,19 +156,19 @@ func (i *InputClientProxy) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputClientProxy) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputClientProxy#75588b3f to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputClientProxy#75588b3f")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputClientProxy#75588b3f: field address: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputClientProxy#75588b3f", "address", err)
 		}
 		i.Address = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputClientProxy#75588b3f: field port: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputClientProxy#75588b3f", "port", err)
 		}
 		i.Port = value
 	}

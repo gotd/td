@@ -113,7 +113,7 @@ func (c *Contact) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *Contact) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contact#f911c994 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contact#f911c994")
 	}
 	b.PutID(ContactTypeID)
 	return c.EncodeBare(b)
@@ -122,7 +122,7 @@ func (c *Contact) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *Contact) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contact#f911c994 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contact#f911c994")
 	}
 	b.PutInt(c.UserID)
 	b.PutBool(c.Mutual)
@@ -142,10 +142,10 @@ func (c *Contact) GetMutual() (value bool) {
 // Decode implements bin.Decoder.
 func (c *Contact) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contact#f911c994 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contact#f911c994")
 	}
 	if err := b.ConsumeID(ContactTypeID); err != nil {
-		return fmt.Errorf("unable to decode contact#f911c994: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contact#f911c994", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -153,19 +153,19 @@ func (c *Contact) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *Contact) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contact#f911c994 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contact#f911c994")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contact#f911c994: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contact#f911c994", "user_id", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode contact#f911c994: field mutual: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contact#f911c994", "mutual", err)
 		}
 		c.Mutual = value
 	}

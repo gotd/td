@@ -242,7 +242,7 @@ func (s *MessagesSendInlineBotResultRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSendInlineBotResultRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendInlineBotResult#220815b0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.sendInlineBotResult#220815b0")
 	}
 	b.PutID(MessagesSendInlineBotResultRequestTypeID)
 	return s.EncodeBare(b)
@@ -251,7 +251,7 @@ func (s *MessagesSendInlineBotResultRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendInlineBotResultRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendInlineBotResult#220815b0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.sendInlineBotResult#220815b0")
 	}
 	if !(s.Silent == false) {
 		s.Flags.Set(5)
@@ -272,13 +272,13 @@ func (s *MessagesSendInlineBotResultRequest) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(10)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendInlineBotResult#220815b0: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.sendInlineBotResult#220815b0", "flags", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendInlineBotResult#220815b0: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.sendInlineBotResult#220815b0", "peer")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendInlineBotResult#220815b0: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.sendInlineBotResult#220815b0", "peer", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutInt(s.ReplyToMsgID)
@@ -409,10 +409,10 @@ func (s *MessagesSendInlineBotResultRequest) GetScheduleDate() (value int, ok bo
 // Decode implements bin.Decoder.
 func (s *MessagesSendInlineBotResultRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendInlineBotResult#220815b0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.sendInlineBotResult#220815b0")
 	}
 	if err := b.ConsumeID(MessagesSendInlineBotResultRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendInlineBotResult#220815b0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.sendInlineBotResult#220815b0", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -420,11 +420,11 @@ func (s *MessagesSendInlineBotResultRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendInlineBotResultRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendInlineBotResult#220815b0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.sendInlineBotResult#220815b0")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#220815b0: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendInlineBotResult#220815b0", "flags", err)
 		}
 	}
 	s.Silent = s.Flags.Has(5)
@@ -434,42 +434,42 @@ func (s *MessagesSendInlineBotResultRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#220815b0: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendInlineBotResult#220815b0", "peer", err)
 		}
 		s.Peer = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#220815b0: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendInlineBotResult#220815b0", "reply_to_msg_id", err)
 		}
 		s.ReplyToMsgID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#220815b0: field random_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendInlineBotResult#220815b0", "random_id", err)
 		}
 		s.RandomID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#220815b0: field query_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendInlineBotResult#220815b0", "query_id", err)
 		}
 		s.QueryID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#220815b0: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendInlineBotResult#220815b0", "id", err)
 		}
 		s.ID = value
 	}
 	if s.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#220815b0: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendInlineBotResult#220815b0", "schedule_date", err)
 		}
 		s.ScheduleDate = value
 	}

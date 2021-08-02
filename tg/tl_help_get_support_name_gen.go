@@ -85,7 +85,7 @@ func (g *HelpGetSupportNameRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetSupportNameRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getSupportName#d360e72c as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getSupportName#d360e72c")
 	}
 	b.PutID(HelpGetSupportNameRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +94,7 @@ func (g *HelpGetSupportNameRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetSupportNameRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getSupportName#d360e72c as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getSupportName#d360e72c")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (g *HelpGetSupportNameRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *HelpGetSupportNameRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getSupportName#d360e72c to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getSupportName#d360e72c")
 	}
 	if err := b.ConsumeID(HelpGetSupportNameRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getSupportName#d360e72c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.getSupportName#d360e72c", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (g *HelpGetSupportNameRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetSupportNameRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getSupportName#d360e72c to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getSupportName#d360e72c")
 	}
 	return nil
 }

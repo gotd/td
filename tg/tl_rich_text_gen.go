@@ -85,7 +85,7 @@ func (t *TextEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEmpty) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEmpty#dc3d824f as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEmpty#dc3d824f")
 	}
 	b.PutID(TextEmptyTypeID)
 	return t.EncodeBare(b)
@@ -94,7 +94,7 @@ func (t *TextEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEmpty) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEmpty#dc3d824f as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEmpty#dc3d824f")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (t *TextEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEmpty) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEmpty#dc3d824f to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEmpty#dc3d824f")
 	}
 	if err := b.ConsumeID(TextEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEmpty#dc3d824f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEmpty#dc3d824f", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (t *TextEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEmpty) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEmpty#dc3d824f to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEmpty#dc3d824f")
 	}
 	return nil
 }
@@ -204,7 +204,7 @@ func (t *TextPlain) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextPlain) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textPlain#744694e0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textPlain#744694e0")
 	}
 	b.PutID(TextPlainTypeID)
 	return t.EncodeBare(b)
@@ -213,7 +213,7 @@ func (t *TextPlain) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextPlain) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textPlain#744694e0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textPlain#744694e0")
 	}
 	b.PutString(t.Text)
 	return nil
@@ -227,10 +227,10 @@ func (t *TextPlain) GetText() (value string) {
 // Decode implements bin.Decoder.
 func (t *TextPlain) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textPlain#744694e0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textPlain#744694e0")
 	}
 	if err := b.ConsumeID(TextPlainTypeID); err != nil {
-		return fmt.Errorf("unable to decode textPlain#744694e0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textPlain#744694e0", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -238,12 +238,12 @@ func (t *TextPlain) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextPlain) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textPlain#744694e0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textPlain#744694e0")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode textPlain#744694e0: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textPlain#744694e0", "text", err)
 		}
 		t.Text = value
 	}
@@ -336,7 +336,7 @@ func (t *TextBold) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextBold) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textBold#6724abc4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textBold#6724abc4")
 	}
 	b.PutID(TextBoldTypeID)
 	return t.EncodeBare(b)
@@ -345,13 +345,13 @@ func (t *TextBold) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextBold) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textBold#6724abc4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textBold#6724abc4")
 	}
 	if t.Text == nil {
-		return fmt.Errorf("unable to encode textBold#6724abc4: field text is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "textBold#6724abc4", "text")
 	}
 	if err := t.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textBold#6724abc4: field text: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "textBold#6724abc4", "text", err)
 	}
 	return nil
 }
@@ -364,10 +364,10 @@ func (t *TextBold) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (t *TextBold) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textBold#6724abc4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textBold#6724abc4")
 	}
 	if err := b.ConsumeID(TextBoldTypeID); err != nil {
-		return fmt.Errorf("unable to decode textBold#6724abc4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textBold#6724abc4", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -375,12 +375,12 @@ func (t *TextBold) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextBold) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textBold#6724abc4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textBold#6724abc4")
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textBold#6724abc4: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textBold#6724abc4", "text", err)
 		}
 		t.Text = value
 	}
@@ -473,7 +473,7 @@ func (t *TextItalic) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextItalic) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textItalic#d912a59c as nil")
+		return fmt.Errorf("can't encode %s as nil", "textItalic#d912a59c")
 	}
 	b.PutID(TextItalicTypeID)
 	return t.EncodeBare(b)
@@ -482,13 +482,13 @@ func (t *TextItalic) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextItalic) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textItalic#d912a59c as nil")
+		return fmt.Errorf("can't encode %s as nil", "textItalic#d912a59c")
 	}
 	if t.Text == nil {
-		return fmt.Errorf("unable to encode textItalic#d912a59c: field text is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "textItalic#d912a59c", "text")
 	}
 	if err := t.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textItalic#d912a59c: field text: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "textItalic#d912a59c", "text", err)
 	}
 	return nil
 }
@@ -501,10 +501,10 @@ func (t *TextItalic) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (t *TextItalic) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textItalic#d912a59c to nil")
+		return fmt.Errorf("can't decode %s to nil", "textItalic#d912a59c")
 	}
 	if err := b.ConsumeID(TextItalicTypeID); err != nil {
-		return fmt.Errorf("unable to decode textItalic#d912a59c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textItalic#d912a59c", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -512,12 +512,12 @@ func (t *TextItalic) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextItalic) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textItalic#d912a59c to nil")
+		return fmt.Errorf("can't decode %s to nil", "textItalic#d912a59c")
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textItalic#d912a59c: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textItalic#d912a59c", "text", err)
 		}
 		t.Text = value
 	}
@@ -610,7 +610,7 @@ func (t *TextUnderline) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextUnderline) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textUnderline#c12622c4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textUnderline#c12622c4")
 	}
 	b.PutID(TextUnderlineTypeID)
 	return t.EncodeBare(b)
@@ -619,13 +619,13 @@ func (t *TextUnderline) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextUnderline) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textUnderline#c12622c4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textUnderline#c12622c4")
 	}
 	if t.Text == nil {
-		return fmt.Errorf("unable to encode textUnderline#c12622c4: field text is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "textUnderline#c12622c4", "text")
 	}
 	if err := t.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textUnderline#c12622c4: field text: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "textUnderline#c12622c4", "text", err)
 	}
 	return nil
 }
@@ -638,10 +638,10 @@ func (t *TextUnderline) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (t *TextUnderline) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textUnderline#c12622c4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textUnderline#c12622c4")
 	}
 	if err := b.ConsumeID(TextUnderlineTypeID); err != nil {
-		return fmt.Errorf("unable to decode textUnderline#c12622c4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textUnderline#c12622c4", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -649,12 +649,12 @@ func (t *TextUnderline) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextUnderline) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textUnderline#c12622c4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textUnderline#c12622c4")
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textUnderline#c12622c4: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textUnderline#c12622c4", "text", err)
 		}
 		t.Text = value
 	}
@@ -747,7 +747,7 @@ func (t *TextStrike) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextStrike) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textStrike#9bf8bb95 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textStrike#9bf8bb95")
 	}
 	b.PutID(TextStrikeTypeID)
 	return t.EncodeBare(b)
@@ -756,13 +756,13 @@ func (t *TextStrike) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextStrike) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textStrike#9bf8bb95 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textStrike#9bf8bb95")
 	}
 	if t.Text == nil {
-		return fmt.Errorf("unable to encode textStrike#9bf8bb95: field text is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "textStrike#9bf8bb95", "text")
 	}
 	if err := t.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textStrike#9bf8bb95: field text: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "textStrike#9bf8bb95", "text", err)
 	}
 	return nil
 }
@@ -775,10 +775,10 @@ func (t *TextStrike) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (t *TextStrike) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textStrike#9bf8bb95 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textStrike#9bf8bb95")
 	}
 	if err := b.ConsumeID(TextStrikeTypeID); err != nil {
-		return fmt.Errorf("unable to decode textStrike#9bf8bb95: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textStrike#9bf8bb95", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -786,12 +786,12 @@ func (t *TextStrike) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextStrike) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textStrike#9bf8bb95 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textStrike#9bf8bb95")
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textStrike#9bf8bb95: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textStrike#9bf8bb95", "text", err)
 		}
 		t.Text = value
 	}
@@ -884,7 +884,7 @@ func (t *TextFixed) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextFixed) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textFixed#6c3f19b9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textFixed#6c3f19b9")
 	}
 	b.PutID(TextFixedTypeID)
 	return t.EncodeBare(b)
@@ -893,13 +893,13 @@ func (t *TextFixed) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextFixed) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textFixed#6c3f19b9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textFixed#6c3f19b9")
 	}
 	if t.Text == nil {
-		return fmt.Errorf("unable to encode textFixed#6c3f19b9: field text is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "textFixed#6c3f19b9", "text")
 	}
 	if err := t.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textFixed#6c3f19b9: field text: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "textFixed#6c3f19b9", "text", err)
 	}
 	return nil
 }
@@ -912,10 +912,10 @@ func (t *TextFixed) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (t *TextFixed) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textFixed#6c3f19b9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textFixed#6c3f19b9")
 	}
 	if err := b.ConsumeID(TextFixedTypeID); err != nil {
-		return fmt.Errorf("unable to decode textFixed#6c3f19b9: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textFixed#6c3f19b9", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -923,12 +923,12 @@ func (t *TextFixed) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextFixed) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textFixed#6c3f19b9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textFixed#6c3f19b9")
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textFixed#6c3f19b9: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textFixed#6c3f19b9", "text", err)
 		}
 		t.Text = value
 	}
@@ -1043,7 +1043,7 @@ func (t *TextURL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextURL) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textUrl#3c2884c1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textUrl#3c2884c1")
 	}
 	b.PutID(TextURLTypeID)
 	return t.EncodeBare(b)
@@ -1052,13 +1052,13 @@ func (t *TextURL) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextURL) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textUrl#3c2884c1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textUrl#3c2884c1")
 	}
 	if t.Text == nil {
-		return fmt.Errorf("unable to encode textUrl#3c2884c1: field text is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "textUrl#3c2884c1", "text")
 	}
 	if err := t.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textUrl#3c2884c1: field text: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "textUrl#3c2884c1", "text", err)
 	}
 	b.PutString(t.URL)
 	b.PutLong(t.WebpageID)
@@ -1083,10 +1083,10 @@ func (t *TextURL) GetWebpageID() (value int64) {
 // Decode implements bin.Decoder.
 func (t *TextURL) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textUrl#3c2884c1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textUrl#3c2884c1")
 	}
 	if err := b.ConsumeID(TextURLTypeID); err != nil {
-		return fmt.Errorf("unable to decode textUrl#3c2884c1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textUrl#3c2884c1", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1094,26 +1094,26 @@ func (t *TextURL) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextURL) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textUrl#3c2884c1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textUrl#3c2884c1")
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textUrl#3c2884c1: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textUrl#3c2884c1", "text", err)
 		}
 		t.Text = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode textUrl#3c2884c1: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textUrl#3c2884c1", "url", err)
 		}
 		t.URL = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode textUrl#3c2884c1: field webpage_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textUrl#3c2884c1", "webpage_id", err)
 		}
 		t.WebpageID = value
 	}
@@ -1217,7 +1217,7 @@ func (t *TextEmail) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEmail) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEmail#de5a0dd6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEmail#de5a0dd6")
 	}
 	b.PutID(TextEmailTypeID)
 	return t.EncodeBare(b)
@@ -1226,13 +1226,13 @@ func (t *TextEmail) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEmail) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEmail#de5a0dd6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEmail#de5a0dd6")
 	}
 	if t.Text == nil {
-		return fmt.Errorf("unable to encode textEmail#de5a0dd6: field text is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "textEmail#de5a0dd6", "text")
 	}
 	if err := t.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textEmail#de5a0dd6: field text: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "textEmail#de5a0dd6", "text", err)
 	}
 	b.PutString(t.Email)
 	return nil
@@ -1251,10 +1251,10 @@ func (t *TextEmail) GetEmail() (value string) {
 // Decode implements bin.Decoder.
 func (t *TextEmail) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEmail#de5a0dd6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEmail#de5a0dd6")
 	}
 	if err := b.ConsumeID(TextEmailTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEmail#de5a0dd6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEmail#de5a0dd6", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1262,19 +1262,19 @@ func (t *TextEmail) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEmail) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEmail#de5a0dd6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEmail#de5a0dd6")
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textEmail#de5a0dd6: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textEmail#de5a0dd6", "text", err)
 		}
 		t.Text = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode textEmail#de5a0dd6: field email: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textEmail#de5a0dd6", "email", err)
 		}
 		t.Email = value
 	}
@@ -1367,7 +1367,7 @@ func (t *TextConcat) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextConcat) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textConcat#7e6260d7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textConcat#7e6260d7")
 	}
 	b.PutID(TextConcatTypeID)
 	return t.EncodeBare(b)
@@ -1376,15 +1376,15 @@ func (t *TextConcat) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextConcat) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textConcat#7e6260d7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textConcat#7e6260d7")
 	}
 	b.PutVectorHeader(len(t.Texts))
 	for idx, v := range t.Texts {
 		if v == nil {
-			return fmt.Errorf("unable to encode textConcat#7e6260d7: field texts element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "textConcat#7e6260d7", "texts", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode textConcat#7e6260d7: field texts element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "textConcat#7e6260d7", "texts", idx, err)
 		}
 	}
 	return nil
@@ -1403,10 +1403,10 @@ func (t *TextConcat) MapTexts() (value RichTextClassArray) {
 // Decode implements bin.Decoder.
 func (t *TextConcat) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textConcat#7e6260d7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textConcat#7e6260d7")
 	}
 	if err := b.ConsumeID(TextConcatTypeID); err != nil {
-		return fmt.Errorf("unable to decode textConcat#7e6260d7: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textConcat#7e6260d7", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1414,17 +1414,17 @@ func (t *TextConcat) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextConcat) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textConcat#7e6260d7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textConcat#7e6260d7")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode textConcat#7e6260d7: field texts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textConcat#7e6260d7", "texts", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeRichText(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode textConcat#7e6260d7: field texts: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "textConcat#7e6260d7", "texts", err)
 			}
 			t.Texts = append(t.Texts, value)
 		}
@@ -1518,7 +1518,7 @@ func (t *TextSubscript) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextSubscript) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textSubscript#ed6a8504 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textSubscript#ed6a8504")
 	}
 	b.PutID(TextSubscriptTypeID)
 	return t.EncodeBare(b)
@@ -1527,13 +1527,13 @@ func (t *TextSubscript) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextSubscript) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textSubscript#ed6a8504 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textSubscript#ed6a8504")
 	}
 	if t.Text == nil {
-		return fmt.Errorf("unable to encode textSubscript#ed6a8504: field text is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "textSubscript#ed6a8504", "text")
 	}
 	if err := t.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textSubscript#ed6a8504: field text: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "textSubscript#ed6a8504", "text", err)
 	}
 	return nil
 }
@@ -1546,10 +1546,10 @@ func (t *TextSubscript) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (t *TextSubscript) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textSubscript#ed6a8504 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textSubscript#ed6a8504")
 	}
 	if err := b.ConsumeID(TextSubscriptTypeID); err != nil {
-		return fmt.Errorf("unable to decode textSubscript#ed6a8504: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textSubscript#ed6a8504", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1557,12 +1557,12 @@ func (t *TextSubscript) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextSubscript) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textSubscript#ed6a8504 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textSubscript#ed6a8504")
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textSubscript#ed6a8504: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textSubscript#ed6a8504", "text", err)
 		}
 		t.Text = value
 	}
@@ -1655,7 +1655,7 @@ func (t *TextSuperscript) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextSuperscript) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textSuperscript#c7fb5e01 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textSuperscript#c7fb5e01")
 	}
 	b.PutID(TextSuperscriptTypeID)
 	return t.EncodeBare(b)
@@ -1664,13 +1664,13 @@ func (t *TextSuperscript) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextSuperscript) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textSuperscript#c7fb5e01 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textSuperscript#c7fb5e01")
 	}
 	if t.Text == nil {
-		return fmt.Errorf("unable to encode textSuperscript#c7fb5e01: field text is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "textSuperscript#c7fb5e01", "text")
 	}
 	if err := t.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textSuperscript#c7fb5e01: field text: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "textSuperscript#c7fb5e01", "text", err)
 	}
 	return nil
 }
@@ -1683,10 +1683,10 @@ func (t *TextSuperscript) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (t *TextSuperscript) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textSuperscript#c7fb5e01 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textSuperscript#c7fb5e01")
 	}
 	if err := b.ConsumeID(TextSuperscriptTypeID); err != nil {
-		return fmt.Errorf("unable to decode textSuperscript#c7fb5e01: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textSuperscript#c7fb5e01", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1694,12 +1694,12 @@ func (t *TextSuperscript) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextSuperscript) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textSuperscript#c7fb5e01 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textSuperscript#c7fb5e01")
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textSuperscript#c7fb5e01: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textSuperscript#c7fb5e01", "text", err)
 		}
 		t.Text = value
 	}
@@ -1792,7 +1792,7 @@ func (t *TextMarked) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextMarked) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textMarked#34b8621 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textMarked#34b8621")
 	}
 	b.PutID(TextMarkedTypeID)
 	return t.EncodeBare(b)
@@ -1801,13 +1801,13 @@ func (t *TextMarked) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextMarked) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textMarked#34b8621 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textMarked#34b8621")
 	}
 	if t.Text == nil {
-		return fmt.Errorf("unable to encode textMarked#34b8621: field text is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "textMarked#34b8621", "text")
 	}
 	if err := t.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textMarked#34b8621: field text: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "textMarked#34b8621", "text", err)
 	}
 	return nil
 }
@@ -1820,10 +1820,10 @@ func (t *TextMarked) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (t *TextMarked) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textMarked#34b8621 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textMarked#34b8621")
 	}
 	if err := b.ConsumeID(TextMarkedTypeID); err != nil {
-		return fmt.Errorf("unable to decode textMarked#34b8621: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textMarked#34b8621", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1831,12 +1831,12 @@ func (t *TextMarked) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextMarked) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textMarked#34b8621 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textMarked#34b8621")
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textMarked#34b8621: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textMarked#34b8621", "text", err)
 		}
 		t.Text = value
 	}
@@ -1940,7 +1940,7 @@ func (t *TextPhone) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextPhone) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textPhone#1ccb966a as nil")
+		return fmt.Errorf("can't encode %s as nil", "textPhone#1ccb966a")
 	}
 	b.PutID(TextPhoneTypeID)
 	return t.EncodeBare(b)
@@ -1949,13 +1949,13 @@ func (t *TextPhone) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextPhone) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textPhone#1ccb966a as nil")
+		return fmt.Errorf("can't encode %s as nil", "textPhone#1ccb966a")
 	}
 	if t.Text == nil {
-		return fmt.Errorf("unable to encode textPhone#1ccb966a: field text is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "textPhone#1ccb966a", "text")
 	}
 	if err := t.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textPhone#1ccb966a: field text: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "textPhone#1ccb966a", "text", err)
 	}
 	b.PutString(t.Phone)
 	return nil
@@ -1974,10 +1974,10 @@ func (t *TextPhone) GetPhone() (value string) {
 // Decode implements bin.Decoder.
 func (t *TextPhone) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textPhone#1ccb966a to nil")
+		return fmt.Errorf("can't decode %s to nil", "textPhone#1ccb966a")
 	}
 	if err := b.ConsumeID(TextPhoneTypeID); err != nil {
-		return fmt.Errorf("unable to decode textPhone#1ccb966a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textPhone#1ccb966a", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1985,19 +1985,19 @@ func (t *TextPhone) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextPhone) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textPhone#1ccb966a to nil")
+		return fmt.Errorf("can't decode %s to nil", "textPhone#1ccb966a")
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textPhone#1ccb966a: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textPhone#1ccb966a", "text", err)
 		}
 		t.Text = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode textPhone#1ccb966a: field phone: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textPhone#1ccb966a", "phone", err)
 		}
 		t.Phone = value
 	}
@@ -2112,7 +2112,7 @@ func (t *TextImage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextImage) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textImage#81ccf4f as nil")
+		return fmt.Errorf("can't encode %s as nil", "textImage#81ccf4f")
 	}
 	b.PutID(TextImageTypeID)
 	return t.EncodeBare(b)
@@ -2121,7 +2121,7 @@ func (t *TextImage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextImage) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textImage#81ccf4f as nil")
+		return fmt.Errorf("can't encode %s as nil", "textImage#81ccf4f")
 	}
 	b.PutLong(t.DocumentID)
 	b.PutInt(t.W)
@@ -2147,10 +2147,10 @@ func (t *TextImage) GetH() (value int) {
 // Decode implements bin.Decoder.
 func (t *TextImage) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textImage#81ccf4f to nil")
+		return fmt.Errorf("can't decode %s to nil", "textImage#81ccf4f")
 	}
 	if err := b.ConsumeID(TextImageTypeID); err != nil {
-		return fmt.Errorf("unable to decode textImage#81ccf4f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textImage#81ccf4f", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -2158,26 +2158,26 @@ func (t *TextImage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextImage) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textImage#81ccf4f to nil")
+		return fmt.Errorf("can't decode %s to nil", "textImage#81ccf4f")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode textImage#81ccf4f: field document_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textImage#81ccf4f", "document_id", err)
 		}
 		t.DocumentID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode textImage#81ccf4f: field w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textImage#81ccf4f", "w", err)
 		}
 		t.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode textImage#81ccf4f: field h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textImage#81ccf4f", "h", err)
 		}
 		t.H = value
 	}
@@ -2281,7 +2281,7 @@ func (t *TextAnchor) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextAnchor) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textAnchor#35553762 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textAnchor#35553762")
 	}
 	b.PutID(TextAnchorTypeID)
 	return t.EncodeBare(b)
@@ -2290,13 +2290,13 @@ func (t *TextAnchor) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextAnchor) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textAnchor#35553762 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textAnchor#35553762")
 	}
 	if t.Text == nil {
-		return fmt.Errorf("unable to encode textAnchor#35553762: field text is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "textAnchor#35553762", "text")
 	}
 	if err := t.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textAnchor#35553762: field text: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "textAnchor#35553762", "text", err)
 	}
 	b.PutString(t.Name)
 	return nil
@@ -2315,10 +2315,10 @@ func (t *TextAnchor) GetName() (value string) {
 // Decode implements bin.Decoder.
 func (t *TextAnchor) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textAnchor#35553762 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textAnchor#35553762")
 	}
 	if err := b.ConsumeID(TextAnchorTypeID); err != nil {
-		return fmt.Errorf("unable to decode textAnchor#35553762: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textAnchor#35553762", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -2326,19 +2326,19 @@ func (t *TextAnchor) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextAnchor) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textAnchor#35553762 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textAnchor#35553762")
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textAnchor#35553762: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textAnchor#35553762", "text", err)
 		}
 		t.Text = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode textAnchor#35553762: field name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textAnchor#35553762", "name", err)
 		}
 		t.Name = value
 	}
@@ -2416,116 +2416,116 @@ func DecodeRichText(buf *bin.Buffer) (RichTextClass, error) {
 		// Decoding textEmpty#dc3d824f.
 		v := TextEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextPlainTypeID:
 		// Decoding textPlain#744694e0.
 		v := TextPlain{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextBoldTypeID:
 		// Decoding textBold#6724abc4.
 		v := TextBold{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextItalicTypeID:
 		// Decoding textItalic#d912a59c.
 		v := TextItalic{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextUnderlineTypeID:
 		// Decoding textUnderline#c12622c4.
 		v := TextUnderline{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextStrikeTypeID:
 		// Decoding textStrike#9bf8bb95.
 		v := TextStrike{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextFixedTypeID:
 		// Decoding textFixed#6c3f19b9.
 		v := TextFixed{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextURLTypeID:
 		// Decoding textUrl#3c2884c1.
 		v := TextURL{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextEmailTypeID:
 		// Decoding textEmail#de5a0dd6.
 		v := TextEmail{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextConcatTypeID:
 		// Decoding textConcat#7e6260d7.
 		v := TextConcat{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextSubscriptTypeID:
 		// Decoding textSubscript#ed6a8504.
 		v := TextSubscript{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextSuperscriptTypeID:
 		// Decoding textSuperscript#c7fb5e01.
 		v := TextSuperscript{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextMarkedTypeID:
 		// Decoding textMarked#34b8621.
 		v := TextMarked{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextPhoneTypeID:
 		// Decoding textPhone#1ccb966a.
 		v := TextPhone{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextImageTypeID:
 		// Decoding textImage#81ccf4f.
 		v := TextImage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	case TextAnchorTypeID:
 		// Decoding textAnchor#35553762.
 		v := TextAnchor{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode RichTextClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "RichTextClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -2537,7 +2537,7 @@ type RichTextBox struct {
 // Decode implements bin.Decoder for RichTextBox.
 func (b *RichTextBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode RichTextBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "RichText")
 	}
 	v, err := DecodeRichText(buf)
 	if err != nil {
@@ -2550,7 +2550,7 @@ func (b *RichTextBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for RichTextBox.
 func (b *RichTextBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.RichText == nil {
-		return fmt.Errorf("unable to encode RichTextClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "RichTextClass")
 	}
 	return b.RichText.Encode(buf)
 }

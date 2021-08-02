@@ -116,7 +116,7 @@ func (r *ReplyKeyboardHide) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReplyKeyboardHide) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyKeyboardHide#a03e5b85 as nil")
+		return fmt.Errorf("can't encode %s as nil", "replyKeyboardHide#a03e5b85")
 	}
 	b.PutID(ReplyKeyboardHideTypeID)
 	return r.EncodeBare(b)
@@ -125,13 +125,13 @@ func (r *ReplyKeyboardHide) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReplyKeyboardHide) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyKeyboardHide#a03e5b85 as nil")
+		return fmt.Errorf("can't encode %s as nil", "replyKeyboardHide#a03e5b85")
 	}
 	if !(r.Selective == false) {
 		r.Flags.Set(2)
 	}
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode replyKeyboardHide#a03e5b85: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "replyKeyboardHide#a03e5b85", "flags", err)
 	}
 	return nil
 }
@@ -155,10 +155,10 @@ func (r *ReplyKeyboardHide) GetSelective() (value bool) {
 // Decode implements bin.Decoder.
 func (r *ReplyKeyboardHide) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardHide#a03e5b85 to nil")
+		return fmt.Errorf("can't decode %s to nil", "replyKeyboardHide#a03e5b85")
 	}
 	if err := b.ConsumeID(ReplyKeyboardHideTypeID); err != nil {
-		return fmt.Errorf("unable to decode replyKeyboardHide#a03e5b85: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "replyKeyboardHide#a03e5b85", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -166,11 +166,11 @@ func (r *ReplyKeyboardHide) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReplyKeyboardHide) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardHide#a03e5b85 to nil")
+		return fmt.Errorf("can't decode %s to nil", "replyKeyboardHide#a03e5b85")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardHide#a03e5b85: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "replyKeyboardHide#a03e5b85", "flags", err)
 		}
 	}
 	r.Selective = r.Flags.Has(2)
@@ -308,7 +308,7 @@ func (r *ReplyKeyboardForceReply) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReplyKeyboardForceReply) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyKeyboardForceReply#86b40b08 as nil")
+		return fmt.Errorf("can't encode %s as nil", "replyKeyboardForceReply#86b40b08")
 	}
 	b.PutID(ReplyKeyboardForceReplyTypeID)
 	return r.EncodeBare(b)
@@ -317,7 +317,7 @@ func (r *ReplyKeyboardForceReply) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReplyKeyboardForceReply) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyKeyboardForceReply#86b40b08 as nil")
+		return fmt.Errorf("can't encode %s as nil", "replyKeyboardForceReply#86b40b08")
 	}
 	if !(r.SingleUse == false) {
 		r.Flags.Set(1)
@@ -329,7 +329,7 @@ func (r *ReplyKeyboardForceReply) EncodeBare(b *bin.Buffer) error {
 		r.Flags.Set(3)
 	}
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode replyKeyboardForceReply#86b40b08: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "replyKeyboardForceReply#86b40b08", "flags", err)
 	}
 	if r.Flags.Has(3) {
 		b.PutString(r.Placeholder)
@@ -387,10 +387,10 @@ func (r *ReplyKeyboardForceReply) GetPlaceholder() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (r *ReplyKeyboardForceReply) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardForceReply#86b40b08 to nil")
+		return fmt.Errorf("can't decode %s to nil", "replyKeyboardForceReply#86b40b08")
 	}
 	if err := b.ConsumeID(ReplyKeyboardForceReplyTypeID); err != nil {
-		return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "replyKeyboardForceReply#86b40b08", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -398,11 +398,11 @@ func (r *ReplyKeyboardForceReply) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReplyKeyboardForceReply) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardForceReply#86b40b08 to nil")
+		return fmt.Errorf("can't decode %s to nil", "replyKeyboardForceReply#86b40b08")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "replyKeyboardForceReply#86b40b08", "flags", err)
 		}
 	}
 	r.SingleUse = r.Flags.Has(1)
@@ -410,7 +410,7 @@ func (r *ReplyKeyboardForceReply) DecodeBare(b *bin.Buffer) error {
 	if r.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: field placeholder: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "replyKeyboardForceReply#86b40b08", "placeholder", err)
 		}
 		r.Placeholder = value
 	}
@@ -573,7 +573,7 @@ func (r *ReplyKeyboardMarkup) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReplyKeyboardMarkup) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyKeyboardMarkup#85dd99d1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "replyKeyboardMarkup#85dd99d1")
 	}
 	b.PutID(ReplyKeyboardMarkupTypeID)
 	return r.EncodeBare(b)
@@ -582,7 +582,7 @@ func (r *ReplyKeyboardMarkup) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReplyKeyboardMarkup) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyKeyboardMarkup#85dd99d1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "replyKeyboardMarkup#85dd99d1")
 	}
 	if !(r.Resize == false) {
 		r.Flags.Set(0)
@@ -597,12 +597,12 @@ func (r *ReplyKeyboardMarkup) EncodeBare(b *bin.Buffer) error {
 		r.Flags.Set(3)
 	}
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode replyKeyboardMarkup#85dd99d1: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "replyKeyboardMarkup#85dd99d1", "flags", err)
 	}
 	b.PutVectorHeader(len(r.Rows))
 	for idx, v := range r.Rows {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode replyKeyboardMarkup#85dd99d1: field rows element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "replyKeyboardMarkup#85dd99d1", "rows", idx, err)
 		}
 	}
 	if r.Flags.Has(3) {
@@ -682,10 +682,10 @@ func (r *ReplyKeyboardMarkup) GetPlaceholder() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (r *ReplyKeyboardMarkup) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardMarkup#85dd99d1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "replyKeyboardMarkup#85dd99d1")
 	}
 	if err := b.ConsumeID(ReplyKeyboardMarkupTypeID); err != nil {
-		return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "replyKeyboardMarkup#85dd99d1", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -693,11 +693,11 @@ func (r *ReplyKeyboardMarkup) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReplyKeyboardMarkup) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardMarkup#85dd99d1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "replyKeyboardMarkup#85dd99d1")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "replyKeyboardMarkup#85dd99d1", "flags", err)
 		}
 	}
 	r.Resize = r.Flags.Has(0)
@@ -706,12 +706,12 @@ func (r *ReplyKeyboardMarkup) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field rows: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "replyKeyboardMarkup#85dd99d1", "rows", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value KeyboardButtonRow
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field rows: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "replyKeyboardMarkup#85dd99d1", "rows", err)
 			}
 			r.Rows = append(r.Rows, value)
 		}
@@ -719,7 +719,7 @@ func (r *ReplyKeyboardMarkup) DecodeBare(b *bin.Buffer) error {
 	if r.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field placeholder: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "replyKeyboardMarkup#85dd99d1", "placeholder", err)
 		}
 		r.Placeholder = value
 	}
@@ -812,7 +812,7 @@ func (r *ReplyInlineMarkup) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReplyInlineMarkup) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyInlineMarkup#48a30254 as nil")
+		return fmt.Errorf("can't encode %s as nil", "replyInlineMarkup#48a30254")
 	}
 	b.PutID(ReplyInlineMarkupTypeID)
 	return r.EncodeBare(b)
@@ -821,12 +821,12 @@ func (r *ReplyInlineMarkup) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReplyInlineMarkup) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyInlineMarkup#48a30254 as nil")
+		return fmt.Errorf("can't encode %s as nil", "replyInlineMarkup#48a30254")
 	}
 	b.PutVectorHeader(len(r.Rows))
 	for idx, v := range r.Rows {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode replyInlineMarkup#48a30254: field rows element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "replyInlineMarkup#48a30254", "rows", idx, err)
 		}
 	}
 	return nil
@@ -840,10 +840,10 @@ func (r *ReplyInlineMarkup) GetRows() (value []KeyboardButtonRow) {
 // Decode implements bin.Decoder.
 func (r *ReplyInlineMarkup) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyInlineMarkup#48a30254 to nil")
+		return fmt.Errorf("can't decode %s to nil", "replyInlineMarkup#48a30254")
 	}
 	if err := b.ConsumeID(ReplyInlineMarkupTypeID); err != nil {
-		return fmt.Errorf("unable to decode replyInlineMarkup#48a30254: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "replyInlineMarkup#48a30254", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -851,17 +851,17 @@ func (r *ReplyInlineMarkup) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReplyInlineMarkup) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyInlineMarkup#48a30254 to nil")
+		return fmt.Errorf("can't decode %s to nil", "replyInlineMarkup#48a30254")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode replyInlineMarkup#48a30254: field rows: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "replyInlineMarkup#48a30254", "rows", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value KeyboardButtonRow
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode replyInlineMarkup#48a30254: field rows: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "replyInlineMarkup#48a30254", "rows", err)
 			}
 			r.Rows = append(r.Rows, value)
 		}
@@ -928,32 +928,32 @@ func DecodeReplyMarkup(buf *bin.Buffer) (ReplyMarkupClass, error) {
 		// Decoding replyKeyboardHide#a03e5b85.
 		v := ReplyKeyboardHide{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ReplyMarkupClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ReplyMarkupClass", err)
 		}
 		return &v, nil
 	case ReplyKeyboardForceReplyTypeID:
 		// Decoding replyKeyboardForceReply#86b40b08.
 		v := ReplyKeyboardForceReply{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ReplyMarkupClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ReplyMarkupClass", err)
 		}
 		return &v, nil
 	case ReplyKeyboardMarkupTypeID:
 		// Decoding replyKeyboardMarkup#85dd99d1.
 		v := ReplyKeyboardMarkup{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ReplyMarkupClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ReplyMarkupClass", err)
 		}
 		return &v, nil
 	case ReplyInlineMarkupTypeID:
 		// Decoding replyInlineMarkup#48a30254.
 		v := ReplyInlineMarkup{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ReplyMarkupClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ReplyMarkupClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ReplyMarkupClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "ReplyMarkupClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -965,7 +965,7 @@ type ReplyMarkupBox struct {
 // Decode implements bin.Decoder for ReplyMarkupBox.
 func (b *ReplyMarkupBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode ReplyMarkupBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "ReplyMarkup")
 	}
 	v, err := DecodeReplyMarkup(buf)
 	if err != nil {
@@ -978,7 +978,7 @@ func (b *ReplyMarkupBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for ReplyMarkupBox.
 func (b *ReplyMarkupBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode ReplyMarkupClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "ReplyMarkupClass")
 	}
 	return b.ReplyMarkup.Encode(buf)
 }

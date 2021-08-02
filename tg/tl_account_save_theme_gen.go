@@ -113,7 +113,7 @@ func (s *AccountSaveThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSaveThemeRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.saveTheme#f257106c as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.saveTheme#f257106c")
 	}
 	b.PutID(AccountSaveThemeRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,13 +122,13 @@ func (s *AccountSaveThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSaveThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.saveTheme#f257106c as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.saveTheme#f257106c")
 	}
 	if s.Theme == nil {
-		return fmt.Errorf("unable to encode account.saveTheme#f257106c: field theme is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "account.saveTheme#f257106c", "theme")
 	}
 	if err := s.Theme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.saveTheme#f257106c: field theme: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.saveTheme#f257106c", "theme", err)
 	}
 	b.PutBool(s.Unsave)
 	return nil
@@ -147,10 +147,10 @@ func (s *AccountSaveThemeRequest) GetUnsave() (value bool) {
 // Decode implements bin.Decoder.
 func (s *AccountSaveThemeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.saveTheme#f257106c to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.saveTheme#f257106c")
 	}
 	if err := b.ConsumeID(AccountSaveThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.saveTheme#f257106c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.saveTheme#f257106c", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -158,19 +158,19 @@ func (s *AccountSaveThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSaveThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.saveTheme#f257106c to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.saveTheme#f257106c")
 	}
 	{
 		value, err := DecodeInputTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.saveTheme#f257106c: field theme: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.saveTheme#f257106c", "theme", err)
 		}
 		s.Theme = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.saveTheme#f257106c: field unsave: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.saveTheme#f257106c", "unsave", err)
 		}
 		s.Unsave = value
 	}

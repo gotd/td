@@ -85,7 +85,7 @@ func (u *UserProfilePhotoEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserProfilePhotoEmpty) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userProfilePhotoEmpty#4f11bae1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "userProfilePhotoEmpty#4f11bae1")
 	}
 	b.PutID(UserProfilePhotoEmptyTypeID)
 	return u.EncodeBare(b)
@@ -94,7 +94,7 @@ func (u *UserProfilePhotoEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserProfilePhotoEmpty) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userProfilePhotoEmpty#4f11bae1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "userProfilePhotoEmpty#4f11bae1")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (u *UserProfilePhotoEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UserProfilePhotoEmpty) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userProfilePhotoEmpty#4f11bae1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "userProfilePhotoEmpty#4f11bae1")
 	}
 	if err := b.ConsumeID(UserProfilePhotoEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode userProfilePhotoEmpty#4f11bae1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "userProfilePhotoEmpty#4f11bae1", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (u *UserProfilePhotoEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserProfilePhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userProfilePhotoEmpty#4f11bae1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "userProfilePhotoEmpty#4f11bae1")
 	}
 	return nil
 }
@@ -258,7 +258,7 @@ func (u *UserProfilePhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserProfilePhoto) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userProfilePhoto#82d1f706 as nil")
+		return fmt.Errorf("can't encode %s as nil", "userProfilePhoto#82d1f706")
 	}
 	b.PutID(UserProfilePhotoTypeID)
 	return u.EncodeBare(b)
@@ -267,7 +267,7 @@ func (u *UserProfilePhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserProfilePhoto) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userProfilePhoto#82d1f706 as nil")
+		return fmt.Errorf("can't encode %s as nil", "userProfilePhoto#82d1f706")
 	}
 	if !(u.HasVideo == false) {
 		u.Flags.Set(0)
@@ -276,7 +276,7 @@ func (u *UserProfilePhoto) EncodeBare(b *bin.Buffer) error {
 		u.Flags.Set(1)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userProfilePhoto#82d1f706: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "userProfilePhoto#82d1f706", "flags", err)
 	}
 	b.PutLong(u.PhotoID)
 	if u.Flags.Has(1) {
@@ -330,10 +330,10 @@ func (u *UserProfilePhoto) GetDCID() (value int) {
 // Decode implements bin.Decoder.
 func (u *UserProfilePhoto) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userProfilePhoto#82d1f706 to nil")
+		return fmt.Errorf("can't decode %s to nil", "userProfilePhoto#82d1f706")
 	}
 	if err := b.ConsumeID(UserProfilePhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode userProfilePhoto#82d1f706: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "userProfilePhoto#82d1f706", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -341,32 +341,32 @@ func (u *UserProfilePhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserProfilePhoto) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userProfilePhoto#82d1f706 to nil")
+		return fmt.Errorf("can't decode %s to nil", "userProfilePhoto#82d1f706")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userProfilePhoto#82d1f706: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userProfilePhoto#82d1f706", "flags", err)
 		}
 	}
 	u.HasVideo = u.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode userProfilePhoto#82d1f706: field photo_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userProfilePhoto#82d1f706", "photo_id", err)
 		}
 		u.PhotoID = value
 	}
 	if u.Flags.Has(1) {
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode userProfilePhoto#82d1f706: field stripped_thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userProfilePhoto#82d1f706", "stripped_thumb", err)
 		}
 		u.StrippedThumb = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userProfilePhoto#82d1f706: field dc_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userProfilePhoto#82d1f706", "dc_id", err)
 		}
 		u.DCID = value
 	}
@@ -443,18 +443,18 @@ func DecodeUserProfilePhoto(buf *bin.Buffer) (UserProfilePhotoClass, error) {
 		// Decoding userProfilePhotoEmpty#4f11bae1.
 		v := UserProfilePhotoEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserProfilePhotoClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UserProfilePhotoClass", err)
 		}
 		return &v, nil
 	case UserProfilePhotoTypeID:
 		// Decoding userProfilePhoto#82d1f706.
 		v := UserProfilePhoto{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserProfilePhotoClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UserProfilePhotoClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode UserProfilePhotoClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "UserProfilePhotoClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -466,7 +466,7 @@ type UserProfilePhotoBox struct {
 // Decode implements bin.Decoder for UserProfilePhotoBox.
 func (b *UserProfilePhotoBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode UserProfilePhotoBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "UserProfilePhoto")
 	}
 	v, err := DecodeUserProfilePhoto(buf)
 	if err != nil {
@@ -479,7 +479,7 @@ func (b *UserProfilePhotoBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for UserProfilePhotoBox.
 func (b *UserProfilePhotoBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.UserProfilePhoto == nil {
-		return fmt.Errorf("unable to encode UserProfilePhotoClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "UserProfilePhotoClass")
 	}
 	return b.UserProfilePhoto.Encode(buf)
 }

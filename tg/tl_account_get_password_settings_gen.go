@@ -109,7 +109,7 @@ func (g *AccountGetPasswordSettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetPasswordSettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getPasswordSettings#9cd4eaf9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getPasswordSettings#9cd4eaf9")
 	}
 	b.PutID(AccountGetPasswordSettingsRequestTypeID)
 	return g.EncodeBare(b)
@@ -118,13 +118,13 @@ func (g *AccountGetPasswordSettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetPasswordSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getPasswordSettings#9cd4eaf9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getPasswordSettings#9cd4eaf9")
 	}
 	if g.Password == nil {
-		return fmt.Errorf("unable to encode account.getPasswordSettings#9cd4eaf9: field password is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "account.getPasswordSettings#9cd4eaf9", "password")
 	}
 	if err := g.Password.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.getPasswordSettings#9cd4eaf9: field password: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.getPasswordSettings#9cd4eaf9", "password", err)
 	}
 	return nil
 }
@@ -142,10 +142,10 @@ func (g *AccountGetPasswordSettingsRequest) GetPasswordAsNotEmpty() (*InputCheck
 // Decode implements bin.Decoder.
 func (g *AccountGetPasswordSettingsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getPasswordSettings#9cd4eaf9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getPasswordSettings#9cd4eaf9")
 	}
 	if err := b.ConsumeID(AccountGetPasswordSettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getPasswordSettings#9cd4eaf9: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.getPasswordSettings#9cd4eaf9", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -153,12 +153,12 @@ func (g *AccountGetPasswordSettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetPasswordSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getPasswordSettings#9cd4eaf9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getPasswordSettings#9cd4eaf9")
 	}
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getPasswordSettings#9cd4eaf9: field password: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.getPasswordSettings#9cd4eaf9", "password", err)
 		}
 		g.Password = value
 	}

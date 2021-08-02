@@ -113,7 +113,7 @@ func (a *BotsAnswerWebhookJSONQueryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *BotsAnswerWebhookJSONQueryRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode bots.answerWebhookJSONQuery#e6213f4d as nil")
+		return fmt.Errorf("can't encode %s as nil", "bots.answerWebhookJSONQuery#e6213f4d")
 	}
 	b.PutID(BotsAnswerWebhookJSONQueryRequestTypeID)
 	return a.EncodeBare(b)
@@ -122,11 +122,11 @@ func (a *BotsAnswerWebhookJSONQueryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *BotsAnswerWebhookJSONQueryRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode bots.answerWebhookJSONQuery#e6213f4d as nil")
+		return fmt.Errorf("can't encode %s as nil", "bots.answerWebhookJSONQuery#e6213f4d")
 	}
 	b.PutLong(a.QueryID)
 	if err := a.Data.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode bots.answerWebhookJSONQuery#e6213f4d: field data: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "bots.answerWebhookJSONQuery#e6213f4d", "data", err)
 	}
 	return nil
 }
@@ -144,10 +144,10 @@ func (a *BotsAnswerWebhookJSONQueryRequest) GetData() (value DataJSON) {
 // Decode implements bin.Decoder.
 func (a *BotsAnswerWebhookJSONQueryRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode bots.answerWebhookJSONQuery#e6213f4d to nil")
+		return fmt.Errorf("can't decode %s to nil", "bots.answerWebhookJSONQuery#e6213f4d")
 	}
 	if err := b.ConsumeID(BotsAnswerWebhookJSONQueryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode bots.answerWebhookJSONQuery#e6213f4d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "bots.answerWebhookJSONQuery#e6213f4d", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -155,18 +155,18 @@ func (a *BotsAnswerWebhookJSONQueryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *BotsAnswerWebhookJSONQueryRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode bots.answerWebhookJSONQuery#e6213f4d to nil")
+		return fmt.Errorf("can't decode %s to nil", "bots.answerWebhookJSONQuery#e6213f4d")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.answerWebhookJSONQuery#e6213f4d: field query_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bots.answerWebhookJSONQuery#e6213f4d", "query_id", err)
 		}
 		a.QueryID = value
 	}
 	{
 		if err := a.Data.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode bots.answerWebhookJSONQuery#e6213f4d: field data: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bots.answerWebhookJSONQuery#e6213f4d", "data", err)
 		}
 	}
 	return nil

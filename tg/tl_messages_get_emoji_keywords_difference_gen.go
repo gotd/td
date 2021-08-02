@@ -113,7 +113,7 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetEmojiKeywordsDifferenceRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getEmojiKeywordsDifference#1508b6af as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getEmojiKeywordsDifference#1508b6af")
 	}
 	b.PutID(MessagesGetEmojiKeywordsDifferenceRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,7 +122,7 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) Encode(b *bin.Buffer) error 
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetEmojiKeywordsDifferenceRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getEmojiKeywordsDifference#1508b6af as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getEmojiKeywordsDifference#1508b6af")
 	}
 	b.PutString(g.LangCode)
 	b.PutInt(g.FromVersion)
@@ -142,10 +142,10 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) GetFromVersion() (value int)
 // Decode implements bin.Decoder.
 func (g *MessagesGetEmojiKeywordsDifferenceRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getEmojiKeywordsDifference#1508b6af to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getEmojiKeywordsDifference#1508b6af")
 	}
 	if err := b.ConsumeID(MessagesGetEmojiKeywordsDifferenceRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getEmojiKeywordsDifference#1508b6af: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getEmojiKeywordsDifference#1508b6af", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -153,19 +153,19 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) Decode(b *bin.Buffer) error 
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetEmojiKeywordsDifferenceRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getEmojiKeywordsDifference#1508b6af to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getEmojiKeywordsDifference#1508b6af")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getEmojiKeywordsDifference#1508b6af: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getEmojiKeywordsDifference#1508b6af", "lang_code", err)
 		}
 		g.LangCode = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getEmojiKeywordsDifference#1508b6af: field from_version: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getEmojiKeywordsDifference#1508b6af", "from_version", err)
 		}
 		g.FromVersion = value
 	}

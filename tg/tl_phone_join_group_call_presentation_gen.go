@@ -112,7 +112,7 @@ func (j *PhoneJoinGroupCallPresentationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (j *PhoneJoinGroupCallPresentationRequest) Encode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode phone.joinGroupCallPresentation#cbea6bc4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.joinGroupCallPresentation#cbea6bc4")
 	}
 	b.PutID(PhoneJoinGroupCallPresentationRequestTypeID)
 	return j.EncodeBare(b)
@@ -121,13 +121,13 @@ func (j *PhoneJoinGroupCallPresentationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (j *PhoneJoinGroupCallPresentationRequest) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode phone.joinGroupCallPresentation#cbea6bc4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.joinGroupCallPresentation#cbea6bc4")
 	}
 	if err := j.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.joinGroupCallPresentation#cbea6bc4: field call: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.joinGroupCallPresentation#cbea6bc4", "call", err)
 	}
 	if err := j.Params.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.joinGroupCallPresentation#cbea6bc4: field params: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.joinGroupCallPresentation#cbea6bc4", "params", err)
 	}
 	return nil
 }
@@ -145,10 +145,10 @@ func (j *PhoneJoinGroupCallPresentationRequest) GetParams() (value DataJSON) {
 // Decode implements bin.Decoder.
 func (j *PhoneJoinGroupCallPresentationRequest) Decode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode phone.joinGroupCallPresentation#cbea6bc4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.joinGroupCallPresentation#cbea6bc4")
 	}
 	if err := b.ConsumeID(PhoneJoinGroupCallPresentationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.joinGroupCallPresentation#cbea6bc4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.joinGroupCallPresentation#cbea6bc4", err)
 	}
 	return j.DecodeBare(b)
 }
@@ -156,16 +156,16 @@ func (j *PhoneJoinGroupCallPresentationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (j *PhoneJoinGroupCallPresentationRequest) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode phone.joinGroupCallPresentation#cbea6bc4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.joinGroupCallPresentation#cbea6bc4")
 	}
 	{
 		if err := j.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCallPresentation#cbea6bc4: field call: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinGroupCallPresentation#cbea6bc4", "call", err)
 		}
 	}
 	{
 		if err := j.Params.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCallPresentation#cbea6bc4: field params: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinGroupCallPresentation#cbea6bc4", "params", err)
 		}
 	}
 	return nil

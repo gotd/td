@@ -106,7 +106,7 @@ func (a *ContactsAcceptContactRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *ContactsAcceptContactRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode contacts.acceptContact#f831a20f as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.acceptContact#f831a20f")
 	}
 	b.PutID(ContactsAcceptContactRequestTypeID)
 	return a.EncodeBare(b)
@@ -115,13 +115,13 @@ func (a *ContactsAcceptContactRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *ContactsAcceptContactRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode contacts.acceptContact#f831a20f as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.acceptContact#f831a20f")
 	}
 	if a.ID == nil {
-		return fmt.Errorf("unable to encode contacts.acceptContact#f831a20f: field id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "contacts.acceptContact#f831a20f", "id")
 	}
 	if err := a.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contacts.acceptContact#f831a20f: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "contacts.acceptContact#f831a20f", "id", err)
 	}
 	return nil
 }
@@ -134,10 +134,10 @@ func (a *ContactsAcceptContactRequest) GetID() (value InputUserClass) {
 // Decode implements bin.Decoder.
 func (a *ContactsAcceptContactRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode contacts.acceptContact#f831a20f to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.acceptContact#f831a20f")
 	}
 	if err := b.ConsumeID(ContactsAcceptContactRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.acceptContact#f831a20f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.acceptContact#f831a20f", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -145,12 +145,12 @@ func (a *ContactsAcceptContactRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *ContactsAcceptContactRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode contacts.acceptContact#f831a20f to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.acceptContact#f831a20f")
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.acceptContact#f831a20f: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.acceptContact#f831a20f", "id", err)
 		}
 		a.ID = value
 	}

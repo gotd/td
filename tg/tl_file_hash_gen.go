@@ -123,7 +123,7 @@ func (f *FileHash) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *FileHash) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode fileHash#6242c773 as nil")
+		return fmt.Errorf("can't encode %s as nil", "fileHash#6242c773")
 	}
 	b.PutID(FileHashTypeID)
 	return f.EncodeBare(b)
@@ -132,7 +132,7 @@ func (f *FileHash) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *FileHash) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode fileHash#6242c773 as nil")
+		return fmt.Errorf("can't encode %s as nil", "fileHash#6242c773")
 	}
 	b.PutInt(f.Offset)
 	b.PutInt(f.Limit)
@@ -158,10 +158,10 @@ func (f *FileHash) GetHash() (value []byte) {
 // Decode implements bin.Decoder.
 func (f *FileHash) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode fileHash#6242c773 to nil")
+		return fmt.Errorf("can't decode %s to nil", "fileHash#6242c773")
 	}
 	if err := b.ConsumeID(FileHashTypeID); err != nil {
-		return fmt.Errorf("unable to decode fileHash#6242c773: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "fileHash#6242c773", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -169,26 +169,26 @@ func (f *FileHash) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *FileHash) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode fileHash#6242c773 to nil")
+		return fmt.Errorf("can't decode %s to nil", "fileHash#6242c773")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileHash#6242c773: field offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "fileHash#6242c773", "offset", err)
 		}
 		f.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileHash#6242c773: field limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "fileHash#6242c773", "limit", err)
 		}
 		f.Limit = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileHash#6242c773: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "fileHash#6242c773", "hash", err)
 		}
 		f.Hash = value
 	}

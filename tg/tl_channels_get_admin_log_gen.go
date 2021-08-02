@@ -200,7 +200,7 @@ func (g *ChannelsGetAdminLogRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ChannelsGetAdminLogRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getAdminLog#33ddf480 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.getAdminLog#33ddf480")
 	}
 	b.PutID(ChannelsGetAdminLogRequestTypeID)
 	return g.EncodeBare(b)
@@ -209,7 +209,7 @@ func (g *ChannelsGetAdminLogRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ChannelsGetAdminLogRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getAdminLog#33ddf480 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.getAdminLog#33ddf480")
 	}
 	if !(g.EventsFilter.Zero()) {
 		g.Flags.Set(0)
@@ -218,28 +218,28 @@ func (g *ChannelsGetAdminLogRequest) EncodeBare(b *bin.Buffer) error {
 		g.Flags.Set(1)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.getAdminLog#33ddf480: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.getAdminLog#33ddf480", "flags", err)
 	}
 	if g.Channel == nil {
-		return fmt.Errorf("unable to encode channels.getAdminLog#33ddf480: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.getAdminLog#33ddf480", "channel")
 	}
 	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.getAdminLog#33ddf480: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.getAdminLog#33ddf480", "channel", err)
 	}
 	b.PutString(g.Q)
 	if g.Flags.Has(0) {
 		if err := g.EventsFilter.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.getAdminLog#33ddf480: field events_filter: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "channels.getAdminLog#33ddf480", "events_filter", err)
 		}
 	}
 	if g.Flags.Has(1) {
 		b.PutVectorHeader(len(g.Admins))
 		for idx, v := range g.Admins {
 			if v == nil {
-				return fmt.Errorf("unable to encode channels.getAdminLog#33ddf480: field admins element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "channels.getAdminLog#33ddf480", "admins", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode channels.getAdminLog#33ddf480: field admins element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "channels.getAdminLog#33ddf480", "admins", idx, err)
 			}
 		}
 	}
@@ -320,10 +320,10 @@ func (g *ChannelsGetAdminLogRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *ChannelsGetAdminLogRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getAdminLog#33ddf480 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.getAdminLog#33ddf480")
 	}
 	if err := b.ConsumeID(ChannelsGetAdminLogRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.getAdminLog#33ddf480", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -331,41 +331,41 @@ func (g *ChannelsGetAdminLogRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ChannelsGetAdminLogRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getAdminLog#33ddf480 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.getAdminLog#33ddf480")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.getAdminLog#33ddf480", "flags", err)
 		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.getAdminLog#33ddf480", "channel", err)
 		}
 		g.Channel = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: field q: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.getAdminLog#33ddf480", "q", err)
 		}
 		g.Q = value
 	}
 	if g.Flags.Has(0) {
 		if err := g.EventsFilter.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: field events_filter: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.getAdminLog#33ddf480", "events_filter", err)
 		}
 	}
 	if g.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: field admins: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.getAdminLog#33ddf480", "admins", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: field admins: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "channels.getAdminLog#33ddf480", "admins", err)
 			}
 			g.Admins = append(g.Admins, value)
 		}
@@ -373,21 +373,21 @@ func (g *ChannelsGetAdminLogRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: field max_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.getAdminLog#33ddf480", "max_id", err)
 		}
 		g.MaxID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: field min_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.getAdminLog#33ddf480", "min_id", err)
 		}
 		g.MinID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: field limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.getAdminLog#33ddf480", "limit", err)
 		}
 		g.Limit = value
 	}

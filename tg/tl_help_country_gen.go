@@ -161,7 +161,7 @@ func (c *HelpCountry) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *HelpCountry) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode help.country#c3878e23 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.country#c3878e23")
 	}
 	b.PutID(HelpCountryTypeID)
 	return c.EncodeBare(b)
@@ -170,7 +170,7 @@ func (c *HelpCountry) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *HelpCountry) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode help.country#c3878e23 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.country#c3878e23")
 	}
 	if !(c.Hidden == false) {
 		c.Flags.Set(0)
@@ -179,7 +179,7 @@ func (c *HelpCountry) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(1)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.country#c3878e23: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "help.country#c3878e23", "flags", err)
 	}
 	b.PutString(c.Iso2)
 	b.PutString(c.DefaultName)
@@ -189,7 +189,7 @@ func (c *HelpCountry) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(c.CountryCodes))
 	for idx, v := range c.CountryCodes {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.country#c3878e23: field country_codes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "help.country#c3878e23", "country_codes", idx, err)
 		}
 	}
 	return nil
@@ -244,10 +244,10 @@ func (c *HelpCountry) GetCountryCodes() (value []HelpCountryCode) {
 // Decode implements bin.Decoder.
 func (c *HelpCountry) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode help.country#c3878e23 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.country#c3878e23")
 	}
 	if err := b.ConsumeID(HelpCountryTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.country#c3878e23: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.country#c3878e23", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -255,44 +255,44 @@ func (c *HelpCountry) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *HelpCountry) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode help.country#c3878e23 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.country#c3878e23")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.country#c3878e23: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.country#c3878e23", "flags", err)
 		}
 	}
 	c.Hidden = c.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.country#c3878e23: field iso2: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.country#c3878e23", "iso2", err)
 		}
 		c.Iso2 = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.country#c3878e23: field default_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.country#c3878e23", "default_name", err)
 		}
 		c.DefaultName = value
 	}
 	if c.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.country#c3878e23: field name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.country#c3878e23", "name", err)
 		}
 		c.Name = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.country#c3878e23: field country_codes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.country#c3878e23", "country_codes", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value HelpCountryCode
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode help.country#c3878e23: field country_codes: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "help.country#c3878e23", "country_codes", err)
 			}
 			c.CountryCodes = append(c.CountryCodes, value)
 		}

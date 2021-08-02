@@ -85,7 +85,7 @@ func (g *ContactsGetStatusesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ContactsGetStatusesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getStatuses#c4a353ee as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.getStatuses#c4a353ee")
 	}
 	b.PutID(ContactsGetStatusesRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +94,7 @@ func (g *ContactsGetStatusesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ContactsGetStatusesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getStatuses#c4a353ee as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.getStatuses#c4a353ee")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (g *ContactsGetStatusesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *ContactsGetStatusesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getStatuses#c4a353ee to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.getStatuses#c4a353ee")
 	}
 	if err := b.ConsumeID(ContactsGetStatusesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.getStatuses#c4a353ee: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.getStatuses#c4a353ee", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (g *ContactsGetStatusesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ContactsGetStatusesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getStatuses#c4a353ee to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.getStatuses#c4a353ee")
 	}
 	return nil
 }

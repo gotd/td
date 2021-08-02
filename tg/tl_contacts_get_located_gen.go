@@ -144,7 +144,7 @@ func (g *ContactsGetLocatedRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ContactsGetLocatedRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getLocated#d348bc44 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.getLocated#d348bc44")
 	}
 	b.PutID(ContactsGetLocatedRequestTypeID)
 	return g.EncodeBare(b)
@@ -153,7 +153,7 @@ func (g *ContactsGetLocatedRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ContactsGetLocatedRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getLocated#d348bc44 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.getLocated#d348bc44")
 	}
 	if !(g.Background == false) {
 		g.Flags.Set(1)
@@ -162,13 +162,13 @@ func (g *ContactsGetLocatedRequest) EncodeBare(b *bin.Buffer) error {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contacts.getLocated#d348bc44: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "contacts.getLocated#d348bc44", "flags", err)
 	}
 	if g.GeoPoint == nil {
-		return fmt.Errorf("unable to encode contacts.getLocated#d348bc44: field geo_point is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "contacts.getLocated#d348bc44", "geo_point")
 	}
 	if err := g.GeoPoint.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contacts.getLocated#d348bc44: field geo_point: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "contacts.getLocated#d348bc44", "geo_point", err)
 	}
 	if g.Flags.Has(0) {
 		b.PutInt(g.SelfExpires)
@@ -220,10 +220,10 @@ func (g *ContactsGetLocatedRequest) GetSelfExpires() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (g *ContactsGetLocatedRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getLocated#d348bc44 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.getLocated#d348bc44")
 	}
 	if err := b.ConsumeID(ContactsGetLocatedRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.getLocated#d348bc44: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.getLocated#d348bc44", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -231,25 +231,25 @@ func (g *ContactsGetLocatedRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ContactsGetLocatedRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getLocated#d348bc44 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.getLocated#d348bc44")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode contacts.getLocated#d348bc44: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.getLocated#d348bc44", "flags", err)
 		}
 	}
 	g.Background = g.Flags.Has(1)
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getLocated#d348bc44: field geo_point: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.getLocated#d348bc44", "geo_point", err)
 		}
 		g.GeoPoint = value
 	}
 	if g.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getLocated#d348bc44: field self_expires: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.getLocated#d348bc44", "self_expires", err)
 		}
 		g.SelfExpires = value
 	}

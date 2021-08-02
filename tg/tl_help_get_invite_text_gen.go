@@ -85,7 +85,7 @@ func (g *HelpGetInviteTextRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetInviteTextRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getInviteText#4d392343 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getInviteText#4d392343")
 	}
 	b.PutID(HelpGetInviteTextRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +94,7 @@ func (g *HelpGetInviteTextRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetInviteTextRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getInviteText#4d392343 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getInviteText#4d392343")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (g *HelpGetInviteTextRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *HelpGetInviteTextRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getInviteText#4d392343 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getInviteText#4d392343")
 	}
 	if err := b.ConsumeID(HelpGetInviteTextRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getInviteText#4d392343: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.getInviteText#4d392343", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (g *HelpGetInviteTextRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetInviteTextRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getInviteText#4d392343 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getInviteText#4d392343")
 	}
 	return nil
 }

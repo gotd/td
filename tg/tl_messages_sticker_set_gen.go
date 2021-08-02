@@ -124,7 +124,7 @@ func (s *MessagesStickerSet) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesStickerSet) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.stickerSet#b60a24a6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.stickerSet#b60a24a6")
 	}
 	b.PutID(MessagesStickerSetTypeID)
 	return s.EncodeBare(b)
@@ -133,24 +133,24 @@ func (s *MessagesStickerSet) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesStickerSet) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.stickerSet#b60a24a6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.stickerSet#b60a24a6")
 	}
 	if err := s.Set.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.stickerSet#b60a24a6: field set: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.stickerSet#b60a24a6", "set", err)
 	}
 	b.PutVectorHeader(len(s.Packs))
 	for idx, v := range s.Packs {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.stickerSet#b60a24a6: field packs element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.stickerSet#b60a24a6", "packs", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(s.Documents))
 	for idx, v := range s.Documents {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.stickerSet#b60a24a6: field documents element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.stickerSet#b60a24a6", "documents", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.stickerSet#b60a24a6: field documents element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.stickerSet#b60a24a6", "documents", idx, err)
 		}
 	}
 	return nil
@@ -179,10 +179,10 @@ func (s *MessagesStickerSet) MapDocuments() (value DocumentClassArray) {
 // Decode implements bin.Decoder.
 func (s *MessagesStickerSet) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.stickerSet#b60a24a6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.stickerSet#b60a24a6")
 	}
 	if err := b.ConsumeID(MessagesStickerSetTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.stickerSet#b60a24a6", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -190,22 +190,22 @@ func (s *MessagesStickerSet) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesStickerSet) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.stickerSet#b60a24a6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.stickerSet#b60a24a6")
 	}
 	{
 		if err := s.Set.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: field set: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.stickerSet#b60a24a6", "set", err)
 		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: field packs: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.stickerSet#b60a24a6", "packs", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value StickerPack
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: field packs: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.stickerSet#b60a24a6", "packs", err)
 			}
 			s.Packs = append(s.Packs, value)
 		}
@@ -213,12 +213,12 @@ func (s *MessagesStickerSet) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: field documents: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.stickerSet#b60a24a6", "documents", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: field documents: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.stickerSet#b60a24a6", "documents", err)
 			}
 			s.Documents = append(s.Documents, value)
 		}

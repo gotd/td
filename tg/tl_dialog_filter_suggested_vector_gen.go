@@ -99,7 +99,7 @@ func (vec *DialogFilterSuggestedVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *DialogFilterSuggestedVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<DialogFilterSuggested> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<DialogFilterSuggested>")
 	}
 
 	return vec.EncodeBare(b)
@@ -108,12 +108,12 @@ func (vec *DialogFilterSuggestedVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *DialogFilterSuggestedVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<DialogFilterSuggested> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<DialogFilterSuggested>")
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<DialogFilterSuggested>: field Elems element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "Vector<DialogFilterSuggested>", "Elems", idx, err)
 		}
 	}
 	return nil
@@ -127,7 +127,7 @@ func (vec *DialogFilterSuggestedVector) GetElems() (value []DialogFilterSuggeste
 // Decode implements bin.Decoder.
 func (vec *DialogFilterSuggestedVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<DialogFilterSuggested> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<DialogFilterSuggested>")
 	}
 
 	return vec.DecodeBare(b)
@@ -136,17 +136,17 @@ func (vec *DialogFilterSuggestedVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *DialogFilterSuggestedVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<DialogFilterSuggested> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<DialogFilterSuggested>")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<DialogFilterSuggested>: field Elems: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<DialogFilterSuggested>", "Elems", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value DialogFilterSuggested
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode Vector<DialogFilterSuggested>: field Elems: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<DialogFilterSuggested>", "Elems", err)
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

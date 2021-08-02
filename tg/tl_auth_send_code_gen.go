@@ -141,7 +141,7 @@ func (s *AuthSendCodeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AuthSendCodeRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.sendCode#a677244f as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.sendCode#a677244f")
 	}
 	b.PutID(AuthSendCodeRequestTypeID)
 	return s.EncodeBare(b)
@@ -150,13 +150,13 @@ func (s *AuthSendCodeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AuthSendCodeRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.sendCode#a677244f as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.sendCode#a677244f")
 	}
 	b.PutString(s.PhoneNumber)
 	b.PutInt(s.APIID)
 	b.PutString(s.APIHash)
 	if err := s.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode auth.sendCode#a677244f: field settings: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "auth.sendCode#a677244f", "settings", err)
 	}
 	return nil
 }
@@ -184,10 +184,10 @@ func (s *AuthSendCodeRequest) GetSettings() (value CodeSettings) {
 // Decode implements bin.Decoder.
 func (s *AuthSendCodeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.sendCode#a677244f to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.sendCode#a677244f")
 	}
 	if err := b.ConsumeID(AuthSendCodeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.sendCode#a677244f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "auth.sendCode#a677244f", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -195,32 +195,32 @@ func (s *AuthSendCodeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AuthSendCodeRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.sendCode#a677244f to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.sendCode#a677244f")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sendCode#a677244f: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.sendCode#a677244f", "phone_number", err)
 		}
 		s.PhoneNumber = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sendCode#a677244f: field api_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.sendCode#a677244f", "api_id", err)
 		}
 		s.APIID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sendCode#a677244f: field api_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.sendCode#a677244f", "api_hash", err)
 		}
 		s.APIHash = value
 	}
 	{
 		if err := s.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode auth.sendCode#a677244f: field settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.sendCode#a677244f", "settings", err)
 		}
 	}
 	return nil

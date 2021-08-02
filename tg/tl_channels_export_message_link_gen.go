@@ -148,7 +148,7 @@ func (e *ChannelsExportMessageLinkRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *ChannelsExportMessageLinkRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.exportMessageLink#e63fadeb as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.exportMessageLink#e63fadeb")
 	}
 	b.PutID(ChannelsExportMessageLinkRequestTypeID)
 	return e.EncodeBare(b)
@@ -157,7 +157,7 @@ func (e *ChannelsExportMessageLinkRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsExportMessageLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.exportMessageLink#e63fadeb as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.exportMessageLink#e63fadeb")
 	}
 	if !(e.Grouped == false) {
 		e.Flags.Set(0)
@@ -166,13 +166,13 @@ func (e *ChannelsExportMessageLinkRequest) EncodeBare(b *bin.Buffer) error {
 		e.Flags.Set(1)
 	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.exportMessageLink#e63fadeb: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.exportMessageLink#e63fadeb", "flags", err)
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.exportMessageLink#e63fadeb: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.exportMessageLink#e63fadeb", "channel")
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.exportMessageLink#e63fadeb: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.exportMessageLink#e63fadeb", "channel", err)
 	}
 	b.PutInt(e.ID)
 	return nil
@@ -228,10 +228,10 @@ func (e *ChannelsExportMessageLinkRequest) GetID() (value int) {
 // Decode implements bin.Decoder.
 func (e *ChannelsExportMessageLinkRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.exportMessageLink#e63fadeb to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.exportMessageLink#e63fadeb")
 	}
 	if err := b.ConsumeID(ChannelsExportMessageLinkRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.exportMessageLink#e63fadeb: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.exportMessageLink#e63fadeb", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -239,11 +239,11 @@ func (e *ChannelsExportMessageLinkRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsExportMessageLinkRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.exportMessageLink#e63fadeb to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.exportMessageLink#e63fadeb")
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.exportMessageLink#e63fadeb: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.exportMessageLink#e63fadeb", "flags", err)
 		}
 	}
 	e.Grouped = e.Flags.Has(0)
@@ -251,14 +251,14 @@ func (e *ChannelsExportMessageLinkRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.exportMessageLink#e63fadeb: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.exportMessageLink#e63fadeb", "channel", err)
 		}
 		e.Channel = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.exportMessageLink#e63fadeb: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.exportMessageLink#e63fadeb", "id", err)
 		}
 		e.ID = value
 	}

@@ -112,7 +112,7 @@ func (e *PhoneEditGroupCallTitleRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *PhoneEditGroupCallTitleRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode phone.editGroupCallTitle#1ca6ac0a as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.editGroupCallTitle#1ca6ac0a")
 	}
 	b.PutID(PhoneEditGroupCallTitleRequestTypeID)
 	return e.EncodeBare(b)
@@ -121,10 +121,10 @@ func (e *PhoneEditGroupCallTitleRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *PhoneEditGroupCallTitleRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode phone.editGroupCallTitle#1ca6ac0a as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.editGroupCallTitle#1ca6ac0a")
 	}
 	if err := e.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallTitle#1ca6ac0a: field call: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.editGroupCallTitle#1ca6ac0a", "call", err)
 	}
 	b.PutString(e.Title)
 	return nil
@@ -143,10 +143,10 @@ func (e *PhoneEditGroupCallTitleRequest) GetTitle() (value string) {
 // Decode implements bin.Decoder.
 func (e *PhoneEditGroupCallTitleRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode phone.editGroupCallTitle#1ca6ac0a to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.editGroupCallTitle#1ca6ac0a")
 	}
 	if err := b.ConsumeID(PhoneEditGroupCallTitleRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.editGroupCallTitle#1ca6ac0a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.editGroupCallTitle#1ca6ac0a", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -154,17 +154,17 @@ func (e *PhoneEditGroupCallTitleRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *PhoneEditGroupCallTitleRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode phone.editGroupCallTitle#1ca6ac0a to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.editGroupCallTitle#1ca6ac0a")
 	}
 	{
 		if err := e.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallTitle#1ca6ac0a: field call: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.editGroupCallTitle#1ca6ac0a", "call", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallTitle#1ca6ac0a: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.editGroupCallTitle#1ca6ac0a", "title", err)
 		}
 		e.Title = value
 	}

@@ -102,7 +102,7 @@ func (g *UsersGetFullUserRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UsersGetFullUserRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode users.getFullUser#ca30a5b1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "users.getFullUser#ca30a5b1")
 	}
 	b.PutID(UsersGetFullUserRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,13 +111,13 @@ func (g *UsersGetFullUserRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UsersGetFullUserRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode users.getFullUser#ca30a5b1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "users.getFullUser#ca30a5b1")
 	}
 	if g.ID == nil {
-		return fmt.Errorf("unable to encode users.getFullUser#ca30a5b1: field id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "users.getFullUser#ca30a5b1", "id")
 	}
 	if err := g.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode users.getFullUser#ca30a5b1: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "users.getFullUser#ca30a5b1", "id", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (g *UsersGetFullUserRequest) GetID() (value InputUserClass) {
 // Decode implements bin.Decoder.
 func (g *UsersGetFullUserRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode users.getFullUser#ca30a5b1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "users.getFullUser#ca30a5b1")
 	}
 	if err := b.ConsumeID(UsersGetFullUserRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode users.getFullUser#ca30a5b1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "users.getFullUser#ca30a5b1", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (g *UsersGetFullUserRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UsersGetFullUserRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode users.getFullUser#ca30a5b1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "users.getFullUser#ca30a5b1")
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode users.getFullUser#ca30a5b1: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "users.getFullUser#ca30a5b1", "id", err)
 		}
 		g.ID = value
 	}

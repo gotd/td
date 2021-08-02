@@ -102,7 +102,7 @@ func (d *DataJSON) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DataJSON) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dataJSON#7d748d04 as nil")
+		return fmt.Errorf("can't encode %s as nil", "dataJSON#7d748d04")
 	}
 	b.PutID(DataJSONTypeID)
 	return d.EncodeBare(b)
@@ -111,7 +111,7 @@ func (d *DataJSON) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DataJSON) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dataJSON#7d748d04 as nil")
+		return fmt.Errorf("can't encode %s as nil", "dataJSON#7d748d04")
 	}
 	b.PutString(d.Data)
 	return nil
@@ -125,10 +125,10 @@ func (d *DataJSON) GetData() (value string) {
 // Decode implements bin.Decoder.
 func (d *DataJSON) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dataJSON#7d748d04 to nil")
+		return fmt.Errorf("can't decode %s to nil", "dataJSON#7d748d04")
 	}
 	if err := b.ConsumeID(DataJSONTypeID); err != nil {
-		return fmt.Errorf("unable to decode dataJSON#7d748d04: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "dataJSON#7d748d04", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (d *DataJSON) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DataJSON) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dataJSON#7d748d04 to nil")
+		return fmt.Errorf("can't decode %s to nil", "dataJSON#7d748d04")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode dataJSON#7d748d04: field data: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dataJSON#7d748d04", "data", err)
 		}
 		d.Data = value
 	}

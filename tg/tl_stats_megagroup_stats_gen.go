@@ -281,7 +281,7 @@ func (m *StatsMegagroupStats) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *StatsMegagroupStats) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode stats.megagroupStats#ef7ff916 as nil")
+		return fmt.Errorf("can't encode %s as nil", "stats.megagroupStats#ef7ff916")
 	}
 	b.PutID(StatsMegagroupStatsTypeID)
 	return m.EncodeBare(b)
@@ -290,96 +290,96 @@ func (m *StatsMegagroupStats) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *StatsMegagroupStats) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode stats.megagroupStats#ef7ff916 as nil")
+		return fmt.Errorf("can't encode %s as nil", "stats.megagroupStats#ef7ff916")
 	}
 	if err := m.Period.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field period: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "period", err)
 	}
 	if err := m.Members.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field members: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "members", err)
 	}
 	if err := m.Messages.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field messages: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "messages", err)
 	}
 	if err := m.Viewers.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field viewers: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "viewers", err)
 	}
 	if err := m.Posters.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field posters: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "posters", err)
 	}
 	if m.GrowthGraph == nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field growth_graph is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stats.megagroupStats#ef7ff916", "growth_graph")
 	}
 	if err := m.GrowthGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field growth_graph: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "growth_graph", err)
 	}
 	if m.MembersGraph == nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field members_graph is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stats.megagroupStats#ef7ff916", "members_graph")
 	}
 	if err := m.MembersGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field members_graph: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "members_graph", err)
 	}
 	if m.NewMembersBySourceGraph == nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field new_members_by_source_graph is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stats.megagroupStats#ef7ff916", "new_members_by_source_graph")
 	}
 	if err := m.NewMembersBySourceGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field new_members_by_source_graph: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "new_members_by_source_graph", err)
 	}
 	if m.LanguagesGraph == nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field languages_graph is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stats.megagroupStats#ef7ff916", "languages_graph")
 	}
 	if err := m.LanguagesGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field languages_graph: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "languages_graph", err)
 	}
 	if m.MessagesGraph == nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field messages_graph is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stats.megagroupStats#ef7ff916", "messages_graph")
 	}
 	if err := m.MessagesGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field messages_graph: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "messages_graph", err)
 	}
 	if m.ActionsGraph == nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field actions_graph is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stats.megagroupStats#ef7ff916", "actions_graph")
 	}
 	if err := m.ActionsGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field actions_graph: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "actions_graph", err)
 	}
 	if m.TopHoursGraph == nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field top_hours_graph is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stats.megagroupStats#ef7ff916", "top_hours_graph")
 	}
 	if err := m.TopHoursGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field top_hours_graph: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "top_hours_graph", err)
 	}
 	if m.WeekdaysGraph == nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field weekdays_graph is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stats.megagroupStats#ef7ff916", "weekdays_graph")
 	}
 	if err := m.WeekdaysGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field weekdays_graph: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "weekdays_graph", err)
 	}
 	b.PutVectorHeader(len(m.TopPosters))
 	for idx, v := range m.TopPosters {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field top_posters element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "stats.megagroupStats#ef7ff916", "top_posters", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(m.TopAdmins))
 	for idx, v := range m.TopAdmins {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field top_admins element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "stats.megagroupStats#ef7ff916", "top_admins", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(m.TopInviters))
 	for idx, v := range m.TopInviters {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field top_inviters element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "stats.megagroupStats#ef7ff916", "top_inviters", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(m.Users))
 	for idx, v := range m.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "stats.megagroupStats#ef7ff916", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "stats.megagroupStats#ef7ff916", "users", idx, err)
 		}
 	}
 	return nil
@@ -478,10 +478,10 @@ func (m *StatsMegagroupStats) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (m *StatsMegagroupStats) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode stats.megagroupStats#ef7ff916 to nil")
+		return fmt.Errorf("can't decode %s to nil", "stats.megagroupStats#ef7ff916")
 	}
 	if err := b.ConsumeID(StatsMegagroupStatsTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "stats.megagroupStats#ef7ff916", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -489,98 +489,98 @@ func (m *StatsMegagroupStats) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *StatsMegagroupStats) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode stats.megagroupStats#ef7ff916 to nil")
+		return fmt.Errorf("can't decode %s to nil", "stats.megagroupStats#ef7ff916")
 	}
 	{
 		if err := m.Period.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field period: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "period", err)
 		}
 	}
 	{
 		if err := m.Members.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field members: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "members", err)
 		}
 	}
 	{
 		if err := m.Messages.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field messages: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "messages", err)
 		}
 	}
 	{
 		if err := m.Viewers.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field viewers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "viewers", err)
 		}
 	}
 	{
 		if err := m.Posters.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field posters: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "posters", err)
 		}
 	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field growth_graph: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "growth_graph", err)
 		}
 		m.GrowthGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field members_graph: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "members_graph", err)
 		}
 		m.MembersGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field new_members_by_source_graph: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "new_members_by_source_graph", err)
 		}
 		m.NewMembersBySourceGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field languages_graph: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "languages_graph", err)
 		}
 		m.LanguagesGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field messages_graph: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "messages_graph", err)
 		}
 		m.MessagesGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field actions_graph: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "actions_graph", err)
 		}
 		m.ActionsGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field top_hours_graph: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "top_hours_graph", err)
 		}
 		m.TopHoursGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field weekdays_graph: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "weekdays_graph", err)
 		}
 		m.WeekdaysGraph = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field top_posters: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "top_posters", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value StatsGroupTopPoster
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field top_posters: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "top_posters", err)
 			}
 			m.TopPosters = append(m.TopPosters, value)
 		}
@@ -588,12 +588,12 @@ func (m *StatsMegagroupStats) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field top_admins: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "top_admins", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value StatsGroupTopAdmin
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field top_admins: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "top_admins", err)
 			}
 			m.TopAdmins = append(m.TopAdmins, value)
 		}
@@ -601,12 +601,12 @@ func (m *StatsMegagroupStats) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field top_inviters: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "top_inviters", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value StatsGroupTopInviter
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field top_inviters: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "top_inviters", err)
 			}
 			m.TopInviters = append(m.TopInviters, value)
 		}
@@ -614,12 +614,12 @@ func (m *StatsMegagroupStats) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "stats.megagroupStats#ef7ff916", "users", err)
 			}
 			m.Users = append(m.Users, value)
 		}

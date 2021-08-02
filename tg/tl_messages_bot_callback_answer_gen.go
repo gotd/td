@@ -180,7 +180,7 @@ func (b *MessagesBotCallbackAnswer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *MessagesBotCallbackAnswer) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode messages.botCallbackAnswer#36585ea4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.botCallbackAnswer#36585ea4")
 	}
 	buf.PutID(MessagesBotCallbackAnswerTypeID)
 	return b.EncodeBare(buf)
@@ -189,7 +189,7 @@ func (b *MessagesBotCallbackAnswer) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *MessagesBotCallbackAnswer) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode messages.botCallbackAnswer#36585ea4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.botCallbackAnswer#36585ea4")
 	}
 	if !(b.Alert == false) {
 		b.Flags.Set(1)
@@ -207,7 +207,7 @@ func (b *MessagesBotCallbackAnswer) EncodeBare(buf *bin.Buffer) error {
 		b.Flags.Set(2)
 	}
 	if err := b.Flags.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode messages.botCallbackAnswer#36585ea4: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.botCallbackAnswer#36585ea4", "flags", err)
 	}
 	if b.Flags.Has(0) {
 		buf.PutString(b.Message)
@@ -305,10 +305,10 @@ func (b *MessagesBotCallbackAnswer) GetCacheTime() (value int) {
 // Decode implements bin.Decoder.
 func (b *MessagesBotCallbackAnswer) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode messages.botCallbackAnswer#36585ea4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.botCallbackAnswer#36585ea4")
 	}
 	if err := buf.ConsumeID(MessagesBotCallbackAnswerTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.botCallbackAnswer#36585ea4", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -316,11 +316,11 @@ func (b *MessagesBotCallbackAnswer) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *MessagesBotCallbackAnswer) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode messages.botCallbackAnswer#36585ea4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.botCallbackAnswer#36585ea4")
 	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botCallbackAnswer#36585ea4", "flags", err)
 		}
 	}
 	b.Alert = b.Flags.Has(1)
@@ -329,21 +329,21 @@ func (b *MessagesBotCallbackAnswer) DecodeBare(buf *bin.Buffer) error {
 	if b.Flags.Has(0) {
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botCallbackAnswer#36585ea4", "message", err)
 		}
 		b.Message = value
 	}
 	if b.Flags.Has(2) {
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botCallbackAnswer#36585ea4", "url", err)
 		}
 		b.URL = value
 	}
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field cache_time: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.botCallbackAnswer#36585ea4", "cache_time", err)
 		}
 		b.CacheTime = value
 	}

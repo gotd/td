@@ -84,7 +84,7 @@ func (i *Int32) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *Int32) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode int32#5cb934fa as nil")
+		return fmt.Errorf("can't encode %s as nil", "int32#5cb934fa")
 	}
 	b.PutID(Int32TypeID)
 	return i.EncodeBare(b)
@@ -93,7 +93,7 @@ func (i *Int32) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *Int32) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode int32#5cb934fa as nil")
+		return fmt.Errorf("can't encode %s as nil", "int32#5cb934fa")
 	}
 	return nil
 }
@@ -101,10 +101,10 @@ func (i *Int32) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *Int32) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode int32#5cb934fa to nil")
+		return fmt.Errorf("can't decode %s to nil", "int32#5cb934fa")
 	}
 	if err := b.ConsumeID(Int32TypeID); err != nil {
-		return fmt.Errorf("unable to decode int32#5cb934fa: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "int32#5cb934fa", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -112,7 +112,7 @@ func (i *Int32) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *Int32) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode int32#5cb934fa to nil")
+		return fmt.Errorf("can't decode %s to nil", "int32#5cb934fa")
 	}
 	return nil
 }

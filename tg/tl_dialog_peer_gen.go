@@ -102,7 +102,7 @@ func (d *DialogPeer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DialogPeer) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialogPeer#e56dbf05 as nil")
+		return fmt.Errorf("can't encode %s as nil", "dialogPeer#e56dbf05")
 	}
 	b.PutID(DialogPeerTypeID)
 	return d.EncodeBare(b)
@@ -111,13 +111,13 @@ func (d *DialogPeer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DialogPeer) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialogPeer#e56dbf05 as nil")
+		return fmt.Errorf("can't encode %s as nil", "dialogPeer#e56dbf05")
 	}
 	if d.Peer == nil {
-		return fmt.Errorf("unable to encode dialogPeer#e56dbf05: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "dialogPeer#e56dbf05", "peer")
 	}
 	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dialogPeer#e56dbf05: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "dialogPeer#e56dbf05", "peer", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (d *DialogPeer) GetPeer() (value PeerClass) {
 // Decode implements bin.Decoder.
 func (d *DialogPeer) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialogPeer#e56dbf05 to nil")
+		return fmt.Errorf("can't decode %s to nil", "dialogPeer#e56dbf05")
 	}
 	if err := b.ConsumeID(DialogPeerTypeID); err != nil {
-		return fmt.Errorf("unable to decode dialogPeer#e56dbf05: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "dialogPeer#e56dbf05", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (d *DialogPeer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DialogPeer) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialogPeer#e56dbf05 to nil")
+		return fmt.Errorf("can't decode %s to nil", "dialogPeer#e56dbf05")
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogPeer#e56dbf05: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dialogPeer#e56dbf05", "peer", err)
 		}
 		d.Peer = value
 	}
@@ -245,7 +245,7 @@ func (d *DialogPeerFolder) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DialogPeerFolder) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialogPeerFolder#514519e2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "dialogPeerFolder#514519e2")
 	}
 	b.PutID(DialogPeerFolderTypeID)
 	return d.EncodeBare(b)
@@ -254,7 +254,7 @@ func (d *DialogPeerFolder) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DialogPeerFolder) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialogPeerFolder#514519e2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "dialogPeerFolder#514519e2")
 	}
 	b.PutInt(d.FolderID)
 	return nil
@@ -268,10 +268,10 @@ func (d *DialogPeerFolder) GetFolderID() (value int) {
 // Decode implements bin.Decoder.
 func (d *DialogPeerFolder) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialogPeerFolder#514519e2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "dialogPeerFolder#514519e2")
 	}
 	if err := b.ConsumeID(DialogPeerFolderTypeID); err != nil {
-		return fmt.Errorf("unable to decode dialogPeerFolder#514519e2: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "dialogPeerFolder#514519e2", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -279,12 +279,12 @@ func (d *DialogPeerFolder) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DialogPeerFolder) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialogPeerFolder#514519e2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "dialogPeerFolder#514519e2")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogPeerFolder#514519e2: field folder_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dialogPeerFolder#514519e2", "folder_id", err)
 		}
 		d.FolderID = value
 	}
@@ -356,18 +356,18 @@ func DecodeDialogPeer(buf *bin.Buffer) (DialogPeerClass, error) {
 		// Decoding dialogPeer#e56dbf05.
 		v := DialogPeer{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DialogPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DialogPeerClass", err)
 		}
 		return &v, nil
 	case DialogPeerFolderTypeID:
 		// Decoding dialogPeerFolder#514519e2.
 		v := DialogPeerFolder{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DialogPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DialogPeerClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode DialogPeerClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "DialogPeerClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -379,7 +379,7 @@ type DialogPeerBox struct {
 // Decode implements bin.Decoder for DialogPeerBox.
 func (b *DialogPeerBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode DialogPeerBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "DialogPeer")
 	}
 	v, err := DecodeDialogPeer(buf)
 	if err != nil {
@@ -392,7 +392,7 @@ func (b *DialogPeerBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for DialogPeerBox.
 func (b *DialogPeerBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.DialogPeer == nil {
-		return fmt.Errorf("unable to encode DialogPeerClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "DialogPeerClass")
 	}
 	return b.DialogPeer.Encode(buf)
 }

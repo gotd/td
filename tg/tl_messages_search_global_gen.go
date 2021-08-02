@@ -221,7 +221,7 @@ func (s *MessagesSearchGlobalRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSearchGlobalRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.searchGlobal#4bc6589a as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.searchGlobal#4bc6589a")
 	}
 	b.PutID(MessagesSearchGlobalRequestTypeID)
 	return s.EncodeBare(b)
@@ -230,32 +230,32 @@ func (s *MessagesSearchGlobalRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSearchGlobalRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.searchGlobal#4bc6589a as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.searchGlobal#4bc6589a")
 	}
 	if !(s.FolderID == 0) {
 		s.Flags.Set(0)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.searchGlobal#4bc6589a: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "flags", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutInt(s.FolderID)
 	}
 	b.PutString(s.Q)
 	if s.Filter == nil {
-		return fmt.Errorf("unable to encode messages.searchGlobal#4bc6589a: field filter is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.searchGlobal#4bc6589a", "filter")
 	}
 	if err := s.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.searchGlobal#4bc6589a: field filter: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "filter", err)
 	}
 	b.PutInt(s.MinDate)
 	b.PutInt(s.MaxDate)
 	b.PutInt(s.OffsetRate)
 	if s.OffsetPeer == nil {
-		return fmt.Errorf("unable to encode messages.searchGlobal#4bc6589a: field offset_peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.searchGlobal#4bc6589a", "offset_peer")
 	}
 	if err := s.OffsetPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.searchGlobal#4bc6589a: field offset_peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "offset_peer", err)
 	}
 	b.PutInt(s.OffsetID)
 	b.PutInt(s.Limit)
@@ -320,10 +320,10 @@ func (s *MessagesSearchGlobalRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (s *MessagesSearchGlobalRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.searchGlobal#4bc6589a to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.searchGlobal#4bc6589a")
 	}
 	if err := b.ConsumeID(MessagesSearchGlobalRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.searchGlobal#4bc6589a", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -331,73 +331,73 @@ func (s *MessagesSearchGlobalRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSearchGlobalRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.searchGlobal#4bc6589a to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.searchGlobal#4bc6589a")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "flags", err)
 		}
 	}
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field folder_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "folder_id", err)
 		}
 		s.FolderID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field q: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "q", err)
 		}
 		s.Q = value
 	}
 	{
 		value, err := DecodeMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field filter: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "filter", err)
 		}
 		s.Filter = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field min_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "min_date", err)
 		}
 		s.MinDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field max_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "max_date", err)
 		}
 		s.MaxDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field offset_rate: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "offset_rate", err)
 		}
 		s.OffsetRate = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field offset_peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "offset_peer", err)
 		}
 		s.OffsetPeer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "offset_id", err)
 		}
 		s.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchGlobal#4bc6589a", "limit", err)
 		}
 		s.Limit = value
 	}

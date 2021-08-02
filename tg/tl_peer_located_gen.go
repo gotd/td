@@ -124,7 +124,7 @@ func (p *PeerLocated) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PeerLocated) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerLocated#ca461b5d as nil")
+		return fmt.Errorf("can't encode %s as nil", "peerLocated#ca461b5d")
 	}
 	b.PutID(PeerLocatedTypeID)
 	return p.EncodeBare(b)
@@ -133,13 +133,13 @@ func (p *PeerLocated) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PeerLocated) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerLocated#ca461b5d as nil")
+		return fmt.Errorf("can't encode %s as nil", "peerLocated#ca461b5d")
 	}
 	if p.Peer == nil {
-		return fmt.Errorf("unable to encode peerLocated#ca461b5d: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "peerLocated#ca461b5d", "peer")
 	}
 	if err := p.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode peerLocated#ca461b5d: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "peerLocated#ca461b5d", "peer", err)
 	}
 	b.PutInt(p.Expires)
 	b.PutInt(p.Distance)
@@ -164,10 +164,10 @@ func (p *PeerLocated) GetDistance() (value int) {
 // Decode implements bin.Decoder.
 func (p *PeerLocated) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerLocated#ca461b5d to nil")
+		return fmt.Errorf("can't decode %s to nil", "peerLocated#ca461b5d")
 	}
 	if err := b.ConsumeID(PeerLocatedTypeID); err != nil {
-		return fmt.Errorf("unable to decode peerLocated#ca461b5d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "peerLocated#ca461b5d", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -175,26 +175,26 @@ func (p *PeerLocated) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PeerLocated) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerLocated#ca461b5d to nil")
+		return fmt.Errorf("can't decode %s to nil", "peerLocated#ca461b5d")
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode peerLocated#ca461b5d: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "peerLocated#ca461b5d", "peer", err)
 		}
 		p.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerLocated#ca461b5d: field expires: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "peerLocated#ca461b5d", "expires", err)
 		}
 		p.Expires = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerLocated#ca461b5d: field distance: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "peerLocated#ca461b5d", "distance", err)
 		}
 		p.Distance = value
 	}
@@ -287,7 +287,7 @@ func (p *PeerSelfLocated) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PeerSelfLocated) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerSelfLocated#f8ec284b as nil")
+		return fmt.Errorf("can't encode %s as nil", "peerSelfLocated#f8ec284b")
 	}
 	b.PutID(PeerSelfLocatedTypeID)
 	return p.EncodeBare(b)
@@ -296,7 +296,7 @@ func (p *PeerSelfLocated) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PeerSelfLocated) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerSelfLocated#f8ec284b as nil")
+		return fmt.Errorf("can't encode %s as nil", "peerSelfLocated#f8ec284b")
 	}
 	b.PutInt(p.Expires)
 	return nil
@@ -310,10 +310,10 @@ func (p *PeerSelfLocated) GetExpires() (value int) {
 // Decode implements bin.Decoder.
 func (p *PeerSelfLocated) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerSelfLocated#f8ec284b to nil")
+		return fmt.Errorf("can't decode %s to nil", "peerSelfLocated#f8ec284b")
 	}
 	if err := b.ConsumeID(PeerSelfLocatedTypeID); err != nil {
-		return fmt.Errorf("unable to decode peerSelfLocated#f8ec284b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "peerSelfLocated#f8ec284b", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -321,12 +321,12 @@ func (p *PeerSelfLocated) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PeerSelfLocated) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerSelfLocated#f8ec284b to nil")
+		return fmt.Errorf("can't decode %s to nil", "peerSelfLocated#f8ec284b")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSelfLocated#f8ec284b: field expires: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "peerSelfLocated#f8ec284b", "expires", err)
 		}
 		p.Expires = value
 	}
@@ -393,18 +393,18 @@ func DecodePeerLocated(buf *bin.Buffer) (PeerLocatedClass, error) {
 		// Decoding peerLocated#ca461b5d.
 		v := PeerLocated{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PeerLocatedClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "PeerLocatedClass", err)
 		}
 		return &v, nil
 	case PeerSelfLocatedTypeID:
 		// Decoding peerSelfLocated#f8ec284b.
 		v := PeerSelfLocated{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PeerLocatedClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "PeerLocatedClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode PeerLocatedClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "PeerLocatedClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -416,7 +416,7 @@ type PeerLocatedBox struct {
 // Decode implements bin.Decoder for PeerLocatedBox.
 func (b *PeerLocatedBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode PeerLocatedBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "PeerLocated")
 	}
 	v, err := DecodePeerLocated(buf)
 	if err != nil {
@@ -429,7 +429,7 @@ func (b *PeerLocatedBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for PeerLocatedBox.
 func (b *PeerLocatedBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.PeerLocated == nil {
-		return fmt.Errorf("unable to encode PeerLocatedClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "PeerLocatedClass")
 	}
 	return b.PeerLocated.Encode(buf)
 }

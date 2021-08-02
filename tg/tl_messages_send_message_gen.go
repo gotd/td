@@ -254,7 +254,7 @@ func (s *MessagesSendMessageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSendMessageRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMessage#520c3870 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.sendMessage#520c3870")
 	}
 	b.PutID(MessagesSendMessageRequestTypeID)
 	return s.EncodeBare(b)
@@ -263,7 +263,7 @@ func (s *MessagesSendMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMessage#520c3870 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.sendMessage#520c3870")
 	}
 	if !(s.NoWebpage == false) {
 		s.Flags.Set(1)
@@ -290,13 +290,13 @@ func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(10)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.sendMessage#520c3870", "flags", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.sendMessage#520c3870", "peer")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.sendMessage#520c3870", "peer", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutInt(s.ReplyToMsgID)
@@ -305,20 +305,20 @@ func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutLong(s.RandomID)
 	if s.Flags.Has(2) {
 		if s.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field reply_markup is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "messages.sendMessage#520c3870", "reply_markup")
 		}
 		if err := s.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field reply_markup: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "messages.sendMessage#520c3870", "reply_markup", err)
 		}
 	}
 	if s.Flags.Has(3) {
 		b.PutVectorHeader(len(s.Entities))
 		for idx, v := range s.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.sendMessage#520c3870", "entities", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.sendMessage#520c3870", "entities", idx, err)
 			}
 		}
 	}
@@ -478,10 +478,10 @@ func (s *MessagesSendMessageRequest) GetScheduleDate() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (s *MessagesSendMessageRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMessage#520c3870 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.sendMessage#520c3870")
 	}
 	if err := b.ConsumeID(MessagesSendMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendMessage#520c3870: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.sendMessage#520c3870", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -489,11 +489,11 @@ func (s *MessagesSendMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMessage#520c3870 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.sendMessage#520c3870")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMessage#520c3870", "flags", err)
 		}
 	}
 	s.NoWebpage = s.Flags.Has(1)
@@ -503,47 +503,47 @@ func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMessage#520c3870", "peer", err)
 		}
 		s.Peer = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMessage#520c3870", "reply_to_msg_id", err)
 		}
 		s.ReplyToMsgID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMessage#520c3870", "message", err)
 		}
 		s.Message = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field random_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMessage#520c3870", "random_id", err)
 		}
 		s.RandomID = value
 	}
 	if s.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMessage#520c3870", "reply_markup", err)
 		}
 		s.ReplyMarkup = value
 	}
 	if s.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field entities: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMessage#520c3870", "entities", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field entities: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMessage#520c3870", "entities", err)
 			}
 			s.Entities = append(s.Entities, value)
 		}
@@ -551,7 +551,7 @@ func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendMessage#520c3870", "schedule_date", err)
 		}
 		s.ScheduleDate = value
 	}

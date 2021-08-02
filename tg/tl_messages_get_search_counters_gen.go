@@ -117,7 +117,7 @@ func (g *MessagesGetSearchCountersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetSearchCountersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSearchCounters#732eef00 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getSearchCounters#732eef00")
 	}
 	b.PutID(MessagesGetSearchCountersRequestTypeID)
 	return g.EncodeBare(b)
@@ -126,21 +126,21 @@ func (g *MessagesGetSearchCountersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetSearchCountersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSearchCounters#732eef00 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getSearchCounters#732eef00")
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getSearchCounters#732eef00: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.getSearchCounters#732eef00", "peer")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getSearchCounters#732eef00: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getSearchCounters#732eef00", "peer", err)
 	}
 	b.PutVectorHeader(len(g.Filters))
 	for idx, v := range g.Filters {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.getSearchCounters#732eef00: field filters element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.getSearchCounters#732eef00", "filters", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.getSearchCounters#732eef00: field filters element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.getSearchCounters#732eef00", "filters", idx, err)
 		}
 	}
 	return nil
@@ -164,10 +164,10 @@ func (g *MessagesGetSearchCountersRequest) MapFilters() (value MessagesFilterCla
 // Decode implements bin.Decoder.
 func (g *MessagesGetSearchCountersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSearchCounters#732eef00 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getSearchCounters#732eef00")
 	}
 	if err := b.ConsumeID(MessagesGetSearchCountersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getSearchCounters#732eef00: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getSearchCounters#732eef00", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -175,24 +175,24 @@ func (g *MessagesGetSearchCountersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetSearchCountersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSearchCounters#732eef00 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getSearchCounters#732eef00")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSearchCounters#732eef00: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getSearchCounters#732eef00", "peer", err)
 		}
 		g.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSearchCounters#732eef00: field filters: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getSearchCounters#732eef00", "filters", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessagesFilter(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.getSearchCounters#732eef00: field filters: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getSearchCounters#732eef00", "filters", err)
 			}
 			g.Filters = append(g.Filters, value)
 		}

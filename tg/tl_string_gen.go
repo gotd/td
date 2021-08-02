@@ -84,7 +84,7 @@ func (s *String) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *String) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode string#b5286e24 as nil")
+		return fmt.Errorf("can't encode %s as nil", "string#b5286e24")
 	}
 	b.PutID(StringTypeID)
 	return s.EncodeBare(b)
@@ -93,7 +93,7 @@ func (s *String) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *String) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode string#b5286e24 as nil")
+		return fmt.Errorf("can't encode %s as nil", "string#b5286e24")
 	}
 	return nil
 }
@@ -101,10 +101,10 @@ func (s *String) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *String) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode string#b5286e24 to nil")
+		return fmt.Errorf("can't decode %s to nil", "string#b5286e24")
 	}
 	if err := b.ConsumeID(StringTypeID); err != nil {
-		return fmt.Errorf("unable to decode string#b5286e24: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "string#b5286e24", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -112,7 +112,7 @@ func (s *String) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *String) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode string#b5286e24 to nil")
+		return fmt.Errorf("can't decode %s to nil", "string#b5286e24")
 	}
 	return nil
 }

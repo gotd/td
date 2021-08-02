@@ -85,7 +85,7 @@ func (i *InputPhotoEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPhotoEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhotoEmpty#1cd7bf0d as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPhotoEmpty#1cd7bf0d")
 	}
 	b.PutID(InputPhotoEmptyTypeID)
 	return i.EncodeBare(b)
@@ -94,7 +94,7 @@ func (i *InputPhotoEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPhotoEmpty) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhotoEmpty#1cd7bf0d as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPhotoEmpty#1cd7bf0d")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (i *InputPhotoEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputPhotoEmpty) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhotoEmpty#1cd7bf0d to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPhotoEmpty#1cd7bf0d")
 	}
 	if err := b.ConsumeID(InputPhotoEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPhotoEmpty#1cd7bf0d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPhotoEmpty#1cd7bf0d", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (i *InputPhotoEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhotoEmpty#1cd7bf0d to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPhotoEmpty#1cd7bf0d")
 	}
 	return nil
 }
@@ -232,7 +232,7 @@ func (i *InputPhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhoto#3bb3b94a as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPhoto#3bb3b94a")
 	}
 	b.PutID(InputPhotoTypeID)
 	return i.EncodeBare(b)
@@ -241,7 +241,7 @@ func (i *InputPhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPhoto) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhoto#3bb3b94a as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPhoto#3bb3b94a")
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -267,10 +267,10 @@ func (i *InputPhoto) GetFileReference() (value []byte) {
 // Decode implements bin.Decoder.
 func (i *InputPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhoto#3bb3b94a to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPhoto#3bb3b94a")
 	}
 	if err := b.ConsumeID(InputPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPhoto#3bb3b94a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPhoto#3bb3b94a", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -278,26 +278,26 @@ func (i *InputPhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPhoto) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhoto#3bb3b94a to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPhoto#3bb3b94a")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoto#3bb3b94a: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPhoto#3bb3b94a", "id", err)
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoto#3bb3b94a: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPhoto#3bb3b94a", "access_hash", err)
 		}
 		i.AccessHash = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoto#3bb3b94a: field file_reference: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPhoto#3bb3b94a", "file_reference", err)
 		}
 		i.FileReference = value
 	}
@@ -374,18 +374,18 @@ func DecodeInputPhoto(buf *bin.Buffer) (InputPhotoClass, error) {
 		// Decoding inputPhotoEmpty#1cd7bf0d.
 		v := InputPhotoEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPhotoClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPhotoClass", err)
 		}
 		return &v, nil
 	case InputPhotoTypeID:
 		// Decoding inputPhoto#3bb3b94a.
 		v := InputPhoto{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPhotoClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPhotoClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputPhotoClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "InputPhotoClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -397,7 +397,7 @@ type InputPhotoBox struct {
 // Decode implements bin.Decoder for InputPhotoBox.
 func (b *InputPhotoBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputPhotoBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "InputPhoto")
 	}
 	v, err := DecodeInputPhoto(buf)
 	if err != nil {
@@ -410,7 +410,7 @@ func (b *InputPhotoBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputPhotoBox.
 func (b *InputPhotoBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputPhoto == nil {
-		return fmt.Errorf("unable to encode InputPhotoClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "InputPhotoClass")
 	}
 	return b.InputPhoto.Encode(buf)
 }

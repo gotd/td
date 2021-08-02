@@ -135,7 +135,7 @@ func (l *LangPackDifference) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LangPackDifference) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode langPackDifference#f385c1f6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "langPackDifference#f385c1f6")
 	}
 	b.PutID(LangPackDifferenceTypeID)
 	return l.EncodeBare(b)
@@ -144,7 +144,7 @@ func (l *LangPackDifference) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LangPackDifference) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode langPackDifference#f385c1f6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "langPackDifference#f385c1f6")
 	}
 	b.PutString(l.LangCode)
 	b.PutInt(l.FromVersion)
@@ -152,10 +152,10 @@ func (l *LangPackDifference) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(l.Strings))
 	for idx, v := range l.Strings {
 		if v == nil {
-			return fmt.Errorf("unable to encode langPackDifference#f385c1f6: field strings element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "langPackDifference#f385c1f6", "strings", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode langPackDifference#f385c1f6: field strings element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "langPackDifference#f385c1f6", "strings", idx, err)
 		}
 	}
 	return nil
@@ -189,10 +189,10 @@ func (l *LangPackDifference) MapStrings() (value LangPackStringClassArray) {
 // Decode implements bin.Decoder.
 func (l *LangPackDifference) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode langPackDifference#f385c1f6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "langPackDifference#f385c1f6")
 	}
 	if err := b.ConsumeID(LangPackDifferenceTypeID); err != nil {
-		return fmt.Errorf("unable to decode langPackDifference#f385c1f6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "langPackDifference#f385c1f6", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -200,38 +200,38 @@ func (l *LangPackDifference) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LangPackDifference) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode langPackDifference#f385c1f6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "langPackDifference#f385c1f6")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackDifference#f385c1f6: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "langPackDifference#f385c1f6", "lang_code", err)
 		}
 		l.LangCode = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackDifference#f385c1f6: field from_version: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "langPackDifference#f385c1f6", "from_version", err)
 		}
 		l.FromVersion = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackDifference#f385c1f6: field version: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "langPackDifference#f385c1f6", "version", err)
 		}
 		l.Version = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackDifference#f385c1f6: field strings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "langPackDifference#f385c1f6", "strings", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeLangPackString(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode langPackDifference#f385c1f6: field strings: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "langPackDifference#f385c1f6", "strings", err)
 			}
 			l.Strings = append(l.Strings, value)
 		}

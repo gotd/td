@@ -102,7 +102,7 @@ func (j *ChannelsJoinChannelRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (j *ChannelsJoinChannelRequest) Encode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode channels.joinChannel#24b524c5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.joinChannel#24b524c5")
 	}
 	b.PutID(ChannelsJoinChannelRequestTypeID)
 	return j.EncodeBare(b)
@@ -111,13 +111,13 @@ func (j *ChannelsJoinChannelRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (j *ChannelsJoinChannelRequest) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode channels.joinChannel#24b524c5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.joinChannel#24b524c5")
 	}
 	if j.Channel == nil {
-		return fmt.Errorf("unable to encode channels.joinChannel#24b524c5: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.joinChannel#24b524c5", "channel")
 	}
 	if err := j.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.joinChannel#24b524c5: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.joinChannel#24b524c5", "channel", err)
 	}
 	return nil
 }
@@ -135,10 +135,10 @@ func (j *ChannelsJoinChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChanne
 // Decode implements bin.Decoder.
 func (j *ChannelsJoinChannelRequest) Decode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode channels.joinChannel#24b524c5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.joinChannel#24b524c5")
 	}
 	if err := b.ConsumeID(ChannelsJoinChannelRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.joinChannel#24b524c5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.joinChannel#24b524c5", err)
 	}
 	return j.DecodeBare(b)
 }
@@ -146,12 +146,12 @@ func (j *ChannelsJoinChannelRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (j *ChannelsJoinChannelRequest) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode channels.joinChannel#24b524c5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.joinChannel#24b524c5")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.joinChannel#24b524c5: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.joinChannel#24b524c5", "channel", err)
 		}
 		j.Channel = value
 	}

@@ -113,7 +113,7 @@ func (s *ContactsSearchRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *ContactsSearchRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode contacts.search#11f812d8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.search#11f812d8")
 	}
 	b.PutID(ContactsSearchRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,7 +122,7 @@ func (s *ContactsSearchRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *ContactsSearchRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode contacts.search#11f812d8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.search#11f812d8")
 	}
 	b.PutString(s.Q)
 	b.PutInt(s.Limit)
@@ -142,10 +142,10 @@ func (s *ContactsSearchRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (s *ContactsSearchRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode contacts.search#11f812d8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.search#11f812d8")
 	}
 	if err := b.ConsumeID(ContactsSearchRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.search#11f812d8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.search#11f812d8", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -153,19 +153,19 @@ func (s *ContactsSearchRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *ContactsSearchRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode contacts.search#11f812d8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.search#11f812d8")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.search#11f812d8: field q: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.search#11f812d8", "q", err)
 		}
 		s.Q = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.search#11f812d8: field limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.search#11f812d8", "limit", err)
 		}
 		s.Limit = value
 	}

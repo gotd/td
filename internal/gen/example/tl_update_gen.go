@@ -112,7 +112,7 @@ func (u *Update) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *Update) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode update#b03e2ef8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "update#b03e2ef8")
 	}
 	b.PutID(UpdateTypeID)
 	return u.EncodeBare(b)
@@ -121,13 +121,13 @@ func (u *Update) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *Update) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode update#b03e2ef8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "update#b03e2ef8")
 	}
 	if u.Msg == nil {
-		return fmt.Errorf("unable to encode update#b03e2ef8: field msg is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "update#b03e2ef8", "msg")
 	}
 	if err := u.Msg.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode update#b03e2ef8: field msg: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "update#b03e2ef8", "msg", err)
 	}
 	b.PutInt32(u.Delay)
 	return nil
@@ -146,10 +146,10 @@ func (u *Update) GetDelay() (value int32) {
 // Decode implements bin.Decoder.
 func (u *Update) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode update#b03e2ef8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "update#b03e2ef8")
 	}
 	if err := b.ConsumeID(UpdateTypeID); err != nil {
-		return fmt.Errorf("unable to decode update#b03e2ef8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "update#b03e2ef8", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -157,19 +157,19 @@ func (u *Update) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *Update) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode update#b03e2ef8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "update#b03e2ef8")
 	}
 	{
 		value, err := DecodeAbstractMessage(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode update#b03e2ef8: field msg: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "update#b03e2ef8", "msg", err)
 		}
 		u.Msg = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode update#b03e2ef8: field delay: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "update#b03e2ef8", "delay", err)
 		}
 		u.Delay = value
 	}

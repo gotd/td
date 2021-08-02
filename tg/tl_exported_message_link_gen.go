@@ -113,7 +113,7 @@ func (e *ExportedMessageLink) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *ExportedMessageLink) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode exportedMessageLink#5dab1af4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "exportedMessageLink#5dab1af4")
 	}
 	b.PutID(ExportedMessageLinkTypeID)
 	return e.EncodeBare(b)
@@ -122,7 +122,7 @@ func (e *ExportedMessageLink) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ExportedMessageLink) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode exportedMessageLink#5dab1af4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "exportedMessageLink#5dab1af4")
 	}
 	b.PutString(e.Link)
 	b.PutString(e.HTML)
@@ -142,10 +142,10 @@ func (e *ExportedMessageLink) GetHTML() (value string) {
 // Decode implements bin.Decoder.
 func (e *ExportedMessageLink) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode exportedMessageLink#5dab1af4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "exportedMessageLink#5dab1af4")
 	}
 	if err := b.ConsumeID(ExportedMessageLinkTypeID); err != nil {
-		return fmt.Errorf("unable to decode exportedMessageLink#5dab1af4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "exportedMessageLink#5dab1af4", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -153,19 +153,19 @@ func (e *ExportedMessageLink) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ExportedMessageLink) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode exportedMessageLink#5dab1af4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "exportedMessageLink#5dab1af4")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode exportedMessageLink#5dab1af4: field link: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "exportedMessageLink#5dab1af4", "link", err)
 		}
 		e.Link = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode exportedMessageLink#5dab1af4: field html: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "exportedMessageLink#5dab1af4", "html", err)
 		}
 		e.HTML = value
 	}

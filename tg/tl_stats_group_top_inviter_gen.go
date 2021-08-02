@@ -116,7 +116,7 @@ func (s *StatsGroupTopInviter) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsGroupTopInviter) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGroupTopInviter#31962a4c as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsGroupTopInviter#31962a4c")
 	}
 	b.PutID(StatsGroupTopInviterTypeID)
 	return s.EncodeBare(b)
@@ -125,7 +125,7 @@ func (s *StatsGroupTopInviter) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsGroupTopInviter) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGroupTopInviter#31962a4c as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsGroupTopInviter#31962a4c")
 	}
 	b.PutInt(s.UserID)
 	b.PutInt(s.Invitations)
@@ -145,10 +145,10 @@ func (s *StatsGroupTopInviter) GetInvitations() (value int) {
 // Decode implements bin.Decoder.
 func (s *StatsGroupTopInviter) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGroupTopInviter#31962a4c to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsGroupTopInviter#31962a4c")
 	}
 	if err := b.ConsumeID(StatsGroupTopInviterTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsGroupTopInviter#31962a4c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "statsGroupTopInviter#31962a4c", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -156,19 +156,19 @@ func (s *StatsGroupTopInviter) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsGroupTopInviter) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGroupTopInviter#31962a4c to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsGroupTopInviter#31962a4c")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopInviter#31962a4c: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGroupTopInviter#31962a4c", "user_id", err)
 		}
 		s.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopInviter#31962a4c: field invitations: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGroupTopInviter#31962a4c", "invitations", err)
 		}
 		s.Invitations = value
 	}

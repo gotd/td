@@ -101,7 +101,7 @@ func (d *PhoneDiscardGroupCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *PhoneDiscardGroupCallRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode phone.discardGroupCall#7a777135 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.discardGroupCall#7a777135")
 	}
 	b.PutID(PhoneDiscardGroupCallRequestTypeID)
 	return d.EncodeBare(b)
@@ -110,10 +110,10 @@ func (d *PhoneDiscardGroupCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *PhoneDiscardGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode phone.discardGroupCall#7a777135 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.discardGroupCall#7a777135")
 	}
 	if err := d.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.discardGroupCall#7a777135: field call: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.discardGroupCall#7a777135", "call", err)
 	}
 	return nil
 }
@@ -126,10 +126,10 @@ func (d *PhoneDiscardGroupCallRequest) GetCall() (value InputGroupCall) {
 // Decode implements bin.Decoder.
 func (d *PhoneDiscardGroupCallRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode phone.discardGroupCall#7a777135 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.discardGroupCall#7a777135")
 	}
 	if err := b.ConsumeID(PhoneDiscardGroupCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.discardGroupCall#7a777135: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.discardGroupCall#7a777135", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -137,11 +137,11 @@ func (d *PhoneDiscardGroupCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *PhoneDiscardGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode phone.discardGroupCall#7a777135 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.discardGroupCall#7a777135")
 	}
 	{
 		if err := d.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.discardGroupCall#7a777135: field call: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.discardGroupCall#7a777135", "call", err)
 		}
 	}
 	return nil

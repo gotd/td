@@ -99,7 +99,7 @@ func (vec *DialogFilterVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *DialogFilterVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<DialogFilter> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<DialogFilter>")
 	}
 
 	return vec.EncodeBare(b)
@@ -108,12 +108,12 @@ func (vec *DialogFilterVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *DialogFilterVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<DialogFilter> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<DialogFilter>")
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<DialogFilter>: field Elems element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "Vector<DialogFilter>", "Elems", idx, err)
 		}
 	}
 	return nil
@@ -127,7 +127,7 @@ func (vec *DialogFilterVector) GetElems() (value []DialogFilter) {
 // Decode implements bin.Decoder.
 func (vec *DialogFilterVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<DialogFilter> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<DialogFilter>")
 	}
 
 	return vec.DecodeBare(b)
@@ -136,17 +136,17 @@ func (vec *DialogFilterVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *DialogFilterVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<DialogFilter> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<DialogFilter>")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<DialogFilter>: field Elems: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<DialogFilter>", "Elems", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value DialogFilter
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode Vector<DialogFilter>: field Elems: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<DialogFilter>", "Elems", err)
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

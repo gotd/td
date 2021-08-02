@@ -85,7 +85,7 @@ func (g *HelpGetConfigRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getConfig#c4f9186b as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getConfig#c4f9186b")
 	}
 	b.PutID(HelpGetConfigRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +94,7 @@ func (g *HelpGetConfigRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetConfigRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getConfig#c4f9186b as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getConfig#c4f9186b")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (g *HelpGetConfigRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *HelpGetConfigRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getConfig#c4f9186b to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getConfig#c4f9186b")
 	}
 	if err := b.ConsumeID(HelpGetConfigRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getConfig#c4f9186b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.getConfig#c4f9186b", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (g *HelpGetConfigRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetConfigRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getConfig#c4f9186b to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getConfig#c4f9186b")
 	}
 	return nil
 }

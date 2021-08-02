@@ -88,7 +88,7 @@ func (r *AccountResendPasswordEmailRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountResendPasswordEmailRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resendPasswordEmail#7a7f2a15 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.resendPasswordEmail#7a7f2a15")
 	}
 	b.PutID(AccountResendPasswordEmailRequestTypeID)
 	return r.EncodeBare(b)
@@ -97,7 +97,7 @@ func (r *AccountResendPasswordEmailRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountResendPasswordEmailRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resendPasswordEmail#7a7f2a15 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.resendPasswordEmail#7a7f2a15")
 	}
 	return nil
 }
@@ -105,10 +105,10 @@ func (r *AccountResendPasswordEmailRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *AccountResendPasswordEmailRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resendPasswordEmail#7a7f2a15 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.resendPasswordEmail#7a7f2a15")
 	}
 	if err := b.ConsumeID(AccountResendPasswordEmailRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.resendPasswordEmail#7a7f2a15: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.resendPasswordEmail#7a7f2a15", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -116,7 +116,7 @@ func (r *AccountResendPasswordEmailRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountResendPasswordEmailRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resendPasswordEmail#7a7f2a15 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.resendPasswordEmail#7a7f2a15")
 	}
 	return nil
 }

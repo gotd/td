@@ -101,7 +101,7 @@ func (t *TextEntities) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntities) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntities#cf89c258 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntities#cf89c258")
 	}
 	b.PutID(TextEntitiesTypeID)
 	return t.EncodeBare(b)
@@ -110,12 +110,12 @@ func (t *TextEntities) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntities) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntities#cf89c258 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntities#cf89c258")
 	}
 	b.PutInt(len(t.Entities))
 	for idx, v := range t.Entities {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare textEntities#cf89c258: field entities element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare %s: field %s element with index %d: %w", "textEntities#cf89c258", "entities", idx, err)
 		}
 	}
 	return nil
@@ -129,10 +129,10 @@ func (t *TextEntities) GetEntities() (value []TextEntity) {
 // Decode implements bin.Decoder.
 func (t *TextEntities) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntities#cf89c258 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntities#cf89c258")
 	}
 	if err := b.ConsumeID(TextEntitiesTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntities#cf89c258: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntities#cf89c258", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -140,17 +140,17 @@ func (t *TextEntities) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntities) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntities#cf89c258 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntities#cf89c258")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode textEntities#cf89c258: field entities: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textEntities#cf89c258", "entities", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value TextEntity
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare textEntities#cf89c258: field entities: %w", err)
+				return fmt.Errorf("unable to decode bare %s: field %s: %w", "textEntities#cf89c258", "entities", err)
 			}
 			t.Entities = append(t.Entities, value)
 		}

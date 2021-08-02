@@ -113,7 +113,7 @@ func (p *PeerBlocked) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PeerBlocked) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerBlocked#e8fd8014 as nil")
+		return fmt.Errorf("can't encode %s as nil", "peerBlocked#e8fd8014")
 	}
 	b.PutID(PeerBlockedTypeID)
 	return p.EncodeBare(b)
@@ -122,13 +122,13 @@ func (p *PeerBlocked) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PeerBlocked) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerBlocked#e8fd8014 as nil")
+		return fmt.Errorf("can't encode %s as nil", "peerBlocked#e8fd8014")
 	}
 	if p.PeerID == nil {
-		return fmt.Errorf("unable to encode peerBlocked#e8fd8014: field peer_id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "peerBlocked#e8fd8014", "peer_id")
 	}
 	if err := p.PeerID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode peerBlocked#e8fd8014: field peer_id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "peerBlocked#e8fd8014", "peer_id", err)
 	}
 	b.PutInt(p.Date)
 	return nil
@@ -147,10 +147,10 @@ func (p *PeerBlocked) GetDate() (value int) {
 // Decode implements bin.Decoder.
 func (p *PeerBlocked) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerBlocked#e8fd8014 to nil")
+		return fmt.Errorf("can't decode %s to nil", "peerBlocked#e8fd8014")
 	}
 	if err := b.ConsumeID(PeerBlockedTypeID); err != nil {
-		return fmt.Errorf("unable to decode peerBlocked#e8fd8014: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "peerBlocked#e8fd8014", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -158,19 +158,19 @@ func (p *PeerBlocked) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PeerBlocked) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerBlocked#e8fd8014 to nil")
+		return fmt.Errorf("can't decode %s to nil", "peerBlocked#e8fd8014")
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode peerBlocked#e8fd8014: field peer_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "peerBlocked#e8fd8014", "peer_id", err)
 		}
 		p.PeerID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerBlocked#e8fd8014: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "peerBlocked#e8fd8014", "date", err)
 		}
 		p.Date = value
 	}

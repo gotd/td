@@ -113,7 +113,7 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ChannelsTogglePreHistoryHiddenRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode channels.togglePreHistoryHidden#eabbb94c as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.togglePreHistoryHidden#eabbb94c")
 	}
 	b.PutID(ChannelsTogglePreHistoryHiddenRequestTypeID)
 	return t.EncodeBare(b)
@@ -122,13 +122,13 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ChannelsTogglePreHistoryHiddenRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode channels.togglePreHistoryHidden#eabbb94c as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.togglePreHistoryHidden#eabbb94c")
 	}
 	if t.Channel == nil {
-		return fmt.Errorf("unable to encode channels.togglePreHistoryHidden#eabbb94c: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.togglePreHistoryHidden#eabbb94c", "channel")
 	}
 	if err := t.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.togglePreHistoryHidden#eabbb94c: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.togglePreHistoryHidden#eabbb94c", "channel", err)
 	}
 	b.PutBool(t.Enabled)
 	return nil
@@ -152,10 +152,10 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) GetEnabled() (value bool) {
 // Decode implements bin.Decoder.
 func (t *ChannelsTogglePreHistoryHiddenRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode channels.togglePreHistoryHidden#eabbb94c to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.togglePreHistoryHidden#eabbb94c")
 	}
 	if err := b.ConsumeID(ChannelsTogglePreHistoryHiddenRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.togglePreHistoryHidden#eabbb94c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.togglePreHistoryHidden#eabbb94c", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -163,19 +163,19 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ChannelsTogglePreHistoryHiddenRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode channels.togglePreHistoryHidden#eabbb94c to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.togglePreHistoryHidden#eabbb94c")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.togglePreHistoryHidden#eabbb94c: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.togglePreHistoryHidden#eabbb94c", "channel", err)
 		}
 		t.Channel = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.togglePreHistoryHidden#eabbb94c: field enabled: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.togglePreHistoryHidden#eabbb94c", "enabled", err)
 		}
 		t.Enabled = value
 	}

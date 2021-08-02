@@ -327,7 +327,7 @@ func (u *UserFull) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserFull) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userFull#139a9a77 as nil")
+		return fmt.Errorf("can't encode %s as nil", "userFull#139a9a77")
 	}
 	b.PutID(UserFullTypeID)
 	return u.EncodeBare(b)
@@ -336,7 +336,7 @@ func (u *UserFull) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userFull#139a9a77 as nil")
+		return fmt.Errorf("can't encode %s as nil", "userFull#139a9a77")
 	}
 	if !(u.Blocked == false) {
 		u.Flags.Set(0)
@@ -375,34 +375,34 @@ func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 		u.Flags.Set(14)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#139a9a77: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "userFull#139a9a77", "flags", err)
 	}
 	if u.User == nil {
-		return fmt.Errorf("unable to encode userFull#139a9a77: field user is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "userFull#139a9a77", "user")
 	}
 	if err := u.User.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#139a9a77: field user: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "userFull#139a9a77", "user", err)
 	}
 	if u.Flags.Has(1) {
 		b.PutString(u.About)
 	}
 	if err := u.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#139a9a77: field settings: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "userFull#139a9a77", "settings", err)
 	}
 	if u.Flags.Has(2) {
 		if u.ProfilePhoto == nil {
-			return fmt.Errorf("unable to encode userFull#139a9a77: field profile_photo is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "userFull#139a9a77", "profile_photo")
 		}
 		if err := u.ProfilePhoto.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#139a9a77: field profile_photo: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "userFull#139a9a77", "profile_photo", err)
 		}
 	}
 	if err := u.NotifySettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#139a9a77: field notify_settings: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "userFull#139a9a77", "notify_settings", err)
 	}
 	if u.Flags.Has(3) {
 		if err := u.BotInfo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#139a9a77: field bot_info: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "userFull#139a9a77", "bot_info", err)
 		}
 	}
 	if u.Flags.Has(6) {
@@ -641,10 +641,10 @@ func (u *UserFull) GetTTLPeriod() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (u *UserFull) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userFull#139a9a77 to nil")
+		return fmt.Errorf("can't decode %s to nil", "userFull#139a9a77")
 	}
 	if err := b.ConsumeID(UserFullTypeID); err != nil {
-		return fmt.Errorf("unable to decode userFull#139a9a77: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "userFull#139a9a77", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -652,11 +652,11 @@ func (u *UserFull) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserFull) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userFull#139a9a77 to nil")
+		return fmt.Errorf("can't decode %s to nil", "userFull#139a9a77")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userFull#139a9a77", "flags", err)
 		}
 	}
 	u.Blocked = u.Flags.Has(0)
@@ -668,64 +668,64 @@ func (u *UserFull) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field user: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userFull#139a9a77", "user", err)
 		}
 		u.User = value
 	}
 	if u.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field about: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userFull#139a9a77", "about", err)
 		}
 		u.About = value
 	}
 	{
 		if err := u.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userFull#139a9a77", "settings", err)
 		}
 	}
 	if u.Flags.Has(2) {
 		value, err := DecodePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field profile_photo: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userFull#139a9a77", "profile_photo", err)
 		}
 		u.ProfilePhoto = value
 	}
 	{
 		if err := u.NotifySettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field notify_settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userFull#139a9a77", "notify_settings", err)
 		}
 	}
 	if u.Flags.Has(3) {
 		if err := u.BotInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field bot_info: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userFull#139a9a77", "bot_info", err)
 		}
 	}
 	if u.Flags.Has(6) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field pinned_msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userFull#139a9a77", "pinned_msg_id", err)
 		}
 		u.PinnedMsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field common_chats_count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userFull#139a9a77", "common_chats_count", err)
 		}
 		u.CommonChatsCount = value
 	}
 	if u.Flags.Has(11) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field folder_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userFull#139a9a77", "folder_id", err)
 		}
 		u.FolderID = value
 	}
 	if u.Flags.Has(14) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field ttl_period: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "userFull#139a9a77", "ttl_period", err)
 		}
 		u.TTLPeriod = value
 	}

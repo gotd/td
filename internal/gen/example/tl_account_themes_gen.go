@@ -84,7 +84,7 @@ func (t *AccountThemesNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *AccountThemesNotModified) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode account.themesNotModified#f41eb622 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.themesNotModified#f41eb622")
 	}
 	b.PutID(AccountThemesNotModifiedTypeID)
 	return t.EncodeBare(b)
@@ -93,7 +93,7 @@ func (t *AccountThemesNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *AccountThemesNotModified) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode account.themesNotModified#f41eb622 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.themesNotModified#f41eb622")
 	}
 	return nil
 }
@@ -101,10 +101,10 @@ func (t *AccountThemesNotModified) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *AccountThemesNotModified) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode account.themesNotModified#f41eb622 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.themesNotModified#f41eb622")
 	}
 	if err := b.ConsumeID(AccountThemesNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.themesNotModified#f41eb622: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.themesNotModified#f41eb622", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -112,7 +112,7 @@ func (t *AccountThemesNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *AccountThemesNotModified) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode account.themesNotModified#f41eb622 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.themesNotModified#f41eb622")
 	}
 	return nil
 }
@@ -213,7 +213,7 @@ func (t *AccountThemes) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *AccountThemes) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode account.themes#7f676421 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.themes#7f676421")
 	}
 	b.PutID(AccountThemesTypeID)
 	return t.EncodeBare(b)
@@ -222,13 +222,13 @@ func (t *AccountThemes) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *AccountThemes) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode account.themes#7f676421 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.themes#7f676421")
 	}
 	b.PutInt(t.Hash)
 	b.PutVectorHeader(len(t.Themes))
 	for idx, v := range t.Themes {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.themes#7f676421: field themes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "account.themes#7f676421", "themes", idx, err)
 		}
 	}
 	return nil
@@ -247,10 +247,10 @@ func (t *AccountThemes) GetThemes() (value []Theme) {
 // Decode implements bin.Decoder.
 func (t *AccountThemes) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode account.themes#7f676421 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.themes#7f676421")
 	}
 	if err := b.ConsumeID(AccountThemesTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.themes#7f676421: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.themes#7f676421", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -258,24 +258,24 @@ func (t *AccountThemes) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *AccountThemes) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode account.themes#7f676421 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.themes#7f676421")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.themes#7f676421: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.themes#7f676421", "hash", err)
 		}
 		t.Hash = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.themes#7f676421: field themes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.themes#7f676421", "themes", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value Theme
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode account.themes#7f676421: field themes: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "account.themes#7f676421", "themes", err)
 			}
 			t.Themes = append(t.Themes, value)
 		}
@@ -353,18 +353,18 @@ func DecodeAccountThemes(buf *bin.Buffer) (AccountThemesClass, error) {
 		// Decoding account.themesNotModified#f41eb622.
 		v := AccountThemesNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AccountThemesClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "AccountThemesClass", err)
 		}
 		return &v, nil
 	case AccountThemesTypeID:
 		// Decoding account.themes#7f676421.
 		v := AccountThemes{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AccountThemesClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "AccountThemesClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode AccountThemesClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "AccountThemesClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -376,7 +376,7 @@ type AccountThemesBox struct {
 // Decode implements bin.Decoder for AccountThemesBox.
 func (b *AccountThemesBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode AccountThemesBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "AccountThemes")
 	}
 	v, err := DecodeAccountThemes(buf)
 	if err != nil {
@@ -389,7 +389,7 @@ func (b *AccountThemesBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for AccountThemesBox.
 func (b *AccountThemesBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Themes == nil {
-		return fmt.Errorf("unable to encode AccountThemesClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "AccountThemesClass")
 	}
 	return b.Themes.Encode(buf)
 }

@@ -195,7 +195,7 @@ func (s *MessagesSetInlineBotResultsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setInlineBotResults#eb5ea206 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.setInlineBotResults#eb5ea206")
 	}
 	b.PutID(MessagesSetInlineBotResultsRequestTypeID)
 	return s.EncodeBare(b)
@@ -204,7 +204,7 @@ func (s *MessagesSetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setInlineBotResults#eb5ea206 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.setInlineBotResults#eb5ea206")
 	}
 	if !(s.Gallery == false) {
 		s.Flags.Set(0)
@@ -219,16 +219,16 @@ func (s *MessagesSetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(3)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setInlineBotResults#eb5ea206: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.setInlineBotResults#eb5ea206", "flags", err)
 	}
 	b.PutLong(s.QueryID)
 	b.PutVectorHeader(len(s.Results))
 	for idx, v := range s.Results {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.setInlineBotResults#eb5ea206: field results element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.setInlineBotResults#eb5ea206", "results", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.setInlineBotResults#eb5ea206: field results element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.setInlineBotResults#eb5ea206", "results", idx, err)
 		}
 	}
 	b.PutInt(s.CacheTime)
@@ -237,7 +237,7 @@ func (s *MessagesSetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if s.Flags.Has(3) {
 		if err := s.SwitchPm.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.setInlineBotResults#eb5ea206: field switch_pm: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "messages.setInlineBotResults#eb5ea206", "switch_pm", err)
 		}
 	}
 	return nil
@@ -328,10 +328,10 @@ func (s *MessagesSetInlineBotResultsRequest) GetSwitchPm() (value InlineBotSwitc
 // Decode implements bin.Decoder.
 func (s *MessagesSetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setInlineBotResults#eb5ea206 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.setInlineBotResults#eb5ea206")
 	}
 	if err := b.ConsumeID(MessagesSetInlineBotResultsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.setInlineBotResults#eb5ea206", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -339,11 +339,11 @@ func (s *MessagesSetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setInlineBotResults#eb5ea206 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.setInlineBotResults#eb5ea206")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setInlineBotResults#eb5ea206", "flags", err)
 		}
 	}
 	s.Gallery = s.Flags.Has(0)
@@ -351,19 +351,19 @@ func (s *MessagesSetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field query_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setInlineBotResults#eb5ea206", "query_id", err)
 		}
 		s.QueryID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field results: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setInlineBotResults#eb5ea206", "results", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputBotInlineResult(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field results: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setInlineBotResults#eb5ea206", "results", err)
 			}
 			s.Results = append(s.Results, value)
 		}
@@ -371,20 +371,20 @@ func (s *MessagesSetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field cache_time: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setInlineBotResults#eb5ea206", "cache_time", err)
 		}
 		s.CacheTime = value
 	}
 	if s.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setInlineBotResults#eb5ea206", "next_offset", err)
 		}
 		s.NextOffset = value
 	}
 	if s.Flags.Has(3) {
 		if err := s.SwitchPm.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field switch_pm: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setInlineBotResults#eb5ea206", "switch_pm", err)
 		}
 	}
 	return nil

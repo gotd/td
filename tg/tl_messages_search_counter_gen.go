@@ -137,7 +137,7 @@ func (s *MessagesSearchCounter) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSearchCounter) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.searchCounter#e844ebff as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.searchCounter#e844ebff")
 	}
 	b.PutID(MessagesSearchCounterTypeID)
 	return s.EncodeBare(b)
@@ -146,19 +146,19 @@ func (s *MessagesSearchCounter) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSearchCounter) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.searchCounter#e844ebff as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.searchCounter#e844ebff")
 	}
 	if !(s.Inexact == false) {
 		s.Flags.Set(1)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.searchCounter#e844ebff: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.searchCounter#e844ebff", "flags", err)
 	}
 	if s.Filter == nil {
-		return fmt.Errorf("unable to encode messages.searchCounter#e844ebff: field filter is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.searchCounter#e844ebff", "filter")
 	}
 	if err := s.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.searchCounter#e844ebff: field filter: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.searchCounter#e844ebff", "filter", err)
 	}
 	b.PutInt(s.Count)
 	return nil
@@ -193,10 +193,10 @@ func (s *MessagesSearchCounter) GetCount() (value int) {
 // Decode implements bin.Decoder.
 func (s *MessagesSearchCounter) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.searchCounter#e844ebff to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.searchCounter#e844ebff")
 	}
 	if err := b.ConsumeID(MessagesSearchCounterTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.searchCounter#e844ebff: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.searchCounter#e844ebff", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -204,25 +204,25 @@ func (s *MessagesSearchCounter) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSearchCounter) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.searchCounter#e844ebff to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.searchCounter#e844ebff")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.searchCounter#e844ebff: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchCounter#e844ebff", "flags", err)
 		}
 	}
 	s.Inexact = s.Flags.Has(1)
 	{
 		value, err := DecodeMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchCounter#e844ebff: field filter: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchCounter#e844ebff", "filter", err)
 		}
 		s.Filter = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchCounter#e844ebff: field count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.searchCounter#e844ebff", "count", err)
 		}
 		s.Count = value
 	}

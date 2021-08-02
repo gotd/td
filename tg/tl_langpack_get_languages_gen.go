@@ -102,7 +102,7 @@ func (g *LangpackGetLanguagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *LangpackGetLanguagesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode langpack.getLanguages#42c6978f as nil")
+		return fmt.Errorf("can't encode %s as nil", "langpack.getLanguages#42c6978f")
 	}
 	b.PutID(LangpackGetLanguagesRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,7 +111,7 @@ func (g *LangpackGetLanguagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *LangpackGetLanguagesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode langpack.getLanguages#42c6978f as nil")
+		return fmt.Errorf("can't encode %s as nil", "langpack.getLanguages#42c6978f")
 	}
 	b.PutString(g.LangPack)
 	return nil
@@ -125,10 +125,10 @@ func (g *LangpackGetLanguagesRequest) GetLangPack() (value string) {
 // Decode implements bin.Decoder.
 func (g *LangpackGetLanguagesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode langpack.getLanguages#42c6978f to nil")
+		return fmt.Errorf("can't decode %s to nil", "langpack.getLanguages#42c6978f")
 	}
 	if err := b.ConsumeID(LangpackGetLanguagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode langpack.getLanguages#42c6978f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "langpack.getLanguages#42c6978f", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (g *LangpackGetLanguagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *LangpackGetLanguagesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode langpack.getLanguages#42c6978f to nil")
+		return fmt.Errorf("can't decode %s to nil", "langpack.getLanguages#42c6978f")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langpack.getLanguages#42c6978f: field lang_pack: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "langpack.getLanguages#42c6978f", "lang_pack", err)
 		}
 		g.LangPack = value
 	}

@@ -102,7 +102,7 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetEmojiKeywordsLanguagesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getEmojiKeywordsLanguages#4e9963b2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getEmojiKeywordsLanguages#4e9963b2")
 	}
 	b.PutID(MessagesGetEmojiKeywordsLanguagesRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,7 +111,7 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetEmojiKeywordsLanguagesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getEmojiKeywordsLanguages#4e9963b2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getEmojiKeywordsLanguages#4e9963b2")
 	}
 	b.PutVectorHeader(len(g.LangCodes))
 	for _, v := range g.LangCodes {
@@ -128,10 +128,10 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) GetLangCodes() (value []strin
 // Decode implements bin.Decoder.
 func (g *MessagesGetEmojiKeywordsLanguagesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getEmojiKeywordsLanguages#4e9963b2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getEmojiKeywordsLanguages#4e9963b2")
 	}
 	if err := b.ConsumeID(MessagesGetEmojiKeywordsLanguagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getEmojiKeywordsLanguages#4e9963b2: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getEmojiKeywordsLanguages#4e9963b2", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -139,17 +139,17 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetEmojiKeywordsLanguagesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getEmojiKeywordsLanguages#4e9963b2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getEmojiKeywordsLanguages#4e9963b2")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getEmojiKeywordsLanguages#4e9963b2: field lang_codes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getEmojiKeywordsLanguages#4e9963b2", "lang_codes", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.getEmojiKeywordsLanguages#4e9963b2: field lang_codes: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getEmojiKeywordsLanguages#4e9963b2", "lang_codes", err)
 			}
 			g.LangCodes = append(g.LangCodes, value)
 		}

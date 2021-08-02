@@ -102,7 +102,7 @@ func (d *AuthDropTempAuthKeysRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *AuthDropTempAuthKeysRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode auth.dropTempAuthKeys#8e48a188 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.dropTempAuthKeys#8e48a188")
 	}
 	b.PutID(AuthDropTempAuthKeysRequestTypeID)
 	return d.EncodeBare(b)
@@ -111,7 +111,7 @@ func (d *AuthDropTempAuthKeysRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *AuthDropTempAuthKeysRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode auth.dropTempAuthKeys#8e48a188 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.dropTempAuthKeys#8e48a188")
 	}
 	b.PutVectorHeader(len(d.ExceptAuthKeys))
 	for _, v := range d.ExceptAuthKeys {
@@ -128,10 +128,10 @@ func (d *AuthDropTempAuthKeysRequest) GetExceptAuthKeys() (value []int64) {
 // Decode implements bin.Decoder.
 func (d *AuthDropTempAuthKeysRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode auth.dropTempAuthKeys#8e48a188 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.dropTempAuthKeys#8e48a188")
 	}
 	if err := b.ConsumeID(AuthDropTempAuthKeysRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.dropTempAuthKeys#8e48a188: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "auth.dropTempAuthKeys#8e48a188", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -139,17 +139,17 @@ func (d *AuthDropTempAuthKeysRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *AuthDropTempAuthKeysRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode auth.dropTempAuthKeys#8e48a188 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.dropTempAuthKeys#8e48a188")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.dropTempAuthKeys#8e48a188: field except_auth_keys: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.dropTempAuthKeys#8e48a188", "except_auth_keys", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode auth.dropTempAuthKeys#8e48a188: field except_auth_keys: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "auth.dropTempAuthKeys#8e48a188", "except_auth_keys", err)
 			}
 			d.ExceptAuthKeys = append(d.ExceptAuthKeys, value)
 		}

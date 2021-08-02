@@ -212,7 +212,7 @@ func (t *Theme) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *Theme) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode theme#28f1114 as nil")
+		return fmt.Errorf("can't encode %s as nil", "theme#28f1114")
 	}
 	b.PutID(ThemeTypeID)
 	return t.EncodeBare(b)
@@ -221,7 +221,7 @@ func (t *Theme) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *Theme) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode theme#28f1114 as nil")
+		return fmt.Errorf("can't encode %s as nil", "theme#28f1114")
 	}
 	if !(t.Creator == false) {
 		t.Flags.Set(0)
@@ -236,7 +236,7 @@ func (t *Theme) EncodeBare(b *bin.Buffer) error {
 		t.Flags.Set(3)
 	}
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode theme#28f1114: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "theme#28f1114", "flags", err)
 	}
 	b.PutLong(t.ID)
 	b.PutLong(t.AccessHash)
@@ -244,15 +244,15 @@ func (t *Theme) EncodeBare(b *bin.Buffer) error {
 	b.PutString(t.Title)
 	if t.Flags.Has(2) {
 		if t.Document == nil {
-			return fmt.Errorf("unable to encode theme#28f1114: field document is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "theme#28f1114", "document")
 		}
 		if err := t.Document.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode theme#28f1114: field document: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "theme#28f1114", "document", err)
 		}
 	}
 	if t.Flags.Has(3) {
 		if err := t.Settings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode theme#28f1114: field settings: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "theme#28f1114", "settings", err)
 		}
 	}
 	b.PutInt(t.InstallsCount)
@@ -358,10 +358,10 @@ func (t *Theme) GetInstallsCount() (value int) {
 // Decode implements bin.Decoder.
 func (t *Theme) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode theme#28f1114 to nil")
+		return fmt.Errorf("can't decode %s to nil", "theme#28f1114")
 	}
 	if err := b.ConsumeID(ThemeTypeID); err != nil {
-		return fmt.Errorf("unable to decode theme#28f1114: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "theme#28f1114", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -369,11 +369,11 @@ func (t *Theme) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *Theme) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode theme#28f1114 to nil")
+		return fmt.Errorf("can't decode %s to nil", "theme#28f1114")
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "theme#28f1114", "flags", err)
 		}
 	}
 	t.Creator = t.Flags.Has(0)
@@ -381,47 +381,47 @@ func (t *Theme) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "theme#28f1114", "id", err)
 		}
 		t.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "theme#28f1114", "access_hash", err)
 		}
 		t.AccessHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field slug: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "theme#28f1114", "slug", err)
 		}
 		t.Slug = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "theme#28f1114", "title", err)
 		}
 		t.Title = value
 	}
 	if t.Flags.Has(2) {
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field document: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "theme#28f1114", "document", err)
 		}
 		t.Document = value
 	}
 	if t.Flags.Has(3) {
 		if err := t.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "theme#28f1114", "settings", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field installs_count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "theme#28f1114", "installs_count", err)
 		}
 		t.InstallsCount = value
 	}

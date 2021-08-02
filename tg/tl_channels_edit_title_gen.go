@@ -116,7 +116,7 @@ func (e *ChannelsEditTitleRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *ChannelsEditTitleRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editTitle#566decd0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.editTitle#566decd0")
 	}
 	b.PutID(ChannelsEditTitleRequestTypeID)
 	return e.EncodeBare(b)
@@ -125,13 +125,13 @@ func (e *ChannelsEditTitleRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsEditTitleRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editTitle#566decd0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.editTitle#566decd0")
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.editTitle#566decd0: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.editTitle#566decd0", "channel")
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editTitle#566decd0: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.editTitle#566decd0", "channel", err)
 	}
 	b.PutString(e.Title)
 	return nil
@@ -155,10 +155,10 @@ func (e *ChannelsEditTitleRequest) GetTitle() (value string) {
 // Decode implements bin.Decoder.
 func (e *ChannelsEditTitleRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editTitle#566decd0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.editTitle#566decd0")
 	}
 	if err := b.ConsumeID(ChannelsEditTitleRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.editTitle#566decd0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.editTitle#566decd0", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -166,19 +166,19 @@ func (e *ChannelsEditTitleRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsEditTitleRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editTitle#566decd0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.editTitle#566decd0")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editTitle#566decd0: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editTitle#566decd0", "channel", err)
 		}
 		e.Channel = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editTitle#566decd0: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editTitle#566decd0", "title", err)
 		}
 		e.Title = value
 	}

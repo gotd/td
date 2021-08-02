@@ -101,7 +101,7 @@ func (e *EchoVectorRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EchoVectorRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode echoVector#d4785939 as nil")
+		return fmt.Errorf("can't encode %s as nil", "echoVector#d4785939")
 	}
 	b.PutID(EchoVectorRequestTypeID)
 	return e.EncodeBare(b)
@@ -110,7 +110,7 @@ func (e *EchoVectorRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EchoVectorRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode echoVector#d4785939 as nil")
+		return fmt.Errorf("can't encode %s as nil", "echoVector#d4785939")
 	}
 	b.PutVectorHeader(len(e.IDs))
 	for _, v := range e.IDs {
@@ -127,10 +127,10 @@ func (e *EchoVectorRequest) GetIDs() (value []int) {
 // Decode implements bin.Decoder.
 func (e *EchoVectorRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode echoVector#d4785939 to nil")
+		return fmt.Errorf("can't decode %s to nil", "echoVector#d4785939")
 	}
 	if err := b.ConsumeID(EchoVectorRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode echoVector#d4785939: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "echoVector#d4785939", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -138,17 +138,17 @@ func (e *EchoVectorRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EchoVectorRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode echoVector#d4785939 to nil")
+		return fmt.Errorf("can't decode %s to nil", "echoVector#d4785939")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode echoVector#d4785939: field ids: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "echoVector#d4785939", "ids", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode echoVector#d4785939: field ids: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "echoVector#d4785939", "ids", err)
 			}
 			e.IDs = append(e.IDs, value)
 		}

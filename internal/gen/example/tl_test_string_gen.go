@@ -101,7 +101,7 @@ func (t *TestString) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TestString) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testString#fe56688c as nil")
+		return fmt.Errorf("can't encode %s as nil", "testString#fe56688c")
 	}
 	b.PutID(TestStringTypeID)
 	return t.EncodeBare(b)
@@ -110,7 +110,7 @@ func (t *TestString) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TestString) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testString#fe56688c as nil")
+		return fmt.Errorf("can't encode %s as nil", "testString#fe56688c")
 	}
 	b.PutString(t.Value)
 	return nil
@@ -124,10 +124,10 @@ func (t *TestString) GetValue() (value string) {
 // Decode implements bin.Decoder.
 func (t *TestString) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testString#fe56688c to nil")
+		return fmt.Errorf("can't decode %s to nil", "testString#fe56688c")
 	}
 	if err := b.ConsumeID(TestStringTypeID); err != nil {
-		return fmt.Errorf("unable to decode testString#fe56688c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "testString#fe56688c", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -135,12 +135,12 @@ func (t *TestString) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TestString) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testString#fe56688c to nil")
+		return fmt.Errorf("can't decode %s to nil", "testString#fe56688c")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode testString#fe56688c: field value: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "testString#fe56688c", "value", err)
 		}
 		t.Value = value
 	}

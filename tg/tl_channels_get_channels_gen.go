@@ -105,7 +105,7 @@ func (g *ChannelsGetChannelsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ChannelsGetChannelsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getChannels#a7f6bbb as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.getChannels#a7f6bbb")
 	}
 	b.PutID(ChannelsGetChannelsRequestTypeID)
 	return g.EncodeBare(b)
@@ -114,15 +114,15 @@ func (g *ChannelsGetChannelsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ChannelsGetChannelsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getChannels#a7f6bbb as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.getChannels#a7f6bbb")
 	}
 	b.PutVectorHeader(len(g.ID))
 	for idx, v := range g.ID {
 		if v == nil {
-			return fmt.Errorf("unable to encode channels.getChannels#a7f6bbb: field id element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "channels.getChannels#a7f6bbb", "id", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.getChannels#a7f6bbb: field id element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "channels.getChannels#a7f6bbb", "id", idx, err)
 		}
 	}
 	return nil
@@ -141,10 +141,10 @@ func (g *ChannelsGetChannelsRequest) MapID() (value InputChannelClassArray) {
 // Decode implements bin.Decoder.
 func (g *ChannelsGetChannelsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getChannels#a7f6bbb to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.getChannels#a7f6bbb")
 	}
 	if err := b.ConsumeID(ChannelsGetChannelsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.getChannels#a7f6bbb: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.getChannels#a7f6bbb", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -152,17 +152,17 @@ func (g *ChannelsGetChannelsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ChannelsGetChannelsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getChannels#a7f6bbb to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.getChannels#a7f6bbb")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getChannels#a7f6bbb: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.getChannels#a7f6bbb", "id", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputChannel(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.getChannels#a7f6bbb: field id: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "channels.getChannels#a7f6bbb", "id", err)
 			}
 			g.ID = append(g.ID, value)
 		}

@@ -102,7 +102,7 @@ func (g *MessagesGetFullChatRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetFullChatRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getFullChat#3b831c66 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getFullChat#3b831c66")
 	}
 	b.PutID(MessagesGetFullChatRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,7 +111,7 @@ func (g *MessagesGetFullChatRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetFullChatRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getFullChat#3b831c66 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getFullChat#3b831c66")
 	}
 	b.PutInt(g.ChatID)
 	return nil
@@ -125,10 +125,10 @@ func (g *MessagesGetFullChatRequest) GetChatID() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetFullChatRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getFullChat#3b831c66 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getFullChat#3b831c66")
 	}
 	if err := b.ConsumeID(MessagesGetFullChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getFullChat#3b831c66: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getFullChat#3b831c66", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (g *MessagesGetFullChatRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetFullChatRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getFullChat#3b831c66 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getFullChat#3b831c66")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getFullChat#3b831c66: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getFullChat#3b831c66", "chat_id", err)
 		}
 		g.ChatID = value
 	}

@@ -102,7 +102,7 @@ func (g *ChannelsGetFullChannelRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ChannelsGetFullChannelRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getFullChannel#8736a09 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.getFullChannel#8736a09")
 	}
 	b.PutID(ChannelsGetFullChannelRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,13 +111,13 @@ func (g *ChannelsGetFullChannelRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ChannelsGetFullChannelRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getFullChannel#8736a09 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.getFullChannel#8736a09")
 	}
 	if g.Channel == nil {
-		return fmt.Errorf("unable to encode channels.getFullChannel#8736a09: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.getFullChannel#8736a09", "channel")
 	}
 	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.getFullChannel#8736a09: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.getFullChannel#8736a09", "channel", err)
 	}
 	return nil
 }
@@ -135,10 +135,10 @@ func (g *ChannelsGetFullChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 // Decode implements bin.Decoder.
 func (g *ChannelsGetFullChannelRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getFullChannel#8736a09 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.getFullChannel#8736a09")
 	}
 	if err := b.ConsumeID(ChannelsGetFullChannelRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.getFullChannel#8736a09: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.getFullChannel#8736a09", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -146,12 +146,12 @@ func (g *ChannelsGetFullChannelRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ChannelsGetFullChannelRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getFullChannel#8736a09 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.getFullChannel#8736a09")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getFullChannel#8736a09: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.getFullChannel#8736a09", "channel", err)
 		}
 		g.Channel = value
 	}

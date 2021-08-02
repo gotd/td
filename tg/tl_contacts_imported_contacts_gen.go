@@ -139,7 +139,7 @@ func (i *ContactsImportedContacts) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *ContactsImportedContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode contacts.importedContacts#77d01c3b as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.importedContacts#77d01c3b")
 	}
 	b.PutID(ContactsImportedContactsTypeID)
 	return i.EncodeBare(b)
@@ -148,18 +148,18 @@ func (i *ContactsImportedContacts) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *ContactsImportedContacts) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode contacts.importedContacts#77d01c3b as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.importedContacts#77d01c3b")
 	}
 	b.PutVectorHeader(len(i.Imported))
 	for idx, v := range i.Imported {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.importedContacts#77d01c3b: field imported element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.importedContacts#77d01c3b", "imported", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(i.PopularInvites))
 	for idx, v := range i.PopularInvites {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.importedContacts#77d01c3b: field popular_invites element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.importedContacts#77d01c3b", "popular_invites", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(i.RetryContacts))
@@ -169,10 +169,10 @@ func (i *ContactsImportedContacts) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(i.Users))
 	for idx, v := range i.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.importedContacts#77d01c3b: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "contacts.importedContacts#77d01c3b", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.importedContacts#77d01c3b: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.importedContacts#77d01c3b", "users", idx, err)
 		}
 	}
 	return nil
@@ -206,10 +206,10 @@ func (i *ContactsImportedContacts) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (i *ContactsImportedContacts) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode contacts.importedContacts#77d01c3b to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.importedContacts#77d01c3b")
 	}
 	if err := b.ConsumeID(ContactsImportedContactsTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.importedContacts#77d01c3b", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -217,17 +217,17 @@ func (i *ContactsImportedContacts) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode contacts.importedContacts#77d01c3b to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.importedContacts#77d01c3b")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field imported: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.importedContacts#77d01c3b", "imported", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value ImportedContact
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field imported: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.importedContacts#77d01c3b", "imported", err)
 			}
 			i.Imported = append(i.Imported, value)
 		}
@@ -235,12 +235,12 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field popular_invites: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.importedContacts#77d01c3b", "popular_invites", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PopularContact
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field popular_invites: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.importedContacts#77d01c3b", "popular_invites", err)
 			}
 			i.PopularInvites = append(i.PopularInvites, value)
 		}
@@ -248,12 +248,12 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field retry_contacts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.importedContacts#77d01c3b", "retry_contacts", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field retry_contacts: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.importedContacts#77d01c3b", "retry_contacts", err)
 			}
 			i.RetryContacts = append(i.RetryContacts, value)
 		}
@@ -261,12 +261,12 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.importedContacts#77d01c3b", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.importedContacts#77d01c3b", "users", err)
 			}
 			i.Users = append(i.Users, value)
 		}

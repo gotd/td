@@ -101,7 +101,7 @@ func (a *UserAuth) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *UserAuth) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode user.auth#f4815592 as nil")
+		return fmt.Errorf("can't encode %s as nil", "user.auth#f4815592")
 	}
 	b.PutID(UserAuthTypeID)
 	return a.EncodeBare(b)
@@ -110,7 +110,7 @@ func (a *UserAuth) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *UserAuth) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode user.auth#f4815592 as nil")
+		return fmt.Errorf("can't encode %s as nil", "user.auth#f4815592")
 	}
 	b.PutString(a.Foo)
 	return nil
@@ -124,10 +124,10 @@ func (a *UserAuth) GetFoo() (value string) {
 // Decode implements bin.Decoder.
 func (a *UserAuth) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode user.auth#f4815592 to nil")
+		return fmt.Errorf("can't decode %s to nil", "user.auth#f4815592")
 	}
 	if err := b.ConsumeID(UserAuthTypeID); err != nil {
-		return fmt.Errorf("unable to decode user.auth#f4815592: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "user.auth#f4815592", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -135,12 +135,12 @@ func (a *UserAuth) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *UserAuth) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode user.auth#f4815592 to nil")
+		return fmt.Errorf("can't decode %s to nil", "user.auth#f4815592")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user.auth#f4815592: field foo: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user.auth#f4815592", "foo", err)
 		}
 		a.Foo = value
 	}
@@ -232,7 +232,7 @@ func (a *UserAuthPassword) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *UserAuthPassword) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode user.authPassword#5981e317 as nil")
+		return fmt.Errorf("can't encode %s as nil", "user.authPassword#5981e317")
 	}
 	b.PutID(UserAuthPasswordTypeID)
 	return a.EncodeBare(b)
@@ -241,7 +241,7 @@ func (a *UserAuthPassword) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *UserAuthPassword) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode user.authPassword#5981e317 as nil")
+		return fmt.Errorf("can't encode %s as nil", "user.authPassword#5981e317")
 	}
 	b.PutString(a.Pwd)
 	return nil
@@ -255,10 +255,10 @@ func (a *UserAuthPassword) GetPwd() (value string) {
 // Decode implements bin.Decoder.
 func (a *UserAuthPassword) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode user.authPassword#5981e317 to nil")
+		return fmt.Errorf("can't decode %s to nil", "user.authPassword#5981e317")
 	}
 	if err := b.ConsumeID(UserAuthPasswordTypeID); err != nil {
-		return fmt.Errorf("unable to decode user.authPassword#5981e317: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "user.authPassword#5981e317", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -266,12 +266,12 @@ func (a *UserAuthPassword) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *UserAuthPassword) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode user.authPassword#5981e317 to nil")
+		return fmt.Errorf("can't decode %s to nil", "user.authPassword#5981e317")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user.authPassword#5981e317: field pwd: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "user.authPassword#5981e317", "pwd", err)
 		}
 		a.Pwd = value
 	}
@@ -335,18 +335,18 @@ func DecodeUserAuth(buf *bin.Buffer) (UserAuthClass, error) {
 		// Decoding user.auth#f4815592.
 		v := UserAuth{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserAuthClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UserAuthClass", err)
 		}
 		return &v, nil
 	case UserAuthPasswordTypeID:
 		// Decoding user.authPassword#5981e317.
 		v := UserAuthPassword{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserAuthClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UserAuthClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode UserAuthClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "UserAuthClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -358,7 +358,7 @@ type UserAuthBox struct {
 // Decode implements bin.Decoder for UserAuthBox.
 func (b *UserAuthBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode UserAuthBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "UserAuth")
 	}
 	v, err := DecodeUserAuth(buf)
 	if err != nil {
@@ -371,7 +371,7 @@ func (b *UserAuthBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for UserAuthBox.
 func (b *UserAuthBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Auth == nil {
-		return fmt.Errorf("unable to encode UserAuthClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "UserAuthClass")
 	}
 	return b.Auth.Encode(buf)
 }

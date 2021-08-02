@@ -119,7 +119,7 @@ func (c *CDNPublicKey) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CDNPublicKey) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode cdnPublicKey#c982eaba as nil")
+		return fmt.Errorf("can't encode %s as nil", "cdnPublicKey#c982eaba")
 	}
 	b.PutID(CDNPublicKeyTypeID)
 	return c.EncodeBare(b)
@@ -128,7 +128,7 @@ func (c *CDNPublicKey) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CDNPublicKey) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode cdnPublicKey#c982eaba as nil")
+		return fmt.Errorf("can't encode %s as nil", "cdnPublicKey#c982eaba")
 	}
 	b.PutInt(c.DCID)
 	b.PutString(c.PublicKey)
@@ -148,10 +148,10 @@ func (c *CDNPublicKey) GetPublicKey() (value string) {
 // Decode implements bin.Decoder.
 func (c *CDNPublicKey) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode cdnPublicKey#c982eaba to nil")
+		return fmt.Errorf("can't decode %s to nil", "cdnPublicKey#c982eaba")
 	}
 	if err := b.ConsumeID(CDNPublicKeyTypeID); err != nil {
-		return fmt.Errorf("unable to decode cdnPublicKey#c982eaba: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "cdnPublicKey#c982eaba", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -159,19 +159,19 @@ func (c *CDNPublicKey) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CDNPublicKey) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode cdnPublicKey#c982eaba to nil")
+		return fmt.Errorf("can't decode %s to nil", "cdnPublicKey#c982eaba")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode cdnPublicKey#c982eaba: field dc_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "cdnPublicKey#c982eaba", "dc_id", err)
 		}
 		c.DCID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode cdnPublicKey#c982eaba: field public_key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "cdnPublicKey#c982eaba", "public_key", err)
 		}
 		c.PublicKey = value
 	}

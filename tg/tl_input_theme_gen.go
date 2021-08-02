@@ -113,7 +113,7 @@ func (i *InputTheme) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputTheme) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputTheme#3c5693e9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputTheme#3c5693e9")
 	}
 	b.PutID(InputThemeTypeID)
 	return i.EncodeBare(b)
@@ -122,7 +122,7 @@ func (i *InputTheme) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputTheme) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputTheme#3c5693e9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputTheme#3c5693e9")
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -142,10 +142,10 @@ func (i *InputTheme) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputTheme) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputTheme#3c5693e9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputTheme#3c5693e9")
 	}
 	if err := b.ConsumeID(InputThemeTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputTheme#3c5693e9: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputTheme#3c5693e9", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -153,19 +153,19 @@ func (i *InputTheme) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputTheme) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputTheme#3c5693e9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputTheme#3c5693e9")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputTheme#3c5693e9: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputTheme#3c5693e9", "id", err)
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputTheme#3c5693e9: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputTheme#3c5693e9", "access_hash", err)
 		}
 		i.AccessHash = value
 	}
@@ -258,7 +258,7 @@ func (i *InputThemeSlug) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputThemeSlug) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputThemeSlug#f5890df1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputThemeSlug#f5890df1")
 	}
 	b.PutID(InputThemeSlugTypeID)
 	return i.EncodeBare(b)
@@ -267,7 +267,7 @@ func (i *InputThemeSlug) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputThemeSlug) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputThemeSlug#f5890df1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputThemeSlug#f5890df1")
 	}
 	b.PutString(i.Slug)
 	return nil
@@ -281,10 +281,10 @@ func (i *InputThemeSlug) GetSlug() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputThemeSlug) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputThemeSlug#f5890df1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputThemeSlug#f5890df1")
 	}
 	if err := b.ConsumeID(InputThemeSlugTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputThemeSlug#f5890df1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputThemeSlug#f5890df1", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -292,12 +292,12 @@ func (i *InputThemeSlug) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputThemeSlug) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputThemeSlug#f5890df1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputThemeSlug#f5890df1")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputThemeSlug#f5890df1: field slug: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputThemeSlug#f5890df1", "slug", err)
 		}
 		i.Slug = value
 	}
@@ -361,18 +361,18 @@ func DecodeInputTheme(buf *bin.Buffer) (InputThemeClass, error) {
 		// Decoding inputTheme#3c5693e9.
 		v := InputTheme{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputThemeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputThemeClass", err)
 		}
 		return &v, nil
 	case InputThemeSlugTypeID:
 		// Decoding inputThemeSlug#f5890df1.
 		v := InputThemeSlug{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputThemeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputThemeClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputThemeClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "InputThemeClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -384,7 +384,7 @@ type InputThemeBox struct {
 // Decode implements bin.Decoder for InputThemeBox.
 func (b *InputThemeBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputThemeBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "InputTheme")
 	}
 	v, err := DecodeInputTheme(buf)
 	if err != nil {
@@ -397,7 +397,7 @@ func (b *InputThemeBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputThemeBox.
 func (b *InputThemeBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputTheme == nil {
-		return fmt.Errorf("unable to encode InputThemeClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "InputThemeClass")
 	}
 	return b.InputTheme.Encode(buf)
 }

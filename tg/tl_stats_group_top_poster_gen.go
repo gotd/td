@@ -127,7 +127,7 @@ func (s *StatsGroupTopPoster) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsGroupTopPoster) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGroupTopPoster#18f3d0f7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsGroupTopPoster#18f3d0f7")
 	}
 	b.PutID(StatsGroupTopPosterTypeID)
 	return s.EncodeBare(b)
@@ -136,7 +136,7 @@ func (s *StatsGroupTopPoster) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsGroupTopPoster) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGroupTopPoster#18f3d0f7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsGroupTopPoster#18f3d0f7")
 	}
 	b.PutInt(s.UserID)
 	b.PutInt(s.Messages)
@@ -162,10 +162,10 @@ func (s *StatsGroupTopPoster) GetAvgChars() (value int) {
 // Decode implements bin.Decoder.
 func (s *StatsGroupTopPoster) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGroupTopPoster#18f3d0f7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsGroupTopPoster#18f3d0f7")
 	}
 	if err := b.ConsumeID(StatsGroupTopPosterTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsGroupTopPoster#18f3d0f7: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "statsGroupTopPoster#18f3d0f7", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -173,26 +173,26 @@ func (s *StatsGroupTopPoster) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsGroupTopPoster) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGroupTopPoster#18f3d0f7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsGroupTopPoster#18f3d0f7")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopPoster#18f3d0f7: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGroupTopPoster#18f3d0f7", "user_id", err)
 		}
 		s.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopPoster#18f3d0f7: field messages: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGroupTopPoster#18f3d0f7", "messages", err)
 		}
 		s.Messages = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopPoster#18f3d0f7: field avg_chars: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGroupTopPoster#18f3d0f7", "avg_chars", err)
 		}
 		s.AvgChars = value
 	}

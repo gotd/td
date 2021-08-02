@@ -99,7 +99,7 @@ func (g *GzipPacked) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GzipPacked) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode gzip_packed#3072cfa1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "gzip_packed#3072cfa1")
 	}
 	b.PutID(GzipPackedTypeID)
 	return g.EncodeBare(b)
@@ -108,7 +108,7 @@ func (g *GzipPacked) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GzipPacked) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode gzip_packed#3072cfa1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "gzip_packed#3072cfa1")
 	}
 	b.PutBytes(g.PackedData)
 	return nil
@@ -122,10 +122,10 @@ func (g *GzipPacked) GetPackedData() (value []byte) {
 // Decode implements bin.Decoder.
 func (g *GzipPacked) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode gzip_packed#3072cfa1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "gzip_packed#3072cfa1")
 	}
 	if err := b.ConsumeID(GzipPackedTypeID); err != nil {
-		return fmt.Errorf("unable to decode gzip_packed#3072cfa1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "gzip_packed#3072cfa1", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -133,12 +133,12 @@ func (g *GzipPacked) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GzipPacked) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode gzip_packed#3072cfa1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "gzip_packed#3072cfa1")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode gzip_packed#3072cfa1: field packed_data: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "gzip_packed#3072cfa1", "packed_data", err)
 		}
 		g.PackedData = value
 	}

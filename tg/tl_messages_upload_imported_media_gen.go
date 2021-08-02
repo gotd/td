@@ -134,7 +134,7 @@ func (u *MessagesUploadImportedMediaRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *MessagesUploadImportedMediaRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.uploadImportedMedia#2a862092 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.uploadImportedMedia#2a862092")
 	}
 	b.PutID(MessagesUploadImportedMediaRequestTypeID)
 	return u.EncodeBare(b)
@@ -143,21 +143,21 @@ func (u *MessagesUploadImportedMediaRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *MessagesUploadImportedMediaRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.uploadImportedMedia#2a862092 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.uploadImportedMedia#2a862092")
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode messages.uploadImportedMedia#2a862092: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.uploadImportedMedia#2a862092", "peer")
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.uploadImportedMedia#2a862092: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.uploadImportedMedia#2a862092", "peer", err)
 	}
 	b.PutLong(u.ImportID)
 	b.PutString(u.FileName)
 	if u.Media == nil {
-		return fmt.Errorf("unable to encode messages.uploadImportedMedia#2a862092: field media is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.uploadImportedMedia#2a862092", "media")
 	}
 	if err := u.Media.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.uploadImportedMedia#2a862092: field media: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.uploadImportedMedia#2a862092", "media", err)
 	}
 	return nil
 }
@@ -185,10 +185,10 @@ func (u *MessagesUploadImportedMediaRequest) GetMedia() (value InputMediaClass) 
 // Decode implements bin.Decoder.
 func (u *MessagesUploadImportedMediaRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.uploadImportedMedia#2a862092 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.uploadImportedMedia#2a862092")
 	}
 	if err := b.ConsumeID(MessagesUploadImportedMediaRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.uploadImportedMedia#2a862092: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.uploadImportedMedia#2a862092", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -196,33 +196,33 @@ func (u *MessagesUploadImportedMediaRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *MessagesUploadImportedMediaRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.uploadImportedMedia#2a862092 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.uploadImportedMedia#2a862092")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.uploadImportedMedia#2a862092: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.uploadImportedMedia#2a862092", "peer", err)
 		}
 		u.Peer = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.uploadImportedMedia#2a862092: field import_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.uploadImportedMedia#2a862092", "import_id", err)
 		}
 		u.ImportID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.uploadImportedMedia#2a862092: field file_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.uploadImportedMedia#2a862092", "file_name", err)
 		}
 		u.FileName = value
 	}
 	{
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.uploadImportedMedia#2a862092: field media: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.uploadImportedMedia#2a862092", "media", err)
 		}
 		u.Media = value
 	}

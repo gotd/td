@@ -119,7 +119,7 @@ func (s *ChannelsSetDiscussionGroupRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *ChannelsSetDiscussionGroupRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode channels.setDiscussionGroup#40582bb2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.setDiscussionGroup#40582bb2")
 	}
 	b.PutID(ChannelsSetDiscussionGroupRequestTypeID)
 	return s.EncodeBare(b)
@@ -128,19 +128,19 @@ func (s *ChannelsSetDiscussionGroupRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *ChannelsSetDiscussionGroupRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode channels.setDiscussionGroup#40582bb2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.setDiscussionGroup#40582bb2")
 	}
 	if s.Broadcast == nil {
-		return fmt.Errorf("unable to encode channels.setDiscussionGroup#40582bb2: field broadcast is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.setDiscussionGroup#40582bb2", "broadcast")
 	}
 	if err := s.Broadcast.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.setDiscussionGroup#40582bb2: field broadcast: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.setDiscussionGroup#40582bb2", "broadcast", err)
 	}
 	if s.Group == nil {
-		return fmt.Errorf("unable to encode channels.setDiscussionGroup#40582bb2: field group is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.setDiscussionGroup#40582bb2", "group")
 	}
 	if err := s.Group.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.setDiscussionGroup#40582bb2: field group: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.setDiscussionGroup#40582bb2", "group", err)
 	}
 	return nil
 }
@@ -168,10 +168,10 @@ func (s *ChannelsSetDiscussionGroupRequest) GetGroupAsNotEmpty() (NotEmptyInputC
 // Decode implements bin.Decoder.
 func (s *ChannelsSetDiscussionGroupRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode channels.setDiscussionGroup#40582bb2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.setDiscussionGroup#40582bb2")
 	}
 	if err := b.ConsumeID(ChannelsSetDiscussionGroupRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.setDiscussionGroup#40582bb2: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.setDiscussionGroup#40582bb2", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -179,19 +179,19 @@ func (s *ChannelsSetDiscussionGroupRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *ChannelsSetDiscussionGroupRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode channels.setDiscussionGroup#40582bb2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.setDiscussionGroup#40582bb2")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.setDiscussionGroup#40582bb2: field broadcast: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.setDiscussionGroup#40582bb2", "broadcast", err)
 		}
 		s.Broadcast = value
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.setDiscussionGroup#40582bb2: field group: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.setDiscussionGroup#40582bb2", "group", err)
 		}
 		s.Group = value
 	}

@@ -102,7 +102,7 @@ func (t *AccountTakeout) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *AccountTakeout) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode account.takeout#4dba4501 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.takeout#4dba4501")
 	}
 	b.PutID(AccountTakeoutTypeID)
 	return t.EncodeBare(b)
@@ -111,7 +111,7 @@ func (t *AccountTakeout) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *AccountTakeout) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode account.takeout#4dba4501 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.takeout#4dba4501")
 	}
 	b.PutLong(t.ID)
 	return nil
@@ -125,10 +125,10 @@ func (t *AccountTakeout) GetID() (value int64) {
 // Decode implements bin.Decoder.
 func (t *AccountTakeout) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode account.takeout#4dba4501 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.takeout#4dba4501")
 	}
 	if err := b.ConsumeID(AccountTakeoutTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.takeout#4dba4501: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.takeout#4dba4501", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (t *AccountTakeout) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *AccountTakeout) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode account.takeout#4dba4501 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.takeout#4dba4501")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.takeout#4dba4501: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.takeout#4dba4501", "id", err)
 		}
 		t.ID = value
 	}

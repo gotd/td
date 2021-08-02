@@ -102,7 +102,7 @@ func (e *EmojiLanguage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EmojiLanguage) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiLanguage#b3fb5361 as nil")
+		return fmt.Errorf("can't encode %s as nil", "emojiLanguage#b3fb5361")
 	}
 	b.PutID(EmojiLanguageTypeID)
 	return e.EncodeBare(b)
@@ -111,7 +111,7 @@ func (e *EmojiLanguage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EmojiLanguage) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiLanguage#b3fb5361 as nil")
+		return fmt.Errorf("can't encode %s as nil", "emojiLanguage#b3fb5361")
 	}
 	b.PutString(e.LangCode)
 	return nil
@@ -125,10 +125,10 @@ func (e *EmojiLanguage) GetLangCode() (value string) {
 // Decode implements bin.Decoder.
 func (e *EmojiLanguage) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiLanguage#b3fb5361 to nil")
+		return fmt.Errorf("can't decode %s to nil", "emojiLanguage#b3fb5361")
 	}
 	if err := b.ConsumeID(EmojiLanguageTypeID); err != nil {
-		return fmt.Errorf("unable to decode emojiLanguage#b3fb5361: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "emojiLanguage#b3fb5361", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (e *EmojiLanguage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EmojiLanguage) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiLanguage#b3fb5361 to nil")
+		return fmt.Errorf("can't decode %s to nil", "emojiLanguage#b3fb5361")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiLanguage#b3fb5361: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "emojiLanguage#b3fb5361", "lang_code", err)
 		}
 		e.LangCode = value
 	}

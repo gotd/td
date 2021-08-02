@@ -113,7 +113,7 @@ func (w *AccountWebAuthorizations) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *AccountWebAuthorizations) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode account.webAuthorizations#ed56c9fc as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.webAuthorizations#ed56c9fc")
 	}
 	b.PutID(AccountWebAuthorizationsTypeID)
 	return w.EncodeBare(b)
@@ -122,21 +122,21 @@ func (w *AccountWebAuthorizations) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *AccountWebAuthorizations) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode account.webAuthorizations#ed56c9fc as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.webAuthorizations#ed56c9fc")
 	}
 	b.PutVectorHeader(len(w.Authorizations))
 	for idx, v := range w.Authorizations {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.webAuthorizations#ed56c9fc: field authorizations element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "account.webAuthorizations#ed56c9fc", "authorizations", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(w.Users))
 	for idx, v := range w.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode account.webAuthorizations#ed56c9fc: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "account.webAuthorizations#ed56c9fc", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.webAuthorizations#ed56c9fc: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "account.webAuthorizations#ed56c9fc", "users", idx, err)
 		}
 	}
 	return nil
@@ -160,10 +160,10 @@ func (w *AccountWebAuthorizations) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (w *AccountWebAuthorizations) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode account.webAuthorizations#ed56c9fc to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.webAuthorizations#ed56c9fc")
 	}
 	if err := b.ConsumeID(AccountWebAuthorizationsTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.webAuthorizations#ed56c9fc: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.webAuthorizations#ed56c9fc", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -171,17 +171,17 @@ func (w *AccountWebAuthorizations) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *AccountWebAuthorizations) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode account.webAuthorizations#ed56c9fc to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.webAuthorizations#ed56c9fc")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.webAuthorizations#ed56c9fc: field authorizations: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.webAuthorizations#ed56c9fc", "authorizations", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value WebAuthorization
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode account.webAuthorizations#ed56c9fc: field authorizations: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "account.webAuthorizations#ed56c9fc", "authorizations", err)
 			}
 			w.Authorizations = append(w.Authorizations, value)
 		}
@@ -189,12 +189,12 @@ func (w *AccountWebAuthorizations) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.webAuthorizations#ed56c9fc: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.webAuthorizations#ed56c9fc", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode account.webAuthorizations#ed56c9fc: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "account.webAuthorizations#ed56c9fc", "users", err)
 			}
 			w.Users = append(w.Users, value)
 		}

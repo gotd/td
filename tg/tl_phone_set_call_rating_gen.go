@@ -144,7 +144,7 @@ func (s *PhoneSetCallRatingRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *PhoneSetCallRatingRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode phone.setCallRating#59ead627 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.setCallRating#59ead627")
 	}
 	b.PutID(PhoneSetCallRatingRequestTypeID)
 	return s.EncodeBare(b)
@@ -153,16 +153,16 @@ func (s *PhoneSetCallRatingRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PhoneSetCallRatingRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode phone.setCallRating#59ead627 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.setCallRating#59ead627")
 	}
 	if !(s.UserInitiative == false) {
 		s.Flags.Set(0)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.setCallRating#59ead627: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.setCallRating#59ead627", "flags", err)
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.setCallRating#59ead627: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.setCallRating#59ead627", "peer", err)
 	}
 	b.PutInt(s.Rating)
 	b.PutString(s.Comment)
@@ -203,10 +203,10 @@ func (s *PhoneSetCallRatingRequest) GetComment() (value string) {
 // Decode implements bin.Decoder.
 func (s *PhoneSetCallRatingRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode phone.setCallRating#59ead627 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.setCallRating#59ead627")
 	}
 	if err := b.ConsumeID(PhoneSetCallRatingRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.setCallRating#59ead627: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.setCallRating#59ead627", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -214,30 +214,30 @@ func (s *PhoneSetCallRatingRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PhoneSetCallRatingRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode phone.setCallRating#59ead627 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.setCallRating#59ead627")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.setCallRating#59ead627: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.setCallRating#59ead627", "flags", err)
 		}
 	}
 	s.UserInitiative = s.Flags.Has(0)
 	{
 		if err := s.Peer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.setCallRating#59ead627: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.setCallRating#59ead627", "peer", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.setCallRating#59ead627: field rating: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.setCallRating#59ead627", "rating", err)
 		}
 		s.Rating = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.setCallRating#59ead627: field comment: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.setCallRating#59ead627", "comment", err)
 		}
 		s.Comment = value
 	}

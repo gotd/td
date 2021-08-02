@@ -113,7 +113,7 @@ func (g *UploadGetFileHashesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UploadGetFileHashesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getFileHashes#c7025931 as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.getFileHashes#c7025931")
 	}
 	b.PutID(UploadGetFileHashesRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,13 +122,13 @@ func (g *UploadGetFileHashesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UploadGetFileHashesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getFileHashes#c7025931 as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.getFileHashes#c7025931")
 	}
 	if g.Location == nil {
-		return fmt.Errorf("unable to encode upload.getFileHashes#c7025931: field location is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "upload.getFileHashes#c7025931", "location")
 	}
 	if err := g.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode upload.getFileHashes#c7025931: field location: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "upload.getFileHashes#c7025931", "location", err)
 	}
 	b.PutInt(g.Offset)
 	return nil
@@ -147,10 +147,10 @@ func (g *UploadGetFileHashesRequest) GetOffset() (value int) {
 // Decode implements bin.Decoder.
 func (g *UploadGetFileHashesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getFileHashes#c7025931 to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.getFileHashes#c7025931")
 	}
 	if err := b.ConsumeID(UploadGetFileHashesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.getFileHashes#c7025931: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "upload.getFileHashes#c7025931", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -158,19 +158,19 @@ func (g *UploadGetFileHashesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UploadGetFileHashesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getFileHashes#c7025931 to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.getFileHashes#c7025931")
 	}
 	{
 		value, err := DecodeInputFileLocation(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getFileHashes#c7025931: field location: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.getFileHashes#c7025931", "location", err)
 		}
 		g.Location = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getFileHashes#c7025931: field offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.getFileHashes#c7025931", "offset", err)
 		}
 		g.Offset = value
 	}

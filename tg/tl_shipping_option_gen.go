@@ -124,7 +124,7 @@ func (s *ShippingOption) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *ShippingOption) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode shippingOption#b6213cdf as nil")
+		return fmt.Errorf("can't encode %s as nil", "shippingOption#b6213cdf")
 	}
 	b.PutID(ShippingOptionTypeID)
 	return s.EncodeBare(b)
@@ -133,14 +133,14 @@ func (s *ShippingOption) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *ShippingOption) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode shippingOption#b6213cdf as nil")
+		return fmt.Errorf("can't encode %s as nil", "shippingOption#b6213cdf")
 	}
 	b.PutString(s.ID)
 	b.PutString(s.Title)
 	b.PutVectorHeader(len(s.Prices))
 	for idx, v := range s.Prices {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode shippingOption#b6213cdf: field prices element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "shippingOption#b6213cdf", "prices", idx, err)
 		}
 	}
 	return nil
@@ -164,10 +164,10 @@ func (s *ShippingOption) GetPrices() (value []LabeledPrice) {
 // Decode implements bin.Decoder.
 func (s *ShippingOption) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode shippingOption#b6213cdf to nil")
+		return fmt.Errorf("can't decode %s to nil", "shippingOption#b6213cdf")
 	}
 	if err := b.ConsumeID(ShippingOptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode shippingOption#b6213cdf: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "shippingOption#b6213cdf", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -175,31 +175,31 @@ func (s *ShippingOption) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *ShippingOption) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode shippingOption#b6213cdf to nil")
+		return fmt.Errorf("can't decode %s to nil", "shippingOption#b6213cdf")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode shippingOption#b6213cdf: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "shippingOption#b6213cdf", "id", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode shippingOption#b6213cdf: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "shippingOption#b6213cdf", "title", err)
 		}
 		s.Title = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode shippingOption#b6213cdf: field prices: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "shippingOption#b6213cdf", "prices", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value LabeledPrice
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode shippingOption#b6213cdf: field prices: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "shippingOption#b6213cdf", "prices", err)
 			}
 			s.Prices = append(s.Prices, value)
 		}

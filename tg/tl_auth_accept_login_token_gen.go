@@ -110,7 +110,7 @@ func (a *AuthAcceptLoginTokenRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AuthAcceptLoginTokenRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode auth.acceptLoginToken#e894ad4d as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.acceptLoginToken#e894ad4d")
 	}
 	b.PutID(AuthAcceptLoginTokenRequestTypeID)
 	return a.EncodeBare(b)
@@ -119,7 +119,7 @@ func (a *AuthAcceptLoginTokenRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AuthAcceptLoginTokenRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode auth.acceptLoginToken#e894ad4d as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.acceptLoginToken#e894ad4d")
 	}
 	b.PutBytes(a.Token)
 	return nil
@@ -133,10 +133,10 @@ func (a *AuthAcceptLoginTokenRequest) GetToken() (value []byte) {
 // Decode implements bin.Decoder.
 func (a *AuthAcceptLoginTokenRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode auth.acceptLoginToken#e894ad4d to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.acceptLoginToken#e894ad4d")
 	}
 	if err := b.ConsumeID(AuthAcceptLoginTokenRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.acceptLoginToken#e894ad4d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "auth.acceptLoginToken#e894ad4d", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -144,12 +144,12 @@ func (a *AuthAcceptLoginTokenRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AuthAcceptLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode auth.acceptLoginToken#e894ad4d to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.acceptLoginToken#e894ad4d")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.acceptLoginToken#e894ad4d: field token: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.acceptLoginToken#e894ad4d", "token", err)
 		}
 		a.Token = value
 	}

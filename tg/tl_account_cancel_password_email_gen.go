@@ -88,7 +88,7 @@ func (c *AccountCancelPasswordEmailRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AccountCancelPasswordEmailRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.cancelPasswordEmail#c1cbd5b6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.cancelPasswordEmail#c1cbd5b6")
 	}
 	b.PutID(AccountCancelPasswordEmailRequestTypeID)
 	return c.EncodeBare(b)
@@ -97,7 +97,7 @@ func (c *AccountCancelPasswordEmailRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AccountCancelPasswordEmailRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.cancelPasswordEmail#c1cbd5b6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.cancelPasswordEmail#c1cbd5b6")
 	}
 	return nil
 }
@@ -105,10 +105,10 @@ func (c *AccountCancelPasswordEmailRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *AccountCancelPasswordEmailRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.cancelPasswordEmail#c1cbd5b6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.cancelPasswordEmail#c1cbd5b6")
 	}
 	if err := b.ConsumeID(AccountCancelPasswordEmailRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.cancelPasswordEmail#c1cbd5b6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.cancelPasswordEmail#c1cbd5b6", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -116,7 +116,7 @@ func (c *AccountCancelPasswordEmailRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AccountCancelPasswordEmailRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.cancelPasswordEmail#c1cbd5b6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.cancelPasswordEmail#c1cbd5b6")
 	}
 	return nil
 }

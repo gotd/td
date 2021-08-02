@@ -153,7 +153,7 @@ func (e *MessagesExportChatInviteRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *MessagesExportChatInviteRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.exportChatInvite#14b9bcd7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.exportChatInvite#14b9bcd7")
 	}
 	b.PutID(MessagesExportChatInviteRequestTypeID)
 	return e.EncodeBare(b)
@@ -162,7 +162,7 @@ func (e *MessagesExportChatInviteRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesExportChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.exportChatInvite#14b9bcd7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.exportChatInvite#14b9bcd7")
 	}
 	if !(e.LegacyRevokePermanent == false) {
 		e.Flags.Set(2)
@@ -174,13 +174,13 @@ func (e *MessagesExportChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 		e.Flags.Set(1)
 	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.exportChatInvite#14b9bcd7: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.exportChatInvite#14b9bcd7", "flags", err)
 	}
 	if e.Peer == nil {
-		return fmt.Errorf("unable to encode messages.exportChatInvite#14b9bcd7: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.exportChatInvite#14b9bcd7", "peer")
 	}
 	if err := e.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.exportChatInvite#14b9bcd7: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.exportChatInvite#14b9bcd7", "peer", err)
 	}
 	if e.Flags.Has(0) {
 		b.PutInt(e.ExpireDate)
@@ -245,10 +245,10 @@ func (e *MessagesExportChatInviteRequest) GetUsageLimit() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (e *MessagesExportChatInviteRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.exportChatInvite#14b9bcd7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.exportChatInvite#14b9bcd7")
 	}
 	if err := b.ConsumeID(MessagesExportChatInviteRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.exportChatInvite#14b9bcd7", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -256,32 +256,32 @@ func (e *MessagesExportChatInviteRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesExportChatInviteRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.exportChatInvite#14b9bcd7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.exportChatInvite#14b9bcd7")
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.exportChatInvite#14b9bcd7", "flags", err)
 		}
 	}
 	e.LegacyRevokePermanent = e.Flags.Has(2)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.exportChatInvite#14b9bcd7", "peer", err)
 		}
 		e.Peer = value
 	}
 	if e.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field expire_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.exportChatInvite#14b9bcd7", "expire_date", err)
 		}
 		e.ExpireDate = value
 	}
 	if e.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field usage_limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.exportChatInvite#14b9bcd7", "usage_limit", err)
 		}
 		e.UsageLimit = value
 	}

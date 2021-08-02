@@ -124,7 +124,7 @@ func (f *UploadFile) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *UploadFile) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode upload.file#96a18d5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.file#96a18d5")
 	}
 	b.PutID(UploadFileTypeID)
 	return f.EncodeBare(b)
@@ -133,13 +133,13 @@ func (f *UploadFile) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *UploadFile) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode upload.file#96a18d5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.file#96a18d5")
 	}
 	if f.Type == nil {
-		return fmt.Errorf("unable to encode upload.file#96a18d5: field type is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "upload.file#96a18d5", "type")
 	}
 	if err := f.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode upload.file#96a18d5: field type: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "upload.file#96a18d5", "type", err)
 	}
 	b.PutInt(f.Mtime)
 	b.PutBytes(f.Bytes)
@@ -164,10 +164,10 @@ func (f *UploadFile) GetBytes() (value []byte) {
 // Decode implements bin.Decoder.
 func (f *UploadFile) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode upload.file#96a18d5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.file#96a18d5")
 	}
 	if err := b.ConsumeID(UploadFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.file#96a18d5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "upload.file#96a18d5", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -175,26 +175,26 @@ func (f *UploadFile) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *UploadFile) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode upload.file#96a18d5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.file#96a18d5")
 	}
 	{
 		value, err := DecodeStorageFileType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.file#96a18d5: field type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.file#96a18d5", "type", err)
 		}
 		f.Type = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.file#96a18d5: field mtime: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.file#96a18d5", "mtime", err)
 		}
 		f.Mtime = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.file#96a18d5: field bytes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.file#96a18d5", "bytes", err)
 		}
 		f.Bytes = value
 	}
@@ -349,7 +349,7 @@ func (f *UploadFileCDNRedirect) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *UploadFileCDNRedirect) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode upload.fileCdnRedirect#f18cda44 as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.fileCdnRedirect#f18cda44")
 	}
 	b.PutID(UploadFileCDNRedirectTypeID)
 	return f.EncodeBare(b)
@@ -358,7 +358,7 @@ func (f *UploadFileCDNRedirect) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *UploadFileCDNRedirect) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode upload.fileCdnRedirect#f18cda44 as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.fileCdnRedirect#f18cda44")
 	}
 	b.PutInt(f.DCID)
 	b.PutBytes(f.FileToken)
@@ -367,7 +367,7 @@ func (f *UploadFileCDNRedirect) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(f.FileHashes))
 	for idx, v := range f.FileHashes {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode upload.fileCdnRedirect#f18cda44: field file_hashes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "upload.fileCdnRedirect#f18cda44", "file_hashes", idx, err)
 		}
 	}
 	return nil
@@ -401,10 +401,10 @@ func (f *UploadFileCDNRedirect) GetFileHashes() (value []FileHash) {
 // Decode implements bin.Decoder.
 func (f *UploadFileCDNRedirect) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode upload.fileCdnRedirect#f18cda44 to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.fileCdnRedirect#f18cda44")
 	}
 	if err := b.ConsumeID(UploadFileCDNRedirectTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.fileCdnRedirect#f18cda44: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "upload.fileCdnRedirect#f18cda44", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -412,45 +412,45 @@ func (f *UploadFileCDNRedirect) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *UploadFileCDNRedirect) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode upload.fileCdnRedirect#f18cda44 to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.fileCdnRedirect#f18cda44")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.fileCdnRedirect#f18cda44: field dc_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.fileCdnRedirect#f18cda44", "dc_id", err)
 		}
 		f.DCID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.fileCdnRedirect#f18cda44: field file_token: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.fileCdnRedirect#f18cda44", "file_token", err)
 		}
 		f.FileToken = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.fileCdnRedirect#f18cda44: field encryption_key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.fileCdnRedirect#f18cda44", "encryption_key", err)
 		}
 		f.EncryptionKey = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.fileCdnRedirect#f18cda44: field encryption_iv: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.fileCdnRedirect#f18cda44", "encryption_iv", err)
 		}
 		f.EncryptionIv = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.fileCdnRedirect#f18cda44: field file_hashes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.fileCdnRedirect#f18cda44", "file_hashes", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value FileHash
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode upload.fileCdnRedirect#f18cda44: field file_hashes: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "upload.fileCdnRedirect#f18cda44", "file_hashes", err)
 			}
 			f.FileHashes = append(f.FileHashes, value)
 		}
@@ -515,18 +515,18 @@ func DecodeUploadFile(buf *bin.Buffer) (UploadFileClass, error) {
 		// Decoding upload.file#96a18d5.
 		v := UploadFile{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UploadFileClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UploadFileClass", err)
 		}
 		return &v, nil
 	case UploadFileCDNRedirectTypeID:
 		// Decoding upload.fileCdnRedirect#f18cda44.
 		v := UploadFileCDNRedirect{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UploadFileClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UploadFileClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode UploadFileClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "UploadFileClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -538,7 +538,7 @@ type UploadFileBox struct {
 // Decode implements bin.Decoder for UploadFileBox.
 func (b *UploadFileBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode UploadFileBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "UploadFile")
 	}
 	v, err := DecodeUploadFile(buf)
 	if err != nil {
@@ -551,7 +551,7 @@ func (b *UploadFileBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for UploadFileBox.
 func (b *UploadFileBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.File == nil {
-		return fmt.Errorf("unable to encode UploadFileClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "UploadFileClass")
 	}
 	return b.File.Encode(buf)
 }

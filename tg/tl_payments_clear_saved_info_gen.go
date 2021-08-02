@@ -123,7 +123,7 @@ func (c *PaymentsClearSavedInfoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *PaymentsClearSavedInfoRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode payments.clearSavedInfo#d83d70c1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "payments.clearSavedInfo#d83d70c1")
 	}
 	b.PutID(PaymentsClearSavedInfoRequestTypeID)
 	return c.EncodeBare(b)
@@ -132,7 +132,7 @@ func (c *PaymentsClearSavedInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *PaymentsClearSavedInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode payments.clearSavedInfo#d83d70c1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "payments.clearSavedInfo#d83d70c1")
 	}
 	if !(c.Credentials == false) {
 		c.Flags.Set(0)
@@ -141,7 +141,7 @@ func (c *PaymentsClearSavedInfoRequest) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(1)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.clearSavedInfo#d83d70c1: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "payments.clearSavedInfo#d83d70c1", "flags", err)
 	}
 	return nil
 }
@@ -181,10 +181,10 @@ func (c *PaymentsClearSavedInfoRequest) GetInfo() (value bool) {
 // Decode implements bin.Decoder.
 func (c *PaymentsClearSavedInfoRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode payments.clearSavedInfo#d83d70c1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "payments.clearSavedInfo#d83d70c1")
 	}
 	if err := b.ConsumeID(PaymentsClearSavedInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.clearSavedInfo#d83d70c1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "payments.clearSavedInfo#d83d70c1", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -192,11 +192,11 @@ func (c *PaymentsClearSavedInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *PaymentsClearSavedInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode payments.clearSavedInfo#d83d70c1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "payments.clearSavedInfo#d83d70c1")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.clearSavedInfo#d83d70c1: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "payments.clearSavedInfo#d83d70c1", "flags", err)
 		}
 	}
 	c.Credentials = c.Flags.Has(0)

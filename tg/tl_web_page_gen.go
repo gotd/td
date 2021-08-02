@@ -102,7 +102,7 @@ func (w *WebPageEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WebPageEmpty) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageEmpty#eb1477e8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "webPageEmpty#eb1477e8")
 	}
 	b.PutID(WebPageEmptyTypeID)
 	return w.EncodeBare(b)
@@ -111,7 +111,7 @@ func (w *WebPageEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebPageEmpty) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageEmpty#eb1477e8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "webPageEmpty#eb1477e8")
 	}
 	b.PutLong(w.ID)
 	return nil
@@ -125,10 +125,10 @@ func (w *WebPageEmpty) GetID() (value int64) {
 // Decode implements bin.Decoder.
 func (w *WebPageEmpty) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageEmpty#eb1477e8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "webPageEmpty#eb1477e8")
 	}
 	if err := b.ConsumeID(WebPageEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode webPageEmpty#eb1477e8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "webPageEmpty#eb1477e8", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (w *WebPageEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebPageEmpty) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageEmpty#eb1477e8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "webPageEmpty#eb1477e8")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageEmpty#eb1477e8: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPageEmpty#eb1477e8", "id", err)
 		}
 		w.ID = value
 	}
@@ -245,7 +245,7 @@ func (w *WebPagePending) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WebPagePending) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPagePending#c586da1c as nil")
+		return fmt.Errorf("can't encode %s as nil", "webPagePending#c586da1c")
 	}
 	b.PutID(WebPagePendingTypeID)
 	return w.EncodeBare(b)
@@ -254,7 +254,7 @@ func (w *WebPagePending) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebPagePending) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPagePending#c586da1c as nil")
+		return fmt.Errorf("can't encode %s as nil", "webPagePending#c586da1c")
 	}
 	b.PutLong(w.ID)
 	b.PutInt(w.Date)
@@ -274,10 +274,10 @@ func (w *WebPagePending) GetDate() (value int) {
 // Decode implements bin.Decoder.
 func (w *WebPagePending) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPagePending#c586da1c to nil")
+		return fmt.Errorf("can't decode %s to nil", "webPagePending#c586da1c")
 	}
 	if err := b.ConsumeID(WebPagePendingTypeID); err != nil {
-		return fmt.Errorf("unable to decode webPagePending#c586da1c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "webPagePending#c586da1c", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -285,19 +285,19 @@ func (w *WebPagePending) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebPagePending) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPagePending#c586da1c to nil")
+		return fmt.Errorf("can't decode %s to nil", "webPagePending#c586da1c")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPagePending#c586da1c: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPagePending#c586da1c", "id", err)
 		}
 		w.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPagePending#c586da1c: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPagePending#c586da1c", "date", err)
 		}
 		w.Date = value
 	}
@@ -676,7 +676,7 @@ func (w *WebPage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WebPage) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPage#e89c45b2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "webPage#e89c45b2")
 	}
 	b.PutID(WebPageTypeID)
 	return w.EncodeBare(b)
@@ -685,7 +685,7 @@ func (w *WebPage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebPage) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPage#e89c45b2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "webPage#e89c45b2")
 	}
 	if !(w.Type == "") {
 		w.Flags.Set(0)
@@ -730,7 +730,7 @@ func (w *WebPage) EncodeBare(b *bin.Buffer) error {
 		w.Flags.Set(12)
 	}
 	if err := w.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#e89c45b2: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "webPage#e89c45b2", "flags", err)
 	}
 	b.PutLong(w.ID)
 	b.PutString(w.URL)
@@ -750,10 +750,10 @@ func (w *WebPage) EncodeBare(b *bin.Buffer) error {
 	}
 	if w.Flags.Has(4) {
 		if w.Photo == nil {
-			return fmt.Errorf("unable to encode webPage#e89c45b2: field photo is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "webPage#e89c45b2", "photo")
 		}
 		if err := w.Photo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode webPage#e89c45b2: field photo: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "webPage#e89c45b2", "photo", err)
 		}
 	}
 	if w.Flags.Has(5) {
@@ -776,22 +776,22 @@ func (w *WebPage) EncodeBare(b *bin.Buffer) error {
 	}
 	if w.Flags.Has(9) {
 		if w.Document == nil {
-			return fmt.Errorf("unable to encode webPage#e89c45b2: field document is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "webPage#e89c45b2", "document")
 		}
 		if err := w.Document.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode webPage#e89c45b2: field document: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "webPage#e89c45b2", "document", err)
 		}
 	}
 	if w.Flags.Has(10) {
 		if err := w.CachedPage.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode webPage#e89c45b2: field cached_page: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "webPage#e89c45b2", "cached_page", err)
 		}
 	}
 	if w.Flags.Has(12) {
 		b.PutVectorHeader(len(w.Attributes))
 		for idx, v := range w.Attributes {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode webPage#e89c45b2: field attributes element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "webPage#e89c45b2", "attributes", idx, err)
 			}
 		}
 	}
@@ -1031,10 +1031,10 @@ func (w *WebPage) GetAttributes() (value []WebPageAttributeTheme, ok bool) {
 // Decode implements bin.Decoder.
 func (w *WebPage) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPage#e89c45b2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "webPage#e89c45b2")
 	}
 	if err := b.ConsumeID(WebPageTypeID); err != nil {
-		return fmt.Errorf("unable to decode webPage#e89c45b2: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "webPage#e89c45b2", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -1042,139 +1042,139 @@ func (w *WebPage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebPage) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPage#e89c45b2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "webPage#e89c45b2")
 	}
 	{
 		if err := w.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "flags", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "id", err)
 		}
 		w.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "url", err)
 		}
 		w.URL = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field display_url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "display_url", err)
 		}
 		w.DisplayURL = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "hash", err)
 		}
 		w.Hash = value
 	}
 	if w.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "type", err)
 		}
 		w.Type = value
 	}
 	if w.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field site_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "site_name", err)
 		}
 		w.SiteName = value
 	}
 	if w.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "title", err)
 		}
 		w.Title = value
 	}
 	if w.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field description: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "description", err)
 		}
 		w.Description = value
 	}
 	if w.Flags.Has(4) {
 		value, err := DecodePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field photo: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "photo", err)
 		}
 		w.Photo = value
 	}
 	if w.Flags.Has(5) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field embed_url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "embed_url", err)
 		}
 		w.EmbedURL = value
 	}
 	if w.Flags.Has(5) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field embed_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "embed_type", err)
 		}
 		w.EmbedType = value
 	}
 	if w.Flags.Has(6) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field embed_width: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "embed_width", err)
 		}
 		w.EmbedWidth = value
 	}
 	if w.Flags.Has(6) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field embed_height: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "embed_height", err)
 		}
 		w.EmbedHeight = value
 	}
 	if w.Flags.Has(7) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field duration: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "duration", err)
 		}
 		w.Duration = value
 	}
 	if w.Flags.Has(8) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field author: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "author", err)
 		}
 		w.Author = value
 	}
 	if w.Flags.Has(9) {
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field document: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "document", err)
 		}
 		w.Document = value
 	}
 	if w.Flags.Has(10) {
 		if err := w.CachedPage.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field cached_page: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "cached_page", err)
 		}
 	}
 	if w.Flags.Has(12) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field attributes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "attributes", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value WebPageAttributeTheme
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode webPage#e89c45b2: field attributes: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "webPage#e89c45b2", "attributes", err)
 			}
 			w.Attributes = append(w.Attributes, value)
 		}
@@ -1282,7 +1282,7 @@ func (w *WebPageNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WebPageNotModified) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageNotModified#7311ca11 as nil")
+		return fmt.Errorf("can't encode %s as nil", "webPageNotModified#7311ca11")
 	}
 	b.PutID(WebPageNotModifiedTypeID)
 	return w.EncodeBare(b)
@@ -1291,13 +1291,13 @@ func (w *WebPageNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebPageNotModified) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageNotModified#7311ca11 as nil")
+		return fmt.Errorf("can't encode %s as nil", "webPageNotModified#7311ca11")
 	}
 	if !(w.CachedPageViews == 0) {
 		w.Flags.Set(0)
 	}
 	if err := w.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPageNotModified#7311ca11: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "webPageNotModified#7311ca11", "flags", err)
 	}
 	if w.Flags.Has(0) {
 		b.PutInt(w.CachedPageViews)
@@ -1323,10 +1323,10 @@ func (w *WebPageNotModified) GetCachedPageViews() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (w *WebPageNotModified) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageNotModified#7311ca11 to nil")
+		return fmt.Errorf("can't decode %s to nil", "webPageNotModified#7311ca11")
 	}
 	if err := b.ConsumeID(WebPageNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode webPageNotModified#7311ca11: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "webPageNotModified#7311ca11", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -1334,17 +1334,17 @@ func (w *WebPageNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebPageNotModified) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageNotModified#7311ca11 to nil")
+		return fmt.Errorf("can't decode %s to nil", "webPageNotModified#7311ca11")
 	}
 	{
 		if err := w.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPageNotModified#7311ca11: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPageNotModified#7311ca11", "flags", err)
 		}
 	}
 	if w.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageNotModified#7311ca11: field cached_page_views: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPageNotModified#7311ca11", "cached_page_views", err)
 		}
 		w.CachedPageViews = value
 	}
@@ -1460,32 +1460,32 @@ func DecodeWebPage(buf *bin.Buffer) (WebPageClass, error) {
 		// Decoding webPageEmpty#eb1477e8.
 		v := WebPageEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode WebPageClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "WebPageClass", err)
 		}
 		return &v, nil
 	case WebPagePendingTypeID:
 		// Decoding webPagePending#c586da1c.
 		v := WebPagePending{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode WebPageClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "WebPageClass", err)
 		}
 		return &v, nil
 	case WebPageTypeID:
 		// Decoding webPage#e89c45b2.
 		v := WebPage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode WebPageClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "WebPageClass", err)
 		}
 		return &v, nil
 	case WebPageNotModifiedTypeID:
 		// Decoding webPageNotModified#7311ca11.
 		v := WebPageNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode WebPageClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "WebPageClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode WebPageClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "WebPageClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -1497,7 +1497,7 @@ type WebPageBox struct {
 // Decode implements bin.Decoder for WebPageBox.
 func (b *WebPageBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode WebPageBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "WebPage")
 	}
 	v, err := DecodeWebPage(buf)
 	if err != nil {
@@ -1510,7 +1510,7 @@ func (b *WebPageBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for WebPageBox.
 func (b *WebPageBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.WebPage == nil {
-		return fmt.Errorf("unable to encode WebPageClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "WebPageClass")
 	}
 	return b.WebPage.Encode(buf)
 }

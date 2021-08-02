@@ -99,7 +99,7 @@ func (g *GetFutureSaltsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetFutureSaltsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode get_future_salts#b921bd04 as nil")
+		return fmt.Errorf("can't encode %s as nil", "get_future_salts#b921bd04")
 	}
 	b.PutID(GetFutureSaltsRequestTypeID)
 	return g.EncodeBare(b)
@@ -108,7 +108,7 @@ func (g *GetFutureSaltsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetFutureSaltsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode get_future_salts#b921bd04 as nil")
+		return fmt.Errorf("can't encode %s as nil", "get_future_salts#b921bd04")
 	}
 	b.PutInt(g.Num)
 	return nil
@@ -122,10 +122,10 @@ func (g *GetFutureSaltsRequest) GetNum() (value int) {
 // Decode implements bin.Decoder.
 func (g *GetFutureSaltsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode get_future_salts#b921bd04 to nil")
+		return fmt.Errorf("can't decode %s to nil", "get_future_salts#b921bd04")
 	}
 	if err := b.ConsumeID(GetFutureSaltsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode get_future_salts#b921bd04: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "get_future_salts#b921bd04", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -133,12 +133,12 @@ func (g *GetFutureSaltsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetFutureSaltsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode get_future_salts#b921bd04 to nil")
+		return fmt.Errorf("can't decode %s to nil", "get_future_salts#b921bd04")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode get_future_salts#b921bd04: field num: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "get_future_salts#b921bd04", "num", err)
 		}
 		g.Num = value
 	}

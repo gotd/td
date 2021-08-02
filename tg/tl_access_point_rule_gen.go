@@ -123,7 +123,7 @@ func (a *AccessPointRule) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AccessPointRule) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode accessPointRule#4679b65f as nil")
+		return fmt.Errorf("can't encode %s as nil", "accessPointRule#4679b65f")
 	}
 	b.PutID(AccessPointRuleTypeID)
 	return a.EncodeBare(b)
@@ -132,17 +132,17 @@ func (a *AccessPointRule) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AccessPointRule) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode accessPointRule#4679b65f as nil")
+		return fmt.Errorf("can't encode %s as nil", "accessPointRule#4679b65f")
 	}
 	b.PutString(a.PhonePrefixRules)
 	b.PutInt(a.DCID)
 	b.PutInt(len(a.IPs))
 	for idx, v := range a.IPs {
 		if v == nil {
-			return fmt.Errorf("unable to encode accessPointRule#4679b65f: field ips element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "accessPointRule#4679b65f", "ips", idx)
 		}
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare accessPointRule#4679b65f: field ips element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare %s: field %s element with index %d: %w", "accessPointRule#4679b65f", "ips", idx, err)
 		}
 	}
 	return nil
@@ -171,10 +171,10 @@ func (a *AccessPointRule) MapIPs() (value IPPortClassArray) {
 // Decode implements bin.Decoder.
 func (a *AccessPointRule) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode accessPointRule#4679b65f to nil")
+		return fmt.Errorf("can't decode %s to nil", "accessPointRule#4679b65f")
 	}
 	if err := b.ConsumeID(AccessPointRuleTypeID); err != nil {
-		return fmt.Errorf("unable to decode accessPointRule#4679b65f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "accessPointRule#4679b65f", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -182,31 +182,31 @@ func (a *AccessPointRule) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AccessPointRule) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode accessPointRule#4679b65f to nil")
+		return fmt.Errorf("can't decode %s to nil", "accessPointRule#4679b65f")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode accessPointRule#4679b65f: field phone_prefix_rules: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "accessPointRule#4679b65f", "phone_prefix_rules", err)
 		}
 		a.PhonePrefixRules = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode accessPointRule#4679b65f: field dc_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "accessPointRule#4679b65f", "dc_id", err)
 		}
 		a.DCID = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode accessPointRule#4679b65f: field ips: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "accessPointRule#4679b65f", "ips", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeIPPort(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode accessPointRule#4679b65f: field ips: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "accessPointRule#4679b65f", "ips", err)
 			}
 			a.IPs = append(a.IPs, value)
 		}

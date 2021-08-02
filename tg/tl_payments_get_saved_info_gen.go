@@ -85,7 +85,7 @@ func (g *PaymentsGetSavedInfoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PaymentsGetSavedInfoRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getSavedInfo#227d824b as nil")
+		return fmt.Errorf("can't encode %s as nil", "payments.getSavedInfo#227d824b")
 	}
 	b.PutID(PaymentsGetSavedInfoRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +94,7 @@ func (g *PaymentsGetSavedInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetSavedInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getSavedInfo#227d824b as nil")
+		return fmt.Errorf("can't encode %s as nil", "payments.getSavedInfo#227d824b")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (g *PaymentsGetSavedInfoRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *PaymentsGetSavedInfoRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getSavedInfo#227d824b to nil")
+		return fmt.Errorf("can't decode %s to nil", "payments.getSavedInfo#227d824b")
 	}
 	if err := b.ConsumeID(PaymentsGetSavedInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getSavedInfo#227d824b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "payments.getSavedInfo#227d824b", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (g *PaymentsGetSavedInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetSavedInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getSavedInfo#227d824b to nil")
+		return fmt.Errorf("can't decode %s to nil", "payments.getSavedInfo#227d824b")
 	}
 	return nil
 }

@@ -84,7 +84,7 @@ func (t *TextEntityTypeMention) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeMention) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeMention#37b3df65 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeMention#37b3df65")
 	}
 	b.PutID(TextEntityTypeMentionTypeID)
 	return t.EncodeBare(b)
@@ -93,7 +93,7 @@ func (t *TextEntityTypeMention) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeMention) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeMention#37b3df65 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeMention#37b3df65")
 	}
 	return nil
 }
@@ -101,10 +101,10 @@ func (t *TextEntityTypeMention) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeMention) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeMention#37b3df65 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeMention#37b3df65")
 	}
 	if err := b.ConsumeID(TextEntityTypeMentionTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeMention#37b3df65: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeMention#37b3df65", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -112,7 +112,7 @@ func (t *TextEntityTypeMention) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeMention) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeMention#37b3df65 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeMention#37b3df65")
 	}
 	return nil
 }
@@ -185,7 +185,7 @@ func (t *TextEntityTypeHashtag) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeHashtag) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeHashtag#c2f7a2dd as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeHashtag#c2f7a2dd")
 	}
 	b.PutID(TextEntityTypeHashtagTypeID)
 	return t.EncodeBare(b)
@@ -194,7 +194,7 @@ func (t *TextEntityTypeHashtag) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeHashtag) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeHashtag#c2f7a2dd as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeHashtag#c2f7a2dd")
 	}
 	return nil
 }
@@ -202,10 +202,10 @@ func (t *TextEntityTypeHashtag) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeHashtag) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeHashtag#c2f7a2dd to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeHashtag#c2f7a2dd")
 	}
 	if err := b.ConsumeID(TextEntityTypeHashtagTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeHashtag#c2f7a2dd: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeHashtag#c2f7a2dd", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -213,7 +213,7 @@ func (t *TextEntityTypeHashtag) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeHashtag) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeHashtag#c2f7a2dd to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeHashtag#c2f7a2dd")
 	}
 	return nil
 }
@@ -286,7 +286,7 @@ func (t *TextEntityTypeCashtag) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeCashtag) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeCashtag#48e4374b as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeCashtag#48e4374b")
 	}
 	b.PutID(TextEntityTypeCashtagTypeID)
 	return t.EncodeBare(b)
@@ -295,7 +295,7 @@ func (t *TextEntityTypeCashtag) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeCashtag) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeCashtag#48e4374b as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeCashtag#48e4374b")
 	}
 	return nil
 }
@@ -303,10 +303,10 @@ func (t *TextEntityTypeCashtag) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeCashtag) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeCashtag#48e4374b to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeCashtag#48e4374b")
 	}
 	if err := b.ConsumeID(TextEntityTypeCashtagTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeCashtag#48e4374b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeCashtag#48e4374b", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -314,7 +314,7 @@ func (t *TextEntityTypeCashtag) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeCashtag) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeCashtag#48e4374b to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeCashtag#48e4374b")
 	}
 	return nil
 }
@@ -387,7 +387,7 @@ func (t *TextEntityTypeBotCommand) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeBotCommand) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeBotCommand#bb652bb3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeBotCommand#bb652bb3")
 	}
 	b.PutID(TextEntityTypeBotCommandTypeID)
 	return t.EncodeBare(b)
@@ -396,7 +396,7 @@ func (t *TextEntityTypeBotCommand) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeBotCommand) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeBotCommand#bb652bb3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeBotCommand#bb652bb3")
 	}
 	return nil
 }
@@ -404,10 +404,10 @@ func (t *TextEntityTypeBotCommand) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeBotCommand) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeBotCommand#bb652bb3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeBotCommand#bb652bb3")
 	}
 	if err := b.ConsumeID(TextEntityTypeBotCommandTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeBotCommand#bb652bb3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeBotCommand#bb652bb3", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -415,7 +415,7 @@ func (t *TextEntityTypeBotCommand) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeBotCommand) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeBotCommand#bb652bb3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeBotCommand#bb652bb3")
 	}
 	return nil
 }
@@ -488,7 +488,7 @@ func (t *TextEntityTypeURL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeURL) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeUrl#b1c0d47c as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeUrl#b1c0d47c")
 	}
 	b.PutID(TextEntityTypeURLTypeID)
 	return t.EncodeBare(b)
@@ -497,7 +497,7 @@ func (t *TextEntityTypeURL) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeURL) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeUrl#b1c0d47c as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeUrl#b1c0d47c")
 	}
 	return nil
 }
@@ -505,10 +505,10 @@ func (t *TextEntityTypeURL) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeURL) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeUrl#b1c0d47c to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeUrl#b1c0d47c")
 	}
 	if err := b.ConsumeID(TextEntityTypeURLTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeUrl#b1c0d47c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeUrl#b1c0d47c", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -516,7 +516,7 @@ func (t *TextEntityTypeURL) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeURL) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeUrl#b1c0d47c to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeUrl#b1c0d47c")
 	}
 	return nil
 }
@@ -589,7 +589,7 @@ func (t *TextEntityTypeEmailAddress) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeEmailAddress) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeEmailAddress#54f81821 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeEmailAddress#54f81821")
 	}
 	b.PutID(TextEntityTypeEmailAddressTypeID)
 	return t.EncodeBare(b)
@@ -598,7 +598,7 @@ func (t *TextEntityTypeEmailAddress) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeEmailAddress) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeEmailAddress#54f81821 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeEmailAddress#54f81821")
 	}
 	return nil
 }
@@ -606,10 +606,10 @@ func (t *TextEntityTypeEmailAddress) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeEmailAddress) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeEmailAddress#54f81821 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeEmailAddress#54f81821")
 	}
 	if err := b.ConsumeID(TextEntityTypeEmailAddressTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeEmailAddress#54f81821: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeEmailAddress#54f81821", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -617,7 +617,7 @@ func (t *TextEntityTypeEmailAddress) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeEmailAddress) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeEmailAddress#54f81821 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeEmailAddress#54f81821")
 	}
 	return nil
 }
@@ -690,7 +690,7 @@ func (t *TextEntityTypePhoneNumber) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypePhoneNumber) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypePhoneNumber#bad9aa2a as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypePhoneNumber#bad9aa2a")
 	}
 	b.PutID(TextEntityTypePhoneNumberTypeID)
 	return t.EncodeBare(b)
@@ -699,7 +699,7 @@ func (t *TextEntityTypePhoneNumber) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypePhoneNumber) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypePhoneNumber#bad9aa2a as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypePhoneNumber#bad9aa2a")
 	}
 	return nil
 }
@@ -707,10 +707,10 @@ func (t *TextEntityTypePhoneNumber) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypePhoneNumber) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypePhoneNumber#bad9aa2a to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypePhoneNumber#bad9aa2a")
 	}
 	if err := b.ConsumeID(TextEntityTypePhoneNumberTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypePhoneNumber#bad9aa2a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypePhoneNumber#bad9aa2a", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -718,7 +718,7 @@ func (t *TextEntityTypePhoneNumber) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypePhoneNumber) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypePhoneNumber#bad9aa2a to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypePhoneNumber#bad9aa2a")
 	}
 	return nil
 }
@@ -791,7 +791,7 @@ func (t *TextEntityTypeBankCardNumber) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeBankCardNumber) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeBankCardNumber#6513910 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeBankCardNumber#6513910")
 	}
 	b.PutID(TextEntityTypeBankCardNumberTypeID)
 	return t.EncodeBare(b)
@@ -800,7 +800,7 @@ func (t *TextEntityTypeBankCardNumber) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeBankCardNumber) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeBankCardNumber#6513910 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeBankCardNumber#6513910")
 	}
 	return nil
 }
@@ -808,10 +808,10 @@ func (t *TextEntityTypeBankCardNumber) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeBankCardNumber) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeBankCardNumber#6513910 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeBankCardNumber#6513910")
 	}
 	if err := b.ConsumeID(TextEntityTypeBankCardNumberTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeBankCardNumber#6513910: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeBankCardNumber#6513910", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -819,7 +819,7 @@ func (t *TextEntityTypeBankCardNumber) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeBankCardNumber) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeBankCardNumber#6513910 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeBankCardNumber#6513910")
 	}
 	return nil
 }
@@ -892,7 +892,7 @@ func (t *TextEntityTypeBold) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeBold) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeBold#bcc0e1b0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeBold#bcc0e1b0")
 	}
 	b.PutID(TextEntityTypeBoldTypeID)
 	return t.EncodeBare(b)
@@ -901,7 +901,7 @@ func (t *TextEntityTypeBold) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeBold) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeBold#bcc0e1b0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeBold#bcc0e1b0")
 	}
 	return nil
 }
@@ -909,10 +909,10 @@ func (t *TextEntityTypeBold) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeBold) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeBold#bcc0e1b0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeBold#bcc0e1b0")
 	}
 	if err := b.ConsumeID(TextEntityTypeBoldTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeBold#bcc0e1b0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeBold#bcc0e1b0", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -920,7 +920,7 @@ func (t *TextEntityTypeBold) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeBold) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeBold#bcc0e1b0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeBold#bcc0e1b0")
 	}
 	return nil
 }
@@ -993,7 +993,7 @@ func (t *TextEntityTypeItalic) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeItalic) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeItalic#f8f3965d as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeItalic#f8f3965d")
 	}
 	b.PutID(TextEntityTypeItalicTypeID)
 	return t.EncodeBare(b)
@@ -1002,7 +1002,7 @@ func (t *TextEntityTypeItalic) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeItalic) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeItalic#f8f3965d as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeItalic#f8f3965d")
 	}
 	return nil
 }
@@ -1010,10 +1010,10 @@ func (t *TextEntityTypeItalic) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeItalic) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeItalic#f8f3965d to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeItalic#f8f3965d")
 	}
 	if err := b.ConsumeID(TextEntityTypeItalicTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeItalic#f8f3965d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeItalic#f8f3965d", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1021,7 +1021,7 @@ func (t *TextEntityTypeItalic) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeItalic) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeItalic#f8f3965d to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeItalic#f8f3965d")
 	}
 	return nil
 }
@@ -1094,7 +1094,7 @@ func (t *TextEntityTypeUnderline) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeUnderline) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeUnderline#2f39cf92 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeUnderline#2f39cf92")
 	}
 	b.PutID(TextEntityTypeUnderlineTypeID)
 	return t.EncodeBare(b)
@@ -1103,7 +1103,7 @@ func (t *TextEntityTypeUnderline) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeUnderline) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeUnderline#2f39cf92 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeUnderline#2f39cf92")
 	}
 	return nil
 }
@@ -1111,10 +1111,10 @@ func (t *TextEntityTypeUnderline) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeUnderline) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeUnderline#2f39cf92 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeUnderline#2f39cf92")
 	}
 	if err := b.ConsumeID(TextEntityTypeUnderlineTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeUnderline#2f39cf92: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeUnderline#2f39cf92", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1122,7 +1122,7 @@ func (t *TextEntityTypeUnderline) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeUnderline) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeUnderline#2f39cf92 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeUnderline#2f39cf92")
 	}
 	return nil
 }
@@ -1195,7 +1195,7 @@ func (t *TextEntityTypeStrikethrough) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeStrikethrough) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeStrikethrough#394fc4fa as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeStrikethrough#394fc4fa")
 	}
 	b.PutID(TextEntityTypeStrikethroughTypeID)
 	return t.EncodeBare(b)
@@ -1204,7 +1204,7 @@ func (t *TextEntityTypeStrikethrough) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeStrikethrough) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeStrikethrough#394fc4fa as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeStrikethrough#394fc4fa")
 	}
 	return nil
 }
@@ -1212,10 +1212,10 @@ func (t *TextEntityTypeStrikethrough) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeStrikethrough) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeStrikethrough#394fc4fa to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeStrikethrough#394fc4fa")
 	}
 	if err := b.ConsumeID(TextEntityTypeStrikethroughTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeStrikethrough#394fc4fa: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeStrikethrough#394fc4fa", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1223,7 +1223,7 @@ func (t *TextEntityTypeStrikethrough) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeStrikethrough) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeStrikethrough#394fc4fa to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeStrikethrough#394fc4fa")
 	}
 	return nil
 }
@@ -1296,7 +1296,7 @@ func (t *TextEntityTypeCode) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeCode) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeCode#c5e9c94a as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeCode#c5e9c94a")
 	}
 	b.PutID(TextEntityTypeCodeTypeID)
 	return t.EncodeBare(b)
@@ -1305,7 +1305,7 @@ func (t *TextEntityTypeCode) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeCode) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeCode#c5e9c94a as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeCode#c5e9c94a")
 	}
 	return nil
 }
@@ -1313,10 +1313,10 @@ func (t *TextEntityTypeCode) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeCode) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeCode#c5e9c94a to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeCode#c5e9c94a")
 	}
 	if err := b.ConsumeID(TextEntityTypeCodeTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeCode#c5e9c94a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeCode#c5e9c94a", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1324,7 +1324,7 @@ func (t *TextEntityTypeCode) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeCode) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeCode#c5e9c94a to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeCode#c5e9c94a")
 	}
 	return nil
 }
@@ -1397,7 +1397,7 @@ func (t *TextEntityTypePre) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypePre) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypePre#62491c8e as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypePre#62491c8e")
 	}
 	b.PutID(TextEntityTypePreTypeID)
 	return t.EncodeBare(b)
@@ -1406,7 +1406,7 @@ func (t *TextEntityTypePre) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypePre) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypePre#62491c8e as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypePre#62491c8e")
 	}
 	return nil
 }
@@ -1414,10 +1414,10 @@ func (t *TextEntityTypePre) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypePre) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypePre#62491c8e to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypePre#62491c8e")
 	}
 	if err := b.ConsumeID(TextEntityTypePreTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypePre#62491c8e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypePre#62491c8e", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1425,7 +1425,7 @@ func (t *TextEntityTypePre) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypePre) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypePre#62491c8e to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypePre#62491c8e")
 	}
 	return nil
 }
@@ -1515,7 +1515,7 @@ func (t *TextEntityTypePreCode) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypePreCode) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypePreCode#c7a77aab as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypePreCode#c7a77aab")
 	}
 	b.PutID(TextEntityTypePreCodeTypeID)
 	return t.EncodeBare(b)
@@ -1524,7 +1524,7 @@ func (t *TextEntityTypePreCode) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypePreCode) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypePreCode#c7a77aab as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypePreCode#c7a77aab")
 	}
 	b.PutString(t.Language)
 	return nil
@@ -1538,10 +1538,10 @@ func (t *TextEntityTypePreCode) GetLanguage() (value string) {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypePreCode) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypePreCode#c7a77aab to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypePreCode#c7a77aab")
 	}
 	if err := b.ConsumeID(TextEntityTypePreCodeTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypePreCode#c7a77aab: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypePreCode#c7a77aab", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1549,12 +1549,12 @@ func (t *TextEntityTypePreCode) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypePreCode) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypePreCode#c7a77aab to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypePreCode#c7a77aab")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode textEntityTypePreCode#c7a77aab: field language: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textEntityTypePreCode#c7a77aab", "language", err)
 		}
 		t.Language = value
 	}
@@ -1646,7 +1646,7 @@ func (t *TextEntityTypeTextURL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeTextURL) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeTextUrl#1a912463 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeTextUrl#1a912463")
 	}
 	b.PutID(TextEntityTypeTextURLTypeID)
 	return t.EncodeBare(b)
@@ -1655,7 +1655,7 @@ func (t *TextEntityTypeTextURL) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeTextURL) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeTextUrl#1a912463 as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeTextUrl#1a912463")
 	}
 	b.PutString(t.URL)
 	return nil
@@ -1669,10 +1669,10 @@ func (t *TextEntityTypeTextURL) GetURL() (value string) {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeTextURL) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeTextUrl#1a912463 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeTextUrl#1a912463")
 	}
 	if err := b.ConsumeID(TextEntityTypeTextURLTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeTextUrl#1a912463: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeTextUrl#1a912463", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1680,12 +1680,12 @@ func (t *TextEntityTypeTextURL) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeTextURL) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeTextUrl#1a912463 to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeTextUrl#1a912463")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode textEntityTypeTextUrl#1a912463: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textEntityTypeTextUrl#1a912463", "url", err)
 		}
 		t.URL = value
 	}
@@ -1777,7 +1777,7 @@ func (t *TextEntityTypeMentionName) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeMentionName) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeMentionName#d0d2685d as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeMentionName#d0d2685d")
 	}
 	b.PutID(TextEntityTypeMentionNameTypeID)
 	return t.EncodeBare(b)
@@ -1786,7 +1786,7 @@ func (t *TextEntityTypeMentionName) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeMentionName) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeMentionName#d0d2685d as nil")
+		return fmt.Errorf("can't encode %s as nil", "textEntityTypeMentionName#d0d2685d")
 	}
 	b.PutInt32(t.UserID)
 	return nil
@@ -1800,10 +1800,10 @@ func (t *TextEntityTypeMentionName) GetUserID() (value int32) {
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeMentionName) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeMentionName#d0d2685d to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeMentionName#d0d2685d")
 	}
 	if err := b.ConsumeID(TextEntityTypeMentionNameTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeMentionName#d0d2685d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "textEntityTypeMentionName#d0d2685d", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -1811,12 +1811,12 @@ func (t *TextEntityTypeMentionName) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeMentionName) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeMentionName#d0d2685d to nil")
+		return fmt.Errorf("can't decode %s to nil", "textEntityTypeMentionName#d0d2685d")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode textEntityTypeMentionName#d0d2685d: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "textEntityTypeMentionName#d0d2685d", "user_id", err)
 		}
 		t.UserID = value
 	}
@@ -1895,123 +1895,123 @@ func DecodeTextEntityType(buf *bin.Buffer) (TextEntityTypeClass, error) {
 		// Decoding textEntityTypeMention#37b3df65.
 		v := TextEntityTypeMention{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeHashtagTypeID:
 		// Decoding textEntityTypeHashtag#c2f7a2dd.
 		v := TextEntityTypeHashtag{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeCashtagTypeID:
 		// Decoding textEntityTypeCashtag#48e4374b.
 		v := TextEntityTypeCashtag{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeBotCommandTypeID:
 		// Decoding textEntityTypeBotCommand#bb652bb3.
 		v := TextEntityTypeBotCommand{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeURLTypeID:
 		// Decoding textEntityTypeUrl#b1c0d47c.
 		v := TextEntityTypeURL{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeEmailAddressTypeID:
 		// Decoding textEntityTypeEmailAddress#54f81821.
 		v := TextEntityTypeEmailAddress{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypePhoneNumberTypeID:
 		// Decoding textEntityTypePhoneNumber#bad9aa2a.
 		v := TextEntityTypePhoneNumber{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeBankCardNumberTypeID:
 		// Decoding textEntityTypeBankCardNumber#6513910.
 		v := TextEntityTypeBankCardNumber{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeBoldTypeID:
 		// Decoding textEntityTypeBold#bcc0e1b0.
 		v := TextEntityTypeBold{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeItalicTypeID:
 		// Decoding textEntityTypeItalic#f8f3965d.
 		v := TextEntityTypeItalic{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeUnderlineTypeID:
 		// Decoding textEntityTypeUnderline#2f39cf92.
 		v := TextEntityTypeUnderline{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeStrikethroughTypeID:
 		// Decoding textEntityTypeStrikethrough#394fc4fa.
 		v := TextEntityTypeStrikethrough{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeCodeTypeID:
 		// Decoding textEntityTypeCode#c5e9c94a.
 		v := TextEntityTypeCode{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypePreTypeID:
 		// Decoding textEntityTypePre#62491c8e.
 		v := TextEntityTypePre{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypePreCodeTypeID:
 		// Decoding textEntityTypePreCode#c7a77aab.
 		v := TextEntityTypePreCode{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeTextURLTypeID:
 		// Decoding textEntityTypeTextUrl#1a912463.
 		v := TextEntityTypeTextURL{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	case TextEntityTypeMentionNameTypeID:
 		// Decoding textEntityTypeMentionName#d0d2685d.
 		v := TextEntityTypeMentionName{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "TextEntityTypeClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -2023,7 +2023,7 @@ type TextEntityTypeBox struct {
 // Decode implements bin.Decoder for TextEntityTypeBox.
 func (b *TextEntityTypeBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode TextEntityTypeBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "TextEntityType")
 	}
 	v, err := DecodeTextEntityType(buf)
 	if err != nil {
@@ -2036,7 +2036,7 @@ func (b *TextEntityTypeBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for TextEntityTypeBox.
 func (b *TextEntityTypeBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.TextEntityType == nil {
-		return fmt.Errorf("unable to encode TextEntityTypeClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "TextEntityTypeClass")
 	}
 	return b.TextEntityType.Encode(buf)
 }

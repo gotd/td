@@ -143,7 +143,7 @@ func (c *UpdatesChannelDifferenceEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *UpdatesChannelDifferenceEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode updates.channelDifferenceEmpty#3e11affb as nil")
+		return fmt.Errorf("can't encode %s as nil", "updates.channelDifferenceEmpty#3e11affb")
 	}
 	b.PutID(UpdatesChannelDifferenceEmptyTypeID)
 	return c.EncodeBare(b)
@@ -152,7 +152,7 @@ func (c *UpdatesChannelDifferenceEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *UpdatesChannelDifferenceEmpty) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode updates.channelDifferenceEmpty#3e11affb as nil")
+		return fmt.Errorf("can't encode %s as nil", "updates.channelDifferenceEmpty#3e11affb")
 	}
 	if !(c.Final == false) {
 		c.Flags.Set(0)
@@ -161,7 +161,7 @@ func (c *UpdatesChannelDifferenceEmpty) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(1)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.channelDifferenceEmpty#3e11affb: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "updates.channelDifferenceEmpty#3e11affb", "flags", err)
 	}
 	b.PutInt(c.Pts)
 	if c.Flags.Has(1) {
@@ -209,10 +209,10 @@ func (c *UpdatesChannelDifferenceEmpty) GetTimeout() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (c *UpdatesChannelDifferenceEmpty) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode updates.channelDifferenceEmpty#3e11affb to nil")
+		return fmt.Errorf("can't decode %s to nil", "updates.channelDifferenceEmpty#3e11affb")
 	}
 	if err := b.ConsumeID(UpdatesChannelDifferenceEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.channelDifferenceEmpty#3e11affb: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "updates.channelDifferenceEmpty#3e11affb", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -220,25 +220,25 @@ func (c *UpdatesChannelDifferenceEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *UpdatesChannelDifferenceEmpty) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode updates.channelDifferenceEmpty#3e11affb to nil")
+		return fmt.Errorf("can't decode %s to nil", "updates.channelDifferenceEmpty#3e11affb")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifferenceEmpty#3e11affb: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifferenceEmpty#3e11affb", "flags", err)
 		}
 	}
 	c.Final = c.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifferenceEmpty#3e11affb: field pts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifferenceEmpty#3e11affb", "pts", err)
 		}
 		c.Pts = value
 	}
 	if c.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifferenceEmpty#3e11affb: field timeout: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifferenceEmpty#3e11affb", "timeout", err)
 		}
 		c.Timeout = value
 	}
@@ -407,7 +407,7 @@ func (c *UpdatesChannelDifferenceTooLong) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *UpdatesChannelDifferenceTooLong) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode updates.channelDifferenceTooLong#a4bcc6fe as nil")
+		return fmt.Errorf("can't encode %s as nil", "updates.channelDifferenceTooLong#a4bcc6fe")
 	}
 	b.PutID(UpdatesChannelDifferenceTooLongTypeID)
 	return c.EncodeBare(b)
@@ -416,7 +416,7 @@ func (c *UpdatesChannelDifferenceTooLong) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *UpdatesChannelDifferenceTooLong) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode updates.channelDifferenceTooLong#a4bcc6fe as nil")
+		return fmt.Errorf("can't encode %s as nil", "updates.channelDifferenceTooLong#a4bcc6fe")
 	}
 	if !(c.Final == false) {
 		c.Flags.Set(0)
@@ -425,42 +425,42 @@ func (c *UpdatesChannelDifferenceTooLong) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(1)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.channelDifferenceTooLong#a4bcc6fe: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "flags", err)
 	}
 	if c.Flags.Has(1) {
 		b.PutInt(c.Timeout)
 	}
 	if c.Dialog == nil {
-		return fmt.Errorf("unable to encode updates.channelDifferenceTooLong#a4bcc6fe: field dialog is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "updates.channelDifferenceTooLong#a4bcc6fe", "dialog")
 	}
 	if err := c.Dialog.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.channelDifferenceTooLong#a4bcc6fe: field dialog: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "dialog", err)
 	}
 	b.PutVectorHeader(len(c.Messages))
 	for idx, v := range c.Messages {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.channelDifferenceTooLong#a4bcc6fe: field messages element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updates.channelDifferenceTooLong#a4bcc6fe", "messages", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.channelDifferenceTooLong#a4bcc6fe: field messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "messages", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.Chats))
 	for idx, v := range c.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.channelDifferenceTooLong#a4bcc6fe: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updates.channelDifferenceTooLong#a4bcc6fe", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.channelDifferenceTooLong#a4bcc6fe: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "chats", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.channelDifferenceTooLong#a4bcc6fe: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updates.channelDifferenceTooLong#a4bcc6fe", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.channelDifferenceTooLong#a4bcc6fe: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "users", idx, err)
 		}
 	}
 	return nil
@@ -535,10 +535,10 @@ func (c *UpdatesChannelDifferenceTooLong) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (c *UpdatesChannelDifferenceTooLong) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode updates.channelDifferenceTooLong#a4bcc6fe to nil")
+		return fmt.Errorf("can't decode %s to nil", "updates.channelDifferenceTooLong#a4bcc6fe")
 	}
 	if err := b.ConsumeID(UpdatesChannelDifferenceTooLongTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "updates.channelDifferenceTooLong#a4bcc6fe", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -546,37 +546,37 @@ func (c *UpdatesChannelDifferenceTooLong) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *UpdatesChannelDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode updates.channelDifferenceTooLong#a4bcc6fe to nil")
+		return fmt.Errorf("can't decode %s to nil", "updates.channelDifferenceTooLong#a4bcc6fe")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "flags", err)
 		}
 	}
 	c.Final = c.Flags.Has(0)
 	if c.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field timeout: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "timeout", err)
 		}
 		c.Timeout = value
 	}
 	{
 		value, err := DecodeDialog(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field dialog: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "dialog", err)
 		}
 		c.Dialog = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field messages: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "messages", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field messages: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "messages", err)
 			}
 			c.Messages = append(c.Messages, value)
 		}
@@ -584,12 +584,12 @@ func (c *UpdatesChannelDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "chats", err)
 			}
 			c.Chats = append(c.Chats, value)
 		}
@@ -597,12 +597,12 @@ func (c *UpdatesChannelDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifferenceTooLong#a4bcc6fe", "users", err)
 			}
 			c.Users = append(c.Users, value)
 		}
@@ -782,7 +782,7 @@ func (c *UpdatesChannelDifference) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *UpdatesChannelDifference) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode updates.channelDifference#2064674e as nil")
+		return fmt.Errorf("can't encode %s as nil", "updates.channelDifference#2064674e")
 	}
 	b.PutID(UpdatesChannelDifferenceTypeID)
 	return c.EncodeBare(b)
@@ -791,7 +791,7 @@ func (c *UpdatesChannelDifference) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *UpdatesChannelDifference) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode updates.channelDifference#2064674e as nil")
+		return fmt.Errorf("can't encode %s as nil", "updates.channelDifference#2064674e")
 	}
 	if !(c.Final == false) {
 		c.Flags.Set(0)
@@ -800,7 +800,7 @@ func (c *UpdatesChannelDifference) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(1)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.channelDifference#2064674e: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "updates.channelDifference#2064674e", "flags", err)
 	}
 	b.PutInt(c.Pts)
 	if c.Flags.Has(1) {
@@ -809,37 +809,37 @@ func (c *UpdatesChannelDifference) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(c.NewMessages))
 	for idx, v := range c.NewMessages {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.channelDifference#2064674e: field new_messages element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updates.channelDifference#2064674e", "new_messages", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.channelDifference#2064674e: field new_messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updates.channelDifference#2064674e", "new_messages", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.OtherUpdates))
 	for idx, v := range c.OtherUpdates {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.channelDifference#2064674e: field other_updates element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updates.channelDifference#2064674e", "other_updates", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.channelDifference#2064674e: field other_updates element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updates.channelDifference#2064674e", "other_updates", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.Chats))
 	for idx, v := range c.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.channelDifference#2064674e: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updates.channelDifference#2064674e", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.channelDifference#2064674e: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updates.channelDifference#2064674e", "chats", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.channelDifference#2064674e: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "updates.channelDifference#2064674e", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.channelDifference#2064674e: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "updates.channelDifference#2064674e", "users", idx, err)
 		}
 	}
 	return nil
@@ -924,10 +924,10 @@ func (c *UpdatesChannelDifference) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (c *UpdatesChannelDifference) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode updates.channelDifference#2064674e to nil")
+		return fmt.Errorf("can't decode %s to nil", "updates.channelDifference#2064674e")
 	}
 	if err := b.ConsumeID(UpdatesChannelDifferenceTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.channelDifference#2064674e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "updates.channelDifference#2064674e", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -935,37 +935,37 @@ func (c *UpdatesChannelDifference) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *UpdatesChannelDifference) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode updates.channelDifference#2064674e to nil")
+		return fmt.Errorf("can't decode %s to nil", "updates.channelDifference#2064674e")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifference#2064674e", "flags", err)
 		}
 	}
 	c.Final = c.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field pts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifference#2064674e", "pts", err)
 		}
 		c.Pts = value
 	}
 	if c.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field timeout: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifference#2064674e", "timeout", err)
 		}
 		c.Timeout = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field new_messages: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifference#2064674e", "new_messages", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field new_messages: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifference#2064674e", "new_messages", err)
 			}
 			c.NewMessages = append(c.NewMessages, value)
 		}
@@ -973,12 +973,12 @@ func (c *UpdatesChannelDifference) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field other_updates: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifference#2064674e", "other_updates", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUpdate(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field other_updates: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifference#2064674e", "other_updates", err)
 			}
 			c.OtherUpdates = append(c.OtherUpdates, value)
 		}
@@ -986,12 +986,12 @@ func (c *UpdatesChannelDifference) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifference#2064674e", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifference#2064674e", "chats", err)
 			}
 			c.Chats = append(c.Chats, value)
 		}
@@ -999,12 +999,12 @@ func (c *UpdatesChannelDifference) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifference#2064674e", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "updates.channelDifference#2064674e", "users", err)
 			}
 			c.Users = append(c.Users, value)
 		}
@@ -1131,25 +1131,25 @@ func DecodeUpdatesChannelDifference(buf *bin.Buffer) (UpdatesChannelDifferenceCl
 		// Decoding updates.channelDifferenceEmpty#3e11affb.
 		v := UpdatesChannelDifferenceEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesChannelDifferenceClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UpdatesChannelDifferenceClass", err)
 		}
 		return &v, nil
 	case UpdatesChannelDifferenceTooLongTypeID:
 		// Decoding updates.channelDifferenceTooLong#a4bcc6fe.
 		v := UpdatesChannelDifferenceTooLong{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesChannelDifferenceClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UpdatesChannelDifferenceClass", err)
 		}
 		return &v, nil
 	case UpdatesChannelDifferenceTypeID:
 		// Decoding updates.channelDifference#2064674e.
 		v := UpdatesChannelDifference{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesChannelDifferenceClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "UpdatesChannelDifferenceClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode UpdatesChannelDifferenceClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "UpdatesChannelDifferenceClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -1161,7 +1161,7 @@ type UpdatesChannelDifferenceBox struct {
 // Decode implements bin.Decoder for UpdatesChannelDifferenceBox.
 func (b *UpdatesChannelDifferenceBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode UpdatesChannelDifferenceBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "UpdatesChannelDifference")
 	}
 	v, err := DecodeUpdatesChannelDifference(buf)
 	if err != nil {
@@ -1174,7 +1174,7 @@ func (b *UpdatesChannelDifferenceBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for UpdatesChannelDifferenceBox.
 func (b *UpdatesChannelDifferenceBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.ChannelDifference == nil {
-		return fmt.Errorf("unable to encode UpdatesChannelDifferenceClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "UpdatesChannelDifferenceClass")
 	}
 	return b.ChannelDifference.Encode(buf)
 }

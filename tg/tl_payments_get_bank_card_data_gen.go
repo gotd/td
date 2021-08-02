@@ -102,7 +102,7 @@ func (g *PaymentsGetBankCardDataRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PaymentsGetBankCardDataRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getBankCardData#2e79d779 as nil")
+		return fmt.Errorf("can't encode %s as nil", "payments.getBankCardData#2e79d779")
 	}
 	b.PutID(PaymentsGetBankCardDataRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,7 +111,7 @@ func (g *PaymentsGetBankCardDataRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetBankCardDataRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getBankCardData#2e79d779 as nil")
+		return fmt.Errorf("can't encode %s as nil", "payments.getBankCardData#2e79d779")
 	}
 	b.PutString(g.Number)
 	return nil
@@ -125,10 +125,10 @@ func (g *PaymentsGetBankCardDataRequest) GetNumber() (value string) {
 // Decode implements bin.Decoder.
 func (g *PaymentsGetBankCardDataRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getBankCardData#2e79d779 to nil")
+		return fmt.Errorf("can't decode %s to nil", "payments.getBankCardData#2e79d779")
 	}
 	if err := b.ConsumeID(PaymentsGetBankCardDataRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getBankCardData#2e79d779: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "payments.getBankCardData#2e79d779", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (g *PaymentsGetBankCardDataRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetBankCardDataRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getBankCardData#2e79d779 to nil")
+		return fmt.Errorf("can't decode %s to nil", "payments.getBankCardData#2e79d779")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getBankCardData#2e79d779: field number: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "payments.getBankCardData#2e79d779", "number", err)
 		}
 		g.Number = value
 	}

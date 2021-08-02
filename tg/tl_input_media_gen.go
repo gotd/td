@@ -85,7 +85,7 @@ func (i *InputMediaEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaEmpty#9664f57f as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaEmpty#9664f57f")
 	}
 	b.PutID(InputMediaEmptyTypeID)
 	return i.EncodeBare(b)
@@ -94,7 +94,7 @@ func (i *InputMediaEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaEmpty) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaEmpty#9664f57f as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaEmpty#9664f57f")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (i *InputMediaEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMediaEmpty) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaEmpty#9664f57f to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaEmpty#9664f57f")
 	}
 	if err := b.ConsumeID(InputMediaEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaEmpty#9664f57f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaEmpty#9664f57f", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (i *InputMediaEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaEmpty) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaEmpty#9664f57f to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaEmpty#9664f57f")
 	}
 	return nil
 }
@@ -249,7 +249,7 @@ func (i *InputMediaUploadedPhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaUploadedPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaUploadedPhoto#1e287d04 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaUploadedPhoto#1e287d04")
 	}
 	b.PutID(InputMediaUploadedPhotoTypeID)
 	return i.EncodeBare(b)
@@ -258,7 +258,7 @@ func (i *InputMediaUploadedPhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaUploadedPhoto) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaUploadedPhoto#1e287d04 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaUploadedPhoto#1e287d04")
 	}
 	if !(i.Stickers == nil) {
 		i.Flags.Set(0)
@@ -267,22 +267,22 @@ func (i *InputMediaUploadedPhoto) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(1)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaUploadedPhoto#1e287d04: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaUploadedPhoto#1e287d04", "flags", err)
 	}
 	if i.File == nil {
-		return fmt.Errorf("unable to encode inputMediaUploadedPhoto#1e287d04: field file is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputMediaUploadedPhoto#1e287d04", "file")
 	}
 	if err := i.File.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaUploadedPhoto#1e287d04: field file: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaUploadedPhoto#1e287d04", "file", err)
 	}
 	if i.Flags.Has(0) {
 		b.PutVectorHeader(len(i.Stickers))
 		for idx, v := range i.Stickers {
 			if v == nil {
-				return fmt.Errorf("unable to encode inputMediaUploadedPhoto#1e287d04: field stickers element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "inputMediaUploadedPhoto#1e287d04", "stickers", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputMediaUploadedPhoto#1e287d04: field stickers element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "inputMediaUploadedPhoto#1e287d04", "stickers", idx, err)
 			}
 		}
 	}
@@ -338,10 +338,10 @@ func (i *InputMediaUploadedPhoto) GetTTLSeconds() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (i *InputMediaUploadedPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaUploadedPhoto#1e287d04 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaUploadedPhoto#1e287d04")
 	}
 	if err := b.ConsumeID(InputMediaUploadedPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaUploadedPhoto#1e287d04", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -349,29 +349,29 @@ func (i *InputMediaUploadedPhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaUploadedPhoto) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaUploadedPhoto#1e287d04 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaUploadedPhoto#1e287d04")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedPhoto#1e287d04", "flags", err)
 		}
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: field file: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedPhoto#1e287d04", "file", err)
 		}
 		i.File = value
 	}
 	if i.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: field stickers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedPhoto#1e287d04", "stickers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputDocument(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: field stickers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedPhoto#1e287d04", "stickers", err)
 			}
 			i.Stickers = append(i.Stickers, value)
 		}
@@ -379,7 +379,7 @@ func (i *InputMediaUploadedPhoto) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedPhoto#1e287d04", "ttl_seconds", err)
 		}
 		i.TTLSeconds = value
 	}
@@ -497,7 +497,7 @@ func (i *InputMediaPhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaPhoto#b3ba0635 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaPhoto#b3ba0635")
 	}
 	b.PutID(InputMediaPhotoTypeID)
 	return i.EncodeBare(b)
@@ -506,19 +506,19 @@ func (i *InputMediaPhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaPhoto) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaPhoto#b3ba0635 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaPhoto#b3ba0635")
 	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaPhoto#b3ba0635: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaPhoto#b3ba0635", "flags", err)
 	}
 	if i.ID == nil {
-		return fmt.Errorf("unable to encode inputMediaPhoto#b3ba0635: field id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputMediaPhoto#b3ba0635", "id")
 	}
 	if err := i.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaPhoto#b3ba0635: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaPhoto#b3ba0635", "id", err)
 	}
 	if i.Flags.Has(0) {
 		b.PutInt(i.TTLSeconds)
@@ -549,10 +549,10 @@ func (i *InputMediaPhoto) GetTTLSeconds() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (i *InputMediaPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaPhoto#b3ba0635 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaPhoto#b3ba0635")
 	}
 	if err := b.ConsumeID(InputMediaPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaPhoto#b3ba0635: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaPhoto#b3ba0635", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -560,24 +560,24 @@ func (i *InputMediaPhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaPhoto) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaPhoto#b3ba0635 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaPhoto#b3ba0635")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaPhoto#b3ba0635: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPhoto#b3ba0635", "flags", err)
 		}
 	}
 	{
 		value, err := DecodeInputPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaPhoto#b3ba0635: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPhoto#b3ba0635", "id", err)
 		}
 		i.ID = value
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaPhoto#b3ba0635: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPhoto#b3ba0635", "ttl_seconds", err)
 		}
 		i.TTLSeconds = value
 	}
@@ -670,7 +670,7 @@ func (i *InputMediaGeoPoint) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaGeoPoint) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaGeoPoint#f9c44144 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaGeoPoint#f9c44144")
 	}
 	b.PutID(InputMediaGeoPointTypeID)
 	return i.EncodeBare(b)
@@ -679,13 +679,13 @@ func (i *InputMediaGeoPoint) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaGeoPoint) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaGeoPoint#f9c44144 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaGeoPoint#f9c44144")
 	}
 	if i.GeoPoint == nil {
-		return fmt.Errorf("unable to encode inputMediaGeoPoint#f9c44144: field geo_point is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputMediaGeoPoint#f9c44144", "geo_point")
 	}
 	if err := i.GeoPoint.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaGeoPoint#f9c44144: field geo_point: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaGeoPoint#f9c44144", "geo_point", err)
 	}
 	return nil
 }
@@ -698,10 +698,10 @@ func (i *InputMediaGeoPoint) GetGeoPoint() (value InputGeoPointClass) {
 // Decode implements bin.Decoder.
 func (i *InputMediaGeoPoint) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaGeoPoint#f9c44144 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaGeoPoint#f9c44144")
 	}
 	if err := b.ConsumeID(InputMediaGeoPointTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaGeoPoint#f9c44144: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaGeoPoint#f9c44144", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -709,12 +709,12 @@ func (i *InputMediaGeoPoint) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaGeoPoint) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaGeoPoint#f9c44144 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaGeoPoint#f9c44144")
 	}
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaGeoPoint#f9c44144: field geo_point: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaGeoPoint#f9c44144", "geo_point", err)
 		}
 		i.GeoPoint = value
 	}
@@ -840,7 +840,7 @@ func (i *InputMediaContact) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaContact) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaContact#f8ab7dfb as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaContact#f8ab7dfb")
 	}
 	b.PutID(InputMediaContactTypeID)
 	return i.EncodeBare(b)
@@ -849,7 +849,7 @@ func (i *InputMediaContact) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaContact) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaContact#f8ab7dfb as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaContact#f8ab7dfb")
 	}
 	b.PutString(i.PhoneNumber)
 	b.PutString(i.FirstName)
@@ -881,10 +881,10 @@ func (i *InputMediaContact) GetVcard() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputMediaContact) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaContact#f8ab7dfb to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaContact#f8ab7dfb")
 	}
 	if err := b.ConsumeID(InputMediaContactTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaContact#f8ab7dfb: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaContact#f8ab7dfb", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -892,33 +892,33 @@ func (i *InputMediaContact) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaContact) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaContact#f8ab7dfb to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaContact#f8ab7dfb")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaContact#f8ab7dfb: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaContact#f8ab7dfb", "phone_number", err)
 		}
 		i.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaContact#f8ab7dfb: field first_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaContact#f8ab7dfb", "first_name", err)
 		}
 		i.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaContact#f8ab7dfb: field last_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaContact#f8ab7dfb", "last_name", err)
 		}
 		i.LastName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaContact#f8ab7dfb: field vcard: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaContact#f8ab7dfb", "vcard", err)
 		}
 		i.Vcard = value
 	}
@@ -1120,7 +1120,7 @@ func (i *InputMediaUploadedDocument) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaUploadedDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaUploadedDocument#5b38c6c1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaUploadedDocument#5b38c6c1")
 	}
 	b.PutID(InputMediaUploadedDocumentTypeID)
 	return i.EncodeBare(b)
@@ -1129,7 +1129,7 @@ func (i *InputMediaUploadedDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaUploadedDocument) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaUploadedDocument#5b38c6c1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaUploadedDocument#5b38c6c1")
 	}
 	if !(i.NosoundVideo == false) {
 		i.Flags.Set(3)
@@ -1147,40 +1147,40 @@ func (i *InputMediaUploadedDocument) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(1)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaUploadedDocument#5b38c6c1", "flags", err)
 	}
 	if i.File == nil {
-		return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field file is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputMediaUploadedDocument#5b38c6c1", "file")
 	}
 	if err := i.File.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field file: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaUploadedDocument#5b38c6c1", "file", err)
 	}
 	if i.Flags.Has(2) {
 		if i.Thumb == nil {
-			return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field thumb is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "inputMediaUploadedDocument#5b38c6c1", "thumb")
 		}
 		if err := i.Thumb.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field thumb: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaUploadedDocument#5b38c6c1", "thumb", err)
 		}
 	}
 	b.PutString(i.MimeType)
 	b.PutVectorHeader(len(i.Attributes))
 	for idx, v := range i.Attributes {
 		if v == nil {
-			return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field attributes element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "inputMediaUploadedDocument#5b38c6c1", "attributes", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field attributes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "inputMediaUploadedDocument#5b38c6c1", "attributes", idx, err)
 		}
 	}
 	if i.Flags.Has(0) {
 		b.PutVectorHeader(len(i.Stickers))
 		for idx, v := range i.Stickers {
 			if v == nil {
-				return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field stickers element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "inputMediaUploadedDocument#5b38c6c1", "stickers", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field stickers element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "inputMediaUploadedDocument#5b38c6c1", "stickers", idx, err)
 			}
 		}
 	}
@@ -1298,10 +1298,10 @@ func (i *InputMediaUploadedDocument) GetTTLSeconds() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (i *InputMediaUploadedDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaUploadedDocument#5b38c6c1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaUploadedDocument#5b38c6c1")
 	}
 	if err := b.ConsumeID(InputMediaUploadedDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaUploadedDocument#5b38c6c1", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1309,11 +1309,11 @@ func (i *InputMediaUploadedDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaUploadedDocument#5b38c6c1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaUploadedDocument#5b38c6c1")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedDocument#5b38c6c1", "flags", err)
 		}
 	}
 	i.NosoundVideo = i.Flags.Has(3)
@@ -1321,33 +1321,33 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field file: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedDocument#5b38c6c1", "file", err)
 		}
 		i.File = value
 	}
 	if i.Flags.Has(2) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedDocument#5b38c6c1", "thumb", err)
 		}
 		i.Thumb = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedDocument#5b38c6c1", "mime_type", err)
 		}
 		i.MimeType = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field attributes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedDocument#5b38c6c1", "attributes", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field attributes: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedDocument#5b38c6c1", "attributes", err)
 			}
 			i.Attributes = append(i.Attributes, value)
 		}
@@ -1355,12 +1355,12 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field stickers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedDocument#5b38c6c1", "stickers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputDocument(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field stickers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedDocument#5b38c6c1", "stickers", err)
 			}
 			i.Stickers = append(i.Stickers, value)
 		}
@@ -1368,7 +1368,7 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaUploadedDocument#5b38c6c1", "ttl_seconds", err)
 		}
 		i.TTLSeconds = value
 	}
@@ -1503,7 +1503,7 @@ func (i *InputMediaDocument) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaDocument#33473058 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaDocument#33473058")
 	}
 	b.PutID(InputMediaDocumentTypeID)
 	return i.EncodeBare(b)
@@ -1512,7 +1512,7 @@ func (i *InputMediaDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaDocument) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaDocument#33473058 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaDocument#33473058")
 	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
@@ -1521,13 +1521,13 @@ func (i *InputMediaDocument) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(1)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaDocument#33473058: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaDocument#33473058", "flags", err)
 	}
 	if i.ID == nil {
-		return fmt.Errorf("unable to encode inputMediaDocument#33473058: field id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputMediaDocument#33473058", "id")
 	}
 	if err := i.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaDocument#33473058: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaDocument#33473058", "id", err)
 	}
 	if i.Flags.Has(0) {
 		b.PutInt(i.TTLSeconds)
@@ -1576,10 +1576,10 @@ func (i *InputMediaDocument) GetQuery() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (i *InputMediaDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaDocument#33473058 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaDocument#33473058")
 	}
 	if err := b.ConsumeID(InputMediaDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaDocument#33473058: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaDocument#33473058", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1587,31 +1587,31 @@ func (i *InputMediaDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaDocument) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaDocument#33473058 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaDocument#33473058")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaDocument#33473058", "flags", err)
 		}
 	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaDocument#33473058", "id", err)
 		}
 		i.ID = value
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaDocument#33473058", "ttl_seconds", err)
 		}
 		i.TTLSeconds = value
 	}
 	if i.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field query: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaDocument#33473058", "query", err)
 		}
 		i.Query = value
 	}
@@ -1759,7 +1759,7 @@ func (i *InputMediaVenue) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaVenue) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaVenue#c13d1c11 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaVenue#c13d1c11")
 	}
 	b.PutID(InputMediaVenueTypeID)
 	return i.EncodeBare(b)
@@ -1768,13 +1768,13 @@ func (i *InputMediaVenue) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaVenue) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaVenue#c13d1c11 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaVenue#c13d1c11")
 	}
 	if i.GeoPoint == nil {
-		return fmt.Errorf("unable to encode inputMediaVenue#c13d1c11: field geo_point is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputMediaVenue#c13d1c11", "geo_point")
 	}
 	if err := i.GeoPoint.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaVenue#c13d1c11: field geo_point: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaVenue#c13d1c11", "geo_point", err)
 	}
 	b.PutString(i.Title)
 	b.PutString(i.Address)
@@ -1817,10 +1817,10 @@ func (i *InputMediaVenue) GetVenueType() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputMediaVenue) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaVenue#c13d1c11 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaVenue#c13d1c11")
 	}
 	if err := b.ConsumeID(InputMediaVenueTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaVenue#c13d1c11: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaVenue#c13d1c11", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1828,47 +1828,47 @@ func (i *InputMediaVenue) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaVenue) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaVenue#c13d1c11 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaVenue#c13d1c11")
 	}
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaVenue#c13d1c11: field geo_point: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaVenue#c13d1c11", "geo_point", err)
 		}
 		i.GeoPoint = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaVenue#c13d1c11: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaVenue#c13d1c11", "title", err)
 		}
 		i.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaVenue#c13d1c11: field address: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaVenue#c13d1c11", "address", err)
 		}
 		i.Address = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaVenue#c13d1c11: field provider: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaVenue#c13d1c11", "provider", err)
 		}
 		i.Provider = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaVenue#c13d1c11: field venue_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaVenue#c13d1c11", "venue_id", err)
 		}
 		i.VenueID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaVenue#c13d1c11: field venue_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaVenue#c13d1c11", "venue_type", err)
 		}
 		i.VenueType = value
 	}
@@ -1986,7 +1986,7 @@ func (i *InputMediaPhotoExternal) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaPhotoExternal) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaPhotoExternal#e5bbfe1a as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaPhotoExternal#e5bbfe1a")
 	}
 	b.PutID(InputMediaPhotoExternalTypeID)
 	return i.EncodeBare(b)
@@ -1995,13 +1995,13 @@ func (i *InputMediaPhotoExternal) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaPhotoExternal) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaPhotoExternal#e5bbfe1a as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaPhotoExternal#e5bbfe1a")
 	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaPhotoExternal#e5bbfe1a: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaPhotoExternal#e5bbfe1a", "flags", err)
 	}
 	b.PutString(i.URL)
 	if i.Flags.Has(0) {
@@ -2033,10 +2033,10 @@ func (i *InputMediaPhotoExternal) GetTTLSeconds() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (i *InputMediaPhotoExternal) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaPhotoExternal#e5bbfe1a to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaPhotoExternal#e5bbfe1a")
 	}
 	if err := b.ConsumeID(InputMediaPhotoExternalTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaPhotoExternal#e5bbfe1a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaPhotoExternal#e5bbfe1a", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -2044,24 +2044,24 @@ func (i *InputMediaPhotoExternal) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaPhotoExternal) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaPhotoExternal#e5bbfe1a to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaPhotoExternal#e5bbfe1a")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaPhotoExternal#e5bbfe1a: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPhotoExternal#e5bbfe1a", "flags", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaPhotoExternal#e5bbfe1a: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPhotoExternal#e5bbfe1a", "url", err)
 		}
 		i.URL = value
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaPhotoExternal#e5bbfe1a: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPhotoExternal#e5bbfe1a", "ttl_seconds", err)
 		}
 		i.TTLSeconds = value
 	}
@@ -2179,7 +2179,7 @@ func (i *InputMediaDocumentExternal) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaDocumentExternal) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaDocumentExternal#fb52dc99 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaDocumentExternal#fb52dc99")
 	}
 	b.PutID(InputMediaDocumentExternalTypeID)
 	return i.EncodeBare(b)
@@ -2188,13 +2188,13 @@ func (i *InputMediaDocumentExternal) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaDocumentExternal) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaDocumentExternal#fb52dc99 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaDocumentExternal#fb52dc99")
 	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaDocumentExternal#fb52dc99: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaDocumentExternal#fb52dc99", "flags", err)
 	}
 	b.PutString(i.URL)
 	if i.Flags.Has(0) {
@@ -2226,10 +2226,10 @@ func (i *InputMediaDocumentExternal) GetTTLSeconds() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (i *InputMediaDocumentExternal) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaDocumentExternal#fb52dc99 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaDocumentExternal#fb52dc99")
 	}
 	if err := b.ConsumeID(InputMediaDocumentExternalTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaDocumentExternal#fb52dc99", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -2237,24 +2237,24 @@ func (i *InputMediaDocumentExternal) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaDocumentExternal) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaDocumentExternal#fb52dc99 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaDocumentExternal#fb52dc99")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaDocumentExternal#fb52dc99", "flags", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaDocumentExternal#fb52dc99", "url", err)
 		}
 		i.URL = value
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaDocumentExternal#fb52dc99", "ttl_seconds", err)
 		}
 		i.TTLSeconds = value
 	}
@@ -2347,7 +2347,7 @@ func (i *InputMediaGame) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaGame) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaGame#d33f43f3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaGame#d33f43f3")
 	}
 	b.PutID(InputMediaGameTypeID)
 	return i.EncodeBare(b)
@@ -2356,13 +2356,13 @@ func (i *InputMediaGame) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaGame) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaGame#d33f43f3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaGame#d33f43f3")
 	}
 	if i.ID == nil {
-		return fmt.Errorf("unable to encode inputMediaGame#d33f43f3: field id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputMediaGame#d33f43f3", "id")
 	}
 	if err := i.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaGame#d33f43f3: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaGame#d33f43f3", "id", err)
 	}
 	return nil
 }
@@ -2375,10 +2375,10 @@ func (i *InputMediaGame) GetID() (value InputGameClass) {
 // Decode implements bin.Decoder.
 func (i *InputMediaGame) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaGame#d33f43f3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaGame#d33f43f3")
 	}
 	if err := b.ConsumeID(InputMediaGameTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaGame#d33f43f3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaGame#d33f43f3", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -2386,12 +2386,12 @@ func (i *InputMediaGame) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaGame) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaGame#d33f43f3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaGame#d33f43f3")
 	}
 	{
 		value, err := DecodeInputGame(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaGame#d33f43f3: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaGame#d33f43f3", "id", err)
 		}
 		i.ID = value
 	}
@@ -2590,7 +2590,7 @@ func (i *InputMediaInvoice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaInvoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaInvoice#d9799874 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaInvoice#d9799874")
 	}
 	b.PutID(InputMediaInvoiceTypeID)
 	return i.EncodeBare(b)
@@ -2599,7 +2599,7 @@ func (i *InputMediaInvoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaInvoice#d9799874 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaInvoice#d9799874")
 	}
 	if !(i.Photo.Zero()) {
 		i.Flags.Set(0)
@@ -2608,22 +2608,22 @@ func (i *InputMediaInvoice) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(1)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaInvoice#d9799874: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaInvoice#d9799874", "flags", err)
 	}
 	b.PutString(i.Title)
 	b.PutString(i.Description)
 	if i.Flags.Has(0) {
 		if err := i.Photo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputMediaInvoice#d9799874: field photo: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaInvoice#d9799874", "photo", err)
 		}
 	}
 	if err := i.Invoice.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaInvoice#d9799874: field invoice: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaInvoice#d9799874", "invoice", err)
 	}
 	b.PutBytes(i.Payload)
 	b.PutString(i.Provider)
 	if err := i.ProviderData.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaInvoice#d9799874: field provider_data: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaInvoice#d9799874", "provider_data", err)
 	}
 	if i.Flags.Has(1) {
 		b.PutString(i.StartParam)
@@ -2694,10 +2694,10 @@ func (i *InputMediaInvoice) GetStartParam() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (i *InputMediaInvoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaInvoice#d9799874 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaInvoice#d9799874")
 	}
 	if err := b.ConsumeID(InputMediaInvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaInvoice#d9799874", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -2705,60 +2705,60 @@ func (i *InputMediaInvoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaInvoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaInvoice#d9799874 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaInvoice#d9799874")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaInvoice#d9799874", "flags", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaInvoice#d9799874", "title", err)
 		}
 		i.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field description: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaInvoice#d9799874", "description", err)
 		}
 		i.Description = value
 	}
 	if i.Flags.Has(0) {
 		if err := i.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field photo: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaInvoice#d9799874", "photo", err)
 		}
 	}
 	{
 		if err := i.Invoice.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field invoice: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaInvoice#d9799874", "invoice", err)
 		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field payload: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaInvoice#d9799874", "payload", err)
 		}
 		i.Payload = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field provider: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaInvoice#d9799874", "provider", err)
 		}
 		i.Provider = value
 	}
 	{
 		if err := i.ProviderData.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field provider_data: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaInvoice#d9799874", "provider_data", err)
 		}
 	}
 	if i.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#d9799874: field start_param: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaInvoice#d9799874", "start_param", err)
 		}
 		i.StartParam = value
 	}
@@ -2932,7 +2932,7 @@ func (i *InputMediaGeoLive) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaGeoLive) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaGeoLive#971fa843 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaGeoLive#971fa843")
 	}
 	b.PutID(InputMediaGeoLiveTypeID)
 	return i.EncodeBare(b)
@@ -2941,7 +2941,7 @@ func (i *InputMediaGeoLive) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaGeoLive) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaGeoLive#971fa843 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaGeoLive#971fa843")
 	}
 	if !(i.Stopped == false) {
 		i.Flags.Set(0)
@@ -2956,13 +2956,13 @@ func (i *InputMediaGeoLive) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(3)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaGeoLive#971fa843: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaGeoLive#971fa843", "flags", err)
 	}
 	if i.GeoPoint == nil {
-		return fmt.Errorf("unable to encode inputMediaGeoLive#971fa843: field geo_point is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputMediaGeoLive#971fa843", "geo_point")
 	}
 	if err := i.GeoPoint.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaGeoLive#971fa843: field geo_point: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaGeoLive#971fa843", "geo_point", err)
 	}
 	if i.Flags.Has(2) {
 		b.PutInt(i.Heading)
@@ -3045,10 +3045,10 @@ func (i *InputMediaGeoLive) GetProximityNotificationRadius() (value int, ok bool
 // Decode implements bin.Decoder.
 func (i *InputMediaGeoLive) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaGeoLive#971fa843 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaGeoLive#971fa843")
 	}
 	if err := b.ConsumeID(InputMediaGeoLiveTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaGeoLive#971fa843", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -3056,39 +3056,39 @@ func (i *InputMediaGeoLive) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaGeoLive) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaGeoLive#971fa843 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaGeoLive#971fa843")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaGeoLive#971fa843", "flags", err)
 		}
 	}
 	i.Stopped = i.Flags.Has(0)
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field geo_point: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaGeoLive#971fa843", "geo_point", err)
 		}
 		i.GeoPoint = value
 	}
 	if i.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field heading: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaGeoLive#971fa843", "heading", err)
 		}
 		i.Heading = value
 	}
 	if i.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field period: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaGeoLive#971fa843", "period", err)
 		}
 		i.Period = value
 	}
 	if i.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field proximity_notification_radius: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaGeoLive#971fa843", "proximity_notification_radius", err)
 		}
 		i.ProximityNotificationRadius = value
 	}
@@ -3243,7 +3243,7 @@ func (i *InputMediaPoll) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaPoll) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaPoll#f94e5f1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaPoll#f94e5f1")
 	}
 	b.PutID(InputMediaPollTypeID)
 	return i.EncodeBare(b)
@@ -3252,7 +3252,7 @@ func (i *InputMediaPoll) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaPoll) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaPoll#f94e5f1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaPoll#f94e5f1")
 	}
 	if !(i.CorrectAnswers == nil) {
 		i.Flags.Set(0)
@@ -3264,10 +3264,10 @@ func (i *InputMediaPoll) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(1)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaPoll#f94e5f1: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaPoll#f94e5f1", "flags", err)
 	}
 	if err := i.Poll.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaPoll#f94e5f1: field poll: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputMediaPoll#f94e5f1", "poll", err)
 	}
 	if i.Flags.Has(0) {
 		b.PutVectorHeader(len(i.CorrectAnswers))
@@ -3282,10 +3282,10 @@ func (i *InputMediaPoll) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(i.SolutionEntities))
 		for idx, v := range i.SolutionEntities {
 			if v == nil {
-				return fmt.Errorf("unable to encode inputMediaPoll#f94e5f1: field solution_entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "inputMediaPoll#f94e5f1", "solution_entities", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputMediaPoll#f94e5f1: field solution_entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "inputMediaPoll#f94e5f1", "solution_entities", idx, err)
 			}
 		}
 	}
@@ -3353,10 +3353,10 @@ func (i *InputMediaPoll) MapSolutionEntities() (value MessageEntityClassArray, o
 // Decode implements bin.Decoder.
 func (i *InputMediaPoll) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaPoll#f94e5f1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaPoll#f94e5f1")
 	}
 	if err := b.ConsumeID(InputMediaPollTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaPoll#f94e5f1", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -3364,27 +3364,27 @@ func (i *InputMediaPoll) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaPoll) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaPoll#f94e5f1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaPoll#f94e5f1")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPoll#f94e5f1", "flags", err)
 		}
 	}
 	{
 		if err := i.Poll.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field poll: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPoll#f94e5f1", "poll", err)
 		}
 	}
 	if i.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field correct_answers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPoll#f94e5f1", "correct_answers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field correct_answers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPoll#f94e5f1", "correct_answers", err)
 			}
 			i.CorrectAnswers = append(i.CorrectAnswers, value)
 		}
@@ -3392,19 +3392,19 @@ func (i *InputMediaPoll) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field solution: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPoll#f94e5f1", "solution", err)
 		}
 		i.Solution = value
 	}
 	if i.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field solution_entities: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPoll#f94e5f1", "solution_entities", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field solution_entities: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaPoll#f94e5f1", "solution_entities", err)
 			}
 			i.SolutionEntities = append(i.SolutionEntities, value)
 		}
@@ -3501,7 +3501,7 @@ func (i *InputMediaDice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaDice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaDice#e66fbf7b as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaDice#e66fbf7b")
 	}
 	b.PutID(InputMediaDiceTypeID)
 	return i.EncodeBare(b)
@@ -3510,7 +3510,7 @@ func (i *InputMediaDice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaDice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaDice#e66fbf7b as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputMediaDice#e66fbf7b")
 	}
 	b.PutString(i.Emoticon)
 	return nil
@@ -3524,10 +3524,10 @@ func (i *InputMediaDice) GetEmoticon() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputMediaDice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaDice#e66fbf7b to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaDice#e66fbf7b")
 	}
 	if err := b.ConsumeID(InputMediaDiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaDice#e66fbf7b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputMediaDice#e66fbf7b", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -3535,12 +3535,12 @@ func (i *InputMediaDice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaDice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaDice#e66fbf7b to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputMediaDice#e66fbf7b")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDice#e66fbf7b: field emoticon: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputMediaDice#e66fbf7b", "emoticon", err)
 		}
 		i.Emoticon = value
 	}
@@ -3617,109 +3617,109 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 		// Decoding inputMediaEmpty#9664f57f.
 		v := InputMediaEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaUploadedPhotoTypeID:
 		// Decoding inputMediaUploadedPhoto#1e287d04.
 		v := InputMediaUploadedPhoto{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaPhotoTypeID:
 		// Decoding inputMediaPhoto#b3ba0635.
 		v := InputMediaPhoto{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaGeoPointTypeID:
 		// Decoding inputMediaGeoPoint#f9c44144.
 		v := InputMediaGeoPoint{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaContactTypeID:
 		// Decoding inputMediaContact#f8ab7dfb.
 		v := InputMediaContact{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaUploadedDocumentTypeID:
 		// Decoding inputMediaUploadedDocument#5b38c6c1.
 		v := InputMediaUploadedDocument{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaDocumentTypeID:
 		// Decoding inputMediaDocument#33473058.
 		v := InputMediaDocument{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaVenueTypeID:
 		// Decoding inputMediaVenue#c13d1c11.
 		v := InputMediaVenue{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaPhotoExternalTypeID:
 		// Decoding inputMediaPhotoExternal#e5bbfe1a.
 		v := InputMediaPhotoExternal{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaDocumentExternalTypeID:
 		// Decoding inputMediaDocumentExternal#fb52dc99.
 		v := InputMediaDocumentExternal{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaGameTypeID:
 		// Decoding inputMediaGame#d33f43f3.
 		v := InputMediaGame{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaInvoiceTypeID:
 		// Decoding inputMediaInvoice#d9799874.
 		v := InputMediaInvoice{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaGeoLiveTypeID:
 		// Decoding inputMediaGeoLive#971fa843.
 		v := InputMediaGeoLive{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaPollTypeID:
 		// Decoding inputMediaPoll#f94e5f1.
 		v := InputMediaPoll{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	case InputMediaDiceTypeID:
 		// Decoding inputMediaDice#e66fbf7b.
 		v := InputMediaDice{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputMediaClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "InputMediaClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -3731,7 +3731,7 @@ type InputMediaBox struct {
 // Decode implements bin.Decoder for InputMediaBox.
 func (b *InputMediaBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputMediaBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "InputMedia")
 	}
 	v, err := DecodeInputMedia(buf)
 	if err != nil {
@@ -3744,7 +3744,7 @@ func (b *InputMediaBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputMediaBox.
 func (b *InputMediaBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputMedia == nil {
-		return fmt.Errorf("unable to encode InputMediaClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "InputMediaClass")
 	}
 	return b.InputMedia.Encode(buf)
 }

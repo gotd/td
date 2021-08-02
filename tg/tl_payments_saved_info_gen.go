@@ -128,7 +128,7 @@ func (s *PaymentsSavedInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *PaymentsSavedInfo) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.savedInfo#fb8fe43c as nil")
+		return fmt.Errorf("can't encode %s as nil", "payments.savedInfo#fb8fe43c")
 	}
 	b.PutID(PaymentsSavedInfoTypeID)
 	return s.EncodeBare(b)
@@ -137,7 +137,7 @@ func (s *PaymentsSavedInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PaymentsSavedInfo) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.savedInfo#fb8fe43c as nil")
+		return fmt.Errorf("can't encode %s as nil", "payments.savedInfo#fb8fe43c")
 	}
 	if !(s.HasSavedCredentials == false) {
 		s.Flags.Set(1)
@@ -146,11 +146,11 @@ func (s *PaymentsSavedInfo) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(0)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.savedInfo#fb8fe43c: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "payments.savedInfo#fb8fe43c", "flags", err)
 	}
 	if s.Flags.Has(0) {
 		if err := s.SavedInfo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.savedInfo#fb8fe43c: field saved_info: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "payments.savedInfo#fb8fe43c", "saved_info", err)
 		}
 	}
 	return nil
@@ -190,10 +190,10 @@ func (s *PaymentsSavedInfo) GetSavedInfo() (value PaymentRequestedInfo, ok bool)
 // Decode implements bin.Decoder.
 func (s *PaymentsSavedInfo) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.savedInfo#fb8fe43c to nil")
+		return fmt.Errorf("can't decode %s to nil", "payments.savedInfo#fb8fe43c")
 	}
 	if err := b.ConsumeID(PaymentsSavedInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.savedInfo#fb8fe43c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "payments.savedInfo#fb8fe43c", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -201,17 +201,17 @@ func (s *PaymentsSavedInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PaymentsSavedInfo) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.savedInfo#fb8fe43c to nil")
+		return fmt.Errorf("can't decode %s to nil", "payments.savedInfo#fb8fe43c")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.savedInfo#fb8fe43c: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "payments.savedInfo#fb8fe43c", "flags", err)
 		}
 	}
 	s.HasSavedCredentials = s.Flags.Has(1)
 	if s.Flags.Has(0) {
 		if err := s.SavedInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.savedInfo#fb8fe43c: field saved_info: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "payments.savedInfo#fb8fe43c", "saved_info", err)
 		}
 	}
 	return nil

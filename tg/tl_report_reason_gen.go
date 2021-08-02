@@ -85,7 +85,7 @@ func (i *InputReportReasonSpam) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputReportReasonSpam) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonSpam#58dbcab8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonSpam#58dbcab8")
 	}
 	b.PutID(InputReportReasonSpamTypeID)
 	return i.EncodeBare(b)
@@ -94,7 +94,7 @@ func (i *InputReportReasonSpam) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputReportReasonSpam) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonSpam#58dbcab8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonSpam#58dbcab8")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (i *InputReportReasonSpam) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputReportReasonSpam) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonSpam#58dbcab8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonSpam#58dbcab8")
 	}
 	if err := b.ConsumeID(InputReportReasonSpamTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputReportReasonSpam#58dbcab8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputReportReasonSpam#58dbcab8", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (i *InputReportReasonSpam) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputReportReasonSpam) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonSpam#58dbcab8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonSpam#58dbcab8")
 	}
 	return nil
 }
@@ -187,7 +187,7 @@ func (i *InputReportReasonViolence) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputReportReasonViolence) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonViolence#1e22c78d as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonViolence#1e22c78d")
 	}
 	b.PutID(InputReportReasonViolenceTypeID)
 	return i.EncodeBare(b)
@@ -196,7 +196,7 @@ func (i *InputReportReasonViolence) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputReportReasonViolence) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonViolence#1e22c78d as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonViolence#1e22c78d")
 	}
 	return nil
 }
@@ -204,10 +204,10 @@ func (i *InputReportReasonViolence) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputReportReasonViolence) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonViolence#1e22c78d to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonViolence#1e22c78d")
 	}
 	if err := b.ConsumeID(InputReportReasonViolenceTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputReportReasonViolence#1e22c78d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputReportReasonViolence#1e22c78d", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -215,7 +215,7 @@ func (i *InputReportReasonViolence) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputReportReasonViolence) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonViolence#1e22c78d to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonViolence#1e22c78d")
 	}
 	return nil
 }
@@ -289,7 +289,7 @@ func (i *InputReportReasonPornography) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputReportReasonPornography) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonPornography#2e59d922 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonPornography#2e59d922")
 	}
 	b.PutID(InputReportReasonPornographyTypeID)
 	return i.EncodeBare(b)
@@ -298,7 +298,7 @@ func (i *InputReportReasonPornography) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputReportReasonPornography) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonPornography#2e59d922 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonPornography#2e59d922")
 	}
 	return nil
 }
@@ -306,10 +306,10 @@ func (i *InputReportReasonPornography) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputReportReasonPornography) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonPornography#2e59d922 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonPornography#2e59d922")
 	}
 	if err := b.ConsumeID(InputReportReasonPornographyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputReportReasonPornography#2e59d922: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputReportReasonPornography#2e59d922", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -317,7 +317,7 @@ func (i *InputReportReasonPornography) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputReportReasonPornography) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonPornography#2e59d922 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonPornography#2e59d922")
 	}
 	return nil
 }
@@ -391,7 +391,7 @@ func (i *InputReportReasonChildAbuse) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputReportReasonChildAbuse) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonChildAbuse#adf44ee3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonChildAbuse#adf44ee3")
 	}
 	b.PutID(InputReportReasonChildAbuseTypeID)
 	return i.EncodeBare(b)
@@ -400,7 +400,7 @@ func (i *InputReportReasonChildAbuse) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputReportReasonChildAbuse) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonChildAbuse#adf44ee3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonChildAbuse#adf44ee3")
 	}
 	return nil
 }
@@ -408,10 +408,10 @@ func (i *InputReportReasonChildAbuse) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputReportReasonChildAbuse) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonChildAbuse#adf44ee3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonChildAbuse#adf44ee3")
 	}
 	if err := b.ConsumeID(InputReportReasonChildAbuseTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputReportReasonChildAbuse#adf44ee3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputReportReasonChildAbuse#adf44ee3", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -419,7 +419,7 @@ func (i *InputReportReasonChildAbuse) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputReportReasonChildAbuse) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonChildAbuse#adf44ee3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonChildAbuse#adf44ee3")
 	}
 	return nil
 }
@@ -493,7 +493,7 @@ func (i *InputReportReasonOther) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputReportReasonOther) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonOther#c1e4a2b1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonOther#c1e4a2b1")
 	}
 	b.PutID(InputReportReasonOtherTypeID)
 	return i.EncodeBare(b)
@@ -502,7 +502,7 @@ func (i *InputReportReasonOther) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputReportReasonOther) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonOther#c1e4a2b1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonOther#c1e4a2b1")
 	}
 	return nil
 }
@@ -510,10 +510,10 @@ func (i *InputReportReasonOther) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputReportReasonOther) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonOther#c1e4a2b1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonOther#c1e4a2b1")
 	}
 	if err := b.ConsumeID(InputReportReasonOtherTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputReportReasonOther#c1e4a2b1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputReportReasonOther#c1e4a2b1", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -521,7 +521,7 @@ func (i *InputReportReasonOther) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputReportReasonOther) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonOther#c1e4a2b1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonOther#c1e4a2b1")
 	}
 	return nil
 }
@@ -595,7 +595,7 @@ func (i *InputReportReasonCopyright) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputReportReasonCopyright) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonCopyright#9b89f93a as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonCopyright#9b89f93a")
 	}
 	b.PutID(InputReportReasonCopyrightTypeID)
 	return i.EncodeBare(b)
@@ -604,7 +604,7 @@ func (i *InputReportReasonCopyright) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputReportReasonCopyright) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonCopyright#9b89f93a as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonCopyright#9b89f93a")
 	}
 	return nil
 }
@@ -612,10 +612,10 @@ func (i *InputReportReasonCopyright) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputReportReasonCopyright) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonCopyright#9b89f93a to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonCopyright#9b89f93a")
 	}
 	if err := b.ConsumeID(InputReportReasonCopyrightTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputReportReasonCopyright#9b89f93a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputReportReasonCopyright#9b89f93a", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -623,7 +623,7 @@ func (i *InputReportReasonCopyright) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputReportReasonCopyright) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonCopyright#9b89f93a to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonCopyright#9b89f93a")
 	}
 	return nil
 }
@@ -697,7 +697,7 @@ func (i *InputReportReasonGeoIrrelevant) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputReportReasonGeoIrrelevant) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonGeoIrrelevant#dbd4feed as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonGeoIrrelevant#dbd4feed")
 	}
 	b.PutID(InputReportReasonGeoIrrelevantTypeID)
 	return i.EncodeBare(b)
@@ -706,7 +706,7 @@ func (i *InputReportReasonGeoIrrelevant) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputReportReasonGeoIrrelevant) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonGeoIrrelevant#dbd4feed as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonGeoIrrelevant#dbd4feed")
 	}
 	return nil
 }
@@ -714,10 +714,10 @@ func (i *InputReportReasonGeoIrrelevant) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputReportReasonGeoIrrelevant) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonGeoIrrelevant#dbd4feed to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonGeoIrrelevant#dbd4feed")
 	}
 	if err := b.ConsumeID(InputReportReasonGeoIrrelevantTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputReportReasonGeoIrrelevant#dbd4feed: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputReportReasonGeoIrrelevant#dbd4feed", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -725,7 +725,7 @@ func (i *InputReportReasonGeoIrrelevant) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputReportReasonGeoIrrelevant) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonGeoIrrelevant#dbd4feed to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonGeoIrrelevant#dbd4feed")
 	}
 	return nil
 }
@@ -798,7 +798,7 @@ func (i *InputReportReasonFake) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputReportReasonFake) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonFake#f5ddd6e7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonFake#f5ddd6e7")
 	}
 	b.PutID(InputReportReasonFakeTypeID)
 	return i.EncodeBare(b)
@@ -807,7 +807,7 @@ func (i *InputReportReasonFake) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputReportReasonFake) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonFake#f5ddd6e7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputReportReasonFake#f5ddd6e7")
 	}
 	return nil
 }
@@ -815,10 +815,10 @@ func (i *InputReportReasonFake) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputReportReasonFake) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonFake#f5ddd6e7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonFake#f5ddd6e7")
 	}
 	if err := b.ConsumeID(InputReportReasonFakeTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputReportReasonFake#f5ddd6e7: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputReportReasonFake#f5ddd6e7", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -826,7 +826,7 @@ func (i *InputReportReasonFake) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputReportReasonFake) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonFake#f5ddd6e7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputReportReasonFake#f5ddd6e7")
 	}
 	return nil
 }
@@ -894,60 +894,60 @@ func DecodeReportReason(buf *bin.Buffer) (ReportReasonClass, error) {
 		// Decoding inputReportReasonSpam#58dbcab8.
 		v := InputReportReasonSpam{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ReportReasonClass", err)
 		}
 		return &v, nil
 	case InputReportReasonViolenceTypeID:
 		// Decoding inputReportReasonViolence#1e22c78d.
 		v := InputReportReasonViolence{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ReportReasonClass", err)
 		}
 		return &v, nil
 	case InputReportReasonPornographyTypeID:
 		// Decoding inputReportReasonPornography#2e59d922.
 		v := InputReportReasonPornography{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ReportReasonClass", err)
 		}
 		return &v, nil
 	case InputReportReasonChildAbuseTypeID:
 		// Decoding inputReportReasonChildAbuse#adf44ee3.
 		v := InputReportReasonChildAbuse{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ReportReasonClass", err)
 		}
 		return &v, nil
 	case InputReportReasonOtherTypeID:
 		// Decoding inputReportReasonOther#c1e4a2b1.
 		v := InputReportReasonOther{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ReportReasonClass", err)
 		}
 		return &v, nil
 	case InputReportReasonCopyrightTypeID:
 		// Decoding inputReportReasonCopyright#9b89f93a.
 		v := InputReportReasonCopyright{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ReportReasonClass", err)
 		}
 		return &v, nil
 	case InputReportReasonGeoIrrelevantTypeID:
 		// Decoding inputReportReasonGeoIrrelevant#dbd4feed.
 		v := InputReportReasonGeoIrrelevant{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ReportReasonClass", err)
 		}
 		return &v, nil
 	case InputReportReasonFakeTypeID:
 		// Decoding inputReportReasonFake#f5ddd6e7.
 		v := InputReportReasonFake{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ReportReasonClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "ReportReasonClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -959,7 +959,7 @@ type ReportReasonBox struct {
 // Decode implements bin.Decoder for ReportReasonBox.
 func (b *ReportReasonBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode ReportReasonBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "ReportReason")
 	}
 	v, err := DecodeReportReason(buf)
 	if err != nil {
@@ -972,7 +972,7 @@ func (b *ReportReasonBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for ReportReasonBox.
 func (b *ReportReasonBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.ReportReason == nil {
-		return fmt.Errorf("unable to encode ReportReasonClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "ReportReasonClass")
 	}
 	return b.ReportReason.Encode(buf)
 }

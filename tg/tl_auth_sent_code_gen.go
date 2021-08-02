@@ -162,7 +162,7 @@ func (s *AuthSentCode) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AuthSentCode) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.sentCode#5e002502 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.sentCode#5e002502")
 	}
 	b.PutID(AuthSentCodeTypeID)
 	return s.EncodeBare(b)
@@ -171,7 +171,7 @@ func (s *AuthSentCode) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AuthSentCode) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.sentCode#5e002502 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.sentCode#5e002502")
 	}
 	if !(s.NextType == nil) {
 		s.Flags.Set(1)
@@ -180,21 +180,21 @@ func (s *AuthSentCode) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(2)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode auth.sentCode#5e002502: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "auth.sentCode#5e002502", "flags", err)
 	}
 	if s.Type == nil {
-		return fmt.Errorf("unable to encode auth.sentCode#5e002502: field type is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "auth.sentCode#5e002502", "type")
 	}
 	if err := s.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode auth.sentCode#5e002502: field type: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "auth.sentCode#5e002502", "type", err)
 	}
 	b.PutString(s.PhoneCodeHash)
 	if s.Flags.Has(1) {
 		if s.NextType == nil {
-			return fmt.Errorf("unable to encode auth.sentCode#5e002502: field next_type is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "auth.sentCode#5e002502", "next_type")
 		}
 		if err := s.NextType.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode auth.sentCode#5e002502: field next_type: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "auth.sentCode#5e002502", "next_type", err)
 		}
 	}
 	if s.Flags.Has(2) {
@@ -246,10 +246,10 @@ func (s *AuthSentCode) GetTimeout() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (s *AuthSentCode) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.sentCode#5e002502 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.sentCode#5e002502")
 	}
 	if err := b.ConsumeID(AuthSentCodeTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.sentCode#5e002502: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "auth.sentCode#5e002502", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -257,38 +257,38 @@ func (s *AuthSentCode) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AuthSentCode) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.sentCode#5e002502 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.sentCode#5e002502")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode auth.sentCode#5e002502: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.sentCode#5e002502", "flags", err)
 		}
 	}
 	{
 		value, err := DecodeAuthSentCodeType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sentCode#5e002502: field type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.sentCode#5e002502", "type", err)
 		}
 		s.Type = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sentCode#5e002502: field phone_code_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.sentCode#5e002502", "phone_code_hash", err)
 		}
 		s.PhoneCodeHash = value
 	}
 	if s.Flags.Has(1) {
 		value, err := DecodeAuthCodeType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sentCode#5e002502: field next_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.sentCode#5e002502", "next_type", err)
 		}
 		s.NextType = value
 	}
 	if s.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sentCode#5e002502: field timeout: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.sentCode#5e002502", "timeout", err)
 		}
 		s.Timeout = value
 	}

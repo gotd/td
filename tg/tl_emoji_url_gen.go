@@ -104,7 +104,7 @@ func (e *EmojiURL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EmojiURL) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiURL#a575739d as nil")
+		return fmt.Errorf("can't encode %s as nil", "emojiURL#a575739d")
 	}
 	b.PutID(EmojiURLTypeID)
 	return e.EncodeBare(b)
@@ -113,7 +113,7 @@ func (e *EmojiURL) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EmojiURL) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiURL#a575739d as nil")
+		return fmt.Errorf("can't encode %s as nil", "emojiURL#a575739d")
 	}
 	b.PutString(e.URL)
 	return nil
@@ -127,10 +127,10 @@ func (e *EmojiURL) GetURL() (value string) {
 // Decode implements bin.Decoder.
 func (e *EmojiURL) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiURL#a575739d to nil")
+		return fmt.Errorf("can't decode %s to nil", "emojiURL#a575739d")
 	}
 	if err := b.ConsumeID(EmojiURLTypeID); err != nil {
-		return fmt.Errorf("unable to decode emojiURL#a575739d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "emojiURL#a575739d", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -138,12 +138,12 @@ func (e *EmojiURL) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EmojiURL) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiURL#a575739d to nil")
+		return fmt.Errorf("can't decode %s to nil", "emojiURL#a575739d")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiURL#a575739d: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "emojiURL#a575739d", "url", err)
 		}
 		e.URL = value
 	}

@@ -124,7 +124,7 @@ func (s *SecureSecretSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureSecretSettings) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureSecretSettings#1527bcac as nil")
+		return fmt.Errorf("can't encode %s as nil", "secureSecretSettings#1527bcac")
 	}
 	b.PutID(SecureSecretSettingsTypeID)
 	return s.EncodeBare(b)
@@ -133,13 +133,13 @@ func (s *SecureSecretSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureSecretSettings) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureSecretSettings#1527bcac as nil")
+		return fmt.Errorf("can't encode %s as nil", "secureSecretSettings#1527bcac")
 	}
 	if s.SecureAlgo == nil {
-		return fmt.Errorf("unable to encode secureSecretSettings#1527bcac: field secure_algo is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "secureSecretSettings#1527bcac", "secure_algo")
 	}
 	if err := s.SecureAlgo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode secureSecretSettings#1527bcac: field secure_algo: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "secureSecretSettings#1527bcac", "secure_algo", err)
 	}
 	b.PutBytes(s.SecureSecret)
 	b.PutLong(s.SecureSecretID)
@@ -164,10 +164,10 @@ func (s *SecureSecretSettings) GetSecureSecretID() (value int64) {
 // Decode implements bin.Decoder.
 func (s *SecureSecretSettings) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureSecretSettings#1527bcac to nil")
+		return fmt.Errorf("can't decode %s to nil", "secureSecretSettings#1527bcac")
 	}
 	if err := b.ConsumeID(SecureSecretSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureSecretSettings#1527bcac: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "secureSecretSettings#1527bcac", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -175,26 +175,26 @@ func (s *SecureSecretSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureSecretSettings) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureSecretSettings#1527bcac to nil")
+		return fmt.Errorf("can't decode %s to nil", "secureSecretSettings#1527bcac")
 	}
 	{
 		value, err := DecodeSecurePasswordKdfAlgo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode secureSecretSettings#1527bcac: field secure_algo: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureSecretSettings#1527bcac", "secure_algo", err)
 		}
 		s.SecureAlgo = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureSecretSettings#1527bcac: field secure_secret: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureSecretSettings#1527bcac", "secure_secret", err)
 		}
 		s.SecureSecret = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureSecretSettings#1527bcac: field secure_secret_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureSecretSettings#1527bcac", "secure_secret_id", err)
 		}
 		s.SecureSecretID = value
 	}

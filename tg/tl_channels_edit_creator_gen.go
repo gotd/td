@@ -127,7 +127,7 @@ func (e *ChannelsEditCreatorRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *ChannelsEditCreatorRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editCreator#8f38cd1f as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.editCreator#8f38cd1f")
 	}
 	b.PutID(ChannelsEditCreatorRequestTypeID)
 	return e.EncodeBare(b)
@@ -136,25 +136,25 @@ func (e *ChannelsEditCreatorRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsEditCreatorRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editCreator#8f38cd1f as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.editCreator#8f38cd1f")
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.editCreator#8f38cd1f: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.editCreator#8f38cd1f", "channel")
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editCreator#8f38cd1f: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.editCreator#8f38cd1f", "channel", err)
 	}
 	if e.UserID == nil {
-		return fmt.Errorf("unable to encode channels.editCreator#8f38cd1f: field user_id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.editCreator#8f38cd1f", "user_id")
 	}
 	if err := e.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editCreator#8f38cd1f: field user_id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.editCreator#8f38cd1f", "user_id", err)
 	}
 	if e.Password == nil {
-		return fmt.Errorf("unable to encode channels.editCreator#8f38cd1f: field password is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.editCreator#8f38cd1f", "password")
 	}
 	if err := e.Password.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editCreator#8f38cd1f: field password: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.editCreator#8f38cd1f", "password", err)
 	}
 	return nil
 }
@@ -187,10 +187,10 @@ func (e *ChannelsEditCreatorRequest) GetPasswordAsNotEmpty() (*InputCheckPasswor
 // Decode implements bin.Decoder.
 func (e *ChannelsEditCreatorRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editCreator#8f38cd1f to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.editCreator#8f38cd1f")
 	}
 	if err := b.ConsumeID(ChannelsEditCreatorRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.editCreator#8f38cd1f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.editCreator#8f38cd1f", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -198,26 +198,26 @@ func (e *ChannelsEditCreatorRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsEditCreatorRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editCreator#8f38cd1f to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.editCreator#8f38cd1f")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editCreator#8f38cd1f: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editCreator#8f38cd1f", "channel", err)
 		}
 		e.Channel = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editCreator#8f38cd1f: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editCreator#8f38cd1f", "user_id", err)
 		}
 		e.UserID = value
 	}
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editCreator#8f38cd1f: field password: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editCreator#8f38cd1f", "password", err)
 		}
 		e.Password = value
 	}

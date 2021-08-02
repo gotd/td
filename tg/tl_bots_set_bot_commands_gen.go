@@ -124,7 +124,7 @@ func (s *BotsSetBotCommandsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *BotsSetBotCommandsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode bots.setBotCommands#517165a as nil")
+		return fmt.Errorf("can't encode %s as nil", "bots.setBotCommands#517165a")
 	}
 	b.PutID(BotsSetBotCommandsRequestTypeID)
 	return s.EncodeBare(b)
@@ -133,19 +133,19 @@ func (s *BotsSetBotCommandsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *BotsSetBotCommandsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode bots.setBotCommands#517165a as nil")
+		return fmt.Errorf("can't encode %s as nil", "bots.setBotCommands#517165a")
 	}
 	if s.Scope == nil {
-		return fmt.Errorf("unable to encode bots.setBotCommands#517165a: field scope is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "bots.setBotCommands#517165a", "scope")
 	}
 	if err := s.Scope.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode bots.setBotCommands#517165a: field scope: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "bots.setBotCommands#517165a", "scope", err)
 	}
 	b.PutString(s.LangCode)
 	b.PutVectorHeader(len(s.Commands))
 	for idx, v := range s.Commands {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode bots.setBotCommands#517165a: field commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "bots.setBotCommands#517165a", "commands", idx, err)
 		}
 	}
 	return nil
@@ -169,10 +169,10 @@ func (s *BotsSetBotCommandsRequest) GetCommands() (value []BotCommand) {
 // Decode implements bin.Decoder.
 func (s *BotsSetBotCommandsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode bots.setBotCommands#517165a to nil")
+		return fmt.Errorf("can't decode %s to nil", "bots.setBotCommands#517165a")
 	}
 	if err := b.ConsumeID(BotsSetBotCommandsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode bots.setBotCommands#517165a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "bots.setBotCommands#517165a", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -180,31 +180,31 @@ func (s *BotsSetBotCommandsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *BotsSetBotCommandsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode bots.setBotCommands#517165a to nil")
+		return fmt.Errorf("can't decode %s to nil", "bots.setBotCommands#517165a")
 	}
 	{
 		value, err := DecodeBotCommandScope(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.setBotCommands#517165a: field scope: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bots.setBotCommands#517165a", "scope", err)
 		}
 		s.Scope = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.setBotCommands#517165a: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bots.setBotCommands#517165a", "lang_code", err)
 		}
 		s.LangCode = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.setBotCommands#517165a: field commands: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bots.setBotCommands#517165a", "commands", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode bots.setBotCommands#517165a: field commands: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "bots.setBotCommands#517165a", "commands", err)
 			}
 			s.Commands = append(s.Commands, value)
 		}

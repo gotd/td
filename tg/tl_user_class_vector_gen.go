@@ -99,7 +99,7 @@ func (vec *UserClassVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *UserClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<User> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<User>")
 	}
 
 	return vec.EncodeBare(b)
@@ -108,15 +108,15 @@ func (vec *UserClassVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *UserClassVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<User> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<User>")
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if v == nil {
-			return fmt.Errorf("unable to encode Vector<User>: field Elems element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "Vector<User>", "Elems", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<User>: field Elems element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "Vector<User>", "Elems", idx, err)
 		}
 	}
 	return nil
@@ -135,7 +135,7 @@ func (vec *UserClassVector) MapElems() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (vec *UserClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<User> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<User>")
 	}
 
 	return vec.DecodeBare(b)
@@ -144,17 +144,17 @@ func (vec *UserClassVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *UserClassVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<User> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<User>")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<User>: field Elems: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<User>", "Elems", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode Vector<User>: field Elems: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<User>", "Elems", err)
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

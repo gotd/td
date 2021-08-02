@@ -102,7 +102,7 @@ func (r *MessagesReceivedQueueRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesReceivedQueueRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.receivedQueue#55a5bb66 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.receivedQueue#55a5bb66")
 	}
 	b.PutID(MessagesReceivedQueueRequestTypeID)
 	return r.EncodeBare(b)
@@ -111,7 +111,7 @@ func (r *MessagesReceivedQueueRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReceivedQueueRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.receivedQueue#55a5bb66 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.receivedQueue#55a5bb66")
 	}
 	b.PutInt(r.MaxQts)
 	return nil
@@ -125,10 +125,10 @@ func (r *MessagesReceivedQueueRequest) GetMaxQts() (value int) {
 // Decode implements bin.Decoder.
 func (r *MessagesReceivedQueueRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.receivedQueue#55a5bb66 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.receivedQueue#55a5bb66")
 	}
 	if err := b.ConsumeID(MessagesReceivedQueueRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.receivedQueue#55a5bb66: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.receivedQueue#55a5bb66", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (r *MessagesReceivedQueueRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReceivedQueueRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.receivedQueue#55a5bb66 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.receivedQueue#55a5bb66")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.receivedQueue#55a5bb66: field max_qts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.receivedQueue#55a5bb66", "max_qts", err)
 		}
 		r.MaxQts = value
 	}

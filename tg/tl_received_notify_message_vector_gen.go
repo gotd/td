@@ -99,7 +99,7 @@ func (vec *ReceivedNotifyMessageVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *ReceivedNotifyMessageVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<ReceivedNotifyMessage> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<ReceivedNotifyMessage>")
 	}
 
 	return vec.EncodeBare(b)
@@ -108,12 +108,12 @@ func (vec *ReceivedNotifyMessageVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *ReceivedNotifyMessageVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<ReceivedNotifyMessage> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<ReceivedNotifyMessage>")
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<ReceivedNotifyMessage>: field Elems element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "Vector<ReceivedNotifyMessage>", "Elems", idx, err)
 		}
 	}
 	return nil
@@ -127,7 +127,7 @@ func (vec *ReceivedNotifyMessageVector) GetElems() (value []ReceivedNotifyMessag
 // Decode implements bin.Decoder.
 func (vec *ReceivedNotifyMessageVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<ReceivedNotifyMessage> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<ReceivedNotifyMessage>")
 	}
 
 	return vec.DecodeBare(b)
@@ -136,17 +136,17 @@ func (vec *ReceivedNotifyMessageVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *ReceivedNotifyMessageVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<ReceivedNotifyMessage> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<ReceivedNotifyMessage>")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<ReceivedNotifyMessage>: field Elems: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<ReceivedNotifyMessage>", "Elems", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value ReceivedNotifyMessage
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode Vector<ReceivedNotifyMessage>: field Elems: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<ReceivedNotifyMessage>", "Elems", err)
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

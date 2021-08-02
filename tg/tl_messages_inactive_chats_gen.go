@@ -124,7 +124,7 @@ func (i *MessagesInactiveChats) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *MessagesInactiveChats) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode messages.inactiveChats#a927fec5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.inactiveChats#a927fec5")
 	}
 	b.PutID(MessagesInactiveChatsTypeID)
 	return i.EncodeBare(b)
@@ -133,7 +133,7 @@ func (i *MessagesInactiveChats) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *MessagesInactiveChats) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode messages.inactiveChats#a927fec5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.inactiveChats#a927fec5")
 	}
 	b.PutVectorHeader(len(i.Dates))
 	for _, v := range i.Dates {
@@ -142,19 +142,19 @@ func (i *MessagesInactiveChats) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(i.Chats))
 	for idx, v := range i.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.inactiveChats#a927fec5: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.inactiveChats#a927fec5", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.inactiveChats#a927fec5: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.inactiveChats#a927fec5", "chats", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(i.Users))
 	for idx, v := range i.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.inactiveChats#a927fec5: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.inactiveChats#a927fec5", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.inactiveChats#a927fec5: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.inactiveChats#a927fec5", "users", idx, err)
 		}
 	}
 	return nil
@@ -188,10 +188,10 @@ func (i *MessagesInactiveChats) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (i *MessagesInactiveChats) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode messages.inactiveChats#a927fec5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.inactiveChats#a927fec5")
 	}
 	if err := b.ConsumeID(MessagesInactiveChatsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.inactiveChats#a927fec5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.inactiveChats#a927fec5", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -199,17 +199,17 @@ func (i *MessagesInactiveChats) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *MessagesInactiveChats) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode messages.inactiveChats#a927fec5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.inactiveChats#a927fec5")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.inactiveChats#a927fec5: field dates: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.inactiveChats#a927fec5", "dates", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.inactiveChats#a927fec5: field dates: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.inactiveChats#a927fec5", "dates", err)
 			}
 			i.Dates = append(i.Dates, value)
 		}
@@ -217,12 +217,12 @@ func (i *MessagesInactiveChats) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.inactiveChats#a927fec5: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.inactiveChats#a927fec5", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.inactiveChats#a927fec5: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.inactiveChats#a927fec5", "chats", err)
 			}
 			i.Chats = append(i.Chats, value)
 		}
@@ -230,12 +230,12 @@ func (i *MessagesInactiveChats) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.inactiveChats#a927fec5: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.inactiveChats#a927fec5", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.inactiveChats#a927fec5: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.inactiveChats#a927fec5", "users", err)
 			}
 			i.Users = append(i.Users, value)
 		}

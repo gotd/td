@@ -105,7 +105,7 @@ func (g *ContactsGetContactIDsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ContactsGetContactIDsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getContactIDs#2caa4a42 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.getContactIDs#2caa4a42")
 	}
 	b.PutID(ContactsGetContactIDsRequestTypeID)
 	return g.EncodeBare(b)
@@ -114,7 +114,7 @@ func (g *ContactsGetContactIDsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ContactsGetContactIDsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getContactIDs#2caa4a42 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.getContactIDs#2caa4a42")
 	}
 	b.PutInt(g.Hash)
 	return nil
@@ -128,10 +128,10 @@ func (g *ContactsGetContactIDsRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *ContactsGetContactIDsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getContactIDs#2caa4a42 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.getContactIDs#2caa4a42")
 	}
 	if err := b.ConsumeID(ContactsGetContactIDsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.getContactIDs#2caa4a42: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.getContactIDs#2caa4a42", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -139,12 +139,12 @@ func (g *ContactsGetContactIDsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ContactsGetContactIDsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getContactIDs#2caa4a42 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.getContactIDs#2caa4a42")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getContactIDs#2caa4a42: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.getContactIDs#2caa4a42", "hash", err)
 		}
 		g.Hash = value
 	}

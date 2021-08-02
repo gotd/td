@@ -102,7 +102,7 @@ func (n *NotifyPeer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (n *NotifyPeer) Encode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notifyPeer#9fd40bd8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "notifyPeer#9fd40bd8")
 	}
 	b.PutID(NotifyPeerTypeID)
 	return n.EncodeBare(b)
@@ -111,13 +111,13 @@ func (n *NotifyPeer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (n *NotifyPeer) EncodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notifyPeer#9fd40bd8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "notifyPeer#9fd40bd8")
 	}
 	if n.Peer == nil {
-		return fmt.Errorf("unable to encode notifyPeer#9fd40bd8: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "notifyPeer#9fd40bd8", "peer")
 	}
 	if err := n.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode notifyPeer#9fd40bd8: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "notifyPeer#9fd40bd8", "peer", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (n *NotifyPeer) GetPeer() (value PeerClass) {
 // Decode implements bin.Decoder.
 func (n *NotifyPeer) Decode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notifyPeer#9fd40bd8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "notifyPeer#9fd40bd8")
 	}
 	if err := b.ConsumeID(NotifyPeerTypeID); err != nil {
-		return fmt.Errorf("unable to decode notifyPeer#9fd40bd8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "notifyPeer#9fd40bd8", err)
 	}
 	return n.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (n *NotifyPeer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (n *NotifyPeer) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notifyPeer#9fd40bd8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "notifyPeer#9fd40bd8")
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode notifyPeer#9fd40bd8: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "notifyPeer#9fd40bd8", "peer", err)
 		}
 		n.Peer = value
 	}
@@ -222,7 +222,7 @@ func (n *NotifyUsers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (n *NotifyUsers) Encode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notifyUsers#b4c83b4c as nil")
+		return fmt.Errorf("can't encode %s as nil", "notifyUsers#b4c83b4c")
 	}
 	b.PutID(NotifyUsersTypeID)
 	return n.EncodeBare(b)
@@ -231,7 +231,7 @@ func (n *NotifyUsers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (n *NotifyUsers) EncodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notifyUsers#b4c83b4c as nil")
+		return fmt.Errorf("can't encode %s as nil", "notifyUsers#b4c83b4c")
 	}
 	return nil
 }
@@ -239,10 +239,10 @@ func (n *NotifyUsers) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (n *NotifyUsers) Decode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notifyUsers#b4c83b4c to nil")
+		return fmt.Errorf("can't decode %s to nil", "notifyUsers#b4c83b4c")
 	}
 	if err := b.ConsumeID(NotifyUsersTypeID); err != nil {
-		return fmt.Errorf("unable to decode notifyUsers#b4c83b4c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "notifyUsers#b4c83b4c", err)
 	}
 	return n.DecodeBare(b)
 }
@@ -250,7 +250,7 @@ func (n *NotifyUsers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (n *NotifyUsers) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notifyUsers#b4c83b4c to nil")
+		return fmt.Errorf("can't decode %s to nil", "notifyUsers#b4c83b4c")
 	}
 	return nil
 }
@@ -324,7 +324,7 @@ func (n *NotifyChats) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (n *NotifyChats) Encode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notifyChats#c007cec3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "notifyChats#c007cec3")
 	}
 	b.PutID(NotifyChatsTypeID)
 	return n.EncodeBare(b)
@@ -333,7 +333,7 @@ func (n *NotifyChats) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (n *NotifyChats) EncodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notifyChats#c007cec3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "notifyChats#c007cec3")
 	}
 	return nil
 }
@@ -341,10 +341,10 @@ func (n *NotifyChats) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (n *NotifyChats) Decode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notifyChats#c007cec3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "notifyChats#c007cec3")
 	}
 	if err := b.ConsumeID(NotifyChatsTypeID); err != nil {
-		return fmt.Errorf("unable to decode notifyChats#c007cec3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "notifyChats#c007cec3", err)
 	}
 	return n.DecodeBare(b)
 }
@@ -352,7 +352,7 @@ func (n *NotifyChats) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (n *NotifyChats) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notifyChats#c007cec3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "notifyChats#c007cec3")
 	}
 	return nil
 }
@@ -426,7 +426,7 @@ func (n *NotifyBroadcasts) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (n *NotifyBroadcasts) Encode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notifyBroadcasts#d612e8ef as nil")
+		return fmt.Errorf("can't encode %s as nil", "notifyBroadcasts#d612e8ef")
 	}
 	b.PutID(NotifyBroadcastsTypeID)
 	return n.EncodeBare(b)
@@ -435,7 +435,7 @@ func (n *NotifyBroadcasts) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (n *NotifyBroadcasts) EncodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notifyBroadcasts#d612e8ef as nil")
+		return fmt.Errorf("can't encode %s as nil", "notifyBroadcasts#d612e8ef")
 	}
 	return nil
 }
@@ -443,10 +443,10 @@ func (n *NotifyBroadcasts) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (n *NotifyBroadcasts) Decode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notifyBroadcasts#d612e8ef to nil")
+		return fmt.Errorf("can't decode %s to nil", "notifyBroadcasts#d612e8ef")
 	}
 	if err := b.ConsumeID(NotifyBroadcastsTypeID); err != nil {
-		return fmt.Errorf("unable to decode notifyBroadcasts#d612e8ef: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "notifyBroadcasts#d612e8ef", err)
 	}
 	return n.DecodeBare(b)
 }
@@ -454,7 +454,7 @@ func (n *NotifyBroadcasts) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (n *NotifyBroadcasts) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notifyBroadcasts#d612e8ef to nil")
+		return fmt.Errorf("can't decode %s to nil", "notifyBroadcasts#d612e8ef")
 	}
 	return nil
 }
@@ -518,32 +518,32 @@ func DecodeNotifyPeer(buf *bin.Buffer) (NotifyPeerClass, error) {
 		// Decoding notifyPeer#9fd40bd8.
 		v := NotifyPeer{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode NotifyPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "NotifyPeerClass", err)
 		}
 		return &v, nil
 	case NotifyUsersTypeID:
 		// Decoding notifyUsers#b4c83b4c.
 		v := NotifyUsers{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode NotifyPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "NotifyPeerClass", err)
 		}
 		return &v, nil
 	case NotifyChatsTypeID:
 		// Decoding notifyChats#c007cec3.
 		v := NotifyChats{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode NotifyPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "NotifyPeerClass", err)
 		}
 		return &v, nil
 	case NotifyBroadcastsTypeID:
 		// Decoding notifyBroadcasts#d612e8ef.
 		v := NotifyBroadcasts{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode NotifyPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "NotifyPeerClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode NotifyPeerClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "NotifyPeerClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -555,7 +555,7 @@ type NotifyPeerBox struct {
 // Decode implements bin.Decoder for NotifyPeerBox.
 func (b *NotifyPeerBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode NotifyPeerBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "NotifyPeer")
 	}
 	v, err := DecodeNotifyPeer(buf)
 	if err != nil {
@@ -568,7 +568,7 @@ func (b *NotifyPeerBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for NotifyPeerBox.
 func (b *NotifyPeerBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.NotifyPeer == nil {
-		return fmt.Errorf("unable to encode NotifyPeerClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "NotifyPeerClass")
 	}
 	return b.NotifyPeer.Encode(buf)
 }

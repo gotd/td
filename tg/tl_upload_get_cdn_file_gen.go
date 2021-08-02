@@ -127,7 +127,7 @@ func (g *UploadGetCDNFileRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UploadGetCDNFileRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getCdnFile#2000bcc3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.getCdnFile#2000bcc3")
 	}
 	b.PutID(UploadGetCDNFileRequestTypeID)
 	return g.EncodeBare(b)
@@ -136,7 +136,7 @@ func (g *UploadGetCDNFileRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UploadGetCDNFileRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getCdnFile#2000bcc3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.getCdnFile#2000bcc3")
 	}
 	b.PutBytes(g.FileToken)
 	b.PutInt(g.Offset)
@@ -162,10 +162,10 @@ func (g *UploadGetCDNFileRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *UploadGetCDNFileRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getCdnFile#2000bcc3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.getCdnFile#2000bcc3")
 	}
 	if err := b.ConsumeID(UploadGetCDNFileRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.getCdnFile#2000bcc3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "upload.getCdnFile#2000bcc3", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -173,26 +173,26 @@ func (g *UploadGetCDNFileRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UploadGetCDNFileRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getCdnFile#2000bcc3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.getCdnFile#2000bcc3")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getCdnFile#2000bcc3: field file_token: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.getCdnFile#2000bcc3", "file_token", err)
 		}
 		g.FileToken = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getCdnFile#2000bcc3: field offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.getCdnFile#2000bcc3", "offset", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getCdnFile#2000bcc3: field limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.getCdnFile#2000bcc3", "limit", err)
 		}
 		g.Limit = value
 	}

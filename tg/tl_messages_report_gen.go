@@ -135,7 +135,7 @@ func (r *MessagesReportRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesReportRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.report#8953ab4e as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.report#8953ab4e")
 	}
 	b.PutID(MessagesReportRequestTypeID)
 	return r.EncodeBare(b)
@@ -144,23 +144,23 @@ func (r *MessagesReportRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReportRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.report#8953ab4e as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.report#8953ab4e")
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode messages.report#8953ab4e: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.report#8953ab4e", "peer")
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.report#8953ab4e: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.report#8953ab4e", "peer", err)
 	}
 	b.PutVectorHeader(len(r.ID))
 	for _, v := range r.ID {
 		b.PutInt(v)
 	}
 	if r.Reason == nil {
-		return fmt.Errorf("unable to encode messages.report#8953ab4e: field reason is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.report#8953ab4e", "reason")
 	}
 	if err := r.Reason.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.report#8953ab4e: field reason: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.report#8953ab4e", "reason", err)
 	}
 	b.PutString(r.Message)
 	return nil
@@ -189,10 +189,10 @@ func (r *MessagesReportRequest) GetMessage() (value string) {
 // Decode implements bin.Decoder.
 func (r *MessagesReportRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.report#8953ab4e to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.report#8953ab4e")
 	}
 	if err := b.ConsumeID(MessagesReportRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.report#8953ab4e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.report#8953ab4e", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -200,24 +200,24 @@ func (r *MessagesReportRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReportRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.report#8953ab4e to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.report#8953ab4e")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.report#8953ab4e: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.report#8953ab4e", "peer", err)
 		}
 		r.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.report#8953ab4e: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.report#8953ab4e", "id", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.report#8953ab4e: field id: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.report#8953ab4e", "id", err)
 			}
 			r.ID = append(r.ID, value)
 		}
@@ -225,14 +225,14 @@ func (r *MessagesReportRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeReportReason(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.report#8953ab4e: field reason: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.report#8953ab4e", "reason", err)
 		}
 		r.Reason = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.report#8953ab4e: field message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.report#8953ab4e", "message", err)
 		}
 		r.Message = value
 	}

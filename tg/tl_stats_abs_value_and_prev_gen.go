@@ -114,7 +114,7 @@ func (s *StatsAbsValueAndPrev) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsAbsValueAndPrev) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsAbsValueAndPrev#cb43acde as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsAbsValueAndPrev#cb43acde")
 	}
 	b.PutID(StatsAbsValueAndPrevTypeID)
 	return s.EncodeBare(b)
@@ -123,7 +123,7 @@ func (s *StatsAbsValueAndPrev) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsAbsValueAndPrev) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsAbsValueAndPrev#cb43acde as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsAbsValueAndPrev#cb43acde")
 	}
 	b.PutDouble(s.Current)
 	b.PutDouble(s.Previous)
@@ -143,10 +143,10 @@ func (s *StatsAbsValueAndPrev) GetPrevious() (value float64) {
 // Decode implements bin.Decoder.
 func (s *StatsAbsValueAndPrev) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsAbsValueAndPrev#cb43acde to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsAbsValueAndPrev#cb43acde")
 	}
 	if err := b.ConsumeID(StatsAbsValueAndPrevTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsAbsValueAndPrev#cb43acde: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "statsAbsValueAndPrev#cb43acde", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -154,19 +154,19 @@ func (s *StatsAbsValueAndPrev) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsAbsValueAndPrev) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsAbsValueAndPrev#cb43acde to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsAbsValueAndPrev#cb43acde")
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsAbsValueAndPrev#cb43acde: field current: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsAbsValueAndPrev#cb43acde", "current", err)
 		}
 		s.Current = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsAbsValueAndPrev#cb43acde: field previous: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsAbsValueAndPrev#cb43acde", "previous", err)
 		}
 		s.Previous = value
 	}

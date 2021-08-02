@@ -102,7 +102,7 @@ func (s *AccountSetContactSignUpNotificationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSetContactSignUpNotificationRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.setContactSignUpNotification#cff43f61 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.setContactSignUpNotification#cff43f61")
 	}
 	b.PutID(AccountSetContactSignUpNotificationRequestTypeID)
 	return s.EncodeBare(b)
@@ -111,7 +111,7 @@ func (s *AccountSetContactSignUpNotificationRequest) Encode(b *bin.Buffer) error
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSetContactSignUpNotificationRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.setContactSignUpNotification#cff43f61 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.setContactSignUpNotification#cff43f61")
 	}
 	b.PutBool(s.Silent)
 	return nil
@@ -125,10 +125,10 @@ func (s *AccountSetContactSignUpNotificationRequest) GetSilent() (value bool) {
 // Decode implements bin.Decoder.
 func (s *AccountSetContactSignUpNotificationRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.setContactSignUpNotification#cff43f61 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.setContactSignUpNotification#cff43f61")
 	}
 	if err := b.ConsumeID(AccountSetContactSignUpNotificationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.setContactSignUpNotification#cff43f61: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.setContactSignUpNotification#cff43f61", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (s *AccountSetContactSignUpNotificationRequest) Decode(b *bin.Buffer) error
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSetContactSignUpNotificationRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.setContactSignUpNotification#cff43f61 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.setContactSignUpNotification#cff43f61")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.setContactSignUpNotification#cff43f61: field silent: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.setContactSignUpNotification#cff43f61", "silent", err)
 		}
 		s.Silent = value
 	}

@@ -113,7 +113,7 @@ func (p *PaymentSavedCredentialsCard) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PaymentSavedCredentialsCard) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentSavedCredentialsCard#cdc27a1f as nil")
+		return fmt.Errorf("can't encode %s as nil", "paymentSavedCredentialsCard#cdc27a1f")
 	}
 	b.PutID(PaymentSavedCredentialsCardTypeID)
 	return p.EncodeBare(b)
@@ -122,7 +122,7 @@ func (p *PaymentSavedCredentialsCard) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PaymentSavedCredentialsCard) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentSavedCredentialsCard#cdc27a1f as nil")
+		return fmt.Errorf("can't encode %s as nil", "paymentSavedCredentialsCard#cdc27a1f")
 	}
 	b.PutString(p.ID)
 	b.PutString(p.Title)
@@ -142,10 +142,10 @@ func (p *PaymentSavedCredentialsCard) GetTitle() (value string) {
 // Decode implements bin.Decoder.
 func (p *PaymentSavedCredentialsCard) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentSavedCredentialsCard#cdc27a1f to nil")
+		return fmt.Errorf("can't decode %s to nil", "paymentSavedCredentialsCard#cdc27a1f")
 	}
 	if err := b.ConsumeID(PaymentSavedCredentialsCardTypeID); err != nil {
-		return fmt.Errorf("unable to decode paymentSavedCredentialsCard#cdc27a1f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "paymentSavedCredentialsCard#cdc27a1f", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -153,19 +153,19 @@ func (p *PaymentSavedCredentialsCard) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PaymentSavedCredentialsCard) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentSavedCredentialsCard#cdc27a1f to nil")
+		return fmt.Errorf("can't decode %s to nil", "paymentSavedCredentialsCard#cdc27a1f")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentSavedCredentialsCard#cdc27a1f: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "paymentSavedCredentialsCard#cdc27a1f", "id", err)
 		}
 		p.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentSavedCredentialsCard#cdc27a1f: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "paymentSavedCredentialsCard#cdc27a1f", "title", err)
 		}
 		p.Title = value
 	}

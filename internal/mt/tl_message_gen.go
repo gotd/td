@@ -132,7 +132,7 @@ func (m *Message) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *Message) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#5bb8e511 as nil")
+		return fmt.Errorf("can't encode %s as nil", "message#5bb8e511")
 	}
 	b.PutID(MessageTypeID)
 	return m.EncodeBare(b)
@@ -141,13 +141,13 @@ func (m *Message) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *Message) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#5bb8e511 as nil")
+		return fmt.Errorf("can't encode %s as nil", "message#5bb8e511")
 	}
 	b.PutLong(m.MsgID)
 	b.PutInt(m.Seqno)
 	b.PutInt(m.Bytes)
 	if err := m.Body.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#5bb8e511: field body: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "message#5bb8e511", "body", err)
 	}
 	return nil
 }
@@ -175,10 +175,10 @@ func (m *Message) GetBody() (value GzipPacked) {
 // Decode implements bin.Decoder.
 func (m *Message) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#5bb8e511 to nil")
+		return fmt.Errorf("can't decode %s to nil", "message#5bb8e511")
 	}
 	if err := b.ConsumeID(MessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode message#5bb8e511: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "message#5bb8e511", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -186,32 +186,32 @@ func (m *Message) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *Message) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#5bb8e511 to nil")
+		return fmt.Errorf("can't decode %s to nil", "message#5bb8e511")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#5bb8e511: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "message#5bb8e511", "msg_id", err)
 		}
 		m.MsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#5bb8e511: field seqno: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "message#5bb8e511", "seqno", err)
 		}
 		m.Seqno = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#5bb8e511: field bytes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "message#5bb8e511", "bytes", err)
 		}
 		m.Bytes = value
 	}
 	{
 		if err := m.Body.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#5bb8e511: field body: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "message#5bb8e511", "body", err)
 		}
 	}
 	return nil

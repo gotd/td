@@ -99,7 +99,7 @@ func (vec *StickerSetCoveredClassVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *StickerSetCoveredClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<StickerSetCovered> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<StickerSetCovered>")
 	}
 
 	return vec.EncodeBare(b)
@@ -108,15 +108,15 @@ func (vec *StickerSetCoveredClassVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *StickerSetCoveredClassVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<StickerSetCovered> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<StickerSetCovered>")
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if v == nil {
-			return fmt.Errorf("unable to encode Vector<StickerSetCovered>: field Elems element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "Vector<StickerSetCovered>", "Elems", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<StickerSetCovered>: field Elems element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "Vector<StickerSetCovered>", "Elems", idx, err)
 		}
 	}
 	return nil
@@ -135,7 +135,7 @@ func (vec *StickerSetCoveredClassVector) MapElems() (value StickerSetCoveredClas
 // Decode implements bin.Decoder.
 func (vec *StickerSetCoveredClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<StickerSetCovered> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<StickerSetCovered>")
 	}
 
 	return vec.DecodeBare(b)
@@ -144,17 +144,17 @@ func (vec *StickerSetCoveredClassVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *StickerSetCoveredClassVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<StickerSetCovered> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<StickerSetCovered>")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<StickerSetCovered>: field Elems: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<StickerSetCovered>", "Elems", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStickerSetCovered(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode Vector<StickerSetCovered>: field Elems: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<StickerSetCovered>", "Elems", err)
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

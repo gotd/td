@@ -264,7 +264,7 @@ func (s *SecureValue) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValue) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValue#187fa0ca as nil")
+		return fmt.Errorf("can't encode %s as nil", "secureValue#187fa0ca")
 	}
 	b.PutID(SecureValueTypeID)
 	return s.EncodeBare(b)
@@ -273,7 +273,7 @@ func (s *SecureValue) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValue) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValue#187fa0ca as nil")
+		return fmt.Errorf("can't encode %s as nil", "secureValue#187fa0ca")
 	}
 	if !(s.Data.Zero()) {
 		s.Flags.Set(0)
@@ -297,51 +297,51 @@ func (s *SecureValue) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(5)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode secureValue#187fa0ca: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "secureValue#187fa0ca", "flags", err)
 	}
 	if s.Type == nil {
-		return fmt.Errorf("unable to encode secureValue#187fa0ca: field type is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "secureValue#187fa0ca", "type")
 	}
 	if err := s.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode secureValue#187fa0ca: field type: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "secureValue#187fa0ca", "type", err)
 	}
 	if s.Flags.Has(0) {
 		if err := s.Data.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode secureValue#187fa0ca: field data: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "secureValue#187fa0ca", "data", err)
 		}
 	}
 	if s.Flags.Has(1) {
 		if s.FrontSide == nil {
-			return fmt.Errorf("unable to encode secureValue#187fa0ca: field front_side is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "secureValue#187fa0ca", "front_side")
 		}
 		if err := s.FrontSide.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode secureValue#187fa0ca: field front_side: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "secureValue#187fa0ca", "front_side", err)
 		}
 	}
 	if s.Flags.Has(2) {
 		if s.ReverseSide == nil {
-			return fmt.Errorf("unable to encode secureValue#187fa0ca: field reverse_side is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "secureValue#187fa0ca", "reverse_side")
 		}
 		if err := s.ReverseSide.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode secureValue#187fa0ca: field reverse_side: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "secureValue#187fa0ca", "reverse_side", err)
 		}
 	}
 	if s.Flags.Has(3) {
 		if s.Selfie == nil {
-			return fmt.Errorf("unable to encode secureValue#187fa0ca: field selfie is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "secureValue#187fa0ca", "selfie")
 		}
 		if err := s.Selfie.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode secureValue#187fa0ca: field selfie: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "secureValue#187fa0ca", "selfie", err)
 		}
 	}
 	if s.Flags.Has(6) {
 		b.PutVectorHeader(len(s.Translation))
 		for idx, v := range s.Translation {
 			if v == nil {
-				return fmt.Errorf("unable to encode secureValue#187fa0ca: field translation element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "secureValue#187fa0ca", "translation", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode secureValue#187fa0ca: field translation element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "secureValue#187fa0ca", "translation", idx, err)
 			}
 		}
 	}
@@ -349,19 +349,19 @@ func (s *SecureValue) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(s.Files))
 		for idx, v := range s.Files {
 			if v == nil {
-				return fmt.Errorf("unable to encode secureValue#187fa0ca: field files element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "secureValue#187fa0ca", "files", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode secureValue#187fa0ca: field files element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "secureValue#187fa0ca", "files", idx, err)
 			}
 		}
 	}
 	if s.Flags.Has(5) {
 		if s.PlainData == nil {
-			return fmt.Errorf("unable to encode secureValue#187fa0ca: field plain_data is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "secureValue#187fa0ca", "plain_data")
 		}
 		if err := s.PlainData.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode secureValue#187fa0ca: field plain_data: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "secureValue#187fa0ca", "plain_data", err)
 		}
 	}
 	b.PutBytes(s.Hash)
@@ -529,10 +529,10 @@ func (s *SecureValue) GetHash() (value []byte) {
 // Decode implements bin.Decoder.
 func (s *SecureValue) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValue#187fa0ca to nil")
+		return fmt.Errorf("can't decode %s to nil", "secureValue#187fa0ca")
 	}
 	if err := b.ConsumeID(SecureValueTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValue#187fa0ca: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "secureValue#187fa0ca", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -540,55 +540,55 @@ func (s *SecureValue) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValue) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValue#187fa0ca to nil")
+		return fmt.Errorf("can't decode %s to nil", "secureValue#187fa0ca")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode secureValue#187fa0ca: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureValue#187fa0ca", "flags", err)
 		}
 	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode secureValue#187fa0ca: field type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureValue#187fa0ca", "type", err)
 		}
 		s.Type = value
 	}
 	if s.Flags.Has(0) {
 		if err := s.Data.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode secureValue#187fa0ca: field data: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureValue#187fa0ca", "data", err)
 		}
 	}
 	if s.Flags.Has(1) {
 		value, err := DecodeSecureFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode secureValue#187fa0ca: field front_side: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureValue#187fa0ca", "front_side", err)
 		}
 		s.FrontSide = value
 	}
 	if s.Flags.Has(2) {
 		value, err := DecodeSecureFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode secureValue#187fa0ca: field reverse_side: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureValue#187fa0ca", "reverse_side", err)
 		}
 		s.ReverseSide = value
 	}
 	if s.Flags.Has(3) {
 		value, err := DecodeSecureFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode secureValue#187fa0ca: field selfie: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureValue#187fa0ca", "selfie", err)
 		}
 		s.Selfie = value
 	}
 	if s.Flags.Has(6) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureValue#187fa0ca: field translation: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureValue#187fa0ca", "translation", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode secureValue#187fa0ca: field translation: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "secureValue#187fa0ca", "translation", err)
 			}
 			s.Translation = append(s.Translation, value)
 		}
@@ -596,12 +596,12 @@ func (s *SecureValue) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(4) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureValue#187fa0ca: field files: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureValue#187fa0ca", "files", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode secureValue#187fa0ca: field files: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "secureValue#187fa0ca", "files", err)
 			}
 			s.Files = append(s.Files, value)
 		}
@@ -609,14 +609,14 @@ func (s *SecureValue) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(5) {
 		value, err := DecodeSecurePlainData(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode secureValue#187fa0ca: field plain_data: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureValue#187fa0ca", "plain_data", err)
 		}
 		s.PlainData = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureValue#187fa0ca: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureValue#187fa0ca", "hash", err)
 		}
 		s.Hash = value
 	}

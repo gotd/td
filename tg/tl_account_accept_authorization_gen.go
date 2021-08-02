@@ -147,7 +147,7 @@ func (a *AccountAcceptAuthorizationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AccountAcceptAuthorizationRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode account.acceptAuthorization#e7027c94 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.acceptAuthorization#e7027c94")
 	}
 	b.PutID(AccountAcceptAuthorizationRequestTypeID)
 	return a.EncodeBare(b)
@@ -156,7 +156,7 @@ func (a *AccountAcceptAuthorizationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AccountAcceptAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode account.acceptAuthorization#e7027c94 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.acceptAuthorization#e7027c94")
 	}
 	b.PutInt(a.BotID)
 	b.PutString(a.Scope)
@@ -164,11 +164,11 @@ func (a *AccountAcceptAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(a.ValueHashes))
 	for idx, v := range a.ValueHashes {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.acceptAuthorization#e7027c94: field value_hashes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "account.acceptAuthorization#e7027c94", "value_hashes", idx, err)
 		}
 	}
 	if err := a.Credentials.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.acceptAuthorization#e7027c94: field credentials: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.acceptAuthorization#e7027c94", "credentials", err)
 	}
 	return nil
 }
@@ -201,10 +201,10 @@ func (a *AccountAcceptAuthorizationRequest) GetCredentials() (value SecureCreden
 // Decode implements bin.Decoder.
 func (a *AccountAcceptAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode account.acceptAuthorization#e7027c94 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.acceptAuthorization#e7027c94")
 	}
 	if err := b.ConsumeID(AccountAcceptAuthorizationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.acceptAuthorization#e7027c94", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -212,45 +212,45 @@ func (a *AccountAcceptAuthorizationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AccountAcceptAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode account.acceptAuthorization#e7027c94 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.acceptAuthorization#e7027c94")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field bot_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.acceptAuthorization#e7027c94", "bot_id", err)
 		}
 		a.BotID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field scope: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.acceptAuthorization#e7027c94", "scope", err)
 		}
 		a.Scope = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field public_key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.acceptAuthorization#e7027c94", "public_key", err)
 		}
 		a.PublicKey = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field value_hashes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.acceptAuthorization#e7027c94", "value_hashes", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value SecureValueHash
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field value_hashes: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "account.acceptAuthorization#e7027c94", "value_hashes", err)
 			}
 			a.ValueHashes = append(a.ValueHashes, value)
 		}
 	}
 	{
 		if err := a.Credentials.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field credentials: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.acceptAuthorization#e7027c94", "credentials", err)
 		}
 	}
 	return nil

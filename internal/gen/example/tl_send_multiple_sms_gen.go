@@ -101,7 +101,7 @@ func (s *SendMultipleSMSRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMultipleSMSRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMultipleSMS#df18e5ca as nil")
+		return fmt.Errorf("can't encode %s as nil", "sendMultipleSMS#df18e5ca")
 	}
 	b.PutID(SendMultipleSMSRequestTypeID)
 	return s.EncodeBare(b)
@@ -110,12 +110,12 @@ func (s *SendMultipleSMSRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMultipleSMSRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMultipleSMS#df18e5ca as nil")
+		return fmt.Errorf("can't encode %s as nil", "sendMultipleSMS#df18e5ca")
 	}
 	b.PutInt(len(s.Messages))
 	for idx, v := range s.Messages {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode sendMultipleSMS#df18e5ca: field messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "sendMultipleSMS#df18e5ca", "messages", idx, err)
 		}
 	}
 	return nil
@@ -129,10 +129,10 @@ func (s *SendMultipleSMSRequest) GetMessages() (value []SMS) {
 // Decode implements bin.Decoder.
 func (s *SendMultipleSMSRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMultipleSMS#df18e5ca to nil")
+		return fmt.Errorf("can't decode %s to nil", "sendMultipleSMS#df18e5ca")
 	}
 	if err := b.ConsumeID(SendMultipleSMSRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMultipleSMS#df18e5ca: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "sendMultipleSMS#df18e5ca", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -140,17 +140,17 @@ func (s *SendMultipleSMSRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMultipleSMSRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMultipleSMS#df18e5ca to nil")
+		return fmt.Errorf("can't decode %s to nil", "sendMultipleSMS#df18e5ca")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMultipleSMS#df18e5ca: field messages: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "sendMultipleSMS#df18e5ca", "messages", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value SMS
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode sendMultipleSMS#df18e5ca: field messages: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "sendMultipleSMS#df18e5ca", "messages", err)
 			}
 			s.Messages = append(s.Messages, value)
 		}

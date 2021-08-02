@@ -113,7 +113,7 @@ func (p *PhonePhoneCall) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhonePhoneCall) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phone.phoneCall#ec82e140 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.phoneCall#ec82e140")
 	}
 	b.PutID(PhonePhoneCallTypeID)
 	return p.EncodeBare(b)
@@ -122,21 +122,21 @@ func (p *PhonePhoneCall) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhonePhoneCall) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phone.phoneCall#ec82e140 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.phoneCall#ec82e140")
 	}
 	if p.PhoneCall == nil {
-		return fmt.Errorf("unable to encode phone.phoneCall#ec82e140: field phone_call is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "phone.phoneCall#ec82e140", "phone_call")
 	}
 	if err := p.PhoneCall.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.phoneCall#ec82e140: field phone_call: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.phoneCall#ec82e140", "phone_call", err)
 	}
 	b.PutVectorHeader(len(p.Users))
 	for idx, v := range p.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode phone.phoneCall#ec82e140: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "phone.phoneCall#ec82e140", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.phoneCall#ec82e140: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "phone.phoneCall#ec82e140", "users", idx, err)
 		}
 	}
 	return nil
@@ -165,10 +165,10 @@ func (p *PhonePhoneCall) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (p *PhonePhoneCall) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phone.phoneCall#ec82e140 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.phoneCall#ec82e140")
 	}
 	if err := b.ConsumeID(PhonePhoneCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.phoneCall#ec82e140: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.phoneCall#ec82e140", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -176,24 +176,24 @@ func (p *PhonePhoneCall) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhonePhoneCall) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phone.phoneCall#ec82e140 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.phoneCall#ec82e140")
 	}
 	{
 		value, err := DecodePhoneCall(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.phoneCall#ec82e140: field phone_call: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.phoneCall#ec82e140", "phone_call", err)
 		}
 		p.PhoneCall = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.phoneCall#ec82e140: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.phoneCall#ec82e140", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.phoneCall#ec82e140: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "phone.phoneCall#ec82e140", "users", err)
 			}
 			p.Users = append(p.Users, value)
 		}

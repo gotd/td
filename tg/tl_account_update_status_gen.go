@@ -106,7 +106,7 @@ func (u *AccountUpdateStatusRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUpdateStatusRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateStatus#6628562c as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.updateStatus#6628562c")
 	}
 	b.PutID(AccountUpdateStatusRequestTypeID)
 	return u.EncodeBare(b)
@@ -115,7 +115,7 @@ func (u *AccountUpdateStatusRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUpdateStatusRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateStatus#6628562c as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.updateStatus#6628562c")
 	}
 	b.PutBool(u.Offline)
 	return nil
@@ -129,10 +129,10 @@ func (u *AccountUpdateStatusRequest) GetOffline() (value bool) {
 // Decode implements bin.Decoder.
 func (u *AccountUpdateStatusRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateStatus#6628562c to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.updateStatus#6628562c")
 	}
 	if err := b.ConsumeID(AccountUpdateStatusRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.updateStatus#6628562c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.updateStatus#6628562c", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -140,12 +140,12 @@ func (u *AccountUpdateStatusRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUpdateStatusRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateStatus#6628562c to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.updateStatus#6628562c")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateStatus#6628562c: field offline: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.updateStatus#6628562c", "offline", err)
 		}
 		u.Offline = value
 	}

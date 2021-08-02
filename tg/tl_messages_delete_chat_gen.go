@@ -101,7 +101,7 @@ func (d *MessagesDeleteChatRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteChatRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteChat#83247d11 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.deleteChat#83247d11")
 	}
 	b.PutID(MessagesDeleteChatRequestTypeID)
 	return d.EncodeBare(b)
@@ -110,7 +110,7 @@ func (d *MessagesDeleteChatRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDeleteChatRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteChat#83247d11 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.deleteChat#83247d11")
 	}
 	b.PutInt(d.ChatID)
 	return nil
@@ -124,10 +124,10 @@ func (d *MessagesDeleteChatRequest) GetChatID() (value int) {
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteChatRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteChat#83247d11 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.deleteChat#83247d11")
 	}
 	if err := b.ConsumeID(MessagesDeleteChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.deleteChat#83247d11: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.deleteChat#83247d11", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -135,12 +135,12 @@ func (d *MessagesDeleteChatRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDeleteChatRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteChat#83247d11 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.deleteChat#83247d11")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteChat#83247d11: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.deleteChat#83247d11", "chat_id", err)
 		}
 		d.ChatID = value
 	}

@@ -154,7 +154,7 @@ func (s *ServerDHInnerData) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *ServerDHInnerData) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode server_DH_inner_data#b5890dba as nil")
+		return fmt.Errorf("can't encode %s as nil", "server_DH_inner_data#b5890dba")
 	}
 	b.PutID(ServerDHInnerDataTypeID)
 	return s.EncodeBare(b)
@@ -163,7 +163,7 @@ func (s *ServerDHInnerData) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *ServerDHInnerData) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode server_DH_inner_data#b5890dba as nil")
+		return fmt.Errorf("can't encode %s as nil", "server_DH_inner_data#b5890dba")
 	}
 	b.PutInt128(s.Nonce)
 	b.PutInt128(s.ServerNonce)
@@ -207,10 +207,10 @@ func (s *ServerDHInnerData) GetServerTime() (value int) {
 // Decode implements bin.Decoder.
 func (s *ServerDHInnerData) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode server_DH_inner_data#b5890dba to nil")
+		return fmt.Errorf("can't decode %s to nil", "server_DH_inner_data#b5890dba")
 	}
 	if err := b.ConsumeID(ServerDHInnerDataTypeID); err != nil {
-		return fmt.Errorf("unable to decode server_DH_inner_data#b5890dba: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "server_DH_inner_data#b5890dba", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -218,47 +218,47 @@ func (s *ServerDHInnerData) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *ServerDHInnerData) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode server_DH_inner_data#b5890dba to nil")
+		return fmt.Errorf("can't decode %s to nil", "server_DH_inner_data#b5890dba")
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode server_DH_inner_data#b5890dba: field nonce: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "server_DH_inner_data#b5890dba", "nonce", err)
 		}
 		s.Nonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode server_DH_inner_data#b5890dba: field server_nonce: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "server_DH_inner_data#b5890dba", "server_nonce", err)
 		}
 		s.ServerNonce = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode server_DH_inner_data#b5890dba: field g: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "server_DH_inner_data#b5890dba", "g", err)
 		}
 		s.G = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode server_DH_inner_data#b5890dba: field dh_prime: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "server_DH_inner_data#b5890dba", "dh_prime", err)
 		}
 		s.DhPrime = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode server_DH_inner_data#b5890dba: field g_a: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "server_DH_inner_data#b5890dba", "g_a", err)
 		}
 		s.GA = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode server_DH_inner_data#b5890dba: field server_time: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "server_DH_inner_data#b5890dba", "server_time", err)
 		}
 		s.ServerTime = value
 	}

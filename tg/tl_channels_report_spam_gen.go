@@ -125,7 +125,7 @@ func (r *ChannelsReportSpamRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ChannelsReportSpamRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode channels.reportSpam#fe087810 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.reportSpam#fe087810")
 	}
 	b.PutID(ChannelsReportSpamRequestTypeID)
 	return r.EncodeBare(b)
@@ -134,19 +134,19 @@ func (r *ChannelsReportSpamRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ChannelsReportSpamRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode channels.reportSpam#fe087810 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.reportSpam#fe087810")
 	}
 	if r.Channel == nil {
-		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.reportSpam#fe087810", "channel")
 	}
 	if err := r.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.reportSpam#fe087810", "channel", err)
 	}
 	if r.UserID == nil {
-		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field user_id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.reportSpam#fe087810", "user_id")
 	}
 	if err := r.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field user_id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.reportSpam#fe087810", "user_id", err)
 	}
 	b.PutVectorHeader(len(r.ID))
 	for _, v := range r.ID {
@@ -178,10 +178,10 @@ func (r *ChannelsReportSpamRequest) GetID() (value []int) {
 // Decode implements bin.Decoder.
 func (r *ChannelsReportSpamRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode channels.reportSpam#fe087810 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.reportSpam#fe087810")
 	}
 	if err := b.ConsumeID(ChannelsReportSpamRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.reportSpam#fe087810: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.reportSpam#fe087810", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -189,31 +189,31 @@ func (r *ChannelsReportSpamRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ChannelsReportSpamRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode channels.reportSpam#fe087810 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.reportSpam#fe087810")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.reportSpam#fe087810: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.reportSpam#fe087810", "channel", err)
 		}
 		r.Channel = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.reportSpam#fe087810: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.reportSpam#fe087810", "user_id", err)
 		}
 		r.UserID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.reportSpam#fe087810: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.reportSpam#fe087810", "id", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.reportSpam#fe087810: field id: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "channels.reportSpam#fe087810", "id", err)
 			}
 			r.ID = append(r.ID, value)
 		}

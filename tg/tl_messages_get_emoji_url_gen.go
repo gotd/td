@@ -104,7 +104,7 @@ func (g *MessagesGetEmojiURLRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetEmojiURLRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getEmojiURL#d5b10c26 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getEmojiURL#d5b10c26")
 	}
 	b.PutID(MessagesGetEmojiURLRequestTypeID)
 	return g.EncodeBare(b)
@@ -113,7 +113,7 @@ func (g *MessagesGetEmojiURLRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetEmojiURLRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getEmojiURL#d5b10c26 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getEmojiURL#d5b10c26")
 	}
 	b.PutString(g.LangCode)
 	return nil
@@ -127,10 +127,10 @@ func (g *MessagesGetEmojiURLRequest) GetLangCode() (value string) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetEmojiURLRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getEmojiURL#d5b10c26 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getEmojiURL#d5b10c26")
 	}
 	if err := b.ConsumeID(MessagesGetEmojiURLRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getEmojiURL#d5b10c26: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getEmojiURL#d5b10c26", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -138,12 +138,12 @@ func (g *MessagesGetEmojiURLRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetEmojiURLRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getEmojiURL#d5b10c26 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getEmojiURL#d5b10c26")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getEmojiURL#d5b10c26: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getEmojiURL#d5b10c26", "lang_code", err)
 		}
 		g.LangCode = value
 	}

@@ -130,7 +130,7 @@ func (e *ChannelsEditBannedRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *ChannelsEditBannedRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editBanned#96e6cd81 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.editBanned#96e6cd81")
 	}
 	b.PutID(ChannelsEditBannedRequestTypeID)
 	return e.EncodeBare(b)
@@ -139,22 +139,22 @@ func (e *ChannelsEditBannedRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsEditBannedRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editBanned#96e6cd81 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.editBanned#96e6cd81")
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.editBanned#96e6cd81: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.editBanned#96e6cd81", "channel")
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editBanned#96e6cd81: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.editBanned#96e6cd81", "channel", err)
 	}
 	if e.Participant == nil {
-		return fmt.Errorf("unable to encode channels.editBanned#96e6cd81: field participant is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.editBanned#96e6cd81", "participant")
 	}
 	if err := e.Participant.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editBanned#96e6cd81: field participant: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.editBanned#96e6cd81", "participant", err)
 	}
 	if err := e.BannedRights.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editBanned#96e6cd81: field banned_rights: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.editBanned#96e6cd81", "banned_rights", err)
 	}
 	return nil
 }
@@ -182,10 +182,10 @@ func (e *ChannelsEditBannedRequest) GetBannedRights() (value ChatBannedRights) {
 // Decode implements bin.Decoder.
 func (e *ChannelsEditBannedRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editBanned#96e6cd81 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.editBanned#96e6cd81")
 	}
 	if err := b.ConsumeID(ChannelsEditBannedRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.editBanned#96e6cd81: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.editBanned#96e6cd81", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -193,25 +193,25 @@ func (e *ChannelsEditBannedRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsEditBannedRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editBanned#96e6cd81 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.editBanned#96e6cd81")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editBanned#96e6cd81: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editBanned#96e6cd81", "channel", err)
 		}
 		e.Channel = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editBanned#96e6cd81: field participant: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editBanned#96e6cd81", "participant", err)
 		}
 		e.Participant = value
 	}
 	{
 		if err := e.BannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.editBanned#96e6cd81: field banned_rights: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.editBanned#96e6cd81", "banned_rights", err)
 		}
 	}
 	return nil

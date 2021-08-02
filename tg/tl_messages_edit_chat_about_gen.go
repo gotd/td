@@ -119,7 +119,7 @@ func (e *MessagesEditChatAboutRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatAboutRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatAbout#def60797 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.editChatAbout#def60797")
 	}
 	b.PutID(MessagesEditChatAboutRequestTypeID)
 	return e.EncodeBare(b)
@@ -128,13 +128,13 @@ func (e *MessagesEditChatAboutRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesEditChatAboutRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatAbout#def60797 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.editChatAbout#def60797")
 	}
 	if e.Peer == nil {
-		return fmt.Errorf("unable to encode messages.editChatAbout#def60797: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.editChatAbout#def60797", "peer")
 	}
 	if err := e.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editChatAbout#def60797: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.editChatAbout#def60797", "peer", err)
 	}
 	b.PutString(e.About)
 	return nil
@@ -153,10 +153,10 @@ func (e *MessagesEditChatAboutRequest) GetAbout() (value string) {
 // Decode implements bin.Decoder.
 func (e *MessagesEditChatAboutRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatAbout#def60797 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.editChatAbout#def60797")
 	}
 	if err := b.ConsumeID(MessagesEditChatAboutRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editChatAbout#def60797: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.editChatAbout#def60797", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -164,19 +164,19 @@ func (e *MessagesEditChatAboutRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesEditChatAboutRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatAbout#def60797 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.editChatAbout#def60797")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatAbout#def60797: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.editChatAbout#def60797", "peer", err)
 		}
 		e.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatAbout#def60797: field about: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.editChatAbout#def60797", "about", err)
 		}
 		e.About = value
 	}

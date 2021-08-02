@@ -101,7 +101,7 @@ func (l *PhoneLeaveGroupCallPresentationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *PhoneLeaveGroupCallPresentationRequest) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode phone.leaveGroupCallPresentation#1c50d144 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.leaveGroupCallPresentation#1c50d144")
 	}
 	b.PutID(PhoneLeaveGroupCallPresentationRequestTypeID)
 	return l.EncodeBare(b)
@@ -110,10 +110,10 @@ func (l *PhoneLeaveGroupCallPresentationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *PhoneLeaveGroupCallPresentationRequest) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode phone.leaveGroupCallPresentation#1c50d144 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.leaveGroupCallPresentation#1c50d144")
 	}
 	if err := l.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.leaveGroupCallPresentation#1c50d144: field call: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.leaveGroupCallPresentation#1c50d144", "call", err)
 	}
 	return nil
 }
@@ -126,10 +126,10 @@ func (l *PhoneLeaveGroupCallPresentationRequest) GetCall() (value InputGroupCall
 // Decode implements bin.Decoder.
 func (l *PhoneLeaveGroupCallPresentationRequest) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode phone.leaveGroupCallPresentation#1c50d144 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.leaveGroupCallPresentation#1c50d144")
 	}
 	if err := b.ConsumeID(PhoneLeaveGroupCallPresentationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.leaveGroupCallPresentation#1c50d144: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.leaveGroupCallPresentation#1c50d144", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -137,11 +137,11 @@ func (l *PhoneLeaveGroupCallPresentationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *PhoneLeaveGroupCallPresentationRequest) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode phone.leaveGroupCallPresentation#1c50d144 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.leaveGroupCallPresentation#1c50d144")
 	}
 	{
 		if err := l.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.leaveGroupCallPresentation#1c50d144: field call: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.leaveGroupCallPresentation#1c50d144", "call", err)
 		}
 	}
 	return nil

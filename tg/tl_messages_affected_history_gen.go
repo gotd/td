@@ -126,7 +126,7 @@ func (a *MessagesAffectedHistory) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *MessagesAffectedHistory) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.affectedHistory#b45c69d1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.affectedHistory#b45c69d1")
 	}
 	b.PutID(MessagesAffectedHistoryTypeID)
 	return a.EncodeBare(b)
@@ -135,7 +135,7 @@ func (a *MessagesAffectedHistory) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *MessagesAffectedHistory) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.affectedHistory#b45c69d1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.affectedHistory#b45c69d1")
 	}
 	b.PutInt(a.Pts)
 	b.PutInt(a.PtsCount)
@@ -161,10 +161,10 @@ func (a *MessagesAffectedHistory) GetOffset() (value int) {
 // Decode implements bin.Decoder.
 func (a *MessagesAffectedHistory) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.affectedHistory#b45c69d1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.affectedHistory#b45c69d1")
 	}
 	if err := b.ConsumeID(MessagesAffectedHistoryTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.affectedHistory#b45c69d1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.affectedHistory#b45c69d1", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -172,26 +172,26 @@ func (a *MessagesAffectedHistory) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *MessagesAffectedHistory) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.affectedHistory#b45c69d1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.affectedHistory#b45c69d1")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedHistory#b45c69d1: field pts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.affectedHistory#b45c69d1", "pts", err)
 		}
 		a.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedHistory#b45c69d1: field pts_count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.affectedHistory#b45c69d1", "pts_count", err)
 		}
 		a.PtsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedHistory#b45c69d1: field offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.affectedHistory#b45c69d1", "offset", err)
 		}
 		a.Offset = value
 	}

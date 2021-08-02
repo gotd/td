@@ -121,7 +121,7 @@ func (n *NewSessionCreated) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (n *NewSessionCreated) Encode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode new_session_created#9ec20908 as nil")
+		return fmt.Errorf("can't encode %s as nil", "new_session_created#9ec20908")
 	}
 	b.PutID(NewSessionCreatedTypeID)
 	return n.EncodeBare(b)
@@ -130,7 +130,7 @@ func (n *NewSessionCreated) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (n *NewSessionCreated) EncodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode new_session_created#9ec20908 as nil")
+		return fmt.Errorf("can't encode %s as nil", "new_session_created#9ec20908")
 	}
 	b.PutLong(n.FirstMsgID)
 	b.PutLong(n.UniqueID)
@@ -156,10 +156,10 @@ func (n *NewSessionCreated) GetServerSalt() (value int64) {
 // Decode implements bin.Decoder.
 func (n *NewSessionCreated) Decode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode new_session_created#9ec20908 to nil")
+		return fmt.Errorf("can't decode %s to nil", "new_session_created#9ec20908")
 	}
 	if err := b.ConsumeID(NewSessionCreatedTypeID); err != nil {
-		return fmt.Errorf("unable to decode new_session_created#9ec20908: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "new_session_created#9ec20908", err)
 	}
 	return n.DecodeBare(b)
 }
@@ -167,26 +167,26 @@ func (n *NewSessionCreated) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (n *NewSessionCreated) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode new_session_created#9ec20908 to nil")
+		return fmt.Errorf("can't decode %s to nil", "new_session_created#9ec20908")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode new_session_created#9ec20908: field first_msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "new_session_created#9ec20908", "first_msg_id", err)
 		}
 		n.FirstMsgID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode new_session_created#9ec20908: field unique_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "new_session_created#9ec20908", "unique_id", err)
 		}
 		n.UniqueID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode new_session_created#9ec20908: field server_salt: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "new_session_created#9ec20908", "server_salt", err)
 		}
 		n.ServerSalt = value
 	}

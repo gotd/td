@@ -102,7 +102,7 @@ func (m *StatsMessageStats) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *StatsMessageStats) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode stats.messageStats#8999f295 as nil")
+		return fmt.Errorf("can't encode %s as nil", "stats.messageStats#8999f295")
 	}
 	b.PutID(StatsMessageStatsTypeID)
 	return m.EncodeBare(b)
@@ -111,13 +111,13 @@ func (m *StatsMessageStats) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *StatsMessageStats) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode stats.messageStats#8999f295 as nil")
+		return fmt.Errorf("can't encode %s as nil", "stats.messageStats#8999f295")
 	}
 	if m.ViewsGraph == nil {
-		return fmt.Errorf("unable to encode stats.messageStats#8999f295: field views_graph is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "stats.messageStats#8999f295", "views_graph")
 	}
 	if err := m.ViewsGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.messageStats#8999f295: field views_graph: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stats.messageStats#8999f295", "views_graph", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (m *StatsMessageStats) GetViewsGraph() (value StatsGraphClass) {
 // Decode implements bin.Decoder.
 func (m *StatsMessageStats) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode stats.messageStats#8999f295 to nil")
+		return fmt.Errorf("can't decode %s to nil", "stats.messageStats#8999f295")
 	}
 	if err := b.ConsumeID(StatsMessageStatsTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.messageStats#8999f295: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "stats.messageStats#8999f295", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (m *StatsMessageStats) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *StatsMessageStats) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode stats.messageStats#8999f295 to nil")
+		return fmt.Errorf("can't decode %s to nil", "stats.messageStats#8999f295")
 	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.messageStats#8999f295: field views_graph: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stats.messageStats#8999f295", "views_graph", err)
 		}
 		m.ViewsGraph = value
 	}

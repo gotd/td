@@ -99,7 +99,7 @@ func (vec *DialogPeerClassVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *DialogPeerClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<DialogPeer> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<DialogPeer>")
 	}
 
 	return vec.EncodeBare(b)
@@ -108,15 +108,15 @@ func (vec *DialogPeerClassVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *DialogPeerClassVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<DialogPeer> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<DialogPeer>")
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if v == nil {
-			return fmt.Errorf("unable to encode Vector<DialogPeer>: field Elems element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "Vector<DialogPeer>", "Elems", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<DialogPeer>: field Elems element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "Vector<DialogPeer>", "Elems", idx, err)
 		}
 	}
 	return nil
@@ -135,7 +135,7 @@ func (vec *DialogPeerClassVector) MapElems() (value DialogPeerClassArray) {
 // Decode implements bin.Decoder.
 func (vec *DialogPeerClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<DialogPeer> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<DialogPeer>")
 	}
 
 	return vec.DecodeBare(b)
@@ -144,17 +144,17 @@ func (vec *DialogPeerClassVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *DialogPeerClassVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<DialogPeer> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<DialogPeer>")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<DialogPeer>: field Elems: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<DialogPeer>", "Elems", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDialogPeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode Vector<DialogPeer>: field Elems: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<DialogPeer>", "Elems", err)
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

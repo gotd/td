@@ -145,7 +145,7 @@ func (g *MessagesGetChatInviteImportersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetChatInviteImportersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getChatInviteImporters#26fb7289 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getChatInviteImporters#26fb7289")
 	}
 	b.PutID(MessagesGetChatInviteImportersRequestTypeID)
 	return g.EncodeBare(b)
@@ -154,21 +154,21 @@ func (g *MessagesGetChatInviteImportersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetChatInviteImportersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getChatInviteImporters#26fb7289 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getChatInviteImporters#26fb7289")
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getChatInviteImporters#26fb7289: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.getChatInviteImporters#26fb7289", "peer")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getChatInviteImporters#26fb7289: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getChatInviteImporters#26fb7289", "peer", err)
 	}
 	b.PutString(g.Link)
 	b.PutInt(g.OffsetDate)
 	if g.OffsetUser == nil {
-		return fmt.Errorf("unable to encode messages.getChatInviteImporters#26fb7289: field offset_user is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.getChatInviteImporters#26fb7289", "offset_user")
 	}
 	if err := g.OffsetUser.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getChatInviteImporters#26fb7289: field offset_user: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getChatInviteImporters#26fb7289", "offset_user", err)
 	}
 	b.PutInt(g.Limit)
 	return nil
@@ -202,10 +202,10 @@ func (g *MessagesGetChatInviteImportersRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetChatInviteImportersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getChatInviteImporters#26fb7289 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getChatInviteImporters#26fb7289")
 	}
 	if err := b.ConsumeID(MessagesGetChatInviteImportersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getChatInviteImporters#26fb7289", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -213,40 +213,40 @@ func (g *MessagesGetChatInviteImportersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetChatInviteImportersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getChatInviteImporters#26fb7289 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getChatInviteImporters#26fb7289")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getChatInviteImporters#26fb7289", "peer", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: field link: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getChatInviteImporters#26fb7289", "link", err)
 		}
 		g.Link = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: field offset_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getChatInviteImporters#26fb7289", "offset_date", err)
 		}
 		g.OffsetDate = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: field offset_user: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getChatInviteImporters#26fb7289", "offset_user", err)
 		}
 		g.OffsetUser = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: field limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getChatInviteImporters#26fb7289", "limit", err)
 		}
 		g.Limit = value
 	}

@@ -124,7 +124,7 @@ func (t *TopPeerCategoryPeers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryPeers) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryPeers#fb834291 as nil")
+		return fmt.Errorf("can't encode %s as nil", "topPeerCategoryPeers#fb834291")
 	}
 	b.PutID(TopPeerCategoryPeersTypeID)
 	return t.EncodeBare(b)
@@ -133,19 +133,19 @@ func (t *TopPeerCategoryPeers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TopPeerCategoryPeers) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryPeers#fb834291 as nil")
+		return fmt.Errorf("can't encode %s as nil", "topPeerCategoryPeers#fb834291")
 	}
 	if t.Category == nil {
-		return fmt.Errorf("unable to encode topPeerCategoryPeers#fb834291: field category is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "topPeerCategoryPeers#fb834291", "category")
 	}
 	if err := t.Category.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode topPeerCategoryPeers#fb834291: field category: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "topPeerCategoryPeers#fb834291", "category", err)
 	}
 	b.PutInt(t.Count)
 	b.PutVectorHeader(len(t.Peers))
 	for idx, v := range t.Peers {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode topPeerCategoryPeers#fb834291: field peers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "topPeerCategoryPeers#fb834291", "peers", idx, err)
 		}
 	}
 	return nil
@@ -169,10 +169,10 @@ func (t *TopPeerCategoryPeers) GetPeers() (value []TopPeer) {
 // Decode implements bin.Decoder.
 func (t *TopPeerCategoryPeers) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryPeers#fb834291 to nil")
+		return fmt.Errorf("can't decode %s to nil", "topPeerCategoryPeers#fb834291")
 	}
 	if err := b.ConsumeID(TopPeerCategoryPeersTypeID); err != nil {
-		return fmt.Errorf("unable to decode topPeerCategoryPeers#fb834291: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "topPeerCategoryPeers#fb834291", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -180,31 +180,31 @@ func (t *TopPeerCategoryPeers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TopPeerCategoryPeers) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryPeers#fb834291 to nil")
+		return fmt.Errorf("can't decode %s to nil", "topPeerCategoryPeers#fb834291")
 	}
 	{
 		value, err := DecodeTopPeerCategory(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode topPeerCategoryPeers#fb834291: field category: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "topPeerCategoryPeers#fb834291", "category", err)
 		}
 		t.Category = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode topPeerCategoryPeers#fb834291: field count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "topPeerCategoryPeers#fb834291", "count", err)
 		}
 		t.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode topPeerCategoryPeers#fb834291: field peers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "topPeerCategoryPeers#fb834291", "peers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value TopPeer
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode topPeerCategoryPeers#fb834291: field peers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "topPeerCategoryPeers#fb834291", "peers", err)
 			}
 			t.Peers = append(t.Peers, value)
 		}

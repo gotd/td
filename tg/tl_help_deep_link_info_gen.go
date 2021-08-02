@@ -85,7 +85,7 @@ func (d *HelpDeepLinkInfoEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *HelpDeepLinkInfoEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode help.deepLinkInfoEmpty#66afa166 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.deepLinkInfoEmpty#66afa166")
 	}
 	b.PutID(HelpDeepLinkInfoEmptyTypeID)
 	return d.EncodeBare(b)
@@ -94,7 +94,7 @@ func (d *HelpDeepLinkInfoEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *HelpDeepLinkInfoEmpty) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode help.deepLinkInfoEmpty#66afa166 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.deepLinkInfoEmpty#66afa166")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (d *HelpDeepLinkInfoEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *HelpDeepLinkInfoEmpty) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode help.deepLinkInfoEmpty#66afa166 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.deepLinkInfoEmpty#66afa166")
 	}
 	if err := b.ConsumeID(HelpDeepLinkInfoEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.deepLinkInfoEmpty#66afa166: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.deepLinkInfoEmpty#66afa166", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (d *HelpDeepLinkInfoEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *HelpDeepLinkInfoEmpty) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode help.deepLinkInfoEmpty#66afa166 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.deepLinkInfoEmpty#66afa166")
 	}
 	return nil
 }
@@ -244,7 +244,7 @@ func (d *HelpDeepLinkInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *HelpDeepLinkInfo) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode help.deepLinkInfo#6a4ee832 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.deepLinkInfo#6a4ee832")
 	}
 	b.PutID(HelpDeepLinkInfoTypeID)
 	return d.EncodeBare(b)
@@ -253,7 +253,7 @@ func (d *HelpDeepLinkInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *HelpDeepLinkInfo) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode help.deepLinkInfo#6a4ee832 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.deepLinkInfo#6a4ee832")
 	}
 	if !(d.UpdateApp == false) {
 		d.Flags.Set(0)
@@ -262,17 +262,17 @@ func (d *HelpDeepLinkInfo) EncodeBare(b *bin.Buffer) error {
 		d.Flags.Set(1)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.deepLinkInfo#6a4ee832: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "help.deepLinkInfo#6a4ee832", "flags", err)
 	}
 	b.PutString(d.Message)
 	if d.Flags.Has(1) {
 		b.PutVectorHeader(len(d.Entities))
 		for idx, v := range d.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode help.deepLinkInfo#6a4ee832: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "help.deepLinkInfo#6a4ee832", "entities", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode help.deepLinkInfo#6a4ee832: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "help.deepLinkInfo#6a4ee832", "entities", idx, err)
 			}
 		}
 	}
@@ -326,10 +326,10 @@ func (d *HelpDeepLinkInfo) MapEntities() (value MessageEntityClassArray, ok bool
 // Decode implements bin.Decoder.
 func (d *HelpDeepLinkInfo) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode help.deepLinkInfo#6a4ee832 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.deepLinkInfo#6a4ee832")
 	}
 	if err := b.ConsumeID(HelpDeepLinkInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.deepLinkInfo#6a4ee832: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.deepLinkInfo#6a4ee832", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -337,30 +337,30 @@ func (d *HelpDeepLinkInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *HelpDeepLinkInfo) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode help.deepLinkInfo#6a4ee832 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.deepLinkInfo#6a4ee832")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.deepLinkInfo#6a4ee832: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.deepLinkInfo#6a4ee832", "flags", err)
 		}
 	}
 	d.UpdateApp = d.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.deepLinkInfo#6a4ee832: field message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.deepLinkInfo#6a4ee832", "message", err)
 		}
 		d.Message = value
 	}
 	if d.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.deepLinkInfo#6a4ee832: field entities: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.deepLinkInfo#6a4ee832", "entities", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.deepLinkInfo#6a4ee832: field entities: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "help.deepLinkInfo#6a4ee832", "entities", err)
 			}
 			d.Entities = append(d.Entities, value)
 		}
@@ -438,18 +438,18 @@ func DecodeHelpDeepLinkInfo(buf *bin.Buffer) (HelpDeepLinkInfoClass, error) {
 		// Decoding help.deepLinkInfoEmpty#66afa166.
 		v := HelpDeepLinkInfoEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode HelpDeepLinkInfoClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "HelpDeepLinkInfoClass", err)
 		}
 		return &v, nil
 	case HelpDeepLinkInfoTypeID:
 		// Decoding help.deepLinkInfo#6a4ee832.
 		v := HelpDeepLinkInfo{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode HelpDeepLinkInfoClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "HelpDeepLinkInfoClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode HelpDeepLinkInfoClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "HelpDeepLinkInfoClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -461,7 +461,7 @@ type HelpDeepLinkInfoBox struct {
 // Decode implements bin.Decoder for HelpDeepLinkInfoBox.
 func (b *HelpDeepLinkInfoBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode HelpDeepLinkInfoBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "HelpDeepLinkInfo")
 	}
 	v, err := DecodeHelpDeepLinkInfo(buf)
 	if err != nil {
@@ -474,7 +474,7 @@ func (b *HelpDeepLinkInfoBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for HelpDeepLinkInfoBox.
 func (b *HelpDeepLinkInfoBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.DeepLinkInfo == nil {
-		return fmt.Errorf("unable to encode HelpDeepLinkInfoClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "HelpDeepLinkInfoClass")
 	}
 	return b.DeepLinkInfo.Encode(buf)
 }

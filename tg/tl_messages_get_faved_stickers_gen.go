@@ -105,7 +105,7 @@ func (g *MessagesGetFavedStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetFavedStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getFavedStickers#21ce0b0e as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getFavedStickers#21ce0b0e")
 	}
 	b.PutID(MessagesGetFavedStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -114,7 +114,7 @@ func (g *MessagesGetFavedStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetFavedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getFavedStickers#21ce0b0e as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getFavedStickers#21ce0b0e")
 	}
 	b.PutInt(g.Hash)
 	return nil
@@ -128,10 +128,10 @@ func (g *MessagesGetFavedStickersRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetFavedStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getFavedStickers#21ce0b0e to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getFavedStickers#21ce0b0e")
 	}
 	if err := b.ConsumeID(MessagesGetFavedStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getFavedStickers#21ce0b0e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getFavedStickers#21ce0b0e", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -139,12 +139,12 @@ func (g *MessagesGetFavedStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetFavedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getFavedStickers#21ce0b0e to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getFavedStickers#21ce0b0e")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getFavedStickers#21ce0b0e: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getFavedStickers#21ce0b0e", "hash", err)
 		}
 		g.Hash = value
 	}

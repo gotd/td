@@ -113,7 +113,7 @@ func (u *AccountUpdateNotifySettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUpdateNotifySettingsRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateNotifySettings#84be5b93 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.updateNotifySettings#84be5b93")
 	}
 	b.PutID(AccountUpdateNotifySettingsRequestTypeID)
 	return u.EncodeBare(b)
@@ -122,16 +122,16 @@ func (u *AccountUpdateNotifySettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUpdateNotifySettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateNotifySettings#84be5b93 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.updateNotifySettings#84be5b93")
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode account.updateNotifySettings#84be5b93: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "account.updateNotifySettings#84be5b93", "peer")
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updateNotifySettings#84be5b93: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.updateNotifySettings#84be5b93", "peer", err)
 	}
 	if err := u.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updateNotifySettings#84be5b93: field settings: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.updateNotifySettings#84be5b93", "settings", err)
 	}
 	return nil
 }
@@ -149,10 +149,10 @@ func (u *AccountUpdateNotifySettingsRequest) GetSettings() (value InputPeerNotif
 // Decode implements bin.Decoder.
 func (u *AccountUpdateNotifySettingsRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateNotifySettings#84be5b93 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.updateNotifySettings#84be5b93")
 	}
 	if err := b.ConsumeID(AccountUpdateNotifySettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.updateNotifySettings#84be5b93: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.updateNotifySettings#84be5b93", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -160,18 +160,18 @@ func (u *AccountUpdateNotifySettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUpdateNotifySettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateNotifySettings#84be5b93 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.updateNotifySettings#84be5b93")
 	}
 	{
 		value, err := DecodeInputNotifyPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateNotifySettings#84be5b93: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.updateNotifySettings#84be5b93", "peer", err)
 		}
 		u.Peer = value
 	}
 	{
 		if err := u.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.updateNotifySettings#84be5b93: field settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.updateNotifySettings#84be5b93", "settings", err)
 		}
 	}
 	return nil

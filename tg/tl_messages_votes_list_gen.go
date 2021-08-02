@@ -157,7 +157,7 @@ func (v *MessagesVotesList) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (v *MessagesVotesList) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode messages.votesList#823f649 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.votesList#823f649")
 	}
 	b.PutID(MessagesVotesListTypeID)
 	return v.EncodeBare(b)
@@ -166,31 +166,31 @@ func (v *MessagesVotesList) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *MessagesVotesList) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode messages.votesList#823f649 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.votesList#823f649")
 	}
 	if !(v.NextOffset == "") {
 		v.Flags.Set(0)
 	}
 	if err := v.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.votesList#823f649: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.votesList#823f649", "flags", err)
 	}
 	b.PutInt(v.Count)
 	b.PutVectorHeader(len(v.Votes))
 	for idx, v := range v.Votes {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.votesList#823f649: field votes element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.votesList#823f649", "votes", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.votesList#823f649: field votes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.votesList#823f649", "votes", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(v.Users))
 	for idx, v := range v.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.votesList#823f649: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.votesList#823f649", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.votesList#823f649: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.votesList#823f649", "users", idx, err)
 		}
 	}
 	if v.Flags.Has(0) {
@@ -242,10 +242,10 @@ func (v *MessagesVotesList) GetNextOffset() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (v *MessagesVotesList) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode messages.votesList#823f649 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.votesList#823f649")
 	}
 	if err := b.ConsumeID(MessagesVotesListTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.votesList#823f649: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.votesList#823f649", err)
 	}
 	return v.DecodeBare(b)
 }
@@ -253,29 +253,29 @@ func (v *MessagesVotesList) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *MessagesVotesList) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode messages.votesList#823f649 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.votesList#823f649")
 	}
 	{
 		if err := v.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.votesList#823f649: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.votesList#823f649", "flags", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.votesList#823f649: field count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.votesList#823f649", "count", err)
 		}
 		v.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.votesList#823f649: field votes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.votesList#823f649", "votes", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageUserVote(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.votesList#823f649: field votes: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.votesList#823f649", "votes", err)
 			}
 			v.Votes = append(v.Votes, value)
 		}
@@ -283,12 +283,12 @@ func (v *MessagesVotesList) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.votesList#823f649: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.votesList#823f649", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.votesList#823f649: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.votesList#823f649", "users", err)
 			}
 			v.Users = append(v.Users, value)
 		}
@@ -296,7 +296,7 @@ func (v *MessagesVotesList) DecodeBare(b *bin.Buffer) error {
 	if v.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.votesList#823f649: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.votesList#823f649", "next_offset", err)
 		}
 		v.NextOffset = value
 	}

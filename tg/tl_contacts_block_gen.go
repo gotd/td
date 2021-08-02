@@ -102,7 +102,7 @@ func (b *ContactsBlockRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *ContactsBlockRequest) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode contacts.block#68cc1411 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.block#68cc1411")
 	}
 	buf.PutID(ContactsBlockRequestTypeID)
 	return b.EncodeBare(buf)
@@ -111,13 +111,13 @@ func (b *ContactsBlockRequest) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *ContactsBlockRequest) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode contacts.block#68cc1411 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.block#68cc1411")
 	}
 	if b.ID == nil {
-		return fmt.Errorf("unable to encode contacts.block#68cc1411: field id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "contacts.block#68cc1411", "id")
 	}
 	if err := b.ID.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode contacts.block#68cc1411: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "contacts.block#68cc1411", "id", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (b *ContactsBlockRequest) GetID() (value InputPeerClass) {
 // Decode implements bin.Decoder.
 func (b *ContactsBlockRequest) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode contacts.block#68cc1411 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.block#68cc1411")
 	}
 	if err := buf.ConsumeID(ContactsBlockRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.block#68cc1411: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.block#68cc1411", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -141,12 +141,12 @@ func (b *ContactsBlockRequest) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *ContactsBlockRequest) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode contacts.block#68cc1411 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.block#68cc1411")
 	}
 	{
 		value, err := DecodeInputPeer(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.block#68cc1411: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.block#68cc1411", "id", err)
 		}
 		b.ID = value
 	}

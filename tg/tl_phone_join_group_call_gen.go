@@ -169,7 +169,7 @@ func (j *PhoneJoinGroupCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (j *PhoneJoinGroupCallRequest) Encode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode phone.joinGroupCall#b132ff7b as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.joinGroupCall#b132ff7b")
 	}
 	b.PutID(PhoneJoinGroupCallRequestTypeID)
 	return j.EncodeBare(b)
@@ -178,7 +178,7 @@ func (j *PhoneJoinGroupCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (j *PhoneJoinGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode phone.joinGroupCall#b132ff7b as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.joinGroupCall#b132ff7b")
 	}
 	if !(j.Muted == false) {
 		j.Flags.Set(0)
@@ -190,22 +190,22 @@ func (j *PhoneJoinGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 		j.Flags.Set(1)
 	}
 	if err := j.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.joinGroupCall#b132ff7b: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.joinGroupCall#b132ff7b", "flags", err)
 	}
 	if err := j.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.joinGroupCall#b132ff7b: field call: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.joinGroupCall#b132ff7b", "call", err)
 	}
 	if j.JoinAs == nil {
-		return fmt.Errorf("unable to encode phone.joinGroupCall#b132ff7b: field join_as is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "phone.joinGroupCall#b132ff7b", "join_as")
 	}
 	if err := j.JoinAs.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.joinGroupCall#b132ff7b: field join_as: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.joinGroupCall#b132ff7b", "join_as", err)
 	}
 	if j.Flags.Has(1) {
 		b.PutString(j.InviteHash)
 	}
 	if err := j.Params.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.joinGroupCall#b132ff7b: field params: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.joinGroupCall#b132ff7b", "params", err)
 	}
 	return nil
 }
@@ -275,10 +275,10 @@ func (j *PhoneJoinGroupCallRequest) GetParams() (value DataJSON) {
 // Decode implements bin.Decoder.
 func (j *PhoneJoinGroupCallRequest) Decode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode phone.joinGroupCall#b132ff7b to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.joinGroupCall#b132ff7b")
 	}
 	if err := b.ConsumeID(PhoneJoinGroupCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.joinGroupCall#b132ff7b", err)
 	}
 	return j.DecodeBare(b)
 }
@@ -286,37 +286,37 @@ func (j *PhoneJoinGroupCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (j *PhoneJoinGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode phone.joinGroupCall#b132ff7b to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.joinGroupCall#b132ff7b")
 	}
 	{
 		if err := j.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinGroupCall#b132ff7b", "flags", err)
 		}
 	}
 	j.Muted = j.Flags.Has(0)
 	j.VideoStopped = j.Flags.Has(2)
 	{
 		if err := j.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field call: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinGroupCall#b132ff7b", "call", err)
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field join_as: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinGroupCall#b132ff7b", "join_as", err)
 		}
 		j.JoinAs = value
 	}
 	if j.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field invite_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinGroupCall#b132ff7b", "invite_hash", err)
 		}
 		j.InviteHash = value
 	}
 	{
 		if err := j.Params.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field params: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinGroupCall#b132ff7b", "params", err)
 		}
 	}
 	return nil

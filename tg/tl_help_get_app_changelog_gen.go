@@ -108,7 +108,7 @@ func (g *HelpGetAppChangelogRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetAppChangelogRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getAppChangelog#9010ef6f as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getAppChangelog#9010ef6f")
 	}
 	b.PutID(HelpGetAppChangelogRequestTypeID)
 	return g.EncodeBare(b)
@@ -117,7 +117,7 @@ func (g *HelpGetAppChangelogRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetAppChangelogRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getAppChangelog#9010ef6f as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getAppChangelog#9010ef6f")
 	}
 	b.PutString(g.PrevAppVersion)
 	return nil
@@ -131,10 +131,10 @@ func (g *HelpGetAppChangelogRequest) GetPrevAppVersion() (value string) {
 // Decode implements bin.Decoder.
 func (g *HelpGetAppChangelogRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getAppChangelog#9010ef6f to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getAppChangelog#9010ef6f")
 	}
 	if err := b.ConsumeID(HelpGetAppChangelogRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getAppChangelog#9010ef6f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.getAppChangelog#9010ef6f", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (g *HelpGetAppChangelogRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetAppChangelogRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getAppChangelog#9010ef6f to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getAppChangelog#9010ef6f")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.getAppChangelog#9010ef6f: field prev_app_version: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.getAppChangelog#9010ef6f", "prev_app_version", err)
 		}
 		g.PrevAppVersion = value
 	}

@@ -152,7 +152,7 @@ func (u *AccountUploadThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUploadThemeRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.uploadTheme#1c3db333 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.uploadTheme#1c3db333")
 	}
 	b.PutID(AccountUploadThemeRequestTypeID)
 	return u.EncodeBare(b)
@@ -161,26 +161,26 @@ func (u *AccountUploadThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUploadThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.uploadTheme#1c3db333 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.uploadTheme#1c3db333")
 	}
 	if !(u.Thumb == nil) {
 		u.Flags.Set(0)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.uploadTheme#1c3db333: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.uploadTheme#1c3db333", "flags", err)
 	}
 	if u.File == nil {
-		return fmt.Errorf("unable to encode account.uploadTheme#1c3db333: field file is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "account.uploadTheme#1c3db333", "file")
 	}
 	if err := u.File.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.uploadTheme#1c3db333: field file: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.uploadTheme#1c3db333", "file", err)
 	}
 	if u.Flags.Has(0) {
 		if u.Thumb == nil {
-			return fmt.Errorf("unable to encode account.uploadTheme#1c3db333: field thumb is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "account.uploadTheme#1c3db333", "thumb")
 		}
 		if err := u.Thumb.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.uploadTheme#1c3db333: field thumb: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "account.uploadTheme#1c3db333", "thumb", err)
 		}
 	}
 	b.PutString(u.FileName)
@@ -221,10 +221,10 @@ func (u *AccountUploadThemeRequest) GetMimeType() (value string) {
 // Decode implements bin.Decoder.
 func (u *AccountUploadThemeRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.uploadTheme#1c3db333 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.uploadTheme#1c3db333")
 	}
 	if err := b.ConsumeID(AccountUploadThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.uploadTheme#1c3db333", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -232,38 +232,38 @@ func (u *AccountUploadThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUploadThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.uploadTheme#1c3db333 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.uploadTheme#1c3db333")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.uploadTheme#1c3db333", "flags", err)
 		}
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: field file: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.uploadTheme#1c3db333", "file", err)
 		}
 		u.File = value
 	}
 	if u.Flags.Has(0) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.uploadTheme#1c3db333", "thumb", err)
 		}
 		u.Thumb = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: field file_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.uploadTheme#1c3db333", "file_name", err)
 		}
 		u.FileName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.uploadTheme#1c3db333", "mime_type", err)
 		}
 		u.MimeType = value
 	}

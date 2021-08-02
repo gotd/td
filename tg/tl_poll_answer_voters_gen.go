@@ -148,7 +148,7 @@ func (p *PollAnswerVoters) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PollAnswerVoters) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollAnswerVoters#3b6ddad2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "pollAnswerVoters#3b6ddad2")
 	}
 	b.PutID(PollAnswerVotersTypeID)
 	return p.EncodeBare(b)
@@ -157,7 +157,7 @@ func (p *PollAnswerVoters) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PollAnswerVoters) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollAnswerVoters#3b6ddad2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "pollAnswerVoters#3b6ddad2")
 	}
 	if !(p.Chosen == false) {
 		p.Flags.Set(0)
@@ -166,7 +166,7 @@ func (p *PollAnswerVoters) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(1)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pollAnswerVoters#3b6ddad2: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "pollAnswerVoters#3b6ddad2", "flags", err)
 	}
 	b.PutBytes(p.Option)
 	b.PutInt(p.Voters)
@@ -218,10 +218,10 @@ func (p *PollAnswerVoters) GetVoters() (value int) {
 // Decode implements bin.Decoder.
 func (p *PollAnswerVoters) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollAnswerVoters#3b6ddad2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "pollAnswerVoters#3b6ddad2")
 	}
 	if err := b.ConsumeID(PollAnswerVotersTypeID); err != nil {
-		return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "pollAnswerVoters#3b6ddad2", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -229,11 +229,11 @@ func (p *PollAnswerVoters) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PollAnswerVoters) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollAnswerVoters#3b6ddad2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "pollAnswerVoters#3b6ddad2")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pollAnswerVoters#3b6ddad2", "flags", err)
 		}
 	}
 	p.Chosen = p.Flags.Has(0)
@@ -241,14 +241,14 @@ func (p *PollAnswerVoters) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field option: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pollAnswerVoters#3b6ddad2", "option", err)
 		}
 		p.Option = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field voters: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pollAnswerVoters#3b6ddad2", "voters", err)
 		}
 		p.Voters = value
 	}

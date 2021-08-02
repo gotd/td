@@ -110,7 +110,7 @@ func (r *RPCResult) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RPCResult) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode rpc_result#f35c6d01 as nil")
+		return fmt.Errorf("can't encode %s as nil", "rpc_result#f35c6d01")
 	}
 	b.PutID(RPCResultTypeID)
 	return r.EncodeBare(b)
@@ -119,11 +119,11 @@ func (r *RPCResult) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RPCResult) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode rpc_result#f35c6d01 as nil")
+		return fmt.Errorf("can't encode %s as nil", "rpc_result#f35c6d01")
 	}
 	b.PutLong(r.ReqMsgID)
 	if err := r.Result.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode rpc_result#f35c6d01: field result: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "rpc_result#f35c6d01", "result", err)
 	}
 	return nil
 }
@@ -141,10 +141,10 @@ func (r *RPCResult) GetResult() (value GzipPacked) {
 // Decode implements bin.Decoder.
 func (r *RPCResult) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode rpc_result#f35c6d01 to nil")
+		return fmt.Errorf("can't decode %s to nil", "rpc_result#f35c6d01")
 	}
 	if err := b.ConsumeID(RPCResultTypeID); err != nil {
-		return fmt.Errorf("unable to decode rpc_result#f35c6d01: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "rpc_result#f35c6d01", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -152,18 +152,18 @@ func (r *RPCResult) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RPCResult) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode rpc_result#f35c6d01 to nil")
+		return fmt.Errorf("can't decode %s to nil", "rpc_result#f35c6d01")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode rpc_result#f35c6d01: field req_msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "rpc_result#f35c6d01", "req_msg_id", err)
 		}
 		r.ReqMsgID = value
 	}
 	{
 		if err := r.Result.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode rpc_result#f35c6d01: field result: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "rpc_result#f35c6d01", "result", err)
 		}
 	}
 	return nil

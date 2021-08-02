@@ -85,7 +85,7 @@ func (i *InputPrivacyValueAllowContacts) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueAllowContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueAllowContacts#d09e07b as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueAllowContacts#d09e07b")
 	}
 	b.PutID(InputPrivacyValueAllowContactsTypeID)
 	return i.EncodeBare(b)
@@ -94,7 +94,7 @@ func (i *InputPrivacyValueAllowContacts) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPrivacyValueAllowContacts) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueAllowContacts#d09e07b as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueAllowContacts#d09e07b")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (i *InputPrivacyValueAllowContacts) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputPrivacyValueAllowContacts) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueAllowContacts#d09e07b to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueAllowContacts#d09e07b")
 	}
 	if err := b.ConsumeID(InputPrivacyValueAllowContactsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPrivacyValueAllowContacts#d09e07b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPrivacyValueAllowContacts#d09e07b", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (i *InputPrivacyValueAllowContacts) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPrivacyValueAllowContacts) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueAllowContacts#d09e07b to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueAllowContacts#d09e07b")
 	}
 	return nil
 }
@@ -187,7 +187,7 @@ func (i *InputPrivacyValueAllowAll) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueAllowAll) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueAllowAll#184b35ce as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueAllowAll#184b35ce")
 	}
 	b.PutID(InputPrivacyValueAllowAllTypeID)
 	return i.EncodeBare(b)
@@ -196,7 +196,7 @@ func (i *InputPrivacyValueAllowAll) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPrivacyValueAllowAll) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueAllowAll#184b35ce as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueAllowAll#184b35ce")
 	}
 	return nil
 }
@@ -204,10 +204,10 @@ func (i *InputPrivacyValueAllowAll) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputPrivacyValueAllowAll) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueAllowAll#184b35ce to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueAllowAll#184b35ce")
 	}
 	if err := b.ConsumeID(InputPrivacyValueAllowAllTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPrivacyValueAllowAll#184b35ce: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPrivacyValueAllowAll#184b35ce", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -215,7 +215,7 @@ func (i *InputPrivacyValueAllowAll) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPrivacyValueAllowAll) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueAllowAll#184b35ce to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueAllowAll#184b35ce")
 	}
 	return nil
 }
@@ -306,7 +306,7 @@ func (i *InputPrivacyValueAllowUsers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueAllowUsers) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueAllowUsers#131cc67f as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueAllowUsers#131cc67f")
 	}
 	b.PutID(InputPrivacyValueAllowUsersTypeID)
 	return i.EncodeBare(b)
@@ -315,15 +315,15 @@ func (i *InputPrivacyValueAllowUsers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPrivacyValueAllowUsers) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueAllowUsers#131cc67f as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueAllowUsers#131cc67f")
 	}
 	b.PutVectorHeader(len(i.Users))
 	for idx, v := range i.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode inputPrivacyValueAllowUsers#131cc67f: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "inputPrivacyValueAllowUsers#131cc67f", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputPrivacyValueAllowUsers#131cc67f: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "inputPrivacyValueAllowUsers#131cc67f", "users", idx, err)
 		}
 	}
 	return nil
@@ -342,10 +342,10 @@ func (i *InputPrivacyValueAllowUsers) MapUsers() (value InputUserClassArray) {
 // Decode implements bin.Decoder.
 func (i *InputPrivacyValueAllowUsers) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueAllowUsers#131cc67f to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueAllowUsers#131cc67f")
 	}
 	if err := b.ConsumeID(InputPrivacyValueAllowUsersTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPrivacyValueAllowUsers#131cc67f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPrivacyValueAllowUsers#131cc67f", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -353,17 +353,17 @@ func (i *InputPrivacyValueAllowUsers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPrivacyValueAllowUsers) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueAllowUsers#131cc67f to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueAllowUsers#131cc67f")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPrivacyValueAllowUsers#131cc67f: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPrivacyValueAllowUsers#131cc67f", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputPrivacyValueAllowUsers#131cc67f: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "inputPrivacyValueAllowUsers#131cc67f", "users", err)
 			}
 			i.Users = append(i.Users, value)
 		}
@@ -440,7 +440,7 @@ func (i *InputPrivacyValueDisallowContacts) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueDisallowContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueDisallowContacts#ba52007 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueDisallowContacts#ba52007")
 	}
 	b.PutID(InputPrivacyValueDisallowContactsTypeID)
 	return i.EncodeBare(b)
@@ -449,7 +449,7 @@ func (i *InputPrivacyValueDisallowContacts) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPrivacyValueDisallowContacts) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueDisallowContacts#ba52007 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueDisallowContacts#ba52007")
 	}
 	return nil
 }
@@ -457,10 +457,10 @@ func (i *InputPrivacyValueDisallowContacts) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputPrivacyValueDisallowContacts) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueDisallowContacts#ba52007 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueDisallowContacts#ba52007")
 	}
 	if err := b.ConsumeID(InputPrivacyValueDisallowContactsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPrivacyValueDisallowContacts#ba52007: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPrivacyValueDisallowContacts#ba52007", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -468,7 +468,7 @@ func (i *InputPrivacyValueDisallowContacts) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPrivacyValueDisallowContacts) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueDisallowContacts#ba52007 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueDisallowContacts#ba52007")
 	}
 	return nil
 }
@@ -542,7 +542,7 @@ func (i *InputPrivacyValueDisallowAll) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueDisallowAll) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueDisallowAll#d66b66c9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueDisallowAll#d66b66c9")
 	}
 	b.PutID(InputPrivacyValueDisallowAllTypeID)
 	return i.EncodeBare(b)
@@ -551,7 +551,7 @@ func (i *InputPrivacyValueDisallowAll) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPrivacyValueDisallowAll) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueDisallowAll#d66b66c9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueDisallowAll#d66b66c9")
 	}
 	return nil
 }
@@ -559,10 +559,10 @@ func (i *InputPrivacyValueDisallowAll) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputPrivacyValueDisallowAll) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueDisallowAll#d66b66c9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueDisallowAll#d66b66c9")
 	}
 	if err := b.ConsumeID(InputPrivacyValueDisallowAllTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPrivacyValueDisallowAll#d66b66c9: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPrivacyValueDisallowAll#d66b66c9", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -570,7 +570,7 @@ func (i *InputPrivacyValueDisallowAll) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPrivacyValueDisallowAll) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueDisallowAll#d66b66c9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueDisallowAll#d66b66c9")
 	}
 	return nil
 }
@@ -661,7 +661,7 @@ func (i *InputPrivacyValueDisallowUsers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueDisallowUsers) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueDisallowUsers#90110467 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueDisallowUsers#90110467")
 	}
 	b.PutID(InputPrivacyValueDisallowUsersTypeID)
 	return i.EncodeBare(b)
@@ -670,15 +670,15 @@ func (i *InputPrivacyValueDisallowUsers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPrivacyValueDisallowUsers) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueDisallowUsers#90110467 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueDisallowUsers#90110467")
 	}
 	b.PutVectorHeader(len(i.Users))
 	for idx, v := range i.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode inputPrivacyValueDisallowUsers#90110467: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "inputPrivacyValueDisallowUsers#90110467", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputPrivacyValueDisallowUsers#90110467: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "inputPrivacyValueDisallowUsers#90110467", "users", idx, err)
 		}
 	}
 	return nil
@@ -697,10 +697,10 @@ func (i *InputPrivacyValueDisallowUsers) MapUsers() (value InputUserClassArray) 
 // Decode implements bin.Decoder.
 func (i *InputPrivacyValueDisallowUsers) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueDisallowUsers#90110467 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueDisallowUsers#90110467")
 	}
 	if err := b.ConsumeID(InputPrivacyValueDisallowUsersTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPrivacyValueDisallowUsers#90110467: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPrivacyValueDisallowUsers#90110467", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -708,17 +708,17 @@ func (i *InputPrivacyValueDisallowUsers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPrivacyValueDisallowUsers) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueDisallowUsers#90110467 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueDisallowUsers#90110467")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPrivacyValueDisallowUsers#90110467: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPrivacyValueDisallowUsers#90110467", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputPrivacyValueDisallowUsers#90110467: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "inputPrivacyValueDisallowUsers#90110467", "users", err)
 			}
 			i.Users = append(i.Users, value)
 		}
@@ -812,7 +812,7 @@ func (i *InputPrivacyValueAllowChatParticipants) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueAllowChatParticipants) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueAllowChatParticipants#4c81c1ba as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueAllowChatParticipants#4c81c1ba")
 	}
 	b.PutID(InputPrivacyValueAllowChatParticipantsTypeID)
 	return i.EncodeBare(b)
@@ -821,7 +821,7 @@ func (i *InputPrivacyValueAllowChatParticipants) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPrivacyValueAllowChatParticipants) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueAllowChatParticipants#4c81c1ba as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueAllowChatParticipants#4c81c1ba")
 	}
 	b.PutVectorHeader(len(i.Chats))
 	for _, v := range i.Chats {
@@ -838,10 +838,10 @@ func (i *InputPrivacyValueAllowChatParticipants) GetChats() (value []int) {
 // Decode implements bin.Decoder.
 func (i *InputPrivacyValueAllowChatParticipants) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueAllowChatParticipants#4c81c1ba to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueAllowChatParticipants#4c81c1ba")
 	}
 	if err := b.ConsumeID(InputPrivacyValueAllowChatParticipantsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPrivacyValueAllowChatParticipants#4c81c1ba: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPrivacyValueAllowChatParticipants#4c81c1ba", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -849,17 +849,17 @@ func (i *InputPrivacyValueAllowChatParticipants) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPrivacyValueAllowChatParticipants) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueAllowChatParticipants#4c81c1ba to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueAllowChatParticipants#4c81c1ba")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPrivacyValueAllowChatParticipants#4c81c1ba: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPrivacyValueAllowChatParticipants#4c81c1ba", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputPrivacyValueAllowChatParticipants#4c81c1ba: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "inputPrivacyValueAllowChatParticipants#4c81c1ba", "chats", err)
 			}
 			i.Chats = append(i.Chats, value)
 		}
@@ -953,7 +953,7 @@ func (i *InputPrivacyValueDisallowChatParticipants) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueDisallowChatParticipants) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueDisallowChatParticipants#d82363af as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueDisallowChatParticipants#d82363af")
 	}
 	b.PutID(InputPrivacyValueDisallowChatParticipantsTypeID)
 	return i.EncodeBare(b)
@@ -962,7 +962,7 @@ func (i *InputPrivacyValueDisallowChatParticipants) Encode(b *bin.Buffer) error 
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPrivacyValueDisallowChatParticipants) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPrivacyValueDisallowChatParticipants#d82363af as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPrivacyValueDisallowChatParticipants#d82363af")
 	}
 	b.PutVectorHeader(len(i.Chats))
 	for _, v := range i.Chats {
@@ -979,10 +979,10 @@ func (i *InputPrivacyValueDisallowChatParticipants) GetChats() (value []int) {
 // Decode implements bin.Decoder.
 func (i *InputPrivacyValueDisallowChatParticipants) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueDisallowChatParticipants#d82363af to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueDisallowChatParticipants#d82363af")
 	}
 	if err := b.ConsumeID(InputPrivacyValueDisallowChatParticipantsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPrivacyValueDisallowChatParticipants#d82363af: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPrivacyValueDisallowChatParticipants#d82363af", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -990,17 +990,17 @@ func (i *InputPrivacyValueDisallowChatParticipants) Decode(b *bin.Buffer) error 
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPrivacyValueDisallowChatParticipants) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPrivacyValueDisallowChatParticipants#d82363af to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPrivacyValueDisallowChatParticipants#d82363af")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPrivacyValueDisallowChatParticipants#d82363af: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPrivacyValueDisallowChatParticipants#d82363af", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputPrivacyValueDisallowChatParticipants#d82363af: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "inputPrivacyValueDisallowChatParticipants#d82363af", "chats", err)
 			}
 			i.Chats = append(i.Chats, value)
 		}
@@ -1071,60 +1071,60 @@ func DecodeInputPrivacyRule(buf *bin.Buffer) (InputPrivacyRuleClass, error) {
 		// Decoding inputPrivacyValueAllowContacts#d09e07b.
 		v := InputPrivacyValueAllowContacts{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPrivacyRuleClass", err)
 		}
 		return &v, nil
 	case InputPrivacyValueAllowAllTypeID:
 		// Decoding inputPrivacyValueAllowAll#184b35ce.
 		v := InputPrivacyValueAllowAll{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPrivacyRuleClass", err)
 		}
 		return &v, nil
 	case InputPrivacyValueAllowUsersTypeID:
 		// Decoding inputPrivacyValueAllowUsers#131cc67f.
 		v := InputPrivacyValueAllowUsers{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPrivacyRuleClass", err)
 		}
 		return &v, nil
 	case InputPrivacyValueDisallowContactsTypeID:
 		// Decoding inputPrivacyValueDisallowContacts#ba52007.
 		v := InputPrivacyValueDisallowContacts{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPrivacyRuleClass", err)
 		}
 		return &v, nil
 	case InputPrivacyValueDisallowAllTypeID:
 		// Decoding inputPrivacyValueDisallowAll#d66b66c9.
 		v := InputPrivacyValueDisallowAll{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPrivacyRuleClass", err)
 		}
 		return &v, nil
 	case InputPrivacyValueDisallowUsersTypeID:
 		// Decoding inputPrivacyValueDisallowUsers#90110467.
 		v := InputPrivacyValueDisallowUsers{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPrivacyRuleClass", err)
 		}
 		return &v, nil
 	case InputPrivacyValueAllowChatParticipantsTypeID:
 		// Decoding inputPrivacyValueAllowChatParticipants#4c81c1ba.
 		v := InputPrivacyValueAllowChatParticipants{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPrivacyRuleClass", err)
 		}
 		return &v, nil
 	case InputPrivacyValueDisallowChatParticipantsTypeID:
 		// Decoding inputPrivacyValueDisallowChatParticipants#d82363af.
 		v := InputPrivacyValueDisallowChatParticipants{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPrivacyRuleClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "InputPrivacyRuleClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -1136,7 +1136,7 @@ type InputPrivacyRuleBox struct {
 // Decode implements bin.Decoder for InputPrivacyRuleBox.
 func (b *InputPrivacyRuleBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputPrivacyRuleBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "InputPrivacyRule")
 	}
 	v, err := DecodeInputPrivacyRule(buf)
 	if err != nil {
@@ -1149,7 +1149,7 @@ func (b *InputPrivacyRuleBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputPrivacyRuleBox.
 func (b *InputPrivacyRuleBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputPrivacyRule == nil {
-		return fmt.Errorf("unable to encode InputPrivacyRuleClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "InputPrivacyRuleClass")
 	}
 	return b.InputPrivacyRule.Encode(buf)
 }

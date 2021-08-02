@@ -102,7 +102,7 @@ func (s *AccountSetGlobalPrivacySettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSetGlobalPrivacySettingsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.setGlobalPrivacySettings#1edaaac2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.setGlobalPrivacySettings#1edaaac2")
 	}
 	b.PutID(AccountSetGlobalPrivacySettingsRequestTypeID)
 	return s.EncodeBare(b)
@@ -111,10 +111,10 @@ func (s *AccountSetGlobalPrivacySettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSetGlobalPrivacySettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.setGlobalPrivacySettings#1edaaac2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.setGlobalPrivacySettings#1edaaac2")
 	}
 	if err := s.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.setGlobalPrivacySettings#1edaaac2: field settings: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.setGlobalPrivacySettings#1edaaac2", "settings", err)
 	}
 	return nil
 }
@@ -127,10 +127,10 @@ func (s *AccountSetGlobalPrivacySettingsRequest) GetSettings() (value GlobalPriv
 // Decode implements bin.Decoder.
 func (s *AccountSetGlobalPrivacySettingsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.setGlobalPrivacySettings#1edaaac2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.setGlobalPrivacySettings#1edaaac2")
 	}
 	if err := b.ConsumeID(AccountSetGlobalPrivacySettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.setGlobalPrivacySettings#1edaaac2: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.setGlobalPrivacySettings#1edaaac2", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -138,11 +138,11 @@ func (s *AccountSetGlobalPrivacySettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSetGlobalPrivacySettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.setGlobalPrivacySettings#1edaaac2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.setGlobalPrivacySettings#1edaaac2")
 	}
 	{
 		if err := s.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.setGlobalPrivacySettings#1edaaac2: field settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.setGlobalPrivacySettings#1edaaac2", "settings", err)
 		}
 	}
 	return nil

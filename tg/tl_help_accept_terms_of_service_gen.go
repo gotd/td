@@ -102,7 +102,7 @@ func (a *HelpAcceptTermsOfServiceRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *HelpAcceptTermsOfServiceRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode help.acceptTermsOfService#ee72f79a as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.acceptTermsOfService#ee72f79a")
 	}
 	b.PutID(HelpAcceptTermsOfServiceRequestTypeID)
 	return a.EncodeBare(b)
@@ -111,10 +111,10 @@ func (a *HelpAcceptTermsOfServiceRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *HelpAcceptTermsOfServiceRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode help.acceptTermsOfService#ee72f79a as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.acceptTermsOfService#ee72f79a")
 	}
 	if err := a.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.acceptTermsOfService#ee72f79a: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "help.acceptTermsOfService#ee72f79a", "id", err)
 	}
 	return nil
 }
@@ -127,10 +127,10 @@ func (a *HelpAcceptTermsOfServiceRequest) GetID() (value DataJSON) {
 // Decode implements bin.Decoder.
 func (a *HelpAcceptTermsOfServiceRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode help.acceptTermsOfService#ee72f79a to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.acceptTermsOfService#ee72f79a")
 	}
 	if err := b.ConsumeID(HelpAcceptTermsOfServiceRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.acceptTermsOfService#ee72f79a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.acceptTermsOfService#ee72f79a", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -138,11 +138,11 @@ func (a *HelpAcceptTermsOfServiceRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *HelpAcceptTermsOfServiceRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode help.acceptTermsOfService#ee72f79a to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.acceptTermsOfService#ee72f79a")
 	}
 	{
 		if err := a.ID.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.acceptTermsOfService#ee72f79a: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.acceptTermsOfService#ee72f79a", "id", err)
 		}
 	}
 	return nil

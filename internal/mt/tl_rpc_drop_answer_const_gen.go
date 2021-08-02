@@ -99,7 +99,7 @@ func (r *RPCDropAnswerRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RPCDropAnswerRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode rpc_drop_answer#58e4a740 as nil")
+		return fmt.Errorf("can't encode %s as nil", "rpc_drop_answer#58e4a740")
 	}
 	b.PutID(RPCDropAnswerRequestTypeID)
 	return r.EncodeBare(b)
@@ -108,7 +108,7 @@ func (r *RPCDropAnswerRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RPCDropAnswerRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode rpc_drop_answer#58e4a740 as nil")
+		return fmt.Errorf("can't encode %s as nil", "rpc_drop_answer#58e4a740")
 	}
 	b.PutLong(r.ReqMsgID)
 	return nil
@@ -122,10 +122,10 @@ func (r *RPCDropAnswerRequest) GetReqMsgID() (value int64) {
 // Decode implements bin.Decoder.
 func (r *RPCDropAnswerRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode rpc_drop_answer#58e4a740 to nil")
+		return fmt.Errorf("can't decode %s to nil", "rpc_drop_answer#58e4a740")
 	}
 	if err := b.ConsumeID(RPCDropAnswerRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode rpc_drop_answer#58e4a740: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "rpc_drop_answer#58e4a740", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -133,12 +133,12 @@ func (r *RPCDropAnswerRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RPCDropAnswerRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode rpc_drop_answer#58e4a740 to nil")
+		return fmt.Errorf("can't decode %s to nil", "rpc_drop_answer#58e4a740")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode rpc_drop_answer#58e4a740: field req_msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "rpc_drop_answer#58e4a740", "req_msg_id", err)
 		}
 		r.ReqMsgID = value
 	}

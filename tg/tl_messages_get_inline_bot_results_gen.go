@@ -160,7 +160,7 @@ func (g *MessagesGetInlineBotResultsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getInlineBotResults#514e999d as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getInlineBotResults#514e999d")
 	}
 	b.PutID(MessagesGetInlineBotResultsRequestTypeID)
 	return g.EncodeBare(b)
@@ -169,32 +169,32 @@ func (g *MessagesGetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getInlineBotResults#514e999d as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getInlineBotResults#514e999d")
 	}
 	if !(g.GeoPoint == nil) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getInlineBotResults#514e999d: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getInlineBotResults#514e999d", "flags", err)
 	}
 	if g.Bot == nil {
-		return fmt.Errorf("unable to encode messages.getInlineBotResults#514e999d: field bot is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.getInlineBotResults#514e999d", "bot")
 	}
 	if err := g.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getInlineBotResults#514e999d: field bot: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getInlineBotResults#514e999d", "bot", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getInlineBotResults#514e999d: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.getInlineBotResults#514e999d", "peer")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getInlineBotResults#514e999d: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getInlineBotResults#514e999d", "peer", err)
 	}
 	if g.Flags.Has(0) {
 		if g.GeoPoint == nil {
-			return fmt.Errorf("unable to encode messages.getInlineBotResults#514e999d: field geo_point is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "messages.getInlineBotResults#514e999d", "geo_point")
 		}
 		if err := g.GeoPoint.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.getInlineBotResults#514e999d: field geo_point: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getInlineBotResults#514e999d", "geo_point", err)
 		}
 	}
 	b.PutString(g.Query)
@@ -249,10 +249,10 @@ func (g *MessagesGetInlineBotResultsRequest) GetOffset() (value string) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getInlineBotResults#514e999d to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getInlineBotResults#514e999d")
 	}
 	if err := b.ConsumeID(MessagesGetInlineBotResultsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getInlineBotResults#514e999d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getInlineBotResults#514e999d", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -260,45 +260,45 @@ func (g *MessagesGetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getInlineBotResults#514e999d to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getInlineBotResults#514e999d")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getInlineBotResults#514e999d: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getInlineBotResults#514e999d", "flags", err)
 		}
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getInlineBotResults#514e999d: field bot: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getInlineBotResults#514e999d", "bot", err)
 		}
 		g.Bot = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getInlineBotResults#514e999d: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getInlineBotResults#514e999d", "peer", err)
 		}
 		g.Peer = value
 	}
 	if g.Flags.Has(0) {
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getInlineBotResults#514e999d: field geo_point: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getInlineBotResults#514e999d", "geo_point", err)
 		}
 		g.GeoPoint = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getInlineBotResults#514e999d: field query: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getInlineBotResults#514e999d", "query", err)
 		}
 		g.Query = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getInlineBotResults#514e999d: field offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getInlineBotResults#514e999d", "offset", err)
 		}
 		g.Offset = value
 	}

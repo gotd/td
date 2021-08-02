@@ -128,7 +128,7 @@ func (s *MessagesSendEncryptedServiceRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSendEncryptedServiceRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendEncryptedService#32d439a4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.sendEncryptedService#32d439a4")
 	}
 	b.PutID(MessagesSendEncryptedServiceRequestTypeID)
 	return s.EncodeBare(b)
@@ -137,10 +137,10 @@ func (s *MessagesSendEncryptedServiceRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendEncryptedServiceRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendEncryptedService#32d439a4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.sendEncryptedService#32d439a4")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendEncryptedService#32d439a4: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.sendEncryptedService#32d439a4", "peer", err)
 	}
 	b.PutLong(s.RandomID)
 	b.PutBytes(s.Data)
@@ -165,10 +165,10 @@ func (s *MessagesSendEncryptedServiceRequest) GetData() (value []byte) {
 // Decode implements bin.Decoder.
 func (s *MessagesSendEncryptedServiceRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendEncryptedService#32d439a4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.sendEncryptedService#32d439a4")
 	}
 	if err := b.ConsumeID(MessagesSendEncryptedServiceRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendEncryptedService#32d439a4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.sendEncryptedService#32d439a4", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -176,24 +176,24 @@ func (s *MessagesSendEncryptedServiceRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendEncryptedServiceRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendEncryptedService#32d439a4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.sendEncryptedService#32d439a4")
 	}
 	{
 		if err := s.Peer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendEncryptedService#32d439a4: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendEncryptedService#32d439a4", "peer", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendEncryptedService#32d439a4: field random_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendEncryptedService#32d439a4", "random_id", err)
 		}
 		s.RandomID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendEncryptedService#32d439a4: field data: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.sendEncryptedService#32d439a4", "data", err)
 		}
 		s.Data = value
 	}

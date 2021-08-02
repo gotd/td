@@ -106,7 +106,7 @@ func (t *HelpTermsOfServiceUpdateEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *HelpTermsOfServiceUpdateEmpty) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode help.termsOfServiceUpdateEmpty#e3309f7f as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.termsOfServiceUpdateEmpty#e3309f7f")
 	}
 	b.PutID(HelpTermsOfServiceUpdateEmptyTypeID)
 	return t.EncodeBare(b)
@@ -115,7 +115,7 @@ func (t *HelpTermsOfServiceUpdateEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *HelpTermsOfServiceUpdateEmpty) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode help.termsOfServiceUpdateEmpty#e3309f7f as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.termsOfServiceUpdateEmpty#e3309f7f")
 	}
 	b.PutInt(t.Expires)
 	return nil
@@ -129,10 +129,10 @@ func (t *HelpTermsOfServiceUpdateEmpty) GetExpires() (value int) {
 // Decode implements bin.Decoder.
 func (t *HelpTermsOfServiceUpdateEmpty) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode help.termsOfServiceUpdateEmpty#e3309f7f to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.termsOfServiceUpdateEmpty#e3309f7f")
 	}
 	if err := b.ConsumeID(HelpTermsOfServiceUpdateEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.termsOfServiceUpdateEmpty#e3309f7f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.termsOfServiceUpdateEmpty#e3309f7f", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -140,12 +140,12 @@ func (t *HelpTermsOfServiceUpdateEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *HelpTermsOfServiceUpdateEmpty) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode help.termsOfServiceUpdateEmpty#e3309f7f to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.termsOfServiceUpdateEmpty#e3309f7f")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.termsOfServiceUpdateEmpty#e3309f7f: field expires: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.termsOfServiceUpdateEmpty#e3309f7f", "expires", err)
 		}
 		t.Expires = value
 	}
@@ -258,7 +258,7 @@ func (t *HelpTermsOfServiceUpdate) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *HelpTermsOfServiceUpdate) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode help.termsOfServiceUpdate#28ecf961 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.termsOfServiceUpdate#28ecf961")
 	}
 	b.PutID(HelpTermsOfServiceUpdateTypeID)
 	return t.EncodeBare(b)
@@ -267,11 +267,11 @@ func (t *HelpTermsOfServiceUpdate) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *HelpTermsOfServiceUpdate) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode help.termsOfServiceUpdate#28ecf961 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.termsOfServiceUpdate#28ecf961")
 	}
 	b.PutInt(t.Expires)
 	if err := t.TermsOfService.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.termsOfServiceUpdate#28ecf961: field terms_of_service: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "help.termsOfServiceUpdate#28ecf961", "terms_of_service", err)
 	}
 	return nil
 }
@@ -289,10 +289,10 @@ func (t *HelpTermsOfServiceUpdate) GetTermsOfService() (value HelpTermsOfService
 // Decode implements bin.Decoder.
 func (t *HelpTermsOfServiceUpdate) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode help.termsOfServiceUpdate#28ecf961 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.termsOfServiceUpdate#28ecf961")
 	}
 	if err := b.ConsumeID(HelpTermsOfServiceUpdateTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.termsOfServiceUpdate#28ecf961: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.termsOfServiceUpdate#28ecf961", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -300,18 +300,18 @@ func (t *HelpTermsOfServiceUpdate) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *HelpTermsOfServiceUpdate) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode help.termsOfServiceUpdate#28ecf961 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.termsOfServiceUpdate#28ecf961")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.termsOfServiceUpdate#28ecf961: field expires: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.termsOfServiceUpdate#28ecf961", "expires", err)
 		}
 		t.Expires = value
 	}
 	{
 		if err := t.TermsOfService.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.termsOfServiceUpdate#28ecf961: field terms_of_service: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.termsOfServiceUpdate#28ecf961", "terms_of_service", err)
 		}
 	}
 	return nil
@@ -394,18 +394,18 @@ func DecodeHelpTermsOfServiceUpdate(buf *bin.Buffer) (HelpTermsOfServiceUpdateCl
 		// Decoding help.termsOfServiceUpdateEmpty#e3309f7f.
 		v := HelpTermsOfServiceUpdateEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode HelpTermsOfServiceUpdateClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "HelpTermsOfServiceUpdateClass", err)
 		}
 		return &v, nil
 	case HelpTermsOfServiceUpdateTypeID:
 		// Decoding help.termsOfServiceUpdate#28ecf961.
 		v := HelpTermsOfServiceUpdate{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode HelpTermsOfServiceUpdateClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "HelpTermsOfServiceUpdateClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode HelpTermsOfServiceUpdateClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "HelpTermsOfServiceUpdateClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -417,7 +417,7 @@ type HelpTermsOfServiceUpdateBox struct {
 // Decode implements bin.Decoder for HelpTermsOfServiceUpdateBox.
 func (b *HelpTermsOfServiceUpdateBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode HelpTermsOfServiceUpdateBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "HelpTermsOfServiceUpdate")
 	}
 	v, err := DecodeHelpTermsOfServiceUpdate(buf)
 	if err != nil {
@@ -430,7 +430,7 @@ func (b *HelpTermsOfServiceUpdateBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for HelpTermsOfServiceUpdateBox.
 func (b *HelpTermsOfServiceUpdateBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.TermsOfServiceUpdate == nil {
-		return fmt.Errorf("unable to encode HelpTermsOfServiceUpdateClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "HelpTermsOfServiceUpdateClass")
 	}
 	return b.TermsOfServiceUpdate.Encode(buf)
 }

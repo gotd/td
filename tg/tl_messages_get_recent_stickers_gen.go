@@ -125,7 +125,7 @@ func (g *MessagesGetRecentStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetRecentStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getRecentStickers#5ea192c9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getRecentStickers#5ea192c9")
 	}
 	b.PutID(MessagesGetRecentStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -134,13 +134,13 @@ func (g *MessagesGetRecentStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetRecentStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getRecentStickers#5ea192c9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getRecentStickers#5ea192c9")
 	}
 	if !(g.Attached == false) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getRecentStickers#5ea192c9: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getRecentStickers#5ea192c9", "flags", err)
 	}
 	b.PutInt(g.Hash)
 	return nil
@@ -170,10 +170,10 @@ func (g *MessagesGetRecentStickersRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetRecentStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getRecentStickers#5ea192c9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getRecentStickers#5ea192c9")
 	}
 	if err := b.ConsumeID(MessagesGetRecentStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getRecentStickers#5ea192c9: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getRecentStickers#5ea192c9", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -181,18 +181,18 @@ func (g *MessagesGetRecentStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetRecentStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getRecentStickers#5ea192c9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getRecentStickers#5ea192c9")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getRecentStickers#5ea192c9: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getRecentStickers#5ea192c9", "flags", err)
 		}
 	}
 	g.Attached = g.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getRecentStickers#5ea192c9: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getRecentStickers#5ea192c9", "hash", err)
 		}
 		g.Hash = value
 	}

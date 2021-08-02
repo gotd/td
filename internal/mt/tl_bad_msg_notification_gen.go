@@ -121,7 +121,7 @@ func (b *BadMsgNotification) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BadMsgNotification) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bad_msg_notification#a7eff811 as nil")
+		return fmt.Errorf("can't encode %s as nil", "bad_msg_notification#a7eff811")
 	}
 	buf.PutID(BadMsgNotificationTypeID)
 	return b.EncodeBare(buf)
@@ -130,7 +130,7 @@ func (b *BadMsgNotification) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BadMsgNotification) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bad_msg_notification#a7eff811 as nil")
+		return fmt.Errorf("can't encode %s as nil", "bad_msg_notification#a7eff811")
 	}
 	buf.PutLong(b.BadMsgID)
 	buf.PutInt(b.BadMsgSeqno)
@@ -156,10 +156,10 @@ func (b *BadMsgNotification) GetErrorCode() (value int) {
 // Decode implements bin.Decoder.
 func (b *BadMsgNotification) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bad_msg_notification#a7eff811 to nil")
+		return fmt.Errorf("can't decode %s to nil", "bad_msg_notification#a7eff811")
 	}
 	if err := buf.ConsumeID(BadMsgNotificationTypeID); err != nil {
-		return fmt.Errorf("unable to decode bad_msg_notification#a7eff811: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "bad_msg_notification#a7eff811", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -167,26 +167,26 @@ func (b *BadMsgNotification) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BadMsgNotification) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bad_msg_notification#a7eff811 to nil")
+		return fmt.Errorf("can't decode %s to nil", "bad_msg_notification#a7eff811")
 	}
 	{
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode bad_msg_notification#a7eff811: field bad_msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bad_msg_notification#a7eff811", "bad_msg_id", err)
 		}
 		b.BadMsgID = value
 	}
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode bad_msg_notification#a7eff811: field bad_msg_seqno: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bad_msg_notification#a7eff811", "bad_msg_seqno", err)
 		}
 		b.BadMsgSeqno = value
 	}
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode bad_msg_notification#a7eff811: field error_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bad_msg_notification#a7eff811", "error_code", err)
 		}
 		b.ErrorCode = value
 	}
@@ -309,7 +309,7 @@ func (b *BadServerSalt) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BadServerSalt) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bad_server_salt#edab447b as nil")
+		return fmt.Errorf("can't encode %s as nil", "bad_server_salt#edab447b")
 	}
 	buf.PutID(BadServerSaltTypeID)
 	return b.EncodeBare(buf)
@@ -318,7 +318,7 @@ func (b *BadServerSalt) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BadServerSalt) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bad_server_salt#edab447b as nil")
+		return fmt.Errorf("can't encode %s as nil", "bad_server_salt#edab447b")
 	}
 	buf.PutLong(b.BadMsgID)
 	buf.PutInt(b.BadMsgSeqno)
@@ -350,10 +350,10 @@ func (b *BadServerSalt) GetNewServerSalt() (value int64) {
 // Decode implements bin.Decoder.
 func (b *BadServerSalt) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bad_server_salt#edab447b to nil")
+		return fmt.Errorf("can't decode %s to nil", "bad_server_salt#edab447b")
 	}
 	if err := buf.ConsumeID(BadServerSaltTypeID); err != nil {
-		return fmt.Errorf("unable to decode bad_server_salt#edab447b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "bad_server_salt#edab447b", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -361,33 +361,33 @@ func (b *BadServerSalt) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BadServerSalt) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bad_server_salt#edab447b to nil")
+		return fmt.Errorf("can't decode %s to nil", "bad_server_salt#edab447b")
 	}
 	{
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode bad_server_salt#edab447b: field bad_msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bad_server_salt#edab447b", "bad_msg_id", err)
 		}
 		b.BadMsgID = value
 	}
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode bad_server_salt#edab447b: field bad_msg_seqno: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bad_server_salt#edab447b", "bad_msg_seqno", err)
 		}
 		b.BadMsgSeqno = value
 	}
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode bad_server_salt#edab447b: field error_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bad_server_salt#edab447b", "error_code", err)
 		}
 		b.ErrorCode = value
 	}
 	{
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode bad_server_salt#edab447b: field new_server_salt: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "bad_server_salt#edab447b", "new_server_salt", err)
 		}
 		b.NewServerSalt = value
 	}
@@ -458,18 +458,18 @@ func DecodeBadMsgNotification(buf *bin.Buffer) (BadMsgNotificationClass, error) 
 		// Decoding bad_msg_notification#a7eff811.
 		v := BadMsgNotification{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BadMsgNotificationClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "BadMsgNotificationClass", err)
 		}
 		return &v, nil
 	case BadServerSaltTypeID:
 		// Decoding bad_server_salt#edab447b.
 		v := BadServerSalt{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BadMsgNotificationClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "BadMsgNotificationClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode BadMsgNotificationClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "BadMsgNotificationClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -481,7 +481,7 @@ type BadMsgNotificationBox struct {
 // Decode implements bin.Decoder for BadMsgNotificationBox.
 func (b *BadMsgNotificationBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode BadMsgNotificationBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "BadMsgNotification")
 	}
 	v, err := DecodeBadMsgNotification(buf)
 	if err != nil {
@@ -494,7 +494,7 @@ func (b *BadMsgNotificationBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for BadMsgNotificationBox.
 func (b *BadMsgNotificationBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.BadMsgNotification == nil {
-		return fmt.Errorf("unable to encode BadMsgNotificationClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "BadMsgNotificationClass")
 	}
 	return b.BadMsgNotification.Encode(buf)
 }

@@ -113,7 +113,7 @@ func (s *SecureValueHash) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueHash) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueHash#ed1ecdb0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "secureValueHash#ed1ecdb0")
 	}
 	b.PutID(SecureValueHashTypeID)
 	return s.EncodeBare(b)
@@ -122,13 +122,13 @@ func (s *SecureValueHash) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueHash) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueHash#ed1ecdb0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "secureValueHash#ed1ecdb0")
 	}
 	if s.Type == nil {
-		return fmt.Errorf("unable to encode secureValueHash#ed1ecdb0: field type is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "secureValueHash#ed1ecdb0", "type")
 	}
 	if err := s.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode secureValueHash#ed1ecdb0: field type: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "secureValueHash#ed1ecdb0", "type", err)
 	}
 	b.PutBytes(s.Hash)
 	return nil
@@ -147,10 +147,10 @@ func (s *SecureValueHash) GetHash() (value []byte) {
 // Decode implements bin.Decoder.
 func (s *SecureValueHash) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueHash#ed1ecdb0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "secureValueHash#ed1ecdb0")
 	}
 	if err := b.ConsumeID(SecureValueHashTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueHash#ed1ecdb0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "secureValueHash#ed1ecdb0", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -158,19 +158,19 @@ func (s *SecureValueHash) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueHash) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueHash#ed1ecdb0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "secureValueHash#ed1ecdb0")
 	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode secureValueHash#ed1ecdb0: field type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureValueHash#ed1ecdb0", "type", err)
 		}
 		s.Type = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureValueHash#ed1ecdb0: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "secureValueHash#ed1ecdb0", "hash", err)
 		}
 		s.Hash = value
 	}

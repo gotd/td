@@ -134,7 +134,7 @@ func (a *MessagesAffectedFoundMessages) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *MessagesAffectedFoundMessages) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.affectedFoundMessages#ef8d3e6c as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.affectedFoundMessages#ef8d3e6c")
 	}
 	b.PutID(MessagesAffectedFoundMessagesTypeID)
 	return a.EncodeBare(b)
@@ -143,7 +143,7 @@ func (a *MessagesAffectedFoundMessages) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *MessagesAffectedFoundMessages) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.affectedFoundMessages#ef8d3e6c as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.affectedFoundMessages#ef8d3e6c")
 	}
 	b.PutInt(a.Pts)
 	b.PutInt(a.PtsCount)
@@ -178,10 +178,10 @@ func (a *MessagesAffectedFoundMessages) GetMessages() (value []int) {
 // Decode implements bin.Decoder.
 func (a *MessagesAffectedFoundMessages) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.affectedFoundMessages#ef8d3e6c to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.affectedFoundMessages#ef8d3e6c")
 	}
 	if err := b.ConsumeID(MessagesAffectedFoundMessagesTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.affectedFoundMessages#ef8d3e6c", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -189,38 +189,38 @@ func (a *MessagesAffectedFoundMessages) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *MessagesAffectedFoundMessages) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.affectedFoundMessages#ef8d3e6c to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.affectedFoundMessages#ef8d3e6c")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: field pts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.affectedFoundMessages#ef8d3e6c", "pts", err)
 		}
 		a.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: field pts_count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.affectedFoundMessages#ef8d3e6c", "pts_count", err)
 		}
 		a.PtsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: field offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.affectedFoundMessages#ef8d3e6c", "offset", err)
 		}
 		a.Offset = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: field messages: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.affectedFoundMessages#ef8d3e6c", "messages", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: field messages: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.affectedFoundMessages#ef8d3e6c", "messages", err)
 			}
 			a.Messages = append(a.Messages, value)
 		}

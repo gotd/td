@@ -138,7 +138,7 @@ func (i *InputStickerSetItem) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputStickerSetItem) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetItem#ffa0a496 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputStickerSetItem#ffa0a496")
 	}
 	b.PutID(InputStickerSetItemTypeID)
 	return i.EncodeBare(b)
@@ -147,24 +147,24 @@ func (i *InputStickerSetItem) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStickerSetItem) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetItem#ffa0a496 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputStickerSetItem#ffa0a496")
 	}
 	if !(i.MaskCoords.Zero()) {
 		i.Flags.Set(0)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputStickerSetItem#ffa0a496: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputStickerSetItem#ffa0a496", "flags", err)
 	}
 	if i.Document == nil {
-		return fmt.Errorf("unable to encode inputStickerSetItem#ffa0a496: field document is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputStickerSetItem#ffa0a496", "document")
 	}
 	if err := i.Document.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputStickerSetItem#ffa0a496: field document: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputStickerSetItem#ffa0a496", "document", err)
 	}
 	b.PutString(i.Emoji)
 	if i.Flags.Has(0) {
 		if err := i.MaskCoords.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputStickerSetItem#ffa0a496: field mask_coords: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "inputStickerSetItem#ffa0a496", "mask_coords", err)
 		}
 	}
 	return nil
@@ -203,10 +203,10 @@ func (i *InputStickerSetItem) GetMaskCoords() (value MaskCoords, ok bool) {
 // Decode implements bin.Decoder.
 func (i *InputStickerSetItem) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetItem#ffa0a496 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputStickerSetItem#ffa0a496")
 	}
 	if err := b.ConsumeID(InputStickerSetItemTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputStickerSetItem#ffa0a496", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -214,30 +214,30 @@ func (i *InputStickerSetItem) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStickerSetItem) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetItem#ffa0a496 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputStickerSetItem#ffa0a496")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputStickerSetItem#ffa0a496", "flags", err)
 		}
 	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: field document: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputStickerSetItem#ffa0a496", "document", err)
 		}
 		i.Document = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: field emoji: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputStickerSetItem#ffa0a496", "emoji", err)
 		}
 		i.Emoji = value
 	}
 	if i.Flags.Has(0) {
 		if err := i.MaskCoords.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: field mask_coords: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputStickerSetItem#ffa0a496", "mask_coords", err)
 		}
 	}
 	return nil

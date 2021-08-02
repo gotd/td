@@ -116,7 +116,7 @@ func (i *InputFolderPeer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputFolderPeer) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputFolderPeer#fbd2c296 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputFolderPeer#fbd2c296")
 	}
 	b.PutID(InputFolderPeerTypeID)
 	return i.EncodeBare(b)
@@ -125,13 +125,13 @@ func (i *InputFolderPeer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputFolderPeer) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputFolderPeer#fbd2c296 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputFolderPeer#fbd2c296")
 	}
 	if i.Peer == nil {
-		return fmt.Errorf("unable to encode inputFolderPeer#fbd2c296: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputFolderPeer#fbd2c296", "peer")
 	}
 	if err := i.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputFolderPeer#fbd2c296: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputFolderPeer#fbd2c296", "peer", err)
 	}
 	b.PutInt(i.FolderID)
 	return nil
@@ -150,10 +150,10 @@ func (i *InputFolderPeer) GetFolderID() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputFolderPeer) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputFolderPeer#fbd2c296 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputFolderPeer#fbd2c296")
 	}
 	if err := b.ConsumeID(InputFolderPeerTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputFolderPeer#fbd2c296: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputFolderPeer#fbd2c296", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -161,19 +161,19 @@ func (i *InputFolderPeer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputFolderPeer) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputFolderPeer#fbd2c296 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputFolderPeer#fbd2c296")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFolderPeer#fbd2c296: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputFolderPeer#fbd2c296", "peer", err)
 		}
 		i.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFolderPeer#fbd2c296: field folder_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputFolderPeer#fbd2c296", "folder_id", err)
 		}
 		i.FolderID = value
 	}

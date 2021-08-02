@@ -140,7 +140,7 @@ func (m *MaskCoords) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MaskCoords) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode maskCoords#aed6dbb2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "maskCoords#aed6dbb2")
 	}
 	b.PutID(MaskCoordsTypeID)
 	return m.EncodeBare(b)
@@ -149,7 +149,7 @@ func (m *MaskCoords) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MaskCoords) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode maskCoords#aed6dbb2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "maskCoords#aed6dbb2")
 	}
 	b.PutInt(m.N)
 	b.PutDouble(m.X)
@@ -181,10 +181,10 @@ func (m *MaskCoords) GetZoom() (value float64) {
 // Decode implements bin.Decoder.
 func (m *MaskCoords) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode maskCoords#aed6dbb2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "maskCoords#aed6dbb2")
 	}
 	if err := b.ConsumeID(MaskCoordsTypeID); err != nil {
-		return fmt.Errorf("unable to decode maskCoords#aed6dbb2: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "maskCoords#aed6dbb2", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -192,33 +192,33 @@ func (m *MaskCoords) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MaskCoords) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode maskCoords#aed6dbb2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "maskCoords#aed6dbb2")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode maskCoords#aed6dbb2: field n: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "maskCoords#aed6dbb2", "n", err)
 		}
 		m.N = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode maskCoords#aed6dbb2: field x: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "maskCoords#aed6dbb2", "x", err)
 		}
 		m.X = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode maskCoords#aed6dbb2: field y: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "maskCoords#aed6dbb2", "y", err)
 		}
 		m.Y = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode maskCoords#aed6dbb2: field zoom: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "maskCoords#aed6dbb2", "zoom", err)
 		}
 		m.Zoom = value
 	}

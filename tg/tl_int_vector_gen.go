@@ -99,7 +99,7 @@ func (vec *IntVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *IntVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<int> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<int>")
 	}
 
 	return vec.EncodeBare(b)
@@ -108,7 +108,7 @@ func (vec *IntVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *IntVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<int> as nil")
+		return fmt.Errorf("can't encode %s as nil", "Vector<int>")
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for _, v := range vec.Elems {
@@ -125,7 +125,7 @@ func (vec *IntVector) GetElems() (value []int) {
 // Decode implements bin.Decoder.
 func (vec *IntVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<int> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<int>")
 	}
 
 	return vec.DecodeBare(b)
@@ -134,17 +134,17 @@ func (vec *IntVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *IntVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<int> to nil")
+		return fmt.Errorf("can't decode %s to nil", "Vector<int>")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<int>: field Elems: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<int>", "Elems", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode Vector<int>: field Elems: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "Vector<int>", "Elems", err)
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

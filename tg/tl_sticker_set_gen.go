@@ -282,7 +282,7 @@ func (s *StickerSet) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StickerSet) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerSet#d7df217a as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickerSet#d7df217a")
 	}
 	b.PutID(StickerSetTypeID)
 	return s.EncodeBare(b)
@@ -291,7 +291,7 @@ func (s *StickerSet) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StickerSet) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerSet#d7df217a as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickerSet#d7df217a")
 	}
 	if !(s.Archived == false) {
 		s.Flags.Set(1)
@@ -318,7 +318,7 @@ func (s *StickerSet) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(4)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickerSet#d7df217a: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "stickerSet#d7df217a", "flags", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutInt(s.InstalledDate)
@@ -331,10 +331,10 @@ func (s *StickerSet) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(s.Thumbs))
 		for idx, v := range s.Thumbs {
 			if v == nil {
-				return fmt.Errorf("unable to encode stickerSet#d7df217a: field thumbs element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "stickerSet#d7df217a", "thumbs", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode stickerSet#d7df217a: field thumbs element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "stickerSet#d7df217a", "thumbs", idx, err)
 			}
 		}
 	}
@@ -514,10 +514,10 @@ func (s *StickerSet) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (s *StickerSet) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerSet#d7df217a to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickerSet#d7df217a")
 	}
 	if err := b.ConsumeID(StickerSetTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickerSet#d7df217a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "stickerSet#d7df217a", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -525,11 +525,11 @@ func (s *StickerSet) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StickerSet) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerSet#d7df217a to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickerSet#d7df217a")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stickerSet#d7df217a: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSet#d7df217a", "flags", err)
 		}
 	}
 	s.Archived = s.Flags.Has(1)
@@ -539,47 +539,47 @@ func (s *StickerSet) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#d7df217a: field installed_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSet#d7df217a", "installed_date", err)
 		}
 		s.InstalledDate = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#d7df217a: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSet#d7df217a", "id", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#d7df217a: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSet#d7df217a", "access_hash", err)
 		}
 		s.AccessHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#d7df217a: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSet#d7df217a", "title", err)
 		}
 		s.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#d7df217a: field short_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSet#d7df217a", "short_name", err)
 		}
 		s.ShortName = value
 	}
 	if s.Flags.Has(4) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#d7df217a: field thumbs: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSet#d7df217a", "thumbs", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePhotoSize(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stickerSet#d7df217a: field thumbs: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSet#d7df217a", "thumbs", err)
 			}
 			s.Thumbs = append(s.Thumbs, value)
 		}
@@ -587,28 +587,28 @@ func (s *StickerSet) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#d7df217a: field thumb_dc_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSet#d7df217a", "thumb_dc_id", err)
 		}
 		s.ThumbDCID = value
 	}
 	if s.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#d7df217a: field thumb_version: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSet#d7df217a", "thumb_version", err)
 		}
 		s.ThumbVersion = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#d7df217a: field count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSet#d7df217a", "count", err)
 		}
 		s.Count = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#d7df217a: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickerSet#d7df217a", "hash", err)
 		}
 		s.Hash = value
 	}

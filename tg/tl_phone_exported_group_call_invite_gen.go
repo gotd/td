@@ -101,7 +101,7 @@ func (e *PhoneExportedGroupCallInvite) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *PhoneExportedGroupCallInvite) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode phone.exportedGroupCallInvite#204bd158 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.exportedGroupCallInvite#204bd158")
 	}
 	b.PutID(PhoneExportedGroupCallInviteTypeID)
 	return e.EncodeBare(b)
@@ -110,7 +110,7 @@ func (e *PhoneExportedGroupCallInvite) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *PhoneExportedGroupCallInvite) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode phone.exportedGroupCallInvite#204bd158 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.exportedGroupCallInvite#204bd158")
 	}
 	b.PutString(e.Link)
 	return nil
@@ -124,10 +124,10 @@ func (e *PhoneExportedGroupCallInvite) GetLink() (value string) {
 // Decode implements bin.Decoder.
 func (e *PhoneExportedGroupCallInvite) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode phone.exportedGroupCallInvite#204bd158 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.exportedGroupCallInvite#204bd158")
 	}
 	if err := b.ConsumeID(PhoneExportedGroupCallInviteTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.exportedGroupCallInvite#204bd158: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.exportedGroupCallInvite#204bd158", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -135,12 +135,12 @@ func (e *PhoneExportedGroupCallInvite) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *PhoneExportedGroupCallInvite) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode phone.exportedGroupCallInvite#204bd158 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.exportedGroupCallInvite#204bd158")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.exportedGroupCallInvite#204bd158: field link: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.exportedGroupCallInvite#204bd158", "link", err)
 		}
 		e.Link = value
 	}

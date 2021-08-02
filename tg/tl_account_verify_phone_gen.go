@@ -133,7 +133,7 @@ func (v *AccountVerifyPhoneRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (v *AccountVerifyPhoneRequest) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode account.verifyPhone#4dd3a7f6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.verifyPhone#4dd3a7f6")
 	}
 	b.PutID(AccountVerifyPhoneRequestTypeID)
 	return v.EncodeBare(b)
@@ -142,7 +142,7 @@ func (v *AccountVerifyPhoneRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *AccountVerifyPhoneRequest) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode account.verifyPhone#4dd3a7f6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.verifyPhone#4dd3a7f6")
 	}
 	b.PutString(v.PhoneNumber)
 	b.PutString(v.PhoneCodeHash)
@@ -168,10 +168,10 @@ func (v *AccountVerifyPhoneRequest) GetPhoneCode() (value string) {
 // Decode implements bin.Decoder.
 func (v *AccountVerifyPhoneRequest) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode account.verifyPhone#4dd3a7f6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.verifyPhone#4dd3a7f6")
 	}
 	if err := b.ConsumeID(AccountVerifyPhoneRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.verifyPhone#4dd3a7f6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.verifyPhone#4dd3a7f6", err)
 	}
 	return v.DecodeBare(b)
 }
@@ -179,26 +179,26 @@ func (v *AccountVerifyPhoneRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *AccountVerifyPhoneRequest) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode account.verifyPhone#4dd3a7f6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.verifyPhone#4dd3a7f6")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.verifyPhone#4dd3a7f6: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.verifyPhone#4dd3a7f6", "phone_number", err)
 		}
 		v.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.verifyPhone#4dd3a7f6: field phone_code_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.verifyPhone#4dd3a7f6", "phone_code_hash", err)
 		}
 		v.PhoneCodeHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.verifyPhone#4dd3a7f6: field phone_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.verifyPhone#4dd3a7f6", "phone_code", err)
 		}
 		v.PhoneCode = value
 	}

@@ -200,7 +200,7 @@ func (c *ChannelsCreateChannelRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelsCreateChannelRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.createChannel#3d5fb10f as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.createChannel#3d5fb10f")
 	}
 	b.PutID(ChannelsCreateChannelRequestTypeID)
 	return c.EncodeBare(b)
@@ -209,7 +209,7 @@ func (c *ChannelsCreateChannelRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelsCreateChannelRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.createChannel#3d5fb10f as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.createChannel#3d5fb10f")
 	}
 	if !(c.Broadcast == false) {
 		c.Flags.Set(0)
@@ -227,16 +227,16 @@ func (c *ChannelsCreateChannelRequest) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(2)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.createChannel#3d5fb10f: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.createChannel#3d5fb10f", "flags", err)
 	}
 	b.PutString(c.Title)
 	b.PutString(c.About)
 	if c.Flags.Has(2) {
 		if c.GeoPoint == nil {
-			return fmt.Errorf("unable to encode channels.createChannel#3d5fb10f: field geo_point is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "channels.createChannel#3d5fb10f", "geo_point")
 		}
 		if err := c.GeoPoint.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.createChannel#3d5fb10f: field geo_point: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "channels.createChannel#3d5fb10f", "geo_point", err)
 		}
 	}
 	if c.Flags.Has(2) {
@@ -345,10 +345,10 @@ func (c *ChannelsCreateChannelRequest) GetAddress() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (c *ChannelsCreateChannelRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.createChannel#3d5fb10f to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.createChannel#3d5fb10f")
 	}
 	if err := b.ConsumeID(ChannelsCreateChannelRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.createChannel#3d5fb10f", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -356,11 +356,11 @@ func (c *ChannelsCreateChannelRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelsCreateChannelRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.createChannel#3d5fb10f to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.createChannel#3d5fb10f")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.createChannel#3d5fb10f", "flags", err)
 		}
 	}
 	c.Broadcast = c.Flags.Has(0)
@@ -369,28 +369,28 @@ func (c *ChannelsCreateChannelRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.createChannel#3d5fb10f", "title", err)
 		}
 		c.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: field about: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.createChannel#3d5fb10f", "about", err)
 		}
 		c.About = value
 	}
 	if c.Flags.Has(2) {
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: field geo_point: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.createChannel#3d5fb10f", "geo_point", err)
 		}
 		c.GeoPoint = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: field address: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.createChannel#3d5fb10f", "address", err)
 		}
 		c.Address = value
 	}

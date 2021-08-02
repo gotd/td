@@ -216,7 +216,7 @@ func (m *MessageReplies) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageReplies) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReplies#4128faac as nil")
+		return fmt.Errorf("can't encode %s as nil", "messageReplies#4128faac")
 	}
 	b.PutID(MessageRepliesTypeID)
 	return m.EncodeBare(b)
@@ -225,7 +225,7 @@ func (m *MessageReplies) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReplies#4128faac as nil")
+		return fmt.Errorf("can't encode %s as nil", "messageReplies#4128faac")
 	}
 	if !(m.Comments == false) {
 		m.Flags.Set(0)
@@ -243,7 +243,7 @@ func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
 		m.Flags.Set(3)
 	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageReplies#4128faac: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messageReplies#4128faac", "flags", err)
 	}
 	b.PutInt(m.Replies)
 	b.PutInt(m.RepliesPts)
@@ -251,10 +251,10 @@ func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(m.RecentRepliers))
 		for idx, v := range m.RecentRepliers {
 			if v == nil {
-				return fmt.Errorf("unable to encode messageReplies#4128faac: field recent_repliers element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messageReplies#4128faac", "recent_repliers", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messageReplies#4128faac: field recent_repliers element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messageReplies#4128faac", "recent_repliers", idx, err)
 			}
 		}
 	}
@@ -367,10 +367,10 @@ func (m *MessageReplies) GetReadMaxID() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (m *MessageReplies) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReplies#4128faac to nil")
+		return fmt.Errorf("can't decode %s to nil", "messageReplies#4128faac")
 	}
 	if err := b.ConsumeID(MessageRepliesTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageReplies#4128faac: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messageReplies#4128faac", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -378,37 +378,37 @@ func (m *MessageReplies) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageReplies) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReplies#4128faac to nil")
+		return fmt.Errorf("can't decode %s to nil", "messageReplies#4128faac")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageReplies#4128faac", "flags", err)
 		}
 	}
 	m.Comments = m.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field replies: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageReplies#4128faac", "replies", err)
 		}
 		m.Replies = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field replies_pts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageReplies#4128faac", "replies_pts", err)
 		}
 		m.RepliesPts = value
 	}
 	if m.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field recent_repliers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageReplies#4128faac", "recent_repliers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageReplies#4128faac: field recent_repliers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messageReplies#4128faac", "recent_repliers", err)
 			}
 			m.RecentRepliers = append(m.RecentRepliers, value)
 		}
@@ -416,21 +416,21 @@ func (m *MessageReplies) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field channel_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageReplies#4128faac", "channel_id", err)
 		}
 		m.ChannelID = value
 	}
 	if m.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field max_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageReplies#4128faac", "max_id", err)
 		}
 		m.MaxID = value
 	}
 	if m.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field read_max_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageReplies#4128faac", "read_max_id", err)
 		}
 		m.ReadMaxID = value
 	}

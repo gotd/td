@@ -146,7 +146,7 @@ func (d *MessagesDeleteHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteHistory#1c015b09 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.deleteHistory#1c015b09")
 	}
 	b.PutID(MessagesDeleteHistoryRequestTypeID)
 	return d.EncodeBare(b)
@@ -155,7 +155,7 @@ func (d *MessagesDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteHistory#1c015b09 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.deleteHistory#1c015b09")
 	}
 	if !(d.JustClear == false) {
 		d.Flags.Set(0)
@@ -164,13 +164,13 @@ func (d *MessagesDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
 		d.Flags.Set(1)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteHistory#1c015b09: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.deleteHistory#1c015b09", "flags", err)
 	}
 	if d.Peer == nil {
-		return fmt.Errorf("unable to encode messages.deleteHistory#1c015b09: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.deleteHistory#1c015b09", "peer")
 	}
 	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteHistory#1c015b09: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.deleteHistory#1c015b09", "peer", err)
 	}
 	b.PutInt(d.MaxID)
 	return nil
@@ -221,10 +221,10 @@ func (d *MessagesDeleteHistoryRequest) GetMaxID() (value int) {
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteHistory#1c015b09 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.deleteHistory#1c015b09")
 	}
 	if err := b.ConsumeID(MessagesDeleteHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.deleteHistory#1c015b09", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -232,11 +232,11 @@ func (d *MessagesDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteHistory#1c015b09 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.deleteHistory#1c015b09")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.deleteHistory#1c015b09", "flags", err)
 		}
 	}
 	d.JustClear = d.Flags.Has(0)
@@ -244,14 +244,14 @@ func (d *MessagesDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.deleteHistory#1c015b09", "peer", err)
 		}
 		d.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field max_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.deleteHistory#1c015b09", "max_id", err)
 		}
 		d.MaxID = value
 	}

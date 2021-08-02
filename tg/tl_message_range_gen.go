@@ -113,7 +113,7 @@ func (m *MessageRange) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageRange) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageRange#ae30253 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messageRange#ae30253")
 	}
 	b.PutID(MessageRangeTypeID)
 	return m.EncodeBare(b)
@@ -122,7 +122,7 @@ func (m *MessageRange) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageRange) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageRange#ae30253 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messageRange#ae30253")
 	}
 	b.PutInt(m.MinID)
 	b.PutInt(m.MaxID)
@@ -142,10 +142,10 @@ func (m *MessageRange) GetMaxID() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageRange) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageRange#ae30253 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messageRange#ae30253")
 	}
 	if err := b.ConsumeID(MessageRangeTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageRange#ae30253: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messageRange#ae30253", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -153,19 +153,19 @@ func (m *MessageRange) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageRange) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageRange#ae30253 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messageRange#ae30253")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageRange#ae30253: field min_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageRange#ae30253", "min_id", err)
 		}
 		m.MinID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageRange#ae30253: field max_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageRange#ae30253", "max_id", err)
 		}
 		m.MaxID = value
 	}

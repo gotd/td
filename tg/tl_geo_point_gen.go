@@ -85,7 +85,7 @@ func (g *GeoPointEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GeoPointEmpty) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode geoPointEmpty#1117dd5f as nil")
+		return fmt.Errorf("can't encode %s as nil", "geoPointEmpty#1117dd5f")
 	}
 	b.PutID(GeoPointEmptyTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +94,7 @@ func (g *GeoPointEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GeoPointEmpty) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode geoPointEmpty#1117dd5f as nil")
+		return fmt.Errorf("can't encode %s as nil", "geoPointEmpty#1117dd5f")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (g *GeoPointEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GeoPointEmpty) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode geoPointEmpty#1117dd5f to nil")
+		return fmt.Errorf("can't decode %s to nil", "geoPointEmpty#1117dd5f")
 	}
 	if err := b.ConsumeID(GeoPointEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode geoPointEmpty#1117dd5f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "geoPointEmpty#1117dd5f", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (g *GeoPointEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GeoPointEmpty) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode geoPointEmpty#1117dd5f to nil")
+		return fmt.Errorf("can't decode %s to nil", "geoPointEmpty#1117dd5f")
 	}
 	return nil
 }
@@ -251,7 +251,7 @@ func (g *GeoPoint) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GeoPoint) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode geoPoint#b2a2f663 as nil")
+		return fmt.Errorf("can't encode %s as nil", "geoPoint#b2a2f663")
 	}
 	b.PutID(GeoPointTypeID)
 	return g.EncodeBare(b)
@@ -260,13 +260,13 @@ func (g *GeoPoint) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GeoPoint) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode geoPoint#b2a2f663 as nil")
+		return fmt.Errorf("can't encode %s as nil", "geoPoint#b2a2f663")
 	}
 	if !(g.AccuracyRadius == 0) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode geoPoint#b2a2f663: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "geoPoint#b2a2f663", "flags", err)
 	}
 	b.PutDouble(g.Long)
 	b.PutDouble(g.Lat)
@@ -310,10 +310,10 @@ func (g *GeoPoint) GetAccuracyRadius() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (g *GeoPoint) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode geoPoint#b2a2f663 to nil")
+		return fmt.Errorf("can't decode %s to nil", "geoPoint#b2a2f663")
 	}
 	if err := b.ConsumeID(GeoPointTypeID); err != nil {
-		return fmt.Errorf("unable to decode geoPoint#b2a2f663: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "geoPoint#b2a2f663", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -321,38 +321,38 @@ func (g *GeoPoint) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GeoPoint) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode geoPoint#b2a2f663 to nil")
+		return fmt.Errorf("can't decode %s to nil", "geoPoint#b2a2f663")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode geoPoint#b2a2f663: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "geoPoint#b2a2f663", "flags", err)
 		}
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode geoPoint#b2a2f663: field long: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "geoPoint#b2a2f663", "long", err)
 		}
 		g.Long = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode geoPoint#b2a2f663: field lat: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "geoPoint#b2a2f663", "lat", err)
 		}
 		g.Lat = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode geoPoint#b2a2f663: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "geoPoint#b2a2f663", "access_hash", err)
 		}
 		g.AccessHash = value
 	}
 	if g.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode geoPoint#b2a2f663: field accuracy_radius: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "geoPoint#b2a2f663", "accuracy_radius", err)
 		}
 		g.AccuracyRadius = value
 	}
@@ -429,18 +429,18 @@ func DecodeGeoPoint(buf *bin.Buffer) (GeoPointClass, error) {
 		// Decoding geoPointEmpty#1117dd5f.
 		v := GeoPointEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode GeoPointClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "GeoPointClass", err)
 		}
 		return &v, nil
 	case GeoPointTypeID:
 		// Decoding geoPoint#b2a2f663.
 		v := GeoPoint{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode GeoPointClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "GeoPointClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode GeoPointClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "GeoPointClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -452,7 +452,7 @@ type GeoPointBox struct {
 // Decode implements bin.Decoder for GeoPointBox.
 func (b *GeoPointBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode GeoPointBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "GeoPoint")
 	}
 	v, err := DecodeGeoPoint(buf)
 	if err != nil {
@@ -465,7 +465,7 @@ func (b *GeoPointBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for GeoPointBox.
 func (b *GeoPointBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.GeoPoint == nil {
-		return fmt.Errorf("unable to encode GeoPointClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "GeoPointClass")
 	}
 	return b.GeoPoint.Encode(buf)
 }

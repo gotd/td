@@ -255,7 +255,7 @@ func (i *Invoice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *Invoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invoice#cd886e0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "invoice#cd886e0")
 	}
 	b.PutID(InvoiceTypeID)
 	return i.EncodeBare(b)
@@ -264,7 +264,7 @@ func (i *Invoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invoice#cd886e0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "invoice#cd886e0")
 	}
 	if !(i.Test == false) {
 		i.Flags.Set(0)
@@ -297,13 +297,13 @@ func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(8)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode invoice#cd886e0: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "invoice#cd886e0", "flags", err)
 	}
 	b.PutString(i.Currency)
 	b.PutVectorHeader(len(i.Prices))
 	for idx, v := range i.Prices {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode invoice#cd886e0: field prices element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "invoice#cd886e0", "prices", idx, err)
 		}
 	}
 	if i.Flags.Has(8) {
@@ -489,10 +489,10 @@ func (i *Invoice) GetSuggestedTipAmounts() (value []int64, ok bool) {
 // Decode implements bin.Decoder.
 func (i *Invoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invoice#cd886e0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "invoice#cd886e0")
 	}
 	if err := b.ConsumeID(InvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode invoice#cd886e0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "invoice#cd886e0", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -500,11 +500,11 @@ func (i *Invoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invoice#cd886e0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "invoice#cd886e0")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "invoice#cd886e0", "flags", err)
 		}
 	}
 	i.Test = i.Flags.Has(0)
@@ -518,19 +518,19 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field currency: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "invoice#cd886e0", "currency", err)
 		}
 		i.Currency = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field prices: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "invoice#cd886e0", "prices", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value LabeledPrice
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode invoice#cd886e0: field prices: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "invoice#cd886e0", "prices", err)
 			}
 			i.Prices = append(i.Prices, value)
 		}
@@ -538,19 +538,19 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(8) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field max_tip_amount: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "invoice#cd886e0", "max_tip_amount", err)
 		}
 		i.MaxTipAmount = value
 	}
 	if i.Flags.Has(8) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field suggested_tip_amounts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "invoice#cd886e0", "suggested_tip_amounts", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#cd886e0: field suggested_tip_amounts: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "invoice#cd886e0", "suggested_tip_amounts", err)
 			}
 			i.SuggestedTipAmounts = append(i.SuggestedTipAmounts, value)
 		}

@@ -206,7 +206,7 @@ func (p *PageRelatedArticle) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageRelatedArticle) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageRelatedArticle#b390dc08 as nil")
+		return fmt.Errorf("can't encode %s as nil", "pageRelatedArticle#b390dc08")
 	}
 	b.PutID(PageRelatedArticleTypeID)
 	return p.EncodeBare(b)
@@ -215,7 +215,7 @@ func (p *PageRelatedArticle) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageRelatedArticle) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageRelatedArticle#b390dc08 as nil")
+		return fmt.Errorf("can't encode %s as nil", "pageRelatedArticle#b390dc08")
 	}
 	if !(p.Title == "") {
 		p.Flags.Set(0)
@@ -233,7 +233,7 @@ func (p *PageRelatedArticle) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(4)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageRelatedArticle#b390dc08: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "pageRelatedArticle#b390dc08", "flags", err)
 	}
 	b.PutString(p.URL)
 	b.PutLong(p.WebpageID)
@@ -343,10 +343,10 @@ func (p *PageRelatedArticle) GetPublishedDate() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (p *PageRelatedArticle) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageRelatedArticle#b390dc08 to nil")
+		return fmt.Errorf("can't decode %s to nil", "pageRelatedArticle#b390dc08")
 	}
 	if err := b.ConsumeID(PageRelatedArticleTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "pageRelatedArticle#b390dc08", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -354,59 +354,59 @@ func (p *PageRelatedArticle) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageRelatedArticle) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageRelatedArticle#b390dc08 to nil")
+		return fmt.Errorf("can't decode %s to nil", "pageRelatedArticle#b390dc08")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageRelatedArticle#b390dc08", "flags", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageRelatedArticle#b390dc08", "url", err)
 		}
 		p.URL = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field webpage_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageRelatedArticle#b390dc08", "webpage_id", err)
 		}
 		p.WebpageID = value
 	}
 	if p.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageRelatedArticle#b390dc08", "title", err)
 		}
 		p.Title = value
 	}
 	if p.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field description: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageRelatedArticle#b390dc08", "description", err)
 		}
 		p.Description = value
 	}
 	if p.Flags.Has(2) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field photo_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageRelatedArticle#b390dc08", "photo_id", err)
 		}
 		p.PhotoID = value
 	}
 	if p.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field author: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageRelatedArticle#b390dc08", "author", err)
 		}
 		p.Author = value
 	}
 	if p.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field published_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pageRelatedArticle#b390dc08", "published_date", err)
 		}
 		p.PublishedDate = value
 	}

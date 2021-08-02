@@ -127,7 +127,7 @@ func (a *MessagesAcceptEncryptionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *MessagesAcceptEncryptionRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.acceptEncryption#3dbc0415 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.acceptEncryption#3dbc0415")
 	}
 	b.PutID(MessagesAcceptEncryptionRequestTypeID)
 	return a.EncodeBare(b)
@@ -136,10 +136,10 @@ func (a *MessagesAcceptEncryptionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *MessagesAcceptEncryptionRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.acceptEncryption#3dbc0415 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.acceptEncryption#3dbc0415")
 	}
 	if err := a.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.acceptEncryption#3dbc0415: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.acceptEncryption#3dbc0415", "peer", err)
 	}
 	b.PutBytes(a.GB)
 	b.PutLong(a.KeyFingerprint)
@@ -164,10 +164,10 @@ func (a *MessagesAcceptEncryptionRequest) GetKeyFingerprint() (value int64) {
 // Decode implements bin.Decoder.
 func (a *MessagesAcceptEncryptionRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.acceptEncryption#3dbc0415 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.acceptEncryption#3dbc0415")
 	}
 	if err := b.ConsumeID(MessagesAcceptEncryptionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.acceptEncryption#3dbc0415: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.acceptEncryption#3dbc0415", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -175,24 +175,24 @@ func (a *MessagesAcceptEncryptionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *MessagesAcceptEncryptionRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.acceptEncryption#3dbc0415 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.acceptEncryption#3dbc0415")
 	}
 	{
 		if err := a.Peer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.acceptEncryption#3dbc0415: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.acceptEncryption#3dbc0415", "peer", err)
 		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptEncryption#3dbc0415: field g_b: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.acceptEncryption#3dbc0415", "g_b", err)
 		}
 		a.GB = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptEncryption#3dbc0415: field key_fingerprint: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.acceptEncryption#3dbc0415", "key_fingerprint", err)
 		}
 		a.KeyFingerprint = value
 	}

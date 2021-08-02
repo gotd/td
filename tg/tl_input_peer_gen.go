@@ -85,7 +85,7 @@ func (i *InputPeerEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPeerEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerEmpty#7f3b18ea as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerEmpty#7f3b18ea")
 	}
 	b.PutID(InputPeerEmptyTypeID)
 	return i.EncodeBare(b)
@@ -94,7 +94,7 @@ func (i *InputPeerEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerEmpty) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerEmpty#7f3b18ea as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerEmpty#7f3b18ea")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (i *InputPeerEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputPeerEmpty) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerEmpty#7f3b18ea to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerEmpty#7f3b18ea")
 	}
 	if err := b.ConsumeID(InputPeerEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerEmpty#7f3b18ea: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPeerEmpty#7f3b18ea", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (i *InputPeerEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerEmpty) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerEmpty#7f3b18ea to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerEmpty#7f3b18ea")
 	}
 	return nil
 }
@@ -187,7 +187,7 @@ func (i *InputPeerSelf) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPeerSelf) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerSelf#7da07ec9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerSelf#7da07ec9")
 	}
 	b.PutID(InputPeerSelfTypeID)
 	return i.EncodeBare(b)
@@ -196,7 +196,7 @@ func (i *InputPeerSelf) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerSelf) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerSelf#7da07ec9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerSelf#7da07ec9")
 	}
 	return nil
 }
@@ -204,10 +204,10 @@ func (i *InputPeerSelf) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputPeerSelf) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerSelf#7da07ec9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerSelf#7da07ec9")
 	}
 	if err := b.ConsumeID(InputPeerSelfTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerSelf#7da07ec9: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPeerSelf#7da07ec9", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -215,7 +215,7 @@ func (i *InputPeerSelf) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerSelf) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerSelf#7da07ec9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerSelf#7da07ec9")
 	}
 	return nil
 }
@@ -306,7 +306,7 @@ func (i *InputPeerChat) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPeerChat) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerChat#179be863 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerChat#179be863")
 	}
 	b.PutID(InputPeerChatTypeID)
 	return i.EncodeBare(b)
@@ -315,7 +315,7 @@ func (i *InputPeerChat) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerChat) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerChat#179be863 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerChat#179be863")
 	}
 	b.PutInt(i.ChatID)
 	return nil
@@ -329,10 +329,10 @@ func (i *InputPeerChat) GetChatID() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputPeerChat) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerChat#179be863 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerChat#179be863")
 	}
 	if err := b.ConsumeID(InputPeerChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerChat#179be863: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPeerChat#179be863", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -340,12 +340,12 @@ func (i *InputPeerChat) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerChat) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerChat#179be863 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerChat#179be863")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerChat#179be863: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPeerChat#179be863", "chat_id", err)
 		}
 		i.ChatID = value
 	}
@@ -452,7 +452,7 @@ func (i *InputPeerUser) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPeerUser) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerUser#7b8e7de6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerUser#7b8e7de6")
 	}
 	b.PutID(InputPeerUserTypeID)
 	return i.EncodeBare(b)
@@ -461,7 +461,7 @@ func (i *InputPeerUser) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerUser) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerUser#7b8e7de6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerUser#7b8e7de6")
 	}
 	b.PutInt(i.UserID)
 	b.PutLong(i.AccessHash)
@@ -481,10 +481,10 @@ func (i *InputPeerUser) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputPeerUser) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerUser#7b8e7de6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerUser#7b8e7de6")
 	}
 	if err := b.ConsumeID(InputPeerUserTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerUser#7b8e7de6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPeerUser#7b8e7de6", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -492,19 +492,19 @@ func (i *InputPeerUser) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerUser) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerUser#7b8e7de6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerUser#7b8e7de6")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerUser#7b8e7de6: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPeerUser#7b8e7de6", "user_id", err)
 		}
 		i.UserID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerUser#7b8e7de6: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPeerUser#7b8e7de6", "access_hash", err)
 		}
 		i.AccessHash = value
 	}
@@ -611,7 +611,7 @@ func (i *InputPeerChannel) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPeerChannel) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerChannel#20adaef8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerChannel#20adaef8")
 	}
 	b.PutID(InputPeerChannelTypeID)
 	return i.EncodeBare(b)
@@ -620,7 +620,7 @@ func (i *InputPeerChannel) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerChannel) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerChannel#20adaef8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerChannel#20adaef8")
 	}
 	b.PutInt(i.ChannelID)
 	b.PutLong(i.AccessHash)
@@ -640,10 +640,10 @@ func (i *InputPeerChannel) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputPeerChannel) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerChannel#20adaef8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerChannel#20adaef8")
 	}
 	if err := b.ConsumeID(InputPeerChannelTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerChannel#20adaef8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPeerChannel#20adaef8", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -651,19 +651,19 @@ func (i *InputPeerChannel) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerChannel) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerChannel#20adaef8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerChannel#20adaef8")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerChannel#20adaef8: field channel_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPeerChannel#20adaef8", "channel_id", err)
 		}
 		i.ChannelID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerChannel#20adaef8: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPeerChannel#20adaef8", "access_hash", err)
 		}
 		i.AccessHash = value
 	}
@@ -781,7 +781,7 @@ func (i *InputPeerUserFromMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPeerUserFromMessage) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerUserFromMessage#17bae2e6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerUserFromMessage#17bae2e6")
 	}
 	b.PutID(InputPeerUserFromMessageTypeID)
 	return i.EncodeBare(b)
@@ -790,13 +790,13 @@ func (i *InputPeerUserFromMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerUserFromMessage) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerUserFromMessage#17bae2e6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerUserFromMessage#17bae2e6")
 	}
 	if i.Peer == nil {
-		return fmt.Errorf("unable to encode inputPeerUserFromMessage#17bae2e6: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputPeerUserFromMessage#17bae2e6", "peer")
 	}
 	if err := i.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerUserFromMessage#17bae2e6: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputPeerUserFromMessage#17bae2e6", "peer", err)
 	}
 	b.PutInt(i.MsgID)
 	b.PutInt(i.UserID)
@@ -821,10 +821,10 @@ func (i *InputPeerUserFromMessage) GetUserID() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputPeerUserFromMessage) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerUserFromMessage#17bae2e6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerUserFromMessage#17bae2e6")
 	}
 	if err := b.ConsumeID(InputPeerUserFromMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerUserFromMessage#17bae2e6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPeerUserFromMessage#17bae2e6", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -832,26 +832,26 @@ func (i *InputPeerUserFromMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerUserFromMessage) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerUserFromMessage#17bae2e6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerUserFromMessage#17bae2e6")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerUserFromMessage#17bae2e6: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPeerUserFromMessage#17bae2e6", "peer", err)
 		}
 		i.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerUserFromMessage#17bae2e6: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPeerUserFromMessage#17bae2e6", "msg_id", err)
 		}
 		i.MsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerUserFromMessage#17bae2e6: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPeerUserFromMessage#17bae2e6", "user_id", err)
 		}
 		i.UserID = value
 	}
@@ -969,7 +969,7 @@ func (i *InputPeerChannelFromMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPeerChannelFromMessage) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerChannelFromMessage#9c95f7bb as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerChannelFromMessage#9c95f7bb")
 	}
 	b.PutID(InputPeerChannelFromMessageTypeID)
 	return i.EncodeBare(b)
@@ -978,13 +978,13 @@ func (i *InputPeerChannelFromMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerChannelFromMessage) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerChannelFromMessage#9c95f7bb as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputPeerChannelFromMessage#9c95f7bb")
 	}
 	if i.Peer == nil {
-		return fmt.Errorf("unable to encode inputPeerChannelFromMessage#9c95f7bb: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputPeerChannelFromMessage#9c95f7bb", "peer")
 	}
 	if err := i.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerChannelFromMessage#9c95f7bb: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputPeerChannelFromMessage#9c95f7bb", "peer", err)
 	}
 	b.PutInt(i.MsgID)
 	b.PutInt(i.ChannelID)
@@ -1009,10 +1009,10 @@ func (i *InputPeerChannelFromMessage) GetChannelID() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputPeerChannelFromMessage) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerChannelFromMessage#9c95f7bb to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerChannelFromMessage#9c95f7bb")
 	}
 	if err := b.ConsumeID(InputPeerChannelFromMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerChannelFromMessage#9c95f7bb: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputPeerChannelFromMessage#9c95f7bb", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1020,26 +1020,26 @@ func (i *InputPeerChannelFromMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerChannelFromMessage) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerChannelFromMessage#9c95f7bb to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputPeerChannelFromMessage#9c95f7bb")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerChannelFromMessage#9c95f7bb: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPeerChannelFromMessage#9c95f7bb", "peer", err)
 		}
 		i.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerChannelFromMessage#9c95f7bb: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPeerChannelFromMessage#9c95f7bb", "msg_id", err)
 		}
 		i.MsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerChannelFromMessage#9c95f7bb: field channel_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputPeerChannelFromMessage#9c95f7bb", "channel_id", err)
 		}
 		i.ChannelID = value
 	}
@@ -1108,53 +1108,53 @@ func DecodeInputPeer(buf *bin.Buffer) (InputPeerClass, error) {
 		// Decoding inputPeerEmpty#7f3b18ea.
 		v := InputPeerEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPeerClass", err)
 		}
 		return &v, nil
 	case InputPeerSelfTypeID:
 		// Decoding inputPeerSelf#7da07ec9.
 		v := InputPeerSelf{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPeerClass", err)
 		}
 		return &v, nil
 	case InputPeerChatTypeID:
 		// Decoding inputPeerChat#179be863.
 		v := InputPeerChat{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPeerClass", err)
 		}
 		return &v, nil
 	case InputPeerUserTypeID:
 		// Decoding inputPeerUser#7b8e7de6.
 		v := InputPeerUser{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPeerClass", err)
 		}
 		return &v, nil
 	case InputPeerChannelTypeID:
 		// Decoding inputPeerChannel#20adaef8.
 		v := InputPeerChannel{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPeerClass", err)
 		}
 		return &v, nil
 	case InputPeerUserFromMessageTypeID:
 		// Decoding inputPeerUserFromMessage#17bae2e6.
 		v := InputPeerUserFromMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPeerClass", err)
 		}
 		return &v, nil
 	case InputPeerChannelFromMessageTypeID:
 		// Decoding inputPeerChannelFromMessage#9c95f7bb.
 		v := InputPeerChannelFromMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPeerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputPeerClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputPeerClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "InputPeerClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -1166,7 +1166,7 @@ type InputPeerBox struct {
 // Decode implements bin.Decoder for InputPeerBox.
 func (b *InputPeerBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputPeerBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "InputPeer")
 	}
 	v, err := DecodeInputPeer(buf)
 	if err != nil {
@@ -1179,7 +1179,7 @@ func (b *InputPeerBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputPeerBox.
 func (b *InputPeerBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputPeer == nil {
-		return fmt.Errorf("unable to encode InputPeerClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "InputPeerClass")
 	}
 	return b.InputPeer.Encode(buf)
 }

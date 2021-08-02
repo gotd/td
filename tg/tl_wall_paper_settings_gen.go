@@ -229,7 +229,7 @@ func (w *WallPaperSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WallPaperSettings) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode wallPaperSettings#1dc1bca4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "wallPaperSettings#1dc1bca4")
 	}
 	b.PutID(WallPaperSettingsTypeID)
 	return w.EncodeBare(b)
@@ -238,7 +238,7 @@ func (w *WallPaperSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WallPaperSettings) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode wallPaperSettings#1dc1bca4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "wallPaperSettings#1dc1bca4")
 	}
 	if !(w.Blur == false) {
 		w.Flags.Set(1)
@@ -265,7 +265,7 @@ func (w *WallPaperSettings) EncodeBare(b *bin.Buffer) error {
 		w.Flags.Set(4)
 	}
 	if err := w.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode wallPaperSettings#1dc1bca4: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "wallPaperSettings#1dc1bca4", "flags", err)
 	}
 	if w.Flags.Has(0) {
 		b.PutInt(w.BackgroundColor)
@@ -413,10 +413,10 @@ func (w *WallPaperSettings) GetRotation() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (w *WallPaperSettings) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode wallPaperSettings#1dc1bca4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "wallPaperSettings#1dc1bca4")
 	}
 	if err := b.ConsumeID(WallPaperSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "wallPaperSettings#1dc1bca4", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -424,11 +424,11 @@ func (w *WallPaperSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WallPaperSettings) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode wallPaperSettings#1dc1bca4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "wallPaperSettings#1dc1bca4")
 	}
 	{
 		if err := w.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "wallPaperSettings#1dc1bca4", "flags", err)
 		}
 	}
 	w.Blur = w.Flags.Has(1)
@@ -436,42 +436,42 @@ func (w *WallPaperSettings) DecodeBare(b *bin.Buffer) error {
 	if w.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field background_color: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "wallPaperSettings#1dc1bca4", "background_color", err)
 		}
 		w.BackgroundColor = value
 	}
 	if w.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field second_background_color: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "wallPaperSettings#1dc1bca4", "second_background_color", err)
 		}
 		w.SecondBackgroundColor = value
 	}
 	if w.Flags.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field third_background_color: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "wallPaperSettings#1dc1bca4", "third_background_color", err)
 		}
 		w.ThirdBackgroundColor = value
 	}
 	if w.Flags.Has(6) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field fourth_background_color: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "wallPaperSettings#1dc1bca4", "fourth_background_color", err)
 		}
 		w.FourthBackgroundColor = value
 	}
 	if w.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field intensity: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "wallPaperSettings#1dc1bca4", "intensity", err)
 		}
 		w.Intensity = value
 	}
 	if w.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field rotation: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "wallPaperSettings#1dc1bca4", "rotation", err)
 		}
 		w.Rotation = value
 	}

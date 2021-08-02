@@ -88,7 +88,7 @@ func (g *MessagesGetDialogFiltersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetDialogFiltersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDialogFilters#f19ed96d as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getDialogFilters#f19ed96d")
 	}
 	b.PutID(MessagesGetDialogFiltersRequestTypeID)
 	return g.EncodeBare(b)
@@ -97,7 +97,7 @@ func (g *MessagesGetDialogFiltersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetDialogFiltersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDialogFilters#f19ed96d as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getDialogFilters#f19ed96d")
 	}
 	return nil
 }
@@ -105,10 +105,10 @@ func (g *MessagesGetDialogFiltersRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetDialogFiltersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDialogFilters#f19ed96d to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getDialogFilters#f19ed96d")
 	}
 	if err := b.ConsumeID(MessagesGetDialogFiltersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getDialogFilters#f19ed96d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getDialogFilters#f19ed96d", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -116,7 +116,7 @@ func (g *MessagesGetDialogFiltersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetDialogFiltersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDialogFilters#f19ed96d to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getDialogFilters#f19ed96d")
 	}
 	return nil
 }

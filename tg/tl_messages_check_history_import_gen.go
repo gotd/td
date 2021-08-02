@@ -101,7 +101,7 @@ func (c *MessagesCheckHistoryImportRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *MessagesCheckHistoryImportRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.checkHistoryImport#43fe19f3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.checkHistoryImport#43fe19f3")
 	}
 	b.PutID(MessagesCheckHistoryImportRequestTypeID)
 	return c.EncodeBare(b)
@@ -110,7 +110,7 @@ func (c *MessagesCheckHistoryImportRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesCheckHistoryImportRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.checkHistoryImport#43fe19f3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.checkHistoryImport#43fe19f3")
 	}
 	b.PutString(c.ImportHead)
 	return nil
@@ -124,10 +124,10 @@ func (c *MessagesCheckHistoryImportRequest) GetImportHead() (value string) {
 // Decode implements bin.Decoder.
 func (c *MessagesCheckHistoryImportRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.checkHistoryImport#43fe19f3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.checkHistoryImport#43fe19f3")
 	}
 	if err := b.ConsumeID(MessagesCheckHistoryImportRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.checkHistoryImport#43fe19f3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.checkHistoryImport#43fe19f3", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -135,12 +135,12 @@ func (c *MessagesCheckHistoryImportRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesCheckHistoryImportRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.checkHistoryImport#43fe19f3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.checkHistoryImport#43fe19f3")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.checkHistoryImport#43fe19f3: field import_head: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.checkHistoryImport#43fe19f3", "import_head", err)
 		}
 		c.ImportHead = value
 	}

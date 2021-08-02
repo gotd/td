@@ -151,7 +151,7 @@ func (s *UpdatesState) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *UpdatesState) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode updates.state#a56c2a3e as nil")
+		return fmt.Errorf("can't encode %s as nil", "updates.state#a56c2a3e")
 	}
 	b.PutID(UpdatesStateTypeID)
 	return s.EncodeBare(b)
@@ -160,7 +160,7 @@ func (s *UpdatesState) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *UpdatesState) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode updates.state#a56c2a3e as nil")
+		return fmt.Errorf("can't encode %s as nil", "updates.state#a56c2a3e")
 	}
 	b.PutInt(s.Pts)
 	b.PutInt(s.Qts)
@@ -198,10 +198,10 @@ func (s *UpdatesState) GetUnreadCount() (value int) {
 // Decode implements bin.Decoder.
 func (s *UpdatesState) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode updates.state#a56c2a3e to nil")
+		return fmt.Errorf("can't decode %s to nil", "updates.state#a56c2a3e")
 	}
 	if err := b.ConsumeID(UpdatesStateTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.state#a56c2a3e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "updates.state#a56c2a3e", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -209,40 +209,40 @@ func (s *UpdatesState) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *UpdatesState) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode updates.state#a56c2a3e to nil")
+		return fmt.Errorf("can't decode %s to nil", "updates.state#a56c2a3e")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.state#a56c2a3e: field pts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.state#a56c2a3e", "pts", err)
 		}
 		s.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.state#a56c2a3e: field qts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.state#a56c2a3e", "qts", err)
 		}
 		s.Qts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.state#a56c2a3e: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.state#a56c2a3e", "date", err)
 		}
 		s.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.state#a56c2a3e: field seq: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.state#a56c2a3e", "seq", err)
 		}
 		s.Seq = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.state#a56c2a3e: field unread_count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.state#a56c2a3e", "unread_count", err)
 		}
 		s.UnreadCount = value
 	}

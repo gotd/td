@@ -113,7 +113,7 @@ func (g *LangpackGetLanguageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *LangpackGetLanguageRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode langpack.getLanguage#6a596502 as nil")
+		return fmt.Errorf("can't encode %s as nil", "langpack.getLanguage#6a596502")
 	}
 	b.PutID(LangpackGetLanguageRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,7 +122,7 @@ func (g *LangpackGetLanguageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *LangpackGetLanguageRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode langpack.getLanguage#6a596502 as nil")
+		return fmt.Errorf("can't encode %s as nil", "langpack.getLanguage#6a596502")
 	}
 	b.PutString(g.LangPack)
 	b.PutString(g.LangCode)
@@ -142,10 +142,10 @@ func (g *LangpackGetLanguageRequest) GetLangCode() (value string) {
 // Decode implements bin.Decoder.
 func (g *LangpackGetLanguageRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode langpack.getLanguage#6a596502 to nil")
+		return fmt.Errorf("can't decode %s to nil", "langpack.getLanguage#6a596502")
 	}
 	if err := b.ConsumeID(LangpackGetLanguageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode langpack.getLanguage#6a596502: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "langpack.getLanguage#6a596502", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -153,19 +153,19 @@ func (g *LangpackGetLanguageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *LangpackGetLanguageRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode langpack.getLanguage#6a596502 to nil")
+		return fmt.Errorf("can't decode %s to nil", "langpack.getLanguage#6a596502")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langpack.getLanguage#6a596502: field lang_pack: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "langpack.getLanguage#6a596502", "lang_pack", err)
 		}
 		g.LangPack = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langpack.getLanguage#6a596502: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "langpack.getLanguage#6a596502", "lang_code", err)
 		}
 		g.LangCode = value
 	}

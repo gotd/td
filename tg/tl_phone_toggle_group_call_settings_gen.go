@@ -135,7 +135,7 @@ func (t *PhoneToggleGroupCallSettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *PhoneToggleGroupCallSettingsRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode phone.toggleGroupCallSettings#74bbb43d as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.toggleGroupCallSettings#74bbb43d")
 	}
 	b.PutID(PhoneToggleGroupCallSettingsRequestTypeID)
 	return t.EncodeBare(b)
@@ -144,7 +144,7 @@ func (t *PhoneToggleGroupCallSettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *PhoneToggleGroupCallSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode phone.toggleGroupCallSettings#74bbb43d as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.toggleGroupCallSettings#74bbb43d")
 	}
 	if !(t.ResetInviteHash == false) {
 		t.Flags.Set(1)
@@ -153,10 +153,10 @@ func (t *PhoneToggleGroupCallSettingsRequest) EncodeBare(b *bin.Buffer) error {
 		t.Flags.Set(0)
 	}
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#74bbb43d: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.toggleGroupCallSettings#74bbb43d", "flags", err)
 	}
 	if err := t.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#74bbb43d: field call: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.toggleGroupCallSettings#74bbb43d", "call", err)
 	}
 	if t.Flags.Has(0) {
 		b.PutBool(t.JoinMuted)
@@ -203,10 +203,10 @@ func (t *PhoneToggleGroupCallSettingsRequest) GetJoinMuted() (value bool, ok boo
 // Decode implements bin.Decoder.
 func (t *PhoneToggleGroupCallSettingsRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode phone.toggleGroupCallSettings#74bbb43d to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.toggleGroupCallSettings#74bbb43d")
 	}
 	if err := b.ConsumeID(PhoneToggleGroupCallSettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#74bbb43d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.toggleGroupCallSettings#74bbb43d", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -214,23 +214,23 @@ func (t *PhoneToggleGroupCallSettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *PhoneToggleGroupCallSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode phone.toggleGroupCallSettings#74bbb43d to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.toggleGroupCallSettings#74bbb43d")
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#74bbb43d: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.toggleGroupCallSettings#74bbb43d", "flags", err)
 		}
 	}
 	t.ResetInviteHash = t.Flags.Has(1)
 	{
 		if err := t.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#74bbb43d: field call: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.toggleGroupCallSettings#74bbb43d", "call", err)
 		}
 	}
 	if t.Flags.Has(0) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#74bbb43d: field join_muted: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.toggleGroupCallSettings#74bbb43d", "join_muted", err)
 		}
 		t.JoinMuted = value
 	}

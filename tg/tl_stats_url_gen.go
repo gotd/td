@@ -102,7 +102,7 @@ func (s *StatsURL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsURL) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsURL#47a971e0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsURL#47a971e0")
 	}
 	b.PutID(StatsURLTypeID)
 	return s.EncodeBare(b)
@@ -111,7 +111,7 @@ func (s *StatsURL) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsURL) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsURL#47a971e0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsURL#47a971e0")
 	}
 	b.PutString(s.URL)
 	return nil
@@ -125,10 +125,10 @@ func (s *StatsURL) GetURL() (value string) {
 // Decode implements bin.Decoder.
 func (s *StatsURL) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsURL#47a971e0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsURL#47a971e0")
 	}
 	if err := b.ConsumeID(StatsURLTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsURL#47a971e0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "statsURL#47a971e0", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (s *StatsURL) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsURL) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsURL#47a971e0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsURL#47a971e0")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsURL#47a971e0: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsURL#47a971e0", "url", err)
 		}
 		s.URL = value
 	}

@@ -85,7 +85,7 @@ func (g *AccountGetContentSettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetContentSettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getContentSettings#8b9b4dae as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getContentSettings#8b9b4dae")
 	}
 	b.PutID(AccountGetContentSettingsRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +94,7 @@ func (g *AccountGetContentSettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetContentSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getContentSettings#8b9b4dae as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getContentSettings#8b9b4dae")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (g *AccountGetContentSettingsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *AccountGetContentSettingsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getContentSettings#8b9b4dae to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getContentSettings#8b9b4dae")
 	}
 	if err := b.ConsumeID(AccountGetContentSettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getContentSettings#8b9b4dae: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.getContentSettings#8b9b4dae", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (g *AccountGetContentSettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetContentSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getContentSettings#8b9b4dae to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getContentSettings#8b9b4dae")
 	}
 	return nil
 }

@@ -135,7 +135,7 @@ func (f *ContactsFound) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *ContactsFound) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode contacts.found#b3134d9d as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.found#b3134d9d")
 	}
 	b.PutID(ContactsFoundTypeID)
 	return f.EncodeBare(b)
@@ -144,42 +144,42 @@ func (f *ContactsFound) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *ContactsFound) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode contacts.found#b3134d9d as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.found#b3134d9d")
 	}
 	b.PutVectorHeader(len(f.MyResults))
 	for idx, v := range f.MyResults {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.found#b3134d9d: field my_results element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "contacts.found#b3134d9d", "my_results", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.found#b3134d9d: field my_results element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.found#b3134d9d", "my_results", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(f.Results))
 	for idx, v := range f.Results {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.found#b3134d9d: field results element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "contacts.found#b3134d9d", "results", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.found#b3134d9d: field results element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.found#b3134d9d", "results", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(f.Chats))
 	for idx, v := range f.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.found#b3134d9d: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "contacts.found#b3134d9d", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.found#b3134d9d: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.found#b3134d9d", "chats", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(f.Users))
 	for idx, v := range f.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.found#b3134d9d: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "contacts.found#b3134d9d", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.found#b3134d9d: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.found#b3134d9d", "users", idx, err)
 		}
 	}
 	return nil
@@ -228,10 +228,10 @@ func (f *ContactsFound) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (f *ContactsFound) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode contacts.found#b3134d9d to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.found#b3134d9d")
 	}
 	if err := b.ConsumeID(ContactsFoundTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.found#b3134d9d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.found#b3134d9d", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -239,17 +239,17 @@ func (f *ContactsFound) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *ContactsFound) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode contacts.found#b3134d9d to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.found#b3134d9d")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.found#b3134d9d: field my_results: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.found#b3134d9d", "my_results", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.found#b3134d9d: field my_results: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.found#b3134d9d", "my_results", err)
 			}
 			f.MyResults = append(f.MyResults, value)
 		}
@@ -257,12 +257,12 @@ func (f *ContactsFound) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.found#b3134d9d: field results: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.found#b3134d9d", "results", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.found#b3134d9d: field results: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.found#b3134d9d", "results", err)
 			}
 			f.Results = append(f.Results, value)
 		}
@@ -270,12 +270,12 @@ func (f *ContactsFound) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.found#b3134d9d: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.found#b3134d9d", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.found#b3134d9d: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.found#b3134d9d", "chats", err)
 			}
 			f.Chats = append(f.Chats, value)
 		}
@@ -283,12 +283,12 @@ func (f *ContactsFound) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.found#b3134d9d: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.found#b3134d9d", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.found#b3134d9d: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.found#b3134d9d", "users", err)
 			}
 			f.Users = append(f.Users, value)
 		}

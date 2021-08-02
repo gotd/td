@@ -165,7 +165,7 @@ func (t *HelpTermsOfService) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *HelpTermsOfService) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode help.termsOfService#780a0310 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.termsOfService#780a0310")
 	}
 	b.PutID(HelpTermsOfServiceTypeID)
 	return t.EncodeBare(b)
@@ -174,7 +174,7 @@ func (t *HelpTermsOfService) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *HelpTermsOfService) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode help.termsOfService#780a0310 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.termsOfService#780a0310")
 	}
 	if !(t.Popup == false) {
 		t.Flags.Set(0)
@@ -183,19 +183,19 @@ func (t *HelpTermsOfService) EncodeBare(b *bin.Buffer) error {
 		t.Flags.Set(1)
 	}
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.termsOfService#780a0310: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "help.termsOfService#780a0310", "flags", err)
 	}
 	if err := t.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.termsOfService#780a0310: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "help.termsOfService#780a0310", "id", err)
 	}
 	b.PutString(t.Text)
 	b.PutVectorHeader(len(t.Entities))
 	for idx, v := range t.Entities {
 		if v == nil {
-			return fmt.Errorf("unable to encode help.termsOfService#780a0310: field entities element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "help.termsOfService#780a0310", "entities", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.termsOfService#780a0310: field entities element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "help.termsOfService#780a0310", "entities", idx, err)
 		}
 	}
 	if t.Flags.Has(1) {
@@ -258,10 +258,10 @@ func (t *HelpTermsOfService) GetMinAgeConfirm() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (t *HelpTermsOfService) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode help.termsOfService#780a0310 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.termsOfService#780a0310")
 	}
 	if err := b.ConsumeID(HelpTermsOfServiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.termsOfService#780a0310: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.termsOfService#780a0310", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -269,35 +269,35 @@ func (t *HelpTermsOfService) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *HelpTermsOfService) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode help.termsOfService#780a0310 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.termsOfService#780a0310")
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.termsOfService#780a0310: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.termsOfService#780a0310", "flags", err)
 		}
 	}
 	t.Popup = t.Flags.Has(0)
 	{
 		if err := t.ID.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.termsOfService#780a0310: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.termsOfService#780a0310", "id", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.termsOfService#780a0310: field text: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.termsOfService#780a0310", "text", err)
 		}
 		t.Text = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.termsOfService#780a0310: field entities: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.termsOfService#780a0310", "entities", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.termsOfService#780a0310: field entities: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "help.termsOfService#780a0310", "entities", err)
 			}
 			t.Entities = append(t.Entities, value)
 		}
@@ -305,7 +305,7 @@ func (t *HelpTermsOfService) DecodeBare(b *bin.Buffer) error {
 	if t.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.termsOfService#780a0310: field min_age_confirm: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.termsOfService#780a0310", "min_age_confirm", err)
 		}
 		t.MinAgeConfirm = value
 	}

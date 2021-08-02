@@ -128,7 +128,7 @@ func (r *MessagesRequestEncryptionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesRequestEncryptionRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestEncryption#f64daf43 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.requestEncryption#f64daf43")
 	}
 	b.PutID(MessagesRequestEncryptionRequestTypeID)
 	return r.EncodeBare(b)
@@ -137,13 +137,13 @@ func (r *MessagesRequestEncryptionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesRequestEncryptionRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestEncryption#f64daf43 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.requestEncryption#f64daf43")
 	}
 	if r.UserID == nil {
-		return fmt.Errorf("unable to encode messages.requestEncryption#f64daf43: field user_id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.requestEncryption#f64daf43", "user_id")
 	}
 	if err := r.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.requestEncryption#f64daf43: field user_id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.requestEncryption#f64daf43", "user_id", err)
 	}
 	b.PutInt(r.RandomID)
 	b.PutBytes(r.GA)
@@ -168,10 +168,10 @@ func (r *MessagesRequestEncryptionRequest) GetGA() (value []byte) {
 // Decode implements bin.Decoder.
 func (r *MessagesRequestEncryptionRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestEncryption#f64daf43 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.requestEncryption#f64daf43")
 	}
 	if err := b.ConsumeID(MessagesRequestEncryptionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.requestEncryption#f64daf43: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.requestEncryption#f64daf43", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -179,26 +179,26 @@ func (r *MessagesRequestEncryptionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesRequestEncryptionRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestEncryption#f64daf43 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.requestEncryption#f64daf43")
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestEncryption#f64daf43: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.requestEncryption#f64daf43", "user_id", err)
 		}
 		r.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestEncryption#f64daf43: field random_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.requestEncryption#f64daf43", "random_id", err)
 		}
 		r.RandomID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestEncryption#f64daf43: field g_a: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.requestEncryption#f64daf43", "g_a", err)
 		}
 		r.GA = value
 	}

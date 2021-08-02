@@ -124,7 +124,7 @@ func (b *ContactsBlocked) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *ContactsBlocked) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode contacts.blocked#ade1591 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.blocked#ade1591")
 	}
 	buf.PutID(ContactsBlockedTypeID)
 	return b.EncodeBare(buf)
@@ -133,30 +133,30 @@ func (b *ContactsBlocked) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *ContactsBlocked) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode contacts.blocked#ade1591 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.blocked#ade1591")
 	}
 	buf.PutVectorHeader(len(b.Blocked))
 	for idx, v := range b.Blocked {
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode contacts.blocked#ade1591: field blocked element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.blocked#ade1591", "blocked", idx, err)
 		}
 	}
 	buf.PutVectorHeader(len(b.Chats))
 	for idx, v := range b.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.blocked#ade1591: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "contacts.blocked#ade1591", "chats", idx)
 		}
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode contacts.blocked#ade1591: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.blocked#ade1591", "chats", idx, err)
 		}
 	}
 	buf.PutVectorHeader(len(b.Users))
 	for idx, v := range b.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.blocked#ade1591: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "contacts.blocked#ade1591", "users", idx)
 		}
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode contacts.blocked#ade1591: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.blocked#ade1591", "users", idx, err)
 		}
 	}
 	return nil
@@ -190,10 +190,10 @@ func (b *ContactsBlocked) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (b *ContactsBlocked) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode contacts.blocked#ade1591 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.blocked#ade1591")
 	}
 	if err := buf.ConsumeID(ContactsBlockedTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.blocked#ade1591: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.blocked#ade1591", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -201,17 +201,17 @@ func (b *ContactsBlocked) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode contacts.blocked#ade1591 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.blocked#ade1591")
 	}
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.blocked#ade1591: field blocked: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blocked#ade1591", "blocked", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PeerBlocked
 			if err := value.Decode(buf); err != nil {
-				return fmt.Errorf("unable to decode contacts.blocked#ade1591: field blocked: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blocked#ade1591", "blocked", err)
 			}
 			b.Blocked = append(b.Blocked, value)
 		}
@@ -219,12 +219,12 @@ func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.blocked#ade1591: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blocked#ade1591", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.blocked#ade1591: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blocked#ade1591", "chats", err)
 			}
 			b.Chats = append(b.Chats, value)
 		}
@@ -232,12 +232,12 @@ func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.blocked#ade1591: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blocked#ade1591", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.blocked#ade1591: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blocked#ade1591", "users", err)
 			}
 			b.Users = append(b.Users, value)
 		}
@@ -364,7 +364,7 @@ func (b *ContactsBlockedSlice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *ContactsBlockedSlice) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode contacts.blockedSlice#e1664194 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.blockedSlice#e1664194")
 	}
 	buf.PutID(ContactsBlockedSliceTypeID)
 	return b.EncodeBare(buf)
@@ -373,31 +373,31 @@ func (b *ContactsBlockedSlice) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *ContactsBlockedSlice) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode contacts.blockedSlice#e1664194 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.blockedSlice#e1664194")
 	}
 	buf.PutInt(b.Count)
 	buf.PutVectorHeader(len(b.Blocked))
 	for idx, v := range b.Blocked {
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode contacts.blockedSlice#e1664194: field blocked element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.blockedSlice#e1664194", "blocked", idx, err)
 		}
 	}
 	buf.PutVectorHeader(len(b.Chats))
 	for idx, v := range b.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.blockedSlice#e1664194: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "contacts.blockedSlice#e1664194", "chats", idx)
 		}
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode contacts.blockedSlice#e1664194: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.blockedSlice#e1664194", "chats", idx, err)
 		}
 	}
 	buf.PutVectorHeader(len(b.Users))
 	for idx, v := range b.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.blockedSlice#e1664194: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "contacts.blockedSlice#e1664194", "users", idx)
 		}
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode contacts.blockedSlice#e1664194: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.blockedSlice#e1664194", "users", idx, err)
 		}
 	}
 	return nil
@@ -436,10 +436,10 @@ func (b *ContactsBlockedSlice) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (b *ContactsBlockedSlice) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode contacts.blockedSlice#e1664194 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.blockedSlice#e1664194")
 	}
 	if err := buf.ConsumeID(ContactsBlockedSliceTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.blockedSlice#e1664194", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -447,24 +447,24 @@ func (b *ContactsBlockedSlice) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode contacts.blockedSlice#e1664194 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.blockedSlice#e1664194")
 	}
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field count: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blockedSlice#e1664194", "count", err)
 		}
 		b.Count = value
 	}
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field blocked: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blockedSlice#e1664194", "blocked", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PeerBlocked
 			if err := value.Decode(buf); err != nil {
-				return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field blocked: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blockedSlice#e1664194", "blocked", err)
 			}
 			b.Blocked = append(b.Blocked, value)
 		}
@@ -472,12 +472,12 @@ func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blockedSlice#e1664194", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blockedSlice#e1664194", "chats", err)
 			}
 			b.Chats = append(b.Chats, value)
 		}
@@ -485,12 +485,12 @@ func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blockedSlice#e1664194", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.blockedSlice#e1664194", "users", err)
 			}
 			b.Users = append(b.Users, value)
 		}
@@ -566,18 +566,18 @@ func DecodeContactsBlocked(buf *bin.Buffer) (ContactsBlockedClass, error) {
 		// Decoding contacts.blocked#ade1591.
 		v := ContactsBlocked{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ContactsBlockedClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ContactsBlockedClass", err)
 		}
 		return &v, nil
 	case ContactsBlockedSliceTypeID:
 		// Decoding contacts.blockedSlice#e1664194.
 		v := ContactsBlockedSlice{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ContactsBlockedClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "ContactsBlockedClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ContactsBlockedClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "ContactsBlockedClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -589,7 +589,7 @@ type ContactsBlockedBox struct {
 // Decode implements bin.Decoder for ContactsBlockedBox.
 func (b *ContactsBlockedBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode ContactsBlockedBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "ContactsBlocked")
 	}
 	v, err := DecodeContactsBlocked(buf)
 	if err != nil {
@@ -602,7 +602,7 @@ func (b *ContactsBlockedBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for ContactsBlockedBox.
 func (b *ContactsBlockedBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Blocked == nil {
-		return fmt.Errorf("unable to encode ContactsBlockedClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "ContactsBlockedClass")
 	}
 	return b.Blocked.Encode(buf)
 }

@@ -135,7 +135,7 @@ func (g *PaymentsGetPaymentFormRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PaymentsGetPaymentFormRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getPaymentForm#8a333c8d as nil")
+		return fmt.Errorf("can't encode %s as nil", "payments.getPaymentForm#8a333c8d")
 	}
 	b.PutID(PaymentsGetPaymentFormRequestTypeID)
 	return g.EncodeBare(b)
@@ -144,24 +144,24 @@ func (g *PaymentsGetPaymentFormRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getPaymentForm#8a333c8d as nil")
+		return fmt.Errorf("can't encode %s as nil", "payments.getPaymentForm#8a333c8d")
 	}
 	if !(g.ThemeParams.Zero()) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getPaymentForm#8a333c8d: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "payments.getPaymentForm#8a333c8d", "flags", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode payments.getPaymentForm#8a333c8d: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "payments.getPaymentForm#8a333c8d", "peer")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getPaymentForm#8a333c8d: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "payments.getPaymentForm#8a333c8d", "peer", err)
 	}
 	b.PutInt(g.MsgID)
 	if g.Flags.Has(0) {
 		if err := g.ThemeParams.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.getPaymentForm#8a333c8d: field theme_params: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "payments.getPaymentForm#8a333c8d", "theme_params", err)
 		}
 	}
 	return nil
@@ -195,10 +195,10 @@ func (g *PaymentsGetPaymentFormRequest) GetThemeParams() (value DataJSON, ok boo
 // Decode implements bin.Decoder.
 func (g *PaymentsGetPaymentFormRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getPaymentForm#8a333c8d to nil")
+		return fmt.Errorf("can't decode %s to nil", "payments.getPaymentForm#8a333c8d")
 	}
 	if err := b.ConsumeID(PaymentsGetPaymentFormRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getPaymentForm#8a333c8d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "payments.getPaymentForm#8a333c8d", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -206,30 +206,30 @@ func (g *PaymentsGetPaymentFormRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getPaymentForm#8a333c8d to nil")
+		return fmt.Errorf("can't decode %s to nil", "payments.getPaymentForm#8a333c8d")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.getPaymentForm#8a333c8d: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "payments.getPaymentForm#8a333c8d", "flags", err)
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getPaymentForm#8a333c8d: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "payments.getPaymentForm#8a333c8d", "peer", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getPaymentForm#8a333c8d: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "payments.getPaymentForm#8a333c8d", "msg_id", err)
 		}
 		g.MsgID = value
 	}
 	if g.Flags.Has(0) {
 		if err := g.ThemeParams.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.getPaymentForm#8a333c8d: field theme_params: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "payments.getPaymentForm#8a333c8d", "theme_params", err)
 		}
 	}
 	return nil

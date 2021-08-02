@@ -108,7 +108,7 @@ func (c *AuthCheckPasswordRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AuthCheckPasswordRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode auth.checkPassword#d18b4d16 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.checkPassword#d18b4d16")
 	}
 	b.PutID(AuthCheckPasswordRequestTypeID)
 	return c.EncodeBare(b)
@@ -117,13 +117,13 @@ func (c *AuthCheckPasswordRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AuthCheckPasswordRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode auth.checkPassword#d18b4d16 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.checkPassword#d18b4d16")
 	}
 	if c.Password == nil {
-		return fmt.Errorf("unable to encode auth.checkPassword#d18b4d16: field password is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "auth.checkPassword#d18b4d16", "password")
 	}
 	if err := c.Password.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode auth.checkPassword#d18b4d16: field password: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "auth.checkPassword#d18b4d16", "password", err)
 	}
 	return nil
 }
@@ -141,10 +141,10 @@ func (c *AuthCheckPasswordRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordS
 // Decode implements bin.Decoder.
 func (c *AuthCheckPasswordRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode auth.checkPassword#d18b4d16 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.checkPassword#d18b4d16")
 	}
 	if err := b.ConsumeID(AuthCheckPasswordRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.checkPassword#d18b4d16: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "auth.checkPassword#d18b4d16", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -152,12 +152,12 @@ func (c *AuthCheckPasswordRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AuthCheckPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode auth.checkPassword#d18b4d16 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.checkPassword#d18b4d16")
 	}
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.checkPassword#d18b4d16: field password: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.checkPassword#d18b4d16", "password", err)
 		}
 		c.Password = value
 	}

@@ -133,7 +133,7 @@ func (w *WebPageAttributeTheme) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WebPageAttributeTheme) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageAttributeTheme#54b56617 as nil")
+		return fmt.Errorf("can't encode %s as nil", "webPageAttributeTheme#54b56617")
 	}
 	b.PutID(WebPageAttributeThemeTypeID)
 	return w.EncodeBare(b)
@@ -142,7 +142,7 @@ func (w *WebPageAttributeTheme) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebPageAttributeTheme) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageAttributeTheme#54b56617 as nil")
+		return fmt.Errorf("can't encode %s as nil", "webPageAttributeTheme#54b56617")
 	}
 	if !(w.Documents == nil) {
 		w.Flags.Set(0)
@@ -151,22 +151,22 @@ func (w *WebPageAttributeTheme) EncodeBare(b *bin.Buffer) error {
 		w.Flags.Set(1)
 	}
 	if err := w.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPageAttributeTheme#54b56617: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "webPageAttributeTheme#54b56617", "flags", err)
 	}
 	if w.Flags.Has(0) {
 		b.PutVectorHeader(len(w.Documents))
 		for idx, v := range w.Documents {
 			if v == nil {
-				return fmt.Errorf("unable to encode webPageAttributeTheme#54b56617: field documents element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "webPageAttributeTheme#54b56617", "documents", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode webPageAttributeTheme#54b56617: field documents element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "webPageAttributeTheme#54b56617", "documents", idx, err)
 			}
 		}
 	}
 	if w.Flags.Has(1) {
 		if err := w.Settings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode webPageAttributeTheme#54b56617: field settings: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "webPageAttributeTheme#54b56617", "settings", err)
 		}
 	}
 	return nil
@@ -213,10 +213,10 @@ func (w *WebPageAttributeTheme) GetSettings() (value ThemeSettings, ok bool) {
 // Decode implements bin.Decoder.
 func (w *WebPageAttributeTheme) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageAttributeTheme#54b56617 to nil")
+		return fmt.Errorf("can't decode %s to nil", "webPageAttributeTheme#54b56617")
 	}
 	if err := b.ConsumeID(WebPageAttributeThemeTypeID); err != nil {
-		return fmt.Errorf("unable to decode webPageAttributeTheme#54b56617: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "webPageAttributeTheme#54b56617", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -224,29 +224,29 @@ func (w *WebPageAttributeTheme) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebPageAttributeTheme) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageAttributeTheme#54b56617 to nil")
+		return fmt.Errorf("can't decode %s to nil", "webPageAttributeTheme#54b56617")
 	}
 	{
 		if err := w.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPageAttributeTheme#54b56617: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPageAttributeTheme#54b56617", "flags", err)
 		}
 	}
 	if w.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageAttributeTheme#54b56617: field documents: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPageAttributeTheme#54b56617", "documents", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode webPageAttributeTheme#54b56617: field documents: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "webPageAttributeTheme#54b56617", "documents", err)
 			}
 			w.Documents = append(w.Documents, value)
 		}
 	}
 	if w.Flags.Has(1) {
 		if err := w.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPageAttributeTheme#54b56617: field settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "webPageAttributeTheme#54b56617", "settings", err)
 		}
 	}
 	return nil

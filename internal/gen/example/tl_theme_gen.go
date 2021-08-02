@@ -101,7 +101,7 @@ func (t *Theme) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *Theme) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode theme#28f1114 as nil")
+		return fmt.Errorf("can't encode %s as nil", "theme#28f1114")
 	}
 	b.PutID(ThemeTypeID)
 	return t.EncodeBare(b)
@@ -110,7 +110,7 @@ func (t *Theme) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *Theme) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode theme#28f1114 as nil")
+		return fmt.Errorf("can't encode %s as nil", "theme#28f1114")
 	}
 	b.PutString(t.Name)
 	return nil
@@ -124,10 +124,10 @@ func (t *Theme) GetName() (value string) {
 // Decode implements bin.Decoder.
 func (t *Theme) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode theme#28f1114 to nil")
+		return fmt.Errorf("can't decode %s to nil", "theme#28f1114")
 	}
 	if err := b.ConsumeID(ThemeTypeID); err != nil {
-		return fmt.Errorf("unable to decode theme#28f1114: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "theme#28f1114", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -135,12 +135,12 @@ func (t *Theme) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *Theme) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode theme#28f1114 to nil")
+		return fmt.Errorf("can't decode %s to nil", "theme#28f1114")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "theme#28f1114", "name", err)
 		}
 		t.Name = value
 	}

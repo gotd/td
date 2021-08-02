@@ -134,7 +134,7 @@ func (s *AccountSaveAutoDownloadSettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSaveAutoDownloadSettingsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.saveAutoDownloadSettings#76f36233 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.saveAutoDownloadSettings#76f36233")
 	}
 	b.PutID(AccountSaveAutoDownloadSettingsRequestTypeID)
 	return s.EncodeBare(b)
@@ -143,7 +143,7 @@ func (s *AccountSaveAutoDownloadSettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSaveAutoDownloadSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.saveAutoDownloadSettings#76f36233 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.saveAutoDownloadSettings#76f36233")
 	}
 	if !(s.Low == false) {
 		s.Flags.Set(0)
@@ -152,10 +152,10 @@ func (s *AccountSaveAutoDownloadSettingsRequest) EncodeBare(b *bin.Buffer) error
 		s.Flags.Set(1)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.saveAutoDownloadSettings#76f36233: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.saveAutoDownloadSettings#76f36233", "flags", err)
 	}
 	if err := s.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.saveAutoDownloadSettings#76f36233: field settings: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.saveAutoDownloadSettings#76f36233", "settings", err)
 	}
 	return nil
 }
@@ -200,10 +200,10 @@ func (s *AccountSaveAutoDownloadSettingsRequest) GetSettings() (value AutoDownlo
 // Decode implements bin.Decoder.
 func (s *AccountSaveAutoDownloadSettingsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.saveAutoDownloadSettings#76f36233 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.saveAutoDownloadSettings#76f36233")
 	}
 	if err := b.ConsumeID(AccountSaveAutoDownloadSettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.saveAutoDownloadSettings#76f36233: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.saveAutoDownloadSettings#76f36233", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -211,18 +211,18 @@ func (s *AccountSaveAutoDownloadSettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSaveAutoDownloadSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.saveAutoDownloadSettings#76f36233 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.saveAutoDownloadSettings#76f36233")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.saveAutoDownloadSettings#76f36233: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.saveAutoDownloadSettings#76f36233", "flags", err)
 		}
 	}
 	s.Low = s.Flags.Has(0)
 	s.High = s.Flags.Has(1)
 	{
 		if err := s.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.saveAutoDownloadSettings#76f36233: field settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.saveAutoDownloadSettings#76f36233", "settings", err)
 		}
 	}
 	return nil

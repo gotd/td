@@ -124,7 +124,7 @@ func (e *Error) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *Error) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode error#14feebbc as nil")
+		return fmt.Errorf("can't encode %s as nil", "error#14feebbc")
 	}
 	b.PutID(ErrorTypeID)
 	return e.EncodeBare(b)
@@ -133,7 +133,7 @@ func (e *Error) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *Error) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode error#14feebbc as nil")
+		return fmt.Errorf("can't encode %s as nil", "error#14feebbc")
 	}
 	b.PutInt32(e.Code)
 	b.PutString(e.Message)
@@ -159,10 +159,10 @@ func (e *Error) GetTemporary() (value bool) {
 // Decode implements bin.Decoder.
 func (e *Error) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode error#14feebbc to nil")
+		return fmt.Errorf("can't decode %s to nil", "error#14feebbc")
 	}
 	if err := b.ConsumeID(ErrorTypeID); err != nil {
-		return fmt.Errorf("unable to decode error#14feebbc: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "error#14feebbc", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -170,26 +170,26 @@ func (e *Error) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *Error) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode error#14feebbc to nil")
+		return fmt.Errorf("can't decode %s to nil", "error#14feebbc")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode error#14feebbc: field code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "error#14feebbc", "code", err)
 		}
 		e.Code = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode error#14feebbc: field message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "error#14feebbc", "message", err)
 		}
 		e.Message = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode error#14feebbc: field temporary: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "error#14feebbc", "temporary", err)
 		}
 		e.Temporary = value
 	}

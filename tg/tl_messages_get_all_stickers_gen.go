@@ -105,7 +105,7 @@ func (g *MessagesGetAllStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetAllStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getAllStickers#1c9618b1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getAllStickers#1c9618b1")
 	}
 	b.PutID(MessagesGetAllStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -114,7 +114,7 @@ func (g *MessagesGetAllStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetAllStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getAllStickers#1c9618b1 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getAllStickers#1c9618b1")
 	}
 	b.PutInt(g.Hash)
 	return nil
@@ -128,10 +128,10 @@ func (g *MessagesGetAllStickersRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetAllStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getAllStickers#1c9618b1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getAllStickers#1c9618b1")
 	}
 	if err := b.ConsumeID(MessagesGetAllStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getAllStickers#1c9618b1: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getAllStickers#1c9618b1", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -139,12 +139,12 @@ func (g *MessagesGetAllStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetAllStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getAllStickers#1c9618b1 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getAllStickers#1c9618b1")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getAllStickers#1c9618b1: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getAllStickers#1c9618b1", "hash", err)
 		}
 		g.Hash = value
 	}

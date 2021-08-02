@@ -154,7 +154,7 @@ func (m *MessageReplyHeader) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageReplyHeader) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReplyHeader#a6d57763 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messageReplyHeader#a6d57763")
 	}
 	b.PutID(MessageReplyHeaderTypeID)
 	return m.EncodeBare(b)
@@ -163,7 +163,7 @@ func (m *MessageReplyHeader) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageReplyHeader) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReplyHeader#a6d57763 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messageReplyHeader#a6d57763")
 	}
 	if !(m.ReplyToPeerID == nil) {
 		m.Flags.Set(0)
@@ -172,15 +172,15 @@ func (m *MessageReplyHeader) EncodeBare(b *bin.Buffer) error {
 		m.Flags.Set(1)
 	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageReplyHeader#a6d57763: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messageReplyHeader#a6d57763", "flags", err)
 	}
 	b.PutInt(m.ReplyToMsgID)
 	if m.Flags.Has(0) {
 		if m.ReplyToPeerID == nil {
-			return fmt.Errorf("unable to encode messageReplyHeader#a6d57763: field reply_to_peer_id is nil")
+			return fmt.Errorf("unable to encode %s: field %s is nil", "messageReplyHeader#a6d57763", "reply_to_peer_id")
 		}
 		if err := m.ReplyToPeerID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageReplyHeader#a6d57763: field reply_to_peer_id: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "messageReplyHeader#a6d57763", "reply_to_peer_id", err)
 		}
 	}
 	if m.Flags.Has(1) {
@@ -227,10 +227,10 @@ func (m *MessageReplyHeader) GetReplyToTopID() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (m *MessageReplyHeader) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReplyHeader#a6d57763 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messageReplyHeader#a6d57763")
 	}
 	if err := b.ConsumeID(MessageReplyHeaderTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageReplyHeader#a6d57763: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messageReplyHeader#a6d57763", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -238,31 +238,31 @@ func (m *MessageReplyHeader) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageReplyHeader) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReplyHeader#a6d57763 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messageReplyHeader#a6d57763")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#a6d57763: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageReplyHeader#a6d57763", "flags", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#a6d57763: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageReplyHeader#a6d57763", "reply_to_msg_id", err)
 		}
 		m.ReplyToMsgID = value
 	}
 	if m.Flags.Has(0) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#a6d57763: field reply_to_peer_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageReplyHeader#a6d57763", "reply_to_peer_id", err)
 		}
 		m.ReplyToPeerID = value
 	}
 	if m.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#a6d57763: field reply_to_top_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageReplyHeader#a6d57763", "reply_to_top_id", err)
 		}
 		m.ReplyToTopID = value
 	}

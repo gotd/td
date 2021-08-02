@@ -130,7 +130,7 @@ func (g *MessagesGetWebPagePreviewRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetWebPagePreviewRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getWebPagePreview#8b68b0cc as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getWebPagePreview#8b68b0cc")
 	}
 	b.PutID(MessagesGetWebPagePreviewRequestTypeID)
 	return g.EncodeBare(b)
@@ -139,23 +139,23 @@ func (g *MessagesGetWebPagePreviewRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetWebPagePreviewRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getWebPagePreview#8b68b0cc as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getWebPagePreview#8b68b0cc")
 	}
 	if !(g.Entities == nil) {
 		g.Flags.Set(3)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getWebPagePreview#8b68b0cc: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getWebPagePreview#8b68b0cc", "flags", err)
 	}
 	b.PutString(g.Message)
 	if g.Flags.Has(3) {
 		b.PutVectorHeader(len(g.Entities))
 		for idx, v := range g.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode messages.getWebPagePreview#8b68b0cc: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.getWebPagePreview#8b68b0cc", "entities", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messages.getWebPagePreview#8b68b0cc: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.getWebPagePreview#8b68b0cc", "entities", idx, err)
 			}
 		}
 	}
@@ -193,10 +193,10 @@ func (g *MessagesGetWebPagePreviewRequest) MapEntities() (value MessageEntityCla
 // Decode implements bin.Decoder.
 func (g *MessagesGetWebPagePreviewRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getWebPagePreview#8b68b0cc to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getWebPagePreview#8b68b0cc")
 	}
 	if err := b.ConsumeID(MessagesGetWebPagePreviewRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getWebPagePreview#8b68b0cc: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getWebPagePreview#8b68b0cc", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -204,29 +204,29 @@ func (g *MessagesGetWebPagePreviewRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetWebPagePreviewRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getWebPagePreview#8b68b0cc to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getWebPagePreview#8b68b0cc")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getWebPagePreview#8b68b0cc: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getWebPagePreview#8b68b0cc", "flags", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getWebPagePreview#8b68b0cc: field message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getWebPagePreview#8b68b0cc", "message", err)
 		}
 		g.Message = value
 	}
 	if g.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getWebPagePreview#8b68b0cc: field entities: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getWebPagePreview#8b68b0cc", "entities", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.getWebPagePreview#8b68b0cc: field entities: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getWebPagePreview#8b68b0cc", "entities", err)
 			}
 			g.Entities = append(g.Entities, value)
 		}

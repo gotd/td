@@ -167,7 +167,7 @@ func (g *UpdatesGetDifferenceRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UpdatesGetDifferenceRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode updates.getDifference#25939651 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updates.getDifference#25939651")
 	}
 	b.PutID(UpdatesGetDifferenceRequestTypeID)
 	return g.EncodeBare(b)
@@ -176,13 +176,13 @@ func (g *UpdatesGetDifferenceRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UpdatesGetDifferenceRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode updates.getDifference#25939651 as nil")
+		return fmt.Errorf("can't encode %s as nil", "updates.getDifference#25939651")
 	}
 	if !(g.PtsTotalLimit == 0) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.getDifference#25939651: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "updates.getDifference#25939651", "flags", err)
 	}
 	b.PutInt(g.Pts)
 	if g.Flags.Has(0) {
@@ -226,10 +226,10 @@ func (g *UpdatesGetDifferenceRequest) GetQts() (value int) {
 // Decode implements bin.Decoder.
 func (g *UpdatesGetDifferenceRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode updates.getDifference#25939651 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updates.getDifference#25939651")
 	}
 	if err := b.ConsumeID(UpdatesGetDifferenceRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.getDifference#25939651: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "updates.getDifference#25939651", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -237,38 +237,38 @@ func (g *UpdatesGetDifferenceRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UpdatesGetDifferenceRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode updates.getDifference#25939651 to nil")
+		return fmt.Errorf("can't decode %s to nil", "updates.getDifference#25939651")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updates.getDifference#25939651: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.getDifference#25939651", "flags", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.getDifference#25939651: field pts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.getDifference#25939651", "pts", err)
 		}
 		g.Pts = value
 	}
 	if g.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.getDifference#25939651: field pts_total_limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.getDifference#25939651", "pts_total_limit", err)
 		}
 		g.PtsTotalLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.getDifference#25939651: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.getDifference#25939651", "date", err)
 		}
 		g.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.getDifference#25939651: field qts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "updates.getDifference#25939651", "qts", err)
 		}
 		g.Qts = value
 	}

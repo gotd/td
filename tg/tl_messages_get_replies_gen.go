@@ -207,7 +207,7 @@ func (g *MessagesGetRepliesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetRepliesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getReplies#24b581ba as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getReplies#24b581ba")
 	}
 	b.PutID(MessagesGetRepliesRequestTypeID)
 	return g.EncodeBare(b)
@@ -216,13 +216,13 @@ func (g *MessagesGetRepliesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetRepliesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getReplies#24b581ba as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getReplies#24b581ba")
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getReplies#24b581ba: field peer is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.getReplies#24b581ba", "peer")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getReplies#24b581ba: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getReplies#24b581ba", "peer", err)
 	}
 	b.PutInt(g.MsgID)
 	b.PutInt(g.OffsetID)
@@ -283,10 +283,10 @@ func (g *MessagesGetRepliesRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetRepliesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getReplies#24b581ba to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getReplies#24b581ba")
 	}
 	if err := b.ConsumeID(MessagesGetRepliesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getReplies#24b581ba: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getReplies#24b581ba", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -294,68 +294,68 @@ func (g *MessagesGetRepliesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetRepliesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getReplies#24b581ba to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getReplies#24b581ba")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getReplies#24b581ba: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getReplies#24b581ba", "peer", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getReplies#24b581ba: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getReplies#24b581ba", "msg_id", err)
 		}
 		g.MsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getReplies#24b581ba: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getReplies#24b581ba", "offset_id", err)
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getReplies#24b581ba: field offset_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getReplies#24b581ba", "offset_date", err)
 		}
 		g.OffsetDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getReplies#24b581ba: field add_offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getReplies#24b581ba", "add_offset", err)
 		}
 		g.AddOffset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getReplies#24b581ba: field limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getReplies#24b581ba", "limit", err)
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getReplies#24b581ba: field max_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getReplies#24b581ba", "max_id", err)
 		}
 		g.MaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getReplies#24b581ba: field min_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getReplies#24b581ba", "min_id", err)
 		}
 		g.MinID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getReplies#24b581ba: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getReplies#24b581ba", "hash", err)
 		}
 		g.Hash = value
 	}

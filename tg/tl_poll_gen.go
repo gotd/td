@@ -221,7 +221,7 @@ func (p *Poll) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *Poll) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode poll#86e18161 as nil")
+		return fmt.Errorf("can't encode %s as nil", "poll#86e18161")
 	}
 	b.PutID(PollTypeID)
 	return p.EncodeBare(b)
@@ -230,7 +230,7 @@ func (p *Poll) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *Poll) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode poll#86e18161 as nil")
+		return fmt.Errorf("can't encode %s as nil", "poll#86e18161")
 	}
 	if !(p.Closed == false) {
 		p.Flags.Set(0)
@@ -252,13 +252,13 @@ func (p *Poll) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutLong(p.ID)
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode poll#86e18161: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "poll#86e18161", "flags", err)
 	}
 	b.PutString(p.Question)
 	b.PutVectorHeader(len(p.Answers))
 	for idx, v := range p.Answers {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode poll#86e18161: field answers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "poll#86e18161", "answers", idx, err)
 		}
 	}
 	if p.Flags.Has(4) {
@@ -382,10 +382,10 @@ func (p *Poll) GetCloseDate() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (p *Poll) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode poll#86e18161 to nil")
+		return fmt.Errorf("can't decode %s to nil", "poll#86e18161")
 	}
 	if err := b.ConsumeID(PollTypeID); err != nil {
-		return fmt.Errorf("unable to decode poll#86e18161: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "poll#86e18161", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -393,18 +393,18 @@ func (p *Poll) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *Poll) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode poll#86e18161 to nil")
+		return fmt.Errorf("can't decode %s to nil", "poll#86e18161")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "poll#86e18161", "id", err)
 		}
 		p.ID = value
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "poll#86e18161", "flags", err)
 		}
 	}
 	p.Closed = p.Flags.Has(0)
@@ -414,19 +414,19 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field question: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "poll#86e18161", "question", err)
 		}
 		p.Question = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field answers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "poll#86e18161", "answers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PollAnswer
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode poll#86e18161: field answers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "poll#86e18161", "answers", err)
 			}
 			p.Answers = append(p.Answers, value)
 		}
@@ -434,14 +434,14 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field close_period: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "poll#86e18161", "close_period", err)
 		}
 		p.ClosePeriod = value
 	}
 	if p.Flags.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field close_date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "poll#86e18161", "close_date", err)
 		}
 		p.CloseDate = value
 	}

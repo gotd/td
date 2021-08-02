@@ -160,7 +160,7 @@ func (a *ContactsAddContactRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *ContactsAddContactRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode contacts.addContact#e8f463d0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.addContact#e8f463d0")
 	}
 	b.PutID(ContactsAddContactRequestTypeID)
 	return a.EncodeBare(b)
@@ -169,19 +169,19 @@ func (a *ContactsAddContactRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *ContactsAddContactRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode contacts.addContact#e8f463d0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.addContact#e8f463d0")
 	}
 	if !(a.AddPhonePrivacyException == false) {
 		a.Flags.Set(0)
 	}
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contacts.addContact#e8f463d0: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "contacts.addContact#e8f463d0", "flags", err)
 	}
 	if a.ID == nil {
-		return fmt.Errorf("unable to encode contacts.addContact#e8f463d0: field id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "contacts.addContact#e8f463d0", "id")
 	}
 	if err := a.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contacts.addContact#e8f463d0: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "contacts.addContact#e8f463d0", "id", err)
 	}
 	b.PutString(a.FirstName)
 	b.PutString(a.LastName)
@@ -228,10 +228,10 @@ func (a *ContactsAddContactRequest) GetPhone() (value string) {
 // Decode implements bin.Decoder.
 func (a *ContactsAddContactRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode contacts.addContact#e8f463d0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.addContact#e8f463d0")
 	}
 	if err := b.ConsumeID(ContactsAddContactRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.addContact#e8f463d0", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -239,39 +239,39 @@ func (a *ContactsAddContactRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *ContactsAddContactRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode contacts.addContact#e8f463d0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.addContact#e8f463d0")
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.addContact#e8f463d0", "flags", err)
 		}
 	}
 	a.AddPhonePrivacyException = a.Flags.Has(0)
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.addContact#e8f463d0", "id", err)
 		}
 		a.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: field first_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.addContact#e8f463d0", "first_name", err)
 		}
 		a.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: field last_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.addContact#e8f463d0", "last_name", err)
 		}
 		a.LastName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: field phone: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.addContact#e8f463d0", "phone", err)
 		}
 		a.Phone = value
 	}

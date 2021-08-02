@@ -113,7 +113,7 @@ func (r *ReceivedNotifyMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReceivedNotifyMessage) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode receivedNotifyMessage#a384b779 as nil")
+		return fmt.Errorf("can't encode %s as nil", "receivedNotifyMessage#a384b779")
 	}
 	b.PutID(ReceivedNotifyMessageTypeID)
 	return r.EncodeBare(b)
@@ -122,7 +122,7 @@ func (r *ReceivedNotifyMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReceivedNotifyMessage) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode receivedNotifyMessage#a384b779 as nil")
+		return fmt.Errorf("can't encode %s as nil", "receivedNotifyMessage#a384b779")
 	}
 	b.PutInt(r.ID)
 	b.PutInt(r.Flags)
@@ -142,10 +142,10 @@ func (r *ReceivedNotifyMessage) GetFlags() (value int) {
 // Decode implements bin.Decoder.
 func (r *ReceivedNotifyMessage) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode receivedNotifyMessage#a384b779 to nil")
+		return fmt.Errorf("can't decode %s to nil", "receivedNotifyMessage#a384b779")
 	}
 	if err := b.ConsumeID(ReceivedNotifyMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode receivedNotifyMessage#a384b779: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "receivedNotifyMessage#a384b779", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -153,19 +153,19 @@ func (r *ReceivedNotifyMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReceivedNotifyMessage) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode receivedNotifyMessage#a384b779 to nil")
+		return fmt.Errorf("can't decode %s to nil", "receivedNotifyMessage#a384b779")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode receivedNotifyMessage#a384b779: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "receivedNotifyMessage#a384b779", "id", err)
 		}
 		r.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode receivedNotifyMessage#a384b779: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "receivedNotifyMessage#a384b779", "flags", err)
 		}
 		r.Flags = value
 	}

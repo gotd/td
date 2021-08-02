@@ -101,7 +101,7 @@ func (s *SendRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode send#f74488a as nil")
+		return fmt.Errorf("can't encode %s as nil", "send#f74488a")
 	}
 	b.PutID(SendRequestTypeID)
 	return s.EncodeBare(b)
@@ -110,10 +110,10 @@ func (s *SendRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode send#f74488a as nil")
+		return fmt.Errorf("can't encode %s as nil", "send#f74488a")
 	}
 	if err := s.Msg.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode send#f74488a: field msg: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "send#f74488a", "msg", err)
 	}
 	return nil
 }
@@ -126,10 +126,10 @@ func (s *SendRequest) GetMsg() (value SMS) {
 // Decode implements bin.Decoder.
 func (s *SendRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode send#f74488a to nil")
+		return fmt.Errorf("can't decode %s to nil", "send#f74488a")
 	}
 	if err := b.ConsumeID(SendRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode send#f74488a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "send#f74488a", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -137,11 +137,11 @@ func (s *SendRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode send#f74488a to nil")
+		return fmt.Errorf("can't decode %s to nil", "send#f74488a")
 	}
 	{
 		if err := s.Msg.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode send#f74488a: field msg: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "send#f74488a", "msg", err)
 		}
 	}
 	return nil

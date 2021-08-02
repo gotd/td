@@ -124,7 +124,7 @@ func (a *ChannelsAdminLogResults) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *ChannelsAdminLogResults) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode channels.adminLogResults#ed8af74d as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.adminLogResults#ed8af74d")
 	}
 	b.PutID(ChannelsAdminLogResultsTypeID)
 	return a.EncodeBare(b)
@@ -133,30 +133,30 @@ func (a *ChannelsAdminLogResults) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *ChannelsAdminLogResults) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode channels.adminLogResults#ed8af74d as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.adminLogResults#ed8af74d")
 	}
 	b.PutVectorHeader(len(a.Events))
 	for idx, v := range a.Events {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.adminLogResults#ed8af74d: field events element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "channels.adminLogResults#ed8af74d", "events", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(a.Chats))
 	for idx, v := range a.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode channels.adminLogResults#ed8af74d: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "channels.adminLogResults#ed8af74d", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.adminLogResults#ed8af74d: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "channels.adminLogResults#ed8af74d", "chats", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(a.Users))
 	for idx, v := range a.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode channels.adminLogResults#ed8af74d: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "channels.adminLogResults#ed8af74d", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.adminLogResults#ed8af74d: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "channels.adminLogResults#ed8af74d", "users", idx, err)
 		}
 	}
 	return nil
@@ -190,10 +190,10 @@ func (a *ChannelsAdminLogResults) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (a *ChannelsAdminLogResults) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode channels.adminLogResults#ed8af74d to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.adminLogResults#ed8af74d")
 	}
 	if err := b.ConsumeID(ChannelsAdminLogResultsTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.adminLogResults#ed8af74d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.adminLogResults#ed8af74d", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -201,17 +201,17 @@ func (a *ChannelsAdminLogResults) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *ChannelsAdminLogResults) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode channels.adminLogResults#ed8af74d to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.adminLogResults#ed8af74d")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.adminLogResults#ed8af74d: field events: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.adminLogResults#ed8af74d", "events", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value ChannelAdminLogEvent
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode channels.adminLogResults#ed8af74d: field events: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "channels.adminLogResults#ed8af74d", "events", err)
 			}
 			a.Events = append(a.Events, value)
 		}
@@ -219,12 +219,12 @@ func (a *ChannelsAdminLogResults) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.adminLogResults#ed8af74d: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.adminLogResults#ed8af74d", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.adminLogResults#ed8af74d: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "channels.adminLogResults#ed8af74d", "chats", err)
 			}
 			a.Chats = append(a.Chats, value)
 		}
@@ -232,12 +232,12 @@ func (a *ChannelsAdminLogResults) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.adminLogResults#ed8af74d: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.adminLogResults#ed8af74d", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.adminLogResults#ed8af74d: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "channels.adminLogResults#ed8af74d", "users", err)
 			}
 			a.Users = append(a.Users, value)
 		}

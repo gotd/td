@@ -85,7 +85,7 @@ func (g *AccountGetGlobalPrivacySettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetGlobalPrivacySettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getGlobalPrivacySettings#eb2b4cf6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getGlobalPrivacySettings#eb2b4cf6")
 	}
 	b.PutID(AccountGetGlobalPrivacySettingsRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +94,7 @@ func (g *AccountGetGlobalPrivacySettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetGlobalPrivacySettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getGlobalPrivacySettings#eb2b4cf6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getGlobalPrivacySettings#eb2b4cf6")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (g *AccountGetGlobalPrivacySettingsRequest) EncodeBare(b *bin.Buffer) error
 // Decode implements bin.Decoder.
 func (g *AccountGetGlobalPrivacySettingsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getGlobalPrivacySettings#eb2b4cf6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getGlobalPrivacySettings#eb2b4cf6")
 	}
 	if err := b.ConsumeID(AccountGetGlobalPrivacySettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getGlobalPrivacySettings#eb2b4cf6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.getGlobalPrivacySettings#eb2b4cf6", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (g *AccountGetGlobalPrivacySettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetGlobalPrivacySettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getGlobalPrivacySettings#eb2b4cf6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getGlobalPrivacySettings#eb2b4cf6")
 	}
 	return nil
 }

@@ -165,7 +165,7 @@ func (p *PhoneCallProtocol) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhoneCallProtocol) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallProtocol#fc878fc8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phoneCallProtocol#fc878fc8")
 	}
 	b.PutID(PhoneCallProtocolTypeID)
 	return p.EncodeBare(b)
@@ -174,7 +174,7 @@ func (p *PhoneCallProtocol) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneCallProtocol) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallProtocol#fc878fc8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "phoneCallProtocol#fc878fc8")
 	}
 	if !(p.UDPP2P == false) {
 		p.Flags.Set(0)
@@ -183,7 +183,7 @@ func (p *PhoneCallProtocol) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(1)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneCallProtocol#fc878fc8: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phoneCallProtocol#fc878fc8", "flags", err)
 	}
 	b.PutInt(p.MinLayer)
 	b.PutInt(p.MaxLayer)
@@ -244,10 +244,10 @@ func (p *PhoneCallProtocol) GetLibraryVersions() (value []string) {
 // Decode implements bin.Decoder.
 func (p *PhoneCallProtocol) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallProtocol#fc878fc8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phoneCallProtocol#fc878fc8")
 	}
 	if err := b.ConsumeID(PhoneCallProtocolTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneCallProtocol#fc878fc8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phoneCallProtocol#fc878fc8", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -255,11 +255,11 @@ func (p *PhoneCallProtocol) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneCallProtocol) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallProtocol#fc878fc8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "phoneCallProtocol#fc878fc8")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallProtocol#fc878fc8: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneCallProtocol#fc878fc8", "flags", err)
 		}
 	}
 	p.UDPP2P = p.Flags.Has(0)
@@ -267,26 +267,26 @@ func (p *PhoneCallProtocol) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallProtocol#fc878fc8: field min_layer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneCallProtocol#fc878fc8", "min_layer", err)
 		}
 		p.MinLayer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallProtocol#fc878fc8: field max_layer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneCallProtocol#fc878fc8", "max_layer", err)
 		}
 		p.MaxLayer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallProtocol#fc878fc8: field library_versions: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phoneCallProtocol#fc878fc8", "library_versions", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode phoneCallProtocol#fc878fc8: field library_versions: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "phoneCallProtocol#fc878fc8", "library_versions", err)
 			}
 			p.LibraryVersions = append(p.LibraryVersions, value)
 		}

@@ -85,7 +85,7 @@ func (g *AccountGetContactSignUpNotificationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetContactSignUpNotificationRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getContactSignUpNotification#9f07c728 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getContactSignUpNotification#9f07c728")
 	}
 	b.PutID(AccountGetContactSignUpNotificationRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +94,7 @@ func (g *AccountGetContactSignUpNotificationRequest) Encode(b *bin.Buffer) error
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetContactSignUpNotificationRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getContactSignUpNotification#9f07c728 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getContactSignUpNotification#9f07c728")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (g *AccountGetContactSignUpNotificationRequest) EncodeBare(b *bin.Buffer) e
 // Decode implements bin.Decoder.
 func (g *AccountGetContactSignUpNotificationRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getContactSignUpNotification#9f07c728 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getContactSignUpNotification#9f07c728")
 	}
 	if err := b.ConsumeID(AccountGetContactSignUpNotificationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getContactSignUpNotification#9f07c728: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.getContactSignUpNotification#9f07c728", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (g *AccountGetContactSignUpNotificationRequest) Decode(b *bin.Buffer) error
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetContactSignUpNotificationRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getContactSignUpNotification#9f07c728 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getContactSignUpNotification#9f07c728")
 	}
 	return nil
 }

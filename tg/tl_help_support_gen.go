@@ -113,7 +113,7 @@ func (s *HelpSupport) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *HelpSupport) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode help.support#17c6b5f6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.support#17c6b5f6")
 	}
 	b.PutID(HelpSupportTypeID)
 	return s.EncodeBare(b)
@@ -122,14 +122,14 @@ func (s *HelpSupport) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *HelpSupport) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode help.support#17c6b5f6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.support#17c6b5f6")
 	}
 	b.PutString(s.PhoneNumber)
 	if s.User == nil {
-		return fmt.Errorf("unable to encode help.support#17c6b5f6: field user is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "help.support#17c6b5f6", "user")
 	}
 	if err := s.User.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.support#17c6b5f6: field user: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "help.support#17c6b5f6", "user", err)
 	}
 	return nil
 }
@@ -152,10 +152,10 @@ func (s *HelpSupport) GetUserAsNotEmpty() (*User, bool) {
 // Decode implements bin.Decoder.
 func (s *HelpSupport) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode help.support#17c6b5f6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.support#17c6b5f6")
 	}
 	if err := b.ConsumeID(HelpSupportTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.support#17c6b5f6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.support#17c6b5f6", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -163,19 +163,19 @@ func (s *HelpSupport) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *HelpSupport) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode help.support#17c6b5f6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.support#17c6b5f6")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.support#17c6b5f6: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.support#17c6b5f6", "phone_number", err)
 		}
 		s.PhoneNumber = value
 	}
 	{
 		value, err := DecodeUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode help.support#17c6b5f6: field user: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.support#17c6b5f6", "user", err)
 		}
 		s.User = value
 	}

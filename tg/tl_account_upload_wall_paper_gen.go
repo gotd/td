@@ -124,7 +124,7 @@ func (u *AccountUploadWallPaperRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUploadWallPaperRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.uploadWallPaper#dd853661 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.uploadWallPaper#dd853661")
 	}
 	b.PutID(AccountUploadWallPaperRequestTypeID)
 	return u.EncodeBare(b)
@@ -133,17 +133,17 @@ func (u *AccountUploadWallPaperRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUploadWallPaperRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.uploadWallPaper#dd853661 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.uploadWallPaper#dd853661")
 	}
 	if u.File == nil {
-		return fmt.Errorf("unable to encode account.uploadWallPaper#dd853661: field file is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "account.uploadWallPaper#dd853661", "file")
 	}
 	if err := u.File.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.uploadWallPaper#dd853661: field file: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.uploadWallPaper#dd853661", "file", err)
 	}
 	b.PutString(u.MimeType)
 	if err := u.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.uploadWallPaper#dd853661: field settings: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.uploadWallPaper#dd853661", "settings", err)
 	}
 	return nil
 }
@@ -166,10 +166,10 @@ func (u *AccountUploadWallPaperRequest) GetSettings() (value WallPaperSettings) 
 // Decode implements bin.Decoder.
 func (u *AccountUploadWallPaperRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.uploadWallPaper#dd853661 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.uploadWallPaper#dd853661")
 	}
 	if err := b.ConsumeID(AccountUploadWallPaperRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.uploadWallPaper#dd853661: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.uploadWallPaper#dd853661", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -177,25 +177,25 @@ func (u *AccountUploadWallPaperRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUploadWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.uploadWallPaper#dd853661 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.uploadWallPaper#dd853661")
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.uploadWallPaper#dd853661: field file: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.uploadWallPaper#dd853661", "file", err)
 		}
 		u.File = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.uploadWallPaper#dd853661: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.uploadWallPaper#dd853661", "mime_type", err)
 		}
 		u.MimeType = value
 	}
 	{
 		if err := u.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.uploadWallPaper#dd853661: field settings: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.uploadWallPaper#dd853661", "settings", err)
 		}
 	}
 	return nil

@@ -108,7 +108,7 @@ func (r *AccountResetWebAuthorizationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountResetWebAuthorizationRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetWebAuthorization#2d01b9ef as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.resetWebAuthorization#2d01b9ef")
 	}
 	b.PutID(AccountResetWebAuthorizationRequestTypeID)
 	return r.EncodeBare(b)
@@ -117,7 +117,7 @@ func (r *AccountResetWebAuthorizationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountResetWebAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetWebAuthorization#2d01b9ef as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.resetWebAuthorization#2d01b9ef")
 	}
 	b.PutLong(r.Hash)
 	return nil
@@ -131,10 +131,10 @@ func (r *AccountResetWebAuthorizationRequest) GetHash() (value int64) {
 // Decode implements bin.Decoder.
 func (r *AccountResetWebAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetWebAuthorization#2d01b9ef to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.resetWebAuthorization#2d01b9ef")
 	}
 	if err := b.ConsumeID(AccountResetWebAuthorizationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.resetWebAuthorization#2d01b9ef: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.resetWebAuthorization#2d01b9ef", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (r *AccountResetWebAuthorizationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountResetWebAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetWebAuthorization#2d01b9ef to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.resetWebAuthorization#2d01b9ef")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.resetWebAuthorization#2d01b9ef: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.resetWebAuthorization#2d01b9ef", "hash", err)
 		}
 		r.Hash = value
 	}

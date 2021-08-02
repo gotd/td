@@ -121,7 +121,7 @@ func (f *FutureSalt) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *FutureSalt) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode future_salt#949d9dc as nil")
+		return fmt.Errorf("can't encode %s as nil", "future_salt#949d9dc")
 	}
 	b.PutID(FutureSaltTypeID)
 	return f.EncodeBare(b)
@@ -130,7 +130,7 @@ func (f *FutureSalt) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *FutureSalt) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode future_salt#949d9dc as nil")
+		return fmt.Errorf("can't encode %s as nil", "future_salt#949d9dc")
 	}
 	b.PutInt(f.ValidSince)
 	b.PutInt(f.ValidUntil)
@@ -156,10 +156,10 @@ func (f *FutureSalt) GetSalt() (value int64) {
 // Decode implements bin.Decoder.
 func (f *FutureSalt) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode future_salt#949d9dc to nil")
+		return fmt.Errorf("can't decode %s to nil", "future_salt#949d9dc")
 	}
 	if err := b.ConsumeID(FutureSaltTypeID); err != nil {
-		return fmt.Errorf("unable to decode future_salt#949d9dc: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "future_salt#949d9dc", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -167,26 +167,26 @@ func (f *FutureSalt) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *FutureSalt) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode future_salt#949d9dc to nil")
+		return fmt.Errorf("can't decode %s to nil", "future_salt#949d9dc")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode future_salt#949d9dc: field valid_since: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "future_salt#949d9dc", "valid_since", err)
 		}
 		f.ValidSince = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode future_salt#949d9dc: field valid_until: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "future_salt#949d9dc", "valid_until", err)
 		}
 		f.ValidUntil = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode future_salt#949d9dc: field salt: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "future_salt#949d9dc", "salt", err)
 		}
 		f.Salt = value
 	}

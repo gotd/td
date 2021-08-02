@@ -113,7 +113,7 @@ func (t *ChannelsToggleSignaturesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ChannelsToggleSignaturesRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode channels.toggleSignatures#1f69b606 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.toggleSignatures#1f69b606")
 	}
 	b.PutID(ChannelsToggleSignaturesRequestTypeID)
 	return t.EncodeBare(b)
@@ -122,13 +122,13 @@ func (t *ChannelsToggleSignaturesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ChannelsToggleSignaturesRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode channels.toggleSignatures#1f69b606 as nil")
+		return fmt.Errorf("can't encode %s as nil", "channels.toggleSignatures#1f69b606")
 	}
 	if t.Channel == nil {
-		return fmt.Errorf("unable to encode channels.toggleSignatures#1f69b606: field channel is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "channels.toggleSignatures#1f69b606", "channel")
 	}
 	if err := t.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.toggleSignatures#1f69b606: field channel: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "channels.toggleSignatures#1f69b606", "channel", err)
 	}
 	b.PutBool(t.Enabled)
 	return nil
@@ -152,10 +152,10 @@ func (t *ChannelsToggleSignaturesRequest) GetEnabled() (value bool) {
 // Decode implements bin.Decoder.
 func (t *ChannelsToggleSignaturesRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode channels.toggleSignatures#1f69b606 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.toggleSignatures#1f69b606")
 	}
 	if err := b.ConsumeID(ChannelsToggleSignaturesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.toggleSignatures#1f69b606: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "channels.toggleSignatures#1f69b606", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -163,19 +163,19 @@ func (t *ChannelsToggleSignaturesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ChannelsToggleSignaturesRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode channels.toggleSignatures#1f69b606 to nil")
+		return fmt.Errorf("can't decode %s to nil", "channels.toggleSignatures#1f69b606")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.toggleSignatures#1f69b606: field channel: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.toggleSignatures#1f69b606", "channel", err)
 		}
 		t.Channel = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.toggleSignatures#1f69b606: field enabled: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "channels.toggleSignatures#1f69b606", "enabled", err)
 		}
 		t.Enabled = value
 	}

@@ -113,7 +113,7 @@ func (b *PaymentsBankCardData) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *PaymentsBankCardData) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode payments.bankCardData#3e24e573 as nil")
+		return fmt.Errorf("can't encode %s as nil", "payments.bankCardData#3e24e573")
 	}
 	buf.PutID(PaymentsBankCardDataTypeID)
 	return b.EncodeBare(buf)
@@ -122,13 +122,13 @@ func (b *PaymentsBankCardData) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *PaymentsBankCardData) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode payments.bankCardData#3e24e573 as nil")
+		return fmt.Errorf("can't encode %s as nil", "payments.bankCardData#3e24e573")
 	}
 	buf.PutString(b.Title)
 	buf.PutVectorHeader(len(b.OpenURLs))
 	for idx, v := range b.OpenURLs {
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode payments.bankCardData#3e24e573: field open_urls element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "payments.bankCardData#3e24e573", "open_urls", idx, err)
 		}
 	}
 	return nil
@@ -147,10 +147,10 @@ func (b *PaymentsBankCardData) GetOpenURLs() (value []BankCardOpenURL) {
 // Decode implements bin.Decoder.
 func (b *PaymentsBankCardData) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode payments.bankCardData#3e24e573 to nil")
+		return fmt.Errorf("can't decode %s to nil", "payments.bankCardData#3e24e573")
 	}
 	if err := buf.ConsumeID(PaymentsBankCardDataTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.bankCardData#3e24e573: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "payments.bankCardData#3e24e573", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -158,24 +158,24 @@ func (b *PaymentsBankCardData) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *PaymentsBankCardData) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode payments.bankCardData#3e24e573 to nil")
+		return fmt.Errorf("can't decode %s to nil", "payments.bankCardData#3e24e573")
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.bankCardData#3e24e573: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "payments.bankCardData#3e24e573", "title", err)
 		}
 		b.Title = value
 	}
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.bankCardData#3e24e573: field open_urls: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "payments.bankCardData#3e24e573", "open_urls", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value BankCardOpenURL
 			if err := value.Decode(buf); err != nil {
-				return fmt.Errorf("unable to decode payments.bankCardData#3e24e573: field open_urls: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "payments.bankCardData#3e24e573", "open_urls", err)
 			}
 			b.OpenURLs = append(b.OpenURLs, value)
 		}

@@ -85,7 +85,7 @@ func (p *PrivacyKeyStatusTimestamp) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyStatusTimestamp) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyStatusTimestamp#bc2eab30 as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyStatusTimestamp#bc2eab30")
 	}
 	b.PutID(PrivacyKeyStatusTimestampTypeID)
 	return p.EncodeBare(b)
@@ -94,7 +94,7 @@ func (p *PrivacyKeyStatusTimestamp) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PrivacyKeyStatusTimestamp) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyStatusTimestamp#bc2eab30 as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyStatusTimestamp#bc2eab30")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (p *PrivacyKeyStatusTimestamp) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PrivacyKeyStatusTimestamp) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyStatusTimestamp#bc2eab30 to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyStatusTimestamp#bc2eab30")
 	}
 	if err := b.ConsumeID(PrivacyKeyStatusTimestampTypeID); err != nil {
-		return fmt.Errorf("unable to decode privacyKeyStatusTimestamp#bc2eab30: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "privacyKeyStatusTimestamp#bc2eab30", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (p *PrivacyKeyStatusTimestamp) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PrivacyKeyStatusTimestamp) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyStatusTimestamp#bc2eab30 to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyStatusTimestamp#bc2eab30")
 	}
 	return nil
 }
@@ -187,7 +187,7 @@ func (p *PrivacyKeyChatInvite) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyChatInvite) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyChatInvite#500e6dfa as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyChatInvite#500e6dfa")
 	}
 	b.PutID(PrivacyKeyChatInviteTypeID)
 	return p.EncodeBare(b)
@@ -196,7 +196,7 @@ func (p *PrivacyKeyChatInvite) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PrivacyKeyChatInvite) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyChatInvite#500e6dfa as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyChatInvite#500e6dfa")
 	}
 	return nil
 }
@@ -204,10 +204,10 @@ func (p *PrivacyKeyChatInvite) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PrivacyKeyChatInvite) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyChatInvite#500e6dfa to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyChatInvite#500e6dfa")
 	}
 	if err := b.ConsumeID(PrivacyKeyChatInviteTypeID); err != nil {
-		return fmt.Errorf("unable to decode privacyKeyChatInvite#500e6dfa: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "privacyKeyChatInvite#500e6dfa", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -215,7 +215,7 @@ func (p *PrivacyKeyChatInvite) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PrivacyKeyChatInvite) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyChatInvite#500e6dfa to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyChatInvite#500e6dfa")
 	}
 	return nil
 }
@@ -289,7 +289,7 @@ func (p *PrivacyKeyPhoneCall) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyPhoneCall) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyPhoneCall#3d662b7b as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyPhoneCall#3d662b7b")
 	}
 	b.PutID(PrivacyKeyPhoneCallTypeID)
 	return p.EncodeBare(b)
@@ -298,7 +298,7 @@ func (p *PrivacyKeyPhoneCall) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PrivacyKeyPhoneCall) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyPhoneCall#3d662b7b as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyPhoneCall#3d662b7b")
 	}
 	return nil
 }
@@ -306,10 +306,10 @@ func (p *PrivacyKeyPhoneCall) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PrivacyKeyPhoneCall) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyPhoneCall#3d662b7b to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyPhoneCall#3d662b7b")
 	}
 	if err := b.ConsumeID(PrivacyKeyPhoneCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode privacyKeyPhoneCall#3d662b7b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "privacyKeyPhoneCall#3d662b7b", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -317,7 +317,7 @@ func (p *PrivacyKeyPhoneCall) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PrivacyKeyPhoneCall) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyPhoneCall#3d662b7b to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyPhoneCall#3d662b7b")
 	}
 	return nil
 }
@@ -391,7 +391,7 @@ func (p *PrivacyKeyPhoneP2P) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyPhoneP2P) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyPhoneP2P#39491cc8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyPhoneP2P#39491cc8")
 	}
 	b.PutID(PrivacyKeyPhoneP2PTypeID)
 	return p.EncodeBare(b)
@@ -400,7 +400,7 @@ func (p *PrivacyKeyPhoneP2P) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PrivacyKeyPhoneP2P) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyPhoneP2P#39491cc8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyPhoneP2P#39491cc8")
 	}
 	return nil
 }
@@ -408,10 +408,10 @@ func (p *PrivacyKeyPhoneP2P) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PrivacyKeyPhoneP2P) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyPhoneP2P#39491cc8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyPhoneP2P#39491cc8")
 	}
 	if err := b.ConsumeID(PrivacyKeyPhoneP2PTypeID); err != nil {
-		return fmt.Errorf("unable to decode privacyKeyPhoneP2P#39491cc8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "privacyKeyPhoneP2P#39491cc8", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -419,7 +419,7 @@ func (p *PrivacyKeyPhoneP2P) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PrivacyKeyPhoneP2P) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyPhoneP2P#39491cc8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyPhoneP2P#39491cc8")
 	}
 	return nil
 }
@@ -496,7 +496,7 @@ func (p *PrivacyKeyForwards) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyForwards) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyForwards#69ec56a3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyForwards#69ec56a3")
 	}
 	b.PutID(PrivacyKeyForwardsTypeID)
 	return p.EncodeBare(b)
@@ -505,7 +505,7 @@ func (p *PrivacyKeyForwards) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PrivacyKeyForwards) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyForwards#69ec56a3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyForwards#69ec56a3")
 	}
 	return nil
 }
@@ -513,10 +513,10 @@ func (p *PrivacyKeyForwards) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PrivacyKeyForwards) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyForwards#69ec56a3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyForwards#69ec56a3")
 	}
 	if err := b.ConsumeID(PrivacyKeyForwardsTypeID); err != nil {
-		return fmt.Errorf("unable to decode privacyKeyForwards#69ec56a3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "privacyKeyForwards#69ec56a3", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -524,7 +524,7 @@ func (p *PrivacyKeyForwards) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PrivacyKeyForwards) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyForwards#69ec56a3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyForwards#69ec56a3")
 	}
 	return nil
 }
@@ -598,7 +598,7 @@ func (p *PrivacyKeyProfilePhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyProfilePhoto) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyProfilePhoto#96151fed as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyProfilePhoto#96151fed")
 	}
 	b.PutID(PrivacyKeyProfilePhotoTypeID)
 	return p.EncodeBare(b)
@@ -607,7 +607,7 @@ func (p *PrivacyKeyProfilePhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PrivacyKeyProfilePhoto) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyProfilePhoto#96151fed as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyProfilePhoto#96151fed")
 	}
 	return nil
 }
@@ -615,10 +615,10 @@ func (p *PrivacyKeyProfilePhoto) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PrivacyKeyProfilePhoto) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyProfilePhoto#96151fed to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyProfilePhoto#96151fed")
 	}
 	if err := b.ConsumeID(PrivacyKeyProfilePhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode privacyKeyProfilePhoto#96151fed: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "privacyKeyProfilePhoto#96151fed", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -626,7 +626,7 @@ func (p *PrivacyKeyProfilePhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PrivacyKeyProfilePhoto) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyProfilePhoto#96151fed to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyProfilePhoto#96151fed")
 	}
 	return nil
 }
@@ -700,7 +700,7 @@ func (p *PrivacyKeyPhoneNumber) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyPhoneNumber) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyPhoneNumber#d19ae46d as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyPhoneNumber#d19ae46d")
 	}
 	b.PutID(PrivacyKeyPhoneNumberTypeID)
 	return p.EncodeBare(b)
@@ -709,7 +709,7 @@ func (p *PrivacyKeyPhoneNumber) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PrivacyKeyPhoneNumber) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyPhoneNumber#d19ae46d as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyPhoneNumber#d19ae46d")
 	}
 	return nil
 }
@@ -717,10 +717,10 @@ func (p *PrivacyKeyPhoneNumber) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PrivacyKeyPhoneNumber) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyPhoneNumber#d19ae46d to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyPhoneNumber#d19ae46d")
 	}
 	if err := b.ConsumeID(PrivacyKeyPhoneNumberTypeID); err != nil {
-		return fmt.Errorf("unable to decode privacyKeyPhoneNumber#d19ae46d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "privacyKeyPhoneNumber#d19ae46d", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -728,7 +728,7 @@ func (p *PrivacyKeyPhoneNumber) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PrivacyKeyPhoneNumber) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyPhoneNumber#d19ae46d to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyPhoneNumber#d19ae46d")
 	}
 	return nil
 }
@@ -802,7 +802,7 @@ func (p *PrivacyKeyAddedByPhone) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyAddedByPhone) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyAddedByPhone#42ffd42b as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyAddedByPhone#42ffd42b")
 	}
 	b.PutID(PrivacyKeyAddedByPhoneTypeID)
 	return p.EncodeBare(b)
@@ -811,7 +811,7 @@ func (p *PrivacyKeyAddedByPhone) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PrivacyKeyAddedByPhone) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode privacyKeyAddedByPhone#42ffd42b as nil")
+		return fmt.Errorf("can't encode %s as nil", "privacyKeyAddedByPhone#42ffd42b")
 	}
 	return nil
 }
@@ -819,10 +819,10 @@ func (p *PrivacyKeyAddedByPhone) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PrivacyKeyAddedByPhone) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyAddedByPhone#42ffd42b to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyAddedByPhone#42ffd42b")
 	}
 	if err := b.ConsumeID(PrivacyKeyAddedByPhoneTypeID); err != nil {
-		return fmt.Errorf("unable to decode privacyKeyAddedByPhone#42ffd42b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "privacyKeyAddedByPhone#42ffd42b", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -830,7 +830,7 @@ func (p *PrivacyKeyAddedByPhone) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PrivacyKeyAddedByPhone) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode privacyKeyAddedByPhone#42ffd42b to nil")
+		return fmt.Errorf("can't decode %s to nil", "privacyKeyAddedByPhone#42ffd42b")
 	}
 	return nil
 }
@@ -898,60 +898,60 @@ func DecodePrivacyKey(buf *bin.Buffer) (PrivacyKeyClass, error) {
 		// Decoding privacyKeyStatusTimestamp#bc2eab30.
 		v := PrivacyKeyStatusTimestamp{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "PrivacyKeyClass", err)
 		}
 		return &v, nil
 	case PrivacyKeyChatInviteTypeID:
 		// Decoding privacyKeyChatInvite#500e6dfa.
 		v := PrivacyKeyChatInvite{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "PrivacyKeyClass", err)
 		}
 		return &v, nil
 	case PrivacyKeyPhoneCallTypeID:
 		// Decoding privacyKeyPhoneCall#3d662b7b.
 		v := PrivacyKeyPhoneCall{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "PrivacyKeyClass", err)
 		}
 		return &v, nil
 	case PrivacyKeyPhoneP2PTypeID:
 		// Decoding privacyKeyPhoneP2P#39491cc8.
 		v := PrivacyKeyPhoneP2P{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "PrivacyKeyClass", err)
 		}
 		return &v, nil
 	case PrivacyKeyForwardsTypeID:
 		// Decoding privacyKeyForwards#69ec56a3.
 		v := PrivacyKeyForwards{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "PrivacyKeyClass", err)
 		}
 		return &v, nil
 	case PrivacyKeyProfilePhotoTypeID:
 		// Decoding privacyKeyProfilePhoto#96151fed.
 		v := PrivacyKeyProfilePhoto{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "PrivacyKeyClass", err)
 		}
 		return &v, nil
 	case PrivacyKeyPhoneNumberTypeID:
 		// Decoding privacyKeyPhoneNumber#d19ae46d.
 		v := PrivacyKeyPhoneNumber{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "PrivacyKeyClass", err)
 		}
 		return &v, nil
 	case PrivacyKeyAddedByPhoneTypeID:
 		// Decoding privacyKeyAddedByPhone#42ffd42b.
 		v := PrivacyKeyAddedByPhone{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "PrivacyKeyClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "PrivacyKeyClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -963,7 +963,7 @@ type PrivacyKeyBox struct {
 // Decode implements bin.Decoder for PrivacyKeyBox.
 func (b *PrivacyKeyBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode PrivacyKeyBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "PrivacyKey")
 	}
 	v, err := DecodePrivacyKey(buf)
 	if err != nil {
@@ -976,7 +976,7 @@ func (b *PrivacyKeyBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for PrivacyKeyBox.
 func (b *PrivacyKeyBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.PrivacyKey == nil {
-		return fmt.Errorf("unable to encode PrivacyKeyClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "PrivacyKeyClass")
 	}
 	return b.PrivacyKey.Encode(buf)
 }

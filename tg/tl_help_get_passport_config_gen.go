@@ -108,7 +108,7 @@ func (g *HelpGetPassportConfigRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetPassportConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getPassportConfig#c661ad08 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getPassportConfig#c661ad08")
 	}
 	b.PutID(HelpGetPassportConfigRequestTypeID)
 	return g.EncodeBare(b)
@@ -117,7 +117,7 @@ func (g *HelpGetPassportConfigRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetPassportConfigRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getPassportConfig#c661ad08 as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getPassportConfig#c661ad08")
 	}
 	b.PutInt(g.Hash)
 	return nil
@@ -131,10 +131,10 @@ func (g *HelpGetPassportConfigRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *HelpGetPassportConfigRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getPassportConfig#c661ad08 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getPassportConfig#c661ad08")
 	}
 	if err := b.ConsumeID(HelpGetPassportConfigRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getPassportConfig#c661ad08: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.getPassportConfig#c661ad08", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (g *HelpGetPassportConfigRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetPassportConfigRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getPassportConfig#c661ad08 to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getPassportConfig#c661ad08")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.getPassportConfig#c661ad08: field hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.getPassportConfig#c661ad08", "hash", err)
 		}
 		g.Hash = value
 	}

@@ -108,7 +108,7 @@ func (i *ContactsImportContactsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *ContactsImportContactsRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode contacts.importContacts#2c800be5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.importContacts#2c800be5")
 	}
 	b.PutID(ContactsImportContactsRequestTypeID)
 	return i.EncodeBare(b)
@@ -117,12 +117,12 @@ func (i *ContactsImportContactsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *ContactsImportContactsRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode contacts.importContacts#2c800be5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "contacts.importContacts#2c800be5")
 	}
 	b.PutVectorHeader(len(i.Contacts))
 	for idx, v := range i.Contacts {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.importContacts#2c800be5: field contacts element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "contacts.importContacts#2c800be5", "contacts", idx, err)
 		}
 	}
 	return nil
@@ -136,10 +136,10 @@ func (i *ContactsImportContactsRequest) GetContacts() (value []InputPhoneContact
 // Decode implements bin.Decoder.
 func (i *ContactsImportContactsRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode contacts.importContacts#2c800be5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.importContacts#2c800be5")
 	}
 	if err := b.ConsumeID(ContactsImportContactsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.importContacts#2c800be5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "contacts.importContacts#2c800be5", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -147,17 +147,17 @@ func (i *ContactsImportContactsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *ContactsImportContactsRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode contacts.importContacts#2c800be5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "contacts.importContacts#2c800be5")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.importContacts#2c800be5: field contacts: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.importContacts#2c800be5", "contacts", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value InputPhoneContact
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode contacts.importContacts#2c800be5: field contacts: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "contacts.importContacts#2c800be5", "contacts", err)
 			}
 			i.Contacts = append(i.Contacts, value)
 		}

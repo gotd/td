@@ -101,7 +101,7 @@ func (c *StickersCheckShortNameRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *StickersCheckShortNameRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode stickers.checkShortName#284b3639 as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickers.checkShortName#284b3639")
 	}
 	b.PutID(StickersCheckShortNameRequestTypeID)
 	return c.EncodeBare(b)
@@ -110,7 +110,7 @@ func (c *StickersCheckShortNameRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *StickersCheckShortNameRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode stickers.checkShortName#284b3639 as nil")
+		return fmt.Errorf("can't encode %s as nil", "stickers.checkShortName#284b3639")
 	}
 	b.PutString(c.ShortName)
 	return nil
@@ -124,10 +124,10 @@ func (c *StickersCheckShortNameRequest) GetShortName() (value string) {
 // Decode implements bin.Decoder.
 func (c *StickersCheckShortNameRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode stickers.checkShortName#284b3639 to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickers.checkShortName#284b3639")
 	}
 	if err := b.ConsumeID(StickersCheckShortNameRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickers.checkShortName#284b3639: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "stickers.checkShortName#284b3639", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -135,12 +135,12 @@ func (c *StickersCheckShortNameRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *StickersCheckShortNameRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode stickers.checkShortName#284b3639 to nil")
+		return fmt.Errorf("can't decode %s to nil", "stickers.checkShortName#284b3639")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.checkShortName#284b3639: field short_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "stickers.checkShortName#284b3639", "short_name", err)
 		}
 		c.ShortName = value
 	}

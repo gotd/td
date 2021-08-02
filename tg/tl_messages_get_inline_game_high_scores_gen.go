@@ -113,7 +113,7 @@ func (g *MessagesGetInlineGameHighScoresRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetInlineGameHighScoresRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getInlineGameHighScores#f635e1b as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getInlineGameHighScores#f635e1b")
 	}
 	b.PutID(MessagesGetInlineGameHighScoresRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,16 +122,16 @@ func (g *MessagesGetInlineGameHighScoresRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetInlineGameHighScoresRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getInlineGameHighScores#f635e1b as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.getInlineGameHighScores#f635e1b")
 	}
 	if err := g.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getInlineGameHighScores#f635e1b: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getInlineGameHighScores#f635e1b", "id", err)
 	}
 	if g.UserID == nil {
-		return fmt.Errorf("unable to encode messages.getInlineGameHighScores#f635e1b: field user_id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "messages.getInlineGameHighScores#f635e1b", "user_id")
 	}
 	if err := g.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getInlineGameHighScores#f635e1b: field user_id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.getInlineGameHighScores#f635e1b", "user_id", err)
 	}
 	return nil
 }
@@ -149,10 +149,10 @@ func (g *MessagesGetInlineGameHighScoresRequest) GetUserID() (value InputUserCla
 // Decode implements bin.Decoder.
 func (g *MessagesGetInlineGameHighScoresRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getInlineGameHighScores#f635e1b to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getInlineGameHighScores#f635e1b")
 	}
 	if err := b.ConsumeID(MessagesGetInlineGameHighScoresRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getInlineGameHighScores#f635e1b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.getInlineGameHighScores#f635e1b", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -160,17 +160,17 @@ func (g *MessagesGetInlineGameHighScoresRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetInlineGameHighScoresRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getInlineGameHighScores#f635e1b to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.getInlineGameHighScores#f635e1b")
 	}
 	{
 		if err := g.ID.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getInlineGameHighScores#f635e1b: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getInlineGameHighScores#f635e1b", "id", err)
 		}
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getInlineGameHighScores#f635e1b: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.getInlineGameHighScores#f635e1b", "user_id", err)
 		}
 		g.UserID = value
 	}

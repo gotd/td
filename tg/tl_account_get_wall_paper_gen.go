@@ -102,7 +102,7 @@ func (g *AccountGetWallPaperRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetWallPaperRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getWallPaper#fc8ddbea as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getWallPaper#fc8ddbea")
 	}
 	b.PutID(AccountGetWallPaperRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,13 +111,13 @@ func (g *AccountGetWallPaperRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetWallPaperRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getWallPaper#fc8ddbea as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.getWallPaper#fc8ddbea")
 	}
 	if g.Wallpaper == nil {
-		return fmt.Errorf("unable to encode account.getWallPaper#fc8ddbea: field wallpaper is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "account.getWallPaper#fc8ddbea", "wallpaper")
 	}
 	if err := g.Wallpaper.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.getWallPaper#fc8ddbea: field wallpaper: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "account.getWallPaper#fc8ddbea", "wallpaper", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (g *AccountGetWallPaperRequest) GetWallpaper() (value InputWallPaperClass) 
 // Decode implements bin.Decoder.
 func (g *AccountGetWallPaperRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getWallPaper#fc8ddbea to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getWallPaper#fc8ddbea")
 	}
 	if err := b.ConsumeID(AccountGetWallPaperRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getWallPaper#fc8ddbea: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.getWallPaper#fc8ddbea", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (g *AccountGetWallPaperRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getWallPaper#fc8ddbea to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.getWallPaper#fc8ddbea")
 	}
 	{
 		value, err := DecodeInputWallPaper(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getWallPaper#fc8ddbea: field wallpaper: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.getWallPaper#fc8ddbea", "wallpaper", err)
 		}
 		g.Wallpaper = value
 	}

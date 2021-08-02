@@ -145,7 +145,7 @@ func (g *PhoneGetGroupParticipantsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PhoneGetGroupParticipantsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getGroupParticipants#c558d8ab as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.getGroupParticipants#c558d8ab")
 	}
 	b.PutID(PhoneGetGroupParticipantsRequestTypeID)
 	return g.EncodeBare(b)
@@ -154,18 +154,18 @@ func (g *PhoneGetGroupParticipantsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PhoneGetGroupParticipantsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getGroupParticipants#c558d8ab as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.getGroupParticipants#c558d8ab")
 	}
 	if err := g.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.getGroupParticipants#c558d8ab: field call: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.getGroupParticipants#c558d8ab", "call", err)
 	}
 	b.PutVectorHeader(len(g.IDs))
 	for idx, v := range g.IDs {
 		if v == nil {
-			return fmt.Errorf("unable to encode phone.getGroupParticipants#c558d8ab: field ids element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "phone.getGroupParticipants#c558d8ab", "ids", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.getGroupParticipants#c558d8ab: field ids element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "phone.getGroupParticipants#c558d8ab", "ids", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(g.Sources))
@@ -210,10 +210,10 @@ func (g *PhoneGetGroupParticipantsRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *PhoneGetGroupParticipantsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getGroupParticipants#c558d8ab to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.getGroupParticipants#c558d8ab")
 	}
 	if err := b.ConsumeID(PhoneGetGroupParticipantsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.getGroupParticipants#c558d8ab", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -221,22 +221,22 @@ func (g *PhoneGetGroupParticipantsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PhoneGetGroupParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getGroupParticipants#c558d8ab to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.getGroupParticipants#c558d8ab")
 	}
 	{
 		if err := g.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field call: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.getGroupParticipants#c558d8ab", "call", err)
 		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field ids: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.getGroupParticipants#c558d8ab", "ids", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field ids: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "phone.getGroupParticipants#c558d8ab", "ids", err)
 			}
 			g.IDs = append(g.IDs, value)
 		}
@@ -244,12 +244,12 @@ func (g *PhoneGetGroupParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field sources: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.getGroupParticipants#c558d8ab", "sources", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field sources: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "phone.getGroupParticipants#c558d8ab", "sources", err)
 			}
 			g.Sources = append(g.Sources, value)
 		}
@@ -257,14 +257,14 @@ func (g *PhoneGetGroupParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field offset: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.getGroupParticipants#c558d8ab", "offset", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field limit: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.getGroupParticipants#c558d8ab", "limit", err)
 		}
 		g.Limit = value
 	}

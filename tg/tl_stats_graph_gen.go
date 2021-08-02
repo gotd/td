@@ -107,7 +107,7 @@ func (s *StatsGraphAsync) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsGraphAsync) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGraphAsync#4a27eb2d as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsGraphAsync#4a27eb2d")
 	}
 	b.PutID(StatsGraphAsyncTypeID)
 	return s.EncodeBare(b)
@@ -116,7 +116,7 @@ func (s *StatsGraphAsync) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsGraphAsync) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGraphAsync#4a27eb2d as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsGraphAsync#4a27eb2d")
 	}
 	b.PutString(s.Token)
 	return nil
@@ -130,10 +130,10 @@ func (s *StatsGraphAsync) GetToken() (value string) {
 // Decode implements bin.Decoder.
 func (s *StatsGraphAsync) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGraphAsync#4a27eb2d to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsGraphAsync#4a27eb2d")
 	}
 	if err := b.ConsumeID(StatsGraphAsyncTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsGraphAsync#4a27eb2d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "statsGraphAsync#4a27eb2d", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (s *StatsGraphAsync) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsGraphAsync) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGraphAsync#4a27eb2d to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsGraphAsync#4a27eb2d")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGraphAsync#4a27eb2d: field token: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGraphAsync#4a27eb2d", "token", err)
 		}
 		s.Token = value
 	}
@@ -242,7 +242,7 @@ func (s *StatsGraphError) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsGraphError) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGraphError#bedc9822 as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsGraphError#bedc9822")
 	}
 	b.PutID(StatsGraphErrorTypeID)
 	return s.EncodeBare(b)
@@ -251,7 +251,7 @@ func (s *StatsGraphError) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsGraphError) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGraphError#bedc9822 as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsGraphError#bedc9822")
 	}
 	b.PutString(s.Error)
 	return nil
@@ -265,10 +265,10 @@ func (s *StatsGraphError) GetError() (value string) {
 // Decode implements bin.Decoder.
 func (s *StatsGraphError) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGraphError#bedc9822 to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsGraphError#bedc9822")
 	}
 	if err := b.ConsumeID(StatsGraphErrorTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsGraphError#bedc9822: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "statsGraphError#bedc9822", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -276,12 +276,12 @@ func (s *StatsGraphError) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsGraphError) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGraphError#bedc9822 to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsGraphError#bedc9822")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGraphError#bedc9822: field error: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGraphError#bedc9822", "error", err)
 		}
 		s.Error = value
 	}
@@ -402,7 +402,7 @@ func (s *StatsGraph) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsGraph) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGraph#8ea464b6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsGraph#8ea464b6")
 	}
 	b.PutID(StatsGraphTypeID)
 	return s.EncodeBare(b)
@@ -411,16 +411,16 @@ func (s *StatsGraph) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsGraph) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGraph#8ea464b6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "statsGraph#8ea464b6")
 	}
 	if !(s.ZoomToken == "") {
 		s.Flags.Set(0)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode statsGraph#8ea464b6: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "statsGraph#8ea464b6", "flags", err)
 	}
 	if err := s.JSON.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode statsGraph#8ea464b6: field json: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "statsGraph#8ea464b6", "json", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutString(s.ZoomToken)
@@ -451,10 +451,10 @@ func (s *StatsGraph) GetZoomToken() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (s *StatsGraph) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGraph#8ea464b6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsGraph#8ea464b6")
 	}
 	if err := b.ConsumeID(StatsGraphTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsGraph#8ea464b6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "statsGraph#8ea464b6", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -462,22 +462,22 @@ func (s *StatsGraph) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsGraph) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGraph#8ea464b6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "statsGraph#8ea464b6")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode statsGraph#8ea464b6: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGraph#8ea464b6", "flags", err)
 		}
 	}
 	{
 		if err := s.JSON.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode statsGraph#8ea464b6: field json: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGraph#8ea464b6", "json", err)
 		}
 	}
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGraph#8ea464b6: field zoom_token: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "statsGraph#8ea464b6", "zoom_token", err)
 		}
 		s.ZoomToken = value
 	}
@@ -542,25 +542,25 @@ func DecodeStatsGraph(buf *bin.Buffer) (StatsGraphClass, error) {
 		// Decoding statsGraphAsync#4a27eb2d.
 		v := StatsGraphAsync{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StatsGraphClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StatsGraphClass", err)
 		}
 		return &v, nil
 	case StatsGraphErrorTypeID:
 		// Decoding statsGraphError#bedc9822.
 		v := StatsGraphError{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StatsGraphClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StatsGraphClass", err)
 		}
 		return &v, nil
 	case StatsGraphTypeID:
 		// Decoding statsGraph#8ea464b6.
 		v := StatsGraph{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StatsGraphClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StatsGraphClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode StatsGraphClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "StatsGraphClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -572,7 +572,7 @@ type StatsGraphBox struct {
 // Decode implements bin.Decoder for StatsGraphBox.
 func (b *StatsGraphBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode StatsGraphBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "StatsGraph")
 	}
 	v, err := DecodeStatsGraph(buf)
 	if err != nil {
@@ -585,7 +585,7 @@ func (b *StatsGraphBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for StatsGraphBox.
 func (b *StatsGraphBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.StatsGraph == nil {
-		return fmt.Errorf("unable to encode StatsGraphClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "StatsGraphClass")
 	}
 	return b.StatsGraph.Encode(buf)
 }

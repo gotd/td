@@ -85,7 +85,7 @@ func (s *SecurePasswordKdfAlgoUnknown) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecurePasswordKdfAlgoUnknown) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode securePasswordKdfAlgoUnknown#4a8537 as nil")
+		return fmt.Errorf("can't encode %s as nil", "securePasswordKdfAlgoUnknown#4a8537")
 	}
 	b.PutID(SecurePasswordKdfAlgoUnknownTypeID)
 	return s.EncodeBare(b)
@@ -94,7 +94,7 @@ func (s *SecurePasswordKdfAlgoUnknown) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecurePasswordKdfAlgoUnknown) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode securePasswordKdfAlgoUnknown#4a8537 as nil")
+		return fmt.Errorf("can't encode %s as nil", "securePasswordKdfAlgoUnknown#4a8537")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (s *SecurePasswordKdfAlgoUnknown) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecurePasswordKdfAlgoUnknown) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode securePasswordKdfAlgoUnknown#4a8537 to nil")
+		return fmt.Errorf("can't decode %s to nil", "securePasswordKdfAlgoUnknown#4a8537")
 	}
 	if err := b.ConsumeID(SecurePasswordKdfAlgoUnknownTypeID); err != nil {
-		return fmt.Errorf("unable to decode securePasswordKdfAlgoUnknown#4a8537: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "securePasswordKdfAlgoUnknown#4a8537", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (s *SecurePasswordKdfAlgoUnknown) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecurePasswordKdfAlgoUnknown) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode securePasswordKdfAlgoUnknown#4a8537 to nil")
+		return fmt.Errorf("can't decode %s to nil", "securePasswordKdfAlgoUnknown#4a8537")
 	}
 	return nil
 }
@@ -204,7 +204,7 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0")
 	}
 	b.PutID(SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID)
 	return s.EncodeBare(b)
@@ -213,7 +213,7 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) Encode(b *bin.Buffer) 
 // EncodeBare implements bin.BareEncoder.
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0")
 	}
 	b.PutBytes(s.Salt)
 	return nil
@@ -227,10 +227,10 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) GetSalt() (value []byt
 // Decode implements bin.Decoder.
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0")
 	}
 	if err := b.ConsumeID(SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID); err != nil {
-		return fmt.Errorf("unable to decode securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -238,12 +238,12 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) Decode(b *bin.Buffer) 
 // DecodeBare implements bin.BareDecoder.
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0: field salt: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0", "salt", err)
 		}
 		s.Salt = value
 	}
@@ -338,7 +338,7 @@ func (s *SecurePasswordKdfAlgoSHA512) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecurePasswordKdfAlgoSHA512) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode securePasswordKdfAlgoSHA512#86471d92 as nil")
+		return fmt.Errorf("can't encode %s as nil", "securePasswordKdfAlgoSHA512#86471d92")
 	}
 	b.PutID(SecurePasswordKdfAlgoSHA512TypeID)
 	return s.EncodeBare(b)
@@ -347,7 +347,7 @@ func (s *SecurePasswordKdfAlgoSHA512) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecurePasswordKdfAlgoSHA512) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode securePasswordKdfAlgoSHA512#86471d92 as nil")
+		return fmt.Errorf("can't encode %s as nil", "securePasswordKdfAlgoSHA512#86471d92")
 	}
 	b.PutBytes(s.Salt)
 	return nil
@@ -361,10 +361,10 @@ func (s *SecurePasswordKdfAlgoSHA512) GetSalt() (value []byte) {
 // Decode implements bin.Decoder.
 func (s *SecurePasswordKdfAlgoSHA512) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode securePasswordKdfAlgoSHA512#86471d92 to nil")
+		return fmt.Errorf("can't decode %s to nil", "securePasswordKdfAlgoSHA512#86471d92")
 	}
 	if err := b.ConsumeID(SecurePasswordKdfAlgoSHA512TypeID); err != nil {
-		return fmt.Errorf("unable to decode securePasswordKdfAlgoSHA512#86471d92: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "securePasswordKdfAlgoSHA512#86471d92", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -372,12 +372,12 @@ func (s *SecurePasswordKdfAlgoSHA512) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecurePasswordKdfAlgoSHA512) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode securePasswordKdfAlgoSHA512#86471d92 to nil")
+		return fmt.Errorf("can't decode %s to nil", "securePasswordKdfAlgoSHA512#86471d92")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode securePasswordKdfAlgoSHA512#86471d92: field salt: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "securePasswordKdfAlgoSHA512#86471d92", "salt", err)
 		}
 		s.Salt = value
 	}
@@ -442,25 +442,25 @@ func DecodeSecurePasswordKdfAlgo(buf *bin.Buffer) (SecurePasswordKdfAlgoClass, e
 		// Decoding securePasswordKdfAlgoUnknown#4a8537.
 		v := SecurePasswordKdfAlgoUnknown{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecurePasswordKdfAlgoClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "SecurePasswordKdfAlgoClass", err)
 		}
 		return &v, nil
 	case SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID:
 		// Decoding securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0.
 		v := SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecurePasswordKdfAlgoClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "SecurePasswordKdfAlgoClass", err)
 		}
 		return &v, nil
 	case SecurePasswordKdfAlgoSHA512TypeID:
 		// Decoding securePasswordKdfAlgoSHA512#86471d92.
 		v := SecurePasswordKdfAlgoSHA512{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecurePasswordKdfAlgoClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "SecurePasswordKdfAlgoClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode SecurePasswordKdfAlgoClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "SecurePasswordKdfAlgoClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -472,7 +472,7 @@ type SecurePasswordKdfAlgoBox struct {
 // Decode implements bin.Decoder for SecurePasswordKdfAlgoBox.
 func (b *SecurePasswordKdfAlgoBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode SecurePasswordKdfAlgoBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "SecurePasswordKdfAlgo")
 	}
 	v, err := DecodeSecurePasswordKdfAlgo(buf)
 	if err != nil {
@@ -485,7 +485,7 @@ func (b *SecurePasswordKdfAlgoBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for SecurePasswordKdfAlgoBox.
 func (b *SecurePasswordKdfAlgoBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.SecurePasswordKdfAlgo == nil {
-		return fmt.Errorf("unable to encode SecurePasswordKdfAlgoClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "SecurePasswordKdfAlgoClass")
 	}
 	return b.SecurePasswordKdfAlgo.Encode(buf)
 }

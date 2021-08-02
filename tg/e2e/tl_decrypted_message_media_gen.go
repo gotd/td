@@ -84,7 +84,7 @@ func (d *DecryptedMessageMediaEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaEmpty#89f5c4a as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaEmpty#89f5c4a")
 	}
 	b.PutID(DecryptedMessageMediaEmptyTypeID)
 	return d.EncodeBare(b)
@@ -93,7 +93,7 @@ func (d *DecryptedMessageMediaEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaEmpty) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaEmpty#89f5c4a as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaEmpty#89f5c4a")
 	}
 	return nil
 }
@@ -101,10 +101,10 @@ func (d *DecryptedMessageMediaEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaEmpty) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaEmpty#89f5c4a to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaEmpty#89f5c4a")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaEmpty#89f5c4a: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaEmpty#89f5c4a", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -112,7 +112,7 @@ func (d *DecryptedMessageMediaEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaEmpty) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaEmpty#89f5c4a to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaEmpty#89f5c4a")
 	}
 	return nil
 }
@@ -279,7 +279,7 @@ func (d *DecryptedMessageMediaPhoto23) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaPhoto23) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaPhoto23#32798a8c as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaPhoto23#32798a8c")
 	}
 	b.PutID(DecryptedMessageMediaPhoto23TypeID)
 	return d.EncodeBare(b)
@@ -288,7 +288,7 @@ func (d *DecryptedMessageMediaPhoto23) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaPhoto23) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaPhoto23#32798a8c as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaPhoto23#32798a8c")
 	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
@@ -344,10 +344,10 @@ func (d *DecryptedMessageMediaPhoto23) GetIv() (value []byte) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaPhoto23) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaPhoto23#32798a8c to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaPhoto23#32798a8c")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaPhoto23TypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaPhoto23#32798a8c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaPhoto23#32798a8c", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -355,61 +355,61 @@ func (d *DecryptedMessageMediaPhoto23) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaPhoto23) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaPhoto23#32798a8c to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaPhoto23#32798a8c")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto23#32798a8c: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto23#32798a8c", "thumb", err)
 		}
 		d.Thumb = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto23#32798a8c: field thumb_w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto23#32798a8c", "thumb_w", err)
 		}
 		d.ThumbW = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto23#32798a8c: field thumb_h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto23#32798a8c", "thumb_h", err)
 		}
 		d.ThumbH = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto23#32798a8c: field w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto23#32798a8c", "w", err)
 		}
 		d.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto23#32798a8c: field h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto23#32798a8c", "h", err)
 		}
 		d.H = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto23#32798a8c: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto23#32798a8c", "size", err)
 		}
 		d.Size = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto23#32798a8c: field key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto23#32798a8c", "key", err)
 		}
 		d.Key = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto23#32798a8c: field iv: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto23#32798a8c", "iv", err)
 		}
 		d.Iv = value
 	}
@@ -589,7 +589,7 @@ func (d *DecryptedMessageMediaVideo8) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaVideo8) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaVideo8#4cee6ef3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaVideo8#4cee6ef3")
 	}
 	b.PutID(DecryptedMessageMediaVideo8TypeID)
 	return d.EncodeBare(b)
@@ -598,7 +598,7 @@ func (d *DecryptedMessageMediaVideo8) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaVideo8) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaVideo8#4cee6ef3 as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaVideo8#4cee6ef3")
 	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
@@ -660,10 +660,10 @@ func (d *DecryptedMessageMediaVideo8) GetIv() (value []byte) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaVideo8) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaVideo8#4cee6ef3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaVideo8#4cee6ef3")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaVideo8TypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaVideo8#4cee6ef3: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaVideo8#4cee6ef3", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -671,68 +671,68 @@ func (d *DecryptedMessageMediaVideo8) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaVideo8) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaVideo8#4cee6ef3 to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaVideo8#4cee6ef3")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo8#4cee6ef3: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo8#4cee6ef3", "thumb", err)
 		}
 		d.Thumb = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo8#4cee6ef3: field thumb_w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo8#4cee6ef3", "thumb_w", err)
 		}
 		d.ThumbW = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo8#4cee6ef3: field thumb_h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo8#4cee6ef3", "thumb_h", err)
 		}
 		d.ThumbH = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo8#4cee6ef3: field duration: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo8#4cee6ef3", "duration", err)
 		}
 		d.Duration = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo8#4cee6ef3: field w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo8#4cee6ef3", "w", err)
 		}
 		d.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo8#4cee6ef3: field h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo8#4cee6ef3", "h", err)
 		}
 		d.H = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo8#4cee6ef3: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo8#4cee6ef3", "size", err)
 		}
 		d.Size = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo8#4cee6ef3: field key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo8#4cee6ef3", "key", err)
 		}
 		d.Key = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo8#4cee6ef3: field iv: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo8#4cee6ef3", "iv", err)
 		}
 		d.Iv = value
 	}
@@ -835,7 +835,7 @@ func (d *DecryptedMessageMediaGeoPoint) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaGeoPoint) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaGeoPoint#35480a59 as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaGeoPoint#35480a59")
 	}
 	b.PutID(DecryptedMessageMediaGeoPointTypeID)
 	return d.EncodeBare(b)
@@ -844,7 +844,7 @@ func (d *DecryptedMessageMediaGeoPoint) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaGeoPoint) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaGeoPoint#35480a59 as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaGeoPoint#35480a59")
 	}
 	b.PutDouble(d.Lat)
 	b.PutDouble(d.Long)
@@ -864,10 +864,10 @@ func (d *DecryptedMessageMediaGeoPoint) GetLong() (value float64) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaGeoPoint) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaGeoPoint#35480a59 to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaGeoPoint#35480a59")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaGeoPointTypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaGeoPoint#35480a59: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaGeoPoint#35480a59", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -875,19 +875,19 @@ func (d *DecryptedMessageMediaGeoPoint) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaGeoPoint) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaGeoPoint#35480a59 to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaGeoPoint#35480a59")
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaGeoPoint#35480a59: field lat: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaGeoPoint#35480a59", "lat", err)
 		}
 		d.Lat = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaGeoPoint#35480a59: field long: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaGeoPoint#35480a59", "long", err)
 		}
 		d.Long = value
 	}
@@ -1012,7 +1012,7 @@ func (d *DecryptedMessageMediaContact) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaContact) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaContact#588a0a97 as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaContact#588a0a97")
 	}
 	b.PutID(DecryptedMessageMediaContactTypeID)
 	return d.EncodeBare(b)
@@ -1021,7 +1021,7 @@ func (d *DecryptedMessageMediaContact) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaContact) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaContact#588a0a97 as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaContact#588a0a97")
 	}
 	b.PutString(d.PhoneNumber)
 	b.PutString(d.FirstName)
@@ -1053,10 +1053,10 @@ func (d *DecryptedMessageMediaContact) GetUserID() (value int) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaContact) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaContact#588a0a97 to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaContact#588a0a97")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaContactTypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaContact#588a0a97: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaContact#588a0a97", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -1064,33 +1064,33 @@ func (d *DecryptedMessageMediaContact) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaContact) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaContact#588a0a97 to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaContact#588a0a97")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaContact#588a0a97: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaContact#588a0a97", "phone_number", err)
 		}
 		d.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaContact#588a0a97: field first_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaContact#588a0a97", "first_name", err)
 		}
 		d.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaContact#588a0a97: field last_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaContact#588a0a97", "last_name", err)
 		}
 		d.LastName = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaContact#588a0a97: field user_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaContact#588a0a97", "user_id", err)
 		}
 		d.UserID = value
 	}
@@ -1259,7 +1259,7 @@ func (d *DecryptedMessageMediaDocument23) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaDocument23) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaDocument23#b095434b as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaDocument23#b095434b")
 	}
 	b.PutID(DecryptedMessageMediaDocument23TypeID)
 	return d.EncodeBare(b)
@@ -1268,7 +1268,7 @@ func (d *DecryptedMessageMediaDocument23) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaDocument23) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaDocument23#b095434b as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaDocument23#b095434b")
 	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
@@ -1324,10 +1324,10 @@ func (d *DecryptedMessageMediaDocument23) GetIv() (value []byte) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaDocument23) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaDocument23#b095434b to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaDocument23#b095434b")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaDocument23TypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaDocument23#b095434b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaDocument23#b095434b", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -1335,61 +1335,61 @@ func (d *DecryptedMessageMediaDocument23) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaDocument23) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaDocument23#b095434b to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaDocument23#b095434b")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument23#b095434b: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument23#b095434b", "thumb", err)
 		}
 		d.Thumb = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument23#b095434b: field thumb_w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument23#b095434b", "thumb_w", err)
 		}
 		d.ThumbW = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument23#b095434b: field thumb_h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument23#b095434b", "thumb_h", err)
 		}
 		d.ThumbH = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument23#b095434b: field file_name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument23#b095434b", "file_name", err)
 		}
 		d.FileName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument23#b095434b: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument23#b095434b", "mime_type", err)
 		}
 		d.MimeType = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument23#b095434b: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument23#b095434b", "size", err)
 		}
 		d.Size = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument23#b095434b: field key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument23#b095434b", "key", err)
 		}
 		d.Key = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument23#b095434b: field iv: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument23#b095434b", "iv", err)
 		}
 		d.Iv = value
 	}
@@ -1514,7 +1514,7 @@ func (d *DecryptedMessageMediaAudio8) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaAudio8) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaAudio8#6080758f as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaAudio8#6080758f")
 	}
 	b.PutID(DecryptedMessageMediaAudio8TypeID)
 	return d.EncodeBare(b)
@@ -1523,7 +1523,7 @@ func (d *DecryptedMessageMediaAudio8) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaAudio8) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaAudio8#6080758f as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaAudio8#6080758f")
 	}
 	b.PutInt(d.Duration)
 	b.PutInt(d.Size)
@@ -1555,10 +1555,10 @@ func (d *DecryptedMessageMediaAudio8) GetIv() (value []byte) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaAudio8) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaAudio8#6080758f to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaAudio8#6080758f")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaAudio8TypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaAudio8#6080758f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaAudio8#6080758f", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -1566,33 +1566,33 @@ func (d *DecryptedMessageMediaAudio8) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaAudio8) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaAudio8#6080758f to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaAudio8#6080758f")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaAudio8#6080758f: field duration: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaAudio8#6080758f", "duration", err)
 		}
 		d.Duration = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaAudio8#6080758f: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaAudio8#6080758f", "size", err)
 		}
 		d.Size = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaAudio8#6080758f: field key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaAudio8#6080758f", "key", err)
 		}
 		d.Key = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaAudio8#6080758f: field iv: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaAudio8#6080758f", "iv", err)
 		}
 		d.Iv = value
 	}
@@ -1783,7 +1783,7 @@ func (d *DecryptedMessageMediaVideo23) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaVideo23) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaVideo23#524a415d as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaVideo23#524a415d")
 	}
 	b.PutID(DecryptedMessageMediaVideo23TypeID)
 	return d.EncodeBare(b)
@@ -1792,7 +1792,7 @@ func (d *DecryptedMessageMediaVideo23) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaVideo23) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaVideo23#524a415d as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaVideo23#524a415d")
 	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
@@ -1860,10 +1860,10 @@ func (d *DecryptedMessageMediaVideo23) GetIv() (value []byte) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaVideo23) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaVideo23#524a415d to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaVideo23#524a415d")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaVideo23TypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaVideo23#524a415d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaVideo23#524a415d", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -1871,75 +1871,75 @@ func (d *DecryptedMessageMediaVideo23) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaVideo23) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaVideo23#524a415d to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaVideo23#524a415d")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo23#524a415d: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo23#524a415d", "thumb", err)
 		}
 		d.Thumb = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo23#524a415d: field thumb_w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo23#524a415d", "thumb_w", err)
 		}
 		d.ThumbW = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo23#524a415d: field thumb_h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo23#524a415d", "thumb_h", err)
 		}
 		d.ThumbH = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo23#524a415d: field duration: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo23#524a415d", "duration", err)
 		}
 		d.Duration = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo23#524a415d: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo23#524a415d", "mime_type", err)
 		}
 		d.MimeType = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo23#524a415d: field w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo23#524a415d", "w", err)
 		}
 		d.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo23#524a415d: field h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo23#524a415d", "h", err)
 		}
 		d.H = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo23#524a415d: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo23#524a415d", "size", err)
 		}
 		d.Size = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo23#524a415d: field key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo23#524a415d", "key", err)
 		}
 		d.Key = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo23#524a415d: field iv: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo23#524a415d", "iv", err)
 		}
 		d.Iv = value
 	}
@@ -2075,7 +2075,7 @@ func (d *DecryptedMessageMediaAudio) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaAudio) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaAudio#57e0a9cb as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaAudio#57e0a9cb")
 	}
 	b.PutID(DecryptedMessageMediaAudioTypeID)
 	return d.EncodeBare(b)
@@ -2084,7 +2084,7 @@ func (d *DecryptedMessageMediaAudio) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaAudio) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaAudio#57e0a9cb as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaAudio#57e0a9cb")
 	}
 	b.PutInt(d.Duration)
 	b.PutString(d.MimeType)
@@ -2122,10 +2122,10 @@ func (d *DecryptedMessageMediaAudio) GetIv() (value []byte) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaAudio) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaAudio#57e0a9cb to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaAudio#57e0a9cb")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaAudioTypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaAudio#57e0a9cb: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaAudio#57e0a9cb", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -2133,40 +2133,40 @@ func (d *DecryptedMessageMediaAudio) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaAudio) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaAudio#57e0a9cb to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaAudio#57e0a9cb")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaAudio#57e0a9cb: field duration: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaAudio#57e0a9cb", "duration", err)
 		}
 		d.Duration = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaAudio#57e0a9cb: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaAudio#57e0a9cb", "mime_type", err)
 		}
 		d.MimeType = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaAudio#57e0a9cb: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaAudio#57e0a9cb", "size", err)
 		}
 		d.Size = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaAudio#57e0a9cb: field key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaAudio#57e0a9cb", "key", err)
 		}
 		d.Key = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaAudio#57e0a9cb: field iv: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaAudio#57e0a9cb", "iv", err)
 		}
 		d.Iv = value
 	}
@@ -2335,7 +2335,7 @@ func (d *DecryptedMessageMediaExternalDocument) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaExternalDocument) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaExternalDocument#fa95b0dd as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaExternalDocument#fa95b0dd")
 	}
 	b.PutID(DecryptedMessageMediaExternalDocumentTypeID)
 	return d.EncodeBare(b)
@@ -2344,7 +2344,7 @@ func (d *DecryptedMessageMediaExternalDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaExternalDocument) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaExternalDocument#fa95b0dd as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaExternalDocument#fa95b0dd")
 	}
 	b.PutLong(d.ID)
 	b.PutLong(d.AccessHash)
@@ -2352,19 +2352,19 @@ func (d *DecryptedMessageMediaExternalDocument) EncodeBare(b *bin.Buffer) error 
 	b.PutString(d.MimeType)
 	b.PutInt(d.Size)
 	if d.Thumb == nil {
-		return fmt.Errorf("unable to encode decryptedMessageMediaExternalDocument#fa95b0dd: field thumb is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "decryptedMessageMediaExternalDocument#fa95b0dd", "thumb")
 	}
 	if err := d.Thumb.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode decryptedMessageMediaExternalDocument#fa95b0dd: field thumb: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "decryptedMessageMediaExternalDocument#fa95b0dd", "thumb", err)
 	}
 	b.PutInt(d.DCID)
 	b.PutVectorHeader(len(d.Attributes))
 	for idx, v := range d.Attributes {
 		if v == nil {
-			return fmt.Errorf("unable to encode decryptedMessageMediaExternalDocument#fa95b0dd: field attributes element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "decryptedMessageMediaExternalDocument#fa95b0dd", "attributes", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode decryptedMessageMediaExternalDocument#fa95b0dd: field attributes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "decryptedMessageMediaExternalDocument#fa95b0dd", "attributes", idx, err)
 		}
 	}
 	return nil
@@ -2418,10 +2418,10 @@ func (d *DecryptedMessageMediaExternalDocument) MapAttributes() (value DocumentA
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaExternalDocument) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaExternalDocument#fa95b0dd to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaExternalDocument#fa95b0dd")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaExternalDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaExternalDocument#fa95b0dd: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaExternalDocument#fa95b0dd", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -2429,66 +2429,66 @@ func (d *DecryptedMessageMediaExternalDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaExternalDocument) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaExternalDocument#fa95b0dd to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaExternalDocument#fa95b0dd")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaExternalDocument#fa95b0dd: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaExternalDocument#fa95b0dd", "id", err)
 		}
 		d.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaExternalDocument#fa95b0dd: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaExternalDocument#fa95b0dd", "access_hash", err)
 		}
 		d.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaExternalDocument#fa95b0dd: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaExternalDocument#fa95b0dd", "date", err)
 		}
 		d.Date = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaExternalDocument#fa95b0dd: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaExternalDocument#fa95b0dd", "mime_type", err)
 		}
 		d.MimeType = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaExternalDocument#fa95b0dd: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaExternalDocument#fa95b0dd", "size", err)
 		}
 		d.Size = value
 	}
 	{
 		value, err := DecodePhotoSize(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaExternalDocument#fa95b0dd: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaExternalDocument#fa95b0dd", "thumb", err)
 		}
 		d.Thumb = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaExternalDocument#fa95b0dd: field dc_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaExternalDocument#fa95b0dd", "dc_id", err)
 		}
 		d.DCID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaExternalDocument#fa95b0dd: field attributes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaExternalDocument#fa95b0dd", "attributes", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode decryptedMessageMediaExternalDocument#fa95b0dd: field attributes: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaExternalDocument#fa95b0dd", "attributes", err)
 			}
 			d.Attributes = append(d.Attributes, value)
 		}
@@ -2669,7 +2669,7 @@ func (d *DecryptedMessageMediaPhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaPhoto) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaPhoto#f1fa8d78 as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaPhoto#f1fa8d78")
 	}
 	b.PutID(DecryptedMessageMediaPhotoTypeID)
 	return d.EncodeBare(b)
@@ -2678,7 +2678,7 @@ func (d *DecryptedMessageMediaPhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaPhoto) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaPhoto#f1fa8d78 as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaPhoto#f1fa8d78")
 	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
@@ -2740,10 +2740,10 @@ func (d *DecryptedMessageMediaPhoto) GetCaption() (value string) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaPhoto) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaPhoto#f1fa8d78 to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaPhoto#f1fa8d78")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaPhoto#f1fa8d78: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaPhoto#f1fa8d78", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -2751,68 +2751,68 @@ func (d *DecryptedMessageMediaPhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaPhoto) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaPhoto#f1fa8d78 to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaPhoto#f1fa8d78")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto#f1fa8d78: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto#f1fa8d78", "thumb", err)
 		}
 		d.Thumb = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto#f1fa8d78: field thumb_w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto#f1fa8d78", "thumb_w", err)
 		}
 		d.ThumbW = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto#f1fa8d78: field thumb_h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto#f1fa8d78", "thumb_h", err)
 		}
 		d.ThumbH = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto#f1fa8d78: field w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto#f1fa8d78", "w", err)
 		}
 		d.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto#f1fa8d78: field h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto#f1fa8d78", "h", err)
 		}
 		d.H = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto#f1fa8d78: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto#f1fa8d78", "size", err)
 		}
 		d.Size = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto#f1fa8d78: field key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto#f1fa8d78", "key", err)
 		}
 		d.Key = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto#f1fa8d78: field iv: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto#f1fa8d78", "iv", err)
 		}
 		d.Iv = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaPhoto#f1fa8d78: field caption: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaPhoto#f1fa8d78", "caption", err)
 		}
 		d.Caption = value
 	}
@@ -3014,7 +3014,7 @@ func (d *DecryptedMessageMediaVideo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaVideo) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaVideo#970c8c0e as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaVideo#970c8c0e")
 	}
 	b.PutID(DecryptedMessageMediaVideoTypeID)
 	return d.EncodeBare(b)
@@ -3023,7 +3023,7 @@ func (d *DecryptedMessageMediaVideo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaVideo) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaVideo#970c8c0e as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaVideo#970c8c0e")
 	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
@@ -3097,10 +3097,10 @@ func (d *DecryptedMessageMediaVideo) GetCaption() (value string) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaVideo) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaVideo#970c8c0e to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaVideo#970c8c0e")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaVideo#970c8c0e", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -3108,82 +3108,82 @@ func (d *DecryptedMessageMediaVideo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaVideo) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaVideo#970c8c0e to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaVideo#970c8c0e")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo#970c8c0e", "thumb", err)
 		}
 		d.Thumb = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: field thumb_w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo#970c8c0e", "thumb_w", err)
 		}
 		d.ThumbW = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: field thumb_h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo#970c8c0e", "thumb_h", err)
 		}
 		d.ThumbH = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: field duration: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo#970c8c0e", "duration", err)
 		}
 		d.Duration = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo#970c8c0e", "mime_type", err)
 		}
 		d.MimeType = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: field w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo#970c8c0e", "w", err)
 		}
 		d.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: field h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo#970c8c0e", "h", err)
 		}
 		d.H = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo#970c8c0e", "size", err)
 		}
 		d.Size = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: field key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo#970c8c0e", "key", err)
 		}
 		d.Key = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: field iv: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo#970c8c0e", "iv", err)
 		}
 		d.Iv = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: field caption: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVideo#970c8c0e", "caption", err)
 		}
 		d.Caption = value
 	}
@@ -3363,7 +3363,7 @@ func (d *DecryptedMessageMediaDocument) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaDocument) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaDocument#7afe8ae2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaDocument#7afe8ae2")
 	}
 	b.PutID(DecryptedMessageMediaDocumentTypeID)
 	return d.EncodeBare(b)
@@ -3372,7 +3372,7 @@ func (d *DecryptedMessageMediaDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaDocument) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaDocument#7afe8ae2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaDocument#7afe8ae2")
 	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
@@ -3384,10 +3384,10 @@ func (d *DecryptedMessageMediaDocument) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(d.Attributes))
 	for idx, v := range d.Attributes {
 		if v == nil {
-			return fmt.Errorf("unable to encode decryptedMessageMediaDocument#7afe8ae2: field attributes element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "decryptedMessageMediaDocument#7afe8ae2", "attributes", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode decryptedMessageMediaDocument#7afe8ae2: field attributes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "decryptedMessageMediaDocument#7afe8ae2", "attributes", idx, err)
 		}
 	}
 	b.PutString(d.Caption)
@@ -3447,10 +3447,10 @@ func (d *DecryptedMessageMediaDocument) GetCaption() (value string) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaDocument) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaDocument#7afe8ae2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaDocument#7afe8ae2")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaDocument#7afe8ae2", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -3458,66 +3458,66 @@ func (d *DecryptedMessageMediaDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaDocument#7afe8ae2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaDocument#7afe8ae2")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field thumb: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument#7afe8ae2", "thumb", err)
 		}
 		d.Thumb = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field thumb_w: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument#7afe8ae2", "thumb_w", err)
 		}
 		d.ThumbW = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field thumb_h: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument#7afe8ae2", "thumb_h", err)
 		}
 		d.ThumbH = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument#7afe8ae2", "mime_type", err)
 		}
 		d.MimeType = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument#7afe8ae2", "size", err)
 		}
 		d.Size = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field key: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument#7afe8ae2", "key", err)
 		}
 		d.Key = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field iv: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument#7afe8ae2", "iv", err)
 		}
 		d.Iv = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field attributes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument#7afe8ae2", "attributes", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field attributes: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument#7afe8ae2", "attributes", err)
 			}
 			d.Attributes = append(d.Attributes, value)
 		}
@@ -3525,7 +3525,7 @@ func (d *DecryptedMessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field caption: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaDocument#7afe8ae2", "caption", err)
 		}
 		d.Caption = value
 	}
@@ -3672,7 +3672,7 @@ func (d *DecryptedMessageMediaVenue) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaVenue) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaVenue#8a0df56f as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaVenue#8a0df56f")
 	}
 	b.PutID(DecryptedMessageMediaVenueTypeID)
 	return d.EncodeBare(b)
@@ -3681,7 +3681,7 @@ func (d *DecryptedMessageMediaVenue) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaVenue) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaVenue#8a0df56f as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaVenue#8a0df56f")
 	}
 	b.PutDouble(d.Lat)
 	b.PutDouble(d.Long)
@@ -3725,10 +3725,10 @@ func (d *DecryptedMessageMediaVenue) GetVenueID() (value string) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaVenue) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaVenue#8a0df56f to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaVenue#8a0df56f")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaVenueTypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaVenue#8a0df56f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaVenue#8a0df56f", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -3736,47 +3736,47 @@ func (d *DecryptedMessageMediaVenue) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaVenue) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaVenue#8a0df56f to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaVenue#8a0df56f")
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVenue#8a0df56f: field lat: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVenue#8a0df56f", "lat", err)
 		}
 		d.Lat = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVenue#8a0df56f: field long: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVenue#8a0df56f", "long", err)
 		}
 		d.Long = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVenue#8a0df56f: field title: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVenue#8a0df56f", "title", err)
 		}
 		d.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVenue#8a0df56f: field address: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVenue#8a0df56f", "address", err)
 		}
 		d.Address = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVenue#8a0df56f: field provider: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVenue#8a0df56f", "provider", err)
 		}
 		d.Provider = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaVenue#8a0df56f: field venue_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaVenue#8a0df56f", "venue_id", err)
 		}
 		d.VenueID = value
 	}
@@ -3868,7 +3868,7 @@ func (d *DecryptedMessageMediaWebPage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaWebPage) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaWebPage#e50511d8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaWebPage#e50511d8")
 	}
 	b.PutID(DecryptedMessageMediaWebPageTypeID)
 	return d.EncodeBare(b)
@@ -3877,7 +3877,7 @@ func (d *DecryptedMessageMediaWebPage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageMediaWebPage) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaWebPage#e50511d8 as nil")
+		return fmt.Errorf("can't encode %s as nil", "decryptedMessageMediaWebPage#e50511d8")
 	}
 	b.PutString(d.URL)
 	return nil
@@ -3891,10 +3891,10 @@ func (d *DecryptedMessageMediaWebPage) GetURL() (value string) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaWebPage) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaWebPage#e50511d8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaWebPage#e50511d8")
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaWebPageTypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaWebPage#e50511d8: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "decryptedMessageMediaWebPage#e50511d8", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -3902,12 +3902,12 @@ func (d *DecryptedMessageMediaWebPage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageMediaWebPage) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaWebPage#e50511d8 to nil")
+		return fmt.Errorf("can't decode %s to nil", "decryptedMessageMediaWebPage#e50511d8")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaWebPage#e50511d8: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "decryptedMessageMediaWebPage#e50511d8", "url", err)
 		}
 		d.URL = value
 	}
@@ -3984,109 +3984,109 @@ func DecodeDecryptedMessageMedia(buf *bin.Buffer) (DecryptedMessageMediaClass, e
 		// Decoding decryptedMessageMediaEmpty#89f5c4a.
 		v := DecryptedMessageMediaEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaPhoto23TypeID:
 		// Decoding decryptedMessageMediaPhoto23#32798a8c.
 		v := DecryptedMessageMediaPhoto23{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaVideo8TypeID:
 		// Decoding decryptedMessageMediaVideo8#4cee6ef3.
 		v := DecryptedMessageMediaVideo8{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaGeoPointTypeID:
 		// Decoding decryptedMessageMediaGeoPoint#35480a59.
 		v := DecryptedMessageMediaGeoPoint{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaContactTypeID:
 		// Decoding decryptedMessageMediaContact#588a0a97.
 		v := DecryptedMessageMediaContact{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaDocument23TypeID:
 		// Decoding decryptedMessageMediaDocument23#b095434b.
 		v := DecryptedMessageMediaDocument23{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaAudio8TypeID:
 		// Decoding decryptedMessageMediaAudio8#6080758f.
 		v := DecryptedMessageMediaAudio8{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaVideo23TypeID:
 		// Decoding decryptedMessageMediaVideo23#524a415d.
 		v := DecryptedMessageMediaVideo23{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaAudioTypeID:
 		// Decoding decryptedMessageMediaAudio#57e0a9cb.
 		v := DecryptedMessageMediaAudio{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaExternalDocumentTypeID:
 		// Decoding decryptedMessageMediaExternalDocument#fa95b0dd.
 		v := DecryptedMessageMediaExternalDocument{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaPhotoTypeID:
 		// Decoding decryptedMessageMediaPhoto#f1fa8d78.
 		v := DecryptedMessageMediaPhoto{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaVideoTypeID:
 		// Decoding decryptedMessageMediaVideo#970c8c0e.
 		v := DecryptedMessageMediaVideo{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaDocumentTypeID:
 		// Decoding decryptedMessageMediaDocument#7afe8ae2.
 		v := DecryptedMessageMediaDocument{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaVenueTypeID:
 		// Decoding decryptedMessageMediaVenue#8a0df56f.
 		v := DecryptedMessageMediaVenue{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	case DecryptedMessageMediaWebPageTypeID:
 		// Decoding decryptedMessageMediaWebPage#e50511d8.
 		v := DecryptedMessageMediaWebPage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "DecryptedMessageMediaClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -4098,7 +4098,7 @@ type DecryptedMessageMediaBox struct {
 // Decode implements bin.Decoder for DecryptedMessageMediaBox.
 func (b *DecryptedMessageMediaBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode DecryptedMessageMediaBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "DecryptedMessageMedia")
 	}
 	v, err := DecodeDecryptedMessageMedia(buf)
 	if err != nil {
@@ -4111,7 +4111,7 @@ func (b *DecryptedMessageMediaBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for DecryptedMessageMediaBox.
 func (b *DecryptedMessageMediaBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.DecryptedMessageMedia == nil {
-		return fmt.Errorf("unable to encode DecryptedMessageMediaClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "DecryptedMessageMediaClass")
 	}
 	return b.DecryptedMessageMedia.Encode(buf)
 }

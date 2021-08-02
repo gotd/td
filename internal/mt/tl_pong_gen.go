@@ -110,7 +110,7 @@ func (p *Pong) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *Pong) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pong#347773c5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "pong#347773c5")
 	}
 	b.PutID(PongTypeID)
 	return p.EncodeBare(b)
@@ -119,7 +119,7 @@ func (p *Pong) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *Pong) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pong#347773c5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "pong#347773c5")
 	}
 	b.PutLong(p.MsgID)
 	b.PutLong(p.PingID)
@@ -139,10 +139,10 @@ func (p *Pong) GetPingID() (value int64) {
 // Decode implements bin.Decoder.
 func (p *Pong) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pong#347773c5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "pong#347773c5")
 	}
 	if err := b.ConsumeID(PongTypeID); err != nil {
-		return fmt.Errorf("unable to decode pong#347773c5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "pong#347773c5", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -150,19 +150,19 @@ func (p *Pong) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *Pong) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pong#347773c5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "pong#347773c5")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pong#347773c5: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pong#347773c5", "msg_id", err)
 		}
 		p.MsgID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pong#347773c5: field ping_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "pong#347773c5", "ping_id", err)
 		}
 		p.PingID = value
 	}

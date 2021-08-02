@@ -102,7 +102,7 @@ func (u *PhotosUpdateProfilePhotoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *PhotosUpdateProfilePhotoRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode photos.updateProfilePhoto#72d4742c as nil")
+		return fmt.Errorf("can't encode %s as nil", "photos.updateProfilePhoto#72d4742c")
 	}
 	b.PutID(PhotosUpdateProfilePhotoRequestTypeID)
 	return u.EncodeBare(b)
@@ -111,13 +111,13 @@ func (u *PhotosUpdateProfilePhotoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *PhotosUpdateProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode photos.updateProfilePhoto#72d4742c as nil")
+		return fmt.Errorf("can't encode %s as nil", "photos.updateProfilePhoto#72d4742c")
 	}
 	if u.ID == nil {
-		return fmt.Errorf("unable to encode photos.updateProfilePhoto#72d4742c: field id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "photos.updateProfilePhoto#72d4742c", "id")
 	}
 	if err := u.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photos.updateProfilePhoto#72d4742c: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "photos.updateProfilePhoto#72d4742c", "id", err)
 	}
 	return nil
 }
@@ -135,10 +135,10 @@ func (u *PhotosUpdateProfilePhotoRequest) GetIDAsNotEmpty() (*InputPhoto, bool) 
 // Decode implements bin.Decoder.
 func (u *PhotosUpdateProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode photos.updateProfilePhoto#72d4742c to nil")
+		return fmt.Errorf("can't decode %s to nil", "photos.updateProfilePhoto#72d4742c")
 	}
 	if err := b.ConsumeID(PhotosUpdateProfilePhotoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode photos.updateProfilePhoto#72d4742c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "photos.updateProfilePhoto#72d4742c", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -146,12 +146,12 @@ func (u *PhotosUpdateProfilePhotoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *PhotosUpdateProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode photos.updateProfilePhoto#72d4742c to nil")
+		return fmt.Errorf("can't decode %s to nil", "photos.updateProfilePhoto#72d4742c")
 	}
 	{
 		value, err := DecodeInputPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.updateProfilePhoto#72d4742c: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "photos.updateProfilePhoto#72d4742c", "id", err)
 		}
 		u.ID = value
 	}

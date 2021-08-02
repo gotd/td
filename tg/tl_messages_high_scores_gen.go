@@ -113,7 +113,7 @@ func (h *MessagesHighScores) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (h *MessagesHighScores) Encode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode messages.highScores#9a3bfd99 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.highScores#9a3bfd99")
 	}
 	b.PutID(MessagesHighScoresTypeID)
 	return h.EncodeBare(b)
@@ -122,21 +122,21 @@ func (h *MessagesHighScores) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (h *MessagesHighScores) EncodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode messages.highScores#9a3bfd99 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.highScores#9a3bfd99")
 	}
 	b.PutVectorHeader(len(h.Scores))
 	for idx, v := range h.Scores {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.highScores#9a3bfd99: field scores element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.highScores#9a3bfd99", "scores", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(h.Users))
 	for idx, v := range h.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.highScores#9a3bfd99: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "messages.highScores#9a3bfd99", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.highScores#9a3bfd99: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "messages.highScores#9a3bfd99", "users", idx, err)
 		}
 	}
 	return nil
@@ -160,10 +160,10 @@ func (h *MessagesHighScores) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (h *MessagesHighScores) Decode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode messages.highScores#9a3bfd99 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.highScores#9a3bfd99")
 	}
 	if err := b.ConsumeID(MessagesHighScoresTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.highScores#9a3bfd99: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.highScores#9a3bfd99", err)
 	}
 	return h.DecodeBare(b)
 }
@@ -171,17 +171,17 @@ func (h *MessagesHighScores) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (h *MessagesHighScores) DecodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode messages.highScores#9a3bfd99 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.highScores#9a3bfd99")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.highScores#9a3bfd99: field scores: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.highScores#9a3bfd99", "scores", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value HighScore
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messages.highScores#9a3bfd99: field scores: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.highScores#9a3bfd99", "scores", err)
 			}
 			h.Scores = append(h.Scores, value)
 		}
@@ -189,12 +189,12 @@ func (h *MessagesHighScores) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.highScores#9a3bfd99: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.highScores#9a3bfd99", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.highScores#9a3bfd99: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.highScores#9a3bfd99", "users", err)
 			}
 			h.Users = append(h.Users, value)
 		}

@@ -124,7 +124,7 @@ func (m *MessageInteractionCounters) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageInteractionCounters) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageInteractionCounters#ad4fc9bd as nil")
+		return fmt.Errorf("can't encode %s as nil", "messageInteractionCounters#ad4fc9bd")
 	}
 	b.PutID(MessageInteractionCountersTypeID)
 	return m.EncodeBare(b)
@@ -133,7 +133,7 @@ func (m *MessageInteractionCounters) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageInteractionCounters) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageInteractionCounters#ad4fc9bd as nil")
+		return fmt.Errorf("can't encode %s as nil", "messageInteractionCounters#ad4fc9bd")
 	}
 	b.PutInt(m.MsgID)
 	b.PutInt(m.Views)
@@ -159,10 +159,10 @@ func (m *MessageInteractionCounters) GetForwards() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageInteractionCounters) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageInteractionCounters#ad4fc9bd to nil")
+		return fmt.Errorf("can't decode %s to nil", "messageInteractionCounters#ad4fc9bd")
 	}
 	if err := b.ConsumeID(MessageInteractionCountersTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageInteractionCounters#ad4fc9bd: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messageInteractionCounters#ad4fc9bd", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -170,26 +170,26 @@ func (m *MessageInteractionCounters) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageInteractionCounters) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageInteractionCounters#ad4fc9bd to nil")
+		return fmt.Errorf("can't decode %s to nil", "messageInteractionCounters#ad4fc9bd")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageInteractionCounters#ad4fc9bd: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageInteractionCounters#ad4fc9bd", "msg_id", err)
 		}
 		m.MsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageInteractionCounters#ad4fc9bd: field views: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageInteractionCounters#ad4fc9bd", "views", err)
 		}
 		m.Views = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageInteractionCounters#ad4fc9bd: field forwards: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messageInteractionCounters#ad4fc9bd", "forwards", err)
 		}
 		m.Forwards = value
 	}

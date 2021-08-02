@@ -124,7 +124,7 @@ func (n *NearestDC) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (n *NearestDC) Encode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode nearestDc#8e1a1775 as nil")
+		return fmt.Errorf("can't encode %s as nil", "nearestDc#8e1a1775")
 	}
 	b.PutID(NearestDCTypeID)
 	return n.EncodeBare(b)
@@ -133,7 +133,7 @@ func (n *NearestDC) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (n *NearestDC) EncodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode nearestDc#8e1a1775 as nil")
+		return fmt.Errorf("can't encode %s as nil", "nearestDc#8e1a1775")
 	}
 	b.PutString(n.Country)
 	b.PutInt(n.ThisDC)
@@ -159,10 +159,10 @@ func (n *NearestDC) GetNearestDC() (value int) {
 // Decode implements bin.Decoder.
 func (n *NearestDC) Decode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode nearestDc#8e1a1775 to nil")
+		return fmt.Errorf("can't decode %s to nil", "nearestDc#8e1a1775")
 	}
 	if err := b.ConsumeID(NearestDCTypeID); err != nil {
-		return fmt.Errorf("unable to decode nearestDc#8e1a1775: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "nearestDc#8e1a1775", err)
 	}
 	return n.DecodeBare(b)
 }
@@ -170,26 +170,26 @@ func (n *NearestDC) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (n *NearestDC) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode nearestDc#8e1a1775 to nil")
+		return fmt.Errorf("can't decode %s to nil", "nearestDc#8e1a1775")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode nearestDc#8e1a1775: field country: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "nearestDc#8e1a1775", "country", err)
 		}
 		n.Country = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode nearestDc#8e1a1775: field this_dc: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "nearestDc#8e1a1775", "this_dc", err)
 		}
 		n.ThisDC = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode nearestDc#8e1a1775: field nearest_dc: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "nearestDc#8e1a1775", "nearest_dc", err)
 		}
 		n.NearestDC = value
 	}

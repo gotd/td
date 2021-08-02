@@ -152,7 +152,7 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSetBotPrecheckoutResultsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setBotPrecheckoutResults#9c2dd95 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.setBotPrecheckoutResults#9c2dd95")
 	}
 	b.PutID(MessagesSetBotPrecheckoutResultsRequestTypeID)
 	return s.EncodeBare(b)
@@ -161,7 +161,7 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSetBotPrecheckoutResultsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setBotPrecheckoutResults#9c2dd95 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.setBotPrecheckoutResults#9c2dd95")
 	}
 	if !(s.Success == false) {
 		s.Flags.Set(1)
@@ -170,7 +170,7 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) EncodeBare(b *bin.Buffer) erro
 		s.Flags.Set(0)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setBotPrecheckoutResults#9c2dd95: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.setBotPrecheckoutResults#9c2dd95", "flags", err)
 	}
 	b.PutLong(s.QueryID)
 	if s.Flags.Has(0) {
@@ -218,10 +218,10 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) GetError() (value string, ok b
 // Decode implements bin.Decoder.
 func (s *MessagesSetBotPrecheckoutResultsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setBotPrecheckoutResults#9c2dd95 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.setBotPrecheckoutResults#9c2dd95")
 	}
 	if err := b.ConsumeID(MessagesSetBotPrecheckoutResultsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setBotPrecheckoutResults#9c2dd95: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.setBotPrecheckoutResults#9c2dd95", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -229,25 +229,25 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSetBotPrecheckoutResultsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setBotPrecheckoutResults#9c2dd95 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.setBotPrecheckoutResults#9c2dd95")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setBotPrecheckoutResults#9c2dd95: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setBotPrecheckoutResults#9c2dd95", "flags", err)
 		}
 	}
 	s.Success = s.Flags.Has(1)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setBotPrecheckoutResults#9c2dd95: field query_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setBotPrecheckoutResults#9c2dd95", "query_id", err)
 		}
 		s.QueryID = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setBotPrecheckoutResults#9c2dd95: field error: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setBotPrecheckoutResults#9c2dd95", "error", err)
 		}
 		s.Error = value
 	}

@@ -167,7 +167,7 @@ func (p *PaymentRequestedInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PaymentRequestedInfo) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentRequestedInfo#909c3f94 as nil")
+		return fmt.Errorf("can't encode %s as nil", "paymentRequestedInfo#909c3f94")
 	}
 	b.PutID(PaymentRequestedInfoTypeID)
 	return p.EncodeBare(b)
@@ -176,7 +176,7 @@ func (p *PaymentRequestedInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PaymentRequestedInfo) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentRequestedInfo#909c3f94 as nil")
+		return fmt.Errorf("can't encode %s as nil", "paymentRequestedInfo#909c3f94")
 	}
 	if !(p.Name == "") {
 		p.Flags.Set(0)
@@ -191,7 +191,7 @@ func (p *PaymentRequestedInfo) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(3)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode paymentRequestedInfo#909c3f94: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "paymentRequestedInfo#909c3f94", "flags", err)
 	}
 	if p.Flags.Has(0) {
 		b.PutString(p.Name)
@@ -204,7 +204,7 @@ func (p *PaymentRequestedInfo) EncodeBare(b *bin.Buffer) error {
 	}
 	if p.Flags.Has(3) {
 		if err := p.ShippingAddress.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode paymentRequestedInfo#909c3f94: field shipping_address: %w", err)
+			return fmt.Errorf("unable to encode %s: field %s: %w", "paymentRequestedInfo#909c3f94", "shipping_address", err)
 		}
 	}
 	return nil
@@ -273,10 +273,10 @@ func (p *PaymentRequestedInfo) GetShippingAddress() (value PostAddress, ok bool)
 // Decode implements bin.Decoder.
 func (p *PaymentRequestedInfo) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentRequestedInfo#909c3f94 to nil")
+		return fmt.Errorf("can't decode %s to nil", "paymentRequestedInfo#909c3f94")
 	}
 	if err := b.ConsumeID(PaymentRequestedInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "paymentRequestedInfo#909c3f94", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -284,37 +284,37 @@ func (p *PaymentRequestedInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PaymentRequestedInfo) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentRequestedInfo#909c3f94 to nil")
+		return fmt.Errorf("can't decode %s to nil", "paymentRequestedInfo#909c3f94")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "paymentRequestedInfo#909c3f94", "flags", err)
 		}
 	}
 	if p.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field name: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "paymentRequestedInfo#909c3f94", "name", err)
 		}
 		p.Name = value
 	}
 	if p.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field phone: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "paymentRequestedInfo#909c3f94", "phone", err)
 		}
 		p.Phone = value
 	}
 	if p.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field email: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "paymentRequestedInfo#909c3f94", "email", err)
 		}
 		p.Email = value
 	}
 	if p.Flags.Has(3) {
 		if err := p.ShippingAddress.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field shipping_address: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "paymentRequestedInfo#909c3f94", "shipping_address", err)
 		}
 	}
 	return nil

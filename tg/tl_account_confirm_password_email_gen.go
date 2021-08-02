@@ -108,7 +108,7 @@ func (c *AccountConfirmPasswordEmailRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AccountConfirmPasswordEmailRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.confirmPasswordEmail#8fdf1920 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.confirmPasswordEmail#8fdf1920")
 	}
 	b.PutID(AccountConfirmPasswordEmailRequestTypeID)
 	return c.EncodeBare(b)
@@ -117,7 +117,7 @@ func (c *AccountConfirmPasswordEmailRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AccountConfirmPasswordEmailRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.confirmPasswordEmail#8fdf1920 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.confirmPasswordEmail#8fdf1920")
 	}
 	b.PutString(c.Code)
 	return nil
@@ -131,10 +131,10 @@ func (c *AccountConfirmPasswordEmailRequest) GetCode() (value string) {
 // Decode implements bin.Decoder.
 func (c *AccountConfirmPasswordEmailRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.confirmPasswordEmail#8fdf1920 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.confirmPasswordEmail#8fdf1920")
 	}
 	if err := b.ConsumeID(AccountConfirmPasswordEmailRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.confirmPasswordEmail#8fdf1920: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.confirmPasswordEmail#8fdf1920", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (c *AccountConfirmPasswordEmailRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AccountConfirmPasswordEmailRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.confirmPasswordEmail#8fdf1920 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.confirmPasswordEmail#8fdf1920")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.confirmPasswordEmail#8fdf1920: field code: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "account.confirmPasswordEmail#8fdf1920", "code", err)
 		}
 		c.Code = value
 	}

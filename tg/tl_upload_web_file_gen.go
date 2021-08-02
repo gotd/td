@@ -150,7 +150,7 @@ func (w *UploadWebFile) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *UploadWebFile) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode upload.webFile#21e753bc as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.webFile#21e753bc")
 	}
 	b.PutID(UploadWebFileTypeID)
 	return w.EncodeBare(b)
@@ -159,15 +159,15 @@ func (w *UploadWebFile) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *UploadWebFile) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode upload.webFile#21e753bc as nil")
+		return fmt.Errorf("can't encode %s as nil", "upload.webFile#21e753bc")
 	}
 	b.PutInt(w.Size)
 	b.PutString(w.MimeType)
 	if w.FileType == nil {
-		return fmt.Errorf("unable to encode upload.webFile#21e753bc: field file_type is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "upload.webFile#21e753bc", "file_type")
 	}
 	if err := w.FileType.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode upload.webFile#21e753bc: field file_type: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "upload.webFile#21e753bc", "file_type", err)
 	}
 	b.PutInt(w.Mtime)
 	b.PutBytes(w.Bytes)
@@ -202,10 +202,10 @@ func (w *UploadWebFile) GetBytes() (value []byte) {
 // Decode implements bin.Decoder.
 func (w *UploadWebFile) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode upload.webFile#21e753bc to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.webFile#21e753bc")
 	}
 	if err := b.ConsumeID(UploadWebFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.webFile#21e753bc: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "upload.webFile#21e753bc", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -213,40 +213,40 @@ func (w *UploadWebFile) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *UploadWebFile) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode upload.webFile#21e753bc to nil")
+		return fmt.Errorf("can't decode %s to nil", "upload.webFile#21e753bc")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.webFile#21e753bc: field size: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.webFile#21e753bc", "size", err)
 		}
 		w.Size = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.webFile#21e753bc: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.webFile#21e753bc", "mime_type", err)
 		}
 		w.MimeType = value
 	}
 	{
 		value, err := DecodeStorageFileType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.webFile#21e753bc: field file_type: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.webFile#21e753bc", "file_type", err)
 		}
 		w.FileType = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.webFile#21e753bc: field mtime: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.webFile#21e753bc", "mtime", err)
 		}
 		w.Mtime = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.webFile#21e753bc: field bytes: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "upload.webFile#21e753bc", "bytes", err)
 		}
 		w.Bytes = value
 	}

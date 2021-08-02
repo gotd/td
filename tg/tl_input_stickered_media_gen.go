@@ -102,7 +102,7 @@ func (i *InputStickeredMediaPhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputStickeredMediaPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickeredMediaPhoto#4a992157 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputStickeredMediaPhoto#4a992157")
 	}
 	b.PutID(InputStickeredMediaPhotoTypeID)
 	return i.EncodeBare(b)
@@ -111,13 +111,13 @@ func (i *InputStickeredMediaPhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStickeredMediaPhoto) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickeredMediaPhoto#4a992157 as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputStickeredMediaPhoto#4a992157")
 	}
 	if i.ID == nil {
-		return fmt.Errorf("unable to encode inputStickeredMediaPhoto#4a992157: field id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputStickeredMediaPhoto#4a992157", "id")
 	}
 	if err := i.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputStickeredMediaPhoto#4a992157: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputStickeredMediaPhoto#4a992157", "id", err)
 	}
 	return nil
 }
@@ -130,10 +130,10 @@ func (i *InputStickeredMediaPhoto) GetID() (value InputPhotoClass) {
 // Decode implements bin.Decoder.
 func (i *InputStickeredMediaPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickeredMediaPhoto#4a992157 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputStickeredMediaPhoto#4a992157")
 	}
 	if err := b.ConsumeID(InputStickeredMediaPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickeredMediaPhoto#4a992157: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputStickeredMediaPhoto#4a992157", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -141,12 +141,12 @@ func (i *InputStickeredMediaPhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStickeredMediaPhoto) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickeredMediaPhoto#4a992157 to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputStickeredMediaPhoto#4a992157")
 	}
 	{
 		value, err := DecodeInputPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickeredMediaPhoto#4a992157: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputStickeredMediaPhoto#4a992157", "id", err)
 		}
 		i.ID = value
 	}
@@ -239,7 +239,7 @@ func (i *InputStickeredMediaDocument) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputStickeredMediaDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickeredMediaDocument#438865b as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputStickeredMediaDocument#438865b")
 	}
 	b.PutID(InputStickeredMediaDocumentTypeID)
 	return i.EncodeBare(b)
@@ -248,13 +248,13 @@ func (i *InputStickeredMediaDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStickeredMediaDocument) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickeredMediaDocument#438865b as nil")
+		return fmt.Errorf("can't encode %s as nil", "inputStickeredMediaDocument#438865b")
 	}
 	if i.ID == nil {
-		return fmt.Errorf("unable to encode inputStickeredMediaDocument#438865b: field id is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "inputStickeredMediaDocument#438865b", "id")
 	}
 	if err := i.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputStickeredMediaDocument#438865b: field id: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "inputStickeredMediaDocument#438865b", "id", err)
 	}
 	return nil
 }
@@ -267,10 +267,10 @@ func (i *InputStickeredMediaDocument) GetID() (value InputDocumentClass) {
 // Decode implements bin.Decoder.
 func (i *InputStickeredMediaDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickeredMediaDocument#438865b to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputStickeredMediaDocument#438865b")
 	}
 	if err := b.ConsumeID(InputStickeredMediaDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickeredMediaDocument#438865b: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "inputStickeredMediaDocument#438865b", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -278,12 +278,12 @@ func (i *InputStickeredMediaDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStickeredMediaDocument) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickeredMediaDocument#438865b to nil")
+		return fmt.Errorf("can't decode %s to nil", "inputStickeredMediaDocument#438865b")
 	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickeredMediaDocument#438865b: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "inputStickeredMediaDocument#438865b", "id", err)
 		}
 		i.ID = value
 	}
@@ -347,18 +347,18 @@ func DecodeInputStickeredMedia(buf *bin.Buffer) (InputStickeredMediaClass, error
 		// Decoding inputStickeredMediaPhoto#4a992157.
 		v := InputStickeredMediaPhoto{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputStickeredMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputStickeredMediaClass", err)
 		}
 		return &v, nil
 	case InputStickeredMediaDocumentTypeID:
 		// Decoding inputStickeredMediaDocument#438865b.
 		v := InputStickeredMediaDocument{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputStickeredMediaClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "InputStickeredMediaClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputStickeredMediaClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "InputStickeredMediaClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -370,7 +370,7 @@ type InputStickeredMediaBox struct {
 // Decode implements bin.Decoder for InputStickeredMediaBox.
 func (b *InputStickeredMediaBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputStickeredMediaBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "InputStickeredMedia")
 	}
 	v, err := DecodeInputStickeredMedia(buf)
 	if err != nil {
@@ -383,7 +383,7 @@ func (b *InputStickeredMediaBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputStickeredMediaBox.
 func (b *InputStickeredMediaBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputStickeredMedia == nil {
-		return fmt.Errorf("unable to encode InputStickeredMediaClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "InputStickeredMediaClass")
 	}
 	return b.InputStickeredMedia.Encode(buf)
 }

@@ -121,7 +121,7 @@ func (d *DhGenOk) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DhGenOk) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dh_gen_ok#3bcbf734 as nil")
+		return fmt.Errorf("can't encode %s as nil", "dh_gen_ok#3bcbf734")
 	}
 	b.PutID(DhGenOkTypeID)
 	return d.EncodeBare(b)
@@ -130,7 +130,7 @@ func (d *DhGenOk) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DhGenOk) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dh_gen_ok#3bcbf734 as nil")
+		return fmt.Errorf("can't encode %s as nil", "dh_gen_ok#3bcbf734")
 	}
 	b.PutInt128(d.Nonce)
 	b.PutInt128(d.ServerNonce)
@@ -156,10 +156,10 @@ func (d *DhGenOk) GetNewNonceHash1() (value bin.Int128) {
 // Decode implements bin.Decoder.
 func (d *DhGenOk) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dh_gen_ok#3bcbf734 to nil")
+		return fmt.Errorf("can't decode %s to nil", "dh_gen_ok#3bcbf734")
 	}
 	if err := b.ConsumeID(DhGenOkTypeID); err != nil {
-		return fmt.Errorf("unable to decode dh_gen_ok#3bcbf734: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "dh_gen_ok#3bcbf734", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -167,26 +167,26 @@ func (d *DhGenOk) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DhGenOk) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dh_gen_ok#3bcbf734 to nil")
+		return fmt.Errorf("can't decode %s to nil", "dh_gen_ok#3bcbf734")
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode dh_gen_ok#3bcbf734: field nonce: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dh_gen_ok#3bcbf734", "nonce", err)
 		}
 		d.Nonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode dh_gen_ok#3bcbf734: field server_nonce: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dh_gen_ok#3bcbf734", "server_nonce", err)
 		}
 		d.ServerNonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode dh_gen_ok#3bcbf734: field new_nonce_hash1: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dh_gen_ok#3bcbf734", "new_nonce_hash1", err)
 		}
 		d.NewNonceHash1 = value
 	}
@@ -298,7 +298,7 @@ func (d *DhGenRetry) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DhGenRetry) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dh_gen_retry#46dc1fb9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "dh_gen_retry#46dc1fb9")
 	}
 	b.PutID(DhGenRetryTypeID)
 	return d.EncodeBare(b)
@@ -307,7 +307,7 @@ func (d *DhGenRetry) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DhGenRetry) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dh_gen_retry#46dc1fb9 as nil")
+		return fmt.Errorf("can't encode %s as nil", "dh_gen_retry#46dc1fb9")
 	}
 	b.PutInt128(d.Nonce)
 	b.PutInt128(d.ServerNonce)
@@ -333,10 +333,10 @@ func (d *DhGenRetry) GetNewNonceHash2() (value bin.Int128) {
 // Decode implements bin.Decoder.
 func (d *DhGenRetry) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dh_gen_retry#46dc1fb9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "dh_gen_retry#46dc1fb9")
 	}
 	if err := b.ConsumeID(DhGenRetryTypeID); err != nil {
-		return fmt.Errorf("unable to decode dh_gen_retry#46dc1fb9: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "dh_gen_retry#46dc1fb9", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -344,26 +344,26 @@ func (d *DhGenRetry) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DhGenRetry) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dh_gen_retry#46dc1fb9 to nil")
+		return fmt.Errorf("can't decode %s to nil", "dh_gen_retry#46dc1fb9")
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode dh_gen_retry#46dc1fb9: field nonce: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dh_gen_retry#46dc1fb9", "nonce", err)
 		}
 		d.Nonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode dh_gen_retry#46dc1fb9: field server_nonce: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dh_gen_retry#46dc1fb9", "server_nonce", err)
 		}
 		d.ServerNonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode dh_gen_retry#46dc1fb9: field new_nonce_hash2: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dh_gen_retry#46dc1fb9", "new_nonce_hash2", err)
 		}
 		d.NewNonceHash2 = value
 	}
@@ -475,7 +475,7 @@ func (d *DhGenFail) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DhGenFail) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dh_gen_fail#a69dae02 as nil")
+		return fmt.Errorf("can't encode %s as nil", "dh_gen_fail#a69dae02")
 	}
 	b.PutID(DhGenFailTypeID)
 	return d.EncodeBare(b)
@@ -484,7 +484,7 @@ func (d *DhGenFail) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DhGenFail) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dh_gen_fail#a69dae02 as nil")
+		return fmt.Errorf("can't encode %s as nil", "dh_gen_fail#a69dae02")
 	}
 	b.PutInt128(d.Nonce)
 	b.PutInt128(d.ServerNonce)
@@ -510,10 +510,10 @@ func (d *DhGenFail) GetNewNonceHash3() (value bin.Int128) {
 // Decode implements bin.Decoder.
 func (d *DhGenFail) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dh_gen_fail#a69dae02 to nil")
+		return fmt.Errorf("can't decode %s to nil", "dh_gen_fail#a69dae02")
 	}
 	if err := b.ConsumeID(DhGenFailTypeID); err != nil {
-		return fmt.Errorf("unable to decode dh_gen_fail#a69dae02: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "dh_gen_fail#a69dae02", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -521,26 +521,26 @@ func (d *DhGenFail) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DhGenFail) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dh_gen_fail#a69dae02 to nil")
+		return fmt.Errorf("can't decode %s to nil", "dh_gen_fail#a69dae02")
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode dh_gen_fail#a69dae02: field nonce: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dh_gen_fail#a69dae02", "nonce", err)
 		}
 		d.Nonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode dh_gen_fail#a69dae02: field server_nonce: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dh_gen_fail#a69dae02", "server_nonce", err)
 		}
 		d.ServerNonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode dh_gen_fail#a69dae02: field new_nonce_hash3: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "dh_gen_fail#a69dae02", "new_nonce_hash3", err)
 		}
 		d.NewNonceHash3 = value
 	}
@@ -609,25 +609,25 @@ func DecodeSetClientDHParamsAnswer(buf *bin.Buffer) (SetClientDHParamsAnswerClas
 		// Decoding dh_gen_ok#3bcbf734.
 		v := DhGenOk{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SetClientDHParamsAnswerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "SetClientDHParamsAnswerClass", err)
 		}
 		return &v, nil
 	case DhGenRetryTypeID:
 		// Decoding dh_gen_retry#46dc1fb9.
 		v := DhGenRetry{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SetClientDHParamsAnswerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "SetClientDHParamsAnswerClass", err)
 		}
 		return &v, nil
 	case DhGenFailTypeID:
 		// Decoding dh_gen_fail#a69dae02.
 		v := DhGenFail{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SetClientDHParamsAnswerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "SetClientDHParamsAnswerClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode SetClientDHParamsAnswerClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "SetClientDHParamsAnswerClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -639,7 +639,7 @@ type SetClientDHParamsAnswerBox struct {
 // Decode implements bin.Decoder for SetClientDHParamsAnswerBox.
 func (b *SetClientDHParamsAnswerBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode SetClientDHParamsAnswerBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "SetClientDHParamsAnswer")
 	}
 	v, err := DecodeSetClientDHParamsAnswer(buf)
 	if err != nil {
@@ -652,7 +652,7 @@ func (b *SetClientDHParamsAnswerBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for SetClientDHParamsAnswerBox.
 func (b *SetClientDHParamsAnswerBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Set_client_DH_params_answer == nil {
-		return fmt.Errorf("unable to encode SetClientDHParamsAnswerClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "SetClientDHParamsAnswerClass")
 	}
 	return b.Set_client_DH_params_answer.Encode(buf)
 }

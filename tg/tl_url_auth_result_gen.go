@@ -141,7 +141,7 @@ func (u *URLAuthResultRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *URLAuthResultRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode urlAuthResultRequest#92d33a0e as nil")
+		return fmt.Errorf("can't encode %s as nil", "urlAuthResultRequest#92d33a0e")
 	}
 	b.PutID(URLAuthResultRequestTypeID)
 	return u.EncodeBare(b)
@@ -150,19 +150,19 @@ func (u *URLAuthResultRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *URLAuthResultRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode urlAuthResultRequest#92d33a0e as nil")
+		return fmt.Errorf("can't encode %s as nil", "urlAuthResultRequest#92d33a0e")
 	}
 	if !(u.RequestWriteAccess == false) {
 		u.Flags.Set(0)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode urlAuthResultRequest#92d33a0e: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "urlAuthResultRequest#92d33a0e", "flags", err)
 	}
 	if u.Bot == nil {
-		return fmt.Errorf("unable to encode urlAuthResultRequest#92d33a0e: field bot is nil")
+		return fmt.Errorf("unable to encode %s: field %s is nil", "urlAuthResultRequest#92d33a0e", "bot")
 	}
 	if err := u.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode urlAuthResultRequest#92d33a0e: field bot: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "urlAuthResultRequest#92d33a0e", "bot", err)
 	}
 	b.PutString(u.Domain)
 	return nil
@@ -197,10 +197,10 @@ func (u *URLAuthResultRequest) GetDomain() (value string) {
 // Decode implements bin.Decoder.
 func (u *URLAuthResultRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode urlAuthResultRequest#92d33a0e to nil")
+		return fmt.Errorf("can't decode %s to nil", "urlAuthResultRequest#92d33a0e")
 	}
 	if err := b.ConsumeID(URLAuthResultRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode urlAuthResultRequest#92d33a0e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "urlAuthResultRequest#92d33a0e", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -208,25 +208,25 @@ func (u *URLAuthResultRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *URLAuthResultRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode urlAuthResultRequest#92d33a0e to nil")
+		return fmt.Errorf("can't decode %s to nil", "urlAuthResultRequest#92d33a0e")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#92d33a0e: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "urlAuthResultRequest#92d33a0e", "flags", err)
 		}
 	}
 	u.RequestWriteAccess = u.Flags.Has(0)
 	{
 		value, err := DecodeUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#92d33a0e: field bot: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "urlAuthResultRequest#92d33a0e", "bot", err)
 		}
 		u.Bot = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#92d33a0e: field domain: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "urlAuthResultRequest#92d33a0e", "domain", err)
 		}
 		u.Domain = value
 	}
@@ -322,7 +322,7 @@ func (u *URLAuthResultAccepted) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *URLAuthResultAccepted) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode urlAuthResultAccepted#8f8c0e4e as nil")
+		return fmt.Errorf("can't encode %s as nil", "urlAuthResultAccepted#8f8c0e4e")
 	}
 	b.PutID(URLAuthResultAcceptedTypeID)
 	return u.EncodeBare(b)
@@ -331,7 +331,7 @@ func (u *URLAuthResultAccepted) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *URLAuthResultAccepted) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode urlAuthResultAccepted#8f8c0e4e as nil")
+		return fmt.Errorf("can't encode %s as nil", "urlAuthResultAccepted#8f8c0e4e")
 	}
 	b.PutString(u.URL)
 	return nil
@@ -345,10 +345,10 @@ func (u *URLAuthResultAccepted) GetURL() (value string) {
 // Decode implements bin.Decoder.
 func (u *URLAuthResultAccepted) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode urlAuthResultAccepted#8f8c0e4e to nil")
+		return fmt.Errorf("can't decode %s to nil", "urlAuthResultAccepted#8f8c0e4e")
 	}
 	if err := b.ConsumeID(URLAuthResultAcceptedTypeID); err != nil {
-		return fmt.Errorf("unable to decode urlAuthResultAccepted#8f8c0e4e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "urlAuthResultAccepted#8f8c0e4e", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -356,12 +356,12 @@ func (u *URLAuthResultAccepted) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *URLAuthResultAccepted) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode urlAuthResultAccepted#8f8c0e4e to nil")
+		return fmt.Errorf("can't decode %s to nil", "urlAuthResultAccepted#8f8c0e4e")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultAccepted#8f8c0e4e: field url: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "urlAuthResultAccepted#8f8c0e4e", "url", err)
 		}
 		u.URL = value
 	}
@@ -440,7 +440,7 @@ func (u *URLAuthResultDefault) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *URLAuthResultDefault) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode urlAuthResultDefault#a9d6db1f as nil")
+		return fmt.Errorf("can't encode %s as nil", "urlAuthResultDefault#a9d6db1f")
 	}
 	b.PutID(URLAuthResultDefaultTypeID)
 	return u.EncodeBare(b)
@@ -449,7 +449,7 @@ func (u *URLAuthResultDefault) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *URLAuthResultDefault) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode urlAuthResultDefault#a9d6db1f as nil")
+		return fmt.Errorf("can't encode %s as nil", "urlAuthResultDefault#a9d6db1f")
 	}
 	return nil
 }
@@ -457,10 +457,10 @@ func (u *URLAuthResultDefault) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *URLAuthResultDefault) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode urlAuthResultDefault#a9d6db1f to nil")
+		return fmt.Errorf("can't decode %s to nil", "urlAuthResultDefault#a9d6db1f")
 	}
 	if err := b.ConsumeID(URLAuthResultDefaultTypeID); err != nil {
-		return fmt.Errorf("unable to decode urlAuthResultDefault#a9d6db1f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "urlAuthResultDefault#a9d6db1f", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -468,7 +468,7 @@ func (u *URLAuthResultDefault) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *URLAuthResultDefault) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode urlAuthResultDefault#a9d6db1f to nil")
+		return fmt.Errorf("can't decode %s to nil", "urlAuthResultDefault#a9d6db1f")
 	}
 	return nil
 }
@@ -531,25 +531,25 @@ func DecodeURLAuthResult(buf *bin.Buffer) (URLAuthResultClass, error) {
 		// Decoding urlAuthResultRequest#92d33a0e.
 		v := URLAuthResultRequest{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode URLAuthResultClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "URLAuthResultClass", err)
 		}
 		return &v, nil
 	case URLAuthResultAcceptedTypeID:
 		// Decoding urlAuthResultAccepted#8f8c0e4e.
 		v := URLAuthResultAccepted{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode URLAuthResultClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "URLAuthResultClass", err)
 		}
 		return &v, nil
 	case URLAuthResultDefaultTypeID:
 		// Decoding urlAuthResultDefault#a9d6db1f.
 		v := URLAuthResultDefault{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode URLAuthResultClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "URLAuthResultClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode URLAuthResultClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "URLAuthResultClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -561,7 +561,7 @@ type URLAuthResultBox struct {
 // Decode implements bin.Decoder for URLAuthResultBox.
 func (b *URLAuthResultBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode URLAuthResultBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "URLAuthResult")
 	}
 	v, err := DecodeURLAuthResult(buf)
 	if err != nil {
@@ -574,7 +574,7 @@ func (b *URLAuthResultBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for URLAuthResultBox.
 func (b *URLAuthResultBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.UrlAuthResult == nil {
-		return fmt.Errorf("unable to encode URLAuthResultClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "URLAuthResultClass")
 	}
 	return b.UrlAuthResult.Encode(buf)
 }

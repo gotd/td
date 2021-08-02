@@ -122,7 +122,7 @@ func (r *MessagesReorderStickerSetsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesReorderStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.reorderStickerSets#78337739 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.reorderStickerSets#78337739")
 	}
 	b.PutID(MessagesReorderStickerSetsRequestTypeID)
 	return r.EncodeBare(b)
@@ -131,13 +131,13 @@ func (r *MessagesReorderStickerSetsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReorderStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.reorderStickerSets#78337739 as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.reorderStickerSets#78337739")
 	}
 	if !(r.Masks == false) {
 		r.Flags.Set(0)
 	}
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.reorderStickerSets#78337739: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.reorderStickerSets#78337739", "flags", err)
 	}
 	b.PutVectorHeader(len(r.Order))
 	for _, v := range r.Order {
@@ -170,10 +170,10 @@ func (r *MessagesReorderStickerSetsRequest) GetOrder() (value []int64) {
 // Decode implements bin.Decoder.
 func (r *MessagesReorderStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.reorderStickerSets#78337739 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.reorderStickerSets#78337739")
 	}
 	if err := b.ConsumeID(MessagesReorderStickerSetsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.reorderStickerSets#78337739: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.reorderStickerSets#78337739", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -181,23 +181,23 @@ func (r *MessagesReorderStickerSetsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReorderStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.reorderStickerSets#78337739 to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.reorderStickerSets#78337739")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.reorderStickerSets#78337739: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.reorderStickerSets#78337739", "flags", err)
 		}
 	}
 	r.Masks = r.Flags.Has(0)
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.reorderStickerSets#78337739: field order: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.reorderStickerSets#78337739", "order", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.reorderStickerSets#78337739: field order: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "messages.reorderStickerSets#78337739", "order", err)
 			}
 			r.Order = append(r.Order, value)
 		}

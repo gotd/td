@@ -120,7 +120,7 @@ func (r *AuthResendCodeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AuthResendCodeRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode auth.resendCode#3ef1a9bf as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.resendCode#3ef1a9bf")
 	}
 	b.PutID(AuthResendCodeRequestTypeID)
 	return r.EncodeBare(b)
@@ -129,7 +129,7 @@ func (r *AuthResendCodeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AuthResendCodeRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode auth.resendCode#3ef1a9bf as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.resendCode#3ef1a9bf")
 	}
 	b.PutString(r.PhoneNumber)
 	b.PutString(r.PhoneCodeHash)
@@ -149,10 +149,10 @@ func (r *AuthResendCodeRequest) GetPhoneCodeHash() (value string) {
 // Decode implements bin.Decoder.
 func (r *AuthResendCodeRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode auth.resendCode#3ef1a9bf to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.resendCode#3ef1a9bf")
 	}
 	if err := b.ConsumeID(AuthResendCodeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.resendCode#3ef1a9bf: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "auth.resendCode#3ef1a9bf", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -160,19 +160,19 @@ func (r *AuthResendCodeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AuthResendCodeRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode auth.resendCode#3ef1a9bf to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.resendCode#3ef1a9bf")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.resendCode#3ef1a9bf: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.resendCode#3ef1a9bf", "phone_number", err)
 		}
 		r.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.resendCode#3ef1a9bf: field phone_code_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.resendCode#3ef1a9bf", "phone_code_hash", err)
 		}
 		r.PhoneCodeHash = value
 	}

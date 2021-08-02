@@ -113,7 +113,7 @@ func (s *PhoneSaveCallDebugRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *PhoneSaveCallDebugRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode phone.saveCallDebug#277add7e as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.saveCallDebug#277add7e")
 	}
 	b.PutID(PhoneSaveCallDebugRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,13 +122,13 @@ func (s *PhoneSaveCallDebugRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PhoneSaveCallDebugRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode phone.saveCallDebug#277add7e as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.saveCallDebug#277add7e")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.saveCallDebug#277add7e: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.saveCallDebug#277add7e", "peer", err)
 	}
 	if err := s.Debug.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.saveCallDebug#277add7e: field debug: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "phone.saveCallDebug#277add7e", "debug", err)
 	}
 	return nil
 }
@@ -146,10 +146,10 @@ func (s *PhoneSaveCallDebugRequest) GetDebug() (value DataJSON) {
 // Decode implements bin.Decoder.
 func (s *PhoneSaveCallDebugRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode phone.saveCallDebug#277add7e to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.saveCallDebug#277add7e")
 	}
 	if err := b.ConsumeID(PhoneSaveCallDebugRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.saveCallDebug#277add7e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.saveCallDebug#277add7e", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -157,16 +157,16 @@ func (s *PhoneSaveCallDebugRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PhoneSaveCallDebugRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode phone.saveCallDebug#277add7e to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.saveCallDebug#277add7e")
 	}
 	{
 		if err := s.Peer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.saveCallDebug#277add7e: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.saveCallDebug#277add7e", "peer", err)
 		}
 	}
 	{
 		if err := s.Debug.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.saveCallDebug#277add7e: field debug: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.saveCallDebug#277add7e", "debug", err)
 		}
 	}
 	return nil

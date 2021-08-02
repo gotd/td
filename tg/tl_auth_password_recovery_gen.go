@@ -110,7 +110,7 @@ func (p *AuthPasswordRecovery) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *AuthPasswordRecovery) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode auth.passwordRecovery#137948a5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.passwordRecovery#137948a5")
 	}
 	b.PutID(AuthPasswordRecoveryTypeID)
 	return p.EncodeBare(b)
@@ -119,7 +119,7 @@ func (p *AuthPasswordRecovery) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *AuthPasswordRecovery) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode auth.passwordRecovery#137948a5 as nil")
+		return fmt.Errorf("can't encode %s as nil", "auth.passwordRecovery#137948a5")
 	}
 	b.PutString(p.EmailPattern)
 	return nil
@@ -133,10 +133,10 @@ func (p *AuthPasswordRecovery) GetEmailPattern() (value string) {
 // Decode implements bin.Decoder.
 func (p *AuthPasswordRecovery) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode auth.passwordRecovery#137948a5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.passwordRecovery#137948a5")
 	}
 	if err := b.ConsumeID(AuthPasswordRecoveryTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.passwordRecovery#137948a5: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "auth.passwordRecovery#137948a5", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -144,12 +144,12 @@ func (p *AuthPasswordRecovery) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *AuthPasswordRecovery) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode auth.passwordRecovery#137948a5 to nil")
+		return fmt.Errorf("can't decode %s to nil", "auth.passwordRecovery#137948a5")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.passwordRecovery#137948a5: field email_pattern: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "auth.passwordRecovery#137948a5", "email_pattern", err)
 		}
 		p.EmailPattern = value
 	}

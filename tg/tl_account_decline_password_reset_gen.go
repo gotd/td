@@ -84,7 +84,7 @@ func (d *AccountDeclinePasswordResetRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *AccountDeclinePasswordResetRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode account.declinePasswordReset#4c9409f6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.declinePasswordReset#4c9409f6")
 	}
 	b.PutID(AccountDeclinePasswordResetRequestTypeID)
 	return d.EncodeBare(b)
@@ -93,7 +93,7 @@ func (d *AccountDeclinePasswordResetRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *AccountDeclinePasswordResetRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode account.declinePasswordReset#4c9409f6 as nil")
+		return fmt.Errorf("can't encode %s as nil", "account.declinePasswordReset#4c9409f6")
 	}
 	return nil
 }
@@ -101,10 +101,10 @@ func (d *AccountDeclinePasswordResetRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *AccountDeclinePasswordResetRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode account.declinePasswordReset#4c9409f6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.declinePasswordReset#4c9409f6")
 	}
 	if err := b.ConsumeID(AccountDeclinePasswordResetRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.declinePasswordReset#4c9409f6: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "account.declinePasswordReset#4c9409f6", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -112,7 +112,7 @@ func (d *AccountDeclinePasswordResetRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *AccountDeclinePasswordResetRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode account.declinePasswordReset#4c9409f6 to nil")
+		return fmt.Errorf("can't decode %s to nil", "account.declinePasswordReset#4c9409f6")
 	}
 	return nil
 }

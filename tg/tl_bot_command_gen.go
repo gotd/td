@@ -113,7 +113,7 @@ func (b *BotCommand) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotCommand) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommand#c27ac8c7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "botCommand#c27ac8c7")
 	}
 	buf.PutID(BotCommandTypeID)
 	return b.EncodeBare(buf)
@@ -122,7 +122,7 @@ func (b *BotCommand) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotCommand) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommand#c27ac8c7 as nil")
+		return fmt.Errorf("can't encode %s as nil", "botCommand#c27ac8c7")
 	}
 	buf.PutString(b.Command)
 	buf.PutString(b.Description)
@@ -142,10 +142,10 @@ func (b *BotCommand) GetDescription() (value string) {
 // Decode implements bin.Decoder.
 func (b *BotCommand) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommand#c27ac8c7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "botCommand#c27ac8c7")
 	}
 	if err := buf.ConsumeID(BotCommandTypeID); err != nil {
-		return fmt.Errorf("unable to decode botCommand#c27ac8c7: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "botCommand#c27ac8c7", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -153,19 +153,19 @@ func (b *BotCommand) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotCommand) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommand#c27ac8c7 to nil")
+		return fmt.Errorf("can't decode %s to nil", "botCommand#c27ac8c7")
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botCommand#c27ac8c7: field command: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botCommand#c27ac8c7", "command", err)
 		}
 		b.Command = value
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botCommand#c27ac8c7: field description: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "botCommand#c27ac8c7", "description", err)
 		}
 		b.Description = value
 	}

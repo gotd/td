@@ -118,7 +118,7 @@ func (s *MessagesSetEncryptedTypingRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSetEncryptedTypingRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setEncryptedTyping#791451ed as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.setEncryptedTyping#791451ed")
 	}
 	b.PutID(MessagesSetEncryptedTypingRequestTypeID)
 	return s.EncodeBare(b)
@@ -127,10 +127,10 @@ func (s *MessagesSetEncryptedTypingRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSetEncryptedTypingRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setEncryptedTyping#791451ed as nil")
+		return fmt.Errorf("can't encode %s as nil", "messages.setEncryptedTyping#791451ed")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setEncryptedTyping#791451ed: field peer: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "messages.setEncryptedTyping#791451ed", "peer", err)
 	}
 	b.PutBool(s.Typing)
 	return nil
@@ -149,10 +149,10 @@ func (s *MessagesSetEncryptedTypingRequest) GetTyping() (value bool) {
 // Decode implements bin.Decoder.
 func (s *MessagesSetEncryptedTypingRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setEncryptedTyping#791451ed to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.setEncryptedTyping#791451ed")
 	}
 	if err := b.ConsumeID(MessagesSetEncryptedTypingRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setEncryptedTyping#791451ed: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "messages.setEncryptedTyping#791451ed", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -160,17 +160,17 @@ func (s *MessagesSetEncryptedTypingRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSetEncryptedTypingRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setEncryptedTyping#791451ed to nil")
+		return fmt.Errorf("can't decode %s to nil", "messages.setEncryptedTyping#791451ed")
 	}
 	{
 		if err := s.Peer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setEncryptedTyping#791451ed: field peer: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setEncryptedTyping#791451ed", "peer", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setEncryptedTyping#791451ed: field typing: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "messages.setEncryptedTyping#791451ed", "typing", err)
 		}
 		s.Typing = value
 	}

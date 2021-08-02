@@ -99,7 +99,7 @@ func (m *MsgResendReq) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MsgResendReq) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msg_resend_req#7d861a08 as nil")
+		return fmt.Errorf("can't encode %s as nil", "msg_resend_req#7d861a08")
 	}
 	b.PutID(MsgResendReqTypeID)
 	return m.EncodeBare(b)
@@ -108,7 +108,7 @@ func (m *MsgResendReq) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MsgResendReq) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msg_resend_req#7d861a08 as nil")
+		return fmt.Errorf("can't encode %s as nil", "msg_resend_req#7d861a08")
 	}
 	b.PutVectorHeader(len(m.MsgIDs))
 	for _, v := range m.MsgIDs {
@@ -125,10 +125,10 @@ func (m *MsgResendReq) GetMsgIDs() (value []int64) {
 // Decode implements bin.Decoder.
 func (m *MsgResendReq) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msg_resend_req#7d861a08 to nil")
+		return fmt.Errorf("can't decode %s to nil", "msg_resend_req#7d861a08")
 	}
 	if err := b.ConsumeID(MsgResendReqTypeID); err != nil {
-		return fmt.Errorf("unable to decode msg_resend_req#7d861a08: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "msg_resend_req#7d861a08", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -136,17 +136,17 @@ func (m *MsgResendReq) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MsgResendReq) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msg_resend_req#7d861a08 to nil")
+		return fmt.Errorf("can't decode %s to nil", "msg_resend_req#7d861a08")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode msg_resend_req#7d861a08: field msg_ids: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "msg_resend_req#7d861a08", "msg_ids", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode msg_resend_req#7d861a08: field msg_ids: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "msg_resend_req#7d861a08", "msg_ids", err)
 			}
 			m.MsgIDs = append(m.MsgIDs, value)
 		}

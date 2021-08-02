@@ -102,7 +102,7 @@ func (e *EncryptedChatEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EncryptedChatEmpty) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedChatEmpty#ab7ec0a0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "encryptedChatEmpty#ab7ec0a0")
 	}
 	b.PutID(EncryptedChatEmptyTypeID)
 	return e.EncodeBare(b)
@@ -111,7 +111,7 @@ func (e *EncryptedChatEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EncryptedChatEmpty) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedChatEmpty#ab7ec0a0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "encryptedChatEmpty#ab7ec0a0")
 	}
 	b.PutInt(e.ID)
 	return nil
@@ -125,10 +125,10 @@ func (e *EncryptedChatEmpty) GetID() (value int) {
 // Decode implements bin.Decoder.
 func (e *EncryptedChatEmpty) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedChatEmpty#ab7ec0a0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "encryptedChatEmpty#ab7ec0a0")
 	}
 	if err := b.ConsumeID(EncryptedChatEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode encryptedChatEmpty#ab7ec0a0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "encryptedChatEmpty#ab7ec0a0", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (e *EncryptedChatEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EncryptedChatEmpty) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedChatEmpty#ab7ec0a0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "encryptedChatEmpty#ab7ec0a0")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatEmpty#ab7ec0a0: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatEmpty#ab7ec0a0", "id", err)
 		}
 		e.ID = value
 	}
@@ -278,7 +278,7 @@ func (e *EncryptedChatWaiting) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EncryptedChatWaiting) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedChatWaiting#3bf703dc as nil")
+		return fmt.Errorf("can't encode %s as nil", "encryptedChatWaiting#3bf703dc")
 	}
 	b.PutID(EncryptedChatWaitingTypeID)
 	return e.EncodeBare(b)
@@ -287,7 +287,7 @@ func (e *EncryptedChatWaiting) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EncryptedChatWaiting) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedChatWaiting#3bf703dc as nil")
+		return fmt.Errorf("can't encode %s as nil", "encryptedChatWaiting#3bf703dc")
 	}
 	b.PutInt(e.ID)
 	b.PutLong(e.AccessHash)
@@ -325,10 +325,10 @@ func (e *EncryptedChatWaiting) GetParticipantID() (value int) {
 // Decode implements bin.Decoder.
 func (e *EncryptedChatWaiting) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedChatWaiting#3bf703dc to nil")
+		return fmt.Errorf("can't decode %s to nil", "encryptedChatWaiting#3bf703dc")
 	}
 	if err := b.ConsumeID(EncryptedChatWaitingTypeID); err != nil {
-		return fmt.Errorf("unable to decode encryptedChatWaiting#3bf703dc: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "encryptedChatWaiting#3bf703dc", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -336,40 +336,40 @@ func (e *EncryptedChatWaiting) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EncryptedChatWaiting) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedChatWaiting#3bf703dc to nil")
+		return fmt.Errorf("can't decode %s to nil", "encryptedChatWaiting#3bf703dc")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatWaiting#3bf703dc: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatWaiting#3bf703dc", "id", err)
 		}
 		e.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatWaiting#3bf703dc: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatWaiting#3bf703dc", "access_hash", err)
 		}
 		e.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatWaiting#3bf703dc: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatWaiting#3bf703dc", "date", err)
 		}
 		e.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatWaiting#3bf703dc: field admin_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatWaiting#3bf703dc", "admin_id", err)
 		}
 		e.AdminID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatWaiting#3bf703dc: field participant_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatWaiting#3bf703dc", "participant_id", err)
 		}
 		e.ParticipantID = value
 	}
@@ -548,7 +548,7 @@ func (e *EncryptedChatRequested) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EncryptedChatRequested) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedChatRequested#62718a82 as nil")
+		return fmt.Errorf("can't encode %s as nil", "encryptedChatRequested#62718a82")
 	}
 	b.PutID(EncryptedChatRequestedTypeID)
 	return e.EncodeBare(b)
@@ -557,13 +557,13 @@ func (e *EncryptedChatRequested) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EncryptedChatRequested) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedChatRequested#62718a82 as nil")
+		return fmt.Errorf("can't encode %s as nil", "encryptedChatRequested#62718a82")
 	}
 	if !(e.FolderID == 0) {
 		e.Flags.Set(0)
 	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode encryptedChatRequested#62718a82: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "encryptedChatRequested#62718a82", "flags", err)
 	}
 	if e.Flags.Has(0) {
 		b.PutInt(e.FolderID)
@@ -625,10 +625,10 @@ func (e *EncryptedChatRequested) GetGA() (value []byte) {
 // Decode implements bin.Decoder.
 func (e *EncryptedChatRequested) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedChatRequested#62718a82 to nil")
+		return fmt.Errorf("can't decode %s to nil", "encryptedChatRequested#62718a82")
 	}
 	if err := b.ConsumeID(EncryptedChatRequestedTypeID); err != nil {
-		return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "encryptedChatRequested#62718a82", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -636,59 +636,59 @@ func (e *EncryptedChatRequested) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EncryptedChatRequested) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedChatRequested#62718a82 to nil")
+		return fmt.Errorf("can't decode %s to nil", "encryptedChatRequested#62718a82")
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatRequested#62718a82", "flags", err)
 		}
 	}
 	if e.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: field folder_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatRequested#62718a82", "folder_id", err)
 		}
 		e.FolderID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatRequested#62718a82", "id", err)
 		}
 		e.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatRequested#62718a82", "access_hash", err)
 		}
 		e.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatRequested#62718a82", "date", err)
 		}
 		e.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: field admin_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatRequested#62718a82", "admin_id", err)
 		}
 		e.AdminID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: field participant_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatRequested#62718a82", "participant_id", err)
 		}
 		e.ParticipantID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: field g_a: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatRequested#62718a82", "g_a", err)
 		}
 		e.GA = value
 	}
@@ -851,7 +851,7 @@ func (e *EncryptedChat) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EncryptedChat) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedChat#fa56ce36 as nil")
+		return fmt.Errorf("can't encode %s as nil", "encryptedChat#fa56ce36")
 	}
 	b.PutID(EncryptedChatTypeID)
 	return e.EncodeBare(b)
@@ -860,7 +860,7 @@ func (e *EncryptedChat) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EncryptedChat) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedChat#fa56ce36 as nil")
+		return fmt.Errorf("can't encode %s as nil", "encryptedChat#fa56ce36")
 	}
 	b.PutInt(e.ID)
 	b.PutLong(e.AccessHash)
@@ -910,10 +910,10 @@ func (e *EncryptedChat) GetKeyFingerprint() (value int64) {
 // Decode implements bin.Decoder.
 func (e *EncryptedChat) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedChat#fa56ce36 to nil")
+		return fmt.Errorf("can't decode %s to nil", "encryptedChat#fa56ce36")
 	}
 	if err := b.ConsumeID(EncryptedChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode encryptedChat#fa56ce36: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "encryptedChat#fa56ce36", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -921,54 +921,54 @@ func (e *EncryptedChat) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EncryptedChat) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedChat#fa56ce36 to nil")
+		return fmt.Errorf("can't decode %s to nil", "encryptedChat#fa56ce36")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChat#fa56ce36: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChat#fa56ce36", "id", err)
 		}
 		e.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChat#fa56ce36: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChat#fa56ce36", "access_hash", err)
 		}
 		e.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChat#fa56ce36: field date: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChat#fa56ce36", "date", err)
 		}
 		e.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChat#fa56ce36: field admin_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChat#fa56ce36", "admin_id", err)
 		}
 		e.AdminID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChat#fa56ce36: field participant_id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChat#fa56ce36", "participant_id", err)
 		}
 		e.ParticipantID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChat#fa56ce36: field g_a_or_b: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChat#fa56ce36", "g_a_or_b", err)
 		}
 		e.GAOrB = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChat#fa56ce36: field key_fingerprint: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChat#fa56ce36", "key_fingerprint", err)
 		}
 		e.KeyFingerprint = value
 	}
@@ -1078,7 +1078,7 @@ func (e *EncryptedChatDiscarded) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EncryptedChatDiscarded) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedChatDiscarded#1e1c7c45 as nil")
+		return fmt.Errorf("can't encode %s as nil", "encryptedChatDiscarded#1e1c7c45")
 	}
 	b.PutID(EncryptedChatDiscardedTypeID)
 	return e.EncodeBare(b)
@@ -1087,13 +1087,13 @@ func (e *EncryptedChatDiscarded) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EncryptedChatDiscarded) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedChatDiscarded#1e1c7c45 as nil")
+		return fmt.Errorf("can't encode %s as nil", "encryptedChatDiscarded#1e1c7c45")
 	}
 	if !(e.HistoryDeleted == false) {
 		e.Flags.Set(0)
 	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode encryptedChatDiscarded#1e1c7c45: field flags: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "encryptedChatDiscarded#1e1c7c45", "flags", err)
 	}
 	b.PutInt(e.ID)
 	return nil
@@ -1123,10 +1123,10 @@ func (e *EncryptedChatDiscarded) GetID() (value int) {
 // Decode implements bin.Decoder.
 func (e *EncryptedChatDiscarded) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedChatDiscarded#1e1c7c45 to nil")
+		return fmt.Errorf("can't decode %s to nil", "encryptedChatDiscarded#1e1c7c45")
 	}
 	if err := b.ConsumeID(EncryptedChatDiscardedTypeID); err != nil {
-		return fmt.Errorf("unable to decode encryptedChatDiscarded#1e1c7c45: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "encryptedChatDiscarded#1e1c7c45", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -1134,18 +1134,18 @@ func (e *EncryptedChatDiscarded) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EncryptedChatDiscarded) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedChatDiscarded#1e1c7c45 to nil")
+		return fmt.Errorf("can't decode %s to nil", "encryptedChatDiscarded#1e1c7c45")
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode encryptedChatDiscarded#1e1c7c45: field flags: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatDiscarded#1e1c7c45", "flags", err)
 		}
 	}
 	e.HistoryDeleted = e.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatDiscarded#1e1c7c45: field id: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "encryptedChatDiscarded#1e1c7c45", "id", err)
 		}
 		e.ID = value
 	}
@@ -1280,39 +1280,39 @@ func DecodeEncryptedChat(buf *bin.Buffer) (EncryptedChatClass, error) {
 		// Decoding encryptedChatEmpty#ab7ec0a0.
 		v := EncryptedChatEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode EncryptedChatClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "EncryptedChatClass", err)
 		}
 		return &v, nil
 	case EncryptedChatWaitingTypeID:
 		// Decoding encryptedChatWaiting#3bf703dc.
 		v := EncryptedChatWaiting{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode EncryptedChatClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "EncryptedChatClass", err)
 		}
 		return &v, nil
 	case EncryptedChatRequestedTypeID:
 		// Decoding encryptedChatRequested#62718a82.
 		v := EncryptedChatRequested{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode EncryptedChatClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "EncryptedChatClass", err)
 		}
 		return &v, nil
 	case EncryptedChatTypeID:
 		// Decoding encryptedChat#fa56ce36.
 		v := EncryptedChat{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode EncryptedChatClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "EncryptedChatClass", err)
 		}
 		return &v, nil
 	case EncryptedChatDiscardedTypeID:
 		// Decoding encryptedChatDiscarded#1e1c7c45.
 		v := EncryptedChatDiscarded{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode EncryptedChatClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "EncryptedChatClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode EncryptedChatClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "EncryptedChatClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -1324,7 +1324,7 @@ type EncryptedChatBox struct {
 // Decode implements bin.Decoder for EncryptedChatBox.
 func (b *EncryptedChatBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode EncryptedChatBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "EncryptedChat")
 	}
 	v, err := DecodeEncryptedChat(buf)
 	if err != nil {
@@ -1337,7 +1337,7 @@ func (b *EncryptedChatBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for EncryptedChatBox.
 func (b *EncryptedChatBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.EncryptedChat == nil {
-		return fmt.Errorf("unable to encode EncryptedChatClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "EncryptedChatClass")
 	}
 	return b.EncryptedChat.Encode(buf)
 }

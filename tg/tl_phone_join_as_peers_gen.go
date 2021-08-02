@@ -123,7 +123,7 @@ func (j *PhoneJoinAsPeers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (j *PhoneJoinAsPeers) Encode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode phone.joinAsPeers#afe5623f as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.joinAsPeers#afe5623f")
 	}
 	b.PutID(PhoneJoinAsPeersTypeID)
 	return j.EncodeBare(b)
@@ -132,33 +132,33 @@ func (j *PhoneJoinAsPeers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (j *PhoneJoinAsPeers) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode phone.joinAsPeers#afe5623f as nil")
+		return fmt.Errorf("can't encode %s as nil", "phone.joinAsPeers#afe5623f")
 	}
 	b.PutVectorHeader(len(j.Peers))
 	for idx, v := range j.Peers {
 		if v == nil {
-			return fmt.Errorf("unable to encode phone.joinAsPeers#afe5623f: field peers element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "phone.joinAsPeers#afe5623f", "peers", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.joinAsPeers#afe5623f: field peers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "phone.joinAsPeers#afe5623f", "peers", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(j.Chats))
 	for idx, v := range j.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode phone.joinAsPeers#afe5623f: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "phone.joinAsPeers#afe5623f", "chats", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.joinAsPeers#afe5623f: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "phone.joinAsPeers#afe5623f", "chats", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(j.Users))
 	for idx, v := range j.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode phone.joinAsPeers#afe5623f: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d is nil", "phone.joinAsPeers#afe5623f", "users", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.joinAsPeers#afe5623f: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode %s: field %s element with index %d: %w", "phone.joinAsPeers#afe5623f", "users", idx, err)
 		}
 	}
 	return nil
@@ -197,10 +197,10 @@ func (j *PhoneJoinAsPeers) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (j *PhoneJoinAsPeers) Decode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode phone.joinAsPeers#afe5623f to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.joinAsPeers#afe5623f")
 	}
 	if err := b.ConsumeID(PhoneJoinAsPeersTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.joinAsPeers#afe5623f: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "phone.joinAsPeers#afe5623f", err)
 	}
 	return j.DecodeBare(b)
 }
@@ -208,17 +208,17 @@ func (j *PhoneJoinAsPeers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (j *PhoneJoinAsPeers) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode phone.joinAsPeers#afe5623f to nil")
+		return fmt.Errorf("can't decode %s to nil", "phone.joinAsPeers#afe5623f")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.joinAsPeers#afe5623f: field peers: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinAsPeers#afe5623f", "peers", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.joinAsPeers#afe5623f: field peers: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinAsPeers#afe5623f", "peers", err)
 			}
 			j.Peers = append(j.Peers, value)
 		}
@@ -226,12 +226,12 @@ func (j *PhoneJoinAsPeers) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.joinAsPeers#afe5623f: field chats: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinAsPeers#afe5623f", "chats", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.joinAsPeers#afe5623f: field chats: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinAsPeers#afe5623f", "chats", err)
 			}
 			j.Chats = append(j.Chats, value)
 		}
@@ -239,12 +239,12 @@ func (j *PhoneJoinAsPeers) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.joinAsPeers#afe5623f: field users: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinAsPeers#afe5623f", "users", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.joinAsPeers#afe5623f: field users: %w", err)
+				return fmt.Errorf("unable to decode %s: field %s: %w", "phone.joinAsPeers#afe5623f", "users", err)
 			}
 			j.Users = append(j.Users, value)
 		}

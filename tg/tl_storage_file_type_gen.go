@@ -85,7 +85,7 @@ func (f *StorageFileUnknown) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *StorageFileUnknown) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileUnknown#aa963b05 as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileUnknown#aa963b05")
 	}
 	b.PutID(StorageFileUnknownTypeID)
 	return f.EncodeBare(b)
@@ -94,7 +94,7 @@ func (f *StorageFileUnknown) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *StorageFileUnknown) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileUnknown#aa963b05 as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileUnknown#aa963b05")
 	}
 	return nil
 }
@@ -102,10 +102,10 @@ func (f *StorageFileUnknown) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *StorageFileUnknown) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileUnknown#aa963b05 to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileUnknown#aa963b05")
 	}
 	if err := b.ConsumeID(StorageFileUnknownTypeID); err != nil {
-		return fmt.Errorf("unable to decode storage.fileUnknown#aa963b05: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "storage.fileUnknown#aa963b05", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -113,7 +113,7 @@ func (f *StorageFileUnknown) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *StorageFileUnknown) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileUnknown#aa963b05 to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileUnknown#aa963b05")
 	}
 	return nil
 }
@@ -187,7 +187,7 @@ func (f *StorageFilePartial) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *StorageFilePartial) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.filePartial#40bc6f52 as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.filePartial#40bc6f52")
 	}
 	b.PutID(StorageFilePartialTypeID)
 	return f.EncodeBare(b)
@@ -196,7 +196,7 @@ func (f *StorageFilePartial) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *StorageFilePartial) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.filePartial#40bc6f52 as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.filePartial#40bc6f52")
 	}
 	return nil
 }
@@ -204,10 +204,10 @@ func (f *StorageFilePartial) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *StorageFilePartial) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.filePartial#40bc6f52 to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.filePartial#40bc6f52")
 	}
 	if err := b.ConsumeID(StorageFilePartialTypeID); err != nil {
-		return fmt.Errorf("unable to decode storage.filePartial#40bc6f52: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "storage.filePartial#40bc6f52", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -215,7 +215,7 @@ func (f *StorageFilePartial) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *StorageFilePartial) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.filePartial#40bc6f52 to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.filePartial#40bc6f52")
 	}
 	return nil
 }
@@ -289,7 +289,7 @@ func (f *StorageFileJpeg) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *StorageFileJpeg) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileJpeg#7efe0e as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileJpeg#7efe0e")
 	}
 	b.PutID(StorageFileJpegTypeID)
 	return f.EncodeBare(b)
@@ -298,7 +298,7 @@ func (f *StorageFileJpeg) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *StorageFileJpeg) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileJpeg#7efe0e as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileJpeg#7efe0e")
 	}
 	return nil
 }
@@ -306,10 +306,10 @@ func (f *StorageFileJpeg) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *StorageFileJpeg) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileJpeg#7efe0e to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileJpeg#7efe0e")
 	}
 	if err := b.ConsumeID(StorageFileJpegTypeID); err != nil {
-		return fmt.Errorf("unable to decode storage.fileJpeg#7efe0e: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "storage.fileJpeg#7efe0e", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -317,7 +317,7 @@ func (f *StorageFileJpeg) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *StorageFileJpeg) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileJpeg#7efe0e to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileJpeg#7efe0e")
 	}
 	return nil
 }
@@ -391,7 +391,7 @@ func (f *StorageFileGif) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *StorageFileGif) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileGif#cae1aadf as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileGif#cae1aadf")
 	}
 	b.PutID(StorageFileGifTypeID)
 	return f.EncodeBare(b)
@@ -400,7 +400,7 @@ func (f *StorageFileGif) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *StorageFileGif) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileGif#cae1aadf as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileGif#cae1aadf")
 	}
 	return nil
 }
@@ -408,10 +408,10 @@ func (f *StorageFileGif) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *StorageFileGif) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileGif#cae1aadf to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileGif#cae1aadf")
 	}
 	if err := b.ConsumeID(StorageFileGifTypeID); err != nil {
-		return fmt.Errorf("unable to decode storage.fileGif#cae1aadf: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "storage.fileGif#cae1aadf", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -419,7 +419,7 @@ func (f *StorageFileGif) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *StorageFileGif) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileGif#cae1aadf to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileGif#cae1aadf")
 	}
 	return nil
 }
@@ -493,7 +493,7 @@ func (f *StorageFilePng) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *StorageFilePng) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.filePng#a4f63c0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.filePng#a4f63c0")
 	}
 	b.PutID(StorageFilePngTypeID)
 	return f.EncodeBare(b)
@@ -502,7 +502,7 @@ func (f *StorageFilePng) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *StorageFilePng) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.filePng#a4f63c0 as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.filePng#a4f63c0")
 	}
 	return nil
 }
@@ -510,10 +510,10 @@ func (f *StorageFilePng) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *StorageFilePng) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.filePng#a4f63c0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.filePng#a4f63c0")
 	}
 	if err := b.ConsumeID(StorageFilePngTypeID); err != nil {
-		return fmt.Errorf("unable to decode storage.filePng#a4f63c0: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "storage.filePng#a4f63c0", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -521,7 +521,7 @@ func (f *StorageFilePng) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *StorageFilePng) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.filePng#a4f63c0 to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.filePng#a4f63c0")
 	}
 	return nil
 }
@@ -595,7 +595,7 @@ func (f *StorageFilePdf) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *StorageFilePdf) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.filePdf#ae1e508d as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.filePdf#ae1e508d")
 	}
 	b.PutID(StorageFilePdfTypeID)
 	return f.EncodeBare(b)
@@ -604,7 +604,7 @@ func (f *StorageFilePdf) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *StorageFilePdf) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.filePdf#ae1e508d as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.filePdf#ae1e508d")
 	}
 	return nil
 }
@@ -612,10 +612,10 @@ func (f *StorageFilePdf) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *StorageFilePdf) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.filePdf#ae1e508d to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.filePdf#ae1e508d")
 	}
 	if err := b.ConsumeID(StorageFilePdfTypeID); err != nil {
-		return fmt.Errorf("unable to decode storage.filePdf#ae1e508d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "storage.filePdf#ae1e508d", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -623,7 +623,7 @@ func (f *StorageFilePdf) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *StorageFilePdf) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.filePdf#ae1e508d to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.filePdf#ae1e508d")
 	}
 	return nil
 }
@@ -697,7 +697,7 @@ func (f *StorageFileMp3) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *StorageFileMp3) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileMp3#528a0677 as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileMp3#528a0677")
 	}
 	b.PutID(StorageFileMp3TypeID)
 	return f.EncodeBare(b)
@@ -706,7 +706,7 @@ func (f *StorageFileMp3) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *StorageFileMp3) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileMp3#528a0677 as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileMp3#528a0677")
 	}
 	return nil
 }
@@ -714,10 +714,10 @@ func (f *StorageFileMp3) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *StorageFileMp3) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileMp3#528a0677 to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileMp3#528a0677")
 	}
 	if err := b.ConsumeID(StorageFileMp3TypeID); err != nil {
-		return fmt.Errorf("unable to decode storage.fileMp3#528a0677: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "storage.fileMp3#528a0677", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -725,7 +725,7 @@ func (f *StorageFileMp3) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *StorageFileMp3) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileMp3#528a0677 to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileMp3#528a0677")
 	}
 	return nil
 }
@@ -799,7 +799,7 @@ func (f *StorageFileMov) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *StorageFileMov) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileMov#4b09ebbc as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileMov#4b09ebbc")
 	}
 	b.PutID(StorageFileMovTypeID)
 	return f.EncodeBare(b)
@@ -808,7 +808,7 @@ func (f *StorageFileMov) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *StorageFileMov) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileMov#4b09ebbc as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileMov#4b09ebbc")
 	}
 	return nil
 }
@@ -816,10 +816,10 @@ func (f *StorageFileMov) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *StorageFileMov) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileMov#4b09ebbc to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileMov#4b09ebbc")
 	}
 	if err := b.ConsumeID(StorageFileMovTypeID); err != nil {
-		return fmt.Errorf("unable to decode storage.fileMov#4b09ebbc: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "storage.fileMov#4b09ebbc", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -827,7 +827,7 @@ func (f *StorageFileMov) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *StorageFileMov) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileMov#4b09ebbc to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileMov#4b09ebbc")
 	}
 	return nil
 }
@@ -901,7 +901,7 @@ func (f *StorageFileMp4) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *StorageFileMp4) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileMp4#b3cea0e4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileMp4#b3cea0e4")
 	}
 	b.PutID(StorageFileMp4TypeID)
 	return f.EncodeBare(b)
@@ -910,7 +910,7 @@ func (f *StorageFileMp4) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *StorageFileMp4) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileMp4#b3cea0e4 as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileMp4#b3cea0e4")
 	}
 	return nil
 }
@@ -918,10 +918,10 @@ func (f *StorageFileMp4) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *StorageFileMp4) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileMp4#b3cea0e4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileMp4#b3cea0e4")
 	}
 	if err := b.ConsumeID(StorageFileMp4TypeID); err != nil {
-		return fmt.Errorf("unable to decode storage.fileMp4#b3cea0e4: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "storage.fileMp4#b3cea0e4", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -929,7 +929,7 @@ func (f *StorageFileMp4) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *StorageFileMp4) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileMp4#b3cea0e4 to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileMp4#b3cea0e4")
 	}
 	return nil
 }
@@ -1003,7 +1003,7 @@ func (f *StorageFileWebp) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *StorageFileWebp) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileWebp#1081464c as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileWebp#1081464c")
 	}
 	b.PutID(StorageFileWebpTypeID)
 	return f.EncodeBare(b)
@@ -1012,7 +1012,7 @@ func (f *StorageFileWebp) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *StorageFileWebp) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode storage.fileWebp#1081464c as nil")
+		return fmt.Errorf("can't encode %s as nil", "storage.fileWebp#1081464c")
 	}
 	return nil
 }
@@ -1020,10 +1020,10 @@ func (f *StorageFileWebp) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *StorageFileWebp) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileWebp#1081464c to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileWebp#1081464c")
 	}
 	if err := b.ConsumeID(StorageFileWebpTypeID); err != nil {
-		return fmt.Errorf("unable to decode storage.fileWebp#1081464c: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "storage.fileWebp#1081464c", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -1031,7 +1031,7 @@ func (f *StorageFileWebp) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *StorageFileWebp) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode storage.fileWebp#1081464c to nil")
+		return fmt.Errorf("can't decode %s to nil", "storage.fileWebp#1081464c")
 	}
 	return nil
 }
@@ -1101,74 +1101,74 @@ func DecodeStorageFileType(buf *bin.Buffer) (StorageFileTypeClass, error) {
 		// Decoding storage.fileUnknown#aa963b05.
 		v := StorageFileUnknown{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StorageFileTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StorageFileTypeClass", err)
 		}
 		return &v, nil
 	case StorageFilePartialTypeID:
 		// Decoding storage.filePartial#40bc6f52.
 		v := StorageFilePartial{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StorageFileTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StorageFileTypeClass", err)
 		}
 		return &v, nil
 	case StorageFileJpegTypeID:
 		// Decoding storage.fileJpeg#7efe0e.
 		v := StorageFileJpeg{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StorageFileTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StorageFileTypeClass", err)
 		}
 		return &v, nil
 	case StorageFileGifTypeID:
 		// Decoding storage.fileGif#cae1aadf.
 		v := StorageFileGif{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StorageFileTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StorageFileTypeClass", err)
 		}
 		return &v, nil
 	case StorageFilePngTypeID:
 		// Decoding storage.filePng#a4f63c0.
 		v := StorageFilePng{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StorageFileTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StorageFileTypeClass", err)
 		}
 		return &v, nil
 	case StorageFilePdfTypeID:
 		// Decoding storage.filePdf#ae1e508d.
 		v := StorageFilePdf{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StorageFileTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StorageFileTypeClass", err)
 		}
 		return &v, nil
 	case StorageFileMp3TypeID:
 		// Decoding storage.fileMp3#528a0677.
 		v := StorageFileMp3{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StorageFileTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StorageFileTypeClass", err)
 		}
 		return &v, nil
 	case StorageFileMovTypeID:
 		// Decoding storage.fileMov#4b09ebbc.
 		v := StorageFileMov{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StorageFileTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StorageFileTypeClass", err)
 		}
 		return &v, nil
 	case StorageFileMp4TypeID:
 		// Decoding storage.fileMp4#b3cea0e4.
 		v := StorageFileMp4{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StorageFileTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StorageFileTypeClass", err)
 		}
 		return &v, nil
 	case StorageFileWebpTypeID:
 		// Decoding storage.fileWebp#1081464c.
 		v := StorageFileWebp{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StorageFileTypeClass: %w", err)
+			return nil, fmt.Errorf("unable to decode %s: %w", "StorageFileTypeClass", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode StorageFileTypeClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode %s: %w", "StorageFileTypeClass", bin.NewUnexpectedID(id))
 	}
 }
 
@@ -1180,7 +1180,7 @@ type StorageFileTypeBox struct {
 // Decode implements bin.Decoder for StorageFileTypeBox.
 func (b *StorageFileTypeBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode StorageFileTypeBox to nil")
+		return fmt.Errorf("unable to decode %sBox to nil", "StorageFileType")
 	}
 	v, err := DecodeStorageFileType(buf)
 	if err != nil {
@@ -1193,7 +1193,7 @@ func (b *StorageFileTypeBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for StorageFileTypeBox.
 func (b *StorageFileTypeBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.FileType == nil {
-		return fmt.Errorf("unable to encode StorageFileTypeClass as nil")
+		return fmt.Errorf("unable to encode %s as nil", "StorageFileTypeClass")
 	}
 	return b.FileType.Encode(buf)
 }

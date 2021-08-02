@@ -99,7 +99,7 @@ func (m *MsgCopy) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MsgCopy) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msg_copy#e06046b2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "msg_copy#e06046b2")
 	}
 	b.PutID(MsgCopyTypeID)
 	return m.EncodeBare(b)
@@ -108,10 +108,10 @@ func (m *MsgCopy) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MsgCopy) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msg_copy#e06046b2 as nil")
+		return fmt.Errorf("can't encode %s as nil", "msg_copy#e06046b2")
 	}
 	if err := m.OrigMessage.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode msg_copy#e06046b2: field orig_message: %w", err)
+		return fmt.Errorf("unable to encode %s: field %s: %w", "msg_copy#e06046b2", "orig_message", err)
 	}
 	return nil
 }
@@ -124,10 +124,10 @@ func (m *MsgCopy) GetOrigMessage() (value Message) {
 // Decode implements bin.Decoder.
 func (m *MsgCopy) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msg_copy#e06046b2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "msg_copy#e06046b2")
 	}
 	if err := b.ConsumeID(MsgCopyTypeID); err != nil {
-		return fmt.Errorf("unable to decode msg_copy#e06046b2: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "msg_copy#e06046b2", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -135,11 +135,11 @@ func (m *MsgCopy) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MsgCopy) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msg_copy#e06046b2 to nil")
+		return fmt.Errorf("can't decode %s to nil", "msg_copy#e06046b2")
 	}
 	{
 		if err := m.OrigMessage.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode msg_copy#e06046b2: field orig_message: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "msg_copy#e06046b2", "orig_message", err)
 		}
 	}
 	return nil

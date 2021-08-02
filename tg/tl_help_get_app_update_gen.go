@@ -102,7 +102,7 @@ func (g *HelpGetAppUpdateRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetAppUpdateRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getAppUpdate#522d5a7d as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getAppUpdate#522d5a7d")
 	}
 	b.PutID(HelpGetAppUpdateRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,7 +111,7 @@ func (g *HelpGetAppUpdateRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetAppUpdateRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getAppUpdate#522d5a7d as nil")
+		return fmt.Errorf("can't encode %s as nil", "help.getAppUpdate#522d5a7d")
 	}
 	b.PutString(g.Source)
 	return nil
@@ -125,10 +125,10 @@ func (g *HelpGetAppUpdateRequest) GetSource() (value string) {
 // Decode implements bin.Decoder.
 func (g *HelpGetAppUpdateRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getAppUpdate#522d5a7d to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getAppUpdate#522d5a7d")
 	}
 	if err := b.ConsumeID(HelpGetAppUpdateRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getAppUpdate#522d5a7d: %w", err)
+		return fmt.Errorf("unable to decode %s: %w", "help.getAppUpdate#522d5a7d", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (g *HelpGetAppUpdateRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetAppUpdateRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getAppUpdate#522d5a7d to nil")
+		return fmt.Errorf("can't decode %s to nil", "help.getAppUpdate#522d5a7d")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.getAppUpdate#522d5a7d: field source: %w", err)
+			return fmt.Errorf("unable to decode %s: field %s: %w", "help.getAppUpdate#522d5a7d", "source", err)
 		}
 		g.Source = value
 	}
