@@ -58,7 +58,7 @@ func (s *Server) SendResult(req *Request, msg bin.Encoder) error {
 	var buf bin.Buffer
 
 	if err := msg.Encode(&buf); err != nil {
-		return xerrors.Errorf("failed to encode result data: %w", err)
+		return xerrors.Errorf("encode result: %w", err)
 	}
 
 	if err := s.sendReq(req, proto.MessageServerResponse, &proto.Result{
@@ -69,6 +69,17 @@ func (s *Server) SendResult(req *Request, msg bin.Encoder) error {
 	}
 
 	return nil
+}
+
+// SendGZIP sends RPC answer and packs it into proto.GZIP.
+func (s *Server) SendGZIP(req *Request, msg bin.Encoder) error {
+	var buf bin.Buffer
+
+	if err := msg.Encode(&buf); err != nil {
+		return xerrors.Errorf("encode gzip data: %w", err)
+	}
+
+	return s.SendResult(req, proto.GZIP{Data: buf.Buf})
 }
 
 // SendErr sends RPC answer using given error as result.

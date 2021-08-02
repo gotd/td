@@ -17,8 +17,7 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-// Cluster creates cluster of multiple servers, representing Telegram multiple
-// datacenters.
+// Cluster is a cluster of multiple servers, representing multiple Telegram datacenters.
 type Cluster struct {
 	servers map[int]*Server
 	keys    []*rsa.PublicKey
