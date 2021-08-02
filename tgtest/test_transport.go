@@ -22,6 +22,7 @@ type testTransportHandler struct {
 	message string // immutable
 }
 
+// TestTransport is a handler for testing MTProto transport.
 func TestTransport(t testing.TB, logger *zap.Logger, message string) Handler {
 	return &testTransportHandler{
 		t:       t,
@@ -51,7 +52,7 @@ func (h *testTransportHandler) OnMessage(server *Server, req *Request) error {
 		}
 		h.logger.Info("New client connected, invoke received")
 
-		if err := server.SendConfig(req); err != nil {
+		if err := server.SendResult(req, &tg.Config{}); err != nil {
 			return err
 		}
 

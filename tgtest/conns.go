@@ -21,6 +21,7 @@ func (conn *connection) sentCreated() {
 	atomic.AddUint64(&conn.sent, 1)
 }
 
+// users contains all server connections and sessions.
 type users struct {
 	sessions    map[[8]byte]crypto.AuthKey
 	sessionsMux sync.Mutex
