@@ -85,7 +85,7 @@ func TestExternalE2EUsersDialog(t *testing.T) {
 	log := zaptest.NewLogger(t).WithOptions(zap.IncreaseLevel(zapcore.InfoLevel))
 
 	cfg := e2etest.TestOptions{
-		Logger:  log,
+		Logger: log,
 	}
 	suite := e2etest.NewSuite(t, cfg)
 

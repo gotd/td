@@ -165,7 +165,6 @@ func (s *Server) handle(req *Request) error {
 func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error) {
 	s.log.Debug("User connected")
 
-	var key crypto.AuthKey
 	defer func() {
 		_ = conn.Close()
 	}()
@@ -180,13 +179,12 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error)
 		return xerrors.Errorf("peek id: %w", err)
 	}
 
-	key, ok := s.users.getSession(authKeyID)
-	if !ok {
+	if _, ok := s.users.getSession(authKeyID); !ok {
 		conn := newBufferedConn(conn)
 		conn.Push(b)
 
 		s.log.Debug("Starting key exchange")
-		key, err = s.exchange(ctx, conn)
+		key, err := s.exchange(ctx, conn)
 		if err != nil {
 			return xerrors.Errorf("key exchange failed: %w", err)
 		}

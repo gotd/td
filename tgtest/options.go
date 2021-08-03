@@ -45,9 +45,9 @@ func (opt *ServerOptions) setDefaults() {
 	if opt.Logger == nil {
 		opt.Logger = zap.NewNop()
 	}
-	if opt.Codec == nil {
-		// Ignore, will be handled by transport.NewCustomServer.
-	}
+
+	// Ignore opt.Codec, will be handled by transport.NewCustomServer.
+
 	if opt.Clock == nil {
 		opt.Clock = clock.System
 	}

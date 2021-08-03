@@ -11,9 +11,9 @@ import (
 
 // NewCustomServer creates new MTProto server with custom transport codec.
 // Parameter codec may be nil, it means that MTProto transport will be detected automatically.
-func NewCustomServer(codec func() Codec, listener net.Listener) *Server {
+func NewCustomServer(c func() Codec, listener net.Listener) *Server {
 	return &Server{
-		codec:    codec,
+		codec:    c,
 		listener: &onceCloseListener{Listener: listener},
 	}
 }
