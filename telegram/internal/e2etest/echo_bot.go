@@ -66,7 +66,7 @@ func (m *users) get(id int) (r *tg.User) {
 }
 
 func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, error) {
-	if err := b.suite.RetryAuthenticate(ctx, client); err != nil {
+	if err := b.suite.RetryAuthenticate(ctx, client.Auth()); err != nil {
 		return nil, xerrors.Errorf("authenticate: %w", err)
 	}
 

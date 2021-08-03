@@ -1,16 +1,13 @@
 package e2etest
 
 import (
-	"context"
 	"io"
 	"sync"
 
-	"github.com/cenkalti/backoff/v4"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/dcs"
 )
 
@@ -50,33 +47,4 @@ func (s *Suite) Client(logger *zap.Logger, handler telegram.UpdateHandler) *tele
 		Logger:        logger,
 		UpdateHandler: handler,
 	})
-}
-
-// Authenticate authenticates client on test server.
-func (s *Suite) Authenticate(ctx context.Context, client *telegram.Client) error {
-	var ua auth.UserAuthenticator
-	for {
-		ua = auth.Test(s.rand, s.dc)
-		phone, err := ua.Phone(ctx)
-		if err != nil {
-			return err
-		}
-
-		s.usedMux.Lock()
-		if _, ok := s.used[phone]; !ok {
-			s.used[phone] = struct{}{}
-			s.usedMux.Unlock()
-			break
-		}
-		s.usedMux.Unlock()
-	}
-
-	return auth.NewFlow(ua, auth.SendCodeOptions{}).Run(ctx, client.Auth())
-}
-
-// RetryAuthenticate authenticates client on test server.
-func (s *Suite) RetryAuthenticate(ctx context.Context, client *telegram.Client) error {
-	return backoff.Retry(func() error {
-		return s.Authenticate(ctx, client)
-	}, backoff.WithContext(backoff.NewExponentialBackOff(), ctx))
 }
