@@ -23,7 +23,8 @@ type ServerOptions struct {
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.
 	Logger *zap.Logger
-	// Codec constructor. Defaults to Intermediate.
+	// Codec constructor.
+	// Defaults to nil (underlying transport server detects protocol automatically).
 	Codec func() transport.Codec
 	// Clock to use. Defaults to clock.System.
 	Clock clock.Clock
@@ -45,7 +46,7 @@ func (opt *ServerOptions) setDefaults() {
 		opt.Logger = zap.NewNop()
 	}
 	if opt.Codec == nil {
-		opt.Codec = transport.Intermediate.Codec
+		// Ignore, will be handled by transport.NewCustomServer.
 	}
 	if opt.Clock == nil {
 		opt.Clock = clock.System

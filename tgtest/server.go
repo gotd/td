@@ -19,7 +19,7 @@ import (
 // Server is a MTProto server structure.
 type Server struct {
 	dcID   int
-	codec  func() transport.Codec // immutable
+	codec  func() transport.Codec // immutable,nilable
 	key    *rsa.PrivateKey        // immutable
 	cipher crypto.Cipher          // immutable
 
@@ -75,6 +75,7 @@ func (s *Server) serve(listener net.Listener) error {
 		s.log.Info("Stopping")
 	}()
 
+	// NB: s.codec may be nil.
 	server := transport.NewCustomServer(s.codec, listener)
 	defer func() {
 		_ = server.Close()
