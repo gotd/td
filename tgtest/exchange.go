@@ -8,6 +8,7 @@ import (
 	"github.com/gotd/td/transport"
 )
 
+// exchange starts MTProto key exchange.
 func (s *Server) exchange(ctx context.Context, conn transport.Conn) (crypto.AuthKey, error) {
 	r, err := exchange.NewExchanger(conn).
 		WithClock(s.clock).

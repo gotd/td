@@ -14,19 +14,28 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
-func (s *Server) Send(ctx context.Context, k Session, t proto.MessageType, encoder bin.Encoder) error {
-	conn, ok := s.users.getConnection(k.AuthKey)
+const (
+	// MessageServerResponse is a message type of RPC calls result.
+	MessageServerResponse = proto.MessageServerResponse
+	// MessageFromServer is a message type of server-side updates.
+	MessageFromServer = proto.MessageFromServer
+)
+
+// Send sends given message to user session k.
+// Parameter t denotes MTProto message type. It should be MessageServerResponse or MessageFromServer.
+func (s *Server) Send(ctx context.Context, k Session, t proto.MessageType, message bin.Encoder) error {
+	conn, ok := s.users.getConnection(k.ID)
 	if !ok {
-		return xerrors.Errorf("send %T: invalid key: connection not found", encoder)
+		return xerrors.Errorf("send %T: invalid key: connection %s not found", message, k.AuthKey.String())
 	}
 
 	var b bin.Buffer
-	if err := encoder.Encode(&b); err != nil {
+	if err := message.Encode(&b); err != nil {
 		return xerrors.Errorf("failed to encode data: %w", err)
 	}
 
 	data := crypto.EncryptedMessageData{
-		SessionID:              k.SessionID,
+		SessionID:              k.ID,
 		MessageDataLen:         int32(b.Len()),
 		MessageDataWithPadding: b.Copy(),
 		MessageID:              s.msgID.New(t),
@@ -44,11 +53,12 @@ func (s *Server) sendReq(req *Request, t proto.MessageType, encoder bin.Encoder)
 	return s.Send(req.RequestCtx, req.Session, t, encoder)
 }
 
+// SendResult sends RPC answer using msg as result.
 func (s *Server) SendResult(req *Request, msg bin.Encoder) error {
 	var buf bin.Buffer
 
 	if err := msg.Encode(&buf); err != nil {
-		return xerrors.Errorf("failed to encode result data: %w", err)
+		return xerrors.Errorf("encode result: %w", err)
 	}
 
 	if err := s.sendReq(req, proto.MessageServerResponse, &proto.Result{
@@ -61,6 +71,18 @@ func (s *Server) SendResult(req *Request, msg bin.Encoder) error {
 	return nil
 }
 
+// SendGZIP sends RPC answer and packs it into proto.GZIP.
+func (s *Server) SendGZIP(req *Request, msg bin.Encoder) error {
+	var buf bin.Buffer
+
+	if err := msg.Encode(&buf); err != nil {
+		return xerrors.Errorf("encode gzip data: %w", err)
+	}
+
+	return s.SendResult(req, proto.GZIP{Data: buf.Buf})
+}
+
+// SendErr sends RPC answer using given error as result.
 func (s *Server) SendErr(req *Request, e *tgerr.Error) error {
 	return s.SendResult(req, &mt.RPCError{
 		ErrorCode:    e.Code,
@@ -68,6 +90,8 @@ func (s *Server) SendErr(req *Request, e *tgerr.Error) error {
 	})
 }
 
+// SendBool sends RPC answer using given bool as result.
+// Usually used in methods without explicit response.
 func (s *Server) SendBool(req *Request, r bool) error {
 	var msg tg.BoolClass = &tg.BoolTrue{}
 	if !r {
@@ -76,10 +100,12 @@ func (s *Server) SendBool(req *Request, r bool) error {
 	return s.SendResult(req, msg)
 }
 
+// SendVector sends RPC answer using given vector as result.
 func (s *Server) SendVector(req *Request, msgs ...bin.Encoder) error {
 	return s.SendResult(req, &genericVector{Elems: msgs})
 }
 
+// sendSessionCreated sends mt.NewSessionCreated `new_session_created` notification.
 func (s *Server) sendSessionCreated(ctx context.Context, k Session, serverSalt int64) error {
 	if err := s.Send(ctx, k, proto.MessageFromServer, &mt.NewSessionCreated{
 		FirstMsgID: s.msgID.New(proto.MessageFromClient),
@@ -91,11 +117,7 @@ func (s *Server) sendSessionCreated(ctx context.Context, k Session, serverSalt i
 	return nil
 }
 
-func (s *Server) SendConfig(req *Request) error {
-	s.log.Debug("SendConfig")
-	return s.SendResult(req, &tg.Config{})
-}
-
+// SendPong sends response for mt.PingRequest request.
 func (s *Server) SendPong(req *Request, pingID int64) error {
 	if err := s.sendReq(req, proto.MessageServerResponse, &mt.Pong{
 		MsgID:  req.MsgID,
@@ -107,6 +129,8 @@ func (s *Server) SendPong(req *Request, pingID int64) error {
 	return nil
 }
 
+// SendEternalSalt sends response for mt.GetFutureSaltsRequest.
+// It sends an `eternal` salt, which valid until maximum possible date.
 func (s *Server) SendEternalSalt(req *Request) error {
 	return s.SendFutureSalts(req, mt.FutureSalt{
 		ValidSince: 1,
@@ -115,6 +139,7 @@ func (s *Server) SendEternalSalt(req *Request) error {
 	})
 }
 
+// SendFutureSalts sends response for mt.GetFutureSaltsRequest.
 func (s *Server) SendFutureSalts(req *Request, salts ...mt.FutureSalt) error {
 	if err := s.Send(req.RequestCtx, req.Session, proto.MessageServerResponse, &mt.FutureSalts{
 		ReqMsgID: req.MsgID,
@@ -127,6 +152,7 @@ func (s *Server) SendFutureSalts(req *Request, salts ...mt.FutureSalt) error {
 	return nil
 }
 
+// SendUpdates sends given updates to user session k.
 func (s *Server) SendUpdates(ctx context.Context, k Session, updates ...tg.UpdateClass) error {
 	if len(updates) == 0 {
 		return nil
@@ -142,6 +168,7 @@ func (s *Server) SendUpdates(ctx context.Context, k Session, updates ...tg.Updat
 	return nil
 }
 
+// SendAck sends acknowledgment for received message.
 func (s *Server) SendAck(ctx context.Context, k Session, ids ...int64) error {
 	if err := s.Send(ctx, k, proto.MessageFromServer, &mt.MsgsAck{MsgIDs: ids}); err != nil {
 		return xerrors.Errorf("send ack: %w", err)
@@ -150,6 +177,8 @@ func (s *Server) SendAck(ctx context.Context, k Session, ids ...int64) error {
 	return nil
 }
 
+// ForceDisconnect forcibly disconnect user from server.
+// It deletes MTProto session (session_id), but not auth key.
 func (s *Server) ForceDisconnect(k Session) {
-	s.users.deleteConnection(k.AuthKey)
+	s.users.deleteConnection(k.ID)
 }

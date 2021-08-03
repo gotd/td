@@ -2,7 +2,10 @@ package crypto
 
 import (
 	"crypto/sha1" // #nosec
+	"encoding/hex"
 	"fmt"
+
+	"go.uber.org/zap/zapcore"
 )
 
 // See https://core.telegram.org/mtproto/description#defining-aes-key-and-initialization-vector
@@ -55,6 +58,13 @@ func (a AuthKey) Zero() bool {
 	return a == AuthKey{}
 }
 
+// String implements fmt.Stringer.
 func (a AuthKey) String() string {
 	return fmt.Sprintf("Key(id: %x)", a.ID)
+}
+
+// MarshalLogObject implements zap.ObjectMarshaler.
+func (a AuthKey) MarshalLogObject(encoder zapcore.ObjectEncoder) error {
+	encoder.AddString("id", hex.EncodeToString(a.ID[:]))
+	return nil
 }

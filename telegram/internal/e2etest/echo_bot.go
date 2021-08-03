@@ -27,7 +27,7 @@ type EchoBot struct {
 func NewEchoBot(suite *Suite, auth chan<- *tg.User) EchoBot {
 	return EchoBot{
 		suite:  suite,
-		logger: suite.Log.Named("echobot"),
+		logger: suite.logger.Named("echobot"),
 		auth:   auth,
 	}
 }
@@ -66,7 +66,7 @@ func (m *users) get(id int) (r *tg.User) {
 }
 
 func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, error) {
-	if err := b.suite.RetryAuthenticate(ctx, client); err != nil {
+	if err := b.suite.RetryAuthenticate(ctx, client.Auth()); err != nil {
 		return nil, xerrors.Errorf("authenticate: %w", err)
 	}
 

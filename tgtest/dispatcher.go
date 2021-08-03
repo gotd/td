@@ -26,7 +26,7 @@ func NewDispatcher() *Dispatcher {
 func (d *Dispatcher) OnMessage(server *Server, req *Request) error {
 	id, err := req.Buf.PeekID()
 	if err != nil {
-		return xerrors.Errorf("peer id: %w", err)
+		return xerrors.Errorf("peek id: %w", err)
 	}
 
 	d.mux.Lock()
@@ -41,7 +41,7 @@ func (d *Dispatcher) OnMessage(server *Server, req *Request) error {
 		return fallback.OnMessage(server, req)
 	}
 
-	return xerrors.Errorf("unexpected type %d", id)
+	return xerrors.Errorf("unexpected type %#x", id)
 }
 
 // Handle sets handler for given TypeID.

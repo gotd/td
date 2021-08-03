@@ -29,7 +29,7 @@ func NewUser(suite *Suite, text []string, username string) User {
 		suite:    suite,
 		text:     text,
 		username: username,
-		logger:   suite.Log.Named("terentyev"),
+		logger:   suite.logger.Named("terentyev"),
 		message:  make(chan string, 1),
 	}
 }
@@ -65,7 +65,7 @@ func (u User) Run(ctx context.Context) error {
 	sender := message.NewSender(tg.NewClient(waitInvoker{prev: client}))
 
 	return client.Run(ctx, func(ctx context.Context) error {
-		if err := u.suite.RetryAuthenticate(ctx, client); err != nil {
+		if err := u.suite.RetryAuthenticate(ctx, client.Auth()); err != nil {
 			return xerrors.Errorf("authenticate: %w", err)
 		}
 

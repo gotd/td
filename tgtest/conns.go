@@ -21,42 +21,43 @@ func (conn *connection) sentCreated() {
 	atomic.AddUint64(&conn.sent, 1)
 }
 
+// users contains all server connections and sessions.
 type users struct {
 	sessions    map[[8]byte]crypto.AuthKey
 	sessionsMux sync.Mutex
 
-	conns    map[[8]byte]*connection
+	conns    map[int64]*connection
 	connsMux sync.Mutex
 }
 
 func newUsers() *users {
 	return &users{
-		conns:    map[[8]byte]*connection{},
+		conns:    map[int64]*connection{},
 		sessions: map[[8]byte]crypto.AuthKey{},
 	}
 }
 
-func (c *users) addConnection(key crypto.AuthKey, conn *connection) {
+func (c *users) addConnection(key int64, conn *connection) {
 	c.connsMux.Lock()
-	c.conns[key.ID] = conn
+	c.conns[key] = conn
 	c.connsMux.Unlock()
 }
 
-func (c *users) getConnection(key crypto.AuthKey) (conn *connection, ok bool) {
+func (c *users) getConnection(key int64) (conn *connection, ok bool) {
 	c.connsMux.Lock()
-	conn, ok = c.conns[key.ID]
+	conn, ok = c.conns[key]
 	c.connsMux.Unlock()
 
 	return
 }
 
-func (c *users) deleteConnection(key crypto.AuthKey) {
+func (c *users) deleteConnection(key int64) {
 	c.connsMux.Lock()
-	conn := c.conns[key.ID]
+	conn := c.conns[key]
 	if conn != nil {
 		_ = conn.Close()
 	}
-	delete(c.conns, key.ID)
+	delete(c.conns, key)
 	c.connsMux.Unlock()
 }
 

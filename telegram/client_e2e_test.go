@@ -13,7 +13,6 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram"
@@ -21,6 +20,7 @@ import (
 	"github.com/gotd/td/telegram/downloader"
 	"github.com/gotd/td/telegram/uploader"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/tgtest"
 	"github.com/gotd/td/tgtest/services/file"
 	"github.com/gotd/td/transport"
@@ -183,7 +183,7 @@ func testMigrate(p dcs.Protocol) func(t *testing.T) {
 				case <-req.RequestCtx.Done():
 					return req.RequestCtx.Err()
 				}
-				return server.SendResult(req, &tg.Updates{})
+				return server.SendGZIP(req, &tg.Updates{})
 			},
 		)
 		c.Dispatch(2, "migrate").HandleFunc(tg.MessagesSendMessageRequestTypeID,
@@ -193,10 +193,7 @@ func testMigrate(p dcs.Protocol) func(t *testing.T) {
 					return err
 				}
 
-				return server.SendResult(req, &mt.RPCError{
-					ErrorCode:    303,
-					ErrorMessage: "NETWORK_MIGRATE_1",
-				})
+				return server.SendErr(req, tgerr.New(303, "NETWORK_MIGRATE_1"))
 			},
 		)
 	}, func(ctx context.Context, c clientSetup) error {

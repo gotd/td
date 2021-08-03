@@ -6,10 +6,12 @@ import (
 	"github.com/gotd/td/bin"
 )
 
+// genericVector is a simple helper to encode a vector of TL objects.
 type genericVector struct {
 	Elems []bin.Encoder
 }
 
+// Encode implements bin.Encoder.
 func (vec *genericVector) Encode(b *bin.Buffer) error {
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
