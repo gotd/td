@@ -79,7 +79,7 @@ func extractChannelID(msg tg.MessageClass) (int, error) {
 	case *tg.MessageEmpty:
 		peer, ok := msg.GetPeerID()
 		if !ok {
-			return 0, xerrors.Errorf("tg.MessageEmpty have no peerID field")
+			return 0, xerrors.New("tg.MessageEmpty have no peerID field")
 		}
 
 		if c, ok := peer.(*tg.PeerChannel); ok {

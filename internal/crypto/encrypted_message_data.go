@@ -95,7 +95,10 @@ func (e *EncryptedMessageData) Decode(b *bin.Buffer) error {
 	}
 	e.MessageDataWithPadding = append(e.MessageDataWithPadding[:0], b.Buf...)
 	if int(e.MessageDataLen) > len(e.MessageDataWithPadding) {
-		return xerrors.Errorf("MessageDataLen field is bigger then MessageDataWithPadding length")
+		return xerrors.Errorf(
+			"MessageDataLen field is bigger then MessageDataWithPadding length (%d > %d)",
+			int(e.MessageDataLen), len(e.MessageDataWithPadding),
+		)
 	}
 
 	return nil
@@ -141,7 +144,10 @@ func (e *EncryptedMessageData) DecodeWithoutCopy(b *bin.Buffer) error {
 	}
 	e.MessageDataWithPadding = b.Buf
 	if int(e.MessageDataLen) > len(e.MessageDataWithPadding) {
-		return xerrors.Errorf("MessageDataLen field is bigger then MessageDataWithPadding length")
+		return xerrors.Errorf(
+			"MessageDataLen field is bigger then MessageDataWithPadding length (%d > %d)",
+			int(e.MessageDataLen), len(e.MessageDataWithPadding),
+		)
 	}
 	return nil
 }

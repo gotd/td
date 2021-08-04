@@ -144,7 +144,7 @@ func (c *collector) methods() ([]method, error) { // nolint:gocognit
 
 		reqTypeStruct, ok := reqType.Underlying().(*types.Struct)
 		if !ok {
-			return nil, xerrors.Errorf("unexpected type")
+			return nil, xerrors.Errorf("unexpected type %T", reqType.Underlying())
 		}
 
 		for i := 0; i < reqTypeStruct.NumFields(); i++ {

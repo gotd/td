@@ -43,7 +43,7 @@ func (e *Engine) recoverChannelState(state *channelState) error {
 	log := e.log.With(zap.Int("channel_id", state.channelID))
 	accessHash, ok := e.channelHashes.Get(state.channelID)
 	if !ok {
-		return xerrors.Errorf("missing access hash")
+		return xerrors.New("missing access hash")
 	}
 
 	state.pts.EnableRecoverMode()

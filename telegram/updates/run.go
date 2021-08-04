@@ -16,7 +16,7 @@ func (e *Engine) HandleUpdates(u tg.UpdatesClass) error {
 	closed := e.closed
 	e.shutdownMux.Unlock()
 	if closed {
-		return xerrors.Errorf("closed")
+		return xerrors.New("closed")
 	}
 
 	e.uchan <- u
