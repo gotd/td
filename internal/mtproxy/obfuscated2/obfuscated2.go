@@ -41,8 +41,9 @@ func (o *Obfuscated2) Handshake(protocol [4]byte, s mtproxy.Secret) error {
 
 // Write implements io.Writer.
 func (o *Obfuscated2) Write(b []byte) (n int, err error) {
-	o.encrypt.XORKeyStream(b, b)
-	return o.conn.Write(b)
+	cpyB := append([]byte(nil), b...)
+	o.encrypt.XORKeyStream(cpyB, b)
+	return o.conn.Write(cpyB)
 }
 
 // Read implements io.Reader.
