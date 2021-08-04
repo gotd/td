@@ -11,6 +11,7 @@ import (
 	"github.com/gotd/td/internal/mtproxy"
 	"github.com/gotd/td/internal/mtproxy/obfuscator"
 	"github.com/gotd/td/internal/proto/codec"
+	"github.com/gotd/td/internal/wsutil"
 	"github.com/gotd/td/transport"
 )
 
@@ -37,7 +38,10 @@ func (w ws) connect(ctx context.Context, dc int, domains map[int]string) (transp
 	if err != nil {
 		return nil, xerrors.Errorf("dial ws: %w", err)
 	}
-	obsConn := obfuscator.Obfuscated2(w.rand, netConn(context.Background(), conn))
+	obsConn := obfuscator.Obfuscated2(
+		w.rand,
+		wsutil.NetConn(conn, "localhost", addr),
+	)
 
 	if err := obsConn.Handshake(w.tag, mtproxy.Secret{
 		DC:     dc,
