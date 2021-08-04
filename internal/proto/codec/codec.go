@@ -30,7 +30,7 @@ type TaggedCodec interface {
 func readLen(r io.Reader, b *bin.Buffer) (int, error) {
 	b.ResetN(bin.Word)
 	if _, err := io.ReadFull(r, b.Buf[:bin.Word]); err != nil {
-		return 0, fmt.Errorf("failed to read length: %w", err)
+		return 0, fmt.Errorf("read length: %w", err)
 	}
 	n, err := b.Int()
 	if err != nil {

@@ -112,7 +112,7 @@ func (g *Generator) makeStructures() error {
 		)
 		t, ok := g.types[typeKey]
 		if !ok {
-			return xerrors.Errorf("failed to find type binding for %q", typeKey)
+			return xerrors.Errorf("find type binding for %q", typeKey)
 		}
 		s := structDef{
 			Namespace: t.Namespace,
@@ -158,7 +158,7 @@ func (g *Generator) makeStructures() error {
 		for _, param := range d.Params {
 			f, err := g.makeField(param, sd.Annotations)
 			if err != nil {
-				return xerrors.Errorf("failed to make field %s: %w", param.Name, err)
+				return xerrors.Errorf("make field %s: %w", param.Name, err)
 			}
 
 			f.Links = docStruct.Fields[param.Name].Links

@@ -32,7 +32,7 @@ func (m *MessageContainer) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageContainer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageContainerTypeID); err != nil {
-		return xerrors.Errorf("failed to consume id of message container: %w", err)
+		return xerrors.Errorf("consume id of message container: %w", err)
 	}
 	n, err := b.Int()
 	if err != nil {

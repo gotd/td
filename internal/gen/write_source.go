@@ -69,11 +69,11 @@ func (w *writer) Generate(templateName, fileName string, cfg config) error {
 
 	w.buf.Reset()
 	if err := w.t.ExecuteTemplate(w.buf, templateName, cfg); err != nil {
-		return xerrors.Errorf("failed to execute template %s for %s: %w", templateName, fileName, err)
+		return xerrors.Errorf("execute template %s for %s: %w", templateName, fileName, err)
 	}
 	if err := w.fs.WriteFile(fileName, w.buf.Bytes()); err != nil {
 		_ = os.WriteFile(fileName+".dump", w.buf.Bytes(), 0600)
-		return xerrors.Errorf("failed to write file %s: %w", fileName, err)
+		return xerrors.Errorf("write file %s: %w", fileName, err)
 	}
 	w.wrote[fileName] = true
 

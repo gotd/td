@@ -180,7 +180,7 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 	// This will send initial packet to telegram and perform key exchange
 	// if needed.
 	if c.closed {
-		return xerrors.New("failed to Run closed connection")
+		return xerrors.New("do Run on closed connection")
 	}
 
 	ctx, cancel := context.WithCancel(ctx)

@@ -20,7 +20,7 @@ func parseCDNKeys(keys ...tg.CDNPublicKey) ([]*rsa.PublicKey, error) {
 
 		key, err := crypto.ParseRSA(block.Bytes)
 		if err != nil {
-			return nil, fmt.Errorf("failed to parse RSA from PEM: %w", err)
+			return nil, fmt.Errorf("parse RSA from PEM: %w", err)
 		}
 
 		r = append(r, key)

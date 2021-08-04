@@ -80,7 +80,7 @@ func TestHelpers(t *testing.T) {
 				Type: tg.ErrAccessTokenExpired,
 			}
 
-			return xerrors.Errorf("failed to perform operation: %w", rpcErr)
+			return xerrors.Errorf("perform operation: %w", rpcErr)
 		}()
 		require.True(t, tgerr.Is(err, tg.ErrAccessTokenExpired))
 		require.True(t, tg.IsAccessTokenExpired(err))

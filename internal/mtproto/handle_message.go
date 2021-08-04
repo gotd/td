@@ -13,7 +13,7 @@ func (c *Conn) handleMessage(msgID int64, b *bin.Buffer) error {
 	id, err := b.PeekID()
 	if err != nil {
 		// Empty body.
-		return xerrors.Errorf("failed to determine message type: %w", err)
+		return xerrors.Errorf("peek message type: %w", err)
 	}
 
 	c.logWithBuffer(b).Debug("Handle message", zap.Int64("msg_id", msgID))

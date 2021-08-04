@@ -39,7 +39,7 @@ func (u *UnencryptedMessage) Decode(b *bin.Buffer) error {
 	}
 	u.MessageData = append(u.MessageData[:0], make([]byte, dataLen)...)
 	if err := b.ConsumeN(u.MessageData, int(dataLen)); err != nil {
-		return fmt.Errorf("failed to consume payload: %w", err)
+		return fmt.Errorf("consume payload: %w", err)
 	}
 
 	return nil

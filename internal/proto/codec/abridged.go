@@ -138,7 +138,7 @@ func readAbridged(r io.Reader, b *bin.Buffer) error {
 
 	b.ResetN(n << 2)
 	if _, err := io.ReadFull(r, b.Buf); err != nil {
-		return fmt.Errorf("failed to read payload: %w", err)
+		return fmt.Errorf("read payload: %w", err)
 	}
 
 	return nil

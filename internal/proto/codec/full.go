@@ -94,7 +94,7 @@ func readFull(r io.Reader, seqNo int, b *bin.Buffer) error {
 	// Reads tail of packet to the buffer.
 	// Length already read.
 	if _, err := io.ReadFull(r, inner.Buf); err != nil {
-		return fmt.Errorf("failed to read seqno, buffer and crc: %w", err)
+		return fmt.Errorf("read seqno, buffer and crc: %w", err)
 	}
 
 	serverSeqNo, err := inner.Int()

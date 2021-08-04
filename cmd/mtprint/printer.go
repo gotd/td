@@ -112,7 +112,7 @@ func (p Printer) Print(output io.Writer) error {
 
 		obj := m.New(id)
 		if obj == nil {
-			return xerrors.Errorf("failed to find type 0x%x", id)
+			return xerrors.Errorf("find type %#x", id)
 		}
 
 		v, ok := obj.(Object)

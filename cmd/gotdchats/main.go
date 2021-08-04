@@ -74,7 +74,7 @@ func run(ctx context.Context) error {
 			}
 
 			if err != nil {
-				return xerrors.Errorf("failed to get chats: %w", err)
+				return xerrors.Errorf("get chats: %w", err)
 			}
 
 			switch chats.(type) {
