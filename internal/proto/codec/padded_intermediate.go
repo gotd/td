@@ -71,11 +71,7 @@ func (i PaddedIntermediate) Read(r io.Reader, b *bin.Buffer) error {
 		return xerrors.Errorf("read padded intermediate: %w", err)
 	}
 
-	if err := checkProtocolError(b); err != nil {
-		return err
-	}
-
-	return nil
+	return checkProtocolError(b)
 }
 
 func writePaddedIntermediate(randSource io.Reader, w io.Writer, b *bin.Buffer) error {

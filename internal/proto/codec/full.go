@@ -48,11 +48,7 @@ func (i *Full) Read(r io.Reader, b *bin.Buffer) error {
 		return xerrors.Errorf("read full: %w", err)
 	}
 
-	if err := checkProtocolError(b); err != nil {
-		return err
-	}
-
-	return nil
+	return checkProtocolError(b)
 }
 
 func writeFull(w io.Writer, seqNo int, b *bin.Buffer) error {

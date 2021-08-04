@@ -61,7 +61,7 @@ func (c *Conn) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b *
 
 	log.Debug("Request", zap.Int64("msg_id", id))
 	if err := c.cipher.Encrypt(s.Key, d, b); err != nil {
-		return err
+		return xerrors.Errorf("encrypt: %w", err)
 	}
 
 	return nil
