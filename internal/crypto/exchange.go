@@ -3,7 +3,6 @@ package crypto
 import (
 	"crypto/aes"
 	"crypto/sha1" // #nosec
-	"errors"
 	"io"
 
 	"golang.org/x/xerrors"
@@ -18,7 +17,7 @@ func DecryptExchangeAnswer(data, key, iv []byte) (dst []byte, err error) {
 	// Decrypting inner data.
 	cipher, err := aes.NewCipher(key)
 	if err != nil {
-		return nil, xerrors.Errorf("failed to init aes cipher: %w", err)
+		return nil, xerrors.Errorf("create aes cipher: %w", err)
 	}
 
 	dataWithHash := make([]byte, len(data))
@@ -33,7 +32,7 @@ func DecryptExchangeAnswer(data, key, iv []byte) (dst []byte, err error) {
 		// Most common cause of this error is invalid crypto implementation,
 		// i.e. invalid keys are used to decrypt payload which lead to
 		// decrypt failure, so data does not match sha1 with any padding.
-		return nil, errors.New("failed to guess data from data_with_hash")
+		return nil, xerrors.New("guess data from data_with_hash")
 	}
 
 	return
@@ -43,12 +42,12 @@ func DecryptExchangeAnswer(data, key, iv []byte) (dst []byte, err error) {
 func EncryptExchangeAnswer(rand io.Reader, answer, key, iv []byte) (dst []byte, err error) {
 	cipher, err := aes.NewCipher(key)
 	if err != nil {
-		return nil, xerrors.Errorf("failed to init aes cipher: %w", err)
+		return nil, xerrors.Errorf("create aes cipher: %w", err)
 	}
 
 	answerWithHash, err := DataWithHash(answer, rand)
 	if err != nil {
-		return nil, xerrors.Errorf("failed to get answer with hash: %w", err)
+		return nil, xerrors.Errorf("get answer with hash: %w", err)
 	}
 
 	dst = make([]byte, len(answerWithHash))

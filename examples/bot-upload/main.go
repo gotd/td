@@ -49,7 +49,7 @@ func main() {
 			log.Info("Uploading file")
 			upload, err := u.FromPath(ctx, *filePath)
 			if err != nil {
-				return fmt.Errorf("failed to upload: %w", err)
+				return fmt.Errorf("upload %q: %w", *filePath, err)
 			}
 
 			// Now we have uploaded file handle, sending it as styled message.

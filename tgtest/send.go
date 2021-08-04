@@ -31,7 +31,7 @@ func (s *Server) Send(ctx context.Context, k Session, t proto.MessageType, messa
 
 	var b bin.Buffer
 	if err := message.Encode(&b); err != nil {
-		return xerrors.Errorf("failed to encode data: %w", err)
+		return xerrors.Errorf("encode: %w", err)
 	}
 
 	data := crypto.EncryptedMessageData{
@@ -43,7 +43,7 @@ func (s *Server) Send(ctx context.Context, k Session, t proto.MessageType, messa
 
 	err := s.cipher.Encrypt(k.AuthKey, data, &b)
 	if err != nil {
-		return xerrors.Errorf("failed to encrypt message: %w", err)
+		return xerrors.Errorf("encrypt: %w", err)
 	}
 
 	return conn.Send(ctx, &b)

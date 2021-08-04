@@ -22,3 +22,26 @@ func ZapPreferNoWith(m dsl.Matcher) {
 			m["method"].Text.Matches("Debug|Info|Warn|Error|DPanic|Panic|Fatal"),
 	).Suggest("$l.$method($msg_args, $args)")
 }
+
+// UberStyleErrors detects errors messages like
+//
+// 	xerrors.Errorf("failed to do something: %w", err)
+//
+// to
+//
+// 	xerrors.Errorf("do something: %w", err)
+//
+// according to https://github.com/uber-go/guide/blob/master/style.md#error-wrapping.
+func UberStyleErrors(m dsl.Matcher) {
+	m.Match("$pkg.Errorf($msg, $*msg_args)").Where(
+		m["msg"].Text.Matches(`"failed to.*"`),
+	).Report("Avoid phrases like \"failed to\"")
+
+	m.Match("errors.New($msg)").Where(
+		m["msg"].Text.Matches(`"failed to.*"`),
+	).Report("Avoid phrases like \"failed to\"")
+
+	m.Match("xerrors.New($msg)").Where(
+		m["msg"].Text.Matches(`"failed to.*"`),
+	).Report("Avoid phrases like \"failed to\"")
+}

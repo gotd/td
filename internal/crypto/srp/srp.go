@@ -53,7 +53,7 @@ type Answer struct {
 // See https://core.telegram.org/api/srp#checking-the-password-with-srp.
 func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
 	if err := s.checkGP(i.G, i.P); err != nil {
-		return Answer{}, xerrors.Errorf("failed to validate algo: %w", err)
+		return Answer{}, xerrors.Errorf("validate algo: %w", err)
 	}
 
 	p := s.bigFromBytes(i.P)

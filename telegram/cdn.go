@@ -3,7 +3,8 @@ package telegram
 import (
 	"crypto/rsa"
 	"encoding/pem"
-	"fmt"
+
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/tg"
@@ -20,7 +21,7 @@ func parseCDNKeys(keys ...tg.CDNPublicKey) ([]*rsa.PublicKey, error) {
 
 		key, err := crypto.ParseRSA(block.Bytes)
 		if err != nil {
-			return nil, fmt.Errorf("failed to parse RSA from PEM: %w", err)
+			return nil, xerrors.Errorf("parse RSA from PEM: %w", err)
 		}
 
 		r = append(r, key)

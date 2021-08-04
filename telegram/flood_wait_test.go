@@ -13,7 +13,7 @@ import (
 
 func TestAsFloodWait(t *testing.T) {
 	err := func() error {
-		return xerrors.Errorf("failed to perform operation: %w",
+		return xerrors.Errorf("perform operation: %w",
 			tgerr.New(400, "FLOOD_WAIT_10"),
 		)
 	}()

@@ -90,7 +90,7 @@ func NewGenerator(s *tl.Schema, options ...Option) (*Generator, error) {
 	if genOpt.docBaseURL != "" {
 		u, err := url.Parse(genOpt.docBaseURL)
 		if err != nil {
-			return nil, xerrors.Errorf("failed to parse docBase: %w", err)
+			return nil, xerrors.Errorf("parse docBase: %w", err)
 		}
 		g.docBase = u
 
@@ -99,16 +99,16 @@ func NewGenerator(s *tl.Schema, options ...Option) (*Generator, error) {
 			// TODO(ernado): Get actual layer
 			doc, err := getdoc.Load(getdoc.LayerLatest)
 			if err != nil {
-				return nil, xerrors.Errorf("failed to get documentation: %w", err)
+				return nil, xerrors.Errorf("get documentation: %w", err)
 			}
 			g.doc = doc
 		}
 	}
 	if err := g.makeBindings(); err != nil {
-		return nil, xerrors.Errorf("failed to make type bindings: %w", err)
+		return nil, xerrors.Errorf("make type bindings: %w", err)
 	}
 	if err := g.makeStructures(); err != nil {
-		return nil, xerrors.Errorf("failed to generate go structures: %w", err)
+		return nil, xerrors.Errorf("generate go structures: %w", err)
 	}
 	g.makeInterfaces()
 	g.makeErrors()

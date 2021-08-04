@@ -16,6 +16,8 @@ import (
 	"os"
 	"text/template"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/internal/crypto"
 )
 
@@ -39,7 +41,7 @@ var funcs = template.FuncMap{
 	},
 	"single": func(keys []*rsa.PublicKey) (*rsa.PublicKey, error) {
 		if count := len(keys); count != 1 {
-			return nil, fmt.Errorf("expected single key, got %d keys", count)
+			return nil, xerrors.Errorf("expected single key, got %d keys", count)
 		}
 		return keys[0], nil
 	},

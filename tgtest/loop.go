@@ -33,18 +33,17 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 
 		m := &crypto.EncryptedMessage{}
 		if err := m.DecodeWithoutCopy(&b); err != nil {
-			return xerrors.Errorf("encrypted message decode: %w", err)
+			return xerrors.Errorf("decode encrypted message: %w", err)
 		}
 
-		k, ok := s.users.getSession(m.AuthKeyID)
+		key, ok := s.users.getSession(m.AuthKeyID)
 		if !ok {
-			return xerrors.Errorf("invalid session")
+			return xerrors.New("invalid session")
 		}
-		key := k
 
 		msg, err := s.cipher.Decrypt(key, m)
 		if err != nil {
-			return xerrors.Errorf("failed to decrypt: %w", err)
+			return xerrors.Errorf("decrypt message: %w", err)
 		}
 
 		session = Session{
@@ -156,7 +155,7 @@ func (s *Server) handle(req *Request) error {
 		if xerrors.As(err, &rpcErr) {
 			return s.SendErr(req, rpcErr)
 		}
-		return xerrors.Errorf("failed to call handler: %w", err)
+		return err
 	}
 
 	return nil

@@ -2,12 +2,12 @@ package peer
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/require"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/neo"
 
@@ -80,11 +80,11 @@ func (m *mockResolver) ResolveDomain(ctx context.Context, domain string) (tg.Inp
 	m.counter++
 
 	if m.returnErr && m.counter == 1 {
-		return nil, fmt.Errorf("test error: %q", m.phone)
+		return nil, xerrors.Errorf("test error: %q", m.phone)
 	}
 
 	if domain != m.domain {
-		err := fmt.Errorf("expected domain %q, got %q", m.domain, domain)
+		err := xerrors.Errorf("expected domain %q, got %q", m.domain, domain)
 		m.t.Error(err)
 		return nil, err
 	}
@@ -95,11 +95,11 @@ func (m *mockResolver) ResolvePhone(ctx context.Context, phone string) (tg.Input
 	m.counter++
 
 	if m.returnErr && m.counter == 1 {
-		return nil, fmt.Errorf("test error: %q", m.phone)
+		return nil, xerrors.Errorf("test error: %q", m.phone)
 	}
 
 	if phone != m.phone {
-		err := fmt.Errorf("expected phone %q, got %q", m.phone, phone)
+		err := xerrors.Errorf("expected phone %q, got %q", m.phone, phone)
 		m.t.Error(err)
 		return nil, err
 	}
