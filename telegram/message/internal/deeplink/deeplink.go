@@ -9,7 +9,7 @@ import (
 	"golang.org/x/xerrors"
 )
 
-// Type is a enum type of Telegram deeplinks types.
+// Type is an enum type of Telegram deeplinks types.
 type Type string
 
 const (
