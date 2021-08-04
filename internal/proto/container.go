@@ -2,7 +2,6 @@ package proto
 
 import (
 	"errors"
-	"fmt"
 
 	"golang.org/x/xerrors"
 
@@ -59,7 +58,7 @@ type Message struct {
 // Encode implements bin.Encoder.
 func (m *Message) Encode(b *bin.Buffer) error {
 	if m.Bytes < 0 || m.Bytes > 1024*1024 {
-		return fmt.Errorf("message length %d is invalid", m.Bytes)
+		return xerrors.Errorf("message length %d is invalid", m.Bytes)
 	}
 	b.PutLong(m.ID)
 	b.PutInt(m.SeqNo)

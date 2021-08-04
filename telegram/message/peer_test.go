@@ -2,10 +2,10 @@ package message
 
 import (
 	"context"
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
@@ -28,7 +28,7 @@ func (r *testResolver) ResolvePhone(ctx context.Context, phone string) (tg.Input
 
 func (r *testResolver) expectResolve(_ context.Context, domain string) (tg.InputPeerClass, error) {
 	if domain != r.expectedDomain {
-		err := fmt.Errorf("expected domain %q, got %q", r.expectedDomain, domain)
+		err := xerrors.Errorf("expected domain %q, got %q", r.expectedDomain, domain)
 		r.t.Error(err)
 		return nil, err
 	}

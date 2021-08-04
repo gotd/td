@@ -3,16 +3,15 @@ package crypto
 import (
 	"bytes"
 	"crypto/rsa"
-	"fmt"
-	"io"
-	"math/big"
-
-	"golang.org/x/xerrors"
 
 	// #nosec
 	//
 	// Allowing sha1 because it is used in MTProto itself.
 	"crypto/sha1"
+	"io"
+	"math/big"
+
+	"golang.org/x/xerrors"
 )
 
 // RSAKeyBits is RSA key size.
@@ -50,7 +49,7 @@ func RSAEncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) (
 	// such that the length equals 255 bytes;
 	var dataWithHash [rsaWithHashLen]byte
 	if len(data) > rsaDataLen {
-		return nil, fmt.Errorf("data length %d is too big", len(data))
+		return nil, xerrors.Errorf("data length %d is too big", len(data))
 	}
 
 	// Filling data_with_hash with random bytes.
