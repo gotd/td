@@ -21,32 +21,13 @@ type wsListener struct {
 }
 
 // WebsocketListener creates new MTProto Websocket listener.
-func WebsocketListener() (net.Listener, http.Handler) {
+func WebsocketListener(addr string) (net.Listener, http.Handler) {
 	l := wsListener{
+		addr:   addr,
 		ch:     make(chan *wsServerConn, 1),
 		closed: tdsync.NewReady(),
 	}
 	return l, l
-}
-
-type wsServerConn struct {
-	closed tdsync.Ready
-	reader io.Reader
-	writer io.Writer
-	net.Conn
-}
-
-func (c *wsServerConn) Read(p []byte) (int, error) {
-	return c.reader.Read(p)
-}
-
-func (c *wsServerConn) Write(p []byte) (int, error) {
-	return c.writer.Write(p)
-}
-
-func (c *wsServerConn) Close() error {
-	c.closed.Signal()
-	return nil
 }
 
 func (l wsListener) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -57,7 +38,9 @@ func (l wsListener) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(400)
 		return
 	}
-	defer wsConn.Close(websocket.StatusNormalClosure, "Close")
+	defer func() {
+		_ = wsConn.Close(websocket.StatusNormalClosure, "Close")
+	}()
 
 	conn := wsutil.NetConn(wsConn, "localhost", r.RemoteAddr)
 	rw, md, err := obfuscated2.Accept(conn, nil)
@@ -123,5 +106,25 @@ func (l wsListener) Close() error {
 }
 
 func (l wsListener) Addr() net.Addr {
-	return wsutil.Addr("localhost")
+	return wsutil.Addr(l.addr)
+}
+
+type wsServerConn struct {
+	closed tdsync.Ready
+	reader io.Reader
+	writer io.Writer
+	net.Conn
+}
+
+func (c *wsServerConn) Read(p []byte) (int, error) {
+	return c.reader.Read(p)
+}
+
+func (c *wsServerConn) Write(p []byte) (int, error) {
+	return c.writer.Write(p)
+}
+
+func (c *wsServerConn) Close() error {
+	c.closed.Signal()
+	return nil
 }

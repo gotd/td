@@ -23,7 +23,7 @@ func (k *keys) createStreams(init, secret []byte) error {
 	encryptKey := append(make([]byte, 0, keyLength), init[8:40]...)
 	encryptIV := append(make([]byte, 0, 16), init[40:56]...)
 
-	initRev := getDecryptInit(init[:])
+	initRev := getDecryptInit(init)
 	decryptKey := append(make([]byte, 0, keyLength), initRev[:32]...)
 	decryptIV := append(make([]byte, 0, 16), initRev[32:48]...)
 

@@ -26,11 +26,11 @@ func NewObfuscated2(r io.Reader, conn io.ReadWriter) *Obfuscated2 {
 
 // Handshake sends obfuscated2 header.
 func (o *Obfuscated2) Handshake(protocol [4]byte, s mtproxy.Secret) error {
-	keys, err := generateKeys(o.rand, protocol, s.Secret, s.DC)
+	k, err := generateKeys(o.rand, protocol, s.Secret, s.DC)
 	if err != nil {
 		return xerrors.Errorf("generate keys: %w", err)
 	}
-	o.keys = keys
+	o.keys = k
 
 	if _, err := o.conn.Write(o.header); err != nil {
 		return xerrors.Errorf("write obfuscated header: %w", err)

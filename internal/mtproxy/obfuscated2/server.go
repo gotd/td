@@ -29,7 +29,7 @@ func Accept(conn io.ReadWriter, secret []byte) (io.ReadWriter, Metadata, error) 
 	k.encrypt, k.decrypt = k.decrypt, k.encrypt
 
 	var decrypted [64]byte
-	k.decrypt.XORKeyStream(decrypted[:], buf[:])
+	k.decrypt.XORKeyStream(decrypted[:], buf)
 
 	copy(meta.Protocol[:], decrypted[56:60])
 	meta.DC = binary.LittleEndian.Uint16(decrypted[60:62])

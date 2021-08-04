@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/rand"
 	"io"
+	"net/http"
 	"net/http/httptest"
 	"testing"
 
@@ -18,10 +19,15 @@ import (
 func TestWebsocketListener(t *testing.T) {
 	a := require.New(t)
 	ctx := context.Background()
-	listener, handler := transport.WebsocketListener()
 
-	srv := httptest.NewServer(handler)
+	var handler http.Handler
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		handler.ServeHTTP(w, r)
+	}))
 	defer srv.Close()
+
+	listener, h := transport.WebsocketListener(srv.URL)
+	handler = h
 	list := dcs.List{
 		Domains: map[int]string{
 			2: srv.URL,
