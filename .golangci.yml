@@ -48,7 +48,7 @@ linters:
     - gocritic
     - gofmt
     - goimports
-    - golint
+    - revive
     - gosec
     - gosimple
     - govet
@@ -79,21 +79,21 @@ issues:
   exclude-use-default: false
   exclude-rules:
     # TODO(ernado): Should we refactor Parse() functions?
-    - linters: [gocyclo, gocognit]
-      path: exchange
+    - path: exchange
+      linters: [ gocyclo, gocognit ]
       text: "Run"
 
     # this package is copy of tlstypes from mtg, keeping unchanged, so suppress some linters.
     - path: tlstypes
-      linters: [gochecknoglobals, gosec, golint]
+      linters: [ gochecknoglobals, gosec, golint ]
 
-    - linters: [gocritic]
+    - linters: [ gocritic ]
       text: "commentedOutCode"
       source: "SHA1"
 
     # Exclude go:generate from lll
     - source: "//go:generate"
-      linters: [lll]
+      linters: [ lll ]
 
     # Disable linters that are annoying in tests.
     - path: _test\.go
@@ -107,20 +107,28 @@ issues:
         - gocognit
         - scopelint
         - lll
+
     # Ignore shadowing of err.
-    - linters: [govet]
+    - linters: [ govet ]
       text: 'declaration of "(err|ctx|log)"'
+
     # Ignore linters in main packages.
     - path: main\.go
-      linters: [goconst, funlen, gocognit, gocyclo]
-    - linters: [goconst]
+      linters: [ goconst, funlen, gocognit, gocyclo ]
+
+    # Ignore linters in vendored tlstypes package.
+    - path: tlstypes
+      linters: [ revive, golint ]
+
+    - linters: [ goconst ]
       text: 'string `bool`'
 
     - path: tgtest
+      linters: [ revive, golint ]
       text: "should have comment or be unexported"
 
-    - path: internal\.go
-      text: "should have.+comment"
-      linters: [golint]
-    - linters: [staticcheck]
+    - linters: [ staticcheck ]
       text: "SA1019: telegram.+ is deprecated:"
+
+    - linters: [ revive ]
+      text: "if-return: redundant if ...; err != nil check, just return error instead."
