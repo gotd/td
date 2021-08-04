@@ -111,7 +111,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 		if ok := atomic.CompareAndSwapUint32(&handlerCalled, 0, 1); !ok {
 			log.Warn("Handler already called")
 
-			return xerrors.Errorf("handler already called")
+			return xerrors.New("handler already called")
 		}
 
 		defer retryClose()

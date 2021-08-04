@@ -33,7 +33,7 @@ func (c Cipher) Decrypt(k AuthKey, encrypted *EncryptedMessage) (*EncryptedMessa
 	// Checking SHA256 hash value of msg_key
 	msgKey := MessageKey(k.Value, plaintext, side)
 	if msgKey != encrypted.MsgKey {
-		return nil, xerrors.Errorf("msg_key is invalid")
+		return nil, xerrors.New("msg_key is invalid")
 	}
 
 	msg := &EncryptedMessageData{}

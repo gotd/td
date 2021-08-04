@@ -70,11 +70,7 @@ func (i Abridged) Read(r io.Reader, b *bin.Buffer) error {
 		return xerrors.Errorf("read abridged: %w", err)
 	}
 
-	if err := checkProtocolError(b); err != nil {
-		return err
-	}
-
-	return nil
+	return checkProtocolError(b)
 }
 
 func writeAbridged(w io.Writer, b *bin.Buffer) error {

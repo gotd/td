@@ -46,7 +46,7 @@ func getDialogPts(dialog tg.DialogClass) (int, error) {
 
 	pts, ok := d.GetPts()
 	if !ok {
-		return 0, xerrors.Errorf("dialog has no pts field")
+		return 0, xerrors.New("dialog has no pts field")
 	}
 
 	return pts, nil

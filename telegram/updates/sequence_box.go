@@ -64,7 +64,7 @@ func (s *sequenceBox) Handle(u update) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 	if s.closed {
-		return xerrors.Errorf("closed")
+		return xerrors.New("closed")
 	}
 
 	log := s.log.With(zap.Int("upd_from", u.start()), zap.Int("upd_to", u.end()))

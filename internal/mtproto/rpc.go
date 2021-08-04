@@ -65,7 +65,7 @@ func (c *Conn) dropRPC(req rpc.Request) error {
 	case *mt.RPCAnswerDropped, *mt.RPCAnswerDroppedRunning:
 		return nil
 	case *mt.RPCAnswerUnknown:
-		return xerrors.Errorf("answer unknown")
+		return xerrors.New("answer unknown")
 	default:
 		return xerrors.Errorf("unexpected response type: %T", resp.RpcDropAnswer)
 	}

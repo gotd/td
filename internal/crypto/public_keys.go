@@ -40,9 +40,9 @@ func ParseRSA(data []byte) (*rsa.PublicKey, error) {
 	if err != nil {
 		return nil, err
 	}
-	kPublic, ok := k.(*rsa.PublicKey)
+	publicKey, ok := k.(*rsa.PublicKey)
 	if !ok {
 		return nil, xerrors.Errorf("parsed unexpected key type %T", k)
 	}
-	return kPublic, nil
+	return publicKey, nil
 }

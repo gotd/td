@@ -114,11 +114,11 @@ func (s *Server) UpdatesGetChannelDifference(
 
 	if peer, ok := s.peers.channels[channel.ChannelID]; true {
 		if !ok {
-			return nil, xerrors.Errorf("channel not found")
+			return nil, xerrors.Errorf("channel %d not found", channel.ChannelID)
 		}
 
 		if peer.AccessHash != channel.AccessHash {
-			return nil, xerrors.Errorf("invalid access hash")
+			return nil, xerrors.New("invalid access hash")
 		}
 	}
 

@@ -102,11 +102,7 @@ func ResolveDomain(r Resolver, domain string) Promise {
 }
 
 func validateDomain(domain string) error {
-	if err := checkDomainSymbols(domain); err != nil {
-		return err
-	}
-
-	return nil
+	return checkDomainSymbols(domain)
 }
 
 // checkDomainSymbols check that domain contains only a-z, A-Z, 0-9 and '_'

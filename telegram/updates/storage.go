@@ -1,9 +1,8 @@
 package updates
 
 import (
+	"errors"
 	"sync"
-
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
 )
@@ -25,7 +24,7 @@ func (s State) fromRemote(remote *tg.UpdatesState) State {
 }
 
 // ErrStateNotFound means that state is not found in storage.
-var ErrStateNotFound = xerrors.Errorf("state not found")
+var ErrStateNotFound = errors.New("state not found")
 
 // Storage interface.
 type Storage interface {

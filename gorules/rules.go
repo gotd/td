@@ -23,11 +23,11 @@ func ZapPreferNoWith(m dsl.Matcher) {
 	).Suggest("$l.$method($msg_args, $args)")
 }
 
-// UberStyleErrors detects errors messages like
+// UberStyleErrors detects error messages like
 //
 // 	xerrors.Errorf("failed to do something: %w", err)
 //
-// to
+// but you should avoid "failed to" and use
 //
 // 	xerrors.Errorf("do something: %w", err)
 //
@@ -44,4 +44,17 @@ func UberStyleErrors(m dsl.Matcher) {
 	m.Match("xerrors.New($msg)").Where(
 		m["msg"].Text.Matches(`"failed to.*"`),
 	).Report("Avoid phrases like \"failed to\"")
+}
+
+// UnnecessaryErrorFormat detects unnecessary error formatting like
+//
+// 	xerrors.Errorf("error")
+//
+// and suggests instead
+//
+// 	xerrors.New("error")
+//
+func UnnecessaryErrorFormat(m dsl.Matcher) {
+	m.Match("fmt.Errorf($msg)").Suggest("errors.New($msg)")
+	m.Match("xerrors.Errorf($msg)").Suggest("xerrors.New($msg)")
 }

@@ -41,7 +41,7 @@ func readRecord(r io.Reader) (record, error) {
 
 	length := binary.BigEndian.Uint16(buf[3:])
 	if length > maxTLSRecordDataLength {
-		return record{}, xerrors.Errorf("record length is too big")
+		return record{}, xerrors.New("record length is too big")
 	}
 
 	rec.Data = make([]byte, length)

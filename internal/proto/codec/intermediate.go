@@ -65,11 +65,7 @@ func (i Intermediate) Read(r io.Reader, b *bin.Buffer) error {
 		return xerrors.Errorf("read intermediate: %w", err)
 	}
 
-	if err := checkProtocolError(b); err != nil {
-		return err
-	}
-
-	return nil
+	return checkProtocolError(b)
 }
 
 // writeIntermediate encodes b as payload to w.
