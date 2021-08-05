@@ -12,6 +12,7 @@ import (
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mtproto"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/transport"
 )
@@ -22,6 +23,7 @@ type Server struct {
 	dcID int
 	// Key pair of this server.
 	key *rsa.PrivateKey // immutable
+
 	// Codec constructor. May be nil.
 	codec func() transport.Codec // immutable,nilable
 	// Server-side message cipher.
@@ -30,8 +32,10 @@ type Server struct {
 	clock clock.Clock // immutable
 	// MessageID generator
 	msgID mtproto.MessageIDSource // immutable
+
 	// RPC handler.
 	handler Handler // immutable
+
 	// users stores session info.
 	users *users
 
@@ -65,32 +69,46 @@ func (s *Server) Key() *rsa.PublicKey {
 }
 
 // Serve runs server loop using given listener.
-func (s *Server) Serve(ctx context.Context, l net.Listener) error {
+func (s *Server) Serve(ctx context.Context, l transport.Listener) error {
 	return s.serve(ctx, l)
 }
 
-func (s *Server) serve(ctx context.Context, l net.Listener) error {
+func (s *Server) serve(ctx context.Context, l transport.Listener) error {
 	s.log.Info("Serving")
 	defer func() {
 		s.log.Info("Stopping")
 	}()
 
-	// NB: s.codec may be nil.
-	server := transport.NewCustomServer(s.codec, l)
-	defer func() {
-		_ = server.Close()
-	}()
-	return server.Serve(ctx, func(ctx context.Context, conn transport.Conn) error {
-		err := s.serveConn(ctx, conn)
-		if err != nil {
-			// Client disconnected.
-			var syscallErr *net.OpError
-			if xerrors.Is(err, io.EOF) || xerrors.As(err, &syscallErr) &&
-				(syscallErr.Op == "write" || syscallErr.Op == "read") {
-				return nil
+	grp := tdsync.NewCancellableGroup(ctx)
+	grp.Go(func(context.Context) error {
+		for {
+			conn, err := l.Accept()
+			if err != nil {
+				if xerrors.Is(err, net.ErrClosed) {
+					return nil
+				}
+				return xerrors.Errorf("accept: %w", err)
 			}
-			s.log.Info("Serving handler error", zap.Error(err))
+
+			grp.Go(func(ctx context.Context) error {
+				err := s.serveConn(ctx, conn)
+
+				if err != nil {
+					// Client disconnected.
+					var syscallErr *net.OpError
+					if xerrors.Is(err, io.EOF) || xerrors.As(err, &syscallErr) &&
+						(syscallErr.Op == "write" || syscallErr.Op == "read") {
+						return nil
+					}
+					s.log.Info("Serving handler error", zap.Error(err))
+				}
+				return err
+			})
 		}
-		return err
 	})
+	grp.Go(func(ctx context.Context) error {
+		<-ctx.Done()
+		return l.Close()
+	})
+	return grp.Wait()
 }

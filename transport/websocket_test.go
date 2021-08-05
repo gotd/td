@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -34,27 +35,30 @@ func TestWebsocketListener(t *testing.T) {
 		},
 	}
 
-	server := transport.NewCustomServer(nil, listener)
+	server := transport.Listen(listener)
 	defer server.Close()
 	done := make(chan struct{})
 
-	go func() {
-		close(done)
-		_ = server.Serve(ctx, func(ctx context.Context, conn transport.Conn) error {
-			var b bin.Buffer
-			for {
-				b.Reset()
+	grp, ctx := errgroup.WithContext(ctx)
+	grp.Go(func() error {
+		defer close(done)
 
-				if err := conn.Recv(ctx, &b); err != nil {
-					return xerrors.Errorf("recv: %w", err)
-				}
+		conn, err := server.Accept()
+		if err != nil {
+			return xerrors.Errorf("accept: %w", err)
+		}
 
-				if err := conn.Send(ctx, &b); err != nil {
-					return xerrors.Errorf("send: %w", err)
-				}
-			}
-		})
-	}()
+		var b bin.Buffer
+		if err := conn.Recv(ctx, &b); err != nil {
+			return xerrors.Errorf("recv: %w", err)
+		}
+
+		if err := conn.Send(ctx, &b); err != nil {
+			return xerrors.Errorf("send: %w", err)
+		}
+
+		return nil
+	})
 
 	rs := dcs.Websocket(dcs.WebsocketOptions{})
 	conn, err := rs.Primary(ctx, 2, list)
@@ -68,5 +72,5 @@ func TestWebsocketListener(t *testing.T) {
 	a.NoError(conn.Recv(ctx, &b))
 	a.Equal(data, b.Buf)
 
-	<-done
+	a.NoError(grp.Wait())
 }

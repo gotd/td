@@ -36,8 +36,8 @@ type Cluster struct {
 	// RPC dispatcher.
 	common *Dispatcher
 
-	// Listen is used to create server listener.
-	listen func(ctx context.Context, dc int) (net.Listener, error)
+	// Listen is used to create server transport.Listener.
+	listen ListenFunc
 
 	log    *zap.Logger
 	random io.Reader

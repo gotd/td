@@ -13,7 +13,7 @@ import (
 )
 
 // ListenFunc is a simple alias for listener factory.
-type ListenFunc = func(ctx context.Context, dc int) (net.Listener, error)
+type ListenFunc = func(ctx context.Context, dc int) (transport.Listener, error)
 
 // ClusterOptions of Cluster.
 type ClusterOptions struct {
@@ -36,13 +36,13 @@ type ClusterOptions struct {
 
 func (opt *ClusterOptions) setDefaults() {
 	if opt.Listen == nil {
-		opt.Listen = func(ctx context.Context, dc int) (net.Listener, error) {
+		opt.Listen = func(ctx context.Context, dc int) (transport.Listener, error) {
 			conf := net.ListenConfig{}
 			l, err := conf.Listen(ctx, "tcp4", "127.0.0.1:0")
 			if err != nil {
-				return nil, err
+				return transport.Listener{}, err
 			}
-			return l, nil
+			return transport.ListenCodec(opt.Codec, l), nil
 		}
 	}
 	if opt.Random == nil {
@@ -52,7 +52,7 @@ func (opt *ClusterOptions) setDefaults() {
 		opt.Logger = zap.NewNop()
 	}
 
-	// Ignore opt.Codec, will be handled by transport.NewCustomServer.
+	// Ignore opt.Codec, will be handled by transport.Listener.
 	// Ignore opt.Config, it's okay to use zero value.
 	// Ignore opt.CDNConfig, it's okay to use zero value.
 }
