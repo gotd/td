@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/proto/codec"
@@ -30,7 +30,7 @@ func TestConnection(t *testing.T) {
 	defer cancel()
 
 	buf := bytes.Repeat([]byte{1, 2, 3, 4}, 50)
-	done := make(chan struct{})
+	done := make(chan []byte)
 	go func() {
 		defer close(done)
 
@@ -40,12 +40,12 @@ func TestConnection(t *testing.T) {
 			return
 		}
 
-		assert.Equal(t, buf, b.Buf)
+		done <- b.Buf
 	}()
 
 	if err := left.Send(ctx, &bin.Buffer{Buf: buf}); err != nil {
 		t.Fatal(err)
 	}
 
-	<-done
+	require.Equal(t, buf, <-done)
 }

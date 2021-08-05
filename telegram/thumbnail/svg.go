@@ -1,19 +1,15 @@
 package thumbnail
 
 import (
-	"errors"
 	"strconv"
 )
 
 // DecodePath decodes vector thumbnail from thumbnail bytes (e.g. tg.PhotoPathSize with type "j").
 //
 // See DecodePathTo.
-func DecodePath(data []byte) ([]byte, error) {
+func DecodePath(data []byte) []byte {
 	return DecodePathTo(data, nil)
 }
-
-// ErrInvalidPath denotes that vector thumbnail is invalid and cannot be decoded.
-var ErrInvalidPath = errors.New("invalid path")
 
 // DecodePathTo decodes vector thumbnail to given slice.
 //
@@ -27,18 +23,14 @@ var ErrInvalidPath = errors.New("invalid path")
 //	</svg>
 //
 // See https://core.telegram.org/api/files#vector-thumbnails.
-func DecodePathTo(data, to []byte) ([]byte, error) {
+func DecodePathTo(data, to []byte) []byte {
 	const (
 		lookup = "AACAAAAHAAALMAAAQASTAVAAAZaacaaaahaaalmaaaqastava.az0123456789-,"
 	)
 	to = append(to, 'M')
 	for _, num := range data {
 		if num >= 128+64 {
-			r, ok := safeLookup(lookup, int(num-128-64))
-			if !ok {
-				return nil, ErrInvalidPath
-			}
-			to = append(to, r)
+			to = append(to, lookup[int(num-128-64)])
 		} else {
 			if num >= 128 {
 				to = append(to, ',')
@@ -49,12 +41,5 @@ func DecodePathTo(data, to []byte) ([]byte, error) {
 		}
 	}
 	to = append(to, 'z')
-	return to, nil
-}
-
-func safeLookup(s string, idx int) (byte, bool) {
-	if idx < 0 || len(s) <= idx {
-		return 0, false
-	}
-	return s[idx], true
+	return to
 }

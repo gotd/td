@@ -2,10 +2,12 @@ package tgtest
 
 import (
 	"context"
-	"crypto/rand"
 	"crypto/rsa"
+	"fmt"
+	"io"
 	"net"
-	"sync"
+	"net/http"
+	"net/url"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -13,53 +15,77 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/tdsync"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
 
+type setup struct {
+	srv      *Server
+	dispatch *Dispatcher
+}
+
 // Cluster is a cluster of multiple servers, representing multiple Telegram datacenters.
 type Cluster struct {
-	servers map[int]*Server
-	keys    []*rsa.PublicKey
+	// denotes to use websocket listener
+	web bool
+
+	setups map[int]setup
+	keys   []*rsa.PublicKey
 
 	// DCs config state.
-	cfg    tg.Config
-	cfgMux sync.RWMutex
+	cfg     tg.Config
+	cdnCfg  tg.CDNConfig
+	domains map[int]string
 
 	// Signal for readiness.
 	ready *tdsync.Ready
 
+	// RPC dispatcher.
 	common *Dispatcher
+
 	log    *zap.Logger
-	codec  func() transport.Codec
+	random io.Reader
+	codec  func() transport.Codec // nilable
 }
 
 // NewCluster creates new server Cluster.
-func NewCluster(codec func() transport.Codec) *Cluster {
+func NewCluster(opts ClusterOptions) *Cluster {
+	opts.setDefaults()
+
 	q := &Cluster{
-		servers: map[int]*Server{},
+		web:     opts.Web,
+		setups:  map[int]setup{},
+		keys:    nil,
+		cfg:     opts.Config,
+		cdnCfg:  opts.CDNConfig,
+		domains: map[int]string{},
 		ready:   tdsync.NewReady(),
 		common:  NewDispatcher(),
-		log:     zap.NewNop(),
-		codec:   codec,
+		log:     opts.Logger,
+		random:  opts.Random,
+		codec:   opts.Codec,
 	}
 	q.common.Fallback(q.fallback())
 
 	return q
 }
 
-// WithLogger sets logger.
-func (c *Cluster) WithLogger(log *zap.Logger) *Cluster {
-	c.log = log
-	return c
+// List returns DCs list.
+func (c *Cluster) List() dcs.List {
+	return dcs.List{
+		Options: c.cfg.DCOptions,
+		Domains: c.domains,
+	}
 }
 
-// Config returns config for client.
-func (c *Cluster) Config() tg.Config {
-	c.cfgMux.RLock()
-	defer c.cfgMux.RUnlock()
+// Resolver returns dcs.Resolver to use.
+func (c *Cluster) Resolver() dcs.Resolver {
+	if c.web {
+		return dcs.Websocket(dcs.WebsocketOptions{})
+	}
 
-	return c.cfg
+	return dcs.Plain(dcs.PlainOptions{})
 }
 
 // Common returns common dispatcher.
@@ -68,95 +94,75 @@ func (c *Cluster) Common() *Dispatcher {
 }
 
 // DC registers new server and returns it.
-func (c *Cluster) DC(id int, name string) *Server {
-	key, err := rsa.GenerateKey(rand.Reader, crypto.RSAKeyBits)
+func (c *Cluster) DC(id int, name string) (*Server, *Dispatcher) {
+	if s, ok := c.setups[id]; ok {
+		return s.srv, s.dispatch
+	}
+
+	key, err := rsa.GenerateKey(c.random, crypto.RSAKeyBits)
 	if err != nil {
 		// TODO(tdakkota): Return error instead.
 		panic(err)
 	}
 
+	d := NewDispatcher()
 	logger := c.log.Named(name).With(zap.Int("dc_id", id))
-	server := NewServer(key, ServerOptions{
+	server := NewServer(key, UnpackInvoke(d), ServerOptions{
 		DC:     id,
 		Logger: logger,
 		Codec:  c.codec,
 	})
-	c.servers[id] = server
+	c.setups[id] = setup{
+		srv:      server,
+		dispatch: d,
+	}
 	c.keys = append(c.keys, server.Key())
 
 	// We set server fallback handler to dispatch request in order
 	// 1) Explicit DC handler
 	// 2) Explicit common handler
 	// 3) Common fallback
-	server.Dispatcher().Fallback(c.Common())
-	return server
+	d.Fallback(c.Common())
+	return server, d
 }
 
 // Dispatch registers new server and returns its dispatcher.
 func (c *Cluster) Dispatch(id int, name string) *Dispatcher {
-	return c.DC(id, name).Dispatcher()
-}
-
-type typeIDObject struct {
-	TypeID uint32
-}
-
-func (t *typeIDObject) Decode(b *bin.Buffer) error {
-	id, err := b.PeekID()
-	if err != nil {
-		return xerrors.Errorf("peek id: %w", err)
-	}
-	t.TypeID = id
-	return nil
-}
-
-func (t *typeIDObject) Encode(*bin.Buffer) error {
-	return xerrors.New("typeIDObject must not be encoded")
+	_, d := c.DC(id, name)
+	return d
 }
 
 func (c *Cluster) fallback() HandlerFunc {
 	return func(srv *Server, req *Request) error {
-		cfg := c.Config()
-		cfg.ThisDC = req.DC
-
 		id, err := req.Buf.PeekID()
 		if err != nil {
 			return err
 		}
 
+		var (
+			decode bin.Decoder
+			result bin.Encoder
+		)
 		switch id {
-		case tg.InvokeWithLayerRequestTypeID:
-			obj := typeIDObject{}
-			r := &tg.InvokeWithLayerRequest{
-				Query: &obj,
-			}
-			if err := r.Decode(req.Buf); err != nil {
-				return err
-			}
-			req.Session.Layer.Store(int32(r.Layer))
+		case tg.HelpGetCDNConfigRequestTypeID:
+			cfg := c.cdnCfg
 
-			return c.common.OnMessage(srv, req)
-		case tg.InitConnectionRequestTypeID:
-			obj := typeIDObject{}
-			r := &tg.InitConnectionRequest{
-				Query: &obj,
-			}
-			if err := r.Decode(req.Buf); err != nil {
-				return err
-			}
-			c.log.Debug("Init connection call", zap.Inline(req.Session))
-
-			return c.common.OnMessage(srv, req)
+			decode = &tg.HelpGetCDNConfigRequest{}
+			result = &cfg
 		case tg.HelpGetConfigRequestTypeID:
-			var r tg.HelpGetConfigRequest
-			if err := r.Decode(req.Buf); err != nil {
-				return err
-			}
+			cfg := c.cfg
+			cfg.ThisDC = req.DC
 
-			return srv.SendResult(req, &cfg)
+			decode = &tg.HelpGetConfigRequest{}
+			result = &cfg
 		default:
 			return xerrors.Errorf("unexpected TypeID %x call", id)
 		}
+
+		if err := decode.Decode(req.Buf); err != nil {
+			return err
+		}
+		return srv.SendResult(req, result)
 	}
 }
 
@@ -170,34 +176,86 @@ func (c *Cluster) Ready() <-chan struct{} {
 	return c.ready.Ready()
 }
 
+func newLocalListener(ctx context.Context) (net.Listener, error) {
+	cfg := net.ListenConfig{}
+	l, err := cfg.Listen(ctx, "tcp4", "127.0.0.1:0")
+	if err != nil {
+		return nil, xerrors.Errorf("listen: %w", err)
+	}
+	return l, nil
+}
+
 // Up runs all servers in a cluster.
 func (c *Cluster) Up(ctx context.Context) error {
 	g := tdsync.NewCancellableGroup(ctx)
 
-	for id := range c.servers {
+	listen := func(ctx context.Context, _ int) (net.Listener, error) {
+		return newLocalListener(ctx)
+	}
+	if c.web {
+		// Create local random listener
 		l, err := newLocalListener(ctx)
 		if err != nil {
-			return xerrors.Errorf("tgtest, DC %d: listen port: %w", id, err)
+			return err
 		}
 
-		addr, ok := l.Addr().(*net.TCPAddr)
-		if !ok {
-			return xerrors.Errorf("unexpected addr type %T", l.Addr())
+		mux := http.NewServeMux()
+		srv := http.Server{
+			Handler: mux,
+			BaseContext: func(net.Listener) context.Context {
+				return ctx
+			},
 		}
-
-		c.cfgMux.Lock()
-		c.cfg.DCOptions = append(c.cfg.DCOptions, tg.DCOption{
-			Ipv6:      addr.IP.To16() != nil,
-			Static:    true,
-			ID:        id,
-			IPAddress: addr.IP.String(),
-			Port:      addr.Port,
-		})
-		c.cfgMux.Unlock()
-
-		server := c.servers[id]
 		g.Go(func(ctx context.Context) error {
-			return server.Serve(ctx, l)
+			if err := srv.Serve(l); err != nil && !xerrors.Is(err, http.ErrServerClosed) {
+				return xerrors.Errorf("serve: %w", err)
+			}
+			return nil
+		})
+		g.Go(func(ctx context.Context) error {
+			<-ctx.Done()
+
+			return srv.Close()
+		})
+
+		baseURL := url.URL{
+			Scheme: "http",
+			Host:   l.Addr().String(),
+		}
+		listen = func(ctx context.Context, dc int) (net.Listener, error) {
+			listener, handler := transport.WebsocketListener(baseURL.Host)
+
+			path := fmt.Sprintf("/dc/%d", dc)
+			mux.Handle(path, handler)
+
+			dcURL := baseURL
+			dcURL.Path = path
+			c.domains[dc] = dcURL.String()
+			return listener, nil
+		}
+	}
+
+	for dcID, s := range c.setups {
+		l, err := listen(ctx, dcID)
+		if err != nil {
+			return xerrors.Errorf("DC %d: listen port: %w", dcID, err)
+		}
+
+		// Add TCP listeners to config.
+		if addr, ok := l.Addr().(*net.TCPAddr); ok {
+			c.cfg.DCOptions = append(c.cfg.DCOptions, tg.DCOption{
+				Ipv6:      addr.IP.To16() != nil,
+				Static:    true,
+				ID:        dcID,
+				IPAddress: addr.IP.String(),
+				Port:      addr.Port,
+			})
+		}
+
+		// Copy iteration value.
+		srv := s.srv
+		g.Go(func(ctx context.Context) error {
+			return srv.Serve(ctx, transport.ListenCodec(nil, l))
 		})
 	}
 	c.ready.Signal()

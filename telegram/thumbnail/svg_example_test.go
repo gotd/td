@@ -25,11 +25,7 @@ func ExampleDecodePath() {
 		0x45, 0x43, 0x51, 0x85, 0x5c, 0x8c, 0x6f, 0x8c,
 	}
 
-	r, err := thumbnail.DecodePath(thumb)
-	if err != nil {
-		panic(err)
-	}
-
+	r := thumbnail.DecodePath(thumb)
 	w := os.Stdout
 	w.WriteString(`<?xml version="1.0" encoding="utf-8"?>
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

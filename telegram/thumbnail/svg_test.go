@@ -1,6 +1,7 @@
 package thumbnail
 
 import (
+	"math"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -64,7 +65,10 @@ func TestDecodePathTo(t *testing.T) {
 	}
 
 	a := require.New(t)
-	r, err := DecodePath(testData)
-	a.NoError(err)
+	r := DecodePath(testData)
 	a.Equal(expected, r)
+
+	for i := byte(0); i < math.MaxUint8; i++ {
+		DecodePath([]byte{i})
+	}
 }

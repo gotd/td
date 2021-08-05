@@ -18,6 +18,11 @@ func TestBufferedConn(t *testing.T) {
 
 	i := transport.Intermediate
 	c1, c2 := i.Pipe()
+	b := newBufferedConn(c1)
+	defer func() {
+		a.NoError(b.Close())
+		a.NoError(c2.Close())
+	}()
 
 	payload := []byte("abcdabcd")
 	go func() {
@@ -25,7 +30,7 @@ func TestBufferedConn(t *testing.T) {
 		a.NoError(c2.Send(ctx, b1))
 	}()
 
-	b := &bufferedConn{conn: c1}
+	// Test Recv before Push.
 	recvBuf := &bin.Buffer{}
 	a.NoError(b.Recv(ctx, recvBuf))
 	a.Equal(payload, recvBuf.Buf)
@@ -37,11 +42,23 @@ func TestBufferedConn(t *testing.T) {
 		a.NoError(c2.Send(ctx, b1))
 	}()
 
+	// Test Push.
 	recvBuf.Reset()
 	a.NoError(b.Recv(ctx, recvBuf))
 	a.Equal(pushed, recvBuf.Buf)
 
+	// Test Recv after Push.
 	recvBuf.Reset()
 	a.NoError(b.Recv(ctx, recvBuf))
+	a.Equal(payload, recvBuf.Buf)
+
+	// Test send.
+	go func() {
+		b1 := &bin.Buffer{Buf: payload}
+		a.NoError(b.Send(ctx, b1))
+	}()
+
+	recvBuf.Reset()
+	a.NoError(c2.Recv(ctx, recvBuf))
 	a.Equal(payload, recvBuf.Buf)
 }

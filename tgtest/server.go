@@ -8,47 +8,58 @@ import (
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
+	"nhooyr.io/websocket"
 
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mtproto"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/transport"
 )
 
 // Server is a MTProto server structure.
 type Server struct {
-	dcID   int
-	codec  func() transport.Codec // immutable,nilable
-	key    *rsa.PrivateKey        // immutable
-	cipher crypto.Cipher          // immutable
+	// DC ID of this server.
+	dcID int
+	// Key pair of this server.
+	key *rsa.PrivateKey // immutable
 
-	dispatcher *Dispatcher
-	ctx        context.Context
-
-	clock clock.Clock             // immutable
-	log   *zap.Logger             // immutable
+	// Codec constructor. May be nil.
+	codec func() transport.Codec // immutable,nilable
+	// Server-side message cipher.
+	cipher crypto.Cipher // immutable
+	// Clock to use in key exchange and message ID generation.
+	clock clock.Clock // immutable
+	// MessageID generator
 	msgID mtproto.MessageIDSource // immutable
 
+	// RPC handler.
+	handler Handler // immutable
+
+	// users stores session info.
 	users *users
-	types *tmap.Map
+
+	// type map for logging.
+	types *tmap.Map   // immutable
+	log   *zap.Logger // immutable
 }
 
 // NewServer creates new Server.
-func NewServer(key *rsa.PrivateKey, opts ServerOptions) *Server {
+func NewServer(key *rsa.PrivateKey, handler Handler, opts ServerOptions) *Server {
 	opts.setDefaults()
 
 	s := &Server{
-		dcID:       opts.DC,
-		codec:      opts.Codec,
-		key:        key,
-		cipher:     crypto.NewServerCipher(opts.Random),
-		clock:      opts.Clock,
-		log:        opts.Logger,
-		dispatcher: NewDispatcher(),
-		users:      newUsers(),
-		msgID:      opts.MessageID,
-		types:      opts.Types,
+		dcID:    opts.DC,
+		codec:   opts.Codec,
+		key:     key,
+		cipher:  crypto.NewServerCipher(opts.Random),
+		clock:   opts.Clock,
+		log:     opts.Logger,
+		users:   newUsers(),
+		handler: handler,
+		msgID:   opts.MessageID,
+		types:   opts.Types,
 	}
 	return s
 }
@@ -59,38 +70,54 @@ func (s *Server) Key() *rsa.PublicKey {
 }
 
 // Serve runs server loop using given listener.
-func (s *Server) Serve(ctx context.Context, l net.Listener) error {
-	s.ctx = ctx
-	return s.serve(l)
+func (s *Server) Serve(ctx context.Context, l transport.Listener) error {
+	return s.serve(ctx, l)
 }
 
-// Dispatcher returns server RPC dispatcher.
-func (s *Server) Dispatcher() *Dispatcher {
-	return s.dispatcher
-}
-
-func (s *Server) serve(listener net.Listener) error {
+func (s *Server) serve(ctx context.Context, l transport.Listener) error {
 	s.log.Info("Serving")
 	defer func() {
 		s.log.Info("Stopping")
 	}()
 
-	// NB: s.codec may be nil.
-	server := transport.NewCustomServer(s.codec, listener)
-	defer func() {
-		_ = server.Close()
-	}()
-	return server.Serve(s.ctx, func(ctx context.Context, conn transport.Conn) error {
-		err := s.serveConn(ctx, conn)
-		if err != nil {
-			// Client disconnected.
-			var syscallErr *net.OpError
-			if xerrors.Is(err, io.EOF) || xerrors.As(err, &syscallErr) &&
-				(syscallErr.Op == "write" || syscallErr.Op == "read") {
-				return nil
+	grp := tdsync.NewCancellableGroup(ctx)
+	grp.Go(func(context.Context) error {
+		for {
+			conn, err := l.Accept()
+			if err != nil {
+				if xerrors.Is(err, net.ErrClosed) {
+					return nil
+				}
+				return xerrors.Errorf("accept: %w", err)
 			}
-			s.log.Info("Serving handler error", zap.Error(err))
+
+			grp.Go(func(ctx context.Context) error {
+				err := s.serveConn(ctx, conn)
+
+				if err != nil {
+					// Client disconnected.
+					var syscallErr *net.OpError
+					switch {
+					case xerrors.Is(err, io.EOF):
+						return nil
+					case xerrors.As(err, &syscallErr) &&
+						(syscallErr.Op == "write" || syscallErr.Op == "read"):
+						return nil
+					}
+					// TODO(tdakkota): emulate errors too?
+					if code := websocket.CloseStatus(err); code >= 0 {
+						return nil
+					}
+
+					s.log.Info("Serving handler error", zap.Error(err))
+				}
+				return err
+			})
 		}
-		return err
 	})
+	grp.Go(func(ctx context.Context) error {
+		<-ctx.Done()
+		return l.Close()
+	})
+	return grp.Wait()
 }

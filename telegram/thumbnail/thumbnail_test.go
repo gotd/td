@@ -32,7 +32,7 @@ func TestExpand(t *testing.T) {
 	t.Run("ExpandTwice", func(t *testing.T) {
 		a := require.New(t)
 
-		result, err := ExpandTo(strippedImage, nil)
+		result, err := Expand(strippedImage)
 		a.NoError(err)
 
 		offset := len(result)

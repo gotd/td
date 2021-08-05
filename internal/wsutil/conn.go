@@ -1,4 +1,4 @@
-package dcs
+package wsutil
 
 import (
 	"context"
@@ -15,7 +15,9 @@ import (
 var _ net.Conn = (*wsConn)(nil)
 
 type wsConn struct {
-	conn *websocket.Conn
+	conn       *websocket.Conn
+	localAddr  net.Addr
+	remoteAddr net.Addr
 
 	writeTimer   *time.Timer
 	writeContext context.Context
@@ -27,10 +29,15 @@ type wsConn struct {
 	reader io.Reader
 }
 
-func netConn(ctx context.Context, c *websocket.Conn) net.Conn {
+// NetConn creates opaque wrapper net.Conn for websocket.Conn.
+func NetConn(c *websocket.Conn, local, remote string) net.Conn {
 	nc := &wsConn{
-		conn: c,
+		conn:       c,
+		localAddr:  Addr(local),
+		remoteAddr: Addr(remote),
 	}
+
+	ctx := context.Background()
 
 	var cancel context.CancelFunc
 	nc.writeContext, cancel = context.WithCancel(ctx)
@@ -90,23 +97,12 @@ func (w *wsConn) Close() error {
 	return w.conn.Close(websocket.StatusNormalClosure, "")
 }
 
-type websocketAddr struct {
-}
-
-func (a websocketAddr) Network() string {
-	return "websocket"
-}
-
-func (a websocketAddr) String() string {
-	return "websocket/unknown-addr"
-}
-
 func (w *wsConn) LocalAddr() net.Addr {
-	return websocketAddr{}
+	return w.localAddr
 }
 
 func (w *wsConn) RemoteAddr() net.Addr {
-	return websocketAddr{}
+	return w.remoteAddr
 }
 
 func (w *wsConn) SetDeadline(t time.Time) error {

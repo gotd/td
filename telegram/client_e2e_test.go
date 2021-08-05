@@ -38,8 +38,15 @@ type clientSetup struct {
 	Complete func()
 }
 
+var user = &tg.User{
+	ID:         10,
+	AccessHash: 10,
+	Username:   "username",
+}
+
 func testCluster(
 	p dcs.Protocol,
+	ws bool,
 	setup func(q clusterSetup),
 	run func(ctx context.Context, c clientSetup) error,
 ) func(t *testing.T) {
@@ -51,7 +58,11 @@ func testCluster(
 		defer cancel()
 		g := tdsync.NewCancellableGroup(ctx)
 
-		c := tgtest.NewCluster(p.Codec).WithLogger(log.Named("cluster"))
+		c := tgtest.NewCluster(tgtest.ClusterOptions{
+			Web:    ws,
+			Logger: log.Named("cluster"),
+			Codec:  p.Codec,
+		})
 		setup(clusterSetup{
 			TB:      t,
 			Cluster: c,
@@ -75,13 +86,10 @@ func testCluster(
 						return nil
 					}),
 					PublicKeys:     c.Keys(),
-					Resolver:       dcs.Plain(dcs.PlainOptions{Protocol: p}),
+					Resolver:       c.Resolver(),
 					Logger:         log.Named("client"),
 					SessionStorage: &session.StorageMemory{},
-					DCList: dcs.List{
-						Options: c.Config().DCOptions,
-						Domains: map[int]string{},
-					},
+					DCList:         c.List(),
 				},
 				Complete: cancel,
 			})
@@ -104,18 +112,11 @@ func testAllTransports(t *testing.T, test func(p dcs.Protocol) func(t *testing.T
 func testTransport(p dcs.Protocol) func(t *testing.T) {
 	testMessage := "ну че там с деньгами?"
 
-	return testCluster(p, func(s clusterSetup) {
-		c := s.Cluster
-
+	return testCluster(p, false, func(s clusterSetup) {
 		h := tgtest.TestTransport(s.TB, s.Logger.Named("handler"), testMessage)
-		c.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
-			ID:         10,
-			AccessHash: 10,
-			Username:   "rustcocks",
-		})
-		c.Dispatch(2, "server").
-			Handle(tg.InvokeWithLayerRequestTypeID, h).
-			Handle(tg.MessagesSendMessageRequestTypeID, h)
+		d := s.Cluster.Dispatch(2, "server")
+		d.Handle(tg.MessagesSendMessageRequestTypeID, h)
+		d.Handle(tg.UsersGetUsersRequestTypeID, h)
 	}, func(ctx context.Context, c clientSetup) error {
 		opts := c.Options
 		opts.AckBatchSize = 1
@@ -164,13 +165,9 @@ func TestClientE2E(t *testing.T) {
 
 func testMigrate(p dcs.Protocol) func(t *testing.T) {
 	wait := make(chan struct{}, 1)
-	return testCluster(p, func(s clusterSetup) {
+	return testCluster(p, false, func(s clusterSetup) {
 		c := s.Cluster
-		c.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
-			ID:         10,
-			AccessHash: 10,
-			Username:   "rustcocks",
-		})
+		c.Common().Vector(tg.UsersGetUsersRequestTypeID, user)
 		c.Dispatch(1, "server").HandleFunc(tg.MessagesSendMessageRequestTypeID,
 			func(server *tgtest.Server, req *tgtest.Request) error {
 				m := &tg.MessagesSendMessageRequest{}
@@ -222,51 +219,54 @@ func TestMigrate(t *testing.T) {
 }
 
 func testFiles(p dcs.Protocol) func(t *testing.T) {
-	return testCluster(p, func(s clusterSetup) {
-		c := s.Cluster
-		c.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
-			ID:         10,
-			AccessHash: 10,
-			Username:   "rustcocks",
+	test := func(ws bool) func(t *testing.T) {
+		return testCluster(p, ws, func(s clusterSetup) {
+			c := s.Cluster
+			c.Common().Vector(tg.UsersGetUsersRequestTypeID, user)
+			f := file.NewService(file.NewInMemory()).WitHashPartSize(1024)
+			f.Register(c.Dispatch(2, "DC"))
+		}, func(ctx context.Context, c clientSetup) error {
+			client := telegram.NewClient(1, "hash", c.Options)
+			defer c.Complete()
+			return client.Run(ctx, func(ctx context.Context) error {
+				raw := tg.NewClient(client)
+				upd := uploader.NewUploader(raw)
+				dwn := downloader.NewDownloader()
+
+				payloads := [][]byte{
+					[]byte("data"),
+					bytes.Repeat([]byte{10}, 1337),
+					bytes.Repeat([]byte{42}, 16384),
+				}
+
+				for _, payload := range payloads {
+					f, err := upd.FromBytes(ctx, "10.jpg", payload)
+					if err != nil {
+						return err
+					}
+
+					var b bytes.Buffer
+					_, err = dwn.Download(raw, &tg.InputFileLocation{
+						VolumeID: f.GetID(),
+						LocalID:  10,
+					}).WithVerify(true).Stream(ctx, &b)
+					if err != nil {
+						return err
+					}
+
+					if !bytes.Equal(payload, b.Bytes()) {
+						c.TB.Error("must be equal")
+					}
+				}
+				return nil
+			})
 		})
-		f := file.NewService(file.NewInMemory()).WitHashPartSize(1024)
-		f.Register(c.DC(2, "DC").Dispatcher())
-	}, func(ctx context.Context, c clientSetup) error {
-		client := telegram.NewClient(1, "hash", c.Options)
-		defer c.Complete()
-		return client.Run(ctx, func(ctx context.Context) error {
-			raw := tg.NewClient(client)
-			upd := uploader.NewUploader(raw)
-			dwn := downloader.NewDownloader()
+	}
 
-			payloads := [][]byte{
-				[]byte("data"),
-				bytes.Repeat([]byte{10}, 1337),
-				bytes.Repeat([]byte{42}, 16384),
-			}
-
-			for _, payload := range payloads {
-				f, err := upd.FromBytes(ctx, "10.jpg", payload)
-				if err != nil {
-					return err
-				}
-
-				var b bytes.Buffer
-				_, err = dwn.Download(raw, &tg.InputFileLocation{
-					VolumeID: f.GetID(),
-					LocalID:  10,
-				}).WithVerify(true).Stream(ctx, &b)
-				if err != nil {
-					return err
-				}
-
-				if !bytes.Equal(payload, b.Bytes()) {
-					c.TB.Error("must be equal")
-				}
-			}
-			return nil
-		})
-	})
+	return func(t *testing.T) {
+		t.Run("TCP", test(false))
+		t.Run("Websocket", test(true))
+	}
 }
 
 func TestFiles(t *testing.T) {

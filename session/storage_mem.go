@@ -64,9 +64,10 @@ func (s *StorageMemory) Bytes(to []byte) ([]byte, error) {
 
 // Clone creates a clone of existing StorageMemory,
 func (s *StorageMemory) Clone() *StorageMemory {
-	return &StorageMemory{
-		data: append([]byte(nil), s.data...),
-	}
+	s2 := &StorageMemory{}
+
+	s2.data, _ = s.Bytes(s2.data)
+	return s2
 }
 
 // LoadSession loads session from memory.
