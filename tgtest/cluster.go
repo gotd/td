@@ -2,10 +2,9 @@ package tgtest
 
 import (
 	"context"
-	"crypto/rand"
 	"crypto/rsa"
+	"io"
 	"net"
-	"sync"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -23,42 +22,43 @@ type Cluster struct {
 	keys    []*rsa.PublicKey
 
 	// DCs config state.
-	cfg    tg.Config
-	cfgMux sync.RWMutex
+	cfg tg.Config
 
 	// Signal for readiness.
 	ready *tdsync.Ready
 
+	// RPC dispatcher.
 	common *Dispatcher
+
+	// Listen is used to create server listener.
+	listen func(ctx context.Context, dc int) (net.Listener, error)
+
 	log    *zap.Logger
-	codec  func() transport.Codec
+	random io.Reader
+	codec  func() transport.Codec // nilable
 }
 
 // NewCluster creates new server Cluster.
-func NewCluster(codec func() transport.Codec) *Cluster {
+func NewCluster(opts ClusterOptions) *Cluster {
+	opts.setDefaults()
+
 	q := &Cluster{
 		servers: map[int]*Server{},
+		cfg:     opts.Config,
 		ready:   tdsync.NewReady(),
 		common:  NewDispatcher(),
-		log:     zap.NewNop(),
-		codec:   codec,
+		listen:  opts.Listen,
+		log:     opts.Logger,
+		random:  opts.Random,
+		codec:   opts.Codec,
 	}
 	q.common.Fallback(q.fallback())
 
 	return q
 }
 
-// WithLogger sets logger.
-func (c *Cluster) WithLogger(log *zap.Logger) *Cluster {
-	c.log = log
-	return c
-}
-
 // Config returns config for client.
 func (c *Cluster) Config() tg.Config {
-	c.cfgMux.RLock()
-	defer c.cfgMux.RUnlock()
-
 	return c.cfg
 }
 
@@ -69,7 +69,7 @@ func (c *Cluster) Common() *Dispatcher {
 
 // DC registers new server and returns it.
 func (c *Cluster) DC(id int, name string) *Server {
-	key, err := rsa.GenerateKey(rand.Reader, crypto.RSAKeyBits)
+	key, err := rsa.GenerateKey(c.random, crypto.RSAKeyBits)
 	if err != nil {
 		// TODO(tdakkota): Return error instead.
 		panic(err)
@@ -174,28 +174,24 @@ func (c *Cluster) Ready() <-chan struct{} {
 func (c *Cluster) Up(ctx context.Context) error {
 	g := tdsync.NewCancellableGroup(ctx)
 
-	for id := range c.servers {
-		l, err := newLocalListener(ctx)
+	for dcID := range c.servers {
+		l, err := c.listen(ctx, dcID)
 		if err != nil {
-			return xerrors.Errorf("tgtest, DC %d: listen port: %w", id, err)
+			return xerrors.Errorf("tgtest, DC %d: listen port: %w", dcID, err)
 		}
 
-		addr, ok := l.Addr().(*net.TCPAddr)
-		if !ok {
-			return xerrors.Errorf("unexpected addr type %T", l.Addr())
+		// Add TCP listeners to config.
+		if addr, ok := l.Addr().(*net.TCPAddr); ok {
+			c.cfg.DCOptions = append(c.cfg.DCOptions, tg.DCOption{
+				Ipv6:      addr.IP.To16() != nil,
+				Static:    true,
+				ID:        dcID,
+				IPAddress: addr.IP.String(),
+				Port:      addr.Port,
+			})
 		}
 
-		c.cfgMux.Lock()
-		c.cfg.DCOptions = append(c.cfg.DCOptions, tg.DCOption{
-			Ipv6:      addr.IP.To16() != nil,
-			Static:    true,
-			ID:        id,
-			IPAddress: addr.IP.String(),
-			Port:      addr.Port,
-		})
-		c.cfgMux.Unlock()
-
-		server := c.servers[id]
+		server := c.servers[dcID]
 		g.Go(func(ctx context.Context) error {
 			return server.Serve(ctx, l)
 		})

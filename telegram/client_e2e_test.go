@@ -40,6 +40,7 @@ type clientSetup struct {
 
 func testCluster(
 	p dcs.Protocol,
+	listen tgtest.ListenFunc,
 	setup func(q clusterSetup),
 	run func(ctx context.Context, c clientSetup) error,
 ) func(t *testing.T) {
@@ -51,7 +52,11 @@ func testCluster(
 		defer cancel()
 		g := tdsync.NewCancellableGroup(ctx)
 
-		c := tgtest.NewCluster(p.Codec).WithLogger(log.Named("cluster"))
+		c := tgtest.NewCluster(tgtest.ClusterOptions{
+			Listen: listen,
+			Logger: log.Named("cluster"),
+			Codec:  p.Codec,
+		})
 		setup(clusterSetup{
 			TB:      t,
 			Cluster: c,
@@ -104,7 +109,7 @@ func testAllTransports(t *testing.T, test func(p dcs.Protocol) func(t *testing.T
 func testTransport(p dcs.Protocol) func(t *testing.T) {
 	testMessage := "ну че там с деньгами?"
 
-	return testCluster(p, func(s clusterSetup) {
+	return testCluster(p, nil, func(s clusterSetup) {
 		c := s.Cluster
 
 		h := tgtest.TestTransport(s.TB, s.Logger.Named("handler"), testMessage)
@@ -164,7 +169,7 @@ func TestClientE2E(t *testing.T) {
 
 func testMigrate(p dcs.Protocol) func(t *testing.T) {
 	wait := make(chan struct{}, 1)
-	return testCluster(p, func(s clusterSetup) {
+	return testCluster(p, nil, func(s clusterSetup) {
 		c := s.Cluster
 		c.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
 			ID:         10,
@@ -222,7 +227,7 @@ func TestMigrate(t *testing.T) {
 }
 
 func testFiles(p dcs.Protocol) func(t *testing.T) {
-	return testCluster(p, func(s clusterSetup) {
+	return testCluster(p, nil, func(s clusterSetup) {
 		c := s.Cluster
 		c.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
 			ID:         10,
