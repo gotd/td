@@ -5,7 +5,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/assert"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/tg"
@@ -71,7 +71,7 @@ func (h *testTransportHandler) OnMessage(server *Server, req *Request) error {
 			return err
 		}
 
-		require.Equal(h.t, "какими деньгами?", m.Message)
+		assert.Equal(h.t, "какими деньгами?", m.Message)
 
 		h.counterMx.Lock()
 		h.counter++
