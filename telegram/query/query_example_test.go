@@ -29,7 +29,7 @@ func ExampleQuery_iterAllMessages() {
 		raw := tg.NewClient(client)
 		cb := func(ctx context.Context, dlg dialogs.Elem) error {
 			// Skip deleted dialogs.
-			if _, empty := dlg.Peer.(*tg.InputPeerEmpty); empty {
+			if dlg.Deleted() {
 				return nil
 			}
 
@@ -93,7 +93,7 @@ func ExampleQuery_getAdmins() {
 		raw := tg.NewClient(client)
 		cb := func(ctx context.Context, dlg dialogs.Elem) error {
 			// Skip deleted dialogs.
-			if _, empty := dlg.Peer.(*tg.InputPeerEmpty); empty {
+			if dlg.Deleted() {
 				return nil
 			}
 

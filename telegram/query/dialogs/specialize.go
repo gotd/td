@@ -52,3 +52,9 @@ func (e Elem) Participants(raw *tg.Client) (*participants.GetParticipantsQueryBu
 	}
 	return participants.NewQueryBuilder(raw).GetParticipants(channel), true
 }
+
+// Deleted denotes that dialog is deleted.
+func (e Elem) Deleted() bool {
+	_, ok := e.Peer.(*tg.InputPeerEmpty)
+	return ok
+}
