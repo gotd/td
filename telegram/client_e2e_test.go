@@ -38,6 +38,12 @@ type clientSetup struct {
 	Complete func()
 }
 
+var user = &tg.User{
+	ID:         10,
+	AccessHash: 10,
+	Username:   "username",
+}
+
 func testCluster(
 	p dcs.Protocol,
 	listen tgtest.ListenFunc,
@@ -110,17 +116,10 @@ func testTransport(p dcs.Protocol) func(t *testing.T) {
 	testMessage := "ну че там с деньгами?"
 
 	return testCluster(p, nil, func(s clusterSetup) {
-		c := s.Cluster
-
 		h := tgtest.TestTransport(s.TB, s.Logger.Named("handler"), testMessage)
-		c.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
-			ID:         10,
-			AccessHash: 10,
-			Username:   "rustcocks",
-		})
-		c.Dispatch(2, "server").
-			Handle(tg.InvokeWithLayerRequestTypeID, h).
-			Handle(tg.MessagesSendMessageRequestTypeID, h)
+		d := s.Cluster.Dispatch(2, "server")
+		d.Handle(tg.MessagesSendMessageRequestTypeID, h)
+		d.Handle(tg.UsersGetUsersRequestTypeID, h)
 	}, func(ctx context.Context, c clientSetup) error {
 		opts := c.Options
 		opts.AckBatchSize = 1
@@ -171,11 +170,7 @@ func testMigrate(p dcs.Protocol) func(t *testing.T) {
 	wait := make(chan struct{}, 1)
 	return testCluster(p, nil, func(s clusterSetup) {
 		c := s.Cluster
-		c.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
-			ID:         10,
-			AccessHash: 10,
-			Username:   "rustcocks",
-		})
+		c.Common().Vector(tg.UsersGetUsersRequestTypeID, user)
 		c.Dispatch(1, "server").HandleFunc(tg.MessagesSendMessageRequestTypeID,
 			func(server *tgtest.Server, req *tgtest.Request) error {
 				m := &tg.MessagesSendMessageRequest{}
@@ -229,13 +224,9 @@ func TestMigrate(t *testing.T) {
 func testFiles(p dcs.Protocol) func(t *testing.T) {
 	return testCluster(p, nil, func(s clusterSetup) {
 		c := s.Cluster
-		c.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
-			ID:         10,
-			AccessHash: 10,
-			Username:   "rustcocks",
-		})
+		c.Common().Vector(tg.UsersGetUsersRequestTypeID, user)
 		f := file.NewService(file.NewInMemory()).WitHashPartSize(1024)
-		f.Register(c.DC(2, "DC").Dispatcher())
+		f.Register(c.Dispatch(2, "DC"))
 	}, func(ctx context.Context, c clientSetup) error {
 		client := telegram.NewClient(1, "hash", c.Options)
 		defer c.Complete()

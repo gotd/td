@@ -30,6 +30,8 @@ type ClusterOptions struct {
 	Codec func() transport.Codec
 	// Config is a initial cluster config.
 	Config tg.Config
+	// CDNConfig is a initial cluster CDN config.
+	CDNConfig tg.CDNConfig
 }
 
 func (opt *ClusterOptions) setDefaults() {
@@ -52,4 +54,5 @@ func (opt *ClusterOptions) setDefaults() {
 
 	// Ignore opt.Codec, will be handled by transport.NewCustomServer.
 	// Ignore opt.Config, it's okay to use zero value.
+	// Ignore opt.CDNConfig, it's okay to use zero value.
 }

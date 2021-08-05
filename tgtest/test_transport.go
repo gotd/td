@@ -40,19 +40,19 @@ func (h *testTransportHandler) OnMessage(server *Server, req *Request) error {
 	h.logger.Info("New message", zap.String("id", fmt.Sprintf("%x", id)))
 
 	switch id {
-	case tg.InvokeWithLayerRequestTypeID:
-		layerInvoke := tg.InvokeWithLayerRequest{
-			Query: &tg.InitConnectionRequest{
-				Query: &tg.HelpGetConfigRequest{},
-			},
-		}
+	case tg.UsersGetUsersRequestTypeID:
+		getUsers := tg.UsersGetUsersRequest{}
 
-		if err := layerInvoke.Decode(req.Buf); err != nil {
+		if err := getUsers.Decode(req.Buf); err != nil {
 			return err
 		}
 		h.logger.Info("New client connected, invoke received")
 
-		if err := server.SendResult(req, &tg.Config{}); err != nil {
+		if err := server.SendResult(req, &tg.User{
+			ID:         10,
+			AccessHash: 10,
+			Username:   "rustcocks",
+		}); err != nil {
 			return err
 		}
 

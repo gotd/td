@@ -16,13 +16,19 @@ import (
 	"github.com/gotd/td/transport"
 )
 
+type setup struct {
+	srv      *Server
+	dispatch *Dispatcher
+}
+
 // Cluster is a cluster of multiple servers, representing multiple Telegram datacenters.
 type Cluster struct {
-	servers map[int]*Server
-	keys    []*rsa.PublicKey
+	setups map[int]setup
+	keys   []*rsa.PublicKey
 
 	// DCs config state.
-	cfg tg.Config
+	cfg    tg.Config
+	cdnCfg tg.CDNConfig
 
 	// Signal for readiness.
 	ready *tdsync.Ready
@@ -43,23 +49,29 @@ func NewCluster(opts ClusterOptions) *Cluster {
 	opts.setDefaults()
 
 	q := &Cluster{
-		servers: map[int]*Server{},
-		cfg:     opts.Config,
-		ready:   tdsync.NewReady(),
-		common:  NewDispatcher(),
-		listen:  opts.Listen,
-		log:     opts.Logger,
-		random:  opts.Random,
-		codec:   opts.Codec,
+		setups: map[int]setup{},
+		cfg:    opts.Config,
+		cdnCfg: opts.CDNConfig,
+		ready:  tdsync.NewReady(),
+		common: NewDispatcher(),
+		listen: opts.Listen,
+		log:    opts.Logger,
+		random: opts.Random,
+		codec:  opts.Codec,
 	}
 	q.common.Fallback(q.fallback())
 
 	return q
 }
 
-// Config returns config for client.
+// Config returns config.
 func (c *Cluster) Config() tg.Config {
 	return c.cfg
+}
+
+// CDNConfig returns CDN config.
+func (c *Cluster) CDNConfig() tg.CDNConfig {
+	return c.cdnCfg
 }
 
 // Common returns common dispatcher.
@@ -68,95 +80,75 @@ func (c *Cluster) Common() *Dispatcher {
 }
 
 // DC registers new server and returns it.
-func (c *Cluster) DC(id int, name string) *Server {
+func (c *Cluster) DC(id int, name string) (*Server, *Dispatcher) {
+	if s, ok := c.setups[id]; ok {
+		return s.srv, s.dispatch
+	}
+
 	key, err := rsa.GenerateKey(c.random, crypto.RSAKeyBits)
 	if err != nil {
 		// TODO(tdakkota): Return error instead.
 		panic(err)
 	}
 
+	d := NewDispatcher()
 	logger := c.log.Named(name).With(zap.Int("dc_id", id))
-	server := NewServer(key, ServerOptions{
+	server := NewServer(key, UnpackInvoke(d), ServerOptions{
 		DC:     id,
 		Logger: logger,
 		Codec:  c.codec,
 	})
-	c.servers[id] = server
+	c.setups[id] = setup{
+		srv:      server,
+		dispatch: d,
+	}
 	c.keys = append(c.keys, server.Key())
 
 	// We set server fallback handler to dispatch request in order
 	// 1) Explicit DC handler
 	// 2) Explicit common handler
 	// 3) Common fallback
-	server.Dispatcher().Fallback(c.Common())
-	return server
+	d.Fallback(c.Common())
+	return server, d
 }
 
 // Dispatch registers new server and returns its dispatcher.
 func (c *Cluster) Dispatch(id int, name string) *Dispatcher {
-	return c.DC(id, name).Dispatcher()
-}
-
-type typeIDObject struct {
-	TypeID uint32
-}
-
-func (t *typeIDObject) Decode(b *bin.Buffer) error {
-	id, err := b.PeekID()
-	if err != nil {
-		return xerrors.Errorf("peek id: %w", err)
-	}
-	t.TypeID = id
-	return nil
-}
-
-func (t *typeIDObject) Encode(*bin.Buffer) error {
-	return xerrors.New("typeIDObject must not be encoded")
+	_, d := c.DC(id, name)
+	return d
 }
 
 func (c *Cluster) fallback() HandlerFunc {
 	return func(srv *Server, req *Request) error {
-		cfg := c.Config()
-		cfg.ThisDC = req.DC
-
 		id, err := req.Buf.PeekID()
 		if err != nil {
 			return err
 		}
 
+		var (
+			decode bin.Decoder
+			result bin.Encoder
+		)
 		switch id {
-		case tg.InvokeWithLayerRequestTypeID:
-			obj := typeIDObject{}
-			r := &tg.InvokeWithLayerRequest{
-				Query: &obj,
-			}
-			if err := r.Decode(req.Buf); err != nil {
-				return err
-			}
-			req.Session.Layer.Store(int32(r.Layer))
+		case tg.HelpGetCDNConfigRequestTypeID:
+			cfg := c.CDNConfig()
 
-			return c.common.OnMessage(srv, req)
-		case tg.InitConnectionRequestTypeID:
-			obj := typeIDObject{}
-			r := &tg.InitConnectionRequest{
-				Query: &obj,
-			}
-			if err := r.Decode(req.Buf); err != nil {
-				return err
-			}
-			c.log.Debug("Init connection call", zap.Inline(req.Session))
-
-			return c.common.OnMessage(srv, req)
+			decode = &tg.HelpGetCDNConfigRequest{}
+			result = &cfg
 		case tg.HelpGetConfigRequestTypeID:
-			var r tg.HelpGetConfigRequest
-			if err := r.Decode(req.Buf); err != nil {
-				return err
-			}
+			cfg := c.Config()
+			cfg.ThisDC = req.DC
 
-			return srv.SendResult(req, &cfg)
+			decode = &tg.HelpGetConfigRequest{}
+			result = &cfg
 		default:
 			return xerrors.Errorf("unexpected TypeID %x call", id)
 		}
+
+		if err := decode.Decode(req.Buf); err != nil {
+			return err
+		}
+		return srv.SendResult(req, result)
 	}
 }
 
@@ -174,7 +166,7 @@ func (c *Cluster) Ready() <-chan struct{} {
 func (c *Cluster) Up(ctx context.Context) error {
 	g := tdsync.NewCancellableGroup(ctx)
 
-	for dcID := range c.servers {
+	for dcID := range c.setups {
 		l, err := c.listen(ctx, dcID)
 		if err != nil {
 			return xerrors.Errorf("tgtest, DC %d: listen port: %w", dcID, err)
@@ -191,9 +183,9 @@ func (c *Cluster) Up(ctx context.Context) error {
 			})
 		}
 
-		server := c.servers[dcID]
+		s := c.setups[dcID]
 		g.Go(func(ctx context.Context) error {
-			return server.Serve(ctx, l)
+			return s.srv.Serve(ctx, l)
 		})
 	}
 	c.ready.Signal()

@@ -150,7 +150,7 @@ func (s *Server) handle(req *Request) error {
 		return err
 	}
 
-	if err := s.dispatcher.OnMessage(s, req); err != nil {
+	if err := s.handler.OnMessage(s, req); err != nil {
 		var rpcErr *tgerr.Error
 		if xerrors.As(err, &rpcErr) {
 			return s.SendErr(req, rpcErr)

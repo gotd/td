@@ -18,37 +18,43 @@ import (
 
 // Server is a MTProto server structure.
 type Server struct {
-	dcID   int
-	codec  func() transport.Codec // immutable,nilable
-	key    *rsa.PrivateKey        // immutable
-	cipher crypto.Cipher          // immutable
-
-	dispatcher *Dispatcher
-	ctx        context.Context
-
-	clock clock.Clock             // immutable
-	log   *zap.Logger             // immutable
+	// DC ID of this server.
+	dcID int
+	// Key pair of this server.
+	key *rsa.PrivateKey // immutable
+	// Codec constructor. May be nil.
+	codec func() transport.Codec // immutable,nilable
+	// Server-side message cipher.
+	cipher crypto.Cipher // immutable
+	// Clock to use in key exchange and message ID generation.
+	clock clock.Clock // immutable
+	// MessageID generator
 	msgID mtproto.MessageIDSource // immutable
-
+	// RPC handler.
+	handler Handler // immutable
+	// users stores session info.
 	users *users
-	types *tmap.Map
+
+	// type map for logging.
+	types *tmap.Map   // immutable
+	log   *zap.Logger // immutable
 }
 
 // NewServer creates new Server.
-func NewServer(key *rsa.PrivateKey, opts ServerOptions) *Server {
+func NewServer(key *rsa.PrivateKey, handler Handler, opts ServerOptions) *Server {
 	opts.setDefaults()
 
 	s := &Server{
-		dcID:       opts.DC,
-		codec:      opts.Codec,
-		key:        key,
-		cipher:     crypto.NewServerCipher(opts.Random),
-		clock:      opts.Clock,
-		log:        opts.Logger,
-		dispatcher: NewDispatcher(),
-		users:      newUsers(),
-		msgID:      opts.MessageID,
-		types:      opts.Types,
+		dcID:    opts.DC,
+		codec:   opts.Codec,
+		key:     key,
+		cipher:  crypto.NewServerCipher(opts.Random),
+		clock:   opts.Clock,
+		log:     opts.Logger,
+		users:   newUsers(),
+		handler: handler,
+		msgID:   opts.MessageID,
+		types:   opts.Types,
 	}
 	return s
 }
@@ -60,27 +66,21 @@ func (s *Server) Key() *rsa.PublicKey {
 
 // Serve runs server loop using given listener.
 func (s *Server) Serve(ctx context.Context, l net.Listener) error {
-	s.ctx = ctx
-	return s.serve(l)
+	return s.serve(ctx, l)
 }
 
-// Dispatcher returns server RPC dispatcher.
-func (s *Server) Dispatcher() *Dispatcher {
-	return s.dispatcher
-}
-
-func (s *Server) serve(listener net.Listener) error {
+func (s *Server) serve(ctx context.Context, l net.Listener) error {
 	s.log.Info("Serving")
 	defer func() {
 		s.log.Info("Stopping")
 	}()
 
 	// NB: s.codec may be nil.
-	server := transport.NewCustomServer(s.codec, listener)
+	server := transport.NewCustomServer(s.codec, l)
 	defer func() {
 		_ = server.Close()
 	}()
-	return server.Serve(s.ctx, func(ctx context.Context, conn transport.Conn) error {
+	return server.Serve(ctx, func(ctx context.Context, conn transport.Conn) error {
 		err := s.serveConn(ctx, conn)
 		if err != nil {
 			// Client disconnected.
