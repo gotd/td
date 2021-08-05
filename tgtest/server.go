@@ -8,6 +8,7 @@ import (
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
+	"nhooyr.io/websocket"
 
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
@@ -96,10 +97,18 @@ func (s *Server) serve(ctx context.Context, l transport.Listener) error {
 				if err != nil {
 					// Client disconnected.
 					var syscallErr *net.OpError
-					if xerrors.Is(err, io.EOF) || xerrors.As(err, &syscallErr) &&
-						(syscallErr.Op == "write" || syscallErr.Op == "read") {
+					switch {
+					case xerrors.Is(err, io.EOF):
+						return nil
+					case xerrors.As(err, &syscallErr) &&
+						(syscallErr.Op == "write" || syscallErr.Op == "read"):
 						return nil
 					}
+					// TODO(tdakkota): emulate errors too?
+					if code := websocket.CloseStatus(err); code >= 0 {
+						return nil
+					}
+
 					s.log.Info("Serving handler error", zap.Error(err))
 				}
 				return err

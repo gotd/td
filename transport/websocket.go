@@ -58,6 +58,7 @@ func (l wsListener) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	accepted := &wsServerConn{
+		closed: *tdsync.NewReady(),
 		// Add codec tag in the begin of stream to emulate TCP fully.
 		// MTProto sends codec tag in plain TCP connections, but not in obfuscated2 (Websocket/MTProxy).
 		reader: io.MultiReader(tag, rw),
