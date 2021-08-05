@@ -17,7 +17,7 @@ type ListenFunc = func(ctx context.Context, dc int) (transport.Listener, error)
 
 // ClusterOptions of Cluster.
 type ClusterOptions struct {
-	// Listen creates new net.Listener for DC.
+	// Listen creates new transport.Listener for DC.
 	// Defaults to net.ListenConfig with random port.
 	Listen ListenFunc
 	// Random is random source. Used to generate RSA keys.

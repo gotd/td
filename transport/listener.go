@@ -47,6 +47,7 @@ func (l Listener) Accept() (Conn, error) {
 		return nil, err
 	}
 
+	// If codec provided explicitly, use it.
 	if l.codec != nil {
 		codec := l.codec()
 
@@ -58,20 +59,21 @@ func (l Listener) Accept() (Conn, error) {
 			conn:  conn,
 			codec: codec,
 		}, nil
-	} else {
-		transportCodec, reader, err := detectCodec(conn)
-		if err != nil {
-			return nil, xerrors.Errorf("detect codec: %w", err)
-		}
-
-		return &connection{
-			conn: wrappedConn{
-				reader: reader,
-				Conn:   conn,
-			},
-			codec: transportCodec,
-		}, nil
 	}
+
+	// Otherwise try to detect codec.
+	transportCodec, reader, err := detectCodec(conn)
+	if err != nil {
+		return nil, xerrors.Errorf("detect codec: %w", err)
+	}
+
+	return &connection{
+		conn: wrappedConn{
+			reader: reader,
+			Conn:   conn,
+		},
+		codec: transportCodec,
+	}, nil
 }
 
 // Close closes the listener.
