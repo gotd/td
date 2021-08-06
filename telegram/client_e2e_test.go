@@ -61,7 +61,7 @@ func testCluster(
 		c := tgtest.NewCluster(tgtest.ClusterOptions{
 			Web:    ws,
 			Logger: log.Named("cluster"),
-			Codec:  p.Codec,
+			Protocol:  p,
 		})
 		setup(clusterSetup{
 			TB:      t,

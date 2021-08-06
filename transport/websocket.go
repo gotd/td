@@ -42,7 +42,7 @@ func (l wsListener) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		_ = wsConn.Close(websocket.StatusNormalClosure, "Close")
 	}()
 
-	conn := wsutil.NetConn(wsConn, "localhost", r.RemoteAddr)
+	conn := wsutil.NetConn(wsConn, wsutil.Addr("localhost"), wsutil.Addr(r.RemoteAddr))
 	rw, md, err := obfuscated2.Accept(conn, nil)
 	if err != nil {
 		w.WriteHeader(400)

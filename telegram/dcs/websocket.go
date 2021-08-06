@@ -40,7 +40,7 @@ func (w ws) connect(ctx context.Context, dc int, domains map[int]string) (transp
 	}
 	obsConn := obfuscator.Obfuscated2(
 		w.rand,
-		wsutil.NetConn(conn, "localhost", addr),
+		wsutil.NetConn(conn, wsutil.Addr("localhost"), wsutil.Addr(addr)),
 	)
 
 	if err := obsConn.Handshake(w.tag, mtproxy.Secret{
