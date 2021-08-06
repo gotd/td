@@ -17,6 +17,7 @@ import (
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/transport"
 )
 
@@ -164,7 +165,8 @@ func (c *Cluster) fallback() HandlerFunc {
 			decode = &tg.HelpGetConfigRequest{}
 			result = &cfg
 		default:
-			return xerrors.Errorf("unexpected TypeID %x call", id)
+			c.log.Warn("Unexpected TypeID", zap.String("type_id", fmt.Sprintf("%#x", id)))
+			return tgerr.New(400, "INPUT_METHOD_INVALID")
 		}
 
 		if err := decode.Decode(req.Buf); err != nil {
