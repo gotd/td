@@ -166,7 +166,7 @@ func TestClientE2E(t *testing.T) {
 func testMigrate(p dcs.Protocol) func(t *testing.T) {
 	test := func(ws bool) func(t *testing.T) {
 		wait := make(chan struct{}, 1)
-		return testCluster(p, false, func(s clusterSetup) {
+		return testCluster(p, ws, func(s clusterSetup) {
 			c := s.Cluster
 			c.Common().Vector(tg.UsersGetUsersRequestTypeID, user)
 			c.Dispatch(1, "server").HandleFunc(tg.MessagesSendMessageRequestTypeID,
