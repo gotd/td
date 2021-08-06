@@ -90,8 +90,7 @@ type Client struct {
 	// Restart signal channel.
 	restart chan struct{} // immutable
 	// Migration state.
-	exported         chan *tg.AuthExportedAuthorization // immutable
-	migrationTimeout time.Duration                      // immutable
+	migrationTimeout time.Duration // immutable
 	migration        chan struct{}
 
 	// Connections to non-primary DC.
@@ -241,7 +240,6 @@ func (c *Client) init() {
 	c.ready = tdsync.NewResetReady()
 	c.restart = make(chan struct{})
 	c.migration = make(chan struct{}, 1)
-	c.exported = make(chan *tg.AuthExportedAuthorization, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.subConns = map[int]CloseInvoker{}
 	c.invoker = chainMiddlewares(InvokeFunc(c.invokeDirect), c.mw...)
@@ -344,24 +342,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 		c.log.Info("Restarting connection", zap.Error(err), zap.Duration("backoff", timeout))
 
 		c.connMux.Lock()
-		setup := func(ctx context.Context, invoker tg.Invoker) error {
-			// Setup function call means successful connection
-			// initialization, so we can reset backoff.
-			b.Reset()
-
-			raw := tg.NewClient(invoker)
-			select {
-			case export := <-c.exported:
-				_, err := raw.AuthImportAuthorization(ctx, &tg.AuthImportAuthorizationRequest{
-					ID:    export.ID,
-					Bytes: export.Bytes,
-				})
-				return err
-			default:
-			}
-			return nil
-		}
-		c.conn = c.createPrimaryConn(setup)
+		c.conn = c.createPrimaryConn(nil)
 		c.connMux.Unlock()
 	})
 }
