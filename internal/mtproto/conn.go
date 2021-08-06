@@ -7,6 +7,7 @@ import (
 	"sync"
 	"time"
 
+	"go.uber.org/atomic"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
@@ -93,7 +94,11 @@ type Conn struct {
 	// pingInterval is duration between ping_delay_disconnect request.
 	pingInterval time.Duration
 
+	// gotSession is a signal channel for wait for handleSessionCreated message.
 	gotSession *tdsync.Ready
+
+	// handlers is waiter of all message handlers.
+	handlers sync.WaitGroup
 
 	// compressThreshold is a threshold in bytes to determine that message
 	// is large enough to be compressed using gzip.
@@ -102,7 +107,7 @@ type Conn struct {
 	exchangeTimeout   time.Duration
 	saltFetchInterval time.Duration
 	getTimeout        func(req uint32) time.Duration
-	closed            bool
+	closed            atomic.Bool
 }
 
 // New creates new unstarted connection.
@@ -167,7 +172,7 @@ func (c *Conn) handleClose(ctx context.Context) error {
 	if err := c.conn.Close(); err != nil {
 		c.log.Debug("Failed to cleanup connection", zap.Error(err))
 	}
-	c.closed = true
+	c.closed.Store(true)
 	return nil
 }
 
@@ -179,7 +184,7 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 	//
 	// This will send initial packet to telegram and perform key exchange
 	// if needed.
-	if c.closed {
+	if c.closed.Load() {
 		return xerrors.New("do Run on closed connection")
 	}
 
@@ -200,6 +205,11 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 		g.Go("saltsLoop", c.saltLoop)
 		g.Go("userCallback", f)
 		g.Go("readLoop", c.readLoop)
+		g.Go("handlers", func(context.Context) error {
+			// Wait all spawned handlers.
+			c.handlers.Wait()
+			return nil
+		})
 
 		if err := g.Wait(); err != nil {
 			return xerrors.Errorf("group: %w", err)

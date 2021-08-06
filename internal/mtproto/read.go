@@ -189,7 +189,10 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 			}
 		}
 
+		c.handlers.Add(1)
 		go func() {
+			defer c.handlers.Done()
+
 			// Spawning goroutine per incoming message to utilize as much
 			// resources as possible while keeping idle utilization low.
 			//

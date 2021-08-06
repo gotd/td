@@ -51,6 +51,8 @@ func testCluster(
 	run func(ctx context.Context, c clientSetup) error,
 ) func(t *testing.T) {
 	return func(t *testing.T) {
+		t.Parallel()
+
 		log := zaptest.NewLogger(t)
 		defer func() { _ = log.Sync() }()
 
