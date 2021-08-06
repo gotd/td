@@ -44,9 +44,9 @@ type Cluster struct {
 	// RPC dispatcher.
 	common *Dispatcher
 
-	log    *zap.Logger
-	random io.Reader
-	codec  func() transport.Codec // nilable
+	log      *zap.Logger
+	random   io.Reader
+	protocol dcs.Protocol
 }
 
 // NewCluster creates new server Cluster.
@@ -54,17 +54,17 @@ func NewCluster(opts ClusterOptions) *Cluster {
 	opts.setDefaults()
 
 	q := &Cluster{
-		web:     opts.Web,
-		setups:  map[int]setup{},
-		keys:    nil,
-		cfg:     opts.Config,
-		cdnCfg:  opts.CDNConfig,
-		domains: map[int]string{},
-		ready:   tdsync.NewReady(),
-		common:  NewDispatcher(),
-		log:     opts.Logger,
-		random:  opts.Random,
-		codec:   opts.Codec,
+		web:      opts.Web,
+		setups:   map[int]setup{},
+		keys:     nil,
+		cfg:      opts.Config,
+		cdnCfg:   opts.CDNConfig,
+		domains:  map[int]string{},
+		ready:    tdsync.NewReady(),
+		common:   NewDispatcher(),
+		log:      opts.Logger,
+		random:   opts.Random,
+		protocol: opts.Protocol,
 	}
 	q.common.Fallback(q.fallback())
 
@@ -85,12 +85,21 @@ func (c *Cluster) Resolver() dcs.Resolver {
 		return dcs.Websocket(dcs.WebsocketOptions{})
 	}
 
-	return dcs.Plain(dcs.PlainOptions{})
+	return dcs.Plain(dcs.PlainOptions{
+		Protocol: c.protocol,
+	})
 }
 
 // Common returns common dispatcher.
 func (c *Cluster) Common() *Dispatcher {
 	return c.common
+}
+
+func (c *Cluster) getCodec() (codec func() transport.Codec) {
+	if !c.web {
+		codec = c.protocol.Codec
+	}
+	return codec
 }
 
 // DC registers new server and returns it.
@@ -106,11 +115,10 @@ func (c *Cluster) DC(id int, name string) (*Server, *Dispatcher) {
 	}
 
 	d := NewDispatcher()
-	logger := c.log.Named(name).With(zap.Int("dc_id", id))
 	server := NewServer(key, UnpackInvoke(d), ServerOptions{
 		DC:     id,
-		Logger: logger,
-		Codec:  c.codec,
+		Logger: c.log.Named(name).With(zap.Int("dc_id", id)),
+		Codec:  c.getCodec(),
 	})
 	c.setups[id] = setup{
 		srv:      server,

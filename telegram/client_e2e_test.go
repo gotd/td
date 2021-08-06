@@ -59,9 +59,9 @@ func testCluster(
 		g := tdsync.NewCancellableGroup(ctx)
 
 		c := tgtest.NewCluster(tgtest.ClusterOptions{
-			Web:    ws,
-			Logger: log.Named("cluster"),
-			Codec:  p.Codec,
+			Web:      ws,
+			Logger:   log.Named("cluster"),
+			Protocol: p,
 		})
 		setup(clusterSetup{
 			TB:      t,
@@ -164,54 +164,61 @@ func TestClientE2E(t *testing.T) {
 }
 
 func testMigrate(p dcs.Protocol) func(t *testing.T) {
-	wait := make(chan struct{}, 1)
-	return testCluster(p, false, func(s clusterSetup) {
-		c := s.Cluster
-		c.Common().Vector(tg.UsersGetUsersRequestTypeID, user)
-		c.Dispatch(1, "server").HandleFunc(tg.MessagesSendMessageRequestTypeID,
-			func(server *tgtest.Server, req *tgtest.Request) error {
-				m := &tg.MessagesSendMessageRequest{}
-				if err := m.Decode(req.Buf); err != nil {
-					return err
+	test := func(ws bool) func(t *testing.T) {
+		wait := make(chan struct{}, 1)
+		return testCluster(p, ws, func(s clusterSetup) {
+			c := s.Cluster
+			c.Common().Vector(tg.UsersGetUsersRequestTypeID, user)
+			c.Dispatch(1, "server").HandleFunc(tg.MessagesSendMessageRequestTypeID,
+				func(server *tgtest.Server, req *tgtest.Request) error {
+					m := &tg.MessagesSendMessageRequest{}
+					if err := m.Decode(req.Buf); err != nil {
+						return err
+					}
+
+					select {
+					case wait <- struct{}{}:
+					case <-req.RequestCtx.Done():
+						return req.RequestCtx.Err()
+					}
+					return server.SendGZIP(req, &tg.Updates{})
+				},
+			)
+			c.Dispatch(2, "migrate").HandleFunc(tg.MessagesSendMessageRequestTypeID,
+				func(server *tgtest.Server, req *tgtest.Request) error {
+					m := &tg.MessagesSendMessageRequest{}
+					if err := m.Decode(req.Buf); err != nil {
+						return err
+					}
+
+					return server.SendErr(req, tgerr.New(303, "NETWORK_MIGRATE_1"))
+				},
+			)
+		}, func(ctx context.Context, c clientSetup) error {
+			client := telegram.NewClient(1, "hash", c.Options)
+			return client.Run(ctx, func(ctx context.Context) error {
+				if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+					Peer:    &tg.InputPeerUser{},
+					Message: "abc",
+				}); err != nil {
+					return xerrors.Errorf("send: %w", err)
 				}
 
 				select {
-				case wait <- struct{}{}:
-				case <-req.RequestCtx.Done():
-					return req.RequestCtx.Err()
+				case <-wait:
+					c.Complete()
+				case <-ctx.Done():
+					return ctx.Err()
 				}
-				return server.SendGZIP(req, &tg.Updates{})
-			},
-		)
-		c.Dispatch(2, "migrate").HandleFunc(tg.MessagesSendMessageRequestTypeID,
-			func(server *tgtest.Server, req *tgtest.Request) error {
-				m := &tg.MessagesSendMessageRequest{}
-				if err := m.Decode(req.Buf); err != nil {
-					return err
-				}
-
-				return server.SendErr(req, tgerr.New(303, "NETWORK_MIGRATE_1"))
-			},
-		)
-	}, func(ctx context.Context, c clientSetup) error {
-		client := telegram.NewClient(1, "hash", c.Options)
-		return client.Run(ctx, func(ctx context.Context) error {
-			if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
-				Peer:    &tg.InputPeerUser{},
-				Message: "abc",
-			}); err != nil {
-				return xerrors.Errorf("send: %w", err)
-			}
-
-			select {
-			case <-wait:
-				c.Complete()
-			case <-ctx.Done():
-				return ctx.Err()
-			}
-			return nil
+				return nil
+			})
 		})
-	})
+	}
+
+	return func(t *testing.T) {
+		t.Run("TCP", test(false))
+		t.Run("Websocket", test(true))
+	}
 }
 
 func TestMigrate(t *testing.T) {

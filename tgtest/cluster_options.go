@@ -6,6 +6,7 @@ import (
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
@@ -21,7 +22,7 @@ type ClusterOptions struct {
 	Logger *zap.Logger
 	// Codec constructor.
 	// Defaults to nil (underlying transport server detects protocol automatically).
-	Codec func() transport.Codec
+	Protocol dcs.Protocol
 	// Config is a initial cluster config.
 	Config tg.Config
 	// CDNConfig is a initial cluster CDN config.
@@ -36,7 +37,9 @@ func (opt *ClusterOptions) setDefaults() {
 	if opt.Logger == nil {
 		opt.Logger = zap.NewNop()
 	}
-	// Ignore opt.Codec, will be handled by transport.Listener.
+	if opt.Protocol == nil {
+		opt.Protocol = transport.Intermediate
+	}
 	// Ignore opt.Config, it's okay to use zero value.
 	// Ignore opt.CDNConfig, it's okay to use zero value.
 }

@@ -30,11 +30,11 @@ type wsConn struct {
 }
 
 // NetConn creates opaque wrapper net.Conn for websocket.Conn.
-func NetConn(c *websocket.Conn, local, remote string) net.Conn {
+func NetConn(c *websocket.Conn, local, remote net.Addr) net.Conn {
 	nc := &wsConn{
 		conn:       c,
-		localAddr:  Addr(local),
-		remoteAddr: Addr(remote),
+		localAddr:  local,
+		remoteAddr: remote,
 	}
 
 	ctx := context.Background()
