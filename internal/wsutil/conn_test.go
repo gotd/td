@@ -9,11 +9,11 @@ import (
 func TestWsConn_LocalAddr(t *testing.T) {
 	s := Addr("local")
 	conn := NetConn(nil, s, Addr(""))
-	require.Equal(t, s, conn.LocalAddr().String())
+	require.Equal(t, string(s), conn.LocalAddr().String())
 }
 
 func TestWsConn_RemoteAddr(t *testing.T) {
 	s := Addr("remote")
 	conn := NetConn(nil, Addr(""), s)
-	require.Equal(t, s, conn.RemoteAddr().String())
+	require.Equal(t, string(s), conn.RemoteAddr().String())
 }
