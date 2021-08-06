@@ -27,6 +27,9 @@ type wsConn struct {
 
 	readMu sync.Mutex
 	reader io.Reader
+
+	onceClose sync.Once
+	closeErr  error
 }
 
 // NetConn creates opaque wrapper net.Conn for websocket.Conn.
@@ -92,9 +95,12 @@ func (w *wsConn) Read(b []byte) (int, error) {
 }
 
 func (w *wsConn) Close() error {
-	w.writeTimer.Stop()
-	w.readTimer.Stop()
-	return w.conn.Close(websocket.StatusNormalClosure, "")
+	w.onceClose.Do(func() {
+		w.writeTimer.Stop()
+		w.readTimer.Stop()
+		w.closeErr = w.conn.Close(websocket.StatusNormalClosure, "")
+	})
+	return w.closeErr
 }
 
 func (w *wsConn) LocalAddr() net.Addr {

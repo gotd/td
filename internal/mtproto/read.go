@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"net"
+	"sync"
 	"sync/atomic"
 	"time"
 
@@ -141,8 +142,13 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 		l.Debug("Read loop done")
 	}()
 
-	// Last error encountered by consumeMessage.
-	var lastErr atomic.Value
+	var (
+		// Last error encountered by consumeMessage.
+		lastErr atomic.Value
+		// To wait all spawned goroutines
+		handlers sync.WaitGroup
+	)
+	defer handlers.Wait()
 
 	for {
 		// We've tried multiple ways to reduce allocations via reusing buffer,
@@ -189,9 +195,9 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 			}
 		}
 
-		c.handlers.Add(1)
+		handlers.Add(1)
 		go func() {
-			defer c.handlers.Done()
+			defer handlers.Done()
 
 			// Spawning goroutine per incoming message to utilize as much
 			// resources as possible while keeping idle utilization low.

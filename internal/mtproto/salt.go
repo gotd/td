@@ -31,7 +31,7 @@ func (c *Conn) updateSalt() {
 	c.storeSalt(salt)
 }
 
-const defaultSaltsNum = 64
+const defaultSaltsNum = 4
 
 func (c *Conn) getSalts(ctx context.Context) error {
 	request := &mt.GetFutureSaltsRequest{

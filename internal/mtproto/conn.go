@@ -97,9 +97,6 @@ type Conn struct {
 	// gotSession is a signal channel for wait for handleSessionCreated message.
 	gotSession *tdsync.Ready
 
-	// handlers is waiter of all message handlers.
-	handlers sync.WaitGroup
-
 	// compressThreshold is a threshold in bytes to determine that message
 	// is large enough to be compressed using gzip.
 	compressThreshold int
@@ -205,11 +202,6 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 		g.Go("saltsLoop", c.saltLoop)
 		g.Go("userCallback", f)
 		g.Go("readLoop", c.readLoop)
-		g.Go("handlers", func(context.Context) error {
-			// Wait all spawned handlers.
-			c.handlers.Wait()
-			return nil
-		})
 
 		if err := g.Wait(); err != nil {
 			return xerrors.Errorf("group: %w", err)

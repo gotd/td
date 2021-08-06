@@ -7,29 +7,43 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/testutil"
 )
 
-var testData = []mt.FutureSalt{
-	{
-		ValidSince: 10,
-		ValidUntil: 25,
-		Salt:       1,
-	},
-	{
-		ValidSince: 20,
-		ValidUntil: 35,
-		Salt:       2,
-	},
-	{
-		ValidSince: 30,
-		ValidUntil: 45,
-		Salt:       3,
-	},
+func generateSalts(n int) []mt.FutureSalt {
+	r := make([]mt.FutureSalt, n)
+	for i := range r {
+		since := (i + 1) * 10
+
+		r[i] = mt.FutureSalt{
+			ValidSince: since,
+			ValidUntil: since + 15,
+			Salt:       int64(i),
+		}
+	}
+	return r
 }
 
 func TestSalts(t *testing.T) {
 	a := require.New(t)
 	salts := &Salts{}
+	var testData = []mt.FutureSalt{
+		{
+			ValidSince: 10,
+			ValidUntil: 25,
+			Salt:       1,
+		},
+		{
+			ValidSince: 20,
+			ValidUntil: 35,
+			Salt:       2,
+		},
+		{
+			ValidSince: 30,
+			ValidUntil: 45,
+			Salt:       3,
+		},
+	}
 
 	salts.Store(testData[:2])
 	a.Len(salts.salts, 2)
@@ -60,9 +74,19 @@ func TestSalts(t *testing.T) {
 	a.False(ok)
 }
 
+func TestSalts_Get(t *testing.T) {
+	salts := &Salts{}
+	salts.Store(generateSalts(64))
+
+	now := time.Unix(11, 0)
+	testutil.ZeroAlloc(t, func() {
+		salts.Get(now)
+	})
+}
+
 func BenchmarkSalts_Get(b *testing.B) {
 	salts := &Salts{}
-	salts.Store(testData)
+	salts.Store(generateSalts(64))
 	t := time.Unix(11, 0)
 
 	b.ReportAllocs()
@@ -74,6 +98,7 @@ func BenchmarkSalts_Get(b *testing.B) {
 }
 
 func BenchmarkSalts_Store(b *testing.B) {
+	testData := generateSalts(64)
 	salts := &Salts{
 		salts: make([]mt.FutureSalt, 0, len(testData)),
 	}
