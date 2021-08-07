@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"go.uber.org/atomic"
+	"go.uber.org/multierr"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
@@ -212,7 +213,7 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 
 // connect establishes connection using configured transport, creating
 // new auth key if needed.
-func (c *Conn) connect(ctx context.Context) error {
+func (c *Conn) connect(ctx context.Context) (rErr error) {
 	ctx, cancel := context.WithTimeout(ctx, c.dialTimeout)
 	defer cancel()
 
@@ -221,6 +222,11 @@ func (c *Conn) connect(ctx context.Context) error {
 		return xerrors.Errorf("dial failed: %w", err)
 	}
 	c.conn = conn
+	defer func() {
+		if rErr != nil {
+			multierr.AppendInto(&rErr, conn.Close())
+		}
+	}()
 
 	session := c.session()
 	if session.Key.Zero() {
