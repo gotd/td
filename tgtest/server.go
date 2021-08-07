@@ -5,6 +5,7 @@ import (
 	"crypto/rsa"
 	"io"
 	"net"
+	"time"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -34,6 +35,9 @@ type Server struct {
 	// MessageID generator
 	msgID mtproto.MessageIDSource // immutable
 
+	readTimeout  time.Duration
+	writeTimeout time.Duration
+
 	// RPC handler.
 	handler Handler // immutable
 
@@ -50,16 +54,18 @@ func NewServer(key *rsa.PrivateKey, handler Handler, opts ServerOptions) *Server
 	opts.setDefaults()
 
 	s := &Server{
-		dcID:    opts.DC,
-		codec:   opts.Codec,
-		key:     key,
-		cipher:  crypto.NewServerCipher(opts.Random),
-		clock:   opts.Clock,
-		log:     opts.Logger,
-		users:   newUsers(),
-		handler: handler,
-		msgID:   opts.MessageID,
-		types:   opts.Types,
+		dcID:         opts.DC,
+		key:          key,
+		codec:        opts.Codec,
+		cipher:       crypto.NewServerCipher(opts.Random),
+		clock:        opts.Clock,
+		msgID:        opts.MessageID,
+		readTimeout:  opts.ReadTimeout,
+		writeTimeout: opts.WriteTimeout,
+		handler:      handler,
+		users:        newUsers(),
+		types:        opts.Types,
+		log:          opts.Logger,
 	}
 	return s
 }

@@ -16,6 +16,18 @@ import (
 	"github.com/gotd/td/transport"
 )
 
+func (s *Server) read(ctx context.Context, conn *connection, b *bin.Buffer) error {
+	b.Reset()
+
+	ctx, cancel := context.WithTimeout(ctx, s.readTimeout)
+	defer cancel()
+	if err := conn.Recv(ctx, b); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 	var (
 		session Session
@@ -26,9 +38,8 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 		s.users.deleteConnection(session.ID)
 	}()
 	for {
-		b.Reset()
-		if err := conn.Recv(ctx, &b); err != nil {
-			return err
+		if err := s.read(ctx, conn, &b); err != nil {
+			return xerrors.Errorf("read: %w", err)
 		}
 
 		m := &crypto.EncryptedMessage{}
@@ -163,6 +174,7 @@ func (s *Server) handle(req *Request) error {
 
 func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error) {
 	s.log.Debug("User connected")
+	defer s.log.Debug("User disconnected")
 
 	defer func() {
 		_ = conn.Close()
