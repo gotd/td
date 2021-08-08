@@ -3,7 +3,6 @@ package telegram_test
 import (
 	"bytes"
 	"context"
-	"errors"
 	"testing"
 	"time"
 
@@ -99,7 +98,7 @@ func testCluster(
 		})
 
 		log.Debug("Waiting")
-		if err := g.Wait(); !errors.Is(err, context.Canceled) {
+		if err := g.Wait(); err != nil && !xerrors.Is(err, context.Canceled) {
 			require.NoError(t, err)
 		}
 	}
