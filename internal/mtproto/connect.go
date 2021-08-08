@@ -57,6 +57,11 @@ func (c *Conn) connect(ctx context.Context) (rErr error) {
 
 // createAuthKey generates new authorization key.
 func (c *Conn) createAuthKey(ctx context.Context) error {
+	// Grab exclusive lock for writing.
+	// It prevents message sending during key regeneration if server forgot current auth key.
+	c.exchangeLock.Lock()
+	defer c.exchangeLock.Unlock()
+
 	r, err := exchange.NewExchanger(c.conn).
 		WithClock(c.clock).
 		WithLogger(c.log.Named("exchange")).

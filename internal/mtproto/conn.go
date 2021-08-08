@@ -97,6 +97,9 @@ type Conn struct {
 	// gotSession is a signal channel for wait for handleSessionCreated message.
 	gotSession *tdsync.Ready
 
+	// exchangeLock locks write calls during key exchange.
+	exchangeLock sync.RWMutex
+
 	// compressThreshold is a threshold in bytes to determine that message
 	// is large enough to be compressed using gzip.
 	compressThreshold int
