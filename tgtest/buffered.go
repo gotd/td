@@ -40,6 +40,10 @@ func (c *bufferedConn) Push(b *bin.Buffer) {
 	c.push(b)
 }
 
+func (c *bufferedConn) Pop() (bin.Buffer, bool) {
+	return c.pop()
+}
+
 func (c *bufferedConn) Send(ctx context.Context, b *bin.Buffer) error {
 	return c.conn.Send(ctx, b)
 }
