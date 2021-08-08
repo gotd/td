@@ -197,7 +197,9 @@ func testMigrate(p dcs.Protocol) func(t *testing.T) {
 				},
 			)
 		}, func(ctx context.Context, c clientSetup) error {
-			client := telegram.NewClient(1, "hash", c.Options)
+			opts := c.Options
+			opts.MigrationTimeout = 30 * time.Second
+			client := telegram.NewClient(1, "hash", opts)
 			return client.Run(ctx, func(ctx context.Context) error {
 				if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 					Peer:    &tg.InputPeerUser{},
