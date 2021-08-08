@@ -62,7 +62,5 @@ func (c *Cluster) Dispatch(id int, name string) *tgtest.Dispatcher {
 }
 
 func (c *Cluster) fallback() tgtest.HandlerFunc {
-	return func(srv *tgtest.Server, req *tgtest.Request) error {
-		return services.ErrMethodNotImplemented
-	}
+	return services.NotImplemented
 }
