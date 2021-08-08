@@ -49,7 +49,7 @@ func (c *bufferedConn) Send(ctx context.Context, b *bin.Buffer) error {
 }
 
 func (c *bufferedConn) Recv(ctx context.Context, b *bin.Buffer) error {
-	e, ok := c.pop()
+	e, ok := c.Pop()
 	if ok {
 		b.ResetTo(e.Copy())
 		return nil
