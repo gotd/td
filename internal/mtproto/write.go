@@ -18,6 +18,11 @@ func (c *Conn) writeServiceMessage(ctx context.Context, message bin.Encoder) err
 var bufPool = bin.NewPool(0)
 
 func (c *Conn) write(ctx context.Context, msgID int64, seqNo int32, message bin.Encoder) error {
+	// Grab shared lock for writing.
+	// It prevents message sending during key regeneration if server forgot current auth key.
+	c.exchangeLock.RLock()
+	defer c.exchangeLock.RUnlock()
+
 	b := bufPool.Get()
 	defer bufPool.Put(b)
 
