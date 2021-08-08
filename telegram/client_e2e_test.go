@@ -22,13 +22,14 @@ import (
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/tgtest"
+	"github.com/gotd/td/tgtest/cluster"
 	"github.com/gotd/td/tgtest/services/file"
 	"github.com/gotd/td/transport"
 )
 
 type clusterSetup struct {
 	TB      testing.TB
-	Cluster *tgtest.Cluster
+	Cluster *cluster.Cluster
 	Logger  *zap.Logger
 }
 
@@ -60,7 +61,7 @@ func testCluster(
 		defer cancel()
 		g := tdsync.NewCancellableGroup(ctx)
 
-		c := tgtest.NewCluster(tgtest.ClusterOptions{
+		c := cluster.NewCluster(cluster.Options{
 			Web:      ws,
 			Logger:   log.Named("cluster"),
 			Protocol: p,
@@ -232,7 +233,9 @@ func testFiles(p dcs.Protocol) func(t *testing.T) {
 		return testCluster(p, ws, func(s clusterSetup) {
 			c := s.Cluster
 			c.Common().Vector(tg.UsersGetUsersRequestTypeID, user)
-			f := file.NewService(file.NewInMemory()).WitHashPartSize(1024)
+			f := file.NewService(file.Config{
+				HashPartSize: 1024,
+			})
 			f.Register(c.Dispatch(2, "DC"))
 		}, func(ctx context.Context, c clientSetup) error {
 			client := telegram.NewClient(1, "hash", c.Options)
