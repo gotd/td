@@ -104,7 +104,8 @@ type Conn struct {
 	exchangeTimeout   time.Duration
 	saltFetchInterval time.Duration
 	getTimeout        func(req uint32) time.Duration
-	closed            atomic.Bool
+	// Ensure Run once.
+	ran atomic.Bool
 }
 
 // New creates new unstarted connection.
@@ -169,7 +170,6 @@ func (c *Conn) handleClose(ctx context.Context) error {
 	if err := c.conn.Close(); err != nil {
 		c.log.Debug("Failed to cleanup connection", zap.Error(err))
 	}
-	c.closed.Store(true)
 	return nil
 }
 
@@ -181,7 +181,7 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 	//
 	// This will send initial packet to telegram and perform key exchange
 	// if needed.
-	if c.closed.Load() {
+	if c.ran.Swap(true) {
 		return xerrors.New("do Run on closed connection")
 	}
 
@@ -207,45 +207,5 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 			return xerrors.Errorf("group: %w", err)
 		}
 	}
-	return nil
-}
-
-// connect establishes connection using configured transport, creating
-// new auth key if needed.
-func (c *Conn) connect(ctx context.Context) error {
-	ctx, cancel := context.WithTimeout(ctx, c.dialTimeout)
-	defer cancel()
-
-	conn, err := c.dialer(ctx)
-	if err != nil {
-		return xerrors.Errorf("dial failed: %w", err)
-	}
-	c.conn = conn
-
-	session := c.session()
-	if session.Key.Zero() {
-		c.log.Info("Generating new auth key")
-		start := c.clock.Now()
-		if err := c.createAuthKey(ctx); err != nil {
-			return xerrors.Errorf("create auth key: %w", err)
-		}
-
-		c.log.Info("Auth key generated",
-			zap.Duration("duration", c.clock.Now().Sub(start)),
-		)
-		return nil
-	}
-
-	c.log.Info("Key already exists")
-	if session.ID == 0 {
-		// NB: Telegram can return 404 error if session id is zero.
-		//
-		// See https://github.com/gotd/td/issues/107.
-		c.log.Debug("Generating new session id")
-		if err := c.newSessionID(); err != nil {
-			return err
-		}
-	}
-
 	return nil
 }
