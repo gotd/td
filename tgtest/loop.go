@@ -10,7 +10,7 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-func (s *Server) read(ctx context.Context, conn *connection, b *bin.Buffer) error {
+func (s *Server) read(ctx context.Context, conn transport.Conn, b *bin.Buffer) error {
 	b.Reset()
 
 	ctx, cancel := context.WithTimeout(ctx, s.readTimeout)
@@ -35,51 +35,52 @@ func (s *Server) sendProtoError(ctx context.Context, conn transport.Conn, e int3
 	return nil
 }
 
-func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error) {
+func (s *Server) serveConn(ctx context.Context, conn transport.Conn) error {
 	s.log.Debug("User connected")
 	defer s.log.Debug("User disconnected")
 
+	c := newBufferedConn(conn)
 	defer func() {
-		_ = conn.Close()
+		_ = c.Close()
 	}()
 
 	b := new(bin.Buffer)
-	if err := conn.Recv(ctx, b); err != nil {
-		return xerrors.Errorf("new conn read: %w", err)
-	}
+	for {
+		if err := s.read(ctx, conn, b); err != nil {
+			return xerrors.Errorf("read: %w", err)
+		}
 
-	var authKeyID [8]byte
-	if err := b.PeekN(authKeyID[:], len(authKeyID)); err != nil {
-		return xerrors.Errorf("peek id: %w", err)
-	}
+		var authKeyID [8]byte
+		if err := b.PeekN(authKeyID[:], len(authKeyID)); err != nil {
+			return xerrors.Errorf("peek id: %w", err)
+		}
 
-	c := newBufferedConn(conn)
-	c.Push(b)
-	conn = c
+		// TODO(tdakkota): dispatch by type ID instead?
+		if _, ok := s.users.getSession(authKeyID); !ok {
+			c.Push(b)
 
-	// TODO(tdakkota): dispatch by type ID instead?
-	if _, ok := s.users.getSession(authKeyID); !ok {
-		// If authKeyID not found and is not zero, so drop buffered message and send protocol error.
-		if authKeyID != [8]byte{} {
-			c.Pop()
+			// If authKeyID not found and is not zero, so drop buffered message and send protocol error.
+			if authKeyID != [8]byte{} {
+				c.Pop()
 
-			if err := s.sendProtoError(ctx, conn, codec.CodeAuthKeyNotFound); err != nil {
-				return xerrors.Errorf("send AuthKeyNotFound: %w", err)
+				if err := s.sendProtoError(ctx, c, codec.CodeAuthKeyNotFound); err != nil {
+					return xerrors.Errorf("send AuthKeyNotFound: %w", err)
+				}
 			}
+
+			s.log.Debug("Starting key exchange")
+			key, err := s.exchange(ctx, c)
+			if err != nil {
+				return xerrors.Errorf("key exchange failed: %w", err)
+			}
+			s.users.addSession(key)
+			continue
 		}
 
-		s.log.Debug("Starting key exchange")
-		key, err := s.exchange(ctx, conn)
-		if err != nil {
-			return xerrors.Errorf("key exchange failed: %w", err)
+		if err := s.rpcHandle(ctx, &connection{
+			Conn: conn,
+		}, b); err != nil {
+			return xerrors.Errorf("handle: %w", err)
 		}
-		s.users.addSession(key)
-	} else {
-		s.log.Debug("Session already created, skip key exchange")
 	}
-	wrappedConn := &connection{
-		Conn: conn,
-	}
-
-	return s.rpcHandle(ctx, wrappedConn)
 }
