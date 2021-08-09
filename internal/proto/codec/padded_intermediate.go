@@ -1,7 +1,6 @@
 package codec
 
 import (
-	"crypto/rand"
 	"io"
 
 	"golang.org/x/xerrors"
@@ -58,7 +57,7 @@ func (i PaddedIntermediate) Write(w io.Writer, b *bin.Buffer) error {
 		return err
 	}
 
-	if err := writePaddedIntermediate(rand.Reader, w, b); err != nil {
+	if err := writePaddedIntermediate(crypto.DefaultRand(), w, b); err != nil {
 		return xerrors.Errorf("write padded intermediate: %w", err)
 	}
 

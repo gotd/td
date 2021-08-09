@@ -2,7 +2,6 @@ package telegram
 
 import (
 	"context"
-	"crypto/rand"
 	"errors"
 	"io"
 	"os"
@@ -16,6 +15,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/clock"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/dcs"
@@ -161,7 +161,7 @@ func TestClient(ctx context.Context, opts Options, cb func(ctx context.Context, 
 		client := NewClient(TestAppID, TestAppHash, opts)
 		return client.Run(retryCtx, func(runCtx context.Context) error {
 			if err := client.Auth().IfNecessary(runCtx, auth.NewFlow(
-				auth.Test(rand.Reader, opts.DC),
+				auth.Test(crypto.DefaultRand(), opts.DC),
 				auth.SendCodeOptions{},
 			)); err != nil {
 				return xerrors.Errorf("auth flow: %w", err)

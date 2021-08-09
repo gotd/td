@@ -1,12 +1,12 @@
 package e2etest
 
 import (
-	"crypto/rand"
 	"io"
 
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/constant"
+	"github.com/gotd/td/internal/crypto"
 )
 
 // TestOptions contains some common test server settings.
@@ -29,7 +29,7 @@ func (opt *TestOptions) setDefaults() {
 		opt.DC = 2
 	}
 	if opt.Random == nil {
-		opt.Random = rand.Reader
+		opt.Random = crypto.DefaultRand()
 	}
 	if opt.Logger == nil {
 		opt.Logger = zap.NewNop()

@@ -2,12 +2,12 @@ package dcs
 
 import (
 	"context"
-	"crypto/rand"
 	"io"
 
 	"golang.org/x/xerrors"
 	"nhooyr.io/websocket"
 
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mtproxy"
 	"github.com/gotd/td/internal/mtproxy/obfuscator"
 	"github.com/gotd/td/internal/proto/codec"
@@ -87,7 +87,7 @@ func (m *WebsocketOptions) setDefaults() {
 		}}
 	}
 	if m.Rand == nil {
-		m.Rand = rand.Reader
+		m.Rand = crypto.DefaultRand()
 	}
 }
 

@@ -3,7 +3,6 @@ package uploader
 import (
 	"context"
 	"crypto/md5" // nolint: gosec
-	"crypto/rand"
 	"encoding/hex"
 
 	"golang.org/x/xerrors"
@@ -30,7 +29,7 @@ func NewUploader(rpc Client) *Uploader {
 	return (&Uploader{
 		rpc: rpc,
 		id: func() (int64, error) {
-			return crypto.RandInt64(rand.Reader)
+			return crypto.RandInt64(crypto.DefaultRand())
 		},
 		src:     source.NewHTTPSource(),
 		threads: 1,

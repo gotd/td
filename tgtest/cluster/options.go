@@ -1,11 +1,11 @@
 package cluster
 
 import (
-	"crypto/rand"
 	"io"
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
@@ -32,7 +32,7 @@ type Options struct {
 func (opt *Options) setDefaults() {
 	// Ignore opt.Web, it's okay to use zero value.
 	if opt.Random == nil {
-		opt.Random = rand.Reader
+		opt.Random = crypto.DefaultRand()
 	}
 	if opt.Logger == nil {
 		opt.Logger = zap.NewNop()
