@@ -4,6 +4,18 @@ updates:
     directory: "/"
     schedule:
       interval: daily
+  - package-ecosystem: gomod
+    directory: "_tools"
+    schedule:
+      interval: daily
+  - package-ecosystem: gomod
+    directory: "examples/bg-run"
+    schedule:
+      interval: daily
+  - package-ecosystem: gomod
+    directory: "examples/gif-download"
+    schedule:
+      interval: daily
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
