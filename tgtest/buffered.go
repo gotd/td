@@ -40,12 +40,16 @@ func (c *bufferedConn) Push(b *bin.Buffer) {
 	c.push(b)
 }
 
+func (c *bufferedConn) Pop() (bin.Buffer, bool) {
+	return c.pop()
+}
+
 func (c *bufferedConn) Send(ctx context.Context, b *bin.Buffer) error {
 	return c.conn.Send(ctx, b)
 }
 
 func (c *bufferedConn) Recv(ctx context.Context, b *bin.Buffer) error {
-	e, ok := c.pop()
+	e, ok := c.Pop()
 	if ok {
 		b.ResetTo(e.Copy())
 		return nil

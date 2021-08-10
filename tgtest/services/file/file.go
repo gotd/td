@@ -4,6 +4,7 @@ package file
 import (
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgtest"
+	"github.com/gotd/td/tgtest/services"
 )
 
 // Service is a Telegram file service.
@@ -16,26 +17,14 @@ type Service struct {
 }
 
 // NewService creates new file Service.
-func NewService(storage Storage) *Service {
+func NewService(cfg Config) *Service {
+	cfg.setDefaults()
+
 	return &Service{
-		storage: storage,
-		// Telegram usually uses this values.
-		hashPartSize:  131072,
-		hashRangeSize: 10,
+		storage:       cfg.Storage,
+		hashPartSize:  cfg.HashPartSize,
+		hashRangeSize: cfg.HashRangeSize,
 	}
-}
-
-// WitHashPartSize sets size of part to use in tg.FileHash.
-// Must be valid part size.
-func (m *Service) WitHashPartSize(hashPartSize int) *Service {
-	m.hashPartSize = hashPartSize
-	return m
-}
-
-// WitHashRangeSize sets size of range to return in upload.getFileHashes.
-func (m *Service) WitHashRangeSize(hashRangeSize int) *Service {
-	m.hashRangeSize = hashRangeSize
-	return m
 }
 
 // OnMessage implements tgtest.Handler.
@@ -94,8 +83,9 @@ func (m *Service) OnMessage(server *tgtest.Server, req *tgtest.Request) error {
 		}
 
 		return server.SendBool(req, r)
+	default:
+		return services.ErrMethodNotImplemented
 	}
-	return nil
 }
 
 // Register registers service handlers.

@@ -37,7 +37,7 @@ func (h *testTransportHandler) OnMessage(server *Server, req *Request) error {
 		return err
 	}
 
-	h.logger.Info("New message", zap.String("id", fmt.Sprintf("%x", id)))
+	h.logger.Info("New message", zap.String("id", fmt.Sprintf("%#x", id)))
 
 	switch id {
 	case tg.UsersGetUsersRequestTypeID:

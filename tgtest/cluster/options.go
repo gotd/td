@@ -1,4 +1,4 @@
-package tgtest
+package cluster
 
 import (
 	"crypto/rand"
@@ -11,8 +11,8 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-// ClusterOptions of Cluster.
-type ClusterOptions struct {
+// Options of Cluster.
+type Options struct {
 	// Web denotes to use websocket listener.
 	Web bool
 	// Random is random source. Used to generate RSA keys.
@@ -29,7 +29,7 @@ type ClusterOptions struct {
 	CDNConfig tg.CDNConfig
 }
 
-func (opt *ClusterOptions) setDefaults() {
+func (opt *Options) setDefaults() {
 	// Ignore opt.Web, it's okay to use zero value.
 	if opt.Random == nil {
 		opt.Random = rand.Reader

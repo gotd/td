@@ -3,6 +3,7 @@ package tgtest
 import (
 	"crypto/rand"
 	"io"
+	"time"
 
 	"go.uber.org/zap"
 
@@ -33,6 +34,10 @@ type ServerOptions struct {
 	MessageID mtproto.MessageIDSource
 	// Types map, used in verbose logging of incoming message.
 	Types *tmap.Map
+	// ReadTimeout is a connection read timeout.
+	ReadTimeout time.Duration
+	// ReadTimeout is a connection write timeout.
+	WriteTimeout time.Duration
 }
 
 func (opt *ServerOptions) setDefaults() {
@@ -60,5 +65,11 @@ func (opt *ServerOptions) setDefaults() {
 			mt.TypesMap(),
 			proto.TypesMap(),
 		)
+	}
+	if opt.ReadTimeout == 0 {
+		opt.ReadTimeout = 30 * time.Second
+	}
+	if opt.WriteTimeout == 0 {
+		opt.WriteTimeout = 30 * time.Second
 	}
 }

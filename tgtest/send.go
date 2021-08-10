@@ -46,7 +46,14 @@ func (s *Server) Send(ctx context.Context, k Session, t proto.MessageType, messa
 		return xerrors.Errorf("encrypt: %w", err)
 	}
 
-	return conn.Send(ctx, &b)
+	ctx, cancel := context.WithTimeout(ctx, s.writeTimeout)
+	defer cancel()
+
+	if err := conn.Send(ctx, &b); err != nil {
+		return xerrors.Errorf("send: %w", err)
+	}
+
+	return nil
 }
 
 func (s *Server) sendReq(req *Request, t proto.MessageType, encoder bin.Encoder) error {
