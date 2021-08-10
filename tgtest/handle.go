@@ -13,9 +13,10 @@ import (
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/tgerr"
+	"github.com/gotd/td/transport"
 )
 
-func (s *Server) rpcHandle(ctx context.Context, conn *connection, b *bin.Buffer) error {
+func (s *Server) rpcHandle(ctx context.Context, c transport.Conn, b *bin.Buffer) error {
 	m := &crypto.EncryptedMessage{}
 	if err := m.DecodeWithoutCopy(b); err != nil {
 		return xerrors.Errorf("decode encrypted message: %w", err)
@@ -35,15 +36,12 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection, b *bin.Buffer)
 		ID:      msg.SessionID,
 		AuthKey: key,
 	}
-	if !conn.didSentCreated() {
-		s.users.addConnection(msg.SessionID, conn)
-
+	if conn := s.users.createConnection(msg.SessionID, c); !conn.sentCreated() {
 		s.log.Debug("Send handleSessionCreated event", zap.Inline(session))
 		salt := int64(binary.LittleEndian.Uint64(key.ID[:]))
 		if err := s.sendSessionCreated(ctx, session, salt); err != nil {
 			return err
 		}
-		conn.sentCreated()
 	}
 
 	// Buffer now contains plaintext message payload.
