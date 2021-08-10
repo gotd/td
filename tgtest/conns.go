@@ -2,7 +2,8 @@ package tgtest
 
 import (
 	"sync"
-	"sync/atomic"
+
+	"go.uber.org/atomic"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/transport"
@@ -10,15 +11,11 @@ import (
 
 type connection struct {
 	transport.Conn
-	sent uint64
+	sent atomic.Bool
 }
 
-func (conn *connection) didSentCreated() bool {
-	return atomic.LoadUint64(&conn.sent) >= 1
-}
-
-func (conn *connection) sentCreated() {
-	atomic.AddUint64(&conn.sent, 1)
+func (conn *connection) sentCreated() bool {
+	return conn.sent.Swap(true)
 }
 
 // users contains all server connections and sessions.
@@ -37,10 +34,19 @@ func newUsers() *users {
 	}
 }
 
-func (c *users) addConnection(key int64, conn *connection) {
+func (c *users) createConnection(key int64, tConn transport.Conn) *connection {
 	c.connsMux.Lock()
+	defer c.connsMux.Unlock()
+
+	if v, ok := c.conns[key]; ok {
+		return v
+	}
+
+	conn := &connection{
+		Conn: tConn,
+	}
 	c.conns[key] = conn
-	c.connsMux.Unlock()
+	return conn
 }
 
 func (c *users) getConnection(key int64) (conn *connection, ok bool) {

@@ -37,11 +37,9 @@ func (s *Server) sendProtoError(ctx context.Context, conn transport.Conn, e int3
 
 func (s *Server) serveConn(ctx context.Context, conn transport.Conn) error {
 	s.log.Debug("User connected")
-	defer s.log.Debug("User disconnected")
-
-	c := newBufferedConn(conn)
 	defer func() {
-		_ = c.Close()
+		_ = conn.Close()
+		s.log.Debug("User disconnected")
 	}()
 
 	b := new(bin.Buffer)
@@ -57,6 +55,7 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) error {
 
 		// TODO(tdakkota): dispatch by type ID instead?
 		if _, ok := s.users.getSession(authKeyID); !ok {
+			c := newBufferedConn(conn)
 			c.Push(b)
 
 			// If authKeyID not found and is not zero, so drop buffered message and send protocol error.
@@ -77,9 +76,7 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) error {
 			continue
 		}
 
-		if err := s.rpcHandle(ctx, &connection{
-			Conn: conn,
-		}, b); err != nil {
+		if err := s.rpcHandle(ctx, conn, b); err != nil {
 			return xerrors.Errorf("handle: %w", err)
 		}
 	}
