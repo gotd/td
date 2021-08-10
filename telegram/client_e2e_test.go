@@ -56,7 +56,7 @@ func testCluster(
 		log := zaptest.NewLogger(t)
 		defer func() { _ = log.Sync() }()
 
-		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 		defer cancel()
 		g := tdsync.NewCancellableGroup(ctx)
 
@@ -198,7 +198,7 @@ func testMigrate(p dcs.Protocol) func(t *testing.T) {
 			)
 		}, func(ctx context.Context, c clientSetup) error {
 			opts := c.Options
-			opts.MigrationTimeout = 30 * time.Second
+			opts.MigrationTimeout = time.Minute
 			client := telegram.NewClient(1, "hash", opts)
 			return client.Run(ctx, func(ctx context.Context) error {
 				if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
