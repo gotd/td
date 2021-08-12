@@ -17,7 +17,7 @@ func (b *Builder) Upload(upd UploadOption) *UploadBuilder {
 	}
 }
 
-// UploadBuilder is a attachment uploading helper.
+// UploadBuilder is an attachment uploading helper.
 type UploadBuilder struct {
 	builder *Builder
 	option  UploadOption

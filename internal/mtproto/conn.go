@@ -44,7 +44,7 @@ type Cipher interface {
 	Encrypt(key crypto.AuthKey, data crypto.EncryptedMessageData, b *bin.Buffer) error
 }
 
-// Dialer is a abstraction for MTProto transport connection creator.
+// Dialer is an abstraction for MTProto transport connection creator.
 type Dialer func(ctx context.Context) (transport.Conn, error)
 
 // Conn represents a MTProto client to Telegram.

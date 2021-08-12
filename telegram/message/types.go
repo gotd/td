@@ -13,7 +13,7 @@ type multiMediaBuilder struct {
 	media []tg.InputSingleMedia
 }
 
-// MediaOption is a option for sending media attachments.
+// MediaOption is an option for sending media attachments.
 type MediaOption interface {
 	apply(ctx context.Context, b *multiMediaBuilder) error
 }
@@ -28,7 +28,7 @@ func (m mediaOptionFunc) apply(ctx context.Context, b *multiMediaBuilder) error 
 	return m(ctx, b)
 }
 
-// MultiMediaOption is a option for sending albums.
+// MultiMediaOption is an option for sending albums.
 type MultiMediaOption interface {
 	MediaOption
 	applyMulti(ctx context.Context, b *multiMediaBuilder) error

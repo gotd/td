@@ -12,7 +12,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// SetupCallback is a optional setup connection callback.
+// SetupCallback is an optional setup connection callback.
 type SetupCallback = func(ctx context.Context, invoker tg.Invoker) error
 
 // ConnOptions is a Telegram client connection options.

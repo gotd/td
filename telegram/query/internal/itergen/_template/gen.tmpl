@@ -22,7 +22,7 @@ type Request struct {
     Limit int
 }
 
-// Query is a abstraction for {{ $.Package }} request.
+// Query is an abstraction for {{ $.Package }} request.
 // NB: iterator mutates returned data (sorts, at least).
 type Query interface {
 	Query(ctx context.Context, req Request) (tg.{{ $.ResultName }}, error)

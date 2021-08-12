@@ -34,7 +34,7 @@ func (b *Builder) InlineResult(ctx context.Context, id string, queryID int64, hi
 	return upd, nil
 }
 
-// InlineUpdate is a abstraction for
+// InlineUpdate is an abstraction for
 type InlineUpdate interface {
 	GetQueryID() int64
 }

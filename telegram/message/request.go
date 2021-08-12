@@ -9,13 +9,13 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// RequestBuilder is a intermediate builder to make different RPC calls using Sender.
+// RequestBuilder is an intermediate builder to make different RPC calls using Sender.
 type RequestBuilder struct {
 	Builder
 }
 
 // ScreenshotNotify sends notification about screenshot.
-// Parameter msgID is a ID of message that was screenshotted, can be 0.
+// Parameter msgID is an ID of message that was screenshotted, can be 0.
 func (b *RequestBuilder) ScreenshotNotify(ctx context.Context, msgID int) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
@@ -53,7 +53,7 @@ type startBotBuilder struct {
 	param string
 }
 
-// StartBotOption is a option for StartBot method.
+// StartBotOption is an option for StartBot method.
 type StartBotOption func(s *startBotBuilder)
 
 // StartBotInputUser sets InputUserClass to start bot.

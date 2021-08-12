@@ -12,7 +12,7 @@ import (
 type Session struct {
 	// ID is a Session ID.
 	ID int64
-	// AuthKey is a attached key.
+	// AuthKey is an attached key.
 	AuthKey crypto.AuthKey
 }
 

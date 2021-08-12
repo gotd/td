@@ -8,7 +8,7 @@ type ProgressState struct {
 	ID int64
 	// Name of uploading file.
 	Name string
-	// Part is a ID of uploaded part.
+	// Part is an ID of uploaded part.
 	Part int
 	// PartSize is a size of uploaded part.
 	PartSize int

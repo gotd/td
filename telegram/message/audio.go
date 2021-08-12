@@ -24,7 +24,7 @@ func (u *UploadedDocumentBuilder) Voice() *AudioDocumentBuilder {
 	return u.MIME(DefaultVoiceMIME).Audio().Voice()
 }
 
-// AudioDocumentBuilder is a Audio media option.
+// AudioDocumentBuilder is an Audio media option.
 type AudioDocumentBuilder struct {
 	doc  *UploadedDocumentBuilder
 	attr tg.DocumentAttributeAudio

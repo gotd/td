@@ -9,7 +9,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// DeleteBuilder is a intermediate builder to delete messages.
+// DeleteBuilder is an intermediate builder to delete messages.
 // Unlike RevokeBuilder will keep messages for other users.
 type DeleteBuilder struct {
 	sender *Sender
@@ -35,7 +35,7 @@ func (b *DeleteBuilder) Messages(ctx context.Context, ids ...int) (*tg.MessagesA
 	return r, nil
 }
 
-// RevokeBuilder is a intermediate builder to delete messages.
+// RevokeBuilder is an intermediate builder to delete messages.
 // Unlike DeleteBuilder will not keep messages for other users.
 type RevokeBuilder struct {
 	builder *RequestBuilder

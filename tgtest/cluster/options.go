@@ -23,9 +23,9 @@ type Options struct {
 	// Codec constructor.
 	// Defaults to nil (underlying transport server detects protocol automatically).
 	Protocol dcs.Protocol
-	// Config is a initial cluster config.
+	// Config is an initial cluster config.
 	Config tg.Config
-	// CDNConfig is a initial cluster CDN config.
+	// CDNConfig is an initial cluster CDN config.
 	CDNConfig tg.CDNConfig
 }
 

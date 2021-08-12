@@ -19,7 +19,7 @@ type Request struct {
 	Limit  int
 }
 
-// Query is a abstraction for participants request.
+// Query is an abstraction for participants request.
 // NB: iterator mutates returned data (sorts, at least).
 type Query interface {
 	Query(ctx context.Context, req Request) (tg.ChannelsChannelParticipantsClass, error)

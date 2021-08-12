@@ -41,7 +41,7 @@ type Storage interface {
 	ForgetAll() error
 }
 
-// MemStorage is a in-memory sequence storage.
+// MemStorage is an in-memory sequence storage.
 type MemStorage struct {
 	state     State
 	haveState bool

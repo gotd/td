@@ -46,7 +46,7 @@ func (e Elem) Creator() (*tg.User, *tg.ChannelParticipantCreator, bool) {
 	return user, part, true
 }
 
-// Admin returns participant user object and meta info if participant is a admin of channel.
+// Admin returns participant user object and meta info if participant is admin of channel.
 func (e Elem) Admin() (*tg.User, *tg.ChannelParticipantAdmin, bool) {
 	part, ok := e.Participant.(*tg.ChannelParticipantAdmin)
 	if !ok {

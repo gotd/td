@@ -5,7 +5,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// StyledTextOption is a option for styling text.
+// StyledTextOption is an option for styling text.
 type StyledTextOption struct {
 	size    int
 	perform func(b *textBuilder) error

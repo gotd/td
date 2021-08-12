@@ -17,7 +17,7 @@ type pollAnswerBuilder struct {
 	input *tg.InputMediaPoll
 }
 
-// PollAnswerOption is a option to create poll answer.
+// PollAnswerOption is an option to create poll answer.
 type PollAnswerOption func(p *pollAnswerBuilder)
 
 // RawPollAnswer creates new raw poll answer option.
