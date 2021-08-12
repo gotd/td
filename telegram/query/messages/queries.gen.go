@@ -23,7 +23,7 @@ type Request struct {
 	Limit      int
 }
 
-// Query is a abstraction for messages request.
+// Query is an abstraction for messages request.
 // NB: iterator mutates returned data (sorts, at least).
 type Query interface {
 	Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error)

@@ -8,7 +8,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// Resolver is a abstraction to resolve domains and Telegram deeplinks.
+// Resolver is an abstraction to resolve domains and Telegram deeplinks.
 type Resolver interface {
 	ResolveDomain(ctx context.Context, domain string) (tg.InputPeerClass, error)
 	ResolvePhone(ctx context.Context, phone string) (tg.InputPeerClass, error)

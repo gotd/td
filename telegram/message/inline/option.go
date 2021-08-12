@@ -22,12 +22,12 @@ func (r *resultPageBuilder) generateID() (string, error) {
 	return strconv.FormatInt(n, 10), nil
 }
 
-// ResultOption is a option of inline result.
+// ResultOption is an option of inline result.
 type ResultOption interface {
 	apply(r *resultPageBuilder) error
 }
 
-// MessageOption is a option of inline result message.
+// MessageOption is an option of inline result message.
 type MessageOption interface {
 	apply() (tg.InputBotInlineMessageClass, error)
 }

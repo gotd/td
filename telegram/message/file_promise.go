@@ -12,7 +12,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// Uploader is a abstraction for Telegram file uploader.
+// Uploader is an abstraction for Telegram file uploader.
 type Uploader interface {
 	FromFile(ctx context.Context, f uploader.File) (tg.InputFileClass, error)
 	FromPath(ctx context.Context, path string) (tg.InputFileClass, error)

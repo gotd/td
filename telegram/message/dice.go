@@ -14,17 +14,17 @@ func MediaDice(emoticon string) MediaOption {
 }
 
 const (
-	// DiceEmoticon is a emoticon to send dice sticker.
+	// DiceEmoticon is an emoticon to send dice sticker.
 	DiceEmoticon = "🎲"
-	// DartsEmoticon is a emoticon to send darts sticker.
+	// DartsEmoticon is an emoticon to send darts sticker.
 	DartsEmoticon = "🎯"
-	// BasketballEmoticon is a emoticon to send basketball sticker.
+	// BasketballEmoticon is an emoticon to send basketball sticker.
 	BasketballEmoticon = "🏀"
-	// FootballEmoticon is a emoticon to send football sticker.
+	// FootballEmoticon is an emoticon to send football sticker.
 	FootballEmoticon = "⚽"
-	// CasinoEmoticon is a emoticon to send casino sticker.
+	// CasinoEmoticon is an emoticon to send casino sticker.
 	CasinoEmoticon = "🎰"
-	// BowlingEmoticon is a emoticon to send bowling sticker.
+	// BowlingEmoticon is an emoticon to send bowling sticker.
 	BowlingEmoticon = "🎳"
 )
 

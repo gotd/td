@@ -19,7 +19,7 @@ type Request struct {
 	Limit  int
 }
 
-// Query is a abstraction for photos request.
+// Query is an abstraction for photos request.
 // NB: iterator mutates returned data (sorts, at least).
 type Query interface {
 	Query(ctx context.Context, req Request) (tg.PhotosPhotosClass, error)

@@ -10,8 +10,8 @@ import (
 
 type peerPromise = peer.Promise
 
-// Send returns copy of message Builder inside RequestBuilder.
-func (b *RequestBuilder) Send() *Builder {
+// CloneBuilder returns copy of message Builder inside RequestBuilder.
+func (b *RequestBuilder) CloneBuilder() *Builder {
 	return b.Builder.copy()
 }
 

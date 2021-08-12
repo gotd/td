@@ -21,7 +21,7 @@ type Request struct {
 	Limit      int
 }
 
-// Query is a abstraction for dialogs request.
+// Query is an abstraction for dialogs request.
 // NB: iterator mutates returned data (sorts, at least).
 type Query interface {
 	Query(ctx context.Context, req Request) (tg.MessagesDialogsClass, error)

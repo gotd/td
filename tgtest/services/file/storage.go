@@ -18,7 +18,7 @@ type File interface {
 	Size() int
 }
 
-// Storage is a abstraction for Telegram file storage.
+// Storage is an abstraction for Telegram file storage.
 type Storage interface {
 	Open(name string) (File, error)
 }
@@ -45,7 +45,7 @@ func (m *memFile) SetPartSize(v int) {
 	atomic.StoreInt32(&m.partSize, int32(v))
 }
 
-// InMemory is a inmemory implementation of file storage.
+// InMemory is an inmemory implementation of file storage.
 type InMemory struct {
 	files    map[string]*memFile
 	filesMux sync.Mutex

@@ -2,7 +2,7 @@ package message
 
 import "github.com/gotd/td/tg"
 
-// FileLocation is a abstraction of Telegram file location.
+// FileLocation is an abstraction of Telegram file location.
 type FileLocation interface {
 	GetID() (value int64)
 	GetAccessHash() (value int64)
