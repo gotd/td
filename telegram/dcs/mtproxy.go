@@ -2,13 +2,13 @@ package dcs
 
 import (
 	"context"
-	"crypto/rand"
 	"io"
 	"net"
 
 	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mtproxy"
 	"github.com/gotd/td/internal/mtproxy/obfuscator"
 	"github.com/gotd/td/internal/proto/codec"
@@ -100,7 +100,7 @@ func (m *MTProxyOptions) setDefaults() {
 		m.Network = "tcp"
 	}
 	if m.Rand == nil {
-		m.Rand = rand.Reader
+		m.Rand = crypto.DefaultRand()
 	}
 }
 

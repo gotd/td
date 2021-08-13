@@ -1,7 +1,6 @@
 package mtproto
 
 import (
-	"crypto/rand"
 	"crypto/rsa"
 	"io"
 	"time"
@@ -85,7 +84,7 @@ func (opt *Options) setDefaultPublicKeys() {
 
 func (opt *Options) setDefaults() {
 	if opt.Random == nil {
-		opt.Random = rand.Reader
+		opt.Random = crypto.DefaultRand()
 	}
 	if opt.Logger == nil {
 		opt.Logger = zap.NewNop()

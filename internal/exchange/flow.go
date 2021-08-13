@@ -3,7 +3,6 @@
 package exchange
 
 import (
-	"crypto/rand"
 	"crypto/rsa"
 	"io"
 	"time"
@@ -11,6 +10,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/clock"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/transport"
 )
@@ -58,7 +58,7 @@ func NewExchanger(conn transport.Conn) Exchanger {
 		conn: conn,
 
 		clock:   clock.System,
-		rand:    rand.Reader,
+		rand:    crypto.DefaultRand(),
 		log:     zap.NewNop(),
 		timeout: DefaultTimeout,
 	}

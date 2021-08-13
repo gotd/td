@@ -2,7 +2,6 @@ package telegram
 
 import (
 	"context"
-	"crypto/rand"
 	"crypto/rsa"
 	"io"
 	"time"
@@ -11,6 +10,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/clock"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/telegram/dcs"
@@ -77,7 +77,7 @@ func (opt *Options) setDefaults() {
 		opt.Resolver = dcs.DefaultResolver()
 	}
 	if opt.Random == nil {
-		opt.Random = rand.Reader
+		opt.Random = crypto.DefaultRand()
 	}
 	if opt.Logger == nil {
 		opt.Logger = zap.NewNop()

@@ -1,13 +1,13 @@
 package tgtest
 
 import (
-	"crypto/rand"
 	"io"
 	"time"
 
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/clock"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/proto"
@@ -45,7 +45,7 @@ func (opt *ServerOptions) setDefaults() {
 		opt.DC = 2
 	}
 	if opt.Random == nil {
-		opt.Random = rand.Reader
+		opt.Random = crypto.DefaultRand()
 	}
 	if opt.Logger == nil {
 		opt.Logger = zap.NewNop()

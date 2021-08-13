@@ -2,7 +2,6 @@ package message
 
 import (
 	"context"
-	"crypto/rand"
 	"io"
 
 	"golang.org/x/xerrors"
@@ -26,7 +25,7 @@ type Sender struct {
 func NewSender(raw *tg.Client) *Sender {
 	return &Sender{
 		raw:      raw,
-		rand:     rand.Reader,
+		rand:     crypto.DefaultRand(),
 		uploader: uploader.NewUploader(raw),
 		resolver: peer.DefaultResolver(raw),
 	}
