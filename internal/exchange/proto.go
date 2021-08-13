@@ -9,6 +9,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/proto/codec"
 	"github.com/gotd/td/transport"
 )
 
@@ -40,13 +41,30 @@ func (w unencryptedWriter) writeUnencrypted(ctx context.Context, b *bin.Buffer, 
 	return w.conn.Send(ctx, b)
 }
 
+func (w unencryptedWriter) tryRead(ctx context.Context, b *bin.Buffer) error {
+	ctx, cancel := context.WithTimeout(ctx, w.timeout)
+	defer cancel()
+
+	if err := w.conn.Recv(ctx, b); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (w unencryptedWriter) readUnencrypted(ctx context.Context, b *bin.Buffer, data bin.Decoder) error {
 	b.Reset()
 
-	ctx, cancel := context.WithTimeout(ctx, w.timeout)
-	defer cancel()
-	if err := w.conn.Recv(ctx, b); err != nil {
-		return err
+	for {
+		if err := w.tryRead(ctx, b); err != nil {
+			var protocolErr *codec.ProtocolErr
+			if xerrors.As(err, &protocolErr) && protocolErr.Code == codec.CodeAuthKeyNotFound {
+				continue
+			}
+			return err
+		}
+
+		break
 	}
 
 	var msg proto.UnencryptedMessage
