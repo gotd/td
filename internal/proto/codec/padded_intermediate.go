@@ -7,7 +7,6 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
 )
 
 // PaddedIntermediateClientStart is starting bytes sent by client in Padded intermediate mode.
@@ -77,19 +76,17 @@ func (i PaddedIntermediate) Read(r io.Reader, b *bin.Buffer) error {
 func writePaddedIntermediate(randSource io.Reader, w io.Writer, b *bin.Buffer) error {
 	length := b.Len()
 
-	n, err := crypto.RandInt64n(randSource, 4)
-	if err != nil {
-		return err
-	}
-	b.Expand(int(n))
+	b.Expand(4)
 	defer func() {
 		b.Buf = b.Buf[:length]
 	}()
 
-	_, err = io.ReadFull(randSource, b.Buf[length:length+int(n)])
+	_, err := io.ReadFull(randSource, b.Buf[length:length+4])
 	if err != nil {
 		return err
 	}
+	n := int(b.Buf[length-1]) % 4
+	b.Buf = b.Buf[:length+n]
 
 	return writeIntermediate(w, b)
 }
