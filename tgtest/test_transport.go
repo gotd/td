@@ -48,7 +48,7 @@ func (h *testTransportHandler) OnMessage(server *Server, req *Request) error {
 		}
 		h.logger.Info("New client connected, invoke received")
 
-		if err := server.SendResult(req, &tg.User{
+		if err := server.SendVector(req, &tg.User{
 			ID:         10,
 			AccessHash: 10,
 			Username:   "rustcocks",
