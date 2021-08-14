@@ -164,11 +164,15 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		Errors:   g.errorChecks,
 	}
 
-	if err := w.Generate("registry", "tl_registry_gen.go", cfg); err != nil {
-		return err
+	if g.generateRegistry {
+		if err := w.Generate("registry", "tl_registry_gen.go", cfg); err != nil {
+			return err
+		}
 	}
-	if err := w.Generate("client", "tl_client_gen.go", cfg); err != nil {
-		return err
+	if g.generateClient {
+		if err := w.Generate("client", "tl_client_gen.go", cfg); err != nil {
+			return err
+		}
 	}
 	if len(cfg.Errors) > 0 {
 		if err := w.Generate("errors", "tl_errors_gen.go", cfg); err != nil {

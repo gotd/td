@@ -35,10 +35,14 @@ func main() {
 	schemaPath := flag.String("schema", "", "Path to .tl file")
 	targetDir := flag.String("target", "td", "Path to target dir")
 	packageName := flag.String("package", "td", "Target package name")
-	performFormat := flag.Bool("format", true, "perform code formatting")
-	docBase := flag.String("doc", "", "base documentation url")
+	performFormat := flag.Bool("format", true, "Perform code formatting")
+	docBase := flag.String("doc", "", "Base documentation url")
+	docLineLimit := flag.Int("line-limit", 0, "GoDoc comment line length limit")
 	clean := flag.Bool("clean", false, "Clean generated files before generation")
+	client := flag.Bool("client", true, "Generate client definition")
+	registry := flag.Bool("registry", true, "Generate type ID registry")
 	server := flag.Bool("server", false, "Generate server handlers")
+
 	flag.Parse()
 	if *schemaPath == "" {
 		panic("no schema provided")
@@ -85,11 +89,20 @@ func main() {
 		Format: *performFormat,
 	}
 	var opts []gen.Option
+	if *client {
+		opts = append(opts, gen.WithClient())
+	}
+	if *registry {
+		opts = append(opts, gen.WithRegistry())
+	}
 	if *server {
 		opts = append(opts, gen.WithServer())
 	}
 	if *docBase != "" {
 		opts = append(opts, gen.WithDocumentation(*docBase))
+	}
+	if *docLineLimit != 0 {
+		opts = append(opts, gen.WithDocLineLimit(*docLineLimit))
 	}
 	g, err := gen.NewGenerator(schema, opts...)
 	if err != nil {
