@@ -35,7 +35,7 @@ func TestIntermediate(t *testing.T) {
 			}
 		})
 		t.Run("Write", func(t *testing.T) {
-			buf := make([]byte, maxMessageSize + 10)
+			buf := make([]byte, maxMessageSize+10)
 
 			if err := codec.Write(nil, &bin.Buffer{Buf: buf}); !errors.Is(err, invalidMsgLenErr{}) {
 				t.Error(err)
