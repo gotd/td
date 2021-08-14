@@ -1,6 +1,7 @@
 package codec
 
 import (
+	"encoding/binary"
 	"io"
 
 	"golang.org/x/xerrors"
@@ -24,7 +25,7 @@ type Codec interface {
 type TaggedCodec interface {
 	Codec
 	// ObfuscatedTag returns protocol tag for obfuscation.
-	ObfuscatedTag() [4]byte
+	ObfuscatedTag() []byte
 }
 
 // readLen reads 32-bit integer and validates it as message length.
@@ -33,10 +34,7 @@ func readLen(r io.Reader, b *bin.Buffer) (int, error) {
 	if _, err := io.ReadFull(r, b.Buf[:bin.Word]); err != nil {
 		return 0, xerrors.Errorf("read length: %w", err)
 	}
-	n, err := b.Int()
-	if err != nil {
-		return 0, err
-	}
+	n := int(binary.LittleEndian.Uint32(b.Buf[:bin.Word]))
 
 	if n <= 0 || n > maxMessageSize {
 		return 0, invalidMsgLenErr{n: n}
