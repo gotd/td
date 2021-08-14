@@ -54,7 +54,12 @@ func TestStringDecodeEncode(t *testing.T) {
 		a.ErrorIs(err, io.ErrUnexpectedEOF)
 	})
 	t.Run("InvalidLength", func(t *testing.T) {
+		a := require.New(t)
+
 		_, _, err := decodeString(bytes.Repeat([]byte{255}, 256))
-		require.ErrorIs(t, err, errInvalidLength)
+		var e *InvalidLengthError
+		a.ErrorAs(err, &e)
+		a.Equal("string", e.Where)
+		a.Contains(e.Error(), "string")
 	})
 }

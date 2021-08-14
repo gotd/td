@@ -1,10 +1,33 @@
 package bin
 
 import (
+	"io"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 )
+
+func TestBuffer_PeekN(t *testing.T) {
+	a := require.New(t)
+	b := Buffer{Buf: []byte{1, 2, 3}}
+
+	target := make([]byte, 4)
+	a.ErrorIs(b.PeekN(target, 4), io.ErrUnexpectedEOF)
+	a.NoError(b.PeekN(target, 3))
+	a.Equal([]byte{1, 2, 3, 0}, target)
+	a.Equal([]byte{1, 2, 3}, b.Buf, "PeekN must not modify buffer")
+}
+
+func TestBuffer_ConsumeN(t *testing.T) {
+	a := require.New(t)
+	b := Buffer{Buf: []byte{1, 2, 3}}
+
+	target := make([]byte, 4)
+	a.ErrorIs(b.ConsumeN(target, 4), io.ErrUnexpectedEOF)
+	a.NoError(b.ConsumeN(target, 3))
+	a.Equal([]byte{1, 2, 3, 0}, target)
+	a.Empty(b.Buf, "ConsumeN must modify buffer")
+}
 
 func TestDecoder_ID(t *testing.T) {
 	var b Buffer
@@ -75,6 +98,101 @@ func TestConsumePeek(t *testing.T) {
 	a.Len(b.Buf, 0)
 }
 
+func TestBuffer_VectorHeader(t *testing.T) {
+	tests := []struct {
+		data        []byte
+		expected    int
+		wantErr     bool
+		targetError error
+	}{
+		{nil, 0, true, io.ErrUnexpectedEOF},
+		{typeIDToBytes(TypeVector), 0, true, io.ErrUnexpectedEOF},
+		{typeIDToBytes(TypeFalse), 0, true, nil},
+		{append(typeIDToBytes(TypeVector), 0, 0, 0, 0), 0, false, nil},
+		{append(typeIDToBytes(TypeVector), 255, 255, 255, 255), 0, true, nil},
+	}
+	for _, tt := range tests {
+		a := require.New(t)
+		b := &Buffer{Buf: tt.data}
+
+		r, err := b.VectorHeader()
+		if tt.wantErr {
+			a.Error(err)
+			if tt.targetError != nil {
+				a.ErrorIs(err, tt.targetError)
+			}
+			a.Zero(r)
+		} else {
+			a.NoError(err)
+			a.Equal(tt.expected, r)
+		}
+	}
+}
+
+func TestBuffer_Int(t *testing.T) {
+	tests := []struct {
+		data        []byte
+		expected    int
+		wantErr     bool
+		targetError error
+	}{
+		{nil, 0, true, io.ErrUnexpectedEOF},
+		{make([]byte, 3), 0, true, io.ErrUnexpectedEOF},
+		{make([]byte, 4), 0, false, nil},
+		{[]byte{0x01, 0x00, 0x00, 0x00}, 1, false, nil},
+	}
+	for _, tt := range tests {
+		a := require.New(t)
+		b := &Buffer{Buf: tt.data}
+
+		r, err := b.Int()
+		if tt.wantErr {
+			a.Error(err)
+			if tt.targetError != nil {
+				a.ErrorIs(err, tt.targetError)
+			}
+			a.Zero(r)
+		} else {
+			a.NoError(err)
+			a.Equal(tt.expected, r)
+		}
+	}
+}
+
+func TestBuffer_Double(t *testing.T) {
+	tests := []struct {
+		data        []byte
+		expected    float64
+		wantErr     bool
+		targetError error
+	}{
+		{nil, 0, true, io.ErrUnexpectedEOF},
+		{make([]byte, 7), 0, true, io.ErrUnexpectedEOF},
+		{make([]byte, 8), 0, false, nil},
+		{func() []byte {
+			d := Buffer{}
+			d.PutDouble(1)
+			return d.Buf
+		}(), 1, false, nil},
+	}
+	for _, tt := range tests {
+		a := require.New(t)
+		b := &Buffer{Buf: tt.data}
+
+		r, err := b.Double()
+		if tt.wantErr {
+			a.Error(err)
+			if tt.targetError != nil {
+				a.ErrorIs(err, tt.targetError)
+			}
+			a.Zero(r)
+		} else {
+			a.NoError(err)
+			a.Equal(tt.expected, r)
+		}
+	}
+}
+
 func TestBuffer_Bool(t *testing.T) {
 	tests := []struct {
 		data     []byte
@@ -104,12 +222,22 @@ func TestBuffer_Bool(t *testing.T) {
 func TestBuffer_ConsumeID(t *testing.T) {
 	consume := uint32(TypeTrue)
 	tests := []struct {
-		data    []byte
-		wantErr bool
+		data        []byte
+		wantErr     bool
+		targetError func(a *require.Assertions, e error)
 	}{
-		{typeIDToBytes(TypeTrue), false},
-		{typeIDToBytes(TypeVector), true},
-		{nil, true},
+		{typeIDToBytes(TypeTrue), false, nil},
+		{
+			typeIDToBytes(TypeVector),
+			true,
+			func(a *require.Assertions, e error) {
+				var unexpected *UnexpectedIDErr
+				a.ErrorAs(e, &unexpected)
+				a.Equal(uint32(TypeVector), unexpected.ID)
+				a.NotEmpty(unexpected.Error())
+			},
+		},
+		{nil, true, nil},
 	}
 	for _, tt := range tests {
 		a := require.New(t)
@@ -118,8 +246,35 @@ func TestBuffer_ConsumeID(t *testing.T) {
 		err := b.ConsumeID(consume)
 		if tt.wantErr {
 			a.Error(err)
+			if tt.targetError != nil {
+				tt.targetError(a, err)
+			}
 		} else {
 			a.NoError(err)
 		}
 	}
+}
+
+func TestBuffer_String(t *testing.T) {
+	b := Buffer{}
+	_, err := b.String()
+	require.ErrorIs(t, err, io.ErrUnexpectedEOF)
+
+	b.PutString("ab")
+	b.Buf = b.Buf[:3] // Cut padding
+
+	_, err = b.String()
+	require.ErrorIs(t, err, io.ErrUnexpectedEOF)
+}
+
+func TestBuffer_Bytes(t *testing.T) {
+	b := Buffer{}
+	_, err := b.Bytes()
+	require.ErrorIs(t, err, io.ErrUnexpectedEOF)
+
+	b.PutBytes([]byte("ab"))
+	b.Buf = b.Buf[:3] // Cut padding
+
+	_, err = b.Bytes()
+	require.ErrorIs(t, err, io.ErrUnexpectedEOF)
 }
