@@ -108,16 +108,10 @@ func testMTProxy(secretType string, m mtg, storage session.Storage) func(t *test
 				return err
 			}
 
-			return telegram.TestClient(ctx, telegram.Options{
+			return tryConnect(ctx, telegram.Options{
 				Resolver:       resolver,
 				Logger:         logger,
 				SessionStorage: storage,
-			}, func(ctx context.Context, client *telegram.Client) error {
-				if _, err := client.Self(ctx); err != nil {
-					return xerrors.Errorf("self: %w", err)
-				}
-
-				return nil
 			})
 		})
 
