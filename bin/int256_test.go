@@ -7,16 +7,15 @@ import (
 )
 
 func TestInt256_Encode(t *testing.T) {
+	a := require.New(t)
+
 	v := Int256{4, 3, 1, 2}
 	b := Buffer{}
-	if err := v.Encode(&b); err != nil {
-		t.Fatal(err)
-	}
+	a.NoError(v.Encode(&b))
 	var decoded Int256
-	if err := decoded.Decode(&b); err != nil {
-		t.Fatal(err)
-	}
-	require.Equal(t, v, decoded)
+	a.NoError(decoded.Decode(&b))
+	a.Equal(v, decoded)
+	a.Error(decoded.Decode(&Buffer{}))
 }
 
 func BenchmarkBuffer_PutInt256(b *testing.B) {

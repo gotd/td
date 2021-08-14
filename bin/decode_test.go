@@ -74,3 +74,52 @@ func TestConsumePeek(t *testing.T) {
 	// Check that consume increase cursor.
 	a.Len(b.Buf, 0)
 }
+
+func TestBuffer_Bool(t *testing.T) {
+	tests := []struct {
+		data     []byte
+		expected bool
+		wantErr  bool
+	}{
+		{typeIDToBytes(TypeTrue), true, false},
+		{typeIDToBytes(TypeFalse), false, false},
+		{nil, false, true},
+		{typeIDToBytes(TypeVector), false, true},
+	}
+	for _, tt := range tests {
+		a := require.New(t)
+		b := &Buffer{Buf: tt.data}
+
+		r, err := b.Bool()
+		if tt.wantErr {
+			a.Error(err)
+			a.Zero(r)
+		} else {
+			a.NoError(err)
+			a.Equal(tt.expected, r)
+		}
+	}
+}
+
+func TestBuffer_ConsumeID(t *testing.T) {
+	consume := uint32(TypeTrue)
+	tests := []struct {
+		data    []byte
+		wantErr bool
+	}{
+		{typeIDToBytes(TypeTrue), false},
+		{typeIDToBytes(TypeVector), true},
+		{nil, true},
+	}
+	for _, tt := range tests {
+		a := require.New(t)
+		b := &Buffer{Buf: tt.data}
+
+		err := b.ConsumeID(consume)
+		if tt.wantErr {
+			a.Error(err)
+		} else {
+			a.NoError(err)
+		}
+	}
+}

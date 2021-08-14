@@ -7,16 +7,15 @@ import (
 )
 
 func TestInt128_Encode(t *testing.T) {
+	a := require.New(t)
+
 	v := Int128{1, 2, 3, 0, 134, 45}
 	b := Buffer{}
-	if err := v.Encode(&b); err != nil {
-		t.Fatal(err)
-	}
+	a.NoError(v.Encode(&b))
 	var decoded Int128
-	if err := decoded.Decode(&b); err != nil {
-		t.Fatal(err)
-	}
-	require.Equal(t, v, decoded)
+	a.NoError(decoded.Decode(&b))
+	a.Equal(v, decoded)
+	a.Error(decoded.Decode(&Buffer{}))
 }
 
 func BenchmarkBuffer_PutInt128(b *testing.B) {
