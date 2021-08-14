@@ -114,6 +114,8 @@ func MTProxy(addr string, secret []byte, opts MTProxyOptions) (Resolver, error) 
 	}
 
 	cdc := codec.PaddedIntermediate{}
+	tag := codec.PaddedIntermediateClientStart
+
 	opts.setDefaults()
 	return mtProxy{
 		dial:     opts.Dial,
@@ -121,7 +123,7 @@ func MTProxy(addr string, secret []byte, opts MTProxyOptions) (Resolver, error) 
 		network:  opts.Network,
 		protocol: transport.NewProtocol(func() transport.Codec { return codec.NoHeader{Codec: cdc} }),
 		secret:   s,
-		tag:      cdc.ObfuscatedTag(),
+		tag:      tag,
 		rand:     opts.Rand,
 	}, nil
 }
