@@ -336,7 +336,7 @@ _ {{ $s.Interface }} = &{{ $s.Name }}{}
 {{ end }}
 )
 
-{{- if $s.Method }}
+{{- if and $.GenerateClient $s.Method }}
 // {{ $s.Method }} invokes method {{ $s.RawType }} returning error if any.
 {{- if $s.Docs }}
 {{- range $d := $s.Docs }}

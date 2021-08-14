@@ -11,13 +11,14 @@ import (
 
 // config is input data for templates.
 type config struct {
-	Layer      int
-	Package    string
-	Structs    []structDef
-	Interfaces []interfaceDef
-	Mappings   map[string][]constructorMapping
-	Registry   []bindingDef
-	Errors     []errCheckDef
+	Layer          int
+	GenerateClient bool
+	Package        string
+	Structs        []structDef
+	Interfaces     []interfaceDef
+	Mappings       map[string][]constructorMapping
+	Registry       []bindingDef
+	Errors         []errCheckDef
 }
 
 // FileSystem represents a directory of generated package.
@@ -56,6 +57,7 @@ type writer struct {
 	wrote map[string]bool
 
 	wroteConstructors map[string]struct{}
+	generateClient    bool
 }
 
 // Generate executes template to file using config.
@@ -84,9 +86,10 @@ func (w *writer) Generate(templateName, fileName string, cfg config) error {
 func (w *writer) WriteInterfaces(interfaces []interfaceDef) error {
 	for _, class := range interfaces {
 		cfg := config{
-			Package:    w.pkg,
-			Structs:    class.Constructors,
-			Interfaces: []interfaceDef{class},
+			Package:        w.pkg,
+			Structs:        class.Constructors,
+			Interfaces:     []interfaceDef{class},
+			GenerateClient: w.generateClient,
 		}
 		for _, s := range cfg.Structs {
 			w.wroteConstructors[s.Name] = struct{}{}
@@ -107,9 +110,10 @@ func (w *writer) WriteStructs(structs []structDef, mappings map[string][]constru
 			continue
 		}
 		cfg := config{
-			Package:  w.pkg,
-			Structs:  []structDef{s},
-			Mappings: mappings,
+			Package:        w.pkg,
+			Structs:        []structDef{s},
+			Mappings:       mappings,
+			GenerateClient: w.generateClient,
 		}
 		name := outFileName(s.BaseName, s.Namespace)
 		if w.wrote[name] {
@@ -134,6 +138,7 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		wrote: map[string]bool{},
 
 		wroteConstructors: map[string]struct{}{},
+		generateClient:    g.generateClient,
 	}
 
 	if err := w.WriteInterfaces(g.interfaces); err != nil {
@@ -159,16 +164,21 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 	}
 
 	cfg := config{
-		Registry: g.registry,
-		Layer:    g.schema.Layer,
-		Errors:   g.errorChecks,
+		Registry:       g.registry,
+		Layer:          g.schema.Layer,
+		GenerateClient: g.generateClient,
+		Errors:         g.errorChecks,
 	}
 
-	if err := w.Generate("registry", "tl_registry_gen.go", cfg); err != nil {
-		return err
+	if g.generateRegistry {
+		if err := w.Generate("registry", "tl_registry_gen.go", cfg); err != nil {
+			return err
+		}
 	}
-	if err := w.Generate("client", "tl_client_gen.go", cfg); err != nil {
-		return err
+	if g.generateClient {
+		if err := w.Generate("client", "tl_client_gen.go", cfg); err != nil {
+			return err
+		}
 	}
 	if len(cfg.Errors) > 0 {
 		if err := w.Generate("errors", "tl_errors_gen.go", cfg); err != nil {

@@ -152,16 +152,3 @@ var (
 	_ bin.BareEncoder = &ReqPqRequest{}
 	_ bin.BareDecoder = &ReqPqRequest{}
 )
-
-// ReqPq invokes method req_pq#60469778 returning error if any.
-func (c *Client) ReqPq(ctx context.Context, nonce bin.Int128) (*ResPQ, error) {
-	var result ResPQ
-
-	request := &ReqPqRequest{
-		Nonce: nonce,
-	}
-	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return nil, err
-	}
-	return &result, nil
-}

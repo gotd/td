@@ -39,6 +39,12 @@ type Client struct {
 	rpc Invoker
 }
 
+// Invoker returns Invoker used by this client.
+func (c *Client) Invoker() Invoker {
+	return c.rpc
+}
+
+// NewClient creates new Client.
 func NewClient(invoker Invoker) *Client {
 	return &Client{
 		rpc: invoker,
