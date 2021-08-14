@@ -52,6 +52,10 @@ func (i Intermediate) Write(w io.Writer, b *bin.Buffer) error {
 		return err
 	}
 
+	if err := checkAlign(b, 4); err != nil {
+		return err
+	}
+
 	if err := writeIntermediate(w, b); err != nil {
 		return xerrors.Errorf("write intermediate: %w", err)
 	}
