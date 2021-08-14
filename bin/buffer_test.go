@@ -1,7 +1,6 @@
 package bin
 
 import (
-	"errors"
 	"io"
 	"testing"
 
@@ -61,16 +60,16 @@ func TestBuffer_ResetTo(t *testing.T) {
 	require.Equal(t, []byte{2, 5, 6}, b.Buf)
 }
 
-var testErr = errors.New("test")
+var errTest = testutil.TestError()
 
 type errObject struct{}
 
 func (e errObject) Encode(b *Buffer) error {
-	return testErr
+	return errTest
 }
 
 func (e errObject) Decode(b *Buffer) error {
-	return testErr
+	return errTest
 }
 
 type bytesObject uint32
@@ -87,8 +86,8 @@ func (o bytesObject) Encode(b *Buffer) error {
 func TestBufferEncodeDecode(t *testing.T) {
 	a := require.New(t)
 	b := Buffer{}
-	a.ErrorIs(b.Encode(errObject{}), testErr)
-	a.ErrorIs(b.Decode(errObject{}), testErr)
+	a.ErrorIs(b.Encode(errObject{}), errTest)
+	a.ErrorIs(b.Decode(errObject{}), errTest)
 	a.NoError(b.Encode(bytesObject(1)))
 	a.NoError(b.Decode(bytesObject(1)))
 }

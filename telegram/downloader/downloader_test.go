@@ -17,6 +17,7 @@ import (
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/syncio"
+	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/tg"
 )
 
@@ -29,7 +30,7 @@ type mock struct {
 	redirect  *tg.UploadFileCDNRedirect
 }
 
-var testErr = xerrors.New("test err")
+var testErr = testutil.TestError()
 
 func (m mock) getPart(offset, limit int) []byte {
 	length := len(m.data)

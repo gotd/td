@@ -36,7 +36,7 @@ func encodeString(b []byte, v string) []byte {
 
 var errInvalidLength = errors.New("invalid length")
 
-func decodeString(b []byte) (int, string, error) {
+func decodeString(b []byte) (padding int, v string, err error) {
 	n, v1, err := decodeBytes(b)
 	return n, string(v1), err
 }

@@ -32,7 +32,7 @@ func TestBytesDecodeEncode(t *testing.T) {
 			bytes.Repeat([]byte{1}, 253),
 		} {
 			buf := encodeBytes(nil, b)
-			a.True(len(buf)%4 != 0, "bad align")
+			a.True(len(buf)%4 == 0, "bad align")
 
 			n, v, err := decodeBytes(buf)
 			a.NoError(err)

@@ -27,7 +27,7 @@ func TestStringDecodeEncode(t *testing.T) {
 			strings.Repeat("a", 253),
 		} {
 			buf := encodeString(nil, s)
-			a.True(len(buf)%4 != 0, "bad align")
+			a.True(len(buf)%4 == 0, "bad align")
 
 			n, v, err := decodeString(buf)
 			a.NoError(err)

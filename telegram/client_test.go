@@ -18,13 +18,13 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/rpc"
 	"github.com/gotd/td/internal/tdsync"
+	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
@@ -101,7 +101,7 @@ func mockClient(cb func(mock *tgmock.Mock, client *Client)) func(t *testing.T) {
 }
 
 func TestEnsureErrorIfCantConnect(t *testing.T) {
-	testErr := xerrors.New("test error")
+	testErr := testutil.TestError()
 	dialer := func(ctx context.Context, network, addr string) (net.Conn, error) {
 		return nil, testErr
 	}

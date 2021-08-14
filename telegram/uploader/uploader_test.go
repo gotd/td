@@ -17,6 +17,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/syncio"
+	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/telegram/uploader/source"
 	"github.com/gotd/td/tg"
 )
@@ -40,7 +41,7 @@ func newMockClient(err bool) *mockClient {
 	}
 }
 
-var testErr = xerrors.New("test err")
+var testErr = testutil.TestError()
 
 func (m *mockClient) write(part int, data []byte) error {
 	m.partSizeMux.Lock()
