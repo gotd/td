@@ -2,7 +2,6 @@ package bin
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 	"math"
 )
@@ -45,11 +44,10 @@ func (b *Buffer) Uint32() (uint32, error) {
 
 // Int32 decodes signed 32-bit integer from Buffer.
 func (b *Buffer) Int32() (int32, error) {
-	if len(b.Buf) < Word {
-		return 0, io.ErrUnexpectedEOF
+	v, err := b.Uint32()
+	if err != nil {
+		return 0, err
 	}
-	v := binary.LittleEndian.Uint32(b.Buf)
-	b.Buf = b.Buf[Word:]
 	return int32(v), nil
 }
 
@@ -63,20 +61,6 @@ func (b *Buffer) ConsumeN(target []byte, n int) error {
 	}
 	b.Buf = b.Buf[n:]
 	return nil
-}
-
-// UnexpectedIDErr means that unknown or unexpected type id was decoded.
-type UnexpectedIDErr struct {
-	ID uint32
-}
-
-func (e UnexpectedIDErr) Error() string {
-	return fmt.Sprintf("unexpected id 0x%x", e.ID)
-}
-
-// NewUnexpectedID return new UnexpectedIDErr.
-func NewUnexpectedID(id uint32) error {
-	return &UnexpectedIDErr{ID: id}
 }
 
 // Bool decodes bare boolean from Buffer.
@@ -114,19 +98,20 @@ func (b *Buffer) ConsumeID(id uint32) error {
 
 // VectorHeader decodes vector length from Buffer.
 func (b *Buffer) VectorHeader() (int, error) {
-	id, err := b.PeekID()
+	if err := b.ConsumeID(TypeVector); err != nil {
+		return 0, err
+	}
+	n, err := b.Int()
 	if err != nil {
 		return 0, err
 	}
-	if id != TypeVector {
-		return 0, NewUnexpectedID(id)
+	if n < 0 {
+		return 0, &InvalidLengthError{
+			Length: n,
+			Where:  "vector",
+		}
 	}
-	b.Buf = b.Buf[Word:]
-	n, err := b.Int32()
-	if err != nil {
-		return 0, err
-	}
-	return int(n), nil
+	return n, nil
 }
 
 // String decodes string from Buffer.
@@ -144,8 +129,7 @@ func (b *Buffer) String() (string, error) {
 
 // Bytes decodes byte slice from Buffer.
 //
-// NB: returning value is slice of buffer, it is not safe
-// to retain or modify. User should copy value if needed.
+// NB: returning value is a copy, it's safe to modify it.
 func (b *Buffer) Bytes() ([]byte, error) {
 	n, v, err := decodeBytes(b.Buf)
 	if err != nil {
@@ -155,7 +139,7 @@ func (b *Buffer) Bytes() ([]byte, error) {
 		return nil, io.ErrUnexpectedEOF
 	}
 	b.Buf = b.Buf[n:]
-	return v, nil
+	return append([]byte(nil), v...), nil
 }
 
 // Int decodes integer from Buffer.

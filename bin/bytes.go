@@ -1,7 +1,6 @@
 package bin
 
 import (
-	"errors"
 	"io"
 )
 
@@ -35,21 +34,21 @@ func decodeBytes(b []byte) (n int, v []byte, err error) {
 		if len(b) < 4 {
 			return 0, nil, io.ErrUnexpectedEOF
 		}
-		vLen := uint32(b[1]) | uint32(b[2])<<8 | uint32(b[3])<<16
-		if len(b) < (int(vLen) + 4) {
+		strLen := uint32(b[1]) | uint32(b[2])<<8 | uint32(b[3])<<16
+		if len(b) < (int(strLen) + 4) {
 			return 0, nil, io.ErrUnexpectedEOF
 		}
-		return nearestPaddedValueLength(int(vLen) + 4), b[4 : vLen+4], nil
+		return nearestPaddedValueLength(int(strLen) + 4), b[4 : strLen+4], nil
 	}
-	vLen := b[0]
-	if len(b) < (int(vLen) + 1) {
+	strLen := int(b[0])
+	if len(b) < (strLen + 1) {
 		return 0, nil, io.ErrUnexpectedEOF
 	}
-	if len(b[1:]) < int(vLen) {
-		return 0, nil, io.ErrUnexpectedEOF
+	if strLen > maxSmallStringLength {
+		return 0, nil, &InvalidLengthError{
+			Length: strLen,
+			Where:  "bytes",
+		}
 	}
-	if vLen > maxSmallStringLength {
-		return 0, nil, errors.New("invalid length")
-	}
-	return nearestPaddedValueLength(int(vLen) + 1), b[1 : vLen+1], nil
+	return nearestPaddedValueLength(strLen + 1), b[1 : strLen+1], nil
 }

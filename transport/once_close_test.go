@@ -1,11 +1,12 @@
 package transport
 
 import (
-	"errors"
 	"net"
 	"testing"
 
 	"github.com/stretchr/testify/require"
+
+	"github.com/gotd/td/internal/testutil"
 )
 
 type mockListener struct {
@@ -36,7 +37,7 @@ func Test_onceCloseListener_Close(t *testing.T) {
 	})
 
 	t.Run("With Error", func(t *testing.T) {
-		testErr := errors.New("test error")
+		testErr := testutil.TestError()
 		m := &mockListener{err: testErr}
 		once := onceCloseListener{Listener: m}
 		require.Equal(t, testErr, once.Close())

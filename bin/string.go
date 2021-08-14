@@ -1,9 +1,6 @@
 package bin
 
-import (
-	"errors"
-	"io"
-)
+import "io"
 
 const (
 	// If L <= 253, the serialization contains one byte with the value of L,
@@ -35,7 +32,7 @@ func encodeString(b []byte, v string) []byte {
 	return b
 }
 
-func decodeString(b []byte) (n int, v string, err error) {
+func decodeString(b []byte) (padding int, v string, err error) {
 	if len(b) == 0 {
 		return 0, "", io.ErrUnexpectedEOF
 	}
@@ -49,12 +46,15 @@ func decodeString(b []byte) (n int, v string, err error) {
 		}
 		return nearestPaddedValueLength(int(strLen) + 4), string(b[4 : strLen+4]), nil
 	}
-	strLen := b[0]
-	if len(b) < (int(strLen) + 1) {
+	strLen := int(b[0])
+	if len(b) < (strLen + 1) {
 		return 0, "", io.ErrUnexpectedEOF
 	}
 	if strLen > maxSmallStringLength {
-		return 0, "", errors.New("invalid length")
+		return 0, "", &InvalidLengthError{
+			Length: strLen,
+			Where:  "string",
+		}
 	}
-	return nearestPaddedValueLength(int(strLen) + 1), string(b[1 : strLen+1]), nil
+	return nearestPaddedValueLength(strLen + 1), string(b[1 : strLen+1]), nil
 }

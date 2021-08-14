@@ -1,19 +1,19 @@
 package tgtest
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/tg"
 )
 
 type badEncoder struct{}
 
 func (e badEncoder) Encode(b *bin.Buffer) error {
-	return errors.New("test error")
+	return testutil.TestError()
 }
 
 func TestGenericVector_Encode(t *testing.T) {

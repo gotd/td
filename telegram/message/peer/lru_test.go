@@ -11,6 +11,7 @@ import (
 
 	"github.com/gotd/neo"
 
+	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/tg"
 )
 
@@ -80,7 +81,7 @@ func (m *mockResolver) ResolveDomain(ctx context.Context, domain string) (tg.Inp
 	m.counter++
 
 	if m.returnErr && m.counter == 1 {
-		return nil, xerrors.Errorf("test error: %q", m.phone)
+		return nil, testutil.TestError()
 	}
 
 	if domain != m.domain {
@@ -95,7 +96,7 @@ func (m *mockResolver) ResolvePhone(ctx context.Context, phone string) (tg.Input
 	m.counter++
 
 	if m.returnErr && m.counter == 1 {
-		return nil, xerrors.Errorf("test error: %q", m.phone)
+		return nil, testutil.TestError()
 	}
 
 	if phone != m.phone {
