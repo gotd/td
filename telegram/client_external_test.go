@@ -10,7 +10,6 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/testutil"
@@ -22,6 +21,14 @@ import (
 	"github.com/gotd/td/transport"
 )
 
+func tryConnect(ctx context.Context, opts telegram.Options) error {
+	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, opts)
+	return client.Run(ctx, func(ctx context.Context) error {
+		_, err := client.API().HelpGetNearestDC(ctx)
+		return err
+	})
+}
+
 func testTransportExternal(resolver dcs.Resolver, storage session.Storage) func(t *testing.T) {
 	return func(t *testing.T) {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
@@ -30,19 +37,11 @@ func testTransportExternal(resolver dcs.Resolver, storage session.Storage) func(
 		log := zaptest.NewLogger(t)
 		defer func() { _ = log.Sync() }()
 
-		err := telegram.TestClient(ctx, telegram.Options{
+		require.NoError(t, tryConnect(ctx, telegram.Options{
 			Logger:         log.Named("client"),
 			SessionStorage: storage,
 			Resolver:       resolver,
-		}, func(ctx context.Context, client *telegram.Client) error {
-			if _, err := client.Self(ctx); err != nil {
-				return xerrors.Errorf("self: %w", err)
-			}
-
-			return nil
-		})
-
-		require.NoError(t, err)
+		}))
 	}
 }
 
