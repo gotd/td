@@ -114,14 +114,9 @@ func (b *Buffer) ConsumeID(id uint32) error {
 
 // VectorHeader decodes vector length from Buffer.
 func (b *Buffer) VectorHeader() (int, error) {
-	id, err := b.PeekID()
-	if err != nil {
+	if err := b.ConsumeID(TypeVector); err != nil {
 		return 0, err
 	}
-	if id != TypeVector {
-		return 0, NewUnexpectedID(id)
-	}
-	b.Buf = b.Buf[Word:]
 	n, err := b.Int32()
 	if err != nil {
 		return 0, err
