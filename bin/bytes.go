@@ -50,5 +50,5 @@ func decodeBytes(b []byte) (n int, v []byte, err error) {
 			Where:  "bytes",
 		}
 	}
-	return nearestPaddedValueLength(int(strLen) + 1), b[1 : strLen+1], nil
+	return nearestPaddedValueLength(strLen + 1), b[1 : strLen+1], nil
 }
