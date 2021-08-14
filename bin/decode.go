@@ -71,7 +71,7 @@ type UnexpectedIDErr struct {
 }
 
 func (e UnexpectedIDErr) Error() string {
-	return fmt.Sprintf("unexpected id 0x%x", e.ID)
+	return fmt.Sprintf("unexpected id %#x", e.ID)
 }
 
 // NewUnexpectedID return new UnexpectedIDErr.
