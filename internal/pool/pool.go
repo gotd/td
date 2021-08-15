@@ -13,15 +13,6 @@ import (
 	"github.com/gotd/td/internal/tdsync"
 )
 
-// DCOptions is a Telegram data center connections pool options.
-type DCOptions struct {
-	// Logger is instance of zap.Logger. No logs by default.
-	Logger *zap.Logger
-	// MTProto options for connections.
-	// Opened connection limit to the DC.
-	MaxOpenConnections int64
-}
-
 // DC represents connection pool to one data center.
 type DC struct {
 	id int
@@ -62,6 +53,7 @@ type DC struct {
 func NewDC(ctx context.Context, id int, newConn func() Conn, opts DCOptions) *DC {
 	ctx, cancel := context.WithCancel(ctx)
 
+	opts.setDefaults()
 	return &DC{
 		id:      id,
 		newConn: newConn,
@@ -122,7 +114,7 @@ func (c *DC) dead(r *poolConn, deadErr error) {
 	}
 
 	r.dead.Signal()
-	c.stuck.Signal()
+	c.stuck.Reset()
 
 	c.log.Debug("Connection died",
 		zap.Int64("remaining", remaining),
@@ -213,7 +205,6 @@ retry:
 		)
 		return conn, nil
 	case <-c.stuck.Ready():
-		c.stuck.Reset()
 		c.log.Debug("Some connection dead, try to create new connection, cancel waiting")
 
 		c.freeReq.delete(key)
