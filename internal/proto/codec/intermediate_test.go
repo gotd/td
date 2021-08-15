@@ -27,7 +27,7 @@ func TestIntermediate(t *testing.T) {
 		codec := Intermediate{}
 		t.Run("Read", func(t *testing.T) {
 			var b bin.Buffer
-			b.PutInt((1024+512)*1024 + 10)
+			b.PutInt(maxMessageSize + 10)
 
 			var out bin.Buffer
 			if err := codec.Read(&b, &out); !errors.Is(err, invalidMsgLenErr{}) {
@@ -35,7 +35,7 @@ func TestIntermediate(t *testing.T) {
 			}
 		})
 		t.Run("Write", func(t *testing.T) {
-			buf := make([]byte, 1024*1024*2)
+			buf := make([]byte, maxMessageSize+10)
 
 			if err := codec.Write(nil, &bin.Buffer{Buf: buf}); !errors.Is(err, invalidMsgLenErr{}) {
 				t.Error(err)

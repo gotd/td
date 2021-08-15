@@ -6,30 +6,36 @@ import (
 	"io"
 	"strings"
 	"testing"
+	"testing/iotest"
 
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/testutil"
 )
 
 type codecTest struct {
 	name   string
+	align  int
 	create func() Codec
 }
 
 func codecs() []codecTest {
 	return []codecTest{
-		{"Abridged", func() Codec {
+		{"Abridged", 4, func() Codec {
 			return Abridged{}
 		}},
-		{"Intermediate", func() Codec {
+		{"Intermediate", 4, func() Codec {
 			return Intermediate{}
 		}},
-		{"PaddedIntermediate", func() Codec {
+		{"PaddedIntermediate", 4, func() Codec {
 			return PaddedIntermediate{}
 		}},
-		{"Full", func() Codec {
+		{"Full", 0, func() Codec {
 			return &Full{}
+		}},
+		{"NoHeaderIntermediate", 0, func() Codec {
+			return NoHeader{Codec: Intermediate{}}
 		}},
 	}
 }
@@ -99,38 +105,75 @@ func testBad(c codecTest, p payload) func(t *testing.T) {
 	return func(t *testing.T) {
 		if !p.readTestOnly {
 			t.Run("Write", func(t *testing.T) {
-				a := require.New(t)
 				payload := &bin.Buffer{Buf: []byte(p.testData)}
-				a.Error(c.create().Write(io.Discard, payload))
+				require.Error(t, c.create().Write(io.Discard, payload))
 			})
 		}
 
 		t.Run("Read", func(t *testing.T) {
-			a := require.New(t)
 			reader := bytes.NewBufferString(p.testData)
-			a.Error(c.create().Read(reader, &bin.Buffer{}))
+			require.Error(t, c.create().Read(reader, &bin.Buffer{}))
 		})
 	}
 }
 
 func testHeaderTag(c codecTest) func(t *testing.T) {
+	e := io.ErrClosedPipe
 	return func(t *testing.T) {
-		skipBad := false
-		t.Run("Good tag", func(t *testing.T) {
+		t.Run("GoodTag", func(t *testing.T) {
 			a := require.New(t)
 			buf := bytes.NewBuffer(nil)
 			a.NoError(c.create().WriteHeader(buf))
-			if buf.Len() == 0 {
-				skipBad = true
-			}
 			a.NoError(c.create().ReadHeader(buf))
 		})
 
-		if !skipBad {
-			t.Run("Bad tag", func(t *testing.T) {
-				a := require.New(t)
-				buf := bytes.NewBuffer(nil)
-				a.Error(c.create().ReadHeader(buf))
+		if tagged, ok := c.create().(TaggedCodec); ok {
+			t.Run("ReadError", func(t *testing.T) {
+				r := iotest.ErrReader(e)
+				require.ErrorIs(t, c.create().ReadHeader(r), e)
+			})
+			t.Run("WriteError", func(t *testing.T) {
+				w := testutil.ErrWriter(e)
+				require.ErrorIs(t, c.create().WriteHeader(w), e)
+			})
+			t.Run("BadTag", func(t *testing.T) {
+				tag := tagged.ObfuscatedTag()
+				buf := bytes.NewBuffer(tag)
+				tag[0] = 0
+				require.ErrorIs(t, c.create().ReadHeader(buf), ErrProtocolHeaderMismatch)
+			})
+		}
+	}
+}
+
+func testCodec(c codecTest) func(t *testing.T) {
+	e := io.ErrClosedPipe
+
+	return func(t *testing.T) {
+		t.Run("ReadError", func(t *testing.T) {
+			r := iotest.ErrReader(e)
+			require.ErrorIs(t, c.create().Read(r, &bin.Buffer{}), e)
+		})
+
+		t.Run("WriteError", func(t *testing.T) {
+			w := testutil.ErrWriter(e)
+			require.ErrorIs(t,
+				c.create().Write(
+					w,
+					&bin.Buffer{Buf: make([]byte, 16)},
+				),
+				e,
+			)
+		})
+
+		if c.align != 0 {
+			t.Run("AlignError", func(t *testing.T) {
+				require.Error(t,
+					c.create().Write(
+						io.Discard,
+						&bin.Buffer{Buf: make([]byte, c.align-1)},
+					),
+				)
 			})
 		}
 	}
@@ -148,6 +191,7 @@ func TestCodecs(t *testing.T) {
 			}
 
 			t.Run("Header", testHeaderTag(c))
+			testCodec(c)(t)
 		})
 	}
 }
