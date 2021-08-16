@@ -4,6 +4,7 @@ import (
 	"io"
 	"net"
 
+	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 )
 
@@ -17,9 +18,7 @@ type Listener struct {
 // Listen creates new Listener using given net.Listener.
 // Transport codec will be detected automatically.
 func Listen(listener net.Listener) Listener {
-	return Listener{
-		listener: &onceCloseListener{Listener: listener},
-	}
+	return ListenCodec(nil, listener)
 }
 
 // ListenCodec creates new Listener using given net.Listener.
@@ -41,11 +40,16 @@ func (w wrappedConn) Read(b []byte) (int, error) {
 }
 
 // Accept waits for and returns the next connection to the listener.
-func (l Listener) Accept() (Conn, error) {
+func (l Listener) Accept() (_ Conn, rErr error) {
 	conn, err := l.listener.Accept()
 	if err != nil {
 		return nil, err
 	}
+	defer func() {
+		if rErr != nil {
+			multierr.AppendInto(&rErr, conn.Close())
+		}
+	}()
 
 	// If codec provided explicitly, use it.
 	if l.codec != nil {

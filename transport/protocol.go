@@ -67,7 +67,7 @@ func (p Protocol) Handshake(conn net.Conn) (Conn, error) {
 	}, nil
 }
 
-// Pipe creates a in-memory MTProto connection.
+// Pipe creates an in-memory MTProto connection.
 func (p Protocol) Pipe() (a, b Conn) {
 	p1, p2 := net.Pipe()
 

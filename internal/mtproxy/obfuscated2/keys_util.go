@@ -34,18 +34,21 @@ func generateInit(randSource io.Reader) (init [64]byte, err error) {
 			return
 		}
 
-		if init[0] == 0xef {
+		// Filter some start sequences
+		// See https://github.com/DrKLO/Telegram/blob/master/TMessagesProj/jni/tgnet/Connection.cpp#L531.
+		// See https://github.com/tdlib/td/blob/master/td/mtproto/TcpTransport.cpp#L157-L158.
+		if init[0] == 0xef { // Abridged header
 			continue
 		}
 
 		firstInt := binary.LittleEndian.Uint32(init[0:4])
-		if firstInt == 0x44414548 ||
-			firstInt == 0x54534f50 ||
-			firstInt == 0x20544547 ||
-			firstInt == 0x4954504f ||
-			firstInt == 0x02010316 ||
-			firstInt == 0xdddddddd ||
-			firstInt == 0xeeeeeeee {
+		if firstInt == 0x44414548 || // HEAD
+			firstInt == 0x54534f50 || // POST
+			firstInt == 0x20544547 || // GET
+			firstInt == 0x4954504f || // OPTI
+			firstInt == 0x02010316 || // ????
+			firstInt == 0xdddddddd || // PaddedIntermediate header
+			firstInt == 0xeeeeeeee /* Intermediate header */ {
 			continue
 		}
 
