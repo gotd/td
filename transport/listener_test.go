@@ -107,7 +107,6 @@ func TestListener_Accept(t *testing.T) {
 			} else {
 				a.NoError(err)
 			}
-
 		})
 	}
 

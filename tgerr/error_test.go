@@ -3,10 +3,10 @@ package tgerr_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 )
@@ -52,9 +52,9 @@ func TestHelpers(t *testing.T) {
 		return tgerr.New(169, "GO_1337_METERS_AWAY")
 	}()
 	t.Run("Type", func(t *testing.T) {
-		assert.True(t, tgerr.Is(err, "GO_METERS_AWAY"))
-		assert.True(t, tgerr.Is(err, "FOO", "GO_METERS_AWAY"))
-		assert.False(t, tgerr.Is(err, "NOPE"))
+		require.True(t, tgerr.Is(err, "GO_METERS_AWAY"))
+		require.True(t, tgerr.Is(err, "FOO", "GO_METERS_AWAY"))
+		require.False(t, tgerr.Is(err, "NOPE"))
 		t.Run("AsType", func(t *testing.T) {
 			{
 				rpcErr, ok := tgerr.AsType(err, "NOPE")
@@ -69,9 +69,9 @@ func TestHelpers(t *testing.T) {
 		})
 	})
 	t.Run("Code", func(t *testing.T) {
-		assert.True(t, tgerr.IsCode(err, 169))
-		assert.True(t, tgerr.IsCode(err, 1, 169))
-		assert.False(t, tgerr.IsCode(err, 168))
+		require.True(t, tgerr.IsCode(err, 169))
+		require.True(t, tgerr.IsCode(err, 1, 169))
+		require.False(t, tgerr.IsCode(err, 168))
 	})
 	t.Run("Generated", func(t *testing.T) {
 		// Ensure that code generation works for errors.
@@ -84,5 +84,32 @@ func TestHelpers(t *testing.T) {
 		}()
 		require.True(t, tgerr.Is(err, tg.ErrAccessTokenExpired))
 		require.True(t, tg.IsAccessTokenExpired(err))
+	})
+	t.Run("ErrorType", func(t *testing.T) {
+		tests := []struct {
+			name  string
+			value error
+		}{
+			{"Nil", nil},
+			{"WrongType", testutil.TestError()},
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				a := require.New(t)
+				e := tt.value
+
+				_, ok := tgerr.As(e)
+				a.False(ok)
+
+				_, ok = tgerr.AsType(e, "")
+				a.False(ok)
+
+				_, ok = tgerr.AsFloodWait(e)
+				a.False(ok)
+
+				a.False(tgerr.Is(e, ""))
+				a.False(tgerr.IsCode(e, 0))
+			})
+		}
 	})
 }
