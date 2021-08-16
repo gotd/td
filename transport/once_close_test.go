@@ -9,27 +9,27 @@ import (
 	"github.com/gotd/td/internal/testutil"
 )
 
-type mockListener struct {
+type closeMockListener struct {
 	closed int
 	err    error
 }
 
-func (m *mockListener) Accept() (net.Conn, error) {
+func (m *closeMockListener) Accept() (net.Conn, error) {
 	panic("unexpected call")
 }
 
-func (m *mockListener) Addr() net.Addr {
+func (m *closeMockListener) Addr() net.Addr {
 	panic("unexpected call")
 }
 
-func (m *mockListener) Close() error {
+func (m *closeMockListener) Close() error {
 	m.closed++
 	return m.err
 }
 
 func Test_onceCloseListener_Close(t *testing.T) {
 	t.Run("OK", func(t *testing.T) {
-		m := &mockListener{}
+		m := &closeMockListener{}
 		once := onceCloseListener{Listener: m}
 		require.NoError(t, once.Close())
 		require.NoError(t, once.Close())
@@ -38,7 +38,7 @@ func Test_onceCloseListener_Close(t *testing.T) {
 
 	t.Run("With Error", func(t *testing.T) {
 		testErr := testutil.TestError()
-		m := &mockListener{err: testErr}
+		m := &closeMockListener{err: testErr}
 		once := onceCloseListener{Listener: m}
 		require.Equal(t, testErr, once.Close())
 		require.Equal(t, testErr, once.Close())

@@ -29,6 +29,11 @@ func TestProtocol_Pipe(t *testing.T) {
 	}
 
 	c1, c2 := Intermediate.Pipe()
+	defer func() {
+		a.NoError(c1.Close())
+		a.NoError(c2.Close())
+	}()
+
 	test(c1, c2)
 	test(c2, c1)
 }
