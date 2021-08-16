@@ -7,6 +7,10 @@ ignore:
   - "**/bindata.go"
   # Ignore commands (examples or internal utilities).
   - "cmd/*/*.go"
+  # Ignore examples
+  - "examples/**"
+  # Ignore ruleguard rules
+  - "gorules/**"
   # Ignore testing utilities
   - "telegram/internal/*test/*"
 
