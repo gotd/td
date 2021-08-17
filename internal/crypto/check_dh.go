@@ -36,6 +36,10 @@ func CheckDH(g int, p *big.Int) error {
 		return err
 	}
 
+	return checkPrime(p)
+}
+
+func checkPrime(p *big.Int) error {
 	if !Prime(p) {
 		return xerrors.New("p is not prime number")
 	}

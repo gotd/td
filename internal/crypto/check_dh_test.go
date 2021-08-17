@@ -24,9 +24,19 @@ func TestCheckDH(t *testing.T) {
 	t.Run("WrongG", func(t *testing.T) {
 		require.Error(t, CheckDH(1337, checkGPdhPrime))
 	})
-	t.Run("WrongDivider", func(t *testing.T) {
-		// CheckGP should check that p mod 3 = 2 for g = 3;
-		// We pass p = 4, so p mod 3 = 1.
+	t.Run("TooSmallBits", func(t *testing.T) {
 		require.Error(t, CheckDH(3, big.NewInt(4)))
+	})
+}
+
+func Test_checkPrime(t *testing.T) {
+	t.Run("OK", func(t *testing.T) {
+		require.NoError(t, checkPrime(big.NewInt(5)))
+	})
+	t.Run("PNotPrime", func(t *testing.T) {
+		require.Error(t, checkPrime(big.NewInt(4)))
+	})
+	t.Run("HalfPMinusOneNotPrime", func(t *testing.T) {
+		require.Error(t, checkPrime(big.NewInt(13)))
 	})
 }
