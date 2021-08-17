@@ -162,6 +162,9 @@ Loop:
 
 		dhPrime := big.NewInt(0).SetBytes(innerData.DhPrime)
 		g := big.NewInt(int64(innerData.G))
+		if err := crypto.CheckDH(innerData.G, dhPrime); err != nil {
+			return ClientExchangeResult{}, xerrors.Errorf("check DH params: %w", err)
+		}
 		gA := big.NewInt(0).SetBytes(innerData.GA)
 
 		// 6. Random number b is computed:

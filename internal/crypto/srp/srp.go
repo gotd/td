@@ -178,26 +178,5 @@ func (s SRP) pbkdf2(ph1, salt1 []byte, n int) []byte {
 
 func (s SRP) checkGP(g int, pBytes []byte) error {
 	p := s.bigFromBytes(pBytes)
-
-	// The client is expected to check whether p is a safe 2048-bit prime
-	// (meaning that both p and (p-1)/2 are prime, and that 2^2047 < p < 2^2048)
-	if p.BitLen() != crypto.RSAKeyBits {
-		return xerrors.New("p should be 2^2047 < p < 2^2048")
-	}
-
-	if err := crypto.CheckGP(g, p); err != nil {
-		return err
-	}
-
-	if !crypto.Prime(p) {
-		return xerrors.New("p is not prime number")
-	}
-
-	sub := p.Sub(p, big.NewInt(1))
-	pr := p.Quo(sub, big.NewInt(2))
-	if !crypto.Prime(pr) {
-		return xerrors.New("(p-1)/2 is not prime number")
-	}
-
-	return nil
+	return crypto.CheckDH(g, p)
 }
