@@ -9,6 +9,7 @@ import (
 )
 
 // From Telegram docs example.
+//
 // See https://core.telegram.org/mtproto/auth_key#presenting-proof-of-work-server-authentication.
 var (
 	checkGPdhPrime = func() *big.Int {

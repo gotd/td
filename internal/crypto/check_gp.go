@@ -6,13 +6,13 @@ import (
 	"golang.org/x/xerrors"
 )
 
-// CheckGP checks whether p = dh_prime is a safe 2048-bit prime
-// (meaning that both p and (p-1)/2 are prime, and that 2^2047 < p < 2^2048),
-// and that g generates a cyclic subgroup of prime order (p-1)/2, i.e. is a quadratic residue mod p.
+// CheckGP checks whether g generates a cyclic subgroup of prime order (p-1)/2, i.e. is a quadratic residue mod p.
 // Also check that g is 2, 3, 4, 5, 6 or 7.
 //
 // This function is needed by some Telegram algorithms(Key generation, SRP 2FA).
+//
 // See https://core.telegram.org/mtproto/auth_key.
+//
 // See https://core.telegram.org/api/srp.
 func CheckGP(g int, p *big.Int) error {
 	// Since g is always equal to 2, 3, 4, 5, 6 or 7,

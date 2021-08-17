@@ -18,6 +18,7 @@ const latestTelethonVersion byte = '1'
 // Notice that Telethon does not save tg.Config and server salt.
 //
 // See https://docs.telethon.dev/en/latest/modules/sessions.html#telethon.sessions.string.StringSession.
+//
 // See https://github.com/LonamiWebs/Telethon/blob/master/telethon/sessions/string.py#L29-L46.
 func TelethonSession(hx string) (*Data, error) {
 	if len(hx) < 1 {

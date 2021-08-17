@@ -16,12 +16,18 @@ import (
 //	5 or 6 for g = 7.
 //
 // See https://core.telegram.org/mtproto/auth_key#presenting-proof-of-work-server-authentication.
+//
 // See https://core.telegram.org/api/srp#checking-the-password-with-srp.
+//
 // See https://core.telegram.org/api/end-to-end#sending-a-request.
 func CheckDH(g int, p *big.Int) error {
 	// The client is expected to check whether p is a safe 2048-bit prime
 	// (meaning that both p and (p-1)/2 are prime, and that 2^2047 < p < 2^2048).
-	// FIXME(tdakkota): we check that 2^204
+	// FIXME(tdakkota): we check that 2^2047 <= p < 2^2048
+	// 	but docs says to check 2^2047 < p < 2^2048.
+	//
+	// TDLib check 2^2047 <= too:
+	// https://github.com/tdlib/td/blob/d161323858a782bc500d188b9ae916982526c262/td/mtproto/DhHandshake.cpp#L23
 	if p.BitLen() != RSAKeyBits {
 		return xerrors.New("p should be 2^2047 < p < 2^2048")
 	}
