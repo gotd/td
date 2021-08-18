@@ -93,6 +93,10 @@ func TestConnHandleMessage(t *testing.T) {
 }
 
 func TestConnHandleMessageCorpus(t *testing.T) {
+	if testutil.Race {
+		t.Skip("Skipped")
+	}
+
 	c := &Conn{
 		handler:    newTestHandler(),
 		rpc:        rpc.New(rpc.NopSend, rpc.Options{}),
@@ -102,11 +106,12 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 		gotSession: tdsync.NewReady(),
 	}
 
-	corpusDir := filepath.Join("..", "_fuzz", "handle_message", "corpus")
+	corpusDir := filepath.Join("..", "..", "_fuzz", "handle_message", "corpus")
 	corpus, err := os.ReadDir(corpusDir)
-	if os.IsNotExist(err) || testutil.Race {
-		t.Skip("Skipped")
+	if err != nil {
+		t.Fatal(err)
 	}
+
 	b := &bin.Buffer{}
 	types := tmap.New(
 		tg.TypesMap(),
