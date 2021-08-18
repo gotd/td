@@ -6,6 +6,53 @@ import (
 	"text/template"
 )
 
+var goKeywords = map[string]struct{}{
+	// See https://golang.org/ref/spec#Keywords.
+	"break":       {},
+	"default":     {},
+	"func":        {},
+	"interface":   {},
+	"select":      {},
+	"case":        {},
+	"defer":       {},
+	"go":          {},
+	"map":         {},
+	"struct":      {},
+	"chan":        {},
+	"else":        {},
+	"goto":        {},
+	"package":     {},
+	"switch":      {},
+	"const":       {},
+	"fallthrough": {},
+	"if":          {},
+	"range":       {},
+	"type":        {},
+	"continue":    {},
+	"for":         {},
+	"import":      {},
+	"return":      {},
+	"var":         {},
+
+	// Not really keyword, but unlikely to shadow.
+	// See go/types/universe.go.
+	"append":  {},
+	"cap":     {},
+	"close":   {},
+	"complex": {},
+	"copy":    {},
+	"delete":  {},
+	"imag":    {},
+	"len":     {},
+	"make":    {},
+	"new":     {},
+	"panic":   {},
+	"print":   {},
+	"println": {},
+	"real":    {},
+	"recover": {},
+}
+
 // Funcs returns functions which used in templates.
 func Funcs() template.FuncMap {
 	return template.FuncMap{
@@ -27,6 +74,13 @@ func Funcs() template.FuncMap {
 		},
 		"notEmpty": func(s string) bool {
 			return strings.TrimSpace(s) != ""
+		},
+		"lowerGo": func(input string) string {
+			lower := strings.ToLower(input)
+			if _, ok := goKeywords[lower]; ok {
+				return lower + "_"
+			}
+			return lower
 		},
 	}
 }
