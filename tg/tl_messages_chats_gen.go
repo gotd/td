@@ -157,8 +157,8 @@ func (c *MessagesChats) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.chats#64ff9fd5: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -339,8 +339,8 @@ func (c *MessagesChatsSlice) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.chatsSlice#9cd81144: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)

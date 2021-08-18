@@ -424,8 +424,8 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode poll#86e18161: field answers: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Answers = make([]PollAnswer, 0, headerLen)
+		if headerLen > 0 {
+			p.Answers = make([]PollAnswer, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PollAnswer

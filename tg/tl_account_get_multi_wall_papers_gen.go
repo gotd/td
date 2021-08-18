@@ -157,8 +157,8 @@ func (g *AccountGetMultiWallPapersRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode account.getMultiWallPapers#65ad71dc: field wallpapers: %w", err)
 		}
 
-		if headerLen != 0 {
-			g.Wallpapers = make([]InputWallPaperClass, 0, headerLen)
+		if headerLen > 0 {
+			g.Wallpapers = make([]InputWallPaperClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputWallPaper(b)

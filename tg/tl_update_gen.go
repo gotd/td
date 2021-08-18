@@ -531,8 +531,8 @@ func (u *UpdateDeleteMessages) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateDeleteMessages#a20db0e5: field messages: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Messages = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			u.Messages = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
@@ -2822,8 +2822,8 @@ func (u *UpdateDCOptions) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateDcOptions#8e5e9873: field dc_options: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.DCOptions = make([]DCOption, 0, headerLen)
+		if headerLen > 0 {
+			u.DCOptions = make([]DCOption, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value DCOption
@@ -3323,8 +3323,8 @@ func (u *UpdateServiceNotification) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateServiceNotification#ebe46819: field entities: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Entities = make([]MessageEntityClass, 0, headerLen)
+		if headerLen > 0 {
+			u.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
@@ -3507,8 +3507,8 @@ func (u *UpdatePrivacy) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updatePrivacy#ee3b272a: field rules: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Rules = make([]PrivacyRuleClass, 0, headerLen)
+		if headerLen > 0 {
+			u.Rules = make([]PrivacyRuleClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePrivacyRule(b)
@@ -4563,8 +4563,8 @@ func (u *UpdateReadMessagesContents) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateReadMessagesContents#68c13933: field messages: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Messages = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			u.Messages = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
@@ -5587,8 +5587,8 @@ func (u *UpdateDeleteChannelMessages) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateDeleteChannelMessages#c37521c9: field messages: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Messages = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			u.Messages = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
@@ -6313,8 +6313,8 @@ func (u *UpdateStickerSetsOrder) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateStickerSetsOrder#bb2d201: field order: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Order = make([]int64, 0, headerLen)
+		if headerLen > 0 {
+			u.Order = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
@@ -9623,8 +9623,8 @@ func (u *UpdatePinnedDialogs) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updatePinnedDialogs#fa0f3ca2: field order: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Order = make([]DialogPeerClass, 0, headerLen)
+		if headerLen > 0 {
+			u.Order = make([]DialogPeerClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDialogPeer(b)
@@ -11168,8 +11168,8 @@ func (u *UpdateChannelReadMessagesContents) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateChannelReadMessagesContents#89893b45: field messages: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Messages = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			u.Messages = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
@@ -12209,8 +12209,8 @@ func (u *UpdateFolderPeers) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateFolderPeers#19360dc0: field folder_peers: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.FolderPeers = make([]FolderPeer, 0, headerLen)
+		if headerLen > 0 {
+			u.FolderPeers = make([]FolderPeer, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value FolderPeer
@@ -12539,8 +12539,8 @@ func (u *UpdatePeerLocated) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updatePeerLocated#b4afcfb0: field peers: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Peers = make([]PeerLocatedClass, 0, headerLen)
+		if headerLen > 0 {
+			u.Peers = make([]PeerLocatedClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeerLocated(b)
@@ -12856,8 +12856,8 @@ func (u *UpdateDeleteScheduledMessages) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateDeleteScheduledMessages#90866cee: field messages: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Messages = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			u.Messages = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
@@ -13461,8 +13461,8 @@ func (u *UpdateMessagePollVote) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateMessagePollVote#37f69f0b: field options: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Options = make([][]byte, 0, headerLen)
+		if headerLen > 0 {
+			u.Options = make([][]byte, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
@@ -13821,8 +13821,8 @@ func (u *UpdateDialogFilterOrder) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateDialogFilterOrder#a5d72105: field order: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Order = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			u.Order = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
@@ -15441,8 +15441,8 @@ func (u *UpdatePinnedMessages) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updatePinnedMessages#ed85eab5: field messages: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Messages = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			u.Messages = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
@@ -15715,8 +15715,8 @@ func (u *UpdatePinnedChannelMessages) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updatePinnedChannelMessages#8588878b: field messages: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Messages = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			u.Messages = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
@@ -16047,8 +16047,8 @@ func (u *UpdateGroupCallParticipants) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateGroupCallParticipants#f2ebdb4e: field participants: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Participants = make([]GroupCallParticipant, 0, headerLen)
+		if headerLen > 0 {
+			u.Participants = make([]GroupCallParticipant, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value GroupCallParticipant
@@ -17766,8 +17766,8 @@ func (u *UpdateBotCommands) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateBotCommands#cf7e0873: field commands: %w", err)
 		}
 
-		if headerLen != 0 {
-			u.Commands = make([]BotCommand, 0, headerLen)
+		if headerLen > 0 {
+			u.Commands = make([]BotCommand, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand

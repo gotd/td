@@ -358,8 +358,8 @@ func (d *HelpDeepLinkInfo) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode help.deepLinkInfo#6a4ee832: field entities: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Entities = make([]MessageEntityClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)

@@ -160,8 +160,8 @@ func (g *ChannelsGetChannelsRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode channels.getChannels#a7f6bbb: field id: %w", err)
 		}
 
-		if headerLen != 0 {
-			g.ID = make([]InputChannelClass, 0, headerLen)
+		if headerLen > 0 {
+			g.ID = make([]InputChannelClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputChannel(b)

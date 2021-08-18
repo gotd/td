@@ -171,8 +171,8 @@ func (e *EmojiKeyword) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode emojiKeyword#d5b3b9f9: field emoticons: %w", err)
 		}
 
-		if headerLen != 0 {
-			e.Emoticons = make([]string, 0, headerLen)
+		if headerLen > 0 {
+			e.Emoticons = make([]string, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
@@ -340,8 +340,8 @@ func (e *EmojiKeywordDeleted) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode emojiKeywordDeleted#236df622: field emoticons: %w", err)
 		}
 
-		if headerLen != 0 {
-			e.Emoticons = make([]string, 0, headerLen)
+		if headerLen > 0 {
+			e.Emoticons = make([]string, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()

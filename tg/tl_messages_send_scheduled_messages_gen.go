@@ -176,8 +176,8 @@ func (s *MessagesSendScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.sendScheduledMessages#bd38850a: field id: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.ID = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			s.ID = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()

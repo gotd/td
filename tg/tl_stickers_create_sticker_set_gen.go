@@ -404,8 +404,8 @@ func (c *StickersCreateStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode stickers.createStickerSet#9021ab67: field stickers: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Stickers = make([]InputStickerSetItem, 0, headerLen)
+		if headerLen > 0 {
+			c.Stickers = make([]InputStickerSetItem, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value InputStickerSetItem

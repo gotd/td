@@ -216,8 +216,8 @@ func (c *MessagesChatFull) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.chatFull#e5d7d19c: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -233,8 +233,8 @@ func (c *MessagesChatFull) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.chatFull#e5d7d19c: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

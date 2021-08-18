@@ -652,8 +652,8 @@ func (c *ChatFull) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode chatFull#8a1e2983: field bot_info: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.BotInfo = make([]BotInfo, 0, headerLen)
+		if headerLen > 0 {
+			c.BotInfo = make([]BotInfo, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotInfo
@@ -2190,8 +2190,8 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode channelFull#548c3f93: field bot_info: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.BotInfo = make([]BotInfo, 0, headerLen)
+		if headerLen > 0 {
+			c.BotInfo = make([]BotInfo, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotInfo
@@ -2301,8 +2301,8 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode channelFull#548c3f93: field pending_suggestions: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.PendingSuggestions = make([]string, 0, headerLen)
+		if headerLen > 0 {
+			c.PendingSuggestions = make([]string, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()

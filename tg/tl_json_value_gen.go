@@ -655,8 +655,8 @@ func (j *JSONArray) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode jsonArray#f7444763: field value: %w", err)
 		}
 
-		if headerLen != 0 {
-			j.Value = make([]JSONValueClass, 0, headerLen)
+		if headerLen > 0 {
+			j.Value = make([]JSONValueClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeJSONValue(b)
@@ -802,8 +802,8 @@ func (j *JSONObject) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode jsonObject#99c1d49d: field value: %w", err)
 		}
 
-		if headerLen != 0 {
-			j.Value = make([]JSONObjectValue, 0, headerLen)
+		if headerLen > 0 {
+			j.Value = make([]JSONObjectValue, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value JSONObjectValue

@@ -203,8 +203,8 @@ func (s *MessagesStickerSet) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: field packs: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.Packs = make([]StickerPack, 0, headerLen)
+		if headerLen > 0 {
+			s.Packs = make([]StickerPack, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value StickerPack
@@ -220,8 +220,8 @@ func (s *MessagesStickerSet) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: field documents: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.Documents = make([]DocumentClass, 0, headerLen)
+		if headerLen > 0 {
+			s.Documents = make([]DocumentClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)

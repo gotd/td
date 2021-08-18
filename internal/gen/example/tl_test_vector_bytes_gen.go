@@ -146,8 +146,8 @@ func (t *TestVectorBytes) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode testVectorBytes#a590fb25: field value: %w", err)
 		}
 
-		if headerLen != 0 {
-			t.Value = make([][]byte, 0, headerLen)
+		if headerLen > 0 {
+			t.Value = make([][]byte, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()

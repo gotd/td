@@ -156,8 +156,8 @@ func (g *GetUpdatesResp) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode getUpdatesResp#300bb5e1: field updates: %w", err)
 		}
 
-		if headerLen != 0 {
-			g.Updates = make([]AbstractMessageClass, 0, headerLen)
+		if headerLen > 0 {
+			g.Updates = make([]AbstractMessageClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeAbstractMessage(b)

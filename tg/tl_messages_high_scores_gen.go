@@ -179,8 +179,8 @@ func (h *MessagesHighScores) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.highScores#9a3bfd99: field scores: %w", err)
 		}
 
-		if headerLen != 0 {
-			h.Scores = make([]HighScore, 0, headerLen)
+		if headerLen > 0 {
+			h.Scores = make([]HighScore, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value HighScore
@@ -196,8 +196,8 @@ func (h *MessagesHighScores) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.highScores#9a3bfd99: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			h.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			h.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

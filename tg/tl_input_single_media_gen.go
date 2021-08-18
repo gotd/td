@@ -281,8 +281,8 @@ func (i *InputSingleMedia) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputSingleMedia#1cc6e91f: field entities: %w", err)
 		}
 
-		if headerLen != 0 {
-			i.Entities = make([]MessageEntityClass, 0, headerLen)
+		if headerLen > 0 {
+			i.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)

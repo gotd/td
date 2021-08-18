@@ -149,8 +149,8 @@ func (a *AccountAuthorizations) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode account.authorizations#1250abde: field authorizations: %w", err)
 		}
 
-		if headerLen != 0 {
-			a.Authorizations = make([]Authorization, 0, headerLen)
+		if headerLen > 0 {
+			a.Authorizations = make([]Authorization, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value Authorization

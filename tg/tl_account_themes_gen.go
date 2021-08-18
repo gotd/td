@@ -278,8 +278,8 @@ func (t *AccountThemes) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode account.themes#7f676421: field themes: %w", err)
 		}
 
-		if headerLen != 0 {
-			t.Themes = make([]Theme, 0, headerLen)
+		if headerLen > 0 {
+			t.Themes = make([]Theme, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value Theme

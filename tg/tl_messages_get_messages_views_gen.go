@@ -196,8 +196,8 @@ func (g *MessagesGetMessagesViewsRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.getMessagesViews#5784d3e1: field id: %w", err)
 		}
 
-		if headerLen != 0 {
-			g.ID = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			g.ID = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()

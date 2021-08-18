@@ -273,8 +273,8 @@ func (v *MessagesVotesList) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.votesList#823f649: field votes: %w", err)
 		}
 
-		if headerLen != 0 {
-			v.Votes = make([]MessageUserVoteClass, 0, headerLen)
+		if headerLen > 0 {
+			v.Votes = make([]MessageUserVoteClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageUserVote(b)
@@ -290,8 +290,8 @@ func (v *MessagesVotesList) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.votesList#823f649: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			v.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			v.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

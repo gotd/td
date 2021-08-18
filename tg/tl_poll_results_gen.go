@@ -398,8 +398,8 @@ func (p *PollResults) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pollResults#badcc1a3: field results: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Results = make([]PollAnswerVoters, 0, headerLen)
+		if headerLen > 0 {
+			p.Results = make([]PollAnswerVoters, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PollAnswerVoters
@@ -422,8 +422,8 @@ func (p *PollResults) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pollResults#badcc1a3: field recent_voters: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.RecentVoters = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			p.RecentVoters = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
@@ -446,8 +446,8 @@ func (p *PollResults) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pollResults#badcc1a3: field solution_entities: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.SolutionEntities = make([]MessageEntityClass, 0, headerLen)
+		if headerLen > 0 {
+			p.SolutionEntities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)

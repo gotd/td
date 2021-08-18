@@ -359,8 +359,8 @@ func (d *MessagesDiscussionMessage) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field messages: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Messages = make([]MessageClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Messages = make([]MessageClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
@@ -397,8 +397,8 @@ func (d *MessagesDiscussionMessage) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -414,8 +414,8 @@ func (d *MessagesDiscussionMessage) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

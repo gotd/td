@@ -241,8 +241,8 @@ func (a *AccountAcceptAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field value_hashes: %w", err)
 		}
 
-		if headerLen != 0 {
-			a.ValueHashes = make([]SecureValueHash, 0, headerLen)
+		if headerLen > 0 {
+			a.ValueHashes = make([]SecureValueHash, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value SecureValueHash

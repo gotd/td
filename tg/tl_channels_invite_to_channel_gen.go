@@ -191,8 +191,8 @@ func (i *ChannelsInviteToChannelRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode channels.inviteToChannel#199f3a6c: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			i.Users = make([]InputUserClass, 0, headerLen)
+		if headerLen > 0 {
+			i.Users = make([]InputUserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)

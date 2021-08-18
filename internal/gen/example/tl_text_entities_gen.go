@@ -148,8 +148,8 @@ func (t *TextEntities) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode textEntities#cf89c258: field entities: %w", err)
 		}
 
-		if headerLen != 0 {
-			t.Entities = make([]TextEntity, 0, headerLen)
+		if headerLen > 0 {
+			t.Entities = make([]TextEntity, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value TextEntity

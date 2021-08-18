@@ -1331,8 +1331,8 @@ func (c *Config) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode config#330b4067: field dc_options: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.DCOptions = make([]DCOption, 0, headerLen)
+		if headerLen > 0 {
+			c.DCOptions = make([]DCOption, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value DCOption

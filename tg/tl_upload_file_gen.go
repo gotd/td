@@ -448,8 +448,8 @@ func (f *UploadFileCDNRedirect) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode upload.fileCdnRedirect#f18cda44: field file_hashes: %w", err)
 		}
 
-		if headerLen != 0 {
-			f.FileHashes = make([]FileHash, 0, headerLen)
+		if headerLen > 0 {
+			f.FileHashes = make([]FileHash, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value FileHash

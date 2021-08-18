@@ -179,8 +179,8 @@ func (w *AccountWebAuthorizations) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode account.webAuthorizations#ed56c9fc: field authorizations: %w", err)
 		}
 
-		if headerLen != 0 {
-			w.Authorizations = make([]WebAuthorization, 0, headerLen)
+		if headerLen > 0 {
+			w.Authorizations = make([]WebAuthorization, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value WebAuthorization
@@ -196,8 +196,8 @@ func (w *AccountWebAuthorizations) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode account.webAuthorizations#ed56c9fc: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			w.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			w.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

@@ -277,8 +277,8 @@ func (d *DecryptedMessageActionReadMessages) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode decryptedMessageActionReadMessages#c4f40be: field random_ids: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.RandomIDs = make([]int64, 0, headerLen)
+		if headerLen > 0 {
+			d.RandomIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
@@ -421,8 +421,8 @@ func (d *DecryptedMessageActionDeleteMessages) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode decryptedMessageActionDeleteMessages#65614304: field random_ids: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.RandomIDs = make([]int64, 0, headerLen)
+		if headerLen > 0 {
+			d.RandomIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
@@ -565,8 +565,8 @@ func (d *DecryptedMessageActionScreenshotMessages) DecodeBare(b *bin.Buffer) err
 			return fmt.Errorf("unable to decode decryptedMessageActionScreenshotMessages#8ac1f475: field random_ids: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.RandomIDs = make([]int64, 0, headerLen)
+		if headerLen > 0 {
+			d.RandomIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()

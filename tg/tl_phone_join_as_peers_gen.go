@@ -216,8 +216,8 @@ func (j *PhoneJoinAsPeers) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode phone.joinAsPeers#afe5623f: field peers: %w", err)
 		}
 
-		if headerLen != 0 {
-			j.Peers = make([]PeerClass, 0, headerLen)
+		if headerLen > 0 {
+			j.Peers = make([]PeerClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeer(b)
@@ -233,8 +233,8 @@ func (j *PhoneJoinAsPeers) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode phone.joinAsPeers#afe5623f: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			j.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			j.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -250,8 +250,8 @@ func (j *PhoneJoinAsPeers) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode phone.joinAsPeers#afe5623f: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			j.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			j.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

@@ -234,8 +234,8 @@ func (g *PhoneGetGroupParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field ids: %w", err)
 		}
 
-		if headerLen != 0 {
-			g.IDs = make([]InputPeerClass, 0, headerLen)
+		if headerLen > 0 {
+			g.IDs = make([]InputPeerClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPeer(b)
@@ -251,8 +251,8 @@ func (g *PhoneGetGroupParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field sources: %w", err)
 		}
 
-		if headerLen != 0 {
-			g.Sources = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			g.Sources = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()

@@ -295,8 +295,8 @@ func (t *HelpTermsOfService) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode help.termsOfService#780a0310: field entities: %w", err)
 		}
 
-		if headerLen != 0 {
-			t.Entities = make([]MessageEntityClass, 0, headerLen)
+		if headerLen > 0 {
+			t.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)

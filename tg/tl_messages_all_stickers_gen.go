@@ -278,8 +278,8 @@ func (a *MessagesAllStickers) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.allStickers#edfd405f: field sets: %w", err)
 		}
 
-		if headerLen != 0 {
-			a.Sets = make([]StickerSet, 0, headerLen)
+		if headerLen > 0 {
+			a.Sets = make([]StickerSet, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value StickerSet

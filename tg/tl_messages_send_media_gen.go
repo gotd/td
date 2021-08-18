@@ -538,8 +538,8 @@ func (s *MessagesSendMediaRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field entities: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.Entities = make([]MessageEntityClass, 0, headerLen)
+		if headerLen > 0 {
+			s.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)

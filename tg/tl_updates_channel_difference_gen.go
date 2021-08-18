@@ -574,8 +574,8 @@ func (c *UpdatesChannelDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field messages: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Messages = make([]MessageClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Messages = make([]MessageClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
@@ -591,8 +591,8 @@ func (c *UpdatesChannelDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -608,8 +608,8 @@ func (c *UpdatesChannelDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
@@ -975,8 +975,8 @@ func (c *UpdatesChannelDifference) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field new_messages: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.NewMessages = make([]MessageClass, 0, headerLen)
+		if headerLen > 0 {
+			c.NewMessages = make([]MessageClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
@@ -992,8 +992,8 @@ func (c *UpdatesChannelDifference) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field other_updates: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.OtherUpdates = make([]UpdateClass, 0, headerLen)
+		if headerLen > 0 {
+			c.OtherUpdates = make([]UpdateClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUpdate(b)
@@ -1009,8 +1009,8 @@ func (c *UpdatesChannelDifference) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -1026,8 +1026,8 @@ func (c *UpdatesChannelDifference) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

@@ -1195,8 +1195,8 @@ func (s *SecureValueErrorFiles) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode secureValueErrorFiles#666220e9: field file_hash: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.FileHash = make([][]byte, 0, headerLen)
+		if headerLen > 0 {
+			s.FileHash = make([][]byte, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
@@ -1797,8 +1797,8 @@ func (s *SecureValueErrorTranslationFiles) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode secureValueErrorTranslationFiles#34636dd8: field file_hash: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.FileHash = make([][]byte, 0, headerLen)
+		if headerLen > 0 {
+			s.FileHash = make([][]byte, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()

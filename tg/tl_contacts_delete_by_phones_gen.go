@@ -147,8 +147,8 @@ func (d *ContactsDeleteByPhonesRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode contacts.deleteByPhones#1013fd9e: field phones: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Phones = make([]string, 0, headerLen)
+		if headerLen > 0 {
+			d.Phones = make([]string, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()

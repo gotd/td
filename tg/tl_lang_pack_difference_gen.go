@@ -229,8 +229,8 @@ func (l *LangPackDifference) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode langPackDifference#f385c1f6: field strings: %w", err)
 		}
 
-		if headerLen != 0 {
-			l.Strings = make([]LangPackStringClass, 0, headerLen)
+		if headerLen > 0 {
+			l.Strings = make([]LangPackStringClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeLangPackString(b)

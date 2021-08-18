@@ -173,8 +173,8 @@ func (b *PaymentsBankCardData) DecodeBare(buf *bin.Buffer) error {
 			return fmt.Errorf("unable to decode payments.bankCardData#3e24e573: field open_urls: %w", err)
 		}
 
-		if headerLen != 0 {
-			b.OpenURLs = make([]BankCardOpenURL, 0, headerLen)
+		if headerLen > 0 {
+			b.OpenURLs = make([]BankCardOpenURL, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value BankCardOpenURL

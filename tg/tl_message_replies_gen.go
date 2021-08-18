@@ -406,8 +406,8 @@ func (m *MessageReplies) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messageReplies#4128faac: field recent_repliers: %w", err)
 		}
 
-		if headerLen != 0 {
-			m.RecentRepliers = make([]PeerClass, 0, headerLen)
+		if headerLen > 0 {
+			m.RecentRepliers = make([]PeerClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeer(b)

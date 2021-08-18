@@ -144,8 +144,8 @@ func (vec *MessagesSearchCounterVector) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode Vector<messages.SearchCounter>: field Elems: %w", err)
 		}
 
-		if headerLen != 0 {
-			vec.Elems = make([]MessagesSearchCounter, 0, headerLen)
+		if headerLen > 0 {
+			vec.Elems = make([]MessagesSearchCounter, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value MessagesSearchCounter

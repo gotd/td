@@ -496,8 +496,8 @@ func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode help.promoData#8c39793f: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -513,8 +513,8 @@ func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode help.promoData#8c39793f: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

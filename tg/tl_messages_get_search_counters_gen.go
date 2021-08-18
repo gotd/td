@@ -190,8 +190,8 @@ func (g *MessagesGetSearchCountersRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.getSearchCounters#732eef00: field filters: %w", err)
 		}
 
-		if headerLen != 0 {
-			g.Filters = make([]MessagesFilterClass, 0, headerLen)
+		if headerLen > 0 {
+			g.Filters = make([]MessagesFilterClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessagesFilter(b)

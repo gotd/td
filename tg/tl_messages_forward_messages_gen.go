@@ -369,8 +369,8 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: field id: %w", err)
 		}
 
-		if headerLen != 0 {
-			f.ID = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			f.ID = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
@@ -386,8 +386,8 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: field random_id: %w", err)
 		}
 
-		if headerLen != 0 {
-			f.RandomID = make([]int64, 0, headerLen)
+		if headerLen > 0 {
+			f.RandomID = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()

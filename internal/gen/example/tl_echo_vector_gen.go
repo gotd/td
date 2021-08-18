@@ -146,8 +146,8 @@ func (e *EchoVectorRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode echoVector#d4785939: field ids: %w", err)
 		}
 
-		if headerLen != 0 {
-			e.IDs = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			e.IDs = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()

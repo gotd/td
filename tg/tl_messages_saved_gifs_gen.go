@@ -286,8 +286,8 @@ func (s *MessagesSavedGifs) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.savedGifs#2e0709a5: field gifs: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.Gifs = make([]DocumentClass, 0, headerLen)
+		if headerLen > 0 {
+			s.Gifs = make([]DocumentClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)

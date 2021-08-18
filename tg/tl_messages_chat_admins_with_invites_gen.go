@@ -178,8 +178,8 @@ func (c *MessagesChatAdminsWithInvites) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.chatAdminsWithInvites#b69b72d7: field admins: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Admins = make([]ChatAdminWithInvites, 0, headerLen)
+		if headerLen > 0 {
+			c.Admins = make([]ChatAdminWithInvites, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value ChatAdminWithInvites
@@ -195,8 +195,8 @@ func (c *MessagesChatAdminsWithInvites) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.chatAdminsWithInvites#b69b72d7: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

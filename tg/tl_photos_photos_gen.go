@@ -187,8 +187,8 @@ func (p *PhotosPhotos) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode photos.photos#8dca6aa5: field photos: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Photos = make([]PhotoClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Photos = make([]PhotoClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePhoto(b)
@@ -204,8 +204,8 @@ func (p *PhotosPhotos) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode photos.photos#8dca6aa5: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
@@ -413,8 +413,8 @@ func (p *PhotosPhotosSlice) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode photos.photosSlice#15051f54: field photos: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Photos = make([]PhotoClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Photos = make([]PhotoClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePhoto(b)
@@ -430,8 +430,8 @@ func (p *PhotosPhotosSlice) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode photos.photosSlice#15051f54: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

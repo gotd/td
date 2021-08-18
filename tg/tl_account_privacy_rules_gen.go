@@ -217,8 +217,8 @@ func (p *AccountPrivacyRules) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode account.privacyRules#50a04e45: field rules: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Rules = make([]PrivacyRuleClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Rules = make([]PrivacyRuleClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePrivacyRule(b)
@@ -234,8 +234,8 @@ func (p *AccountPrivacyRules) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode account.privacyRules#50a04e45: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -251,8 +251,8 @@ func (p *AccountPrivacyRules) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode account.privacyRules#50a04e45: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

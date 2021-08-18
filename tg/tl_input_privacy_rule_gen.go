@@ -361,8 +361,8 @@ func (i *InputPrivacyValueAllowUsers) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputPrivacyValueAllowUsers#131cc67f: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			i.Users = make([]InputUserClass, 0, headerLen)
+		if headerLen > 0 {
+			i.Users = make([]InputUserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
@@ -720,8 +720,8 @@ func (i *InputPrivacyValueDisallowUsers) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputPrivacyValueDisallowUsers#90110467: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			i.Users = make([]InputUserClass, 0, headerLen)
+		if headerLen > 0 {
+			i.Users = make([]InputUserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
@@ -865,8 +865,8 @@ func (i *InputPrivacyValueAllowChatParticipants) DecodeBare(b *bin.Buffer) error
 			return fmt.Errorf("unable to decode inputPrivacyValueAllowChatParticipants#4c81c1ba: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			i.Chats = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			i.Chats = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
@@ -1010,8 +1010,8 @@ func (i *InputPrivacyValueDisallowChatParticipants) DecodeBare(b *bin.Buffer) er
 			return fmt.Errorf("unable to decode inputPrivacyValueDisallowChatParticipants#d82363af: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			i.Chats = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			i.Chats = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()

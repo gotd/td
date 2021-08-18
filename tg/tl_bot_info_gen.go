@@ -197,8 +197,8 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 			return fmt.Errorf("unable to decode botInfo#98e81d3a: field commands: %w", err)
 		}
 
-		if headerLen != 0 {
-			b.Commands = make([]BotCommand, 0, headerLen)
+		if headerLen > 0 {
+			b.Commands = make([]BotCommand, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand

@@ -209,8 +209,8 @@ func (a *ChannelsAdminLogResults) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode channels.adminLogResults#ed8af74d: field events: %w", err)
 		}
 
-		if headerLen != 0 {
-			a.Events = make([]ChannelAdminLogEvent, 0, headerLen)
+		if headerLen > 0 {
+			a.Events = make([]ChannelAdminLogEvent, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value ChannelAdminLogEvent
@@ -226,8 +226,8 @@ func (a *ChannelsAdminLogResults) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode channels.adminLogResults#ed8af74d: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			a.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			a.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -243,8 +243,8 @@ func (a *ChannelsAdminLogResults) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode channels.adminLogResults#ed8af74d: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			a.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			a.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

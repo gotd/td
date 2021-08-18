@@ -255,8 +255,8 @@ func (g *GroupCallParticipantVideo) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: field source_groups: %w", err)
 		}
 
-		if headerLen != 0 {
-			g.SourceGroups = make([]GroupCallParticipantVideoSourceGroup, 0, headerLen)
+		if headerLen > 0 {
+			g.SourceGroups = make([]GroupCallParticipantVideoSourceGroup, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value GroupCallParticipantVideoSourceGroup

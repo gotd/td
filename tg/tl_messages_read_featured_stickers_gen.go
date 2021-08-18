@@ -147,8 +147,8 @@ func (r *MessagesReadFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.readFeaturedStickers#5b118126: field id: %w", err)
 		}
 
-		if headerLen != 0 {
-			r.ID = make([]int64, 0, headerLen)
+		if headerLen > 0 {
+			r.ID = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()

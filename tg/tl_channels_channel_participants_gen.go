@@ -241,8 +241,8 @@ func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field participants: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Participants = make([]ChannelParticipantClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Participants = make([]ChannelParticipantClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChannelParticipant(b)
@@ -258,8 +258,8 @@ func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -275,8 +275,8 @@ func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

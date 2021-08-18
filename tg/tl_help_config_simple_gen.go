@@ -196,8 +196,8 @@ func (c *HelpConfigSimple) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode help.configSimple#5a592a6c: field rules: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Rules = make([]AccessPointRule, 0, headerLen)
+		if headerLen > 0 {
+			c.Rules = make([]AccessPointRule, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value AccessPointRule

@@ -194,8 +194,8 @@ func (f *FutureSalts) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode future_salts#ae500895: field salts: %w", err)
 		}
 
-		if headerLen != 0 {
-			f.Salts = make([]FutureSalt, 0, headerLen)
+		if headerLen > 0 {
+			f.Salts = make([]FutureSalt, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value FutureSalt

@@ -216,8 +216,8 @@ func (r *ResPQ) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode resPQ#5162463: field server_public_key_fingerprints: %w", err)
 		}
 
-		if headerLen != 0 {
-			r.ServerPublicKeyFingerprints = make([]int64, 0, headerLen)
+		if headerLen > 0 {
+			r.ServerPublicKeyFingerprints = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()

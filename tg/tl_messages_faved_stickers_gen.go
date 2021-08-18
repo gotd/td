@@ -308,8 +308,8 @@ func (f *MessagesFavedStickers) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.favedStickers#f37f2f16: field packs: %w", err)
 		}
 
-		if headerLen != 0 {
-			f.Packs = make([]StickerPack, 0, headerLen)
+		if headerLen > 0 {
+			f.Packs = make([]StickerPack, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value StickerPack
@@ -325,8 +325,8 @@ func (f *MessagesFavedStickers) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.favedStickers#f37f2f16: field stickers: %w", err)
 		}
 
-		if headerLen != 0 {
-			f.Stickers = make([]DocumentClass, 0, headerLen)
+		if headerLen > 0 {
+			f.Stickers = make([]DocumentClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)

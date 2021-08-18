@@ -552,8 +552,8 @@ func (c *ChatInvite) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Participants = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			c.Participants = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

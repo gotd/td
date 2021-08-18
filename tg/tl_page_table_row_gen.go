@@ -149,8 +149,8 @@ func (p *PageTableRow) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pageTableRow#e0c0c5e5: field cells: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Cells = make([]PageTableCell, 0, headerLen)
+		if headerLen > 0 {
+			p.Cells = make([]PageTableCell, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PageTableCell

@@ -249,8 +249,8 @@ func (c *HelpCountryCode) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode help.countryCode#4203c5ef: field prefixes: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Prefixes = make([]string, 0, headerLen)
+		if headerLen > 0 {
+			c.Prefixes = make([]string, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
@@ -266,8 +266,8 @@ func (c *HelpCountryCode) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode help.countryCode#4203c5ef: field patterns: %w", err)
 		}
 
-		if headerLen != 0 {
-			c.Patterns = make([]string, 0, headerLen)
+		if headerLen > 0 {
+			c.Patterns = make([]string, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()

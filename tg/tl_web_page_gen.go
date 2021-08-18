@@ -1172,8 +1172,8 @@ func (w *WebPage) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode webPage#e89c45b2: field attributes: %w", err)
 		}
 
-		if headerLen != 0 {
-			w.Attributes = make([]WebPageAttributeTheme, 0, headerLen)
+		if headerLen > 0 {
+			w.Attributes = make([]WebPageAttributeTheme, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value WebPageAttributeTheme

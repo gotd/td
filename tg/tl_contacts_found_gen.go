@@ -247,8 +247,8 @@ func (f *ContactsFound) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode contacts.found#b3134d9d: field my_results: %w", err)
 		}
 
-		if headerLen != 0 {
-			f.MyResults = make([]PeerClass, 0, headerLen)
+		if headerLen > 0 {
+			f.MyResults = make([]PeerClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeer(b)
@@ -264,8 +264,8 @@ func (f *ContactsFound) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode contacts.found#b3134d9d: field results: %w", err)
 		}
 
-		if headerLen != 0 {
-			f.Results = make([]PeerClass, 0, headerLen)
+		if headerLen > 0 {
+			f.Results = make([]PeerClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeer(b)
@@ -281,8 +281,8 @@ func (f *ContactsFound) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode contacts.found#b3134d9d: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			f.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			f.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -298,8 +298,8 @@ func (f *ContactsFound) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode contacts.found#b3134d9d: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			f.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			f.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

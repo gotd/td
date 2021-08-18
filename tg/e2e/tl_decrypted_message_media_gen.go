@@ -2486,8 +2486,8 @@ func (d *DecryptedMessageMediaExternalDocument) DecodeBare(b *bin.Buffer) error 
 			return fmt.Errorf("unable to decode decryptedMessageMediaExternalDocument#fa95b0dd: field attributes: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Attributes = make([]DocumentAttributeClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Attributes = make([]DocumentAttributeClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
@@ -3519,8 +3519,8 @@ func (d *DecryptedMessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field attributes: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Attributes = make([]DocumentAttributeClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Attributes = make([]DocumentAttributeClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)

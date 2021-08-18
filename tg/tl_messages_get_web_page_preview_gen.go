@@ -224,8 +224,8 @@ func (g *MessagesGetWebPagePreviewRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.getWebPagePreview#8b68b0cc: field entities: %w", err)
 		}
 
-		if headerLen != 0 {
-			g.Entities = make([]MessageEntityClass, 0, headerLen)
+		if headerLen > 0 {
+			g.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)

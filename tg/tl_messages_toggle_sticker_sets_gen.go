@@ -269,8 +269,8 @@ func (t *MessagesToggleStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: field stickersets: %w", err)
 		}
 
-		if headerLen != 0 {
-			t.Stickersets = make([]InputStickerSetClass, 0, headerLen)
+		if headerLen > 0 {
+			t.Stickersets = make([]InputStickerSetClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputStickerSet(b)

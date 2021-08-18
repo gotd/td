@@ -1583,8 +1583,8 @@ func (p *PhoneCall) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode phoneCall#8742ae7f: field connections: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Connections = make([]PhoneConnectionClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Connections = make([]PhoneConnectionClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePhoneConnection(b)

@@ -363,8 +363,8 @@ func (g *ChannelsGetAdminLogRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: field admins: %w", err)
 		}
 
-		if headerLen != 0 {
-			g.Admins = make([]InputUserClass, 0, headerLen)
+		if headerLen > 0 {
+			g.Admins = make([]InputUserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)

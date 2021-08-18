@@ -180,8 +180,8 @@ func (e *MessagesExportedChatInvite) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.exportedChatInvite#1871be50: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			e.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			e.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
@@ -382,8 +382,8 @@ func (e *MessagesExportedChatInviteReplaced) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.exportedChatInviteReplaced#222600ef: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			e.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			e.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

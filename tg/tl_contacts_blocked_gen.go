@@ -209,8 +209,8 @@ func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
 			return fmt.Errorf("unable to decode contacts.blocked#ade1591: field blocked: %w", err)
 		}
 
-		if headerLen != 0 {
-			b.Blocked = make([]PeerBlocked, 0, headerLen)
+		if headerLen > 0 {
+			b.Blocked = make([]PeerBlocked, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PeerBlocked
@@ -226,8 +226,8 @@ func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
 			return fmt.Errorf("unable to decode contacts.blocked#ade1591: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			b.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			b.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(buf)
@@ -243,8 +243,8 @@ func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
 			return fmt.Errorf("unable to decode contacts.blocked#ade1591: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			b.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			b.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(buf)
@@ -474,8 +474,8 @@ func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
 			return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field blocked: %w", err)
 		}
 
-		if headerLen != 0 {
-			b.Blocked = make([]PeerBlocked, 0, headerLen)
+		if headerLen > 0 {
+			b.Blocked = make([]PeerBlocked, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PeerBlocked
@@ -491,8 +491,8 @@ func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
 			return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			b.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			b.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(buf)
@@ -508,8 +508,8 @@ func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
 			return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			b.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			b.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(buf)

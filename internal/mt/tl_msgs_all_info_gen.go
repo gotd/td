@@ -161,8 +161,8 @@ func (m *MsgsAllInfo) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode msgs_all_info#8cc0d131: field msg_ids: %w", err)
 		}
 
-		if headerLen != 0 {
-			m.MsgIDs = make([]int64, 0, headerLen)
+		if headerLen > 0 {
+			m.MsgIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()

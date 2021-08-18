@@ -361,8 +361,8 @@ func (s *MessagesSetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field results: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.Results = make([]InputBotInlineResultClass, 0, headerLen)
+		if headerLen > 0 {
+			s.Results = make([]InputBotInlineResultClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputBotInlineResult(b)

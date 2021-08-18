@@ -369,8 +369,8 @@ func (i *InputMediaUploadedPhoto) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: field stickers: %w", err)
 		}
 
-		if headerLen != 0 {
-			i.Stickers = make([]InputDocumentClass, 0, headerLen)
+		if headerLen > 0 {
+			i.Stickers = make([]InputDocumentClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputDocument(b)
@@ -1349,8 +1349,8 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field attributes: %w", err)
 		}
 
-		if headerLen != 0 {
-			i.Attributes = make([]DocumentAttributeClass, 0, headerLen)
+		if headerLen > 0 {
+			i.Attributes = make([]DocumentAttributeClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
@@ -1366,8 +1366,8 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field stickers: %w", err)
 		}
 
-		if headerLen != 0 {
-			i.Stickers = make([]InputDocumentClass, 0, headerLen)
+		if headerLen > 0 {
+			i.Stickers = make([]InputDocumentClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputDocument(b)
@@ -3394,8 +3394,8 @@ func (i *InputMediaPoll) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field correct_answers: %w", err)
 		}
 
-		if headerLen != 0 {
-			i.CorrectAnswers = make([][]byte, 0, headerLen)
+		if headerLen > 0 {
+			i.CorrectAnswers = make([][]byte, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
@@ -3418,8 +3418,8 @@ func (i *InputMediaPoll) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field solution_entities: %w", err)
 		}
 
-		if headerLen != 0 {
-			i.SolutionEntities = make([]MessageEntityClass, 0, headerLen)
+		if headerLen > 0 {
+			i.SolutionEntities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)

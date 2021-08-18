@@ -247,8 +247,8 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: field dialogs: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Dialogs = make([]DialogClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Dialogs = make([]DialogClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDialog(b)
@@ -264,8 +264,8 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: field messages: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Messages = make([]MessageClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Messages = make([]MessageClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
@@ -281,8 +281,8 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -298,8 +298,8 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
@@ -567,8 +567,8 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field dialogs: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Dialogs = make([]DialogClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Dialogs = make([]DialogClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDialog(b)
@@ -584,8 +584,8 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field messages: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Messages = make([]MessageClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Messages = make([]MessageClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
@@ -601,8 +601,8 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field chats: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Chats = make([]ChatClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -618,8 +618,8 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field users: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.Users = make([]UserClass, 0, headerLen)
+		if headerLen > 0 {
+			d.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

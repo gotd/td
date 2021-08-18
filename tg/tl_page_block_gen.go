@@ -1637,8 +1637,8 @@ func (p *PageBlockList) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pageBlockList#e4e88011: field items: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Items = make([]PageListItemClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Items = make([]PageListItemClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageListItem(b)
@@ -3335,8 +3335,8 @@ func (p *PageBlockEmbedPost) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pageBlockEmbedPost#f259a80b: field blocks: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Blocks = make([]PageBlockClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Blocks = make([]PageBlockClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
@@ -3514,8 +3514,8 @@ func (p *PageBlockCollage) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pageBlockCollage#65a0fa4d: field items: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Items = make([]PageBlockClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Items = make([]PageBlockClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
@@ -3693,8 +3693,8 @@ func (p *PageBlockSlideshow) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pageBlockSlideshow#31f9590: field items: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Items = make([]PageBlockClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Items = make([]PageBlockClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
@@ -4387,8 +4387,8 @@ func (p *PageBlockTable) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pageBlockTable#bf4dea82: field rows: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Rows = make([]PageTableRow, 0, headerLen)
+		if headerLen > 0 {
+			p.Rows = make([]PageTableRow, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PageTableRow
@@ -4542,8 +4542,8 @@ func (p *PageBlockOrderedList) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pageBlockOrderedList#9a8ae1e1: field items: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Items = make([]PageListOrderedItemClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Items = make([]PageListOrderedItemClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageListOrderedItem(b)
@@ -4767,8 +4767,8 @@ func (p *PageBlockDetails) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pageBlockDetails#76768bed: field blocks: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Blocks = make([]PageBlockClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Blocks = make([]PageBlockClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
@@ -4950,8 +4950,8 @@ func (p *PageBlockRelatedArticles) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pageBlockRelatedArticles#16115a96: field articles: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Articles = make([]PageRelatedArticle, 0, headerLen)
+		if headerLen > 0 {
+			p.Articles = make([]PageRelatedArticle, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PageRelatedArticle

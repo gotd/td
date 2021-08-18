@@ -401,8 +401,8 @@ func (p *Page) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode page#98657f0d: field blocks: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Blocks = make([]PageBlockClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Blocks = make([]PageBlockClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
@@ -418,8 +418,8 @@ func (p *Page) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode page#98657f0d: field photos: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Photos = make([]PhotoClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Photos = make([]PhotoClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePhoto(b)
@@ -435,8 +435,8 @@ func (p *Page) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode page#98657f0d: field documents: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Documents = make([]DocumentClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Documents = make([]DocumentClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)

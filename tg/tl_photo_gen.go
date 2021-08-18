@@ -499,8 +499,8 @@ func (p *Photo) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode photo#fb197a65: field sizes: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Sizes = make([]PhotoSizeClass, 0, headerLen)
+		if headerLen > 0 {
+			p.Sizes = make([]PhotoSizeClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePhotoSize(b)
@@ -516,8 +516,8 @@ func (p *Photo) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode photo#fb197a65: field video_sizes: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.VideoSizes = make([]VideoSize, 0, headerLen)
+		if headerLen > 0 {
+			p.VideoSizes = make([]VideoSize, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value VideoSize

@@ -586,8 +586,8 @@ func (s *SecureValue) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode secureValue#187fa0ca: field translation: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.Translation = make([]SecureFileClass, 0, headerLen)
+		if headerLen > 0 {
+			s.Translation = make([]SecureFileClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureFile(b)
@@ -603,8 +603,8 @@ func (s *SecureValue) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode secureValue#187fa0ca: field files: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.Files = make([]SecureFileClass, 0, headerLen)
+		if headerLen > 0 {
+			s.Files = make([]SecureFileClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureFile(b)

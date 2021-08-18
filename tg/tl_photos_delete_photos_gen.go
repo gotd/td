@@ -157,8 +157,8 @@ func (d *PhotosDeletePhotosRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode photos.deletePhotos#87cf7f2f: field id: %w", err)
 		}
 
-		if headerLen != 0 {
-			d.ID = make([]InputPhotoClass, 0, headerLen)
+		if headerLen > 0 {
+			d.ID = make([]InputPhotoClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPhoto(b)

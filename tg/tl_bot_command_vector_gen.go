@@ -144,8 +144,8 @@ func (vec *BotCommandVector) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode Vector<BotCommand>: field Elems: %w", err)
 		}
 
-		if headerLen != 0 {
-			vec.Elems = make([]BotCommand, 0, headerLen)
+		if headerLen > 0 {
+			vec.Elems = make([]BotCommand, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand

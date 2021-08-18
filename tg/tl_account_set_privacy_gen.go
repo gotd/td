@@ -186,8 +186,8 @@ func (s *AccountSetPrivacyRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode account.setPrivacy#c9f81ce8: field rules: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.Rules = make([]InputPrivacyRuleClass, 0, headerLen)
+		if headerLen > 0 {
+			s.Rules = make([]InputPrivacyRuleClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPrivacyRule(b)

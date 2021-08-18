@@ -539,8 +539,8 @@ func (b *StatsBroadcastStats) DecodeBare(buf *bin.Buffer) error {
 			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field recent_message_interactions: %w", err)
 		}
 
-		if headerLen != 0 {
-			b.RecentMessageInteractions = make([]MessageInteractionCounters, 0, headerLen)
+		if headerLen > 0 {
+			b.RecentMessageInteractions = make([]MessageInteractionCounters, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value MessageInteractionCounters

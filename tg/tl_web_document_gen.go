@@ -253,8 +253,8 @@ func (w *WebDocument) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode webDocument#1c570ed1: field attributes: %w", err)
 		}
 
-		if headerLen != 0 {
-			w.Attributes = make([]DocumentAttributeClass, 0, headerLen)
+		if headerLen > 0 {
+			w.Attributes = make([]DocumentAttributeClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
@@ -483,8 +483,8 @@ func (w *WebDocumentNoProxy) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode webDocumentNoProxy#f9c8bcc6: field attributes: %w", err)
 		}
 
-		if headerLen != 0 {
-			w.Attributes = make([]DocumentAttributeClass, 0, headerLen)
+		if headerLen > 0 {
+			w.Attributes = make([]DocumentAttributeClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)

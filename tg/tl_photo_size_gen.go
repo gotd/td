@@ -922,8 +922,8 @@ func (p *PhotoSizeProgressive) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode photoSizeProgressive#fa3efb95: field sizes: %w", err)
 		}
 
-		if headerLen != 0 {
-			p.Sizes = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			p.Sizes = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()

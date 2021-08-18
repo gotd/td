@@ -379,8 +379,8 @@ func (s *MessagesSendMultiMediaRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field multi_media: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.MultiMedia = make([]InputSingleMedia, 0, headerLen)
+		if headerLen > 0 {
+			s.MultiMedia = make([]InputSingleMedia, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value InputSingleMedia

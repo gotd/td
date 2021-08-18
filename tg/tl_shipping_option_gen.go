@@ -197,8 +197,8 @@ func (s *ShippingOption) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode shippingOption#b6213cdf: field prices: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.Prices = make([]LabeledPrice, 0, headerLen)
+		if headerLen > 0 {
+			s.Prices = make([]LabeledPrice, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value LabeledPrice

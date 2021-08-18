@@ -147,8 +147,8 @@ func (g *MessagesGetChatsRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.getChats#3c6aa187: field id: %w", err)
 		}
 
-		if headerLen != 0 {
-			g.ID = make([]int, 0, headerLen)
+		if headerLen > 0 {
+			g.ID = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()

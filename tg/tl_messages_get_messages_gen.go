@@ -157,8 +157,8 @@ func (g *MessagesGetMessagesRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.getMessages#63c66506: field id: %w", err)
 		}
 
-		if headerLen != 0 {
-			g.ID = make([]InputMessageClass, 0, headerLen)
+		if headerLen > 0 {
+			g.ID = make([]InputMessageClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputMessage(b)

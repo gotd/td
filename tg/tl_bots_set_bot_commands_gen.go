@@ -202,8 +202,8 @@ func (s *BotsSetBotCommandsRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode bots.setBotCommands#517165a: field commands: %w", err)
 		}
 
-		if headerLen != 0 {
-			s.Commands = make([]BotCommand, 0, headerLen)
+		if headerLen > 0 {
+			s.Commands = make([]BotCommand, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand

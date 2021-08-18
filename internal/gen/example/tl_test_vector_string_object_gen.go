@@ -148,8 +148,8 @@ func (t *TestVectorStringObject) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode testVectorStringObject#e5ecc0d: field value: %w", err)
 		}
 
-		if headerLen != 0 {
-			t.Value = make([]TestString, 0, headerLen)
+		if headerLen > 0 {
+			t.Value = make([]TestString, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value TestString
