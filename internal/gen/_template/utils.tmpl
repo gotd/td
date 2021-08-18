@@ -1,5 +1,5 @@
 {{ define "request_params" }}ctx context.Context{{- if .UnpackParameters }}{{- if .Fields }}
-{{- range $f := .Fields }}, {{ lower $f.Name }} {{ template "print_type" $f }}{{- end }}
+{{- range $f := .Fields }}, {{ lowerGo $f.Name }} {{ template "print_type" $f }}{{- end }}
 {{- end }}
 {{- else }}, request *{{ .Name }}{{- end }}
 {{- end }}
@@ -7,7 +7,7 @@
 {{ define "pack_request" }}{{- if .UnpackParameters }}
     request := &{{ $.Name }}{
         {{- range $f := $.Fields }}
-        {{ $f.Name }}: {{ lower $f.Name }},
+        {{ $f.Name }}: {{ lowerGo $f.Name }},
         {{- end }}
     }
 {{- end }}{{- end }}
