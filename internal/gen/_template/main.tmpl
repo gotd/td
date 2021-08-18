@@ -262,8 +262,8 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) DecodeBare({{ $s.BufArg }} *bin.Buffer) 
                 return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
             }
 
-            if headerLen != 0 {
-                {{ $s.Receiver }}.{{ $f.Name }} = make({{ template "print_type" $f }}, 0, headerLen)
+            if headerLen > 0 {
+                {{ $s.Receiver }}.{{ $f.Name }} = make({{ template "print_type" $f }}, 0, headerLen % bin.PreallocateLimit)
             }
             for idx := 0; idx < headerLen; idx++ {
 
@@ -274,8 +274,8 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) DecodeBare({{ $s.BufArg }} *bin.Buffer) 
                 }
 
                 var row []{{ $f.Type }}
-                if innerLen != 0 {
-                    row = make([]{{ $f.Type }}, 0, innerLen)
+                if innerLen > 0 {
+                    row = make([]{{ $f.Type }}, 0, innerLen % bin.PreallocateLimit)
                 }
                 for innerIndex := 0; innerIndex < innerLen; innerLen++ {
             {{- end }}
