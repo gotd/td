@@ -165,6 +165,10 @@ func (i *InvokeAfterMsgsRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode invokeAfterMsgs#3dc4b4f0: field msg_ids: %w", err)
 		}
+
+		if headerLen != 0 {
+			i.MsgIDs = make([]int64, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {

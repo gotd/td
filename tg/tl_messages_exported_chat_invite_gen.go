@@ -179,6 +179,10 @@ func (e *MessagesExportedChatInvite) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.exportedChatInvite#1871be50: field users: %w", err)
 		}
+
+		if headerLen != 0 {
+			e.Users = make([]UserClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
@@ -376,6 +380,10 @@ func (e *MessagesExportedChatInviteReplaced) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.exportedChatInviteReplaced#222600ef: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			e.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

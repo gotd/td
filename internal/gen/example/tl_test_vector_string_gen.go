@@ -145,6 +145,10 @@ func (t *TestVectorString) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode testVectorString#5d6f85bc: field value: %w", err)
 		}
+
+		if headerLen != 0 {
+			t.Value = make([]string, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {

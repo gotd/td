@@ -173,6 +173,10 @@ func (c *MessagesCreateChatRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.createChat#9cb126e: field users: %w", err)
 		}
+
+		if headerLen != 0 {
+			c.Users = make([]InputUserClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {

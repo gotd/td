@@ -654,6 +654,10 @@ func (j *JSONArray) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode jsonArray#f7444763: field value: %w", err)
 		}
+
+		if headerLen != 0 {
+			j.Value = make([]JSONValueClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeJSONValue(b)
 			if err != nil {
@@ -796,6 +800,10 @@ func (j *JSONObject) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode jsonObject#99c1d49d: field value: %w", err)
+		}
+
+		if headerLen != 0 {
+			j.Value = make([]JSONObjectValue, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value JSONObjectValue

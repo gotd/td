@@ -178,6 +178,10 @@ func (w *AccountWebAuthorizations) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode account.webAuthorizations#ed56c9fc: field authorizations: %w", err)
 		}
+
+		if headerLen != 0 {
+			w.Authorizations = make([]WebAuthorization, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value WebAuthorization
 			if err := value.Decode(b); err != nil {
@@ -190,6 +194,10 @@ func (w *AccountWebAuthorizations) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode account.webAuthorizations#ed56c9fc: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			w.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

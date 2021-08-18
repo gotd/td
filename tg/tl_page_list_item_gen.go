@@ -293,6 +293,10 @@ func (p *PageListItemBlocks) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode pageListItemBlocks#25e073fc: field blocks: %w", err)
 		}
+
+		if headerLen != 0 {
+			p.Blocks = make([]PageBlockClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
 			if err != nil {

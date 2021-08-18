@@ -269,6 +269,10 @@ func (b *BotInlineMessageMediaAuto) DecodeBare(buf *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode botInlineMessageMediaAuto#764cf810: field entities: %w", err)
 		}
+
+		if headerLen != 0 {
+			b.Entities = make([]MessageEntityClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(buf)
 			if err != nil {
@@ -568,6 +572,10 @@ func (b *BotInlineMessageText) DecodeBare(buf *bin.Buffer) error {
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode botInlineMessageText#8c7f65e2: field entities: %w", err)
+		}
+
+		if headerLen != 0 {
+			b.Entities = make([]MessageEntityClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(buf)

@@ -565,6 +565,10 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode document#1e87342b: field thumbs: %w", err)
 		}
+
+		if headerLen != 0 {
+			d.Thumbs = make([]PhotoSizeClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePhotoSize(b)
 			if err != nil {
@@ -577,6 +581,10 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode document#1e87342b: field video_thumbs: %w", err)
+		}
+
+		if headerLen != 0 {
+			d.VideoThumbs = make([]VideoSize, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value VideoSize
@@ -597,6 +605,10 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode document#1e87342b: field attributes: %w", err)
+		}
+
+		if headerLen != 0 {
+			d.Attributes = make([]DocumentAttributeClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)

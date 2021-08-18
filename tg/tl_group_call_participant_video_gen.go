@@ -254,6 +254,10 @@ func (g *GroupCallParticipantVideo) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: field source_groups: %w", err)
 		}
+
+		if headerLen != 0 {
+			g.SourceGroups = make([]GroupCallParticipantVideoSourceGroup, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value GroupCallParticipantVideoSourceGroup
 			if err := value.Decode(b); err != nil {

@@ -156,6 +156,10 @@ func (g *MessagesGetPeerDialogsRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.getPeerDialogs#e470bcfd: field peers: %w", err)
 		}
+
+		if headerLen != 0 {
+			g.Peers = make([]InputDialogPeerClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputDialogPeer(b)
 			if err != nil {

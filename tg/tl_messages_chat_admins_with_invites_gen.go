@@ -177,6 +177,10 @@ func (c *MessagesChatAdminsWithInvites) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.chatAdminsWithInvites#b69b72d7: field admins: %w", err)
 		}
+
+		if headerLen != 0 {
+			c.Admins = make([]ChatAdminWithInvites, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value ChatAdminWithInvites
 			if err := value.Decode(b); err != nil {
@@ -189,6 +193,10 @@ func (c *MessagesChatAdminsWithInvites) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.chatAdminsWithInvites#b69b72d7: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			c.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

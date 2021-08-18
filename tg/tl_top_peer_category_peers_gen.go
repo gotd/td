@@ -201,6 +201,10 @@ func (t *TopPeerCategoryPeers) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode topPeerCategoryPeers#fb834291: field peers: %w", err)
 		}
+
+		if headerLen != 0 {
+			t.Peers = make([]TopPeer, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value TopPeer
 			if err := value.Decode(b); err != nil {

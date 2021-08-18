@@ -196,6 +196,10 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode botInfo#98e81d3a: field commands: %w", err)
 		}
+
+		if headerLen != 0 {
+			b.Commands = make([]BotCommand, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.Decode(buf); err != nil {

@@ -156,6 +156,10 @@ func (d *ContactsDeleteContactsRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.deleteContacts#96a0e00: field id: %w", err)
 		}
+
+		if headerLen != 0 {
+			d.ID = make([]InputUserClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {

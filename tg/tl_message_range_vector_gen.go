@@ -143,6 +143,10 @@ func (vec *MessageRangeVector) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode Vector<MessageRange>: field Elems: %w", err)
 		}
+
+		if headerLen != 0 {
+			vec.Elems = make([]MessageRange, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value MessageRange
 			if err := value.Decode(b); err != nil {

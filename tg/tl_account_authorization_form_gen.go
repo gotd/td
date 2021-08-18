@@ -304,6 +304,10 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field required_types: %w", err)
 		}
+
+		if headerLen != 0 {
+			a.RequiredTypes = make([]SecureRequiredTypeClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureRequiredType(b)
 			if err != nil {
@@ -316,6 +320,10 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field values: %w", err)
+		}
+
+		if headerLen != 0 {
+			a.Values = make([]SecureValue, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value SecureValue
@@ -330,6 +338,10 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field errors: %w", err)
 		}
+
+		if headerLen != 0 {
+			a.Errors = make([]SecureValueErrorClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureValueError(b)
 			if err != nil {
@@ -342,6 +354,10 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			a.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

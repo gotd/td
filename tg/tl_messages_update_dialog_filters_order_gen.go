@@ -152,6 +152,10 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) DecodeBare(b *bin.Buffer) erro
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.updateDialogFiltersOrder#c563c1e4: field order: %w", err)
 		}
+
+		if headerLen != 0 {
+			u.Order = make([]int, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {

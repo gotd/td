@@ -208,6 +208,10 @@ func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.blocked#ade1591: field blocked: %w", err)
 		}
+
+		if headerLen != 0 {
+			b.Blocked = make([]PeerBlocked, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PeerBlocked
 			if err := value.Decode(buf); err != nil {
@@ -221,6 +225,10 @@ func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.blocked#ade1591: field chats: %w", err)
 		}
+
+		if headerLen != 0 {
+			b.Chats = make([]ChatClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(buf)
 			if err != nil {
@@ -233,6 +241,10 @@ func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.blocked#ade1591: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			b.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(buf)
@@ -461,6 +473,10 @@ func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field blocked: %w", err)
 		}
+
+		if headerLen != 0 {
+			b.Blocked = make([]PeerBlocked, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PeerBlocked
 			if err := value.Decode(buf); err != nil {
@@ -474,6 +490,10 @@ func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field chats: %w", err)
 		}
+
+		if headerLen != 0 {
+			b.Chats = make([]ChatClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(buf)
 			if err != nil {
@@ -486,6 +506,10 @@ func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			b.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(buf)

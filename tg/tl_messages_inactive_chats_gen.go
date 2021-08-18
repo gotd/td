@@ -206,6 +206,10 @@ func (i *MessagesInactiveChats) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.inactiveChats#a927fec5: field dates: %w", err)
 		}
+
+		if headerLen != 0 {
+			i.Dates = make([]int, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
@@ -219,6 +223,10 @@ func (i *MessagesInactiveChats) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.inactiveChats#a927fec5: field chats: %w", err)
 		}
+
+		if headerLen != 0 {
+			i.Chats = make([]ChatClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -231,6 +239,10 @@ func (i *MessagesInactiveChats) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.inactiveChats#a927fec5: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			i.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

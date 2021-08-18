@@ -226,6 +226,10 @@ func (v *PaymentsValidatedRequestedInfo) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode payments.validatedRequestedInfo#d1451883: field shipping_options: %w", err)
 		}
+
+		if headerLen != 0 {
+			v.ShippingOptions = make([]ShippingOption, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value ShippingOption
 			if err := value.Decode(b); err != nil {

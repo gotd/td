@@ -143,6 +143,10 @@ func (vec *BotCommandVector) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode Vector<BotCommand>: field Elems: %w", err)
 		}
+
+		if headerLen != 0 {
+			vec.Elems = make([]BotCommand, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.Decode(b); err != nil {

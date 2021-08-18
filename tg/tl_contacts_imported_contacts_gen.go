@@ -224,6 +224,10 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field imported: %w", err)
 		}
+
+		if headerLen != 0 {
+			i.Imported = make([]ImportedContact, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value ImportedContact
 			if err := value.Decode(b); err != nil {
@@ -236,6 +240,10 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field popular_invites: %w", err)
+		}
+
+		if headerLen != 0 {
+			i.PopularInvites = make([]PopularContact, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value PopularContact
@@ -250,6 +258,10 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field retry_contacts: %w", err)
 		}
+
+		if headerLen != 0 {
+			i.RetryContacts = make([]int64, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
@@ -262,6 +274,10 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			i.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

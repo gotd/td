@@ -207,6 +207,10 @@ func (e *AuthExportLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: field except_ids: %w", err)
 		}
+
+		if headerLen != 0 {
+			e.ExceptIDs = make([]int, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {

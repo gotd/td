@@ -253,6 +253,10 @@ func (g *PhoneGroupCall) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode phone.groupCall#9e727aad: field participants: %w", err)
 		}
+
+		if headerLen != 0 {
+			g.Participants = make([]GroupCallParticipant, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value GroupCallParticipant
 			if err := value.Decode(b); err != nil {
@@ -273,6 +277,10 @@ func (g *PhoneGroupCall) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode phone.groupCall#9e727aad: field chats: %w", err)
 		}
+
+		if headerLen != 0 {
+			g.Chats = make([]ChatClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -285,6 +293,10 @@ func (g *PhoneGroupCall) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode phone.groupCall#9e727aad: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			g.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

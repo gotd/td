@@ -341,6 +341,10 @@ func (s *StickerSetMultiCovered) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode stickerSetMultiCovered#3407e51b: field covers: %w", err)
 		}
+
+		if headerLen != 0 {
+			s.Covers = make([]DocumentClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {

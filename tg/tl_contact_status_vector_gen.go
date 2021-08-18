@@ -143,6 +143,10 @@ func (vec *ContactStatusVector) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode Vector<ContactStatus>: field Elems: %w", err)
 		}
+
+		if headerLen != 0 {
+			vec.Elems = make([]ContactStatus, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value ContactStatus
 			if err := value.Decode(b); err != nil {

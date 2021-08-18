@@ -270,6 +270,10 @@ func (c *HelpCountriesList) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode help.countriesList#87d0759e: field countries: %w", err)
 		}
+
+		if headerLen != 0 {
+			c.Countries = make([]HelpCountry, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value HelpCountry
 			if err := value.Decode(b); err != nil {

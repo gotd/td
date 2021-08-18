@@ -154,6 +154,10 @@ func (c *CDNConfig) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode cdnConfig#5725e40a: field public_keys: %w", err)
 		}
+
+		if headerLen != 0 {
+			c.PublicKeys = make([]CDNPublicKey, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value CDNPublicKey
 			if err := value.Decode(b); err != nil {

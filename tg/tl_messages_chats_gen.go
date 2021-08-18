@@ -156,6 +156,10 @@ func (c *MessagesChats) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.chats#64ff9fd5: field chats: %w", err)
 		}
+
+		if headerLen != 0 {
+			c.Chats = make([]ChatClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -333,6 +337,10 @@ func (c *MessagesChatsSlice) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.chatsSlice#9cd81144: field chats: %w", err)
+		}
+
+		if headerLen != 0 {
+			c.Chats = make([]ChatClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)

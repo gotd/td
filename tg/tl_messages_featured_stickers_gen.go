@@ -359,6 +359,10 @@ func (f *MessagesFeaturedStickers) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.featuredStickers#b6abc341: field sets: %w", err)
 		}
+
+		if headerLen != 0 {
+			f.Sets = make([]StickerSetCoveredClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStickerSetCovered(b)
 			if err != nil {
@@ -371,6 +375,10 @@ func (f *MessagesFeaturedStickers) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.featuredStickers#b6abc341: field unread: %w", err)
+		}
+
+		if headerLen != 0 {
+			f.Unread = make([]int64, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()

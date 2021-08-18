@@ -179,6 +179,10 @@ func (i *PhoneInviteToGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode phone.inviteToGroupCall#7b393160: field users: %w", err)
 		}
+
+		if headerLen != 0 {
+			i.Users = make([]InputUserClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {

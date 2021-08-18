@@ -143,6 +143,10 @@ func (vec *FileHashVector) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode Vector<FileHash>: field Elems: %w", err)
 		}
+
+		if headerLen != 0 {
+			vec.Elems = make([]FileHash, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value FileHash
 			if err := value.Decode(b); err != nil {

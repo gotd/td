@@ -169,6 +169,10 @@ func (c *PhoneCheckGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode phone.checkGroupCall#b59cf977: field sources: %w", err)
 		}
+
+		if headerLen != 0 {
+			c.Sources = make([]int, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {

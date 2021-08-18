@@ -215,6 +215,10 @@ func (r *ContactsResolvedPeer) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.resolvedPeer#7f077ad9: field chats: %w", err)
 		}
+
+		if headerLen != 0 {
+			r.Chats = make([]ChatClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -227,6 +231,10 @@ func (r *ContactsResolvedPeer) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.resolvedPeer#7f077ad9: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			r.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

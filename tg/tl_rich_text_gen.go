@@ -1421,6 +1421,10 @@ func (t *TextConcat) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode textConcat#7e6260d7: field texts: %w", err)
 		}
+
+		if headerLen != 0 {
+			t.Texts = make([]RichTextClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeRichText(b)
 			if err != nil {

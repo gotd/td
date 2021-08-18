@@ -451,6 +451,10 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode updates.difference#f49ca0: field new_messages: %w", err)
 		}
+
+		if headerLen != 0 {
+			d.NewMessages = make([]MessageClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
@@ -463,6 +467,10 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode updates.difference#f49ca0: field new_encrypted_messages: %w", err)
+		}
+
+		if headerLen != 0 {
+			d.NewEncryptedMessages = make([]EncryptedMessageClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeEncryptedMessage(b)
@@ -477,6 +485,10 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode updates.difference#f49ca0: field other_updates: %w", err)
 		}
+
+		if headerLen != 0 {
+			d.OtherUpdates = make([]UpdateClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUpdate(b)
 			if err != nil {
@@ -490,6 +502,10 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode updates.difference#f49ca0: field chats: %w", err)
 		}
+
+		if headerLen != 0 {
+			d.Chats = make([]ChatClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -502,6 +518,10 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode updates.difference#f49ca0: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			d.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
@@ -801,6 +821,10 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field new_messages: %w", err)
 		}
+
+		if headerLen != 0 {
+			d.NewMessages = make([]MessageClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
@@ -813,6 +837,10 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field new_encrypted_messages: %w", err)
+		}
+
+		if headerLen != 0 {
+			d.NewEncryptedMessages = make([]EncryptedMessageClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeEncryptedMessage(b)
@@ -827,6 +855,10 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field other_updates: %w", err)
 		}
+
+		if headerLen != 0 {
+			d.OtherUpdates = make([]UpdateClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUpdate(b)
 			if err != nil {
@@ -840,6 +872,10 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field chats: %w", err)
 		}
+
+		if headerLen != 0 {
+			d.Chats = make([]ChatClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -852,6 +888,10 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			d.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

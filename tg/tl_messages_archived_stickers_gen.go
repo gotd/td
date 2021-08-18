@@ -180,6 +180,10 @@ func (a *MessagesArchivedStickers) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.archivedStickers#4fcba9c8: field sets: %w", err)
 		}
+
+		if headerLen != 0 {
+			a.Sets = make([]StickerSetCoveredClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStickerSetCovered(b)
 			if err != nil {

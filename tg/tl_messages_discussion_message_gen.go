@@ -358,6 +358,10 @@ func (d *MessagesDiscussionMessage) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field messages: %w", err)
 		}
+
+		if headerLen != 0 {
+			d.Messages = make([]MessageClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
@@ -392,6 +396,10 @@ func (d *MessagesDiscussionMessage) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field chats: %w", err)
 		}
+
+		if headerLen != 0 {
+			d.Chats = make([]ChatClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -404,6 +412,10 @@ func (d *MessagesDiscussionMessage) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			d.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

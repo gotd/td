@@ -577,6 +577,10 @@ func (m *StatsMegagroupStats) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field top_posters: %w", err)
 		}
+
+		if headerLen != 0 {
+			m.TopPosters = make([]StatsGroupTopPoster, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value StatsGroupTopPoster
 			if err := value.Decode(b); err != nil {
@@ -589,6 +593,10 @@ func (m *StatsMegagroupStats) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field top_admins: %w", err)
+		}
+
+		if headerLen != 0 {
+			m.TopAdmins = make([]StatsGroupTopAdmin, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value StatsGroupTopAdmin
@@ -603,6 +611,10 @@ func (m *StatsMegagroupStats) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field top_inviters: %w", err)
 		}
+
+		if headerLen != 0 {
+			m.TopInviters = make([]StatsGroupTopInviter, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value StatsGroupTopInviter
 			if err := value.Decode(b); err != nil {
@@ -615,6 +627,10 @@ func (m *StatsMegagroupStats) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			m.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

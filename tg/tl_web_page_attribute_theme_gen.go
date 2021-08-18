@@ -236,6 +236,10 @@ func (w *WebPageAttributeTheme) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode webPageAttributeTheme#54b56617: field documents: %w", err)
 		}
+
+		if headerLen != 0 {
+			w.Documents = make([]DocumentClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {

@@ -201,6 +201,10 @@ func (c *MessagesChatInviteImporters) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.chatInviteImporters#81b6b00a: field importers: %w", err)
 		}
+
+		if headerLen != 0 {
+			c.Importers = make([]ChatInviteImporter, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value ChatInviteImporter
 			if err := value.Decode(b); err != nil {
@@ -213,6 +217,10 @@ func (c *MessagesChatInviteImporters) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.chatInviteImporters#81b6b00a: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			c.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

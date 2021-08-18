@@ -194,6 +194,10 @@ func (d *MessagesDeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.deleteMessages#e58e95d2: field id: %w", err)
 		}
+
+		if headerLen != 0 {
+			d.ID = make([]int, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {

@@ -231,6 +231,10 @@ func (i *InputWebDocument) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode inputWebDocument#9bed434d: field attributes: %w", err)
 		}
+
+		if headerLen != 0 {
+			i.Attributes = make([]DocumentAttributeClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
 			if err != nil {

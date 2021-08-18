@@ -231,6 +231,10 @@ func (r *MessagesReorderPinnedDialogsRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.reorderPinnedDialogs#3b1adf37: field order: %w", err)
 		}
+
+		if headerLen != 0 {
+			r.Order = make([]InputDialogPeerClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputDialogPeer(b)
 			if err != nil {

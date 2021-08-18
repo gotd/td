@@ -538,6 +538,10 @@ func (b *StatsBroadcastStats) DecodeBare(buf *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field recent_message_interactions: %w", err)
 		}
+
+		if headerLen != 0 {
+			b.RecentMessageInteractions = make([]MessageInteractionCounters, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value MessageInteractionCounters
 			if err := value.Decode(buf); err != nil {

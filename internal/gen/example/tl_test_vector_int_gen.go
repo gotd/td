@@ -145,6 +145,10 @@ func (t *TestVectorInt) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode testVectorInt#df9eb113: field value: %w", err)
 		}
+
+		if headerLen != 0 {
+			t.Value = make([]int32, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {

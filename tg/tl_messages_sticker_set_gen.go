@@ -202,6 +202,10 @@ func (s *MessagesStickerSet) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: field packs: %w", err)
 		}
+
+		if headerLen != 0 {
+			s.Packs = make([]StickerPack, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value StickerPack
 			if err := value.Decode(b); err != nil {
@@ -214,6 +218,10 @@ func (s *MessagesStickerSet) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: field documents: %w", err)
+		}
+
+		if headerLen != 0 {
+			s.Documents = make([]DocumentClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)

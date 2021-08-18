@@ -151,6 +151,10 @@ func (vec *StickerSetCoveredClassVector) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode Vector<StickerSetCovered>: field Elems: %w", err)
 		}
+
+		if headerLen != 0 {
+			vec.Elems = make([]StickerSetCoveredClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStickerSetCovered(b)
 			if err != nil {

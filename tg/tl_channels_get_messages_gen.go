@@ -193,6 +193,10 @@ func (g *ChannelsGetMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode channels.getMessages#ad8c9a23: field id: %w", err)
 		}
+
+		if headerLen != 0 {
+			g.ID = make([]InputMessageClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputMessage(b)
 			if err != nil {

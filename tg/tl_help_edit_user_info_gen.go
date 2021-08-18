@@ -212,6 +212,10 @@ func (e *HelpEditUserInfoRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode help.editUserInfo#66b91b70: field entities: %w", err)
 		}
+
+		if headerLen != 0 {
+			e.Entities = make([]MessageEntityClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {

@@ -159,6 +159,10 @@ func (g *ChannelsGetChannelsRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode channels.getChannels#a7f6bbb: field id: %w", err)
 		}
+
+		if headerLen != 0 {
+			g.ID = make([]InputChannelClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputChannel(b)
 			if err != nil {

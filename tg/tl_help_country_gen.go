@@ -289,6 +289,10 @@ func (c *HelpCountry) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode help.country#c3878e23: field country_codes: %w", err)
 		}
+
+		if headerLen != 0 {
+			c.CountryCodes = make([]HelpCountryCode, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value HelpCountryCode
 			if err := value.Decode(b); err != nil {

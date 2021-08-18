@@ -217,6 +217,10 @@ func (a *MessagesAffectedFoundMessages) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: field messages: %w", err)
 		}
+
+		if headerLen != 0 {
+			a.Messages = make([]int, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {

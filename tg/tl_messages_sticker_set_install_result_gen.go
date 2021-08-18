@@ -261,6 +261,10 @@ func (s *MessagesStickerSetInstallResultArchive) DecodeBare(b *bin.Buffer) error
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.stickerSetInstallResultArchive#35e410a8: field sets: %w", err)
 		}
+
+		if headerLen != 0 {
+			s.Sets = make([]StickerSetCoveredClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStickerSetCovered(b)
 			if err != nil {

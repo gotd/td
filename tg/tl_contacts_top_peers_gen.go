@@ -310,6 +310,10 @@ func (t *ContactsTopPeers) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.topPeers#70b772a8: field categories: %w", err)
 		}
+
+		if headerLen != 0 {
+			t.Categories = make([]TopPeerCategoryPeers, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value TopPeerCategoryPeers
 			if err := value.Decode(b); err != nil {
@@ -323,6 +327,10 @@ func (t *ContactsTopPeers) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.topPeers#70b772a8: field chats: %w", err)
 		}
+
+		if headerLen != 0 {
+			t.Chats = make([]ChatClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -335,6 +343,10 @@ func (t *ContactsTopPeers) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.topPeers#70b772a8: field users: %w", err)
+		}
+
+		if headerLen != 0 {
+			t.Users = make([]UserClass, 0, headerLen)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

@@ -203,6 +203,10 @@ func (a *AccessPointRule) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode accessPointRule#4679b65f: field ips: %w", err)
 		}
+
+		if headerLen != 0 {
+			a.IPs = make([]IPPortClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeIPPort(b)
 			if err != nil {

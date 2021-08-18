@@ -306,6 +306,10 @@ func (r *AccountRegisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field other_uids: %w", err)
 		}
+
+		if headerLen != 0 {
+			r.OtherUIDs = make([]int, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {

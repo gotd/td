@@ -145,6 +145,10 @@ func (m *MsgContainer) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode msg_container#73f1f8dc: field messages: %w", err)
 		}
+
+		if headerLen != 0 {
+			m.Messages = make([]Message, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value Message
 			if err := value.DecodeBare(b); err != nil {

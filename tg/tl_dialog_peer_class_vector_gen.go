@@ -151,6 +151,10 @@ func (vec *DialogPeerClassVector) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode Vector<DialogPeer>: field Elems: %w", err)
 		}
+
+		if headerLen != 0 {
+			vec.Elems = make([]DialogPeerClass, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDialogPeer(b)
 			if err != nil {

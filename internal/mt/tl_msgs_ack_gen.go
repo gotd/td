@@ -143,6 +143,10 @@ func (m *MsgsAck) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode msgs_ack#62d6b459: field msg_ids: %w", err)
 		}
+
+		if headerLen != 0 {
+			m.MsgIDs = make([]int64, 0, headerLen)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
