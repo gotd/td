@@ -261,6 +261,10 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) DecodeBare({{ $s.BufArg }} *bin.Buffer) 
             if err != nil {
                 return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
             }
+
+            if headerLen != 0 {
+                {{ $s.Receiver }}.{{ $f.Name }} = make({{ template "print_type" $f }}, 0, headerLen)
+            }
             for idx := 0; idx < headerLen; idx++ {
 
             {{- if $f.DoubleVector }}
@@ -268,7 +272,11 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) DecodeBare({{ $s.BufArg }} *bin.Buffer) 
                 if err != nil {
                     return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
                 }
+
                 var row []{{ $f.Type }}
+                if innerLen != 0 {
+                    row = make([]{{ $f.Type }}, 0, innerLen)
+                }
                 for innerIndex := 0; innerIndex < innerLen; innerLen++ {
             {{- end }}
             {{- if $f.Interface }}
