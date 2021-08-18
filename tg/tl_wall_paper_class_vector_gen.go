@@ -151,6 +151,10 @@ func (vec *WallPaperClassVector) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode Vector<WallPaper>: field Elems: %w", err)
 		}
+
+		if headerLen > 0 {
+			vec.Elems = make([]WallPaperClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeWallPaper(b)
 			if err != nil {

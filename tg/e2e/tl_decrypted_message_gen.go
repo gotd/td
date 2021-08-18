@@ -1150,6 +1150,10 @@ func (d *DecryptedMessage46) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode decryptedMessage46#36b091de: field entities: %w", err)
 		}
+
+		if headerLen > 0 {
+			d.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
@@ -1618,6 +1622,10 @@ func (d *DecryptedMessage) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode decryptedMessage#91cc4674: field entities: %w", err)
+		}
+
+		if headerLen > 0 {
+			d.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)

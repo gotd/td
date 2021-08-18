@@ -156,6 +156,10 @@ func (g *UsersGetUsersRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode users.getUsers#d91a548: field id: %w", err)
 		}
+
+		if headerLen > 0 {
+			g.ID = make([]InputUserClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {

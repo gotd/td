@@ -395,6 +395,10 @@ func (c *ChatParticipants) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode chatParticipants#3f460fed: field participants: %w", err)
 		}
+
+		if headerLen > 0 {
+			c.Participants = make([]ChatParticipantClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChatParticipant(b)
 			if err != nil {

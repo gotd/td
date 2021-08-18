@@ -626,6 +626,10 @@ func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field pinned_peers: %w", err)
 		}
+
+		if headerLen > 0 {
+			d.PinnedPeers = make([]InputPeerClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPeer(b)
 			if err != nil {
@@ -639,6 +643,10 @@ func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field include_peers: %w", err)
 		}
+
+		if headerLen > 0 {
+			d.IncludePeers = make([]InputPeerClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPeer(b)
 			if err != nil {
@@ -651,6 +659,10 @@ func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field exclude_peers: %w", err)
+		}
+
+		if headerLen > 0 {
+			d.ExcludePeers = make([]InputPeerClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPeer(b)

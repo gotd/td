@@ -143,6 +143,10 @@ func (vec *LangPackLanguageVector) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode Vector<LangPackLanguage>: field Elems: %w", err)
 		}
+
+		if headerLen > 0 {
+			vec.Elems = make([]LangPackLanguage, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value LangPackLanguage
 			if err := value.Decode(b); err != nil {

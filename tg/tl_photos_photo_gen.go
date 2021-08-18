@@ -190,6 +190,10 @@ func (p *PhotosPhoto) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode photos.photo#20212ca8: field users: %w", err)
 		}
+
+		if headerLen > 0 {
+			p.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {

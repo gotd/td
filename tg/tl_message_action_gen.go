@@ -272,6 +272,10 @@ func (m *MessageActionChatCreate) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messageActionChatCreate#a6638b9a: field users: %w", err)
 		}
+
+		if headerLen > 0 {
+			m.Users = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
@@ -783,6 +787,10 @@ func (m *MessageActionChatAddUser) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageActionChatAddUser#488a7337: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Users = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
@@ -3130,6 +3138,10 @@ func (m *MessageActionSecureValuesSentMe) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messageActionSecureValuesSentMe#1b287353: field values: %w", err)
 		}
+
+		if headerLen > 0 {
+			m.Values = make([]SecureValue, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value SecureValue
 			if err := value.Decode(b); err != nil {
@@ -3288,6 +3300,10 @@ func (m *MessageActionSecureValuesSent) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageActionSecureValuesSent#d95c6154: field types: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Types = make([]SecureValueTypeClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureValueType(b)
@@ -3936,6 +3952,10 @@ func (m *MessageActionInviteToGroupCall) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageActionInviteToGroupCall#76b9f11a: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Users = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()

@@ -194,6 +194,10 @@ func (r *MessagesReorderStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.reorderStickerSets#78337739: field order: %w", err)
 		}
+
+		if headerLen > 0 {
+			r.Order = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {

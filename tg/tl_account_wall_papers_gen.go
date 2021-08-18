@@ -285,6 +285,10 @@ func (w *AccountWallPapers) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode account.wallPapers#702b65a9: field wallpapers: %w", err)
 		}
+
+		if headerLen > 0 {
+			w.Wallpapers = make([]WallPaperClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeWallPaper(b)
 			if err != nil {

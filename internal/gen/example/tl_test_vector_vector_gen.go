@@ -148,12 +148,20 @@ func (t *TestVectorVector) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode testVectorVector#69e8846c: field value: %w", err)
 		}
+
+		if headerLen > 0 {
+			t.Value = make([][]string, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			innerLen, err := b.VectorHeader()
 			if err != nil {
 				return fmt.Errorf("unable to decode testVectorVector#69e8846c: field value: %w", err)
 			}
+
 			var row []string
+			if innerLen > 0 {
+				row = make([]string, 0, innerLen%bin.PreallocateLimit)
+			}
 			for innerIndex := 0; innerIndex < innerLen; innerLen++ {
 				value, err := b.String()
 				if err != nil {

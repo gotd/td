@@ -248,6 +248,10 @@ func (c *HelpCountryCode) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode help.countryCode#4203c5ef: field prefixes: %w", err)
 		}
+
+		if headerLen > 0 {
+			c.Prefixes = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
@@ -260,6 +264,10 @@ func (c *HelpCountryCode) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode help.countryCode#4203c5ef: field patterns: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.Patterns = make([]string, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()

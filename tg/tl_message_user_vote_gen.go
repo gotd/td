@@ -527,6 +527,10 @@ func (m *MessageUserVoteMultiple) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messageUserVoteMultiple#e8fe0de: field options: %w", err)
 		}
+
+		if headerLen > 0 {
+			m.Options = make([][]byte, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
 			if err != nil {

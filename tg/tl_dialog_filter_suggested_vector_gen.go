@@ -143,6 +143,10 @@ func (vec *DialogFilterSuggestedVector) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode Vector<DialogFilterSuggested>: field Elems: %w", err)
 		}
+
+		if headerLen > 0 {
+			vec.Elems = make([]DialogFilterSuggested, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value DialogFilterSuggested
 			if err := value.Decode(b); err != nil {

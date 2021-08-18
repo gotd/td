@@ -216,6 +216,10 @@ func (m *MessagesMessages) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.messages#8c718e87: field messages: %w", err)
 		}
+
+		if headerLen > 0 {
+			m.Messages = make([]MessageClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
@@ -229,6 +233,10 @@ func (m *MessagesMessages) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.messages#8c718e87: field chats: %w", err)
 		}
+
+		if headerLen > 0 {
+			m.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -241,6 +249,10 @@ func (m *MessagesMessages) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.messages#8c718e87: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
@@ -621,6 +633,10 @@ func (m *MessagesMessagesSlice) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.messagesSlice#3a54685e: field messages: %w", err)
 		}
+
+		if headerLen > 0 {
+			m.Messages = make([]MessageClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
@@ -634,6 +650,10 @@ func (m *MessagesMessagesSlice) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.messagesSlice#3a54685e: field chats: %w", err)
 		}
+
+		if headerLen > 0 {
+			m.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -646,6 +666,10 @@ func (m *MessagesMessagesSlice) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.messagesSlice#3a54685e: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
@@ -1005,6 +1029,10 @@ func (c *MessagesChannelMessages) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.channelMessages#64479808: field messages: %w", err)
 		}
+
+		if headerLen > 0 {
+			c.Messages = make([]MessageClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
@@ -1018,6 +1046,10 @@ func (c *MessagesChannelMessages) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.channelMessages#64479808: field chats: %w", err)
 		}
+
+		if headerLen > 0 {
+			c.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -1030,6 +1062,10 @@ func (c *MessagesChannelMessages) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.channelMessages#64479808: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

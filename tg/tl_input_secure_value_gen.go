@@ -544,6 +544,10 @@ func (i *InputSecureValue) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field translation: %w", err)
 		}
+
+		if headerLen > 0 {
+			i.Translation = make([]InputSecureFileClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputSecureFile(b)
 			if err != nil {
@@ -556,6 +560,10 @@ func (i *InputSecureValue) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field files: %w", err)
+		}
+
+		if headerLen > 0 {
+			i.Files = make([]InputSecureFileClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputSecureFile(b)

@@ -527,6 +527,10 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode invoice#cd886e0: field prices: %w", err)
 		}
+
+		if headerLen > 0 {
+			i.Prices = make([]LabeledPrice, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value LabeledPrice
 			if err := value.Decode(b); err != nil {
@@ -546,6 +550,10 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode invoice#cd886e0: field suggested_tip_amounts: %w", err)
+		}
+
+		if headerLen > 0 {
+			i.SuggestedTipAmounts = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()

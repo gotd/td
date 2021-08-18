@@ -261,6 +261,10 @@ func (s *MessagesSetBotShippingResultsRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.setBotShippingResults#e5f672fa: field shipping_options: %w", err)
 		}
+
+		if headerLen > 0 {
+			s.ShippingOptions = make([]ShippingOption, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value ShippingOption
 			if err := value.Decode(b); err != nil {

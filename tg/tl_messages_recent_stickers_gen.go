@@ -327,6 +327,10 @@ func (r *MessagesRecentStickers) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: field packs: %w", err)
 		}
+
+		if headerLen > 0 {
+			r.Packs = make([]StickerPack, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value StickerPack
 			if err := value.Decode(b); err != nil {
@@ -340,6 +344,10 @@ func (r *MessagesRecentStickers) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: field stickers: %w", err)
 		}
+
+		if headerLen > 0 {
+			r.Stickers = make([]DocumentClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {
@@ -352,6 +360,10 @@ func (r *MessagesRecentStickers) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: field dates: %w", err)
+		}
+
+		if headerLen > 0 {
+			r.Dates = make([]int, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()

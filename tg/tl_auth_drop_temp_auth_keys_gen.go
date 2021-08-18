@@ -146,6 +146,10 @@ func (d *AuthDropTempAuthKeysRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode auth.dropTempAuthKeys#8e48a188: field except_auth_keys: %w", err)
 		}
+
+		if headerLen > 0 {
+			d.ExceptAuthKeys = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {

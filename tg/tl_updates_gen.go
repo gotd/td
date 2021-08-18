@@ -761,6 +761,10 @@ func (u *UpdateShortMessage) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field entities: %w", err)
 		}
+
+		if headerLen > 0 {
+			u.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
@@ -1440,6 +1444,10 @@ func (u *UpdateShortChatMessage) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field entities: %w", err)
 		}
+
+		if headerLen > 0 {
+			u.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
@@ -1870,6 +1878,10 @@ func (u *UpdatesCombined) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode updatesCombined#725b04c3: field updates: %w", err)
 		}
+
+		if headerLen > 0 {
+			u.Updates = make([]UpdateClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUpdate(b)
 			if err != nil {
@@ -1883,6 +1895,10 @@ func (u *UpdatesCombined) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode updatesCombined#725b04c3: field users: %w", err)
 		}
+
+		if headerLen > 0 {
+			u.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
@@ -1895,6 +1911,10 @@ func (u *UpdatesCombined) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode updatesCombined#725b04c3: field chats: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -2161,6 +2181,10 @@ func (u *Updates) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode updates#74ae4240: field updates: %w", err)
 		}
+
+		if headerLen > 0 {
+			u.Updates = make([]UpdateClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUpdate(b)
 			if err != nil {
@@ -2174,6 +2198,10 @@ func (u *Updates) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode updates#74ae4240: field users: %w", err)
 		}
+
+		if headerLen > 0 {
+			u.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
@@ -2186,6 +2214,10 @@ func (u *Updates) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode updates#74ae4240: field chats: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
@@ -2620,6 +2652,10 @@ func (u *UpdateShortSentMessage) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field entities: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)

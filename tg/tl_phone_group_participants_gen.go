@@ -265,6 +265,10 @@ func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field participants: %w", err)
 		}
+
+		if headerLen > 0 {
+			g.Participants = make([]GroupCallParticipant, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value GroupCallParticipant
 			if err := value.Decode(b); err != nil {
@@ -285,6 +289,10 @@ func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field chats: %w", err)
 		}
+
+		if headerLen > 0 {
+			g.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -297,6 +305,10 @@ func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			g.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

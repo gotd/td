@@ -190,6 +190,10 @@ func (p *PhonePhoneCall) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode phone.phoneCall#ec82e140: field users: %w", err)
 		}
+
+		if headerLen > 0 {
+			p.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {

@@ -160,6 +160,10 @@ func (d *AccountDeleteSecureValueRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode account.deleteSecureValue#b880bc4b: field types: %w", err)
 		}
+
+		if headerLen > 0 {
+			d.Types = make([]SecureValueTypeClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureValueType(b)
 			if err != nil {

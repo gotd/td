@@ -470,6 +470,10 @@ func (e *MessagesEditMessageRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field entities: %w", err)
 		}
+
+		if headerLen > 0 {
+			e.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {

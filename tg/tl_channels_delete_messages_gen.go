@@ -186,6 +186,10 @@ func (d *ChannelsDeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode channels.deleteMessages#84c1fd4e: field id: %w", err)
 		}
+
+		if headerLen > 0 {
+			d.ID = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {

@@ -146,6 +146,10 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) DecodeBare(b *bin.Buffer) err
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.getEmojiKeywordsLanguages#4e9963b2: field lang_codes: %w", err)
 		}
+
+		if headerLen > 0 {
+			g.LangCodes = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {

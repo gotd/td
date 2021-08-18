@@ -708,6 +708,10 @@ func (r *ReplyKeyboardMarkup) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field rows: %w", err)
 		}
+
+		if headerLen > 0 {
+			r.Rows = make([]KeyboardButtonRow, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value KeyboardButtonRow
 			if err := value.Decode(b); err != nil {
@@ -857,6 +861,10 @@ func (r *ReplyInlineMarkup) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode replyInlineMarkup#48a30254: field rows: %w", err)
+		}
+
+		if headerLen > 0 {
+			r.Rows = make([]KeyboardButtonRow, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value KeyboardButtonRow

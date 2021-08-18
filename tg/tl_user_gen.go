@@ -1273,6 +1273,10 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
 		}
+
+		if headerLen > 0 {
+			u.RestrictionReason = make([]RestrictionReason, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value RestrictionReason
 			if err := value.Decode(b); err != nil {

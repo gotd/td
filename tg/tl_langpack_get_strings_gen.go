@@ -194,6 +194,10 @@ func (g *LangpackGetStringsRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode langpack.getStrings#efea3803: field keys: %w", err)
 		}
+
+		if headerLen > 0 {
+			g.Keys = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {

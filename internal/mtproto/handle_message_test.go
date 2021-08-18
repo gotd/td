@@ -5,14 +5,17 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/neo"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/rpc"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/tg"
@@ -90,18 +93,25 @@ func TestConnHandleMessage(t *testing.T) {
 }
 
 func TestConnHandleMessageCorpus(t *testing.T) {
-	c := &Conn{
-		rand:    Zero{},
-		log:     zap.NewNop(),
-		rpc:     rpc.New(rpc.NopSend, rpc.Options{}),
-		handler: newTestHandler(),
-	}
-
-	corpusDir := filepath.Join("..", "_fuzz", "handle_message", "corpus")
-	corpus, err := os.ReadDir(corpusDir)
-	if os.IsNotExist(err) || testutil.Race {
+	if testutil.Race {
 		t.Skip("Skipped")
 	}
+
+	c := &Conn{
+		handler:    newTestHandler(),
+		rpc:        rpc.New(rpc.NopSend, rpc.Options{}),
+		clock:      neo.NewTime(time.Now()),
+		rand:       Zero{},
+		log:        zap.NewNop(),
+		gotSession: tdsync.NewReady(),
+	}
+
+	corpusDir := filepath.Join("..", "..", "_fuzz", "handle_message", "corpus")
+	corpus, err := os.ReadDir(corpusDir)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	b := &bin.Buffer{}
 	types := tmap.New(
 		tg.TypesMap(),
@@ -135,7 +145,8 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 					tg.TextMarkedTypeID,
 					tg.MessageTypeID,
 					tg.PageBlockCoverTypeID,
-					tg.InputMediaUploadedDocumentTypeID:
+					tg.InputMediaUploadedDocumentTypeID,
+					tg.SecureRequiredTypeOneOfTypeID:
 					allocThreshold = 256
 				}
 			}

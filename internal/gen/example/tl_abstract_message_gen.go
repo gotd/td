@@ -473,6 +473,10 @@ func (t *TargetsMessage) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode targetsMessage#cc6136f1: field targets: %w", err)
 		}
+
+		if headerLen > 0 {
+			t.Targets = make([]int32, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {

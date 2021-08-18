@@ -368,6 +368,10 @@ func (i *InputMediaUploadedPhoto) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: field stickers: %w", err)
 		}
+
+		if headerLen > 0 {
+			i.Stickers = make([]InputDocumentClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputDocument(b)
 			if err != nil {
@@ -1344,6 +1348,10 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field attributes: %w", err)
 		}
+
+		if headerLen > 0 {
+			i.Attributes = make([]DocumentAttributeClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
 			if err != nil {
@@ -1356,6 +1364,10 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field stickers: %w", err)
+		}
+
+		if headerLen > 0 {
+			i.Stickers = make([]InputDocumentClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputDocument(b)
@@ -3381,6 +3393,10 @@ func (i *InputMediaPoll) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field correct_answers: %w", err)
 		}
+
+		if headerLen > 0 {
+			i.CorrectAnswers = make([][]byte, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
 			if err != nil {
@@ -3400,6 +3416,10 @@ func (i *InputMediaPoll) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field solution_entities: %w", err)
+		}
+
+		if headerLen > 0 {
+			i.SolutionEntities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)

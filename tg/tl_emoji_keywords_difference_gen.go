@@ -228,6 +228,10 @@ func (e *EmojiKeywordsDifference) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode emojiKeywordsDifference#5cc761bd: field keywords: %w", err)
 		}
+
+		if headerLen > 0 {
+			e.Keywords = make([]EmojiKeywordClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeEmojiKeyword(b)
 			if err != nil {

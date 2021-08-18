@@ -175,6 +175,10 @@ func (s *StickerPack) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode stickerPack#12b299d4: field documents: %w", err)
 		}
+
+		if headerLen > 0 {
+			s.Documents = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {

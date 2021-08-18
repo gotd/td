@@ -298,6 +298,10 @@ func (c *ChannelMessagesFilter) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode channelMessagesFilter#cd77d957: field ranges: %w", err)
 		}
+
+		if headerLen > 0 {
+			c.Ranges = make([]MessageRange, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value MessageRange
 			if err := value.Decode(b); err != nil {

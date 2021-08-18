@@ -147,6 +147,10 @@ func (s *SendMultipleSMSRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode sendMultipleSMS#df18e5ca: field messages: %w", err)
 		}
+
+		if headerLen > 0 {
+			s.Messages = make([]SMS, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value SMS
 			if err := value.Decode(b); err != nil {

@@ -1989,6 +1989,10 @@ func (c *Channel) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode channel#d31a961e: field restriction_reason: %w", err)
 		}
+
+		if headerLen > 0 {
+			c.RestrictionReason = make([]RestrictionReason, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value RestrictionReason
 			if err := value.Decode(b); err != nil {

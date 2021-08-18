@@ -143,6 +143,10 @@ func (m *MsgsStateReq) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode msgs_state_req#da69fb52: field msg_ids: %w", err)
 		}
+
+		if headerLen > 0 {
+			m.MsgIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {

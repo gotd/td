@@ -208,6 +208,10 @@ func (m *MessagesMessageViews) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.messageViews#b6c4f543: field views: %w", err)
 		}
+
+		if headerLen > 0 {
+			m.Views = make([]MessageViews, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value MessageViews
 			if err := value.Decode(b); err != nil {
@@ -221,6 +225,10 @@ func (m *MessagesMessageViews) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.messageViews#b6c4f543: field chats: %w", err)
 		}
+
+		if headerLen > 0 {
+			m.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -233,6 +241,10 @@ func (m *MessagesMessageViews) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.messageViews#b6c4f543: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

@@ -216,6 +216,10 @@ func (r *HelpRecentMeURLs) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: field urls: %w", err)
 		}
+
+		if headerLen > 0 {
+			r.URLs = make([]RecentMeURLClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeRecentMeURL(b)
 			if err != nil {
@@ -229,6 +233,10 @@ func (r *HelpRecentMeURLs) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: field chats: %w", err)
 		}
+
+		if headerLen > 0 {
+			r.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
@@ -241,6 +249,10 @@ func (r *HelpRecentMeURLs) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			r.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

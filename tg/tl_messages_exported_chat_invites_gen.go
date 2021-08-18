@@ -201,6 +201,10 @@ func (e *MessagesExportedChatInvites) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.exportedChatInvites#bdc62dcc: field invites: %w", err)
 		}
+
+		if headerLen > 0 {
+			e.Invites = make([]ChatInviteExported, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value ChatInviteExported
 			if err := value.Decode(b); err != nil {
@@ -213,6 +217,10 @@ func (e *MessagesExportedChatInvites) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.exportedChatInvites#bdc62dcc: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			e.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

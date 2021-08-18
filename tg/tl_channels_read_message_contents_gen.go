@@ -186,6 +186,10 @@ func (r *ChannelsReadMessageContentsRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode channels.readMessageContents#eab5dc38: field id: %w", err)
 		}
+
+		if headerLen > 0 {
+			r.ID = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {

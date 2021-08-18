@@ -297,6 +297,10 @@ func (c *ContactsContacts) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.contacts#eae87e42: field contacts: %w", err)
 		}
+
+		if headerLen > 0 {
+			c.Contacts = make([]Contact, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value Contact
 			if err := value.Decode(b); err != nil {
@@ -316,6 +320,10 @@ func (c *ContactsContacts) DecodeBare(b *bin.Buffer) error {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode contacts.contacts#eae87e42: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)

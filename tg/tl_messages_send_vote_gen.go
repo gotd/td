@@ -202,6 +202,10 @@ func (s *MessagesSendVoteRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.sendVote#10ea6184: field options: %w", err)
 		}
+
+		if headerLen > 0 {
+			s.Options = make([][]byte, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
 			if err != nil {

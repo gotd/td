@@ -156,6 +156,10 @@ func (k *KeyboardButtonRow) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode keyboardButtonRow#77608b83: field buttons: %w", err)
 		}
+
+		if headerLen > 0 {
+			k.Buttons = make([]KeyboardButtonClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeKeyboardButton(b)
 			if err != nil {

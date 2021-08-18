@@ -194,6 +194,10 @@ func (s *UsersSetSecureValueErrorsRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode users.setSecureValueErrors#90c894b5: field errors: %w", err)
 		}
+
+		if headerLen > 0 {
+			s.Errors = make([]SecureValueErrorClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureValueError(b)
 			if err != nil {

@@ -405,6 +405,10 @@ func (s *SecureRequiredTypeOneOf) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode secureRequiredTypeOneOf#27477b4: field types: %w", err)
 		}
+
+		if headerLen > 0 {
+			s.Types = make([]SecureRequiredTypeClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureRequiredType(b)
 			if err != nil {

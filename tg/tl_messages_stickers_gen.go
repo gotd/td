@@ -285,6 +285,10 @@ func (s *MessagesStickers) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.stickers#e4599bbd: field stickers: %w", err)
 		}
+
+		if headerLen > 0 {
+			s.Stickers = make([]DocumentClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {

@@ -146,6 +146,10 @@ func (g *MessagesGetAllChatsRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.getAllChats#eba80ff0: field except_ids: %w", err)
 		}
+
+		if headerLen > 0 {
+			g.ExceptIDs = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {

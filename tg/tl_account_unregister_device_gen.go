@@ -203,6 +203,10 @@ func (u *AccountUnregisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: field other_uids: %w", err)
 		}
+
+		if headerLen > 0 {
+			u.OtherUIDs = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {

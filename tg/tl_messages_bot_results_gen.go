@@ -365,6 +365,10 @@ func (b *MessagesBotResults) DecodeBare(buf *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.botResults#947ca848: field results: %w", err)
 		}
+
+		if headerLen > 0 {
+			b.Results = make([]BotInlineResultClass, 0, headerLen%bin.PreallocateLimit)
+		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeBotInlineResult(buf)
 			if err != nil {
@@ -384,6 +388,10 @@ func (b *MessagesBotResults) DecodeBare(buf *bin.Buffer) error {
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.botResults#947ca848: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			b.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(buf)
