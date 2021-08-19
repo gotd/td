@@ -47,11 +47,13 @@ func (o *Obfuscated2) Write(b []byte) (n int, err error) {
 }
 
 // Read implements io.Reader.
-func (o *Obfuscated2) Read(b []byte) (n int, err error) {
-	n, err = o.conn.Read(b)
+func (o *Obfuscated2) Read(b []byte) (int, error) {
+	n, err := o.conn.Read(b)
 	if err != nil {
-		return
+		return n, err
 	}
-	o.decrypt.XORKeyStream(b, b)
-	return
+	if n > 0 {
+		o.decrypt.XORKeyStream(b, b)
+	}
+	return n, err
 }
