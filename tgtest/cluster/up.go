@@ -52,7 +52,7 @@ func (c *Cluster) Up(ctx context.Context) error {
 			Host:   l.Addr().String(),
 		}
 		listen = func(ctx context.Context, dc int) (net.Listener, error) {
-			listener, handler := transport.WebsocketListener(baseURL.Host)
+			listener, handler := transport.WebsocketListener(l.Addr())
 
 			path := fmt.Sprintf("/dc/%d", dc)
 			mux.Handle(path, handler)
@@ -70,15 +70,17 @@ func (c *Cluster) Up(ctx context.Context) error {
 			return xerrors.Errorf("DC %d: listen port: %w", dcID, err)
 		}
 
-		// Add TCP listeners to config.
-		if addr, ok := l.Addr().(*net.TCPAddr); ok {
-			c.cfg.DCOptions = append(c.cfg.DCOptions, tg.DCOption{
-				Ipv6:      addr.IP.To16() != nil,
-				Static:    true,
-				ID:        dcID,
-				IPAddress: addr.IP.String(),
-				Port:      addr.Port,
-			})
+		if !c.web {
+			// Add TCP listeners to config.
+			if addr, ok := l.Addr().(*net.TCPAddr); ok {
+				c.cfg.DCOptions = append(c.cfg.DCOptions, tg.DCOption{
+					Ipv6:      addr.IP.To16() != nil,
+					Static:    true,
+					ID:        dcID,
+					IPAddress: addr.IP.String(),
+					Port:      addr.Port,
+				})
+			}
 		}
 
 		// Copy iteration value.

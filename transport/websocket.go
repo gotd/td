@@ -15,13 +15,13 @@ import (
 )
 
 type wsListener struct {
-	addr   string
+	addr   net.Addr
 	ch     chan *wsServerConn
 	closed *tdsync.Ready
 }
 
 // WebsocketListener creates new MTProto Websocket listener.
-func WebsocketListener(addr string) (net.Listener, http.Handler) {
+func WebsocketListener(addr net.Addr) (net.Listener, http.Handler) {
 	l := wsListener{
 		addr:   addr,
 		ch:     make(chan *wsServerConn, 1),
@@ -42,7 +42,7 @@ func (l wsListener) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		_ = wsConn.Close(websocket.StatusNormalClosure, "Close")
 	}()
 
-	conn := wsutil.NetConn(wsConn, wsutil.Addr("localhost"), wsutil.Addr(r.RemoteAddr))
+	conn := wsutil.NetConn(wsConn)
 	rw, md, err := obfuscated2.Accept(conn, nil)
 	if err != nil {
 		w.WriteHeader(400)
@@ -107,7 +107,7 @@ func (l wsListener) Close() error {
 }
 
 func (l wsListener) Addr() net.Addr {
-	return wsutil.Addr(l.addr)
+	return l.addr
 }
 
 type wsServerConn struct {

@@ -27,7 +27,7 @@ func TestWebsocketListener(t *testing.T) {
 	}))
 	defer srv.Close()
 
-	listener, h := transport.WebsocketListener(srv.URL)
+	listener, h := transport.WebsocketListener(srv.Listener.Addr())
 	handler = h
 	list := dcs.List{
 		Domains: map[int]string{
