@@ -1,5 +1,12 @@
 {{- /*gotype: github.com/gotd/td/internal/gen.config*/ -}}
+
 {{ define "slices" }}
+//go:build !no_gotd_slices
+// +build !no_gotd_slices
+
+{{ $pkg := $.Package }}
+{{ template "header" $ }}
+
 {{- range $f := $.Interfaces }}
 {{ template "interface_slice" $f }}
 

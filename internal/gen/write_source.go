@@ -82,6 +82,21 @@ func (w *writer) Generate(templateName, fileName string, cfg config) error {
 	return nil
 }
 
+func (w *writer) write(fileName string, cfg config) error {
+	if err := w.Generate("main", fileName, cfg); err != nil {
+		return err
+	}
+
+	if w.generateFlags.Slices {
+		name := strings.TrimSuffix(fileName, "_gen.go") + "_slices_gen.go"
+		if err := w.Generate("slices", name, cfg); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 // WriteInterfaces writes interface definitions to corresponding files.
 func (w *writer) WriteInterfaces(interfaces []interfaceDef) error {
 	for _, class := range interfaces {
@@ -96,7 +111,7 @@ func (w *writer) WriteInterfaces(interfaces []interfaceDef) error {
 		}
 
 		name := outFileName(class.BaseName, class.Namespace)
-		if err := w.Generate("main", name, cfg); err != nil {
+		if err := w.write(name, cfg); err != nil {
 			return err
 		}
 	}
@@ -120,7 +135,7 @@ func (w *writer) WriteStructs(structs []structDef, mappings map[string][]constru
 			// Name collision.
 			name = outFileName(s.BaseName+"_const", s.Namespace)
 		}
-		if err := w.Generate("main", name, cfg); err != nil {
+		if err := w.write(name, cfg); err != nil {
 			return err
 		}
 	}
