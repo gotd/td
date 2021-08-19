@@ -63,6 +63,14 @@ type PhotosUploadProfilePhotoRequest struct {
 // PhotosUploadProfilePhotoRequestTypeID is TL type id of PhotosUploadProfilePhotoRequest.
 const PhotosUploadProfilePhotoRequestTypeID = 0x89f30f69
 
+// Ensuring interfaces in compile-time for PhotosUploadProfilePhotoRequest.
+var (
+	_ bin.Encoder     = &PhotosUploadProfilePhotoRequest{}
+	_ bin.Decoder     = &PhotosUploadProfilePhotoRequest{}
+	_ bin.BareEncoder = &PhotosUploadProfilePhotoRequest{}
+	_ bin.BareDecoder = &PhotosUploadProfilePhotoRequest{}
+)
+
 func (u *PhotosUploadProfilePhotoRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -202,51 +210,6 @@ func (u *PhotosUploadProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFile sets value of File conditional field.
-func (u *PhotosUploadProfilePhotoRequest) SetFile(value InputFileClass) {
-	u.Flags.Set(0)
-	u.File = value
-}
-
-// GetFile returns value of File conditional field and
-// boolean which is true if field was set.
-func (u *PhotosUploadProfilePhotoRequest) GetFile() (value InputFileClass, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.File, true
-}
-
-// SetVideo sets value of Video conditional field.
-func (u *PhotosUploadProfilePhotoRequest) SetVideo(value InputFileClass) {
-	u.Flags.Set(1)
-	u.Video = value
-}
-
-// GetVideo returns value of Video conditional field and
-// boolean which is true if field was set.
-func (u *PhotosUploadProfilePhotoRequest) GetVideo() (value InputFileClass, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.Video, true
-}
-
-// SetVideoStartTs sets value of VideoStartTs conditional field.
-func (u *PhotosUploadProfilePhotoRequest) SetVideoStartTs(value float64) {
-	u.Flags.Set(2)
-	u.VideoStartTs = value
-}
-
-// GetVideoStartTs returns value of VideoStartTs conditional field and
-// boolean which is true if field was set.
-func (u *PhotosUploadProfilePhotoRequest) GetVideoStartTs() (value float64, ok bool) {
-	if !u.Flags.Has(2) {
-		return value, false
-	}
-	return u.VideoStartTs, true
-}
-
 // Decode implements bin.Decoder.
 func (u *PhotosUploadProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -292,13 +255,50 @@ func (u *PhotosUploadProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhotosUploadProfilePhotoRequest.
-var (
-	_ bin.Encoder     = &PhotosUploadProfilePhotoRequest{}
-	_ bin.Decoder     = &PhotosUploadProfilePhotoRequest{}
-	_ bin.BareEncoder = &PhotosUploadProfilePhotoRequest{}
-	_ bin.BareDecoder = &PhotosUploadProfilePhotoRequest{}
-)
+// SetFile sets value of File conditional field.
+func (u *PhotosUploadProfilePhotoRequest) SetFile(value InputFileClass) {
+	u.Flags.Set(0)
+	u.File = value
+}
+
+// GetFile returns value of File conditional field and
+// boolean which is true if field was set.
+func (u *PhotosUploadProfilePhotoRequest) GetFile() (value InputFileClass, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.File, true
+}
+
+// SetVideo sets value of Video conditional field.
+func (u *PhotosUploadProfilePhotoRequest) SetVideo(value InputFileClass) {
+	u.Flags.Set(1)
+	u.Video = value
+}
+
+// GetVideo returns value of Video conditional field and
+// boolean which is true if field was set.
+func (u *PhotosUploadProfilePhotoRequest) GetVideo() (value InputFileClass, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.Video, true
+}
+
+// SetVideoStartTs sets value of VideoStartTs conditional field.
+func (u *PhotosUploadProfilePhotoRequest) SetVideoStartTs(value float64) {
+	u.Flags.Set(2)
+	u.VideoStartTs = value
+}
+
+// GetVideoStartTs returns value of VideoStartTs conditional field and
+// boolean which is true if field was set.
+func (u *PhotosUploadProfilePhotoRequest) GetVideoStartTs() (value float64, ok bool) {
+	if !u.Flags.Has(2) {
+		return value, false
+	}
+	return u.VideoStartTs, true
+}
 
 // PhotosUploadProfilePhoto invokes method photos.uploadProfilePhoto#89f30f69 returning error if any.
 // Updates current user profile photo.

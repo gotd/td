@@ -77,6 +77,14 @@ type DCOption struct {
 // DCOptionTypeID is TL type id of DCOption.
 const DCOptionTypeID = 0x18b7a10d
 
+// Ensuring interfaces in compile-time for DCOption.
+var (
+	_ bin.Encoder     = &DCOption{}
+	_ bin.Decoder     = &DCOption{}
+	_ bin.BareEncoder = &DCOption{}
+	_ bin.BareDecoder = &DCOption{}
+)
+
 func (d *DCOption) Zero() bool {
 	if d == nil {
 		return true
@@ -263,6 +271,63 @@ func (d *DCOption) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (d *DCOption) Decode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dcOption#18b7a10d to nil")
+	}
+	if err := b.ConsumeID(DCOptionTypeID); err != nil {
+		return fmt.Errorf("unable to decode dcOption#18b7a10d: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DCOption) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dcOption#18b7a10d to nil")
+	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode dcOption#18b7a10d: field flags: %w", err)
+		}
+	}
+	d.Ipv6 = d.Flags.Has(0)
+	d.MediaOnly = d.Flags.Has(1)
+	d.TCPObfuscatedOnly = d.Flags.Has(2)
+	d.CDN = d.Flags.Has(3)
+	d.Static = d.Flags.Has(4)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dcOption#18b7a10d: field id: %w", err)
+		}
+		d.ID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode dcOption#18b7a10d: field ip_address: %w", err)
+		}
+		d.IPAddress = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dcOption#18b7a10d: field port: %w", err)
+		}
+		d.Port = value
+	}
+	if d.Flags.Has(10) {
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode dcOption#18b7a10d: field secret: %w", err)
+		}
+		d.Secret = value
+	}
+	return nil
+}
+
 // SetIpv6 sets value of Ipv6 conditional field.
 func (d *DCOption) SetIpv6(value bool) {
 	if value {
@@ -372,68 +437,3 @@ func (d *DCOption) GetSecret() (value []byte, ok bool) {
 	}
 	return d.Secret, true
 }
-
-// Decode implements bin.Decoder.
-func (d *DCOption) Decode(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't decode dcOption#18b7a10d to nil")
-	}
-	if err := b.ConsumeID(DCOptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode dcOption#18b7a10d: %w", err)
-	}
-	return d.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (d *DCOption) DecodeBare(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't decode dcOption#18b7a10d to nil")
-	}
-	{
-		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dcOption#18b7a10d: field flags: %w", err)
-		}
-	}
-	d.Ipv6 = d.Flags.Has(0)
-	d.MediaOnly = d.Flags.Has(1)
-	d.TCPObfuscatedOnly = d.Flags.Has(2)
-	d.CDN = d.Flags.Has(3)
-	d.Static = d.Flags.Has(4)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dcOption#18b7a10d: field id: %w", err)
-		}
-		d.ID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode dcOption#18b7a10d: field ip_address: %w", err)
-		}
-		d.IPAddress = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dcOption#18b7a10d: field port: %w", err)
-		}
-		d.Port = value
-	}
-	if d.Flags.Has(10) {
-		value, err := b.Bytes()
-		if err != nil {
-			return fmt.Errorf("unable to decode dcOption#18b7a10d: field secret: %w", err)
-		}
-		d.Secret = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for DCOption.
-var (
-	_ bin.Encoder     = &DCOption{}
-	_ bin.Decoder     = &DCOption{}
-	_ bin.BareEncoder = &DCOption{}
-	_ bin.BareDecoder = &DCOption{}
-)

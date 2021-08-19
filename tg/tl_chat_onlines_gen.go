@@ -41,6 +41,14 @@ type ChatOnlines struct {
 // ChatOnlinesTypeID is TL type id of ChatOnlines.
 const ChatOnlinesTypeID = 0xf041e250
 
+// Ensuring interfaces in compile-time for ChatOnlines.
+var (
+	_ bin.Encoder     = &ChatOnlines{}
+	_ bin.Decoder     = &ChatOnlines{}
+	_ bin.BareEncoder = &ChatOnlines{}
+	_ bin.BareDecoder = &ChatOnlines{}
+)
+
 func (c *ChatOnlines) Zero() bool {
 	if c == nil {
 		return true
@@ -117,11 +125,6 @@ func (c *ChatOnlines) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOnlines returns value of Onlines field.
-func (c *ChatOnlines) GetOnlines() (value int) {
-	return c.Onlines
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatOnlines) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -148,10 +151,7 @@ func (c *ChatOnlines) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChatOnlines.
-var (
-	_ bin.Encoder     = &ChatOnlines{}
-	_ bin.Decoder     = &ChatOnlines{}
-	_ bin.BareEncoder = &ChatOnlines{}
-	_ bin.BareDecoder = &ChatOnlines{}
-)
+// GetOnlines returns value of Onlines field.
+func (c *ChatOnlines) GetOnlines() (value int) {
+	return c.Onlines
+}

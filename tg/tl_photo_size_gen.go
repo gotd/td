@@ -44,6 +44,19 @@ type PhotoSizeEmpty struct {
 // PhotoSizeEmptyTypeID is TL type id of PhotoSizeEmpty.
 const PhotoSizeEmptyTypeID = 0xe17e23c
 
+// construct implements constructor of PhotoSizeClass.
+func (p PhotoSizeEmpty) construct() PhotoSizeClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotoSizeEmpty.
+var (
+	_ bin.Encoder     = &PhotoSizeEmpty{}
+	_ bin.Decoder     = &PhotoSizeEmpty{}
+	_ bin.BareEncoder = &PhotoSizeEmpty{}
+	_ bin.BareDecoder = &PhotoSizeEmpty{}
+
+	_ PhotoSizeClass = &PhotoSizeEmpty{}
+)
+
 func (p *PhotoSizeEmpty) Zero() bool {
 	if p == nil {
 		return true
@@ -120,11 +133,6 @@ func (p *PhotoSizeEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (p *PhotoSizeEmpty) GetType() (value string) {
-	return p.Type
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotoSizeEmpty) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -151,18 +159,10 @@ func (p *PhotoSizeEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoSizeClass.
-func (p PhotoSizeEmpty) construct() PhotoSizeClass { return &p }
-
-// Ensuring interfaces in compile-time for PhotoSizeEmpty.
-var (
-	_ bin.Encoder     = &PhotoSizeEmpty{}
-	_ bin.Decoder     = &PhotoSizeEmpty{}
-	_ bin.BareEncoder = &PhotoSizeEmpty{}
-	_ bin.BareDecoder = &PhotoSizeEmpty{}
-
-	_ PhotoSizeClass = &PhotoSizeEmpty{}
-)
+// GetType returns value of Type field.
+func (p *PhotoSizeEmpty) GetType() (value string) {
+	return p.Type
+}
 
 // PhotoSize represents TL type `photoSize#75c78e60`.
 // Image description.
@@ -181,6 +181,19 @@ type PhotoSize struct {
 
 // PhotoSizeTypeID is TL type id of PhotoSize.
 const PhotoSizeTypeID = 0x75c78e60
+
+// construct implements constructor of PhotoSizeClass.
+func (p PhotoSize) construct() PhotoSizeClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotoSize.
+var (
+	_ bin.Encoder     = &PhotoSize{}
+	_ bin.Decoder     = &PhotoSize{}
+	_ bin.BareEncoder = &PhotoSize{}
+	_ bin.BareDecoder = &PhotoSize{}
+
+	_ PhotoSizeClass = &PhotoSize{}
+)
 
 func (p *PhotoSize) Zero() bool {
 	if p == nil {
@@ -288,26 +301,6 @@ func (p *PhotoSize) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (p *PhotoSize) GetType() (value string) {
-	return p.Type
-}
-
-// GetW returns value of W field.
-func (p *PhotoSize) GetW() (value int) {
-	return p.W
-}
-
-// GetH returns value of H field.
-func (p *PhotoSize) GetH() (value int) {
-	return p.H
-}
-
-// GetSize returns value of Size field.
-func (p *PhotoSize) GetSize() (value int) {
-	return p.Size
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotoSize) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -355,18 +348,25 @@ func (p *PhotoSize) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoSizeClass.
-func (p PhotoSize) construct() PhotoSizeClass { return &p }
+// GetType returns value of Type field.
+func (p *PhotoSize) GetType() (value string) {
+	return p.Type
+}
 
-// Ensuring interfaces in compile-time for PhotoSize.
-var (
-	_ bin.Encoder     = &PhotoSize{}
-	_ bin.Decoder     = &PhotoSize{}
-	_ bin.BareEncoder = &PhotoSize{}
-	_ bin.BareDecoder = &PhotoSize{}
+// GetW returns value of W field.
+func (p *PhotoSize) GetW() (value int) {
+	return p.W
+}
 
-	_ PhotoSizeClass = &PhotoSize{}
-)
+// GetH returns value of H field.
+func (p *PhotoSize) GetH() (value int) {
+	return p.H
+}
+
+// GetSize returns value of Size field.
+func (p *PhotoSize) GetSize() (value int) {
+	return p.Size
+}
 
 // PhotoCachedSize represents TL type `photoCachedSize#21e1ad6`.
 // Description of an image and its content.
@@ -385,6 +385,19 @@ type PhotoCachedSize struct {
 
 // PhotoCachedSizeTypeID is TL type id of PhotoCachedSize.
 const PhotoCachedSizeTypeID = 0x21e1ad6
+
+// construct implements constructor of PhotoSizeClass.
+func (p PhotoCachedSize) construct() PhotoSizeClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotoCachedSize.
+var (
+	_ bin.Encoder     = &PhotoCachedSize{}
+	_ bin.Decoder     = &PhotoCachedSize{}
+	_ bin.BareEncoder = &PhotoCachedSize{}
+	_ bin.BareDecoder = &PhotoCachedSize{}
+
+	_ PhotoSizeClass = &PhotoCachedSize{}
+)
 
 func (p *PhotoCachedSize) Zero() bool {
 	if p == nil {
@@ -492,26 +505,6 @@ func (p *PhotoCachedSize) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (p *PhotoCachedSize) GetType() (value string) {
-	return p.Type
-}
-
-// GetW returns value of W field.
-func (p *PhotoCachedSize) GetW() (value int) {
-	return p.W
-}
-
-// GetH returns value of H field.
-func (p *PhotoCachedSize) GetH() (value int) {
-	return p.H
-}
-
-// GetBytes returns value of Bytes field.
-func (p *PhotoCachedSize) GetBytes() (value []byte) {
-	return p.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotoCachedSize) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -559,18 +552,25 @@ func (p *PhotoCachedSize) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoSizeClass.
-func (p PhotoCachedSize) construct() PhotoSizeClass { return &p }
+// GetType returns value of Type field.
+func (p *PhotoCachedSize) GetType() (value string) {
+	return p.Type
+}
 
-// Ensuring interfaces in compile-time for PhotoCachedSize.
-var (
-	_ bin.Encoder     = &PhotoCachedSize{}
-	_ bin.Decoder     = &PhotoCachedSize{}
-	_ bin.BareEncoder = &PhotoCachedSize{}
-	_ bin.BareDecoder = &PhotoCachedSize{}
+// GetW returns value of W field.
+func (p *PhotoCachedSize) GetW() (value int) {
+	return p.W
+}
 
-	_ PhotoSizeClass = &PhotoCachedSize{}
-)
+// GetH returns value of H field.
+func (p *PhotoCachedSize) GetH() (value int) {
+	return p.H
+}
+
+// GetBytes returns value of Bytes field.
+func (p *PhotoCachedSize) GetBytes() (value []byte) {
+	return p.Bytes
+}
 
 // PhotoStrippedSize represents TL type `photoStrippedSize#e0b0bc2e`.
 // A low-resolution compressed JPG payload
@@ -588,6 +588,19 @@ type PhotoStrippedSize struct {
 
 // PhotoStrippedSizeTypeID is TL type id of PhotoStrippedSize.
 const PhotoStrippedSizeTypeID = 0xe0b0bc2e
+
+// construct implements constructor of PhotoSizeClass.
+func (p PhotoStrippedSize) construct() PhotoSizeClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotoStrippedSize.
+var (
+	_ bin.Encoder     = &PhotoStrippedSize{}
+	_ bin.Decoder     = &PhotoStrippedSize{}
+	_ bin.BareEncoder = &PhotoStrippedSize{}
+	_ bin.BareDecoder = &PhotoStrippedSize{}
+
+	_ PhotoSizeClass = &PhotoStrippedSize{}
+)
 
 func (p *PhotoStrippedSize) Zero() bool {
 	if p == nil {
@@ -675,16 +688,6 @@ func (p *PhotoStrippedSize) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (p *PhotoStrippedSize) GetType() (value string) {
-	return p.Type
-}
-
-// GetBytes returns value of Bytes field.
-func (p *PhotoStrippedSize) GetBytes() (value []byte) {
-	return p.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotoStrippedSize) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -718,18 +721,15 @@ func (p *PhotoStrippedSize) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoSizeClass.
-func (p PhotoStrippedSize) construct() PhotoSizeClass { return &p }
+// GetType returns value of Type field.
+func (p *PhotoStrippedSize) GetType() (value string) {
+	return p.Type
+}
 
-// Ensuring interfaces in compile-time for PhotoStrippedSize.
-var (
-	_ bin.Encoder     = &PhotoStrippedSize{}
-	_ bin.Decoder     = &PhotoStrippedSize{}
-	_ bin.BareEncoder = &PhotoStrippedSize{}
-	_ bin.BareDecoder = &PhotoStrippedSize{}
-
-	_ PhotoSizeClass = &PhotoStrippedSize{}
-)
+// GetBytes returns value of Bytes field.
+func (p *PhotoStrippedSize) GetBytes() (value []byte) {
+	return p.Bytes
+}
 
 // PhotoSizeProgressive represents TL type `photoSizeProgressive#fa3efb95`.
 // Progressively encoded photosize
@@ -749,6 +749,19 @@ type PhotoSizeProgressive struct {
 
 // PhotoSizeProgressiveTypeID is TL type id of PhotoSizeProgressive.
 const PhotoSizeProgressiveTypeID = 0xfa3efb95
+
+// construct implements constructor of PhotoSizeClass.
+func (p PhotoSizeProgressive) construct() PhotoSizeClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotoSizeProgressive.
+var (
+	_ bin.Encoder     = &PhotoSizeProgressive{}
+	_ bin.Decoder     = &PhotoSizeProgressive{}
+	_ bin.BareEncoder = &PhotoSizeProgressive{}
+	_ bin.BareDecoder = &PhotoSizeProgressive{}
+
+	_ PhotoSizeClass = &PhotoSizeProgressive{}
+)
 
 func (p *PhotoSizeProgressive) Zero() bool {
 	if p == nil {
@@ -859,26 +872,6 @@ func (p *PhotoSizeProgressive) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (p *PhotoSizeProgressive) GetType() (value string) {
-	return p.Type
-}
-
-// GetW returns value of W field.
-func (p *PhotoSizeProgressive) GetW() (value int) {
-	return p.W
-}
-
-// GetH returns value of H field.
-func (p *PhotoSizeProgressive) GetH() (value int) {
-	return p.H
-}
-
-// GetSizes returns value of Sizes field.
-func (p *PhotoSizeProgressive) GetSizes() (value []int) {
-	return p.Sizes
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotoSizeProgressive) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -936,18 +929,25 @@ func (p *PhotoSizeProgressive) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoSizeClass.
-func (p PhotoSizeProgressive) construct() PhotoSizeClass { return &p }
+// GetType returns value of Type field.
+func (p *PhotoSizeProgressive) GetType() (value string) {
+	return p.Type
+}
 
-// Ensuring interfaces in compile-time for PhotoSizeProgressive.
-var (
-	_ bin.Encoder     = &PhotoSizeProgressive{}
-	_ bin.Decoder     = &PhotoSizeProgressive{}
-	_ bin.BareEncoder = &PhotoSizeProgressive{}
-	_ bin.BareDecoder = &PhotoSizeProgressive{}
+// GetW returns value of W field.
+func (p *PhotoSizeProgressive) GetW() (value int) {
+	return p.W
+}
 
-	_ PhotoSizeClass = &PhotoSizeProgressive{}
-)
+// GetH returns value of H field.
+func (p *PhotoSizeProgressive) GetH() (value int) {
+	return p.H
+}
+
+// GetSizes returns value of Sizes field.
+func (p *PhotoSizeProgressive) GetSizes() (value []int) {
+	return p.Sizes
+}
 
 // PhotoPathSize represents TL type `photoPathSize#d8214d41`.
 // Messages with animated stickers can have a compressed svg (< 300 bytes) to show the
@@ -966,6 +966,19 @@ type PhotoPathSize struct {
 
 // PhotoPathSizeTypeID is TL type id of PhotoPathSize.
 const PhotoPathSizeTypeID = 0xd8214d41
+
+// construct implements constructor of PhotoSizeClass.
+func (p PhotoPathSize) construct() PhotoSizeClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotoPathSize.
+var (
+	_ bin.Encoder     = &PhotoPathSize{}
+	_ bin.Decoder     = &PhotoPathSize{}
+	_ bin.BareEncoder = &PhotoPathSize{}
+	_ bin.BareDecoder = &PhotoPathSize{}
+
+	_ PhotoSizeClass = &PhotoPathSize{}
+)
 
 func (p *PhotoPathSize) Zero() bool {
 	if p == nil {
@@ -1053,16 +1066,6 @@ func (p *PhotoPathSize) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (p *PhotoPathSize) GetType() (value string) {
-	return p.Type
-}
-
-// GetBytes returns value of Bytes field.
-func (p *PhotoPathSize) GetBytes() (value []byte) {
-	return p.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotoPathSize) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1096,18 +1099,15 @@ func (p *PhotoPathSize) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoSizeClass.
-func (p PhotoPathSize) construct() PhotoSizeClass { return &p }
+// GetType returns value of Type field.
+func (p *PhotoPathSize) GetType() (value string) {
+	return p.Type
+}
 
-// Ensuring interfaces in compile-time for PhotoPathSize.
-var (
-	_ bin.Encoder     = &PhotoPathSize{}
-	_ bin.Decoder     = &PhotoPathSize{}
-	_ bin.BareEncoder = &PhotoPathSize{}
-	_ bin.BareDecoder = &PhotoPathSize{}
-
-	_ PhotoSizeClass = &PhotoPathSize{}
-)
+// GetBytes returns value of Bytes field.
+func (p *PhotoPathSize) GetBytes() (value []byte) {
+	return p.Bytes
+}
 
 // PhotoSizeClass represents PhotoSize generic type.
 //

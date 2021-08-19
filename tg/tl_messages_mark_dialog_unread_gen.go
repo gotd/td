@@ -48,6 +48,14 @@ type MessagesMarkDialogUnreadRequest struct {
 // MessagesMarkDialogUnreadRequestTypeID is TL type id of MessagesMarkDialogUnreadRequest.
 const MessagesMarkDialogUnreadRequestTypeID = 0xc286d98f
 
+// Ensuring interfaces in compile-time for MessagesMarkDialogUnreadRequest.
+var (
+	_ bin.Encoder     = &MessagesMarkDialogUnreadRequest{}
+	_ bin.Decoder     = &MessagesMarkDialogUnreadRequest{}
+	_ bin.BareEncoder = &MessagesMarkDialogUnreadRequest{}
+	_ bin.BareDecoder = &MessagesMarkDialogUnreadRequest{}
+)
+
 func (m *MessagesMarkDialogUnreadRequest) Zero() bool {
 	if m == nil {
 		return true
@@ -148,27 +156,6 @@ func (m *MessagesMarkDialogUnreadRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetUnread sets value of Unread conditional field.
-func (m *MessagesMarkDialogUnreadRequest) SetUnread(value bool) {
-	if value {
-		m.Flags.Set(0)
-		m.Unread = true
-	} else {
-		m.Flags.Unset(0)
-		m.Unread = false
-	}
-}
-
-// GetUnread returns value of Unread conditional field.
-func (m *MessagesMarkDialogUnreadRequest) GetUnread() (value bool) {
-	return m.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (m *MessagesMarkDialogUnreadRequest) GetPeer() (value InputDialogPeerClass) {
-	return m.Peer
-}
-
 // Decode implements bin.Decoder.
 func (m *MessagesMarkDialogUnreadRequest) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -201,13 +188,26 @@ func (m *MessagesMarkDialogUnreadRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesMarkDialogUnreadRequest.
-var (
-	_ bin.Encoder     = &MessagesMarkDialogUnreadRequest{}
-	_ bin.Decoder     = &MessagesMarkDialogUnreadRequest{}
-	_ bin.BareEncoder = &MessagesMarkDialogUnreadRequest{}
-	_ bin.BareDecoder = &MessagesMarkDialogUnreadRequest{}
-)
+// SetUnread sets value of Unread conditional field.
+func (m *MessagesMarkDialogUnreadRequest) SetUnread(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.Unread = true
+	} else {
+		m.Flags.Unset(0)
+		m.Unread = false
+	}
+}
+
+// GetUnread returns value of Unread conditional field.
+func (m *MessagesMarkDialogUnreadRequest) GetUnread() (value bool) {
+	return m.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (m *MessagesMarkDialogUnreadRequest) GetPeer() (value InputDialogPeerClass) {
+	return m.Peer
+}
 
 // MessagesMarkDialogUnread invokes method messages.markDialogUnread#c286d98f returning error if any.
 // Manually mark dialog as unread

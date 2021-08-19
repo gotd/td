@@ -45,6 +45,14 @@ type MessagesStickerSet struct {
 // MessagesStickerSetTypeID is TL type id of MessagesStickerSet.
 const MessagesStickerSetTypeID = 0xb60a24a6
 
+// Ensuring interfaces in compile-time for MessagesStickerSet.
+var (
+	_ bin.Encoder     = &MessagesStickerSet{}
+	_ bin.Decoder     = &MessagesStickerSet{}
+	_ bin.BareEncoder = &MessagesStickerSet{}
+	_ bin.BareDecoder = &MessagesStickerSet{}
+)
+
 func (s *MessagesStickerSet) Zero() bool {
 	if s == nil {
 		return true
@@ -156,26 +164,6 @@ func (s *MessagesStickerSet) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSet returns value of Set field.
-func (s *MessagesStickerSet) GetSet() (value StickerSet) {
-	return s.Set
-}
-
-// GetPacks returns value of Packs field.
-func (s *MessagesStickerSet) GetPacks() (value []StickerPack) {
-	return s.Packs
-}
-
-// GetDocuments returns value of Documents field.
-func (s *MessagesStickerSet) GetDocuments() (value []DocumentClass) {
-	return s.Documents
-}
-
-// MapDocuments returns field Documents wrapped in DocumentClassArray helper.
-func (s *MessagesStickerSet) MapDocuments() (value DocumentClassArray) {
-	return DocumentClassArray(s.Documents)
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesStickerSet) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -234,10 +222,22 @@ func (s *MessagesStickerSet) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesStickerSet.
-var (
-	_ bin.Encoder     = &MessagesStickerSet{}
-	_ bin.Decoder     = &MessagesStickerSet{}
-	_ bin.BareEncoder = &MessagesStickerSet{}
-	_ bin.BareDecoder = &MessagesStickerSet{}
-)
+// GetSet returns value of Set field.
+func (s *MessagesStickerSet) GetSet() (value StickerSet) {
+	return s.Set
+}
+
+// GetPacks returns value of Packs field.
+func (s *MessagesStickerSet) GetPacks() (value []StickerPack) {
+	return s.Packs
+}
+
+// GetDocuments returns value of Documents field.
+func (s *MessagesStickerSet) GetDocuments() (value []DocumentClass) {
+	return s.Documents
+}
+
+// MapDocuments returns field Documents wrapped in DocumentClassArray helper.
+func (s *MessagesStickerSet) MapDocuments() (value DocumentClassArray) {
+	return DocumentClassArray(s.Documents)
+}

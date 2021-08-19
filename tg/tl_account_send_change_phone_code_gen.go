@@ -43,6 +43,14 @@ type AccountSendChangePhoneCodeRequest struct {
 // AccountSendChangePhoneCodeRequestTypeID is TL type id of AccountSendChangePhoneCodeRequest.
 const AccountSendChangePhoneCodeRequestTypeID = 0x82574ae5
 
+// Ensuring interfaces in compile-time for AccountSendChangePhoneCodeRequest.
+var (
+	_ bin.Encoder     = &AccountSendChangePhoneCodeRequest{}
+	_ bin.Decoder     = &AccountSendChangePhoneCodeRequest{}
+	_ bin.BareEncoder = &AccountSendChangePhoneCodeRequest{}
+	_ bin.BareDecoder = &AccountSendChangePhoneCodeRequest{}
+)
+
 func (s *AccountSendChangePhoneCodeRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -131,16 +139,6 @@ func (s *AccountSendChangePhoneCodeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (s *AccountSendChangePhoneCodeRequest) GetPhoneNumber() (value string) {
-	return s.PhoneNumber
-}
-
-// GetSettings returns value of Settings field.
-func (s *AccountSendChangePhoneCodeRequest) GetSettings() (value CodeSettings) {
-	return s.Settings
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSendChangePhoneCodeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -172,13 +170,15 @@ func (s *AccountSendChangePhoneCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSendChangePhoneCodeRequest.
-var (
-	_ bin.Encoder     = &AccountSendChangePhoneCodeRequest{}
-	_ bin.Decoder     = &AccountSendChangePhoneCodeRequest{}
-	_ bin.BareEncoder = &AccountSendChangePhoneCodeRequest{}
-	_ bin.BareDecoder = &AccountSendChangePhoneCodeRequest{}
-)
+// GetPhoneNumber returns value of PhoneNumber field.
+func (s *AccountSendChangePhoneCodeRequest) GetPhoneNumber() (value string) {
+	return s.PhoneNumber
+}
+
+// GetSettings returns value of Settings field.
+func (s *AccountSendChangePhoneCodeRequest) GetSettings() (value CodeSettings) {
+	return s.Settings
+}
 
 // AccountSendChangePhoneCode invokes method account.sendChangePhoneCode#82574ae5 returning error if any.
 // Verify a new phone number to associate to the current account

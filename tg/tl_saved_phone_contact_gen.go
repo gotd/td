@@ -47,6 +47,14 @@ type SavedPhoneContact struct {
 // SavedPhoneContactTypeID is TL type id of SavedPhoneContact.
 const SavedPhoneContactTypeID = 0x1142bd56
 
+// Ensuring interfaces in compile-time for SavedPhoneContact.
+var (
+	_ bin.Encoder     = &SavedPhoneContact{}
+	_ bin.Decoder     = &SavedPhoneContact{}
+	_ bin.BareEncoder = &SavedPhoneContact{}
+	_ bin.BareDecoder = &SavedPhoneContact{}
+)
+
 func (s *SavedPhoneContact) Zero() bool {
 	if s == nil {
 		return true
@@ -153,26 +161,6 @@ func (s *SavedPhoneContact) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhone returns value of Phone field.
-func (s *SavedPhoneContact) GetPhone() (value string) {
-	return s.Phone
-}
-
-// GetFirstName returns value of FirstName field.
-func (s *SavedPhoneContact) GetFirstName() (value string) {
-	return s.FirstName
-}
-
-// GetLastName returns value of LastName field.
-func (s *SavedPhoneContact) GetLastName() (value string) {
-	return s.LastName
-}
-
-// GetDate returns value of Date field.
-func (s *SavedPhoneContact) GetDate() (value int) {
-	return s.Date
-}
-
 // Decode implements bin.Decoder.
 func (s *SavedPhoneContact) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -220,10 +208,22 @@ func (s *SavedPhoneContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SavedPhoneContact.
-var (
-	_ bin.Encoder     = &SavedPhoneContact{}
-	_ bin.Decoder     = &SavedPhoneContact{}
-	_ bin.BareEncoder = &SavedPhoneContact{}
-	_ bin.BareDecoder = &SavedPhoneContact{}
-)
+// GetPhone returns value of Phone field.
+func (s *SavedPhoneContact) GetPhone() (value string) {
+	return s.Phone
+}
+
+// GetFirstName returns value of FirstName field.
+func (s *SavedPhoneContact) GetFirstName() (value string) {
+	return s.FirstName
+}
+
+// GetLastName returns value of LastName field.
+func (s *SavedPhoneContact) GetLastName() (value string) {
+	return s.LastName
+}
+
+// GetDate returns value of Date field.
+func (s *SavedPhoneContact) GetDate() (value int) {
+	return s.Date
+}

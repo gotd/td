@@ -43,6 +43,19 @@ type InputWebFileLocation struct {
 // InputWebFileLocationTypeID is TL type id of InputWebFileLocation.
 const InputWebFileLocationTypeID = 0xc239d686
 
+// construct implements constructor of InputWebFileLocationClass.
+func (i InputWebFileLocation) construct() InputWebFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputWebFileLocation.
+var (
+	_ bin.Encoder     = &InputWebFileLocation{}
+	_ bin.Decoder     = &InputWebFileLocation{}
+	_ bin.BareEncoder = &InputWebFileLocation{}
+	_ bin.BareDecoder = &InputWebFileLocation{}
+
+	_ InputWebFileLocationClass = &InputWebFileLocation{}
+)
+
 func (i *InputWebFileLocation) Zero() bool {
 	if i == nil {
 		return true
@@ -129,16 +142,6 @@ func (i *InputWebFileLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (i *InputWebFileLocation) GetURL() (value string) {
-	return i.URL
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputWebFileLocation) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputWebFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -172,18 +175,15 @@ func (i *InputWebFileLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputWebFileLocationClass.
-func (i InputWebFileLocation) construct() InputWebFileLocationClass { return &i }
+// GetURL returns value of URL field.
+func (i *InputWebFileLocation) GetURL() (value string) {
+	return i.URL
+}
 
-// Ensuring interfaces in compile-time for InputWebFileLocation.
-var (
-	_ bin.Encoder     = &InputWebFileLocation{}
-	_ bin.Decoder     = &InputWebFileLocation{}
-	_ bin.BareEncoder = &InputWebFileLocation{}
-	_ bin.BareDecoder = &InputWebFileLocation{}
-
-	_ InputWebFileLocationClass = &InputWebFileLocation{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputWebFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputWebFileGeoPointLocation represents TL type `inputWebFileGeoPointLocation#9f2221c9`.
 // Geolocation
@@ -206,6 +206,19 @@ type InputWebFileGeoPointLocation struct {
 
 // InputWebFileGeoPointLocationTypeID is TL type id of InputWebFileGeoPointLocation.
 const InputWebFileGeoPointLocationTypeID = 0x9f2221c9
+
+// construct implements constructor of InputWebFileLocationClass.
+func (i InputWebFileGeoPointLocation) construct() InputWebFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputWebFileGeoPointLocation.
+var (
+	_ bin.Encoder     = &InputWebFileGeoPointLocation{}
+	_ bin.Decoder     = &InputWebFileGeoPointLocation{}
+	_ bin.BareEncoder = &InputWebFileGeoPointLocation{}
+	_ bin.BareDecoder = &InputWebFileGeoPointLocation{}
+
+	_ InputWebFileLocationClass = &InputWebFileGeoPointLocation{}
+)
 
 func (i *InputWebFileGeoPointLocation) Zero() bool {
 	if i == nil {
@@ -338,36 +351,6 @@ func (i *InputWebFileGeoPointLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetGeoPoint returns value of GeoPoint field.
-func (i *InputWebFileGeoPointLocation) GetGeoPoint() (value InputGeoPointClass) {
-	return i.GeoPoint
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputWebFileGeoPointLocation) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
-// GetW returns value of W field.
-func (i *InputWebFileGeoPointLocation) GetW() (value int) {
-	return i.W
-}
-
-// GetH returns value of H field.
-func (i *InputWebFileGeoPointLocation) GetH() (value int) {
-	return i.H
-}
-
-// GetZoom returns value of Zoom field.
-func (i *InputWebFileGeoPointLocation) GetZoom() (value int) {
-	return i.Zoom
-}
-
-// GetScale returns value of Scale field.
-func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
-	return i.Scale
-}
-
 // Decode implements bin.Decoder.
 func (i *InputWebFileGeoPointLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -429,18 +412,35 @@ func (i *InputWebFileGeoPointLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputWebFileLocationClass.
-func (i InputWebFileGeoPointLocation) construct() InputWebFileLocationClass { return &i }
+// GetGeoPoint returns value of GeoPoint field.
+func (i *InputWebFileGeoPointLocation) GetGeoPoint() (value InputGeoPointClass) {
+	return i.GeoPoint
+}
 
-// Ensuring interfaces in compile-time for InputWebFileGeoPointLocation.
-var (
-	_ bin.Encoder     = &InputWebFileGeoPointLocation{}
-	_ bin.Decoder     = &InputWebFileGeoPointLocation{}
-	_ bin.BareEncoder = &InputWebFileGeoPointLocation{}
-	_ bin.BareDecoder = &InputWebFileGeoPointLocation{}
+// GetAccessHash returns value of AccessHash field.
+func (i *InputWebFileGeoPointLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
-	_ InputWebFileLocationClass = &InputWebFileGeoPointLocation{}
-)
+// GetW returns value of W field.
+func (i *InputWebFileGeoPointLocation) GetW() (value int) {
+	return i.W
+}
+
+// GetH returns value of H field.
+func (i *InputWebFileGeoPointLocation) GetH() (value int) {
+	return i.H
+}
+
+// GetZoom returns value of Zoom field.
+func (i *InputWebFileGeoPointLocation) GetZoom() (value int) {
+	return i.Zoom
+}
+
+// GetScale returns value of Scale field.
+func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
+	return i.Scale
+}
 
 // InputWebFileLocationClass represents InputWebFileLocation generic type.
 //

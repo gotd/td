@@ -46,6 +46,19 @@ type AuthLoginToken struct {
 // AuthLoginTokenTypeID is TL type id of AuthLoginToken.
 const AuthLoginTokenTypeID = 0x629f1980
 
+// construct implements constructor of AuthLoginTokenClass.
+func (l AuthLoginToken) construct() AuthLoginTokenClass { return &l }
+
+// Ensuring interfaces in compile-time for AuthLoginToken.
+var (
+	_ bin.Encoder     = &AuthLoginToken{}
+	_ bin.Decoder     = &AuthLoginToken{}
+	_ bin.BareEncoder = &AuthLoginToken{}
+	_ bin.BareDecoder = &AuthLoginToken{}
+
+	_ AuthLoginTokenClass = &AuthLoginToken{}
+)
+
 func (l *AuthLoginToken) Zero() bool {
 	if l == nil {
 		return true
@@ -132,16 +145,6 @@ func (l *AuthLoginToken) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExpires returns value of Expires field.
-func (l *AuthLoginToken) GetExpires() (value int) {
-	return l.Expires
-}
-
-// GetToken returns value of Token field.
-func (l *AuthLoginToken) GetToken() (value []byte) {
-	return l.Token
-}
-
 // Decode implements bin.Decoder.
 func (l *AuthLoginToken) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -175,18 +178,15 @@ func (l *AuthLoginToken) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthLoginTokenClass.
-func (l AuthLoginToken) construct() AuthLoginTokenClass { return &l }
+// GetExpires returns value of Expires field.
+func (l *AuthLoginToken) GetExpires() (value int) {
+	return l.Expires
+}
 
-// Ensuring interfaces in compile-time for AuthLoginToken.
-var (
-	_ bin.Encoder     = &AuthLoginToken{}
-	_ bin.Decoder     = &AuthLoginToken{}
-	_ bin.BareEncoder = &AuthLoginToken{}
-	_ bin.BareDecoder = &AuthLoginToken{}
-
-	_ AuthLoginTokenClass = &AuthLoginToken{}
-)
+// GetToken returns value of Token field.
+func (l *AuthLoginToken) GetToken() (value []byte) {
+	return l.Token
+}
 
 // AuthLoginTokenMigrateTo represents TL type `auth.loginTokenMigrateTo#68e9916`.
 // Repeat the query to the specified DC
@@ -201,6 +201,19 @@ type AuthLoginTokenMigrateTo struct {
 
 // AuthLoginTokenMigrateToTypeID is TL type id of AuthLoginTokenMigrateTo.
 const AuthLoginTokenMigrateToTypeID = 0x68e9916
+
+// construct implements constructor of AuthLoginTokenClass.
+func (l AuthLoginTokenMigrateTo) construct() AuthLoginTokenClass { return &l }
+
+// Ensuring interfaces in compile-time for AuthLoginTokenMigrateTo.
+var (
+	_ bin.Encoder     = &AuthLoginTokenMigrateTo{}
+	_ bin.Decoder     = &AuthLoginTokenMigrateTo{}
+	_ bin.BareEncoder = &AuthLoginTokenMigrateTo{}
+	_ bin.BareDecoder = &AuthLoginTokenMigrateTo{}
+
+	_ AuthLoginTokenClass = &AuthLoginTokenMigrateTo{}
+)
 
 func (l *AuthLoginTokenMigrateTo) Zero() bool {
 	if l == nil {
@@ -288,16 +301,6 @@ func (l *AuthLoginTokenMigrateTo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDCID returns value of DCID field.
-func (l *AuthLoginTokenMigrateTo) GetDCID() (value int) {
-	return l.DCID
-}
-
-// GetToken returns value of Token field.
-func (l *AuthLoginTokenMigrateTo) GetToken() (value []byte) {
-	return l.Token
-}
-
 // Decode implements bin.Decoder.
 func (l *AuthLoginTokenMigrateTo) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -331,18 +334,15 @@ func (l *AuthLoginTokenMigrateTo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthLoginTokenClass.
-func (l AuthLoginTokenMigrateTo) construct() AuthLoginTokenClass { return &l }
+// GetDCID returns value of DCID field.
+func (l *AuthLoginTokenMigrateTo) GetDCID() (value int) {
+	return l.DCID
+}
 
-// Ensuring interfaces in compile-time for AuthLoginTokenMigrateTo.
-var (
-	_ bin.Encoder     = &AuthLoginTokenMigrateTo{}
-	_ bin.Decoder     = &AuthLoginTokenMigrateTo{}
-	_ bin.BareEncoder = &AuthLoginTokenMigrateTo{}
-	_ bin.BareDecoder = &AuthLoginTokenMigrateTo{}
-
-	_ AuthLoginTokenClass = &AuthLoginTokenMigrateTo{}
-)
+// GetToken returns value of Token field.
+func (l *AuthLoginTokenMigrateTo) GetToken() (value []byte) {
+	return l.Token
+}
 
 // AuthLoginTokenSuccess represents TL type `auth.loginTokenSuccess#390d5c5e`.
 // Login via token (QR code) succeded!
@@ -355,6 +355,19 @@ type AuthLoginTokenSuccess struct {
 
 // AuthLoginTokenSuccessTypeID is TL type id of AuthLoginTokenSuccess.
 const AuthLoginTokenSuccessTypeID = 0x390d5c5e
+
+// construct implements constructor of AuthLoginTokenClass.
+func (l AuthLoginTokenSuccess) construct() AuthLoginTokenClass { return &l }
+
+// Ensuring interfaces in compile-time for AuthLoginTokenSuccess.
+var (
+	_ bin.Encoder     = &AuthLoginTokenSuccess{}
+	_ bin.Decoder     = &AuthLoginTokenSuccess{}
+	_ bin.BareEncoder = &AuthLoginTokenSuccess{}
+	_ bin.BareDecoder = &AuthLoginTokenSuccess{}
+
+	_ AuthLoginTokenClass = &AuthLoginTokenSuccess{}
+)
 
 func (l *AuthLoginTokenSuccess) Zero() bool {
 	if l == nil {
@@ -437,11 +450,6 @@ func (l *AuthLoginTokenSuccess) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAuthorization returns value of Authorization field.
-func (l *AuthLoginTokenSuccess) GetAuthorization() (value AuthAuthorizationClass) {
-	return l.Authorization
-}
-
 // Decode implements bin.Decoder.
 func (l *AuthLoginTokenSuccess) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -468,18 +476,10 @@ func (l *AuthLoginTokenSuccess) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthLoginTokenClass.
-func (l AuthLoginTokenSuccess) construct() AuthLoginTokenClass { return &l }
-
-// Ensuring interfaces in compile-time for AuthLoginTokenSuccess.
-var (
-	_ bin.Encoder     = &AuthLoginTokenSuccess{}
-	_ bin.Decoder     = &AuthLoginTokenSuccess{}
-	_ bin.BareEncoder = &AuthLoginTokenSuccess{}
-	_ bin.BareDecoder = &AuthLoginTokenSuccess{}
-
-	_ AuthLoginTokenClass = &AuthLoginTokenSuccess{}
-)
+// GetAuthorization returns value of Authorization field.
+func (l *AuthLoginTokenSuccess) GetAuthorization() (value AuthAuthorizationClass) {
+	return l.Authorization
+}
 
 // AuthLoginTokenClass represents auth.LoginToken generic type.
 //

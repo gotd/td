@@ -40,6 +40,14 @@ type GetUpdatesResp struct {
 // GetUpdatesRespTypeID is TL type id of GetUpdatesResp.
 const GetUpdatesRespTypeID = 0x300bb5e1
 
+// Ensuring interfaces in compile-time for GetUpdatesResp.
+var (
+	_ bin.Encoder     = &GetUpdatesResp{}
+	_ bin.Decoder     = &GetUpdatesResp{}
+	_ bin.BareEncoder = &GetUpdatesResp{}
+	_ bin.BareDecoder = &GetUpdatesResp{}
+)
+
 func (g *GetUpdatesResp) Zero() bool {
 	if g == nil {
 		return true
@@ -58,13 +66,6 @@ func (g *GetUpdatesResp) String() string {
 	}
 	type Alias GetUpdatesResp
 	return fmt.Sprintf("GetUpdatesResp%+v", Alias(*g))
-}
-
-// FillFrom fills GetUpdatesResp from given interface.
-func (g *GetUpdatesResp) FillFrom(from interface {
-	GetUpdates() (value []AbstractMessageClass)
-}) {
-	g.Updates = from.GetUpdates()
 }
 
 // TypeID returns type id in TL schema.
@@ -124,16 +125,6 @@ func (g *GetUpdatesResp) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUpdates returns value of Updates field.
-func (g *GetUpdatesResp) GetUpdates() (value []AbstractMessageClass) {
-	return g.Updates
-}
-
-// MapUpdates returns field Updates wrapped in AbstractMessageClassArray helper.
-func (g *GetUpdatesResp) MapUpdates() (value AbstractMessageClassArray) {
-	return AbstractMessageClassArray(g.Updates)
-}
-
 // Decode implements bin.Decoder.
 func (g *GetUpdatesResp) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -170,10 +161,7 @@ func (g *GetUpdatesResp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for GetUpdatesResp.
-var (
-	_ bin.Encoder     = &GetUpdatesResp{}
-	_ bin.Decoder     = &GetUpdatesResp{}
-	_ bin.BareEncoder = &GetUpdatesResp{}
-	_ bin.BareDecoder = &GetUpdatesResp{}
-)
+// GetUpdates returns value of Updates field.
+func (g *GetUpdatesResp) GetUpdates() (value []AbstractMessageClass) {
+	return g.Updates
+}

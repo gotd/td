@@ -47,6 +47,14 @@ type ContactsImportContactsRequest struct {
 // ContactsImportContactsRequestTypeID is TL type id of ContactsImportContactsRequest.
 const ContactsImportContactsRequestTypeID = 0x2c800be5
 
+// Ensuring interfaces in compile-time for ContactsImportContactsRequest.
+var (
+	_ bin.Encoder     = &ContactsImportContactsRequest{}
+	_ bin.Decoder     = &ContactsImportContactsRequest{}
+	_ bin.BareEncoder = &ContactsImportContactsRequest{}
+	_ bin.BareDecoder = &ContactsImportContactsRequest{}
+)
+
 func (i *ContactsImportContactsRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -128,11 +136,6 @@ func (i *ContactsImportContactsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetContacts returns value of Contacts field.
-func (i *ContactsImportContactsRequest) GetContacts() (value []InputPhoneContact) {
-	return i.Contacts
-}
-
 // Decode implements bin.Decoder.
 func (i *ContactsImportContactsRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -169,13 +172,10 @@ func (i *ContactsImportContactsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsImportContactsRequest.
-var (
-	_ bin.Encoder     = &ContactsImportContactsRequest{}
-	_ bin.Decoder     = &ContactsImportContactsRequest{}
-	_ bin.BareEncoder = &ContactsImportContactsRequest{}
-	_ bin.BareDecoder = &ContactsImportContactsRequest{}
-)
+// GetContacts returns value of Contacts field.
+func (i *ContactsImportContactsRequest) GetContacts() (value []InputPhoneContact) {
+	return i.Contacts
+}
 
 // ContactsImportContacts invokes method contacts.importContacts#2c800be5 returning error if any.
 // Imports contacts: saves a full list on the server, adds already registered contacts to

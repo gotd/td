@@ -39,6 +39,19 @@ type InputEncryptedFileEmpty struct {
 // InputEncryptedFileEmptyTypeID is TL type id of InputEncryptedFileEmpty.
 const InputEncryptedFileEmptyTypeID = 0x1837c364
 
+// construct implements constructor of InputEncryptedFileClass.
+func (i InputEncryptedFileEmpty) construct() InputEncryptedFileClass { return &i }
+
+// Ensuring interfaces in compile-time for InputEncryptedFileEmpty.
+var (
+	_ bin.Encoder     = &InputEncryptedFileEmpty{}
+	_ bin.Decoder     = &InputEncryptedFileEmpty{}
+	_ bin.BareEncoder = &InputEncryptedFileEmpty{}
+	_ bin.BareDecoder = &InputEncryptedFileEmpty{}
+
+	_ InputEncryptedFileClass = &InputEncryptedFileEmpty{}
+)
+
 func (i *InputEncryptedFileEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputEncryptedFileEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputEncryptedFileClass.
-func (i InputEncryptedFileEmpty) construct() InputEncryptedFileClass { return &i }
-
-// Ensuring interfaces in compile-time for InputEncryptedFileEmpty.
-var (
-	_ bin.Encoder     = &InputEncryptedFileEmpty{}
-	_ bin.Decoder     = &InputEncryptedFileEmpty{}
-	_ bin.BareEncoder = &InputEncryptedFileEmpty{}
-	_ bin.BareDecoder = &InputEncryptedFileEmpty{}
-
-	_ InputEncryptedFileClass = &InputEncryptedFileEmpty{}
-)
-
 // InputEncryptedFileUploaded represents TL type `inputEncryptedFileUploaded#64bd0306`.
 // Sets new encrypted file saved by parts using upload.saveFilePart method.
 //
@@ -152,6 +152,19 @@ type InputEncryptedFileUploaded struct {
 
 // InputEncryptedFileUploadedTypeID is TL type id of InputEncryptedFileUploaded.
 const InputEncryptedFileUploadedTypeID = 0x64bd0306
+
+// construct implements constructor of InputEncryptedFileClass.
+func (i InputEncryptedFileUploaded) construct() InputEncryptedFileClass { return &i }
+
+// Ensuring interfaces in compile-time for InputEncryptedFileUploaded.
+var (
+	_ bin.Encoder     = &InputEncryptedFileUploaded{}
+	_ bin.Decoder     = &InputEncryptedFileUploaded{}
+	_ bin.BareEncoder = &InputEncryptedFileUploaded{}
+	_ bin.BareDecoder = &InputEncryptedFileUploaded{}
+
+	_ InputEncryptedFileClass = &InputEncryptedFileUploaded{}
+)
 
 func (i *InputEncryptedFileUploaded) Zero() bool {
 	if i == nil {
@@ -259,26 +272,6 @@ func (i *InputEncryptedFileUploaded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputEncryptedFileUploaded) GetID() (value int64) {
-	return i.ID
-}
-
-// GetParts returns value of Parts field.
-func (i *InputEncryptedFileUploaded) GetParts() (value int) {
-	return i.Parts
-}
-
-// GetMD5Checksum returns value of MD5Checksum field.
-func (i *InputEncryptedFileUploaded) GetMD5Checksum() (value string) {
-	return i.MD5Checksum
-}
-
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (i *InputEncryptedFileUploaded) GetKeyFingerprint() (value int) {
-	return i.KeyFingerprint
-}
-
 // Decode implements bin.Decoder.
 func (i *InputEncryptedFileUploaded) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -326,18 +319,25 @@ func (i *InputEncryptedFileUploaded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputEncryptedFileClass.
-func (i InputEncryptedFileUploaded) construct() InputEncryptedFileClass { return &i }
+// GetID returns value of ID field.
+func (i *InputEncryptedFileUploaded) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputEncryptedFileUploaded.
-var (
-	_ bin.Encoder     = &InputEncryptedFileUploaded{}
-	_ bin.Decoder     = &InputEncryptedFileUploaded{}
-	_ bin.BareEncoder = &InputEncryptedFileUploaded{}
-	_ bin.BareDecoder = &InputEncryptedFileUploaded{}
+// GetParts returns value of Parts field.
+func (i *InputEncryptedFileUploaded) GetParts() (value int) {
+	return i.Parts
+}
 
-	_ InputEncryptedFileClass = &InputEncryptedFileUploaded{}
-)
+// GetMD5Checksum returns value of MD5Checksum field.
+func (i *InputEncryptedFileUploaded) GetMD5Checksum() (value string) {
+	return i.MD5Checksum
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (i *InputEncryptedFileUploaded) GetKeyFingerprint() (value int) {
+	return i.KeyFingerprint
+}
 
 // InputEncryptedFile represents TL type `inputEncryptedFile#5a17b5e5`.
 // Sets forwarded encrypted file for attachment.
@@ -358,6 +358,19 @@ type InputEncryptedFile struct {
 
 // InputEncryptedFileTypeID is TL type id of InputEncryptedFile.
 const InputEncryptedFileTypeID = 0x5a17b5e5
+
+// construct implements constructor of InputEncryptedFileClass.
+func (i InputEncryptedFile) construct() InputEncryptedFileClass { return &i }
+
+// Ensuring interfaces in compile-time for InputEncryptedFile.
+var (
+	_ bin.Encoder     = &InputEncryptedFile{}
+	_ bin.Decoder     = &InputEncryptedFile{}
+	_ bin.BareEncoder = &InputEncryptedFile{}
+	_ bin.BareDecoder = &InputEncryptedFile{}
+
+	_ InputEncryptedFileClass = &InputEncryptedFile{}
+)
 
 func (i *InputEncryptedFile) Zero() bool {
 	if i == nil {
@@ -445,16 +458,6 @@ func (i *InputEncryptedFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputEncryptedFile) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputEncryptedFile) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputEncryptedFile) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -488,18 +491,15 @@ func (i *InputEncryptedFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputEncryptedFileClass.
-func (i InputEncryptedFile) construct() InputEncryptedFileClass { return &i }
+// GetID returns value of ID field.
+func (i *InputEncryptedFile) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputEncryptedFile.
-var (
-	_ bin.Encoder     = &InputEncryptedFile{}
-	_ bin.Decoder     = &InputEncryptedFile{}
-	_ bin.BareEncoder = &InputEncryptedFile{}
-	_ bin.BareDecoder = &InputEncryptedFile{}
-
-	_ InputEncryptedFileClass = &InputEncryptedFile{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputEncryptedFile) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputEncryptedFileBigUploaded represents TL type `inputEncryptedFileBigUploaded#2dc173c8`.
 // Assigns a new big encrypted file (over 10Mb in size), saved in parts using the method
@@ -520,6 +520,19 @@ type InputEncryptedFileBigUploaded struct {
 
 // InputEncryptedFileBigUploadedTypeID is TL type id of InputEncryptedFileBigUploaded.
 const InputEncryptedFileBigUploadedTypeID = 0x2dc173c8
+
+// construct implements constructor of InputEncryptedFileClass.
+func (i InputEncryptedFileBigUploaded) construct() InputEncryptedFileClass { return &i }
+
+// Ensuring interfaces in compile-time for InputEncryptedFileBigUploaded.
+var (
+	_ bin.Encoder     = &InputEncryptedFileBigUploaded{}
+	_ bin.Decoder     = &InputEncryptedFileBigUploaded{}
+	_ bin.BareEncoder = &InputEncryptedFileBigUploaded{}
+	_ bin.BareDecoder = &InputEncryptedFileBigUploaded{}
+
+	_ InputEncryptedFileClass = &InputEncryptedFileBigUploaded{}
+)
 
 func (i *InputEncryptedFileBigUploaded) Zero() bool {
 	if i == nil {
@@ -617,21 +630,6 @@ func (i *InputEncryptedFileBigUploaded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputEncryptedFileBigUploaded) GetID() (value int64) {
-	return i.ID
-}
-
-// GetParts returns value of Parts field.
-func (i *InputEncryptedFileBigUploaded) GetParts() (value int) {
-	return i.Parts
-}
-
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (i *InputEncryptedFileBigUploaded) GetKeyFingerprint() (value int) {
-	return i.KeyFingerprint
-}
-
 // Decode implements bin.Decoder.
 func (i *InputEncryptedFileBigUploaded) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -672,18 +670,20 @@ func (i *InputEncryptedFileBigUploaded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputEncryptedFileClass.
-func (i InputEncryptedFileBigUploaded) construct() InputEncryptedFileClass { return &i }
+// GetID returns value of ID field.
+func (i *InputEncryptedFileBigUploaded) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputEncryptedFileBigUploaded.
-var (
-	_ bin.Encoder     = &InputEncryptedFileBigUploaded{}
-	_ bin.Decoder     = &InputEncryptedFileBigUploaded{}
-	_ bin.BareEncoder = &InputEncryptedFileBigUploaded{}
-	_ bin.BareDecoder = &InputEncryptedFileBigUploaded{}
+// GetParts returns value of Parts field.
+func (i *InputEncryptedFileBigUploaded) GetParts() (value int) {
+	return i.Parts
+}
 
-	_ InputEncryptedFileClass = &InputEncryptedFileBigUploaded{}
-)
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (i *InputEncryptedFileBigUploaded) GetKeyFingerprint() (value int) {
+	return i.KeyFingerprint
+}
 
 // InputEncryptedFileClass represents InputEncryptedFile generic type.
 //

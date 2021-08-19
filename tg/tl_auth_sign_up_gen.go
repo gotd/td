@@ -47,6 +47,14 @@ type AuthSignUpRequest struct {
 // AuthSignUpRequestTypeID is TL type id of AuthSignUpRequest.
 const AuthSignUpRequestTypeID = 0x80eee427
 
+// Ensuring interfaces in compile-time for AuthSignUpRequest.
+var (
+	_ bin.Encoder     = &AuthSignUpRequest{}
+	_ bin.Decoder     = &AuthSignUpRequest{}
+	_ bin.BareEncoder = &AuthSignUpRequest{}
+	_ bin.BareDecoder = &AuthSignUpRequest{}
+)
+
 func (s *AuthSignUpRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -153,26 +161,6 @@ func (s *AuthSignUpRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (s *AuthSignUpRequest) GetPhoneNumber() (value string) {
-	return s.PhoneNumber
-}
-
-// GetPhoneCodeHash returns value of PhoneCodeHash field.
-func (s *AuthSignUpRequest) GetPhoneCodeHash() (value string) {
-	return s.PhoneCodeHash
-}
-
-// GetFirstName returns value of FirstName field.
-func (s *AuthSignUpRequest) GetFirstName() (value string) {
-	return s.FirstName
-}
-
-// GetLastName returns value of LastName field.
-func (s *AuthSignUpRequest) GetLastName() (value string) {
-	return s.LastName
-}
-
 // Decode implements bin.Decoder.
 func (s *AuthSignUpRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -220,13 +208,25 @@ func (s *AuthSignUpRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthSignUpRequest.
-var (
-	_ bin.Encoder     = &AuthSignUpRequest{}
-	_ bin.Decoder     = &AuthSignUpRequest{}
-	_ bin.BareEncoder = &AuthSignUpRequest{}
-	_ bin.BareDecoder = &AuthSignUpRequest{}
-)
+// GetPhoneNumber returns value of PhoneNumber field.
+func (s *AuthSignUpRequest) GetPhoneNumber() (value string) {
+	return s.PhoneNumber
+}
+
+// GetPhoneCodeHash returns value of PhoneCodeHash field.
+func (s *AuthSignUpRequest) GetPhoneCodeHash() (value string) {
+	return s.PhoneCodeHash
+}
+
+// GetFirstName returns value of FirstName field.
+func (s *AuthSignUpRequest) GetFirstName() (value string) {
+	return s.FirstName
+}
+
+// GetLastName returns value of LastName field.
+func (s *AuthSignUpRequest) GetLastName() (value string) {
+	return s.LastName
+}
 
 // AuthSignUp invokes method auth.signUp#80eee427 returning error if any.
 // Registers a validated phone number in the system.

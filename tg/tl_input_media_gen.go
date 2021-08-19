@@ -39,6 +39,19 @@ type InputMediaEmpty struct {
 // InputMediaEmptyTypeID is TL type id of InputMediaEmpty.
 const InputMediaEmptyTypeID = 0x9664f57f
 
+// construct implements constructor of InputMediaClass.
+func (i InputMediaEmpty) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaEmpty.
+var (
+	_ bin.Encoder     = &InputMediaEmpty{}
+	_ bin.Decoder     = &InputMediaEmpty{}
+	_ bin.BareEncoder = &InputMediaEmpty{}
+	_ bin.BareDecoder = &InputMediaEmpty{}
+
+	_ InputMediaClass = &InputMediaEmpty{}
+)
+
 func (i *InputMediaEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputMediaEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaEmpty) construct() InputMediaClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMediaEmpty.
-var (
-	_ bin.Encoder     = &InputMediaEmpty{}
-	_ bin.Decoder     = &InputMediaEmpty{}
-	_ bin.BareEncoder = &InputMediaEmpty{}
-	_ bin.BareDecoder = &InputMediaEmpty{}
-
-	_ InputMediaClass = &InputMediaEmpty{}
-)
-
 // InputMediaUploadedPhoto represents TL type `inputMediaUploadedPhoto#1e287d04`.
 // Photo
 //
@@ -158,6 +158,19 @@ type InputMediaUploadedPhoto struct {
 
 // InputMediaUploadedPhotoTypeID is TL type id of InputMediaUploadedPhoto.
 const InputMediaUploadedPhotoTypeID = 0x1e287d04
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaUploadedPhoto) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaUploadedPhoto.
+var (
+	_ bin.Encoder     = &InputMediaUploadedPhoto{}
+	_ bin.Decoder     = &InputMediaUploadedPhoto{}
+	_ bin.BareEncoder = &InputMediaUploadedPhoto{}
+	_ bin.BareDecoder = &InputMediaUploadedPhoto{}
+
+	_ InputMediaClass = &InputMediaUploadedPhoto{}
+)
 
 func (i *InputMediaUploadedPhoto) Zero() bool {
 	if i == nil {
@@ -292,49 +305,6 @@ func (i *InputMediaUploadedPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFile returns value of File field.
-func (i *InputMediaUploadedPhoto) GetFile() (value InputFileClass) {
-	return i.File
-}
-
-// SetStickers sets value of Stickers conditional field.
-func (i *InputMediaUploadedPhoto) SetStickers(value []InputDocumentClass) {
-	i.Flags.Set(0)
-	i.Stickers = value
-}
-
-// GetStickers returns value of Stickers conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaUploadedPhoto) GetStickers() (value []InputDocumentClass, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.Stickers, true
-}
-
-// MapStickers returns field Stickers wrapped in InputDocumentClassArray helper.
-func (i *InputMediaUploadedPhoto) MapStickers() (value InputDocumentClassArray, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return InputDocumentClassArray(i.Stickers), true
-}
-
-// SetTTLSeconds sets value of TTLSeconds conditional field.
-func (i *InputMediaUploadedPhoto) SetTTLSeconds(value int) {
-	i.Flags.Set(1)
-	i.TTLSeconds = value
-}
-
-// GetTTLSeconds returns value of TTLSeconds conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaUploadedPhoto) GetTTLSeconds() (value int, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.TTLSeconds, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaUploadedPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -390,18 +360,48 @@ func (i *InputMediaUploadedPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaUploadedPhoto) construct() InputMediaClass { return &i }
+// GetFile returns value of File field.
+func (i *InputMediaUploadedPhoto) GetFile() (value InputFileClass) {
+	return i.File
+}
 
-// Ensuring interfaces in compile-time for InputMediaUploadedPhoto.
-var (
-	_ bin.Encoder     = &InputMediaUploadedPhoto{}
-	_ bin.Decoder     = &InputMediaUploadedPhoto{}
-	_ bin.BareEncoder = &InputMediaUploadedPhoto{}
-	_ bin.BareDecoder = &InputMediaUploadedPhoto{}
+// SetStickers sets value of Stickers conditional field.
+func (i *InputMediaUploadedPhoto) SetStickers(value []InputDocumentClass) {
+	i.Flags.Set(0)
+	i.Stickers = value
+}
 
-	_ InputMediaClass = &InputMediaUploadedPhoto{}
-)
+// GetStickers returns value of Stickers conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaUploadedPhoto) GetStickers() (value []InputDocumentClass, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.Stickers, true
+}
+
+// SetTTLSeconds sets value of TTLSeconds conditional field.
+func (i *InputMediaUploadedPhoto) SetTTLSeconds(value int) {
+	i.Flags.Set(1)
+	i.TTLSeconds = value
+}
+
+// GetTTLSeconds returns value of TTLSeconds conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaUploadedPhoto) GetTTLSeconds() (value int, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.TTLSeconds, true
+}
+
+// MapStickers returns field Stickers wrapped in InputDocumentClassArray helper.
+func (i *InputMediaUploadedPhoto) MapStickers() (value InputDocumentClassArray, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return InputDocumentClassArray(i.Stickers), true
+}
 
 // InputMediaPhoto represents TL type `inputMediaPhoto#b3ba0635`.
 // Forwarded photo
@@ -423,6 +423,19 @@ type InputMediaPhoto struct {
 
 // InputMediaPhotoTypeID is TL type id of InputMediaPhoto.
 const InputMediaPhotoTypeID = 0xb3ba0635
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaPhoto) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaPhoto.
+var (
+	_ bin.Encoder     = &InputMediaPhoto{}
+	_ bin.Decoder     = &InputMediaPhoto{}
+	_ bin.BareEncoder = &InputMediaPhoto{}
+	_ bin.BareDecoder = &InputMediaPhoto{}
+
+	_ InputMediaClass = &InputMediaPhoto{}
+)
 
 func (i *InputMediaPhoto) Zero() bool {
 	if i == nil {
@@ -530,26 +543,6 @@ func (i *InputMediaPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputMediaPhoto) GetID() (value InputPhotoClass) {
-	return i.ID
-}
-
-// SetTTLSeconds sets value of TTLSeconds conditional field.
-func (i *InputMediaPhoto) SetTTLSeconds(value int) {
-	i.Flags.Set(0)
-	i.TTLSeconds = value
-}
-
-// GetTTLSeconds returns value of TTLSeconds conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaPhoto) GetTTLSeconds() (value int, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.TTLSeconds, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -588,18 +581,25 @@ func (i *InputMediaPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaPhoto) construct() InputMediaClass { return &i }
+// GetID returns value of ID field.
+func (i *InputMediaPhoto) GetID() (value InputPhotoClass) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputMediaPhoto.
-var (
-	_ bin.Encoder     = &InputMediaPhoto{}
-	_ bin.Decoder     = &InputMediaPhoto{}
-	_ bin.BareEncoder = &InputMediaPhoto{}
-	_ bin.BareDecoder = &InputMediaPhoto{}
+// SetTTLSeconds sets value of TTLSeconds conditional field.
+func (i *InputMediaPhoto) SetTTLSeconds(value int) {
+	i.Flags.Set(0)
+	i.TTLSeconds = value
+}
 
-	_ InputMediaClass = &InputMediaPhoto{}
-)
+// GetTTLSeconds returns value of TTLSeconds conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaPhoto) GetTTLSeconds() (value int, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.TTLSeconds, true
+}
 
 // InputMediaGeoPoint represents TL type `inputMediaGeoPoint#f9c44144`.
 // Map.
@@ -612,6 +612,19 @@ type InputMediaGeoPoint struct {
 
 // InputMediaGeoPointTypeID is TL type id of InputMediaGeoPoint.
 const InputMediaGeoPointTypeID = 0xf9c44144
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaGeoPoint) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaGeoPoint.
+var (
+	_ bin.Encoder     = &InputMediaGeoPoint{}
+	_ bin.Decoder     = &InputMediaGeoPoint{}
+	_ bin.BareEncoder = &InputMediaGeoPoint{}
+	_ bin.BareDecoder = &InputMediaGeoPoint{}
+
+	_ InputMediaClass = &InputMediaGeoPoint{}
+)
 
 func (i *InputMediaGeoPoint) Zero() bool {
 	if i == nil {
@@ -694,11 +707,6 @@ func (i *InputMediaGeoPoint) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetGeoPoint returns value of GeoPoint field.
-func (i *InputMediaGeoPoint) GetGeoPoint() (value InputGeoPointClass) {
-	return i.GeoPoint
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaGeoPoint) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -725,18 +733,10 @@ func (i *InputMediaGeoPoint) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaGeoPoint) construct() InputMediaClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMediaGeoPoint.
-var (
-	_ bin.Encoder     = &InputMediaGeoPoint{}
-	_ bin.Decoder     = &InputMediaGeoPoint{}
-	_ bin.BareEncoder = &InputMediaGeoPoint{}
-	_ bin.BareDecoder = &InputMediaGeoPoint{}
-
-	_ InputMediaClass = &InputMediaGeoPoint{}
-)
+// GetGeoPoint returns value of GeoPoint field.
+func (i *InputMediaGeoPoint) GetGeoPoint() (value InputGeoPointClass) {
+	return i.GeoPoint
+}
 
 // InputMediaContact represents TL type `inputMediaContact#f8ab7dfb`.
 // Phonebook contact
@@ -755,6 +755,19 @@ type InputMediaContact struct {
 
 // InputMediaContactTypeID is TL type id of InputMediaContact.
 const InputMediaContactTypeID = 0xf8ab7dfb
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaContact) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaContact.
+var (
+	_ bin.Encoder     = &InputMediaContact{}
+	_ bin.Decoder     = &InputMediaContact{}
+	_ bin.BareEncoder = &InputMediaContact{}
+	_ bin.BareDecoder = &InputMediaContact{}
+
+	_ InputMediaClass = &InputMediaContact{}
+)
 
 func (i *InputMediaContact) Zero() bool {
 	if i == nil {
@@ -862,26 +875,6 @@ func (i *InputMediaContact) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (i *InputMediaContact) GetPhoneNumber() (value string) {
-	return i.PhoneNumber
-}
-
-// GetFirstName returns value of FirstName field.
-func (i *InputMediaContact) GetFirstName() (value string) {
-	return i.FirstName
-}
-
-// GetLastName returns value of LastName field.
-func (i *InputMediaContact) GetLastName() (value string) {
-	return i.LastName
-}
-
-// GetVcard returns value of Vcard field.
-func (i *InputMediaContact) GetVcard() (value string) {
-	return i.Vcard
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaContact) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -929,18 +922,25 @@ func (i *InputMediaContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaContact) construct() InputMediaClass { return &i }
+// GetPhoneNumber returns value of PhoneNumber field.
+func (i *InputMediaContact) GetPhoneNumber() (value string) {
+	return i.PhoneNumber
+}
 
-// Ensuring interfaces in compile-time for InputMediaContact.
-var (
-	_ bin.Encoder     = &InputMediaContact{}
-	_ bin.Decoder     = &InputMediaContact{}
-	_ bin.BareEncoder = &InputMediaContact{}
-	_ bin.BareDecoder = &InputMediaContact{}
+// GetFirstName returns value of FirstName field.
+func (i *InputMediaContact) GetFirstName() (value string) {
+	return i.FirstName
+}
 
-	_ InputMediaClass = &InputMediaContact{}
-)
+// GetLastName returns value of LastName field.
+func (i *InputMediaContact) GetLastName() (value string) {
+	return i.LastName
+}
+
+// GetVcard returns value of Vcard field.
+func (i *InputMediaContact) GetVcard() (value string) {
+	return i.Vcard
+}
 
 // InputMediaUploadedDocument represents TL type `inputMediaUploadedDocument#5b38c6c1`.
 // New document
@@ -982,6 +982,19 @@ type InputMediaUploadedDocument struct {
 
 // InputMediaUploadedDocumentTypeID is TL type id of InputMediaUploadedDocument.
 const InputMediaUploadedDocumentTypeID = 0x5b38c6c1
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaUploadedDocument) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaUploadedDocument.
+var (
+	_ bin.Encoder     = &InputMediaUploadedDocument{}
+	_ bin.Decoder     = &InputMediaUploadedDocument{}
+	_ bin.BareEncoder = &InputMediaUploadedDocument{}
+	_ bin.BareDecoder = &InputMediaUploadedDocument{}
+
+	_ InputMediaClass = &InputMediaUploadedDocument{}
+)
 
 func (i *InputMediaUploadedDocument) Zero() bool {
 	if i == nil {
@@ -1194,111 +1207,6 @@ func (i *InputMediaUploadedDocument) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetNosoundVideo sets value of NosoundVideo conditional field.
-func (i *InputMediaUploadedDocument) SetNosoundVideo(value bool) {
-	if value {
-		i.Flags.Set(3)
-		i.NosoundVideo = true
-	} else {
-		i.Flags.Unset(3)
-		i.NosoundVideo = false
-	}
-}
-
-// GetNosoundVideo returns value of NosoundVideo conditional field.
-func (i *InputMediaUploadedDocument) GetNosoundVideo() (value bool) {
-	return i.Flags.Has(3)
-}
-
-// SetForceFile sets value of ForceFile conditional field.
-func (i *InputMediaUploadedDocument) SetForceFile(value bool) {
-	if value {
-		i.Flags.Set(4)
-		i.ForceFile = true
-	} else {
-		i.Flags.Unset(4)
-		i.ForceFile = false
-	}
-}
-
-// GetForceFile returns value of ForceFile conditional field.
-func (i *InputMediaUploadedDocument) GetForceFile() (value bool) {
-	return i.Flags.Has(4)
-}
-
-// GetFile returns value of File field.
-func (i *InputMediaUploadedDocument) GetFile() (value InputFileClass) {
-	return i.File
-}
-
-// SetThumb sets value of Thumb conditional field.
-func (i *InputMediaUploadedDocument) SetThumb(value InputFileClass) {
-	i.Flags.Set(2)
-	i.Thumb = value
-}
-
-// GetThumb returns value of Thumb conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaUploadedDocument) GetThumb() (value InputFileClass, ok bool) {
-	if !i.Flags.Has(2) {
-		return value, false
-	}
-	return i.Thumb, true
-}
-
-// GetMimeType returns value of MimeType field.
-func (i *InputMediaUploadedDocument) GetMimeType() (value string) {
-	return i.MimeType
-}
-
-// GetAttributes returns value of Attributes field.
-func (i *InputMediaUploadedDocument) GetAttributes() (value []DocumentAttributeClass) {
-	return i.Attributes
-}
-
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
-func (i *InputMediaUploadedDocument) MapAttributes() (value DocumentAttributeClassArray) {
-	return DocumentAttributeClassArray(i.Attributes)
-}
-
-// SetStickers sets value of Stickers conditional field.
-func (i *InputMediaUploadedDocument) SetStickers(value []InputDocumentClass) {
-	i.Flags.Set(0)
-	i.Stickers = value
-}
-
-// GetStickers returns value of Stickers conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaUploadedDocument) GetStickers() (value []InputDocumentClass, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.Stickers, true
-}
-
-// MapStickers returns field Stickers wrapped in InputDocumentClassArray helper.
-func (i *InputMediaUploadedDocument) MapStickers() (value InputDocumentClassArray, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return InputDocumentClassArray(i.Stickers), true
-}
-
-// SetTTLSeconds sets value of TTLSeconds conditional field.
-func (i *InputMediaUploadedDocument) SetTTLSeconds(value int) {
-	i.Flags.Set(1)
-	i.TTLSeconds = value
-}
-
-// GetTTLSeconds returns value of TTLSeconds conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaUploadedDocument) GetTTLSeconds() (value int, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.TTLSeconds, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaUploadedDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1387,18 +1295,110 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaUploadedDocument) construct() InputMediaClass { return &i }
+// SetNosoundVideo sets value of NosoundVideo conditional field.
+func (i *InputMediaUploadedDocument) SetNosoundVideo(value bool) {
+	if value {
+		i.Flags.Set(3)
+		i.NosoundVideo = true
+	} else {
+		i.Flags.Unset(3)
+		i.NosoundVideo = false
+	}
+}
 
-// Ensuring interfaces in compile-time for InputMediaUploadedDocument.
-var (
-	_ bin.Encoder     = &InputMediaUploadedDocument{}
-	_ bin.Decoder     = &InputMediaUploadedDocument{}
-	_ bin.BareEncoder = &InputMediaUploadedDocument{}
-	_ bin.BareDecoder = &InputMediaUploadedDocument{}
+// GetNosoundVideo returns value of NosoundVideo conditional field.
+func (i *InputMediaUploadedDocument) GetNosoundVideo() (value bool) {
+	return i.Flags.Has(3)
+}
 
-	_ InputMediaClass = &InputMediaUploadedDocument{}
-)
+// SetForceFile sets value of ForceFile conditional field.
+func (i *InputMediaUploadedDocument) SetForceFile(value bool) {
+	if value {
+		i.Flags.Set(4)
+		i.ForceFile = true
+	} else {
+		i.Flags.Unset(4)
+		i.ForceFile = false
+	}
+}
+
+// GetForceFile returns value of ForceFile conditional field.
+func (i *InputMediaUploadedDocument) GetForceFile() (value bool) {
+	return i.Flags.Has(4)
+}
+
+// GetFile returns value of File field.
+func (i *InputMediaUploadedDocument) GetFile() (value InputFileClass) {
+	return i.File
+}
+
+// SetThumb sets value of Thumb conditional field.
+func (i *InputMediaUploadedDocument) SetThumb(value InputFileClass) {
+	i.Flags.Set(2)
+	i.Thumb = value
+}
+
+// GetThumb returns value of Thumb conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaUploadedDocument) GetThumb() (value InputFileClass, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.Thumb, true
+}
+
+// GetMimeType returns value of MimeType field.
+func (i *InputMediaUploadedDocument) GetMimeType() (value string) {
+	return i.MimeType
+}
+
+// GetAttributes returns value of Attributes field.
+func (i *InputMediaUploadedDocument) GetAttributes() (value []DocumentAttributeClass) {
+	return i.Attributes
+}
+
+// SetStickers sets value of Stickers conditional field.
+func (i *InputMediaUploadedDocument) SetStickers(value []InputDocumentClass) {
+	i.Flags.Set(0)
+	i.Stickers = value
+}
+
+// GetStickers returns value of Stickers conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaUploadedDocument) GetStickers() (value []InputDocumentClass, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.Stickers, true
+}
+
+// SetTTLSeconds sets value of TTLSeconds conditional field.
+func (i *InputMediaUploadedDocument) SetTTLSeconds(value int) {
+	i.Flags.Set(1)
+	i.TTLSeconds = value
+}
+
+// GetTTLSeconds returns value of TTLSeconds conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaUploadedDocument) GetTTLSeconds() (value int, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.TTLSeconds, true
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (i *InputMediaUploadedDocument) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(i.Attributes)
+}
+
+// MapStickers returns field Stickers wrapped in InputDocumentClassArray helper.
+func (i *InputMediaUploadedDocument) MapStickers() (value InputDocumentClassArray, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return InputDocumentClassArray(i.Stickers), true
+}
 
 // InputMediaDocument represents TL type `inputMediaDocument#33473058`.
 // Forwarded document
@@ -1424,6 +1424,19 @@ type InputMediaDocument struct {
 
 // InputMediaDocumentTypeID is TL type id of InputMediaDocument.
 const InputMediaDocumentTypeID = 0x33473058
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaDocument) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaDocument.
+var (
+	_ bin.Encoder     = &InputMediaDocument{}
+	_ bin.Decoder     = &InputMediaDocument{}
+	_ bin.BareEncoder = &InputMediaDocument{}
+	_ bin.BareDecoder = &InputMediaDocument{}
+
+	_ InputMediaClass = &InputMediaDocument{}
+)
 
 func (i *InputMediaDocument) Zero() bool {
 	if i == nil {
@@ -1550,41 +1563,6 @@ func (i *InputMediaDocument) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputMediaDocument) GetID() (value InputDocumentClass) {
-	return i.ID
-}
-
-// SetTTLSeconds sets value of TTLSeconds conditional field.
-func (i *InputMediaDocument) SetTTLSeconds(value int) {
-	i.Flags.Set(0)
-	i.TTLSeconds = value
-}
-
-// GetTTLSeconds returns value of TTLSeconds conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaDocument) GetTTLSeconds() (value int, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.TTLSeconds, true
-}
-
-// SetQuery sets value of Query conditional field.
-func (i *InputMediaDocument) SetQuery(value string) {
-	i.Flags.Set(1)
-	i.Query = value
-}
-
-// GetQuery returns value of Query conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaDocument) GetQuery() (value string, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.Query, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1630,18 +1608,40 @@ func (i *InputMediaDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaDocument) construct() InputMediaClass { return &i }
+// GetID returns value of ID field.
+func (i *InputMediaDocument) GetID() (value InputDocumentClass) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputMediaDocument.
-var (
-	_ bin.Encoder     = &InputMediaDocument{}
-	_ bin.Decoder     = &InputMediaDocument{}
-	_ bin.BareEncoder = &InputMediaDocument{}
-	_ bin.BareDecoder = &InputMediaDocument{}
+// SetTTLSeconds sets value of TTLSeconds conditional field.
+func (i *InputMediaDocument) SetTTLSeconds(value int) {
+	i.Flags.Set(0)
+	i.TTLSeconds = value
+}
 
-	_ InputMediaClass = &InputMediaDocument{}
-)
+// GetTTLSeconds returns value of TTLSeconds conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaDocument) GetTTLSeconds() (value int, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.TTLSeconds, true
+}
+
+// SetQuery sets value of Query conditional field.
+func (i *InputMediaDocument) SetQuery(value string) {
+	i.Flags.Set(1)
+	i.Query = value
+}
+
+// GetQuery returns value of Query conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaDocument) GetQuery() (value string, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Query, true
+}
 
 // InputMediaVenue represents TL type `inputMediaVenue#c13d1c11`.
 // Can be used to send a venue geolocation.
@@ -1664,6 +1664,19 @@ type InputMediaVenue struct {
 
 // InputMediaVenueTypeID is TL type id of InputMediaVenue.
 const InputMediaVenueTypeID = 0xc13d1c11
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaVenue) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaVenue.
+var (
+	_ bin.Encoder     = &InputMediaVenue{}
+	_ bin.Decoder     = &InputMediaVenue{}
+	_ bin.BareEncoder = &InputMediaVenue{}
+	_ bin.BareDecoder = &InputMediaVenue{}
+
+	_ InputMediaClass = &InputMediaVenue{}
+)
 
 func (i *InputMediaVenue) Zero() bool {
 	if i == nil {
@@ -1796,36 +1809,6 @@ func (i *InputMediaVenue) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetGeoPoint returns value of GeoPoint field.
-func (i *InputMediaVenue) GetGeoPoint() (value InputGeoPointClass) {
-	return i.GeoPoint
-}
-
-// GetTitle returns value of Title field.
-func (i *InputMediaVenue) GetTitle() (value string) {
-	return i.Title
-}
-
-// GetAddress returns value of Address field.
-func (i *InputMediaVenue) GetAddress() (value string) {
-	return i.Address
-}
-
-// GetProvider returns value of Provider field.
-func (i *InputMediaVenue) GetProvider() (value string) {
-	return i.Provider
-}
-
-// GetVenueID returns value of VenueID field.
-func (i *InputMediaVenue) GetVenueID() (value string) {
-	return i.VenueID
-}
-
-// GetVenueType returns value of VenueType field.
-func (i *InputMediaVenue) GetVenueType() (value string) {
-	return i.VenueType
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaVenue) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1887,18 +1870,35 @@ func (i *InputMediaVenue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaVenue) construct() InputMediaClass { return &i }
+// GetGeoPoint returns value of GeoPoint field.
+func (i *InputMediaVenue) GetGeoPoint() (value InputGeoPointClass) {
+	return i.GeoPoint
+}
 
-// Ensuring interfaces in compile-time for InputMediaVenue.
-var (
-	_ bin.Encoder     = &InputMediaVenue{}
-	_ bin.Decoder     = &InputMediaVenue{}
-	_ bin.BareEncoder = &InputMediaVenue{}
-	_ bin.BareDecoder = &InputMediaVenue{}
+// GetTitle returns value of Title field.
+func (i *InputMediaVenue) GetTitle() (value string) {
+	return i.Title
+}
 
-	_ InputMediaClass = &InputMediaVenue{}
-)
+// GetAddress returns value of Address field.
+func (i *InputMediaVenue) GetAddress() (value string) {
+	return i.Address
+}
+
+// GetProvider returns value of Provider field.
+func (i *InputMediaVenue) GetProvider() (value string) {
+	return i.Provider
+}
+
+// GetVenueID returns value of VenueID field.
+func (i *InputMediaVenue) GetVenueID() (value string) {
+	return i.VenueID
+}
+
+// GetVenueType returns value of VenueType field.
+func (i *InputMediaVenue) GetVenueType() (value string) {
+	return i.VenueType
+}
 
 // InputMediaPhotoExternal represents TL type `inputMediaPhotoExternal#e5bbfe1a`.
 // New photo that will be uploaded by the server using the specified URL
@@ -1920,6 +1920,19 @@ type InputMediaPhotoExternal struct {
 
 // InputMediaPhotoExternalTypeID is TL type id of InputMediaPhotoExternal.
 const InputMediaPhotoExternalTypeID = 0xe5bbfe1a
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaPhotoExternal) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaPhotoExternal.
+var (
+	_ bin.Encoder     = &InputMediaPhotoExternal{}
+	_ bin.Decoder     = &InputMediaPhotoExternal{}
+	_ bin.BareEncoder = &InputMediaPhotoExternal{}
+	_ bin.BareDecoder = &InputMediaPhotoExternal{}
+
+	_ InputMediaClass = &InputMediaPhotoExternal{}
+)
 
 func (i *InputMediaPhotoExternal) Zero() bool {
 	if i == nil {
@@ -2022,26 +2035,6 @@ func (i *InputMediaPhotoExternal) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (i *InputMediaPhotoExternal) GetURL() (value string) {
-	return i.URL
-}
-
-// SetTTLSeconds sets value of TTLSeconds conditional field.
-func (i *InputMediaPhotoExternal) SetTTLSeconds(value int) {
-	i.Flags.Set(0)
-	i.TTLSeconds = value
-}
-
-// GetTTLSeconds returns value of TTLSeconds conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaPhotoExternal) GetTTLSeconds() (value int, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.TTLSeconds, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaPhotoExternal) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -2080,18 +2073,25 @@ func (i *InputMediaPhotoExternal) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaPhotoExternal) construct() InputMediaClass { return &i }
+// GetURL returns value of URL field.
+func (i *InputMediaPhotoExternal) GetURL() (value string) {
+	return i.URL
+}
 
-// Ensuring interfaces in compile-time for InputMediaPhotoExternal.
-var (
-	_ bin.Encoder     = &InputMediaPhotoExternal{}
-	_ bin.Decoder     = &InputMediaPhotoExternal{}
-	_ bin.BareEncoder = &InputMediaPhotoExternal{}
-	_ bin.BareDecoder = &InputMediaPhotoExternal{}
+// SetTTLSeconds sets value of TTLSeconds conditional field.
+func (i *InputMediaPhotoExternal) SetTTLSeconds(value int) {
+	i.Flags.Set(0)
+	i.TTLSeconds = value
+}
 
-	_ InputMediaClass = &InputMediaPhotoExternal{}
-)
+// GetTTLSeconds returns value of TTLSeconds conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaPhotoExternal) GetTTLSeconds() (value int, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.TTLSeconds, true
+}
 
 // InputMediaDocumentExternal represents TL type `inputMediaDocumentExternal#fb52dc99`.
 // Document that will be downloaded by the telegram servers
@@ -2113,6 +2113,19 @@ type InputMediaDocumentExternal struct {
 
 // InputMediaDocumentExternalTypeID is TL type id of InputMediaDocumentExternal.
 const InputMediaDocumentExternalTypeID = 0xfb52dc99
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaDocumentExternal) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaDocumentExternal.
+var (
+	_ bin.Encoder     = &InputMediaDocumentExternal{}
+	_ bin.Decoder     = &InputMediaDocumentExternal{}
+	_ bin.BareEncoder = &InputMediaDocumentExternal{}
+	_ bin.BareDecoder = &InputMediaDocumentExternal{}
+
+	_ InputMediaClass = &InputMediaDocumentExternal{}
+)
 
 func (i *InputMediaDocumentExternal) Zero() bool {
 	if i == nil {
@@ -2215,26 +2228,6 @@ func (i *InputMediaDocumentExternal) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (i *InputMediaDocumentExternal) GetURL() (value string) {
-	return i.URL
-}
-
-// SetTTLSeconds sets value of TTLSeconds conditional field.
-func (i *InputMediaDocumentExternal) SetTTLSeconds(value int) {
-	i.Flags.Set(0)
-	i.TTLSeconds = value
-}
-
-// GetTTLSeconds returns value of TTLSeconds conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaDocumentExternal) GetTTLSeconds() (value int, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.TTLSeconds, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaDocumentExternal) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -2273,18 +2266,25 @@ func (i *InputMediaDocumentExternal) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaDocumentExternal) construct() InputMediaClass { return &i }
+// GetURL returns value of URL field.
+func (i *InputMediaDocumentExternal) GetURL() (value string) {
+	return i.URL
+}
 
-// Ensuring interfaces in compile-time for InputMediaDocumentExternal.
-var (
-	_ bin.Encoder     = &InputMediaDocumentExternal{}
-	_ bin.Decoder     = &InputMediaDocumentExternal{}
-	_ bin.BareEncoder = &InputMediaDocumentExternal{}
-	_ bin.BareDecoder = &InputMediaDocumentExternal{}
+// SetTTLSeconds sets value of TTLSeconds conditional field.
+func (i *InputMediaDocumentExternal) SetTTLSeconds(value int) {
+	i.Flags.Set(0)
+	i.TTLSeconds = value
+}
 
-	_ InputMediaClass = &InputMediaDocumentExternal{}
-)
+// GetTTLSeconds returns value of TTLSeconds conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaDocumentExternal) GetTTLSeconds() (value int, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.TTLSeconds, true
+}
 
 // InputMediaGame represents TL type `inputMediaGame#d33f43f3`.
 // A game
@@ -2297,6 +2297,19 @@ type InputMediaGame struct {
 
 // InputMediaGameTypeID is TL type id of InputMediaGame.
 const InputMediaGameTypeID = 0xd33f43f3
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaGame) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaGame.
+var (
+	_ bin.Encoder     = &InputMediaGame{}
+	_ bin.Decoder     = &InputMediaGame{}
+	_ bin.BareEncoder = &InputMediaGame{}
+	_ bin.BareDecoder = &InputMediaGame{}
+
+	_ InputMediaClass = &InputMediaGame{}
+)
 
 func (i *InputMediaGame) Zero() bool {
 	if i == nil {
@@ -2379,11 +2392,6 @@ func (i *InputMediaGame) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputMediaGame) GetID() (value InputGameClass) {
-	return i.ID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaGame) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -2410,18 +2418,10 @@ func (i *InputMediaGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaGame) construct() InputMediaClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMediaGame.
-var (
-	_ bin.Encoder     = &InputMediaGame{}
-	_ bin.Decoder     = &InputMediaGame{}
-	_ bin.BareEncoder = &InputMediaGame{}
-	_ bin.BareDecoder = &InputMediaGame{}
-
-	_ InputMediaClass = &InputMediaGame{}
-)
+// GetID returns value of ID field.
+func (i *InputMediaGame) GetID() (value InputGameClass) {
+	return i.ID
+}
 
 // InputMediaInvoice represents TL type `inputMediaInvoice#d9799874`.
 // Generated invoice of a bot payment¹
@@ -2466,6 +2466,19 @@ type InputMediaInvoice struct {
 
 // InputMediaInvoiceTypeID is TL type id of InputMediaInvoice.
 const InputMediaInvoiceTypeID = 0xd9799874
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaInvoice) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaInvoice.
+var (
+	_ bin.Encoder     = &InputMediaInvoice{}
+	_ bin.Decoder     = &InputMediaInvoice{}
+	_ bin.BareEncoder = &InputMediaInvoice{}
+	_ bin.BareDecoder = &InputMediaInvoice{}
+
+	_ InputMediaClass = &InputMediaInvoice{}
+)
 
 func (i *InputMediaInvoice) Zero() bool {
 	if i == nil {
@@ -2643,66 +2656,6 @@ func (i *InputMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTitle returns value of Title field.
-func (i *InputMediaInvoice) GetTitle() (value string) {
-	return i.Title
-}
-
-// GetDescription returns value of Description field.
-func (i *InputMediaInvoice) GetDescription() (value string) {
-	return i.Description
-}
-
-// SetPhoto sets value of Photo conditional field.
-func (i *InputMediaInvoice) SetPhoto(value InputWebDocument) {
-	i.Flags.Set(0)
-	i.Photo = value
-}
-
-// GetPhoto returns value of Photo conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaInvoice) GetPhoto() (value InputWebDocument, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.Photo, true
-}
-
-// GetInvoice returns value of Invoice field.
-func (i *InputMediaInvoice) GetInvoice() (value Invoice) {
-	return i.Invoice
-}
-
-// GetPayload returns value of Payload field.
-func (i *InputMediaInvoice) GetPayload() (value []byte) {
-	return i.Payload
-}
-
-// GetProvider returns value of Provider field.
-func (i *InputMediaInvoice) GetProvider() (value string) {
-	return i.Provider
-}
-
-// GetProviderData returns value of ProviderData field.
-func (i *InputMediaInvoice) GetProviderData() (value DataJSON) {
-	return i.ProviderData
-}
-
-// SetStartParam sets value of StartParam conditional field.
-func (i *InputMediaInvoice) SetStartParam(value string) {
-	i.Flags.Set(1)
-	i.StartParam = value
-}
-
-// GetStartParam returns value of StartParam conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaInvoice) GetStartParam() (value string, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.StartParam, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaInvoice) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -2777,18 +2730,65 @@ func (i *InputMediaInvoice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaInvoice) construct() InputMediaClass { return &i }
+// GetTitle returns value of Title field.
+func (i *InputMediaInvoice) GetTitle() (value string) {
+	return i.Title
+}
 
-// Ensuring interfaces in compile-time for InputMediaInvoice.
-var (
-	_ bin.Encoder     = &InputMediaInvoice{}
-	_ bin.Decoder     = &InputMediaInvoice{}
-	_ bin.BareEncoder = &InputMediaInvoice{}
-	_ bin.BareDecoder = &InputMediaInvoice{}
+// GetDescription returns value of Description field.
+func (i *InputMediaInvoice) GetDescription() (value string) {
+	return i.Description
+}
 
-	_ InputMediaClass = &InputMediaInvoice{}
-)
+// SetPhoto sets value of Photo conditional field.
+func (i *InputMediaInvoice) SetPhoto(value InputWebDocument) {
+	i.Flags.Set(0)
+	i.Photo = value
+}
+
+// GetPhoto returns value of Photo conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaInvoice) GetPhoto() (value InputWebDocument, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.Photo, true
+}
+
+// GetInvoice returns value of Invoice field.
+func (i *InputMediaInvoice) GetInvoice() (value Invoice) {
+	return i.Invoice
+}
+
+// GetPayload returns value of Payload field.
+func (i *InputMediaInvoice) GetPayload() (value []byte) {
+	return i.Payload
+}
+
+// GetProvider returns value of Provider field.
+func (i *InputMediaInvoice) GetProvider() (value string) {
+	return i.Provider
+}
+
+// GetProviderData returns value of ProviderData field.
+func (i *InputMediaInvoice) GetProviderData() (value DataJSON) {
+	return i.ProviderData
+}
+
+// SetStartParam sets value of StartParam conditional field.
+func (i *InputMediaInvoice) SetStartParam(value string) {
+	i.Flags.Set(1)
+	i.StartParam = value
+}
+
+// GetStartParam returns value of StartParam conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaInvoice) GetStartParam() (value string, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.StartParam, true
+}
 
 // InputMediaGeoLive represents TL type `inputMediaGeoLive#971fa843`.
 // Live geolocation¹
@@ -2830,6 +2830,19 @@ type InputMediaGeoLive struct {
 
 // InputMediaGeoLiveTypeID is TL type id of InputMediaGeoLive.
 const InputMediaGeoLiveTypeID = 0x971fa843
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaGeoLive) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaGeoLive.
+var (
+	_ bin.Encoder     = &InputMediaGeoLive{}
+	_ bin.Decoder     = &InputMediaGeoLive{}
+	_ bin.BareEncoder = &InputMediaGeoLive{}
+	_ bin.BareDecoder = &InputMediaGeoLive{}
+
+	_ InputMediaClass = &InputMediaGeoLive{}
+)
 
 func (i *InputMediaGeoLive) Zero() bool {
 	if i == nil {
@@ -2988,6 +3001,59 @@ func (i *InputMediaGeoLive) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (i *InputMediaGeoLive) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaGeoLive#971fa843 to nil")
+	}
+	if err := b.ConsumeID(InputMediaGeoLiveTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaGeoLive) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaGeoLive#971fa843 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field flags: %w", err)
+		}
+	}
+	i.Stopped = i.Flags.Has(0)
+	{
+		value, err := DecodeInputGeoPoint(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field geo_point: %w", err)
+		}
+		i.GeoPoint = value
+	}
+	if i.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field heading: %w", err)
+		}
+		i.Heading = value
+	}
+	if i.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field period: %w", err)
+		}
+		i.Period = value
+	}
+	if i.Flags.Has(3) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field proximity_notification_radius: %w", err)
+		}
+		i.ProximityNotificationRadius = value
+	}
+	return nil
+}
+
 // SetStopped sets value of Stopped conditional field.
 func (i *InputMediaGeoLive) SetStopped(value bool) {
 	if value {
@@ -3054,72 +3120,6 @@ func (i *InputMediaGeoLive) GetProximityNotificationRadius() (value int, ok bool
 	return i.ProximityNotificationRadius, true
 }
 
-// Decode implements bin.Decoder.
-func (i *InputMediaGeoLive) Decode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputMediaGeoLive#971fa843 to nil")
-	}
-	if err := b.ConsumeID(InputMediaGeoLiveTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: %w", err)
-	}
-	return i.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (i *InputMediaGeoLive) DecodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputMediaGeoLive#971fa843 to nil")
-	}
-	{
-		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field flags: %w", err)
-		}
-	}
-	i.Stopped = i.Flags.Has(0)
-	{
-		value, err := DecodeInputGeoPoint(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field geo_point: %w", err)
-		}
-		i.GeoPoint = value
-	}
-	if i.Flags.Has(2) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field heading: %w", err)
-		}
-		i.Heading = value
-	}
-	if i.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field period: %w", err)
-		}
-		i.Period = value
-	}
-	if i.Flags.Has(3) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field proximity_notification_radius: %w", err)
-		}
-		i.ProximityNotificationRadius = value
-	}
-	return nil
-}
-
-// construct implements constructor of InputMediaClass.
-func (i InputMediaGeoLive) construct() InputMediaClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMediaGeoLive.
-var (
-	_ bin.Encoder     = &InputMediaGeoLive{}
-	_ bin.Decoder     = &InputMediaGeoLive{}
-	_ bin.BareEncoder = &InputMediaGeoLive{}
-	_ bin.BareDecoder = &InputMediaGeoLive{}
-
-	_ InputMediaClass = &InputMediaGeoLive{}
-)
-
 // InputMediaPoll represents TL type `inputMediaPoll#f94e5f1`.
 // A poll
 //
@@ -3151,6 +3151,19 @@ type InputMediaPoll struct {
 
 // InputMediaPollTypeID is TL type id of InputMediaPoll.
 const InputMediaPollTypeID = 0xf94e5f1
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaPoll) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaPoll.
+var (
+	_ bin.Encoder     = &InputMediaPoll{}
+	_ bin.Decoder     = &InputMediaPoll{}
+	_ bin.BareEncoder = &InputMediaPoll{}
+	_ bin.BareDecoder = &InputMediaPoll{}
+
+	_ InputMediaClass = &InputMediaPoll{}
+)
 
 func (i *InputMediaPoll) Zero() bool {
 	if i == nil {
@@ -3304,64 +3317,6 @@ func (i *InputMediaPoll) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPoll returns value of Poll field.
-func (i *InputMediaPoll) GetPoll() (value Poll) {
-	return i.Poll
-}
-
-// SetCorrectAnswers sets value of CorrectAnswers conditional field.
-func (i *InputMediaPoll) SetCorrectAnswers(value [][]byte) {
-	i.Flags.Set(0)
-	i.CorrectAnswers = value
-}
-
-// GetCorrectAnswers returns value of CorrectAnswers conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaPoll) GetCorrectAnswers() (value [][]byte, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.CorrectAnswers, true
-}
-
-// SetSolution sets value of Solution conditional field.
-func (i *InputMediaPoll) SetSolution(value string) {
-	i.Flags.Set(1)
-	i.Solution = value
-}
-
-// GetSolution returns value of Solution conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaPoll) GetSolution() (value string, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.Solution, true
-}
-
-// SetSolutionEntities sets value of SolutionEntities conditional field.
-func (i *InputMediaPoll) SetSolutionEntities(value []MessageEntityClass) {
-	i.Flags.Set(1)
-	i.SolutionEntities = value
-}
-
-// GetSolutionEntities returns value of SolutionEntities conditional field and
-// boolean which is true if field was set.
-func (i *InputMediaPoll) GetSolutionEntities() (value []MessageEntityClass, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.SolutionEntities, true
-}
-
-// MapSolutionEntities returns field SolutionEntities wrapped in MessageEntityClassArray helper.
-func (i *InputMediaPoll) MapSolutionEntities() (value MessageEntityClassArray, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return MessageEntityClassArray(i.SolutionEntities), true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaPoll) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -3432,18 +3387,63 @@ func (i *InputMediaPoll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaPoll) construct() InputMediaClass { return &i }
+// GetPoll returns value of Poll field.
+func (i *InputMediaPoll) GetPoll() (value Poll) {
+	return i.Poll
+}
 
-// Ensuring interfaces in compile-time for InputMediaPoll.
-var (
-	_ bin.Encoder     = &InputMediaPoll{}
-	_ bin.Decoder     = &InputMediaPoll{}
-	_ bin.BareEncoder = &InputMediaPoll{}
-	_ bin.BareDecoder = &InputMediaPoll{}
+// SetCorrectAnswers sets value of CorrectAnswers conditional field.
+func (i *InputMediaPoll) SetCorrectAnswers(value [][]byte) {
+	i.Flags.Set(0)
+	i.CorrectAnswers = value
+}
 
-	_ InputMediaClass = &InputMediaPoll{}
-)
+// GetCorrectAnswers returns value of CorrectAnswers conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaPoll) GetCorrectAnswers() (value [][]byte, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.CorrectAnswers, true
+}
+
+// SetSolution sets value of Solution conditional field.
+func (i *InputMediaPoll) SetSolution(value string) {
+	i.Flags.Set(1)
+	i.Solution = value
+}
+
+// GetSolution returns value of Solution conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaPoll) GetSolution() (value string, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Solution, true
+}
+
+// SetSolutionEntities sets value of SolutionEntities conditional field.
+func (i *InputMediaPoll) SetSolutionEntities(value []MessageEntityClass) {
+	i.Flags.Set(1)
+	i.SolutionEntities = value
+}
+
+// GetSolutionEntities returns value of SolutionEntities conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaPoll) GetSolutionEntities() (value []MessageEntityClass, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.SolutionEntities, true
+}
+
+// MapSolutionEntities returns field SolutionEntities wrapped in MessageEntityClassArray helper.
+func (i *InputMediaPoll) MapSolutionEntities() (value MessageEntityClassArray, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return MessageEntityClassArray(i.SolutionEntities), true
+}
 
 // InputMediaDice represents TL type `inputMediaDice#e66fbf7b`.
 // Send a dice-based animated sticker¹
@@ -3459,6 +3459,19 @@ type InputMediaDice struct {
 
 // InputMediaDiceTypeID is TL type id of InputMediaDice.
 const InputMediaDiceTypeID = 0xe66fbf7b
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaDice) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaDice.
+var (
+	_ bin.Encoder     = &InputMediaDice{}
+	_ bin.Decoder     = &InputMediaDice{}
+	_ bin.BareEncoder = &InputMediaDice{}
+	_ bin.BareDecoder = &InputMediaDice{}
+
+	_ InputMediaClass = &InputMediaDice{}
+)
 
 func (i *InputMediaDice) Zero() bool {
 	if i == nil {
@@ -3536,11 +3549,6 @@ func (i *InputMediaDice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEmoticon returns value of Emoticon field.
-func (i *InputMediaDice) GetEmoticon() (value string) {
-	return i.Emoticon
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMediaDice) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -3567,18 +3575,10 @@ func (i *InputMediaDice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMediaClass.
-func (i InputMediaDice) construct() InputMediaClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMediaDice.
-var (
-	_ bin.Encoder     = &InputMediaDice{}
-	_ bin.Decoder     = &InputMediaDice{}
-	_ bin.BareEncoder = &InputMediaDice{}
-	_ bin.BareDecoder = &InputMediaDice{}
-
-	_ InputMediaClass = &InputMediaDice{}
-)
+// GetEmoticon returns value of Emoticon field.
+func (i *InputMediaDice) GetEmoticon() (value string) {
+	return i.Emoticon
+}
 
 // InputMediaClass represents InputMedia generic type.
 //

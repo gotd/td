@@ -56,6 +56,19 @@ type UpdatesChannelDifferenceEmpty struct {
 // UpdatesChannelDifferenceEmptyTypeID is TL type id of UpdatesChannelDifferenceEmpty.
 const UpdatesChannelDifferenceEmptyTypeID = 0x3e11affb
 
+// construct implements constructor of UpdatesChannelDifferenceClass.
+func (c UpdatesChannelDifferenceEmpty) construct() UpdatesChannelDifferenceClass { return &c }
+
+// Ensuring interfaces in compile-time for UpdatesChannelDifferenceEmpty.
+var (
+	_ bin.Encoder     = &UpdatesChannelDifferenceEmpty{}
+	_ bin.Decoder     = &UpdatesChannelDifferenceEmpty{}
+	_ bin.BareEncoder = &UpdatesChannelDifferenceEmpty{}
+	_ bin.BareDecoder = &UpdatesChannelDifferenceEmpty{}
+
+	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifferenceEmpty{}
+)
+
 func (c *UpdatesChannelDifferenceEmpty) Zero() bool {
 	if c == nil {
 		return true
@@ -170,42 +183,6 @@ func (c *UpdatesChannelDifferenceEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFinal sets value of Final conditional field.
-func (c *UpdatesChannelDifferenceEmpty) SetFinal(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.Final = true
-	} else {
-		c.Flags.Unset(0)
-		c.Final = false
-	}
-}
-
-// GetFinal returns value of Final conditional field.
-func (c *UpdatesChannelDifferenceEmpty) GetFinal() (value bool) {
-	return c.Flags.Has(0)
-}
-
-// GetPts returns value of Pts field.
-func (c *UpdatesChannelDifferenceEmpty) GetPts() (value int) {
-	return c.Pts
-}
-
-// SetTimeout sets value of Timeout conditional field.
-func (c *UpdatesChannelDifferenceEmpty) SetTimeout(value int) {
-	c.Flags.Set(1)
-	c.Timeout = value
-}
-
-// GetTimeout returns value of Timeout conditional field and
-// boolean which is true if field was set.
-func (c *UpdatesChannelDifferenceEmpty) GetTimeout() (value int, ok bool) {
-	if !c.Flags.Has(1) {
-		return value, false
-	}
-	return c.Timeout, true
-}
-
 // Decode implements bin.Decoder.
 func (c *UpdatesChannelDifferenceEmpty) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -245,18 +222,41 @@ func (c *UpdatesChannelDifferenceEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesChannelDifferenceClass.
-func (c UpdatesChannelDifferenceEmpty) construct() UpdatesChannelDifferenceClass { return &c }
+// SetFinal sets value of Final conditional field.
+func (c *UpdatesChannelDifferenceEmpty) SetFinal(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Final = true
+	} else {
+		c.Flags.Unset(0)
+		c.Final = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdatesChannelDifferenceEmpty.
-var (
-	_ bin.Encoder     = &UpdatesChannelDifferenceEmpty{}
-	_ bin.Decoder     = &UpdatesChannelDifferenceEmpty{}
-	_ bin.BareEncoder = &UpdatesChannelDifferenceEmpty{}
-	_ bin.BareDecoder = &UpdatesChannelDifferenceEmpty{}
+// GetFinal returns value of Final conditional field.
+func (c *UpdatesChannelDifferenceEmpty) GetFinal() (value bool) {
+	return c.Flags.Has(0)
+}
 
-	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifferenceEmpty{}
-)
+// GetPts returns value of Pts field.
+func (c *UpdatesChannelDifferenceEmpty) GetPts() (value int) {
+	return c.Pts
+}
+
+// SetTimeout sets value of Timeout conditional field.
+func (c *UpdatesChannelDifferenceEmpty) SetTimeout(value int) {
+	c.Flags.Set(1)
+	c.Timeout = value
+}
+
+// GetTimeout returns value of Timeout conditional field and
+// boolean which is true if field was set.
+func (c *UpdatesChannelDifferenceEmpty) GetTimeout() (value int, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.Timeout, true
+}
 
 // UpdatesChannelDifferenceTooLong represents TL type `updates.channelDifferenceTooLong#a4bcc6fe`.
 // The provided pts + limit < remote pts. Simply, there are too many updates to be
@@ -292,6 +292,19 @@ type UpdatesChannelDifferenceTooLong struct {
 
 // UpdatesChannelDifferenceTooLongTypeID is TL type id of UpdatesChannelDifferenceTooLong.
 const UpdatesChannelDifferenceTooLongTypeID = 0xa4bcc6fe
+
+// construct implements constructor of UpdatesChannelDifferenceClass.
+func (c UpdatesChannelDifferenceTooLong) construct() UpdatesChannelDifferenceClass { return &c }
+
+// Ensuring interfaces in compile-time for UpdatesChannelDifferenceTooLong.
+var (
+	_ bin.Encoder     = &UpdatesChannelDifferenceTooLong{}
+	_ bin.Decoder     = &UpdatesChannelDifferenceTooLong{}
+	_ bin.BareEncoder = &UpdatesChannelDifferenceTooLong{}
+	_ bin.BareDecoder = &UpdatesChannelDifferenceTooLong{}
+
+	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifferenceTooLong{}
+)
 
 func (c *UpdatesChannelDifferenceTooLong) Zero() bool {
 	if c == nil {
@@ -466,72 +479,6 @@ func (c *UpdatesChannelDifferenceTooLong) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFinal sets value of Final conditional field.
-func (c *UpdatesChannelDifferenceTooLong) SetFinal(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.Final = true
-	} else {
-		c.Flags.Unset(0)
-		c.Final = false
-	}
-}
-
-// GetFinal returns value of Final conditional field.
-func (c *UpdatesChannelDifferenceTooLong) GetFinal() (value bool) {
-	return c.Flags.Has(0)
-}
-
-// SetTimeout sets value of Timeout conditional field.
-func (c *UpdatesChannelDifferenceTooLong) SetTimeout(value int) {
-	c.Flags.Set(1)
-	c.Timeout = value
-}
-
-// GetTimeout returns value of Timeout conditional field and
-// boolean which is true if field was set.
-func (c *UpdatesChannelDifferenceTooLong) GetTimeout() (value int, ok bool) {
-	if !c.Flags.Has(1) {
-		return value, false
-	}
-	return c.Timeout, true
-}
-
-// GetDialog returns value of Dialog field.
-func (c *UpdatesChannelDifferenceTooLong) GetDialog() (value DialogClass) {
-	return c.Dialog
-}
-
-// GetMessages returns value of Messages field.
-func (c *UpdatesChannelDifferenceTooLong) GetMessages() (value []MessageClass) {
-	return c.Messages
-}
-
-// MapMessages returns field Messages wrapped in MessageClassArray helper.
-func (c *UpdatesChannelDifferenceTooLong) MapMessages() (value MessageClassArray) {
-	return MessageClassArray(c.Messages)
-}
-
-// GetChats returns value of Chats field.
-func (c *UpdatesChannelDifferenceTooLong) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *UpdatesChannelDifferenceTooLong) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (c *UpdatesChannelDifferenceTooLong) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *UpdatesChannelDifferenceTooLong) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *UpdatesChannelDifferenceTooLong) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -622,18 +569,71 @@ func (c *UpdatesChannelDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesChannelDifferenceClass.
-func (c UpdatesChannelDifferenceTooLong) construct() UpdatesChannelDifferenceClass { return &c }
+// SetFinal sets value of Final conditional field.
+func (c *UpdatesChannelDifferenceTooLong) SetFinal(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Final = true
+	} else {
+		c.Flags.Unset(0)
+		c.Final = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdatesChannelDifferenceTooLong.
-var (
-	_ bin.Encoder     = &UpdatesChannelDifferenceTooLong{}
-	_ bin.Decoder     = &UpdatesChannelDifferenceTooLong{}
-	_ bin.BareEncoder = &UpdatesChannelDifferenceTooLong{}
-	_ bin.BareDecoder = &UpdatesChannelDifferenceTooLong{}
+// GetFinal returns value of Final conditional field.
+func (c *UpdatesChannelDifferenceTooLong) GetFinal() (value bool) {
+	return c.Flags.Has(0)
+}
 
-	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifferenceTooLong{}
-)
+// SetTimeout sets value of Timeout conditional field.
+func (c *UpdatesChannelDifferenceTooLong) SetTimeout(value int) {
+	c.Flags.Set(1)
+	c.Timeout = value
+}
+
+// GetTimeout returns value of Timeout conditional field and
+// boolean which is true if field was set.
+func (c *UpdatesChannelDifferenceTooLong) GetTimeout() (value int, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.Timeout, true
+}
+
+// GetDialog returns value of Dialog field.
+func (c *UpdatesChannelDifferenceTooLong) GetDialog() (value DialogClass) {
+	return c.Dialog
+}
+
+// GetMessages returns value of Messages field.
+func (c *UpdatesChannelDifferenceTooLong) GetMessages() (value []MessageClass) {
+	return c.Messages
+}
+
+// GetChats returns value of Chats field.
+func (c *UpdatesChannelDifferenceTooLong) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *UpdatesChannelDifferenceTooLong) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (c *UpdatesChannelDifferenceTooLong) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(c.Messages)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *UpdatesChannelDifferenceTooLong) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *UpdatesChannelDifferenceTooLong) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}
 
 // UpdatesChannelDifference represents TL type `updates.channelDifference#2064674e`.
 // The new updates
@@ -670,6 +670,19 @@ type UpdatesChannelDifference struct {
 
 // UpdatesChannelDifferenceTypeID is TL type id of UpdatesChannelDifference.
 const UpdatesChannelDifferenceTypeID = 0x2064674e
+
+// construct implements constructor of UpdatesChannelDifferenceClass.
+func (c UpdatesChannelDifference) construct() UpdatesChannelDifferenceClass { return &c }
+
+// Ensuring interfaces in compile-time for UpdatesChannelDifference.
+var (
+	_ bin.Encoder     = &UpdatesChannelDifference{}
+	_ bin.Decoder     = &UpdatesChannelDifference{}
+	_ bin.BareEncoder = &UpdatesChannelDifference{}
+	_ bin.BareDecoder = &UpdatesChannelDifference{}
+
+	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifference{}
+)
 
 func (c *UpdatesChannelDifference) Zero() bool {
 	if c == nil {
@@ -857,82 +870,6 @@ func (c *UpdatesChannelDifference) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFinal sets value of Final conditional field.
-func (c *UpdatesChannelDifference) SetFinal(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.Final = true
-	} else {
-		c.Flags.Unset(0)
-		c.Final = false
-	}
-}
-
-// GetFinal returns value of Final conditional field.
-func (c *UpdatesChannelDifference) GetFinal() (value bool) {
-	return c.Flags.Has(0)
-}
-
-// GetPts returns value of Pts field.
-func (c *UpdatesChannelDifference) GetPts() (value int) {
-	return c.Pts
-}
-
-// SetTimeout sets value of Timeout conditional field.
-func (c *UpdatesChannelDifference) SetTimeout(value int) {
-	c.Flags.Set(1)
-	c.Timeout = value
-}
-
-// GetTimeout returns value of Timeout conditional field and
-// boolean which is true if field was set.
-func (c *UpdatesChannelDifference) GetTimeout() (value int, ok bool) {
-	if !c.Flags.Has(1) {
-		return value, false
-	}
-	return c.Timeout, true
-}
-
-// GetNewMessages returns value of NewMessages field.
-func (c *UpdatesChannelDifference) GetNewMessages() (value []MessageClass) {
-	return c.NewMessages
-}
-
-// MapNewMessages returns field NewMessages wrapped in MessageClassArray helper.
-func (c *UpdatesChannelDifference) MapNewMessages() (value MessageClassArray) {
-	return MessageClassArray(c.NewMessages)
-}
-
-// GetOtherUpdates returns value of OtherUpdates field.
-func (c *UpdatesChannelDifference) GetOtherUpdates() (value []UpdateClass) {
-	return c.OtherUpdates
-}
-
-// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassArray helper.
-func (c *UpdatesChannelDifference) MapOtherUpdates() (value UpdateClassArray) {
-	return UpdateClassArray(c.OtherUpdates)
-}
-
-// GetChats returns value of Chats field.
-func (c *UpdatesChannelDifference) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *UpdatesChannelDifference) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (c *UpdatesChannelDifference) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *UpdatesChannelDifference) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *UpdatesChannelDifference) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -1040,18 +977,81 @@ func (c *UpdatesChannelDifference) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesChannelDifferenceClass.
-func (c UpdatesChannelDifference) construct() UpdatesChannelDifferenceClass { return &c }
+// SetFinal sets value of Final conditional field.
+func (c *UpdatesChannelDifference) SetFinal(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Final = true
+	} else {
+		c.Flags.Unset(0)
+		c.Final = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdatesChannelDifference.
-var (
-	_ bin.Encoder     = &UpdatesChannelDifference{}
-	_ bin.Decoder     = &UpdatesChannelDifference{}
-	_ bin.BareEncoder = &UpdatesChannelDifference{}
-	_ bin.BareDecoder = &UpdatesChannelDifference{}
+// GetFinal returns value of Final conditional field.
+func (c *UpdatesChannelDifference) GetFinal() (value bool) {
+	return c.Flags.Has(0)
+}
 
-	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifference{}
-)
+// GetPts returns value of Pts field.
+func (c *UpdatesChannelDifference) GetPts() (value int) {
+	return c.Pts
+}
+
+// SetTimeout sets value of Timeout conditional field.
+func (c *UpdatesChannelDifference) SetTimeout(value int) {
+	c.Flags.Set(1)
+	c.Timeout = value
+}
+
+// GetTimeout returns value of Timeout conditional field and
+// boolean which is true if field was set.
+func (c *UpdatesChannelDifference) GetTimeout() (value int, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.Timeout, true
+}
+
+// GetNewMessages returns value of NewMessages field.
+func (c *UpdatesChannelDifference) GetNewMessages() (value []MessageClass) {
+	return c.NewMessages
+}
+
+// GetOtherUpdates returns value of OtherUpdates field.
+func (c *UpdatesChannelDifference) GetOtherUpdates() (value []UpdateClass) {
+	return c.OtherUpdates
+}
+
+// GetChats returns value of Chats field.
+func (c *UpdatesChannelDifference) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *UpdatesChannelDifference) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapNewMessages returns field NewMessages wrapped in MessageClassArray helper.
+func (c *UpdatesChannelDifference) MapNewMessages() (value MessageClassArray) {
+	return MessageClassArray(c.NewMessages)
+}
+
+// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassArray helper.
+func (c *UpdatesChannelDifference) MapOtherUpdates() (value UpdateClassArray) {
+	return UpdateClassArray(c.OtherUpdates)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *UpdatesChannelDifference) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *UpdatesChannelDifference) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}
 
 // UpdatesChannelDifferenceClass represents updates.ChannelDifference generic type.
 //

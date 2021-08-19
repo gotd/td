@@ -49,6 +49,19 @@ type InputGameID struct {
 // InputGameIDTypeID is TL type id of InputGameID.
 const InputGameIDTypeID = 0x32c3e77
 
+// construct implements constructor of InputGameClass.
+func (i InputGameID) construct() InputGameClass { return &i }
+
+// Ensuring interfaces in compile-time for InputGameID.
+var (
+	_ bin.Encoder     = &InputGameID{}
+	_ bin.Decoder     = &InputGameID{}
+	_ bin.BareEncoder = &InputGameID{}
+	_ bin.BareDecoder = &InputGameID{}
+
+	_ InputGameClass = &InputGameID{}
+)
+
 func (i *InputGameID) Zero() bool {
 	if i == nil {
 		return true
@@ -135,16 +148,6 @@ func (i *InputGameID) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputGameID) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputGameID) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputGameID) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -178,18 +181,15 @@ func (i *InputGameID) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputGameClass.
-func (i InputGameID) construct() InputGameClass { return &i }
+// GetID returns value of ID field.
+func (i *InputGameID) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputGameID.
-var (
-	_ bin.Encoder     = &InputGameID{}
-	_ bin.Decoder     = &InputGameID{}
-	_ bin.BareEncoder = &InputGameID{}
-	_ bin.BareDecoder = &InputGameID{}
-
-	_ InputGameClass = &InputGameID{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputGameID) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputGameShortName represents TL type `inputGameShortName#c331e80a`.
 // Game by short name
@@ -204,6 +204,19 @@ type InputGameShortName struct {
 
 // InputGameShortNameTypeID is TL type id of InputGameShortName.
 const InputGameShortNameTypeID = 0xc331e80a
+
+// construct implements constructor of InputGameClass.
+func (i InputGameShortName) construct() InputGameClass { return &i }
+
+// Ensuring interfaces in compile-time for InputGameShortName.
+var (
+	_ bin.Encoder     = &InputGameShortName{}
+	_ bin.Decoder     = &InputGameShortName{}
+	_ bin.BareEncoder = &InputGameShortName{}
+	_ bin.BareDecoder = &InputGameShortName{}
+
+	_ InputGameClass = &InputGameShortName{}
+)
 
 func (i *InputGameShortName) Zero() bool {
 	if i == nil {
@@ -296,16 +309,6 @@ func (i *InputGameShortName) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetBotID returns value of BotID field.
-func (i *InputGameShortName) GetBotID() (value InputUserClass) {
-	return i.BotID
-}
-
-// GetShortName returns value of ShortName field.
-func (i *InputGameShortName) GetShortName() (value string) {
-	return i.ShortName
-}
-
 // Decode implements bin.Decoder.
 func (i *InputGameShortName) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -339,18 +342,15 @@ func (i *InputGameShortName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputGameClass.
-func (i InputGameShortName) construct() InputGameClass { return &i }
+// GetBotID returns value of BotID field.
+func (i *InputGameShortName) GetBotID() (value InputUserClass) {
+	return i.BotID
+}
 
-// Ensuring interfaces in compile-time for InputGameShortName.
-var (
-	_ bin.Encoder     = &InputGameShortName{}
-	_ bin.Decoder     = &InputGameShortName{}
-	_ bin.BareEncoder = &InputGameShortName{}
-	_ bin.BareDecoder = &InputGameShortName{}
-
-	_ InputGameClass = &InputGameShortName{}
-)
+// GetShortName returns value of ShortName field.
+func (i *InputGameShortName) GetShortName() (value string) {
+	return i.ShortName
+}
 
 // InputGameClass represents InputGame generic type.
 //

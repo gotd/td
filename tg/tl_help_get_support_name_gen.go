@@ -39,6 +39,14 @@ type HelpGetSupportNameRequest struct {
 // HelpGetSupportNameRequestTypeID is TL type id of HelpGetSupportNameRequest.
 const HelpGetSupportNameRequestTypeID = 0xd360e72c
 
+// Ensuring interfaces in compile-time for HelpGetSupportNameRequest.
+var (
+	_ bin.Encoder     = &HelpGetSupportNameRequest{}
+	_ bin.Decoder     = &HelpGetSupportNameRequest{}
+	_ bin.BareEncoder = &HelpGetSupportNameRequest{}
+	_ bin.BareDecoder = &HelpGetSupportNameRequest{}
+)
+
 func (g *HelpGetSupportNameRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *HelpGetSupportNameRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for HelpGetSupportNameRequest.
-var (
-	_ bin.Encoder     = &HelpGetSupportNameRequest{}
-	_ bin.Decoder     = &HelpGetSupportNameRequest{}
-	_ bin.BareEncoder = &HelpGetSupportNameRequest{}
-	_ bin.BareDecoder = &HelpGetSupportNameRequest{}
-)
 
 // HelpGetSupportName invokes method help.getSupportName#d360e72c returning error if any.
 // Get localized name of the telegram support user

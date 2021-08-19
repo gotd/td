@@ -81,6 +81,14 @@ type MessagesSearchGlobalRequest struct {
 // MessagesSearchGlobalRequestTypeID is TL type id of MessagesSearchGlobalRequest.
 const MessagesSearchGlobalRequestTypeID = 0x4bc6589a
 
+// Ensuring interfaces in compile-time for MessagesSearchGlobalRequest.
+var (
+	_ bin.Encoder     = &MessagesSearchGlobalRequest{}
+	_ bin.Decoder     = &MessagesSearchGlobalRequest{}
+	_ bin.BareEncoder = &MessagesSearchGlobalRequest{}
+	_ bin.BareDecoder = &MessagesSearchGlobalRequest{}
+)
+
 func (s *MessagesSearchGlobalRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -262,61 +270,6 @@ func (s *MessagesSearchGlobalRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFolderID sets value of FolderID conditional field.
-func (s *MessagesSearchGlobalRequest) SetFolderID(value int) {
-	s.Flags.Set(0)
-	s.FolderID = value
-}
-
-// GetFolderID returns value of FolderID conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSearchGlobalRequest) GetFolderID() (value int, ok bool) {
-	if !s.Flags.Has(0) {
-		return value, false
-	}
-	return s.FolderID, true
-}
-
-// GetQ returns value of Q field.
-func (s *MessagesSearchGlobalRequest) GetQ() (value string) {
-	return s.Q
-}
-
-// GetFilter returns value of Filter field.
-func (s *MessagesSearchGlobalRequest) GetFilter() (value MessagesFilterClass) {
-	return s.Filter
-}
-
-// GetMinDate returns value of MinDate field.
-func (s *MessagesSearchGlobalRequest) GetMinDate() (value int) {
-	return s.MinDate
-}
-
-// GetMaxDate returns value of MaxDate field.
-func (s *MessagesSearchGlobalRequest) GetMaxDate() (value int) {
-	return s.MaxDate
-}
-
-// GetOffsetRate returns value of OffsetRate field.
-func (s *MessagesSearchGlobalRequest) GetOffsetRate() (value int) {
-	return s.OffsetRate
-}
-
-// GetOffsetPeer returns value of OffsetPeer field.
-func (s *MessagesSearchGlobalRequest) GetOffsetPeer() (value InputPeerClass) {
-	return s.OffsetPeer
-}
-
-// GetOffsetID returns value of OffsetID field.
-func (s *MessagesSearchGlobalRequest) GetOffsetID() (value int) {
-	return s.OffsetID
-}
-
-// GetLimit returns value of Limit field.
-func (s *MessagesSearchGlobalRequest) GetLimit() (value int) {
-	return s.Limit
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSearchGlobalRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -404,13 +357,60 @@ func (s *MessagesSearchGlobalRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSearchGlobalRequest.
-var (
-	_ bin.Encoder     = &MessagesSearchGlobalRequest{}
-	_ bin.Decoder     = &MessagesSearchGlobalRequest{}
-	_ bin.BareEncoder = &MessagesSearchGlobalRequest{}
-	_ bin.BareDecoder = &MessagesSearchGlobalRequest{}
-)
+// SetFolderID sets value of FolderID conditional field.
+func (s *MessagesSearchGlobalRequest) SetFolderID(value int) {
+	s.Flags.Set(0)
+	s.FolderID = value
+}
+
+// GetFolderID returns value of FolderID conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSearchGlobalRequest) GetFolderID() (value int, ok bool) {
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.FolderID, true
+}
+
+// GetQ returns value of Q field.
+func (s *MessagesSearchGlobalRequest) GetQ() (value string) {
+	return s.Q
+}
+
+// GetFilter returns value of Filter field.
+func (s *MessagesSearchGlobalRequest) GetFilter() (value MessagesFilterClass) {
+	return s.Filter
+}
+
+// GetMinDate returns value of MinDate field.
+func (s *MessagesSearchGlobalRequest) GetMinDate() (value int) {
+	return s.MinDate
+}
+
+// GetMaxDate returns value of MaxDate field.
+func (s *MessagesSearchGlobalRequest) GetMaxDate() (value int) {
+	return s.MaxDate
+}
+
+// GetOffsetRate returns value of OffsetRate field.
+func (s *MessagesSearchGlobalRequest) GetOffsetRate() (value int) {
+	return s.OffsetRate
+}
+
+// GetOffsetPeer returns value of OffsetPeer field.
+func (s *MessagesSearchGlobalRequest) GetOffsetPeer() (value InputPeerClass) {
+	return s.OffsetPeer
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (s *MessagesSearchGlobalRequest) GetOffsetID() (value int) {
+	return s.OffsetID
+}
+
+// GetLimit returns value of Limit field.
+func (s *MessagesSearchGlobalRequest) GetLimit() (value int) {
+	return s.Limit
+}
 
 // MessagesSearchGlobal invokes method messages.searchGlobal#4bc6589a returning error if any.
 // Search for messages and peers globally

@@ -41,6 +41,19 @@ type InputDialogPeer struct {
 // InputDialogPeerTypeID is TL type id of InputDialogPeer.
 const InputDialogPeerTypeID = 0xfcaafeb7
 
+// construct implements constructor of InputDialogPeerClass.
+func (i InputDialogPeer) construct() InputDialogPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputDialogPeer.
+var (
+	_ bin.Encoder     = &InputDialogPeer{}
+	_ bin.Decoder     = &InputDialogPeer{}
+	_ bin.BareEncoder = &InputDialogPeer{}
+	_ bin.BareDecoder = &InputDialogPeer{}
+
+	_ InputDialogPeerClass = &InputDialogPeer{}
+)
+
 func (i *InputDialogPeer) Zero() bool {
 	if i == nil {
 		return true
@@ -122,11 +135,6 @@ func (i *InputDialogPeer) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (i *InputDialogPeer) GetPeer() (value InputPeerClass) {
-	return i.Peer
-}
-
 // Decode implements bin.Decoder.
 func (i *InputDialogPeer) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -153,18 +161,10 @@ func (i *InputDialogPeer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputDialogPeerClass.
-func (i InputDialogPeer) construct() InputDialogPeerClass { return &i }
-
-// Ensuring interfaces in compile-time for InputDialogPeer.
-var (
-	_ bin.Encoder     = &InputDialogPeer{}
-	_ bin.Decoder     = &InputDialogPeer{}
-	_ bin.BareEncoder = &InputDialogPeer{}
-	_ bin.BareDecoder = &InputDialogPeer{}
-
-	_ InputDialogPeerClass = &InputDialogPeer{}
-)
+// GetPeer returns value of Peer field.
+func (i *InputDialogPeer) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
 
 // InputDialogPeerFolder represents TL type `inputDialogPeerFolder#64600527`.
 // All peers in a peer folder¹
@@ -183,6 +183,19 @@ type InputDialogPeerFolder struct {
 
 // InputDialogPeerFolderTypeID is TL type id of InputDialogPeerFolder.
 const InputDialogPeerFolderTypeID = 0x64600527
+
+// construct implements constructor of InputDialogPeerClass.
+func (i InputDialogPeerFolder) construct() InputDialogPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputDialogPeerFolder.
+var (
+	_ bin.Encoder     = &InputDialogPeerFolder{}
+	_ bin.Decoder     = &InputDialogPeerFolder{}
+	_ bin.BareEncoder = &InputDialogPeerFolder{}
+	_ bin.BareDecoder = &InputDialogPeerFolder{}
+
+	_ InputDialogPeerClass = &InputDialogPeerFolder{}
+)
 
 func (i *InputDialogPeerFolder) Zero() bool {
 	if i == nil {
@@ -260,11 +273,6 @@ func (i *InputDialogPeerFolder) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFolderID returns value of FolderID field.
-func (i *InputDialogPeerFolder) GetFolderID() (value int) {
-	return i.FolderID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputDialogPeerFolder) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -291,18 +299,10 @@ func (i *InputDialogPeerFolder) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputDialogPeerClass.
-func (i InputDialogPeerFolder) construct() InputDialogPeerClass { return &i }
-
-// Ensuring interfaces in compile-time for InputDialogPeerFolder.
-var (
-	_ bin.Encoder     = &InputDialogPeerFolder{}
-	_ bin.Decoder     = &InputDialogPeerFolder{}
-	_ bin.BareEncoder = &InputDialogPeerFolder{}
-	_ bin.BareDecoder = &InputDialogPeerFolder{}
-
-	_ InputDialogPeerClass = &InputDialogPeerFolder{}
-)
+// GetFolderID returns value of FolderID field.
+func (i *InputDialogPeerFolder) GetFolderID() (value int) {
+	return i.FolderID
+}
 
 // InputDialogPeerClass represents InputDialogPeer generic type.
 //

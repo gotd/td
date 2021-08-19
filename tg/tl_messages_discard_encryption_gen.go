@@ -45,6 +45,14 @@ type MessagesDiscardEncryptionRequest struct {
 // MessagesDiscardEncryptionRequestTypeID is TL type id of MessagesDiscardEncryptionRequest.
 const MessagesDiscardEncryptionRequestTypeID = 0xf393aea0
 
+// Ensuring interfaces in compile-time for MessagesDiscardEncryptionRequest.
+var (
+	_ bin.Encoder     = &MessagesDiscardEncryptionRequest{}
+	_ bin.Decoder     = &MessagesDiscardEncryptionRequest{}
+	_ bin.BareEncoder = &MessagesDiscardEncryptionRequest{}
+	_ bin.BareDecoder = &MessagesDiscardEncryptionRequest{}
+)
+
 func (d *MessagesDiscardEncryptionRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -140,27 +148,6 @@ func (d *MessagesDiscardEncryptionRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetDeleteHistory sets value of DeleteHistory conditional field.
-func (d *MessagesDiscardEncryptionRequest) SetDeleteHistory(value bool) {
-	if value {
-		d.Flags.Set(0)
-		d.DeleteHistory = true
-	} else {
-		d.Flags.Unset(0)
-		d.DeleteHistory = false
-	}
-}
-
-// GetDeleteHistory returns value of DeleteHistory conditional field.
-func (d *MessagesDiscardEncryptionRequest) GetDeleteHistory() (value bool) {
-	return d.Flags.Has(0)
-}
-
-// GetChatID returns value of ChatID field.
-func (d *MessagesDiscardEncryptionRequest) GetChatID() (value int) {
-	return d.ChatID
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDiscardEncryptionRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -193,13 +180,26 @@ func (d *MessagesDiscardEncryptionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesDiscardEncryptionRequest.
-var (
-	_ bin.Encoder     = &MessagesDiscardEncryptionRequest{}
-	_ bin.Decoder     = &MessagesDiscardEncryptionRequest{}
-	_ bin.BareEncoder = &MessagesDiscardEncryptionRequest{}
-	_ bin.BareDecoder = &MessagesDiscardEncryptionRequest{}
-)
+// SetDeleteHistory sets value of DeleteHistory conditional field.
+func (d *MessagesDiscardEncryptionRequest) SetDeleteHistory(value bool) {
+	if value {
+		d.Flags.Set(0)
+		d.DeleteHistory = true
+	} else {
+		d.Flags.Unset(0)
+		d.DeleteHistory = false
+	}
+}
+
+// GetDeleteHistory returns value of DeleteHistory conditional field.
+func (d *MessagesDiscardEncryptionRequest) GetDeleteHistory() (value bool) {
+	return d.Flags.Has(0)
+}
+
+// GetChatID returns value of ChatID field.
+func (d *MessagesDiscardEncryptionRequest) GetChatID() (value int) {
+	return d.ChatID
+}
 
 // MessagesDiscardEncryption invokes method messages.discardEncryption#f393aea0 returning error if any.
 // Cancels a request for creation and/or delete info on secret chat.

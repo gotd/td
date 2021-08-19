@@ -46,6 +46,14 @@ type ChannelsGetParticipantRequest struct {
 // ChannelsGetParticipantRequestTypeID is TL type id of ChannelsGetParticipantRequest.
 const ChannelsGetParticipantRequestTypeID = 0xa0ab6cc6
 
+// Ensuring interfaces in compile-time for ChannelsGetParticipantRequest.
+var (
+	_ bin.Encoder     = &ChannelsGetParticipantRequest{}
+	_ bin.Decoder     = &ChannelsGetParticipantRequest{}
+	_ bin.BareEncoder = &ChannelsGetParticipantRequest{}
+	_ bin.BareDecoder = &ChannelsGetParticipantRequest{}
+)
+
 func (g *ChannelsGetParticipantRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -142,21 +150,6 @@ func (g *ChannelsGetParticipantRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (g *ChannelsGetParticipantRequest) GetChannel() (value InputChannelClass) {
-	return g.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *ChannelsGetParticipantRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
-// GetParticipant returns value of Participant field.
-func (g *ChannelsGetParticipantRequest) GetParticipant() (value InputPeerClass) {
-	return g.Participant
-}
-
 // Decode implements bin.Decoder.
 func (g *ChannelsGetParticipantRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -190,13 +183,20 @@ func (g *ChannelsGetParticipantRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsGetParticipantRequest.
-var (
-	_ bin.Encoder     = &ChannelsGetParticipantRequest{}
-	_ bin.Decoder     = &ChannelsGetParticipantRequest{}
-	_ bin.BareEncoder = &ChannelsGetParticipantRequest{}
-	_ bin.BareDecoder = &ChannelsGetParticipantRequest{}
-)
+// GetChannel returns value of Channel field.
+func (g *ChannelsGetParticipantRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetParticipant returns value of Participant field.
+func (g *ChannelsGetParticipantRequest) GetParticipant() (value InputPeerClass) {
+	return g.Participant
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *ChannelsGetParticipantRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
 
 // ChannelsGetParticipant invokes method channels.getParticipant#a0ab6cc6 returning error if any.
 // Get info about a channel/supergroup¹ participant

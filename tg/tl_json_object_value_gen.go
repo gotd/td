@@ -43,6 +43,14 @@ type JSONObjectValue struct {
 // JSONObjectValueTypeID is TL type id of JSONObjectValue.
 const JSONObjectValueTypeID = 0xc0de1bd9
 
+// Ensuring interfaces in compile-time for JSONObjectValue.
+var (
+	_ bin.Encoder     = &JSONObjectValue{}
+	_ bin.Decoder     = &JSONObjectValue{}
+	_ bin.BareEncoder = &JSONObjectValue{}
+	_ bin.BareDecoder = &JSONObjectValue{}
+)
+
 func (j *JSONObjectValue) Zero() bool {
 	if j == nil {
 		return true
@@ -134,16 +142,6 @@ func (j *JSONObjectValue) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetKey returns value of Key field.
-func (j *JSONObjectValue) GetKey() (value string) {
-	return j.Key
-}
-
-// GetValue returns value of Value field.
-func (j *JSONObjectValue) GetValue() (value JSONValueClass) {
-	return j.Value
-}
-
 // Decode implements bin.Decoder.
 func (j *JSONObjectValue) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -177,10 +175,12 @@ func (j *JSONObjectValue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for JSONObjectValue.
-var (
-	_ bin.Encoder     = &JSONObjectValue{}
-	_ bin.Decoder     = &JSONObjectValue{}
-	_ bin.BareEncoder = &JSONObjectValue{}
-	_ bin.BareDecoder = &JSONObjectValue{}
-)
+// GetKey returns value of Key field.
+func (j *JSONObjectValue) GetKey() (value string) {
+	return j.Key
+}
+
+// GetValue returns value of Value field.
+func (j *JSONObjectValue) GetValue() (value JSONValueClass) {
+	return j.Value
+}

@@ -40,6 +40,19 @@ type AccountResetPasswordFailedWait struct {
 // AccountResetPasswordFailedWaitTypeID is TL type id of AccountResetPasswordFailedWait.
 const AccountResetPasswordFailedWaitTypeID = 0xe3779861
 
+// construct implements constructor of AccountResetPasswordResultClass.
+func (r AccountResetPasswordFailedWait) construct() AccountResetPasswordResultClass { return &r }
+
+// Ensuring interfaces in compile-time for AccountResetPasswordFailedWait.
+var (
+	_ bin.Encoder     = &AccountResetPasswordFailedWait{}
+	_ bin.Decoder     = &AccountResetPasswordFailedWait{}
+	_ bin.BareEncoder = &AccountResetPasswordFailedWait{}
+	_ bin.BareDecoder = &AccountResetPasswordFailedWait{}
+
+	_ AccountResetPasswordResultClass = &AccountResetPasswordFailedWait{}
+)
+
 func (r *AccountResetPasswordFailedWait) Zero() bool {
 	if r == nil {
 		return true
@@ -116,11 +129,6 @@ func (r *AccountResetPasswordFailedWait) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRetryDate returns value of RetryDate field.
-func (r *AccountResetPasswordFailedWait) GetRetryDate() (value int) {
-	return r.RetryDate
-}
-
 // Decode implements bin.Decoder.
 func (r *AccountResetPasswordFailedWait) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -147,18 +155,10 @@ func (r *AccountResetPasswordFailedWait) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AccountResetPasswordResultClass.
-func (r AccountResetPasswordFailedWait) construct() AccountResetPasswordResultClass { return &r }
-
-// Ensuring interfaces in compile-time for AccountResetPasswordFailedWait.
-var (
-	_ bin.Encoder     = &AccountResetPasswordFailedWait{}
-	_ bin.Decoder     = &AccountResetPasswordFailedWait{}
-	_ bin.BareEncoder = &AccountResetPasswordFailedWait{}
-	_ bin.BareDecoder = &AccountResetPasswordFailedWait{}
-
-	_ AccountResetPasswordResultClass = &AccountResetPasswordFailedWait{}
-)
+// GetRetryDate returns value of RetryDate field.
+func (r *AccountResetPasswordFailedWait) GetRetryDate() (value int) {
+	return r.RetryDate
+}
 
 // AccountResetPasswordRequestedWait represents TL type `account.resetPasswordRequestedWait#e9effc7d`.
 //
@@ -170,6 +170,19 @@ type AccountResetPasswordRequestedWait struct {
 
 // AccountResetPasswordRequestedWaitTypeID is TL type id of AccountResetPasswordRequestedWait.
 const AccountResetPasswordRequestedWaitTypeID = 0xe9effc7d
+
+// construct implements constructor of AccountResetPasswordResultClass.
+func (r AccountResetPasswordRequestedWait) construct() AccountResetPasswordResultClass { return &r }
+
+// Ensuring interfaces in compile-time for AccountResetPasswordRequestedWait.
+var (
+	_ bin.Encoder     = &AccountResetPasswordRequestedWait{}
+	_ bin.Decoder     = &AccountResetPasswordRequestedWait{}
+	_ bin.BareEncoder = &AccountResetPasswordRequestedWait{}
+	_ bin.BareDecoder = &AccountResetPasswordRequestedWait{}
+
+	_ AccountResetPasswordResultClass = &AccountResetPasswordRequestedWait{}
+)
 
 func (r *AccountResetPasswordRequestedWait) Zero() bool {
 	if r == nil {
@@ -247,11 +260,6 @@ func (r *AccountResetPasswordRequestedWait) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUntilDate returns value of UntilDate field.
-func (r *AccountResetPasswordRequestedWait) GetUntilDate() (value int) {
-	return r.UntilDate
-}
-
 // Decode implements bin.Decoder.
 func (r *AccountResetPasswordRequestedWait) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -278,18 +286,10 @@ func (r *AccountResetPasswordRequestedWait) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AccountResetPasswordResultClass.
-func (r AccountResetPasswordRequestedWait) construct() AccountResetPasswordResultClass { return &r }
-
-// Ensuring interfaces in compile-time for AccountResetPasswordRequestedWait.
-var (
-	_ bin.Encoder     = &AccountResetPasswordRequestedWait{}
-	_ bin.Decoder     = &AccountResetPasswordRequestedWait{}
-	_ bin.BareEncoder = &AccountResetPasswordRequestedWait{}
-	_ bin.BareDecoder = &AccountResetPasswordRequestedWait{}
-
-	_ AccountResetPasswordResultClass = &AccountResetPasswordRequestedWait{}
-)
+// GetUntilDate returns value of UntilDate field.
+func (r *AccountResetPasswordRequestedWait) GetUntilDate() (value int) {
+	return r.UntilDate
+}
 
 // AccountResetPasswordOk represents TL type `account.resetPasswordOk#e926d63e`.
 //
@@ -299,6 +299,19 @@ type AccountResetPasswordOk struct {
 
 // AccountResetPasswordOkTypeID is TL type id of AccountResetPasswordOk.
 const AccountResetPasswordOkTypeID = 0xe926d63e
+
+// construct implements constructor of AccountResetPasswordResultClass.
+func (r AccountResetPasswordOk) construct() AccountResetPasswordResultClass { return &r }
+
+// Ensuring interfaces in compile-time for AccountResetPasswordOk.
+var (
+	_ bin.Encoder     = &AccountResetPasswordOk{}
+	_ bin.Decoder     = &AccountResetPasswordOk{}
+	_ bin.BareEncoder = &AccountResetPasswordOk{}
+	_ bin.BareDecoder = &AccountResetPasswordOk{}
+
+	_ AccountResetPasswordResultClass = &AccountResetPasswordOk{}
+)
 
 func (r *AccountResetPasswordOk) Zero() bool {
 	if r == nil {
@@ -378,19 +391,6 @@ func (r *AccountResetPasswordOk) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of AccountResetPasswordResultClass.
-func (r AccountResetPasswordOk) construct() AccountResetPasswordResultClass { return &r }
-
-// Ensuring interfaces in compile-time for AccountResetPasswordOk.
-var (
-	_ bin.Encoder     = &AccountResetPasswordOk{}
-	_ bin.Decoder     = &AccountResetPasswordOk{}
-	_ bin.BareEncoder = &AccountResetPasswordOk{}
-	_ bin.BareDecoder = &AccountResetPasswordOk{}
-
-	_ AccountResetPasswordResultClass = &AccountResetPasswordOk{}
-)
 
 // AccountResetPasswordResultClass represents account.ResetPasswordResult generic type.
 //

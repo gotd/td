@@ -41,6 +41,14 @@ type MessagesReadFeaturedStickersRequest struct {
 // MessagesReadFeaturedStickersRequestTypeID is TL type id of MessagesReadFeaturedStickersRequest.
 const MessagesReadFeaturedStickersRequestTypeID = 0x5b118126
 
+// Ensuring interfaces in compile-time for MessagesReadFeaturedStickersRequest.
+var (
+	_ bin.Encoder     = &MessagesReadFeaturedStickersRequest{}
+	_ bin.Decoder     = &MessagesReadFeaturedStickersRequest{}
+	_ bin.BareEncoder = &MessagesReadFeaturedStickersRequest{}
+	_ bin.BareDecoder = &MessagesReadFeaturedStickersRequest{}
+)
+
 func (r *MessagesReadFeaturedStickersRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -120,11 +128,6 @@ func (r *MessagesReadFeaturedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (r *MessagesReadFeaturedStickersRequest) GetID() (value []int64) {
-	return r.ID
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesReadFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -161,13 +164,10 @@ func (r *MessagesReadFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesReadFeaturedStickersRequest.
-var (
-	_ bin.Encoder     = &MessagesReadFeaturedStickersRequest{}
-	_ bin.Decoder     = &MessagesReadFeaturedStickersRequest{}
-	_ bin.BareEncoder = &MessagesReadFeaturedStickersRequest{}
-	_ bin.BareDecoder = &MessagesReadFeaturedStickersRequest{}
-)
+// GetID returns value of ID field.
+func (r *MessagesReadFeaturedStickersRequest) GetID() (value []int64) {
+	return r.ID
+}
 
 // MessagesReadFeaturedStickers invokes method messages.readFeaturedStickers#5b118126 returning error if any.
 // Mark new featured stickers as read

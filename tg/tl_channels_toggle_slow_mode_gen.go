@@ -48,6 +48,14 @@ type ChannelsToggleSlowModeRequest struct {
 // ChannelsToggleSlowModeRequestTypeID is TL type id of ChannelsToggleSlowModeRequest.
 const ChannelsToggleSlowModeRequestTypeID = 0xedd49ef0
 
+// Ensuring interfaces in compile-time for ChannelsToggleSlowModeRequest.
+var (
+	_ bin.Encoder     = &ChannelsToggleSlowModeRequest{}
+	_ bin.Decoder     = &ChannelsToggleSlowModeRequest{}
+	_ bin.BareEncoder = &ChannelsToggleSlowModeRequest{}
+	_ bin.BareDecoder = &ChannelsToggleSlowModeRequest{}
+)
+
 func (t *ChannelsToggleSlowModeRequest) Zero() bool {
 	if t == nil {
 		return true
@@ -139,21 +147,6 @@ func (t *ChannelsToggleSlowModeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (t *ChannelsToggleSlowModeRequest) GetChannel() (value InputChannelClass) {
-	return t.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (t *ChannelsToggleSlowModeRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return t.Channel.AsNotEmpty()
-}
-
-// GetSeconds returns value of Seconds field.
-func (t *ChannelsToggleSlowModeRequest) GetSeconds() (value int) {
-	return t.Seconds
-}
-
 // Decode implements bin.Decoder.
 func (t *ChannelsToggleSlowModeRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -187,13 +180,20 @@ func (t *ChannelsToggleSlowModeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsToggleSlowModeRequest.
-var (
-	_ bin.Encoder     = &ChannelsToggleSlowModeRequest{}
-	_ bin.Decoder     = &ChannelsToggleSlowModeRequest{}
-	_ bin.BareEncoder = &ChannelsToggleSlowModeRequest{}
-	_ bin.BareDecoder = &ChannelsToggleSlowModeRequest{}
-)
+// GetChannel returns value of Channel field.
+func (t *ChannelsToggleSlowModeRequest) GetChannel() (value InputChannelClass) {
+	return t.Channel
+}
+
+// GetSeconds returns value of Seconds field.
+func (t *ChannelsToggleSlowModeRequest) GetSeconds() (value int) {
+	return t.Seconds
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (t *ChannelsToggleSlowModeRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return t.Channel.AsNotEmpty()
+}
 
 // ChannelsToggleSlowMode invokes method channels.toggleSlowMode#edd49ef0 returning error if any.
 // Toggle supergroup slow mode: if enabled, users will only be able to send one message

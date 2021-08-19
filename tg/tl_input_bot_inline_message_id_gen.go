@@ -45,6 +45,14 @@ type InputBotInlineMessageID struct {
 // InputBotInlineMessageIDTypeID is TL type id of InputBotInlineMessageID.
 const InputBotInlineMessageIDTypeID = 0x890c3d89
 
+// Ensuring interfaces in compile-time for InputBotInlineMessageID.
+var (
+	_ bin.Encoder     = &InputBotInlineMessageID{}
+	_ bin.Decoder     = &InputBotInlineMessageID{}
+	_ bin.BareEncoder = &InputBotInlineMessageID{}
+	_ bin.BareDecoder = &InputBotInlineMessageID{}
+)
+
 func (i *InputBotInlineMessageID) Zero() bool {
 	if i == nil {
 		return true
@@ -141,21 +149,6 @@ func (i *InputBotInlineMessageID) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDCID returns value of DCID field.
-func (i *InputBotInlineMessageID) GetDCID() (value int) {
-	return i.DCID
-}
-
-// GetID returns value of ID field.
-func (i *InputBotInlineMessageID) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputBotInlineMessageID) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageID) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -196,10 +189,17 @@ func (i *InputBotInlineMessageID) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InputBotInlineMessageID.
-var (
-	_ bin.Encoder     = &InputBotInlineMessageID{}
-	_ bin.Decoder     = &InputBotInlineMessageID{}
-	_ bin.BareEncoder = &InputBotInlineMessageID{}
-	_ bin.BareDecoder = &InputBotInlineMessageID{}
-)
+// GetDCID returns value of DCID field.
+func (i *InputBotInlineMessageID) GetDCID() (value int) {
+	return i.DCID
+}
+
+// GetID returns value of ID field.
+func (i *InputBotInlineMessageID) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputBotInlineMessageID) GetAccessHash() (value int64) {
+	return i.AccessHash
+}

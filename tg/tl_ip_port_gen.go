@@ -42,6 +42,19 @@ type IPPort struct {
 // IPPortTypeID is TL type id of IPPort.
 const IPPortTypeID = 0xd433ad73
 
+// construct implements constructor of IPPortClass.
+func (i IPPort) construct() IPPortClass { return &i }
+
+// Ensuring interfaces in compile-time for IPPort.
+var (
+	_ bin.Encoder     = &IPPort{}
+	_ bin.Decoder     = &IPPort{}
+	_ bin.BareEncoder = &IPPort{}
+	_ bin.BareDecoder = &IPPort{}
+
+	_ IPPortClass = &IPPort{}
+)
+
 func (i *IPPort) Zero() bool {
 	if i == nil {
 		return true
@@ -128,16 +141,6 @@ func (i *IPPort) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetIpv4 returns value of Ipv4 field.
-func (i *IPPort) GetIpv4() (value int) {
-	return i.Ipv4
-}
-
-// GetPort returns value of Port field.
-func (i *IPPort) GetPort() (value int) {
-	return i.Port
-}
-
 // Decode implements bin.Decoder.
 func (i *IPPort) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -171,18 +174,15 @@ func (i *IPPort) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of IPPortClass.
-func (i IPPort) construct() IPPortClass { return &i }
+// GetIpv4 returns value of Ipv4 field.
+func (i *IPPort) GetIpv4() (value int) {
+	return i.Ipv4
+}
 
-// Ensuring interfaces in compile-time for IPPort.
-var (
-	_ bin.Encoder     = &IPPort{}
-	_ bin.Decoder     = &IPPort{}
-	_ bin.BareEncoder = &IPPort{}
-	_ bin.BareDecoder = &IPPort{}
-
-	_ IPPortClass = &IPPort{}
-)
+// GetPort returns value of Port field.
+func (i *IPPort) GetPort() (value int) {
+	return i.Port
+}
 
 // IPPortSecret represents TL type `ipPortSecret#37982646`.
 //
@@ -198,6 +198,19 @@ type IPPortSecret struct {
 
 // IPPortSecretTypeID is TL type id of IPPortSecret.
 const IPPortSecretTypeID = 0x37982646
+
+// construct implements constructor of IPPortClass.
+func (i IPPortSecret) construct() IPPortClass { return &i }
+
+// Ensuring interfaces in compile-time for IPPortSecret.
+var (
+	_ bin.Encoder     = &IPPortSecret{}
+	_ bin.Decoder     = &IPPortSecret{}
+	_ bin.BareEncoder = &IPPortSecret{}
+	_ bin.BareDecoder = &IPPortSecret{}
+
+	_ IPPortClass = &IPPortSecret{}
+)
 
 func (i *IPPortSecret) Zero() bool {
 	if i == nil {
@@ -295,21 +308,6 @@ func (i *IPPortSecret) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetIpv4 returns value of Ipv4 field.
-func (i *IPPortSecret) GetIpv4() (value int) {
-	return i.Ipv4
-}
-
-// GetPort returns value of Port field.
-func (i *IPPortSecret) GetPort() (value int) {
-	return i.Port
-}
-
-// GetSecret returns value of Secret field.
-func (i *IPPortSecret) GetSecret() (value []byte) {
-	return i.Secret
-}
-
 // Decode implements bin.Decoder.
 func (i *IPPortSecret) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -350,18 +348,20 @@ func (i *IPPortSecret) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of IPPortClass.
-func (i IPPortSecret) construct() IPPortClass { return &i }
+// GetIpv4 returns value of Ipv4 field.
+func (i *IPPortSecret) GetIpv4() (value int) {
+	return i.Ipv4
+}
 
-// Ensuring interfaces in compile-time for IPPortSecret.
-var (
-	_ bin.Encoder     = &IPPortSecret{}
-	_ bin.Decoder     = &IPPortSecret{}
-	_ bin.BareEncoder = &IPPortSecret{}
-	_ bin.BareDecoder = &IPPortSecret{}
+// GetPort returns value of Port field.
+func (i *IPPortSecret) GetPort() (value int) {
+	return i.Port
+}
 
-	_ IPPortClass = &IPPortSecret{}
-)
+// GetSecret returns value of Secret field.
+func (i *IPPortSecret) GetSecret() (value []byte) {
+	return i.Secret
+}
 
 // IPPortClass represents IpPort generic type.
 //

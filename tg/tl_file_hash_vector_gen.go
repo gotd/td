@@ -38,6 +38,14 @@ type FileHashVector struct {
 // FileHashVectorTypeID is TL type id of FileHashVector.
 const FileHashVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for FileHashVector.
+var (
+	_ bin.Encoder     = &FileHashVector{}
+	_ bin.Decoder     = &FileHashVector{}
+	_ bin.BareEncoder = &FileHashVector{}
+	_ bin.BareDecoder = &FileHashVector{}
+)
+
 func (vec *FileHashVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -119,11 +127,6 @@ func (vec *FileHashVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *FileHashVector) GetElems() (value []FileHash) {
-	return vec.Elems
-}
-
 // Decode implements bin.Decoder.
 func (vec *FileHashVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -158,10 +161,7 @@ func (vec *FileHashVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for FileHashVector.
-var (
-	_ bin.Encoder     = &FileHashVector{}
-	_ bin.Decoder     = &FileHashVector{}
-	_ bin.BareEncoder = &FileHashVector{}
-	_ bin.BareDecoder = &FileHashVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *FileHashVector) GetElems() (value []FileHash) {
+	return vec.Elems
+}

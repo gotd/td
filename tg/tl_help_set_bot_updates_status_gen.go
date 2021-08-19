@@ -44,6 +44,14 @@ type HelpSetBotUpdatesStatusRequest struct {
 // HelpSetBotUpdatesStatusRequestTypeID is TL type id of HelpSetBotUpdatesStatusRequest.
 const HelpSetBotUpdatesStatusRequestTypeID = 0xec22cfcd
 
+// Ensuring interfaces in compile-time for HelpSetBotUpdatesStatusRequest.
+var (
+	_ bin.Encoder     = &HelpSetBotUpdatesStatusRequest{}
+	_ bin.Decoder     = &HelpSetBotUpdatesStatusRequest{}
+	_ bin.BareEncoder = &HelpSetBotUpdatesStatusRequest{}
+	_ bin.BareDecoder = &HelpSetBotUpdatesStatusRequest{}
+)
+
 func (s *HelpSetBotUpdatesStatusRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -130,16 +138,6 @@ func (s *HelpSetBotUpdatesStatusRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPendingUpdatesCount returns value of PendingUpdatesCount field.
-func (s *HelpSetBotUpdatesStatusRequest) GetPendingUpdatesCount() (value int) {
-	return s.PendingUpdatesCount
-}
-
-// GetMessage returns value of Message field.
-func (s *HelpSetBotUpdatesStatusRequest) GetMessage() (value string) {
-	return s.Message
-}
-
 // Decode implements bin.Decoder.
 func (s *HelpSetBotUpdatesStatusRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -173,13 +171,15 @@ func (s *HelpSetBotUpdatesStatusRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpSetBotUpdatesStatusRequest.
-var (
-	_ bin.Encoder     = &HelpSetBotUpdatesStatusRequest{}
-	_ bin.Decoder     = &HelpSetBotUpdatesStatusRequest{}
-	_ bin.BareEncoder = &HelpSetBotUpdatesStatusRequest{}
-	_ bin.BareDecoder = &HelpSetBotUpdatesStatusRequest{}
-)
+// GetPendingUpdatesCount returns value of PendingUpdatesCount field.
+func (s *HelpSetBotUpdatesStatusRequest) GetPendingUpdatesCount() (value int) {
+	return s.PendingUpdatesCount
+}
+
+// GetMessage returns value of Message field.
+func (s *HelpSetBotUpdatesStatusRequest) GetMessage() (value string) {
+	return s.Message
+}
 
 // HelpSetBotUpdatesStatus invokes method help.setBotUpdatesStatus#ec22cfcd returning error if any.
 // Informs the server about the number of pending bot updates if they haven't been

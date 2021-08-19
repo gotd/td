@@ -59,6 +59,14 @@ type MessagesSetGameScoreRequest struct {
 // MessagesSetGameScoreRequestTypeID is TL type id of MessagesSetGameScoreRequest.
 const MessagesSetGameScoreRequestTypeID = 0x8ef8ecc0
 
+// Ensuring interfaces in compile-time for MessagesSetGameScoreRequest.
+var (
+	_ bin.Encoder     = &MessagesSetGameScoreRequest{}
+	_ bin.Decoder     = &MessagesSetGameScoreRequest{}
+	_ bin.BareEncoder = &MessagesSetGameScoreRequest{}
+	_ bin.BareDecoder = &MessagesSetGameScoreRequest{}
+)
+
 func (s *MessagesSetGameScoreRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -207,58 +215,6 @@ func (s *MessagesSetGameScoreRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetEditMessage sets value of EditMessage conditional field.
-func (s *MessagesSetGameScoreRequest) SetEditMessage(value bool) {
-	if value {
-		s.Flags.Set(0)
-		s.EditMessage = true
-	} else {
-		s.Flags.Unset(0)
-		s.EditMessage = false
-	}
-}
-
-// GetEditMessage returns value of EditMessage conditional field.
-func (s *MessagesSetGameScoreRequest) GetEditMessage() (value bool) {
-	return s.Flags.Has(0)
-}
-
-// SetForce sets value of Force conditional field.
-func (s *MessagesSetGameScoreRequest) SetForce(value bool) {
-	if value {
-		s.Flags.Set(1)
-		s.Force = true
-	} else {
-		s.Flags.Unset(1)
-		s.Force = false
-	}
-}
-
-// GetForce returns value of Force conditional field.
-func (s *MessagesSetGameScoreRequest) GetForce() (value bool) {
-	return s.Flags.Has(1)
-}
-
-// GetPeer returns value of Peer field.
-func (s *MessagesSetGameScoreRequest) GetPeer() (value InputPeerClass) {
-	return s.Peer
-}
-
-// GetID returns value of ID field.
-func (s *MessagesSetGameScoreRequest) GetID() (value int) {
-	return s.ID
-}
-
-// GetUserID returns value of UserID field.
-func (s *MessagesSetGameScoreRequest) GetUserID() (value InputUserClass) {
-	return s.UserID
-}
-
-// GetScore returns value of Score field.
-func (s *MessagesSetGameScoreRequest) GetScore() (value int) {
-	return s.Score
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSetGameScoreRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -313,13 +269,57 @@ func (s *MessagesSetGameScoreRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSetGameScoreRequest.
-var (
-	_ bin.Encoder     = &MessagesSetGameScoreRequest{}
-	_ bin.Decoder     = &MessagesSetGameScoreRequest{}
-	_ bin.BareEncoder = &MessagesSetGameScoreRequest{}
-	_ bin.BareDecoder = &MessagesSetGameScoreRequest{}
-)
+// SetEditMessage sets value of EditMessage conditional field.
+func (s *MessagesSetGameScoreRequest) SetEditMessage(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.EditMessage = true
+	} else {
+		s.Flags.Unset(0)
+		s.EditMessage = false
+	}
+}
+
+// GetEditMessage returns value of EditMessage conditional field.
+func (s *MessagesSetGameScoreRequest) GetEditMessage() (value bool) {
+	return s.Flags.Has(0)
+}
+
+// SetForce sets value of Force conditional field.
+func (s *MessagesSetGameScoreRequest) SetForce(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.Force = true
+	} else {
+		s.Flags.Unset(1)
+		s.Force = false
+	}
+}
+
+// GetForce returns value of Force conditional field.
+func (s *MessagesSetGameScoreRequest) GetForce() (value bool) {
+	return s.Flags.Has(1)
+}
+
+// GetPeer returns value of Peer field.
+func (s *MessagesSetGameScoreRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetID returns value of ID field.
+func (s *MessagesSetGameScoreRequest) GetID() (value int) {
+	return s.ID
+}
+
+// GetUserID returns value of UserID field.
+func (s *MessagesSetGameScoreRequest) GetUserID() (value InputUserClass) {
+	return s.UserID
+}
+
+// GetScore returns value of Score field.
+func (s *MessagesSetGameScoreRequest) GetScore() (value int) {
+	return s.Score
+}
 
 // MessagesSetGameScore invokes method messages.setGameScore#8ef8ecc0 returning error if any.
 // Use this method to set the score of the specified user in a game sent as a normal

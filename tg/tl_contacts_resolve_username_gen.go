@@ -41,6 +41,14 @@ type ContactsResolveUsernameRequest struct {
 // ContactsResolveUsernameRequestTypeID is TL type id of ContactsResolveUsernameRequest.
 const ContactsResolveUsernameRequestTypeID = 0xf93ccba3
 
+// Ensuring interfaces in compile-time for ContactsResolveUsernameRequest.
+var (
+	_ bin.Encoder     = &ContactsResolveUsernameRequest{}
+	_ bin.Decoder     = &ContactsResolveUsernameRequest{}
+	_ bin.BareEncoder = &ContactsResolveUsernameRequest{}
+	_ bin.BareDecoder = &ContactsResolveUsernameRequest{}
+)
+
 func (r *ContactsResolveUsernameRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -117,11 +125,6 @@ func (r *ContactsResolveUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUsername returns value of Username field.
-func (r *ContactsResolveUsernameRequest) GetUsername() (value string) {
-	return r.Username
-}
-
 // Decode implements bin.Decoder.
 func (r *ContactsResolveUsernameRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -148,13 +151,10 @@ func (r *ContactsResolveUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsResolveUsernameRequest.
-var (
-	_ bin.Encoder     = &ContactsResolveUsernameRequest{}
-	_ bin.Decoder     = &ContactsResolveUsernameRequest{}
-	_ bin.BareEncoder = &ContactsResolveUsernameRequest{}
-	_ bin.BareDecoder = &ContactsResolveUsernameRequest{}
-)
+// GetUsername returns value of Username field.
+func (r *ContactsResolveUsernameRequest) GetUsername() (value string) {
+	return r.Username
+}
 
 // ContactsResolveUsername invokes method contacts.resolveUsername#f93ccba3 returning error if any.
 // Resolve a @username to get peer info

@@ -49,6 +49,19 @@ type PhoneConnection struct {
 // PhoneConnectionTypeID is TL type id of PhoneConnection.
 const PhoneConnectionTypeID = 0x9d4c17c0
 
+// construct implements constructor of PhoneConnectionClass.
+func (p PhoneConnection) construct() PhoneConnectionClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneConnection.
+var (
+	_ bin.Encoder     = &PhoneConnection{}
+	_ bin.Decoder     = &PhoneConnection{}
+	_ bin.BareEncoder = &PhoneConnection{}
+	_ bin.BareDecoder = &PhoneConnection{}
+
+	_ PhoneConnectionClass = &PhoneConnection{}
+)
+
 func (p *PhoneConnection) Zero() bool {
 	if p == nil {
 		return true
@@ -165,31 +178,6 @@ func (p *PhoneConnection) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (p *PhoneConnection) GetID() (value int64) {
-	return p.ID
-}
-
-// GetIP returns value of IP field.
-func (p *PhoneConnection) GetIP() (value string) {
-	return p.IP
-}
-
-// GetIpv6 returns value of Ipv6 field.
-func (p *PhoneConnection) GetIpv6() (value string) {
-	return p.Ipv6
-}
-
-// GetPort returns value of Port field.
-func (p *PhoneConnection) GetPort() (value int) {
-	return p.Port
-}
-
-// GetPeerTag returns value of PeerTag field.
-func (p *PhoneConnection) GetPeerTag() (value []byte) {
-	return p.PeerTag
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneConnection) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -244,18 +232,30 @@ func (p *PhoneConnection) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneConnectionClass.
-func (p PhoneConnection) construct() PhoneConnectionClass { return &p }
+// GetID returns value of ID field.
+func (p *PhoneConnection) GetID() (value int64) {
+	return p.ID
+}
 
-// Ensuring interfaces in compile-time for PhoneConnection.
-var (
-	_ bin.Encoder     = &PhoneConnection{}
-	_ bin.Decoder     = &PhoneConnection{}
-	_ bin.BareEncoder = &PhoneConnection{}
-	_ bin.BareDecoder = &PhoneConnection{}
+// GetIP returns value of IP field.
+func (p *PhoneConnection) GetIP() (value string) {
+	return p.IP
+}
 
-	_ PhoneConnectionClass = &PhoneConnection{}
-)
+// GetIpv6 returns value of Ipv6 field.
+func (p *PhoneConnection) GetIpv6() (value string) {
+	return p.Ipv6
+}
+
+// GetPort returns value of Port field.
+func (p *PhoneConnection) GetPort() (value int) {
+	return p.Port
+}
+
+// GetPeerTag returns value of PeerTag field.
+func (p *PhoneConnection) GetPeerTag() (value []byte) {
+	return p.PeerTag
+}
 
 // PhoneConnectionWebrtc represents TL type `phoneConnectionWebrtc#635fe375`.
 // WebRTC connection parameters
@@ -287,6 +287,19 @@ type PhoneConnectionWebrtc struct {
 
 // PhoneConnectionWebrtcTypeID is TL type id of PhoneConnectionWebrtc.
 const PhoneConnectionWebrtcTypeID = 0x635fe375
+
+// construct implements constructor of PhoneConnectionClass.
+func (p PhoneConnectionWebrtc) construct() PhoneConnectionClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneConnectionWebrtc.
+var (
+	_ bin.Encoder     = &PhoneConnectionWebrtc{}
+	_ bin.Decoder     = &PhoneConnectionWebrtc{}
+	_ bin.BareEncoder = &PhoneConnectionWebrtc{}
+	_ bin.BareDecoder = &PhoneConnectionWebrtc{}
+
+	_ PhoneConnectionClass = &PhoneConnectionWebrtc{}
+)
 
 func (p *PhoneConnectionWebrtc) Zero() bool {
 	if p == nil {
@@ -446,68 +459,6 @@ func (p *PhoneConnectionWebrtc) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetTurn sets value of Turn conditional field.
-func (p *PhoneConnectionWebrtc) SetTurn(value bool) {
-	if value {
-		p.Flags.Set(0)
-		p.Turn = true
-	} else {
-		p.Flags.Unset(0)
-		p.Turn = false
-	}
-}
-
-// GetTurn returns value of Turn conditional field.
-func (p *PhoneConnectionWebrtc) GetTurn() (value bool) {
-	return p.Flags.Has(0)
-}
-
-// SetStun sets value of Stun conditional field.
-func (p *PhoneConnectionWebrtc) SetStun(value bool) {
-	if value {
-		p.Flags.Set(1)
-		p.Stun = true
-	} else {
-		p.Flags.Unset(1)
-		p.Stun = false
-	}
-}
-
-// GetStun returns value of Stun conditional field.
-func (p *PhoneConnectionWebrtc) GetStun() (value bool) {
-	return p.Flags.Has(1)
-}
-
-// GetID returns value of ID field.
-func (p *PhoneConnectionWebrtc) GetID() (value int64) {
-	return p.ID
-}
-
-// GetIP returns value of IP field.
-func (p *PhoneConnectionWebrtc) GetIP() (value string) {
-	return p.IP
-}
-
-// GetIpv6 returns value of Ipv6 field.
-func (p *PhoneConnectionWebrtc) GetIpv6() (value string) {
-	return p.Ipv6
-}
-
-// GetPort returns value of Port field.
-func (p *PhoneConnectionWebrtc) GetPort() (value int) {
-	return p.Port
-}
-
-// GetUsername returns value of Username field.
-func (p *PhoneConnectionWebrtc) GetUsername() (value string) {
-	return p.Username
-}
-
-// GetPassword returns value of Password field.
-func (p *PhoneConnectionWebrtc) GetPassword() (value string) {
-	return p.Password
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneConnectionWebrtc) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -576,18 +527,67 @@ func (p *PhoneConnectionWebrtc) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneConnectionClass.
-func (p PhoneConnectionWebrtc) construct() PhoneConnectionClass { return &p }
+// SetTurn sets value of Turn conditional field.
+func (p *PhoneConnectionWebrtc) SetTurn(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.Turn = true
+	} else {
+		p.Flags.Unset(0)
+		p.Turn = false
+	}
+}
 
-// Ensuring interfaces in compile-time for PhoneConnectionWebrtc.
-var (
-	_ bin.Encoder     = &PhoneConnectionWebrtc{}
-	_ bin.Decoder     = &PhoneConnectionWebrtc{}
-	_ bin.BareEncoder = &PhoneConnectionWebrtc{}
-	_ bin.BareDecoder = &PhoneConnectionWebrtc{}
+// GetTurn returns value of Turn conditional field.
+func (p *PhoneConnectionWebrtc) GetTurn() (value bool) {
+	return p.Flags.Has(0)
+}
 
-	_ PhoneConnectionClass = &PhoneConnectionWebrtc{}
-)
+// SetStun sets value of Stun conditional field.
+func (p *PhoneConnectionWebrtc) SetStun(value bool) {
+	if value {
+		p.Flags.Set(1)
+		p.Stun = true
+	} else {
+		p.Flags.Unset(1)
+		p.Stun = false
+	}
+}
+
+// GetStun returns value of Stun conditional field.
+func (p *PhoneConnectionWebrtc) GetStun() (value bool) {
+	return p.Flags.Has(1)
+}
+
+// GetID returns value of ID field.
+func (p *PhoneConnectionWebrtc) GetID() (value int64) {
+	return p.ID
+}
+
+// GetIP returns value of IP field.
+func (p *PhoneConnectionWebrtc) GetIP() (value string) {
+	return p.IP
+}
+
+// GetIpv6 returns value of Ipv6 field.
+func (p *PhoneConnectionWebrtc) GetIpv6() (value string) {
+	return p.Ipv6
+}
+
+// GetPort returns value of Port field.
+func (p *PhoneConnectionWebrtc) GetPort() (value int) {
+	return p.Port
+}
+
+// GetUsername returns value of Username field.
+func (p *PhoneConnectionWebrtc) GetUsername() (value string) {
+	return p.Username
+}
+
+// GetPassword returns value of Password field.
+func (p *PhoneConnectionWebrtc) GetPassword() (value string) {
+	return p.Password
+}
 
 // PhoneConnectionClass represents PhoneConnection generic type.
 //

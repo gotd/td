@@ -39,6 +39,19 @@ type UserProfilePhotoEmpty struct {
 // UserProfilePhotoEmptyTypeID is TL type id of UserProfilePhotoEmpty.
 const UserProfilePhotoEmptyTypeID = 0x4f11bae1
 
+// construct implements constructor of UserProfilePhotoClass.
+func (u UserProfilePhotoEmpty) construct() UserProfilePhotoClass { return &u }
+
+// Ensuring interfaces in compile-time for UserProfilePhotoEmpty.
+var (
+	_ bin.Encoder     = &UserProfilePhotoEmpty{}
+	_ bin.Decoder     = &UserProfilePhotoEmpty{}
+	_ bin.BareEncoder = &UserProfilePhotoEmpty{}
+	_ bin.BareDecoder = &UserProfilePhotoEmpty{}
+
+	_ UserProfilePhotoClass = &UserProfilePhotoEmpty{}
+)
+
 func (u *UserProfilePhotoEmpty) Zero() bool {
 	if u == nil {
 		return true
@@ -118,19 +131,6 @@ func (u *UserProfilePhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UserProfilePhotoClass.
-func (u UserProfilePhotoEmpty) construct() UserProfilePhotoClass { return &u }
-
-// Ensuring interfaces in compile-time for UserProfilePhotoEmpty.
-var (
-	_ bin.Encoder     = &UserProfilePhotoEmpty{}
-	_ bin.Decoder     = &UserProfilePhotoEmpty{}
-	_ bin.BareEncoder = &UserProfilePhotoEmpty{}
-	_ bin.BareDecoder = &UserProfilePhotoEmpty{}
-
-	_ UserProfilePhotoClass = &UserProfilePhotoEmpty{}
-)
-
 // UserProfilePhoto represents TL type `userProfilePhoto#82d1f706`.
 // User profile photo.
 //
@@ -161,6 +161,19 @@ type UserProfilePhoto struct {
 
 // UserProfilePhotoTypeID is TL type id of UserProfilePhoto.
 const UserProfilePhotoTypeID = 0x82d1f706
+
+// construct implements constructor of UserProfilePhotoClass.
+func (u UserProfilePhoto) construct() UserProfilePhotoClass { return &u }
+
+// Ensuring interfaces in compile-time for UserProfilePhoto.
+var (
+	_ bin.Encoder     = &UserProfilePhoto{}
+	_ bin.Decoder     = &UserProfilePhoto{}
+	_ bin.BareEncoder = &UserProfilePhoto{}
+	_ bin.BareDecoder = &UserProfilePhoto{}
+
+	_ UserProfilePhotoClass = &UserProfilePhoto{}
+)
 
 func (u *UserProfilePhoto) Zero() bool {
 	if u == nil {
@@ -286,47 +299,6 @@ func (u *UserProfilePhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetHasVideo sets value of HasVideo conditional field.
-func (u *UserProfilePhoto) SetHasVideo(value bool) {
-	if value {
-		u.Flags.Set(0)
-		u.HasVideo = true
-	} else {
-		u.Flags.Unset(0)
-		u.HasVideo = false
-	}
-}
-
-// GetHasVideo returns value of HasVideo conditional field.
-func (u *UserProfilePhoto) GetHasVideo() (value bool) {
-	return u.Flags.Has(0)
-}
-
-// GetPhotoID returns value of PhotoID field.
-func (u *UserProfilePhoto) GetPhotoID() (value int64) {
-	return u.PhotoID
-}
-
-// SetStrippedThumb sets value of StrippedThumb conditional field.
-func (u *UserProfilePhoto) SetStrippedThumb(value []byte) {
-	u.Flags.Set(1)
-	u.StrippedThumb = value
-}
-
-// GetStrippedThumb returns value of StrippedThumb conditional field and
-// boolean which is true if field was set.
-func (u *UserProfilePhoto) GetStrippedThumb() (value []byte, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.StrippedThumb, true
-}
-
-// GetDCID returns value of DCID field.
-func (u *UserProfilePhoto) GetDCID() (value int) {
-	return u.DCID
-}
-
 // Decode implements bin.Decoder.
 func (u *UserProfilePhoto) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -373,18 +345,46 @@ func (u *UserProfilePhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UserProfilePhotoClass.
-func (u UserProfilePhoto) construct() UserProfilePhotoClass { return &u }
+// SetHasVideo sets value of HasVideo conditional field.
+func (u *UserProfilePhoto) SetHasVideo(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.HasVideo = true
+	} else {
+		u.Flags.Unset(0)
+		u.HasVideo = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UserProfilePhoto.
-var (
-	_ bin.Encoder     = &UserProfilePhoto{}
-	_ bin.Decoder     = &UserProfilePhoto{}
-	_ bin.BareEncoder = &UserProfilePhoto{}
-	_ bin.BareDecoder = &UserProfilePhoto{}
+// GetHasVideo returns value of HasVideo conditional field.
+func (u *UserProfilePhoto) GetHasVideo() (value bool) {
+	return u.Flags.Has(0)
+}
 
-	_ UserProfilePhotoClass = &UserProfilePhoto{}
-)
+// GetPhotoID returns value of PhotoID field.
+func (u *UserProfilePhoto) GetPhotoID() (value int64) {
+	return u.PhotoID
+}
+
+// SetStrippedThumb sets value of StrippedThumb conditional field.
+func (u *UserProfilePhoto) SetStrippedThumb(value []byte) {
+	u.Flags.Set(1)
+	u.StrippedThumb = value
+}
+
+// GetStrippedThumb returns value of StrippedThumb conditional field and
+// boolean which is true if field was set.
+func (u *UserProfilePhoto) GetStrippedThumb() (value []byte, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.StrippedThumb, true
+}
+
+// GetDCID returns value of DCID field.
+func (u *UserProfilePhoto) GetDCID() (value int) {
+	return u.DCID
+}
 
 // UserProfilePhotoClass represents UserProfilePhoto generic type.
 //

@@ -60,6 +60,14 @@ type SecureCredentialsEncrypted struct {
 // SecureCredentialsEncryptedTypeID is TL type id of SecureCredentialsEncrypted.
 const SecureCredentialsEncryptedTypeID = 0x33f0ea47
 
+// Ensuring interfaces in compile-time for SecureCredentialsEncrypted.
+var (
+	_ bin.Encoder     = &SecureCredentialsEncrypted{}
+	_ bin.Decoder     = &SecureCredentialsEncrypted{}
+	_ bin.BareEncoder = &SecureCredentialsEncrypted{}
+	_ bin.BareDecoder = &SecureCredentialsEncrypted{}
+)
+
 func (s *SecureCredentialsEncrypted) Zero() bool {
 	if s == nil {
 		return true
@@ -156,21 +164,6 @@ func (s *SecureCredentialsEncrypted) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetData returns value of Data field.
-func (s *SecureCredentialsEncrypted) GetData() (value []byte) {
-	return s.Data
-}
-
-// GetHash returns value of Hash field.
-func (s *SecureCredentialsEncrypted) GetHash() (value []byte) {
-	return s.Hash
-}
-
-// GetSecret returns value of Secret field.
-func (s *SecureCredentialsEncrypted) GetSecret() (value []byte) {
-	return s.Secret
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureCredentialsEncrypted) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -211,10 +204,17 @@ func (s *SecureCredentialsEncrypted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SecureCredentialsEncrypted.
-var (
-	_ bin.Encoder     = &SecureCredentialsEncrypted{}
-	_ bin.Decoder     = &SecureCredentialsEncrypted{}
-	_ bin.BareEncoder = &SecureCredentialsEncrypted{}
-	_ bin.BareDecoder = &SecureCredentialsEncrypted{}
-)
+// GetData returns value of Data field.
+func (s *SecureCredentialsEncrypted) GetData() (value []byte) {
+	return s.Data
+}
+
+// GetHash returns value of Hash field.
+func (s *SecureCredentialsEncrypted) GetHash() (value []byte) {
+	return s.Hash
+}
+
+// GetSecret returns value of Secret field.
+func (s *SecureCredentialsEncrypted) GetSecret() (value []byte) {
+	return s.Secret
+}

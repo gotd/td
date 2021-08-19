@@ -53,6 +53,14 @@ type StatsGetMessageStatsRequest struct {
 // StatsGetMessageStatsRequestTypeID is TL type id of StatsGetMessageStatsRequest.
 const StatsGetMessageStatsRequestTypeID = 0xb6e0a3f5
 
+// Ensuring interfaces in compile-time for StatsGetMessageStatsRequest.
+var (
+	_ bin.Encoder     = &StatsGetMessageStatsRequest{}
+	_ bin.Decoder     = &StatsGetMessageStatsRequest{}
+	_ bin.BareEncoder = &StatsGetMessageStatsRequest{}
+	_ bin.BareDecoder = &StatsGetMessageStatsRequest{}
+)
+
 func (g *StatsGetMessageStatsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -163,37 +171,6 @@ func (g *StatsGetMessageStatsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetDark sets value of Dark conditional field.
-func (g *StatsGetMessageStatsRequest) SetDark(value bool) {
-	if value {
-		g.Flags.Set(0)
-		g.Dark = true
-	} else {
-		g.Flags.Unset(0)
-		g.Dark = false
-	}
-}
-
-// GetDark returns value of Dark conditional field.
-func (g *StatsGetMessageStatsRequest) GetDark() (value bool) {
-	return g.Flags.Has(0)
-}
-
-// GetChannel returns value of Channel field.
-func (g *StatsGetMessageStatsRequest) GetChannel() (value InputChannelClass) {
-	return g.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *StatsGetMessageStatsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
-// GetMsgID returns value of MsgID field.
-func (g *StatsGetMessageStatsRequest) GetMsgID() (value int) {
-	return g.MsgID
-}
-
 // Decode implements bin.Decoder.
 func (g *StatsGetMessageStatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -233,13 +210,36 @@ func (g *StatsGetMessageStatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsGetMessageStatsRequest.
-var (
-	_ bin.Encoder     = &StatsGetMessageStatsRequest{}
-	_ bin.Decoder     = &StatsGetMessageStatsRequest{}
-	_ bin.BareEncoder = &StatsGetMessageStatsRequest{}
-	_ bin.BareDecoder = &StatsGetMessageStatsRequest{}
-)
+// SetDark sets value of Dark conditional field.
+func (g *StatsGetMessageStatsRequest) SetDark(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Dark = true
+	} else {
+		g.Flags.Unset(0)
+		g.Dark = false
+	}
+}
+
+// GetDark returns value of Dark conditional field.
+func (g *StatsGetMessageStatsRequest) GetDark() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// GetChannel returns value of Channel field.
+func (g *StatsGetMessageStatsRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetMsgID returns value of MsgID field.
+func (g *StatsGetMessageStatsRequest) GetMsgID() (value int) {
+	return g.MsgID
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *StatsGetMessageStatsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
 
 // StatsGetMessageStats invokes method stats.getMessageStats#b6e0a3f5 returning error if any.
 // Get message statistics¹

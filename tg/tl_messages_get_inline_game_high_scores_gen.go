@@ -43,6 +43,14 @@ type MessagesGetInlineGameHighScoresRequest struct {
 // MessagesGetInlineGameHighScoresRequestTypeID is TL type id of MessagesGetInlineGameHighScoresRequest.
 const MessagesGetInlineGameHighScoresRequestTypeID = 0xf635e1b
 
+// Ensuring interfaces in compile-time for MessagesGetInlineGameHighScoresRequest.
+var (
+	_ bin.Encoder     = &MessagesGetInlineGameHighScoresRequest{}
+	_ bin.Decoder     = &MessagesGetInlineGameHighScoresRequest{}
+	_ bin.BareEncoder = &MessagesGetInlineGameHighScoresRequest{}
+	_ bin.BareDecoder = &MessagesGetInlineGameHighScoresRequest{}
+)
+
 func (g *MessagesGetInlineGameHighScoresRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -136,16 +144,6 @@ func (g *MessagesGetInlineGameHighScoresRequest) EncodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// GetID returns value of ID field.
-func (g *MessagesGetInlineGameHighScoresRequest) GetID() (value InputBotInlineMessageID) {
-	return g.ID
-}
-
-// GetUserID returns value of UserID field.
-func (g *MessagesGetInlineGameHighScoresRequest) GetUserID() (value InputUserClass) {
-	return g.UserID
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetInlineGameHighScoresRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -177,13 +175,15 @@ func (g *MessagesGetInlineGameHighScoresRequest) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetInlineGameHighScoresRequest.
-var (
-	_ bin.Encoder     = &MessagesGetInlineGameHighScoresRequest{}
-	_ bin.Decoder     = &MessagesGetInlineGameHighScoresRequest{}
-	_ bin.BareEncoder = &MessagesGetInlineGameHighScoresRequest{}
-	_ bin.BareDecoder = &MessagesGetInlineGameHighScoresRequest{}
-)
+// GetID returns value of ID field.
+func (g *MessagesGetInlineGameHighScoresRequest) GetID() (value InputBotInlineMessageID) {
+	return g.ID
+}
+
+// GetUserID returns value of UserID field.
+func (g *MessagesGetInlineGameHighScoresRequest) GetUserID() (value InputUserClass) {
+	return g.UserID
+}
 
 // MessagesGetInlineGameHighScores invokes method messages.getInlineGameHighScores#f635e1b returning error if any.
 // Get highscores of a game sent using an inline bot

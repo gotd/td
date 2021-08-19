@@ -74,6 +74,14 @@ type MessagesDiscussionMessage struct {
 // MessagesDiscussionMessageTypeID is TL type id of MessagesDiscussionMessage.
 const MessagesDiscussionMessageTypeID = 0xf5dd8f9d
 
+// Ensuring interfaces in compile-time for MessagesDiscussionMessage.
+var (
+	_ bin.Encoder     = &MessagesDiscussionMessage{}
+	_ bin.Decoder     = &MessagesDiscussionMessage{}
+	_ bin.BareEncoder = &MessagesDiscussionMessage{}
+	_ bin.BareDecoder = &MessagesDiscussionMessage{}
+)
+
 func (d *MessagesDiscussionMessage) Zero() bool {
 	if d == nil {
 		return true
@@ -257,81 +265,6 @@ func (d *MessagesDiscussionMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessages returns value of Messages field.
-func (d *MessagesDiscussionMessage) GetMessages() (value []MessageClass) {
-	return d.Messages
-}
-
-// MapMessages returns field Messages wrapped in MessageClassArray helper.
-func (d *MessagesDiscussionMessage) MapMessages() (value MessageClassArray) {
-	return MessageClassArray(d.Messages)
-}
-
-// SetMaxID sets value of MaxID conditional field.
-func (d *MessagesDiscussionMessage) SetMaxID(value int) {
-	d.Flags.Set(0)
-	d.MaxID = value
-}
-
-// GetMaxID returns value of MaxID conditional field and
-// boolean which is true if field was set.
-func (d *MessagesDiscussionMessage) GetMaxID() (value int, ok bool) {
-	if !d.Flags.Has(0) {
-		return value, false
-	}
-	return d.MaxID, true
-}
-
-// SetReadInboxMaxID sets value of ReadInboxMaxID conditional field.
-func (d *MessagesDiscussionMessage) SetReadInboxMaxID(value int) {
-	d.Flags.Set(1)
-	d.ReadInboxMaxID = value
-}
-
-// GetReadInboxMaxID returns value of ReadInboxMaxID conditional field and
-// boolean which is true if field was set.
-func (d *MessagesDiscussionMessage) GetReadInboxMaxID() (value int, ok bool) {
-	if !d.Flags.Has(1) {
-		return value, false
-	}
-	return d.ReadInboxMaxID, true
-}
-
-// SetReadOutboxMaxID sets value of ReadOutboxMaxID conditional field.
-func (d *MessagesDiscussionMessage) SetReadOutboxMaxID(value int) {
-	d.Flags.Set(2)
-	d.ReadOutboxMaxID = value
-}
-
-// GetReadOutboxMaxID returns value of ReadOutboxMaxID conditional field and
-// boolean which is true if field was set.
-func (d *MessagesDiscussionMessage) GetReadOutboxMaxID() (value int, ok bool) {
-	if !d.Flags.Has(2) {
-		return value, false
-	}
-	return d.ReadOutboxMaxID, true
-}
-
-// GetChats returns value of Chats field.
-func (d *MessagesDiscussionMessage) GetChats() (value []ChatClass) {
-	return d.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (d *MessagesDiscussionMessage) MapChats() (value ChatClassArray) {
-	return ChatClassArray(d.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (d *MessagesDiscussionMessage) GetUsers() (value []UserClass) {
-	return d.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (d *MessagesDiscussionMessage) MapUsers() (value UserClassArray) {
-	return UserClassArray(d.Users)
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDiscussionMessage) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -428,10 +361,77 @@ func (d *MessagesDiscussionMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesDiscussionMessage.
-var (
-	_ bin.Encoder     = &MessagesDiscussionMessage{}
-	_ bin.Decoder     = &MessagesDiscussionMessage{}
-	_ bin.BareEncoder = &MessagesDiscussionMessage{}
-	_ bin.BareDecoder = &MessagesDiscussionMessage{}
-)
+// GetMessages returns value of Messages field.
+func (d *MessagesDiscussionMessage) GetMessages() (value []MessageClass) {
+	return d.Messages
+}
+
+// SetMaxID sets value of MaxID conditional field.
+func (d *MessagesDiscussionMessage) SetMaxID(value int) {
+	d.Flags.Set(0)
+	d.MaxID = value
+}
+
+// GetMaxID returns value of MaxID conditional field and
+// boolean which is true if field was set.
+func (d *MessagesDiscussionMessage) GetMaxID() (value int, ok bool) {
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return d.MaxID, true
+}
+
+// SetReadInboxMaxID sets value of ReadInboxMaxID conditional field.
+func (d *MessagesDiscussionMessage) SetReadInboxMaxID(value int) {
+	d.Flags.Set(1)
+	d.ReadInboxMaxID = value
+}
+
+// GetReadInboxMaxID returns value of ReadInboxMaxID conditional field and
+// boolean which is true if field was set.
+func (d *MessagesDiscussionMessage) GetReadInboxMaxID() (value int, ok bool) {
+	if !d.Flags.Has(1) {
+		return value, false
+	}
+	return d.ReadInboxMaxID, true
+}
+
+// SetReadOutboxMaxID sets value of ReadOutboxMaxID conditional field.
+func (d *MessagesDiscussionMessage) SetReadOutboxMaxID(value int) {
+	d.Flags.Set(2)
+	d.ReadOutboxMaxID = value
+}
+
+// GetReadOutboxMaxID returns value of ReadOutboxMaxID conditional field and
+// boolean which is true if field was set.
+func (d *MessagesDiscussionMessage) GetReadOutboxMaxID() (value int, ok bool) {
+	if !d.Flags.Has(2) {
+		return value, false
+	}
+	return d.ReadOutboxMaxID, true
+}
+
+// GetChats returns value of Chats field.
+func (d *MessagesDiscussionMessage) GetChats() (value []ChatClass) {
+	return d.Chats
+}
+
+// GetUsers returns value of Users field.
+func (d *MessagesDiscussionMessage) GetUsers() (value []UserClass) {
+	return d.Users
+}
+
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (d *MessagesDiscussionMessage) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(d.Messages)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (d *MessagesDiscussionMessage) MapChats() (value ChatClassArray) {
+	return ChatClassArray(d.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (d *MessagesDiscussionMessage) MapUsers() (value UserClassArray) {
+	return UserClassArray(d.Users)
+}

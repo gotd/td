@@ -44,6 +44,14 @@ type MessagesInitHistoryImportRequest struct {
 // MessagesInitHistoryImportRequestTypeID is TL type id of MessagesInitHistoryImportRequest.
 const MessagesInitHistoryImportRequestTypeID = 0x34090c3b
 
+// Ensuring interfaces in compile-time for MessagesInitHistoryImportRequest.
+var (
+	_ bin.Encoder     = &MessagesInitHistoryImportRequest{}
+	_ bin.Decoder     = &MessagesInitHistoryImportRequest{}
+	_ bin.BareEncoder = &MessagesInitHistoryImportRequest{}
+	_ bin.BareDecoder = &MessagesInitHistoryImportRequest{}
+)
+
 func (i *MessagesInitHistoryImportRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -150,21 +158,6 @@ func (i *MessagesInitHistoryImportRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (i *MessagesInitHistoryImportRequest) GetPeer() (value InputPeerClass) {
-	return i.Peer
-}
-
-// GetFile returns value of File field.
-func (i *MessagesInitHistoryImportRequest) GetFile() (value InputFileClass) {
-	return i.File
-}
-
-// GetMediaCount returns value of MediaCount field.
-func (i *MessagesInitHistoryImportRequest) GetMediaCount() (value int) {
-	return i.MediaCount
-}
-
 // Decode implements bin.Decoder.
 func (i *MessagesInitHistoryImportRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -205,13 +198,20 @@ func (i *MessagesInitHistoryImportRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesInitHistoryImportRequest.
-var (
-	_ bin.Encoder     = &MessagesInitHistoryImportRequest{}
-	_ bin.Decoder     = &MessagesInitHistoryImportRequest{}
-	_ bin.BareEncoder = &MessagesInitHistoryImportRequest{}
-	_ bin.BareDecoder = &MessagesInitHistoryImportRequest{}
-)
+// GetPeer returns value of Peer field.
+func (i *MessagesInitHistoryImportRequest) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
+
+// GetFile returns value of File field.
+func (i *MessagesInitHistoryImportRequest) GetFile() (value InputFileClass) {
+	return i.File
+}
+
+// GetMediaCount returns value of MediaCount field.
+func (i *MessagesInitHistoryImportRequest) GetMediaCount() (value int) {
+	return i.MediaCount
+}
 
 // MessagesInitHistoryImport invokes method messages.initHistoryImport#34090c3b returning error if any.
 //

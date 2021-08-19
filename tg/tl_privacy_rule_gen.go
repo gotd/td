@@ -39,6 +39,19 @@ type PrivacyValueAllowContacts struct {
 // PrivacyValueAllowContactsTypeID is TL type id of PrivacyValueAllowContacts.
 const PrivacyValueAllowContactsTypeID = 0xfffe1bac
 
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueAllowContacts) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueAllowContacts.
+var (
+	_ bin.Encoder     = &PrivacyValueAllowContacts{}
+	_ bin.Decoder     = &PrivacyValueAllowContacts{}
+	_ bin.BareEncoder = &PrivacyValueAllowContacts{}
+	_ bin.BareDecoder = &PrivacyValueAllowContacts{}
+
+	_ PrivacyRuleClass = &PrivacyValueAllowContacts{}
+)
+
 func (p *PrivacyValueAllowContacts) Zero() bool {
 	if p == nil {
 		return true
@@ -118,19 +131,6 @@ func (p *PrivacyValueAllowContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueAllowContacts) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueAllowContacts.
-var (
-	_ bin.Encoder     = &PrivacyValueAllowContacts{}
-	_ bin.Decoder     = &PrivacyValueAllowContacts{}
-	_ bin.BareEncoder = &PrivacyValueAllowContacts{}
-	_ bin.BareDecoder = &PrivacyValueAllowContacts{}
-
-	_ PrivacyRuleClass = &PrivacyValueAllowContacts{}
-)
-
 // PrivacyValueAllowAll represents TL type `privacyValueAllowAll#65427b82`.
 // Allow all users
 //
@@ -140,6 +140,19 @@ type PrivacyValueAllowAll struct {
 
 // PrivacyValueAllowAllTypeID is TL type id of PrivacyValueAllowAll.
 const PrivacyValueAllowAllTypeID = 0x65427b82
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueAllowAll) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueAllowAll.
+var (
+	_ bin.Encoder     = &PrivacyValueAllowAll{}
+	_ bin.Decoder     = &PrivacyValueAllowAll{}
+	_ bin.BareEncoder = &PrivacyValueAllowAll{}
+	_ bin.BareDecoder = &PrivacyValueAllowAll{}
+
+	_ PrivacyRuleClass = &PrivacyValueAllowAll{}
+)
 
 func (p *PrivacyValueAllowAll) Zero() bool {
 	if p == nil {
@@ -220,19 +233,6 @@ func (p *PrivacyValueAllowAll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueAllowAll) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueAllowAll.
-var (
-	_ bin.Encoder     = &PrivacyValueAllowAll{}
-	_ bin.Decoder     = &PrivacyValueAllowAll{}
-	_ bin.BareEncoder = &PrivacyValueAllowAll{}
-	_ bin.BareDecoder = &PrivacyValueAllowAll{}
-
-	_ PrivacyRuleClass = &PrivacyValueAllowAll{}
-)
-
 // PrivacyValueAllowUsers represents TL type `privacyValueAllowUsers#4d5bbe0c`.
 // Allow only certain users
 //
@@ -244,6 +244,19 @@ type PrivacyValueAllowUsers struct {
 
 // PrivacyValueAllowUsersTypeID is TL type id of PrivacyValueAllowUsers.
 const PrivacyValueAllowUsersTypeID = 0x4d5bbe0c
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueAllowUsers) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueAllowUsers.
+var (
+	_ bin.Encoder     = &PrivacyValueAllowUsers{}
+	_ bin.Decoder     = &PrivacyValueAllowUsers{}
+	_ bin.BareEncoder = &PrivacyValueAllowUsers{}
+	_ bin.BareDecoder = &PrivacyValueAllowUsers{}
+
+	_ PrivacyRuleClass = &PrivacyValueAllowUsers{}
+)
 
 func (p *PrivacyValueAllowUsers) Zero() bool {
 	if p == nil {
@@ -324,11 +337,6 @@ func (p *PrivacyValueAllowUsers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUsers returns value of Users field.
-func (p *PrivacyValueAllowUsers) GetUsers() (value []int) {
-	return p.Users
-}
-
 // Decode implements bin.Decoder.
 func (p *PrivacyValueAllowUsers) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -365,18 +373,10 @@ func (p *PrivacyValueAllowUsers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueAllowUsers) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueAllowUsers.
-var (
-	_ bin.Encoder     = &PrivacyValueAllowUsers{}
-	_ bin.Decoder     = &PrivacyValueAllowUsers{}
-	_ bin.BareEncoder = &PrivacyValueAllowUsers{}
-	_ bin.BareDecoder = &PrivacyValueAllowUsers{}
-
-	_ PrivacyRuleClass = &PrivacyValueAllowUsers{}
-)
+// GetUsers returns value of Users field.
+func (p *PrivacyValueAllowUsers) GetUsers() (value []int) {
+	return p.Users
+}
 
 // PrivacyValueDisallowContacts represents TL type `privacyValueDisallowContacts#f888fa1a`.
 // Disallow only contacts
@@ -387,6 +387,19 @@ type PrivacyValueDisallowContacts struct {
 
 // PrivacyValueDisallowContactsTypeID is TL type id of PrivacyValueDisallowContacts.
 const PrivacyValueDisallowContactsTypeID = 0xf888fa1a
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueDisallowContacts) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueDisallowContacts.
+var (
+	_ bin.Encoder     = &PrivacyValueDisallowContacts{}
+	_ bin.Decoder     = &PrivacyValueDisallowContacts{}
+	_ bin.BareEncoder = &PrivacyValueDisallowContacts{}
+	_ bin.BareDecoder = &PrivacyValueDisallowContacts{}
+
+	_ PrivacyRuleClass = &PrivacyValueDisallowContacts{}
+)
 
 func (p *PrivacyValueDisallowContacts) Zero() bool {
 	if p == nil {
@@ -467,19 +480,6 @@ func (p *PrivacyValueDisallowContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueDisallowContacts) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueDisallowContacts.
-var (
-	_ bin.Encoder     = &PrivacyValueDisallowContacts{}
-	_ bin.Decoder     = &PrivacyValueDisallowContacts{}
-	_ bin.BareEncoder = &PrivacyValueDisallowContacts{}
-	_ bin.BareDecoder = &PrivacyValueDisallowContacts{}
-
-	_ PrivacyRuleClass = &PrivacyValueDisallowContacts{}
-)
-
 // PrivacyValueDisallowAll represents TL type `privacyValueDisallowAll#8b73e763`.
 // Disallow all users
 //
@@ -489,6 +489,19 @@ type PrivacyValueDisallowAll struct {
 
 // PrivacyValueDisallowAllTypeID is TL type id of PrivacyValueDisallowAll.
 const PrivacyValueDisallowAllTypeID = 0x8b73e763
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueDisallowAll) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueDisallowAll.
+var (
+	_ bin.Encoder     = &PrivacyValueDisallowAll{}
+	_ bin.Decoder     = &PrivacyValueDisallowAll{}
+	_ bin.BareEncoder = &PrivacyValueDisallowAll{}
+	_ bin.BareDecoder = &PrivacyValueDisallowAll{}
+
+	_ PrivacyRuleClass = &PrivacyValueDisallowAll{}
+)
 
 func (p *PrivacyValueDisallowAll) Zero() bool {
 	if p == nil {
@@ -569,19 +582,6 @@ func (p *PrivacyValueDisallowAll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueDisallowAll) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueDisallowAll.
-var (
-	_ bin.Encoder     = &PrivacyValueDisallowAll{}
-	_ bin.Decoder     = &PrivacyValueDisallowAll{}
-	_ bin.BareEncoder = &PrivacyValueDisallowAll{}
-	_ bin.BareDecoder = &PrivacyValueDisallowAll{}
-
-	_ PrivacyRuleClass = &PrivacyValueDisallowAll{}
-)
-
 // PrivacyValueDisallowUsers represents TL type `privacyValueDisallowUsers#c7f49b7`.
 // Disallow only certain users
 //
@@ -593,6 +593,19 @@ type PrivacyValueDisallowUsers struct {
 
 // PrivacyValueDisallowUsersTypeID is TL type id of PrivacyValueDisallowUsers.
 const PrivacyValueDisallowUsersTypeID = 0xc7f49b7
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueDisallowUsers) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueDisallowUsers.
+var (
+	_ bin.Encoder     = &PrivacyValueDisallowUsers{}
+	_ bin.Decoder     = &PrivacyValueDisallowUsers{}
+	_ bin.BareEncoder = &PrivacyValueDisallowUsers{}
+	_ bin.BareDecoder = &PrivacyValueDisallowUsers{}
+
+	_ PrivacyRuleClass = &PrivacyValueDisallowUsers{}
+)
 
 func (p *PrivacyValueDisallowUsers) Zero() bool {
 	if p == nil {
@@ -673,11 +686,6 @@ func (p *PrivacyValueDisallowUsers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUsers returns value of Users field.
-func (p *PrivacyValueDisallowUsers) GetUsers() (value []int) {
-	return p.Users
-}
-
 // Decode implements bin.Decoder.
 func (p *PrivacyValueDisallowUsers) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -714,18 +722,10 @@ func (p *PrivacyValueDisallowUsers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueDisallowUsers) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueDisallowUsers.
-var (
-	_ bin.Encoder     = &PrivacyValueDisallowUsers{}
-	_ bin.Decoder     = &PrivacyValueDisallowUsers{}
-	_ bin.BareEncoder = &PrivacyValueDisallowUsers{}
-	_ bin.BareDecoder = &PrivacyValueDisallowUsers{}
-
-	_ PrivacyRuleClass = &PrivacyValueDisallowUsers{}
-)
+// GetUsers returns value of Users field.
+func (p *PrivacyValueDisallowUsers) GetUsers() (value []int) {
+	return p.Users
+}
 
 // PrivacyValueAllowChatParticipants represents TL type `privacyValueAllowChatParticipants#18be796b`.
 // Allow all participants of certain chats
@@ -738,6 +738,19 @@ type PrivacyValueAllowChatParticipants struct {
 
 // PrivacyValueAllowChatParticipantsTypeID is TL type id of PrivacyValueAllowChatParticipants.
 const PrivacyValueAllowChatParticipantsTypeID = 0x18be796b
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueAllowChatParticipants) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueAllowChatParticipants.
+var (
+	_ bin.Encoder     = &PrivacyValueAllowChatParticipants{}
+	_ bin.Decoder     = &PrivacyValueAllowChatParticipants{}
+	_ bin.BareEncoder = &PrivacyValueAllowChatParticipants{}
+	_ bin.BareDecoder = &PrivacyValueAllowChatParticipants{}
+
+	_ PrivacyRuleClass = &PrivacyValueAllowChatParticipants{}
+)
 
 func (p *PrivacyValueAllowChatParticipants) Zero() bool {
 	if p == nil {
@@ -818,11 +831,6 @@ func (p *PrivacyValueAllowChatParticipants) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChats returns value of Chats field.
-func (p *PrivacyValueAllowChatParticipants) GetChats() (value []int) {
-	return p.Chats
-}
-
 // Decode implements bin.Decoder.
 func (p *PrivacyValueAllowChatParticipants) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -859,18 +867,10 @@ func (p *PrivacyValueAllowChatParticipants) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueAllowChatParticipants) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueAllowChatParticipants.
-var (
-	_ bin.Encoder     = &PrivacyValueAllowChatParticipants{}
-	_ bin.Decoder     = &PrivacyValueAllowChatParticipants{}
-	_ bin.BareEncoder = &PrivacyValueAllowChatParticipants{}
-	_ bin.BareDecoder = &PrivacyValueAllowChatParticipants{}
-
-	_ PrivacyRuleClass = &PrivacyValueAllowChatParticipants{}
-)
+// GetChats returns value of Chats field.
+func (p *PrivacyValueAllowChatParticipants) GetChats() (value []int) {
+	return p.Chats
+}
 
 // PrivacyValueDisallowChatParticipants represents TL type `privacyValueDisallowChatParticipants#acae0690`.
 // Disallow only participants of certain chats
@@ -883,6 +883,19 @@ type PrivacyValueDisallowChatParticipants struct {
 
 // PrivacyValueDisallowChatParticipantsTypeID is TL type id of PrivacyValueDisallowChatParticipants.
 const PrivacyValueDisallowChatParticipantsTypeID = 0xacae0690
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueDisallowChatParticipants) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueDisallowChatParticipants.
+var (
+	_ bin.Encoder     = &PrivacyValueDisallowChatParticipants{}
+	_ bin.Decoder     = &PrivacyValueDisallowChatParticipants{}
+	_ bin.BareEncoder = &PrivacyValueDisallowChatParticipants{}
+	_ bin.BareDecoder = &PrivacyValueDisallowChatParticipants{}
+
+	_ PrivacyRuleClass = &PrivacyValueDisallowChatParticipants{}
+)
 
 func (p *PrivacyValueDisallowChatParticipants) Zero() bool {
 	if p == nil {
@@ -963,11 +976,6 @@ func (p *PrivacyValueDisallowChatParticipants) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChats returns value of Chats field.
-func (p *PrivacyValueDisallowChatParticipants) GetChats() (value []int) {
-	return p.Chats
-}
-
 // Decode implements bin.Decoder.
 func (p *PrivacyValueDisallowChatParticipants) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1004,18 +1012,10 @@ func (p *PrivacyValueDisallowChatParticipants) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueDisallowChatParticipants) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueDisallowChatParticipants.
-var (
-	_ bin.Encoder     = &PrivacyValueDisallowChatParticipants{}
-	_ bin.Decoder     = &PrivacyValueDisallowChatParticipants{}
-	_ bin.BareEncoder = &PrivacyValueDisallowChatParticipants{}
-	_ bin.BareDecoder = &PrivacyValueDisallowChatParticipants{}
-
-	_ PrivacyRuleClass = &PrivacyValueDisallowChatParticipants{}
-)
+// GetChats returns value of Chats field.
+func (p *PrivacyValueDisallowChatParticipants) GetChats() (value []int) {
+	return p.Chats
+}
 
 // PrivacyRuleClass represents PrivacyRule generic type.
 //

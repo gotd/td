@@ -39,6 +39,14 @@ type AccountGetAutoDownloadSettingsRequest struct {
 // AccountGetAutoDownloadSettingsRequestTypeID is TL type id of AccountGetAutoDownloadSettingsRequest.
 const AccountGetAutoDownloadSettingsRequestTypeID = 0x56da0b3f
 
+// Ensuring interfaces in compile-time for AccountGetAutoDownloadSettingsRequest.
+var (
+	_ bin.Encoder     = &AccountGetAutoDownloadSettingsRequest{}
+	_ bin.Decoder     = &AccountGetAutoDownloadSettingsRequest{}
+	_ bin.BareEncoder = &AccountGetAutoDownloadSettingsRequest{}
+	_ bin.BareDecoder = &AccountGetAutoDownloadSettingsRequest{}
+)
+
 func (g *AccountGetAutoDownloadSettingsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *AccountGetAutoDownloadSettingsRequest) DecodeBare(b *bin.Buffer) error 
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountGetAutoDownloadSettingsRequest.
-var (
-	_ bin.Encoder     = &AccountGetAutoDownloadSettingsRequest{}
-	_ bin.Decoder     = &AccountGetAutoDownloadSettingsRequest{}
-	_ bin.BareEncoder = &AccountGetAutoDownloadSettingsRequest{}
-	_ bin.BareDecoder = &AccountGetAutoDownloadSettingsRequest{}
-)
 
 // AccountGetAutoDownloadSettings invokes method account.getAutoDownloadSettings#56da0b3f returning error if any.
 // Get media autodownload settings

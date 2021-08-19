@@ -45,6 +45,19 @@ type ChatParticipant struct {
 // ChatParticipantTypeID is TL type id of ChatParticipant.
 const ChatParticipantTypeID = 0xc8d7493e
 
+// construct implements constructor of ChatParticipantClass.
+func (c ChatParticipant) construct() ChatParticipantClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatParticipant.
+var (
+	_ bin.Encoder     = &ChatParticipant{}
+	_ bin.Decoder     = &ChatParticipant{}
+	_ bin.BareEncoder = &ChatParticipant{}
+	_ bin.BareDecoder = &ChatParticipant{}
+
+	_ ChatParticipantClass = &ChatParticipant{}
+)
+
 func (c *ChatParticipant) Zero() bool {
 	if c == nil {
 		return true
@@ -141,21 +154,6 @@ func (c *ChatParticipant) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (c *ChatParticipant) GetUserID() (value int) {
-	return c.UserID
-}
-
-// GetInviterID returns value of InviterID field.
-func (c *ChatParticipant) GetInviterID() (value int) {
-	return c.InviterID
-}
-
-// GetDate returns value of Date field.
-func (c *ChatParticipant) GetDate() (value int) {
-	return c.Date
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatParticipant) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -196,18 +194,20 @@ func (c *ChatParticipant) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatParticipantClass.
-func (c ChatParticipant) construct() ChatParticipantClass { return &c }
+// GetUserID returns value of UserID field.
+func (c *ChatParticipant) GetUserID() (value int) {
+	return c.UserID
+}
 
-// Ensuring interfaces in compile-time for ChatParticipant.
-var (
-	_ bin.Encoder     = &ChatParticipant{}
-	_ bin.Decoder     = &ChatParticipant{}
-	_ bin.BareEncoder = &ChatParticipant{}
-	_ bin.BareDecoder = &ChatParticipant{}
+// GetInviterID returns value of InviterID field.
+func (c *ChatParticipant) GetInviterID() (value int) {
+	return c.InviterID
+}
 
-	_ ChatParticipantClass = &ChatParticipant{}
-)
+// GetDate returns value of Date field.
+func (c *ChatParticipant) GetDate() (value int) {
+	return c.Date
+}
 
 // ChatParticipantCreator represents TL type `chatParticipantCreator#da13538a`.
 // Represents the creator of the group
@@ -220,6 +220,19 @@ type ChatParticipantCreator struct {
 
 // ChatParticipantCreatorTypeID is TL type id of ChatParticipantCreator.
 const ChatParticipantCreatorTypeID = 0xda13538a
+
+// construct implements constructor of ChatParticipantClass.
+func (c ChatParticipantCreator) construct() ChatParticipantClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatParticipantCreator.
+var (
+	_ bin.Encoder     = &ChatParticipantCreator{}
+	_ bin.Decoder     = &ChatParticipantCreator{}
+	_ bin.BareEncoder = &ChatParticipantCreator{}
+	_ bin.BareDecoder = &ChatParticipantCreator{}
+
+	_ ChatParticipantClass = &ChatParticipantCreator{}
+)
 
 func (c *ChatParticipantCreator) Zero() bool {
 	if c == nil {
@@ -297,11 +310,6 @@ func (c *ChatParticipantCreator) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (c *ChatParticipantCreator) GetUserID() (value int) {
-	return c.UserID
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatParticipantCreator) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -328,18 +336,10 @@ func (c *ChatParticipantCreator) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatParticipantClass.
-func (c ChatParticipantCreator) construct() ChatParticipantClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatParticipantCreator.
-var (
-	_ bin.Encoder     = &ChatParticipantCreator{}
-	_ bin.Decoder     = &ChatParticipantCreator{}
-	_ bin.BareEncoder = &ChatParticipantCreator{}
-	_ bin.BareDecoder = &ChatParticipantCreator{}
-
-	_ ChatParticipantClass = &ChatParticipantCreator{}
-)
+// GetUserID returns value of UserID field.
+func (c *ChatParticipantCreator) GetUserID() (value int) {
+	return c.UserID
+}
 
 // ChatParticipantAdmin represents TL type `chatParticipantAdmin#e2d6e436`.
 // Chat admin
@@ -356,6 +356,19 @@ type ChatParticipantAdmin struct {
 
 // ChatParticipantAdminTypeID is TL type id of ChatParticipantAdmin.
 const ChatParticipantAdminTypeID = 0xe2d6e436
+
+// construct implements constructor of ChatParticipantClass.
+func (c ChatParticipantAdmin) construct() ChatParticipantClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatParticipantAdmin.
+var (
+	_ bin.Encoder     = &ChatParticipantAdmin{}
+	_ bin.Decoder     = &ChatParticipantAdmin{}
+	_ bin.BareEncoder = &ChatParticipantAdmin{}
+	_ bin.BareDecoder = &ChatParticipantAdmin{}
+
+	_ ChatParticipantClass = &ChatParticipantAdmin{}
+)
 
 func (c *ChatParticipantAdmin) Zero() bool {
 	if c == nil {
@@ -453,21 +466,6 @@ func (c *ChatParticipantAdmin) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (c *ChatParticipantAdmin) GetUserID() (value int) {
-	return c.UserID
-}
-
-// GetInviterID returns value of InviterID field.
-func (c *ChatParticipantAdmin) GetInviterID() (value int) {
-	return c.InviterID
-}
-
-// GetDate returns value of Date field.
-func (c *ChatParticipantAdmin) GetDate() (value int) {
-	return c.Date
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatParticipantAdmin) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -508,18 +506,20 @@ func (c *ChatParticipantAdmin) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatParticipantClass.
-func (c ChatParticipantAdmin) construct() ChatParticipantClass { return &c }
+// GetUserID returns value of UserID field.
+func (c *ChatParticipantAdmin) GetUserID() (value int) {
+	return c.UserID
+}
 
-// Ensuring interfaces in compile-time for ChatParticipantAdmin.
-var (
-	_ bin.Encoder     = &ChatParticipantAdmin{}
-	_ bin.Decoder     = &ChatParticipantAdmin{}
-	_ bin.BareEncoder = &ChatParticipantAdmin{}
-	_ bin.BareDecoder = &ChatParticipantAdmin{}
+// GetInviterID returns value of InviterID field.
+func (c *ChatParticipantAdmin) GetInviterID() (value int) {
+	return c.InviterID
+}
 
-	_ ChatParticipantClass = &ChatParticipantAdmin{}
-)
+// GetDate returns value of Date field.
+func (c *ChatParticipantAdmin) GetDate() (value int) {
+	return c.Date
+}
 
 // ChatParticipantClass represents ChatParticipant generic type.
 //

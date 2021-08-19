@@ -39,6 +39,19 @@ type InputDocumentEmpty struct {
 // InputDocumentEmptyTypeID is TL type id of InputDocumentEmpty.
 const InputDocumentEmptyTypeID = 0x72f0eaae
 
+// construct implements constructor of InputDocumentClass.
+func (i InputDocumentEmpty) construct() InputDocumentClass { return &i }
+
+// Ensuring interfaces in compile-time for InputDocumentEmpty.
+var (
+	_ bin.Encoder     = &InputDocumentEmpty{}
+	_ bin.Decoder     = &InputDocumentEmpty{}
+	_ bin.BareEncoder = &InputDocumentEmpty{}
+	_ bin.BareDecoder = &InputDocumentEmpty{}
+
+	_ InputDocumentClass = &InputDocumentEmpty{}
+)
+
 func (i *InputDocumentEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputDocumentEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputDocumentClass.
-func (i InputDocumentEmpty) construct() InputDocumentClass { return &i }
-
-// Ensuring interfaces in compile-time for InputDocumentEmpty.
-var (
-	_ bin.Encoder     = &InputDocumentEmpty{}
-	_ bin.Decoder     = &InputDocumentEmpty{}
-	_ bin.BareEncoder = &InputDocumentEmpty{}
-	_ bin.BareDecoder = &InputDocumentEmpty{}
-
-	_ InputDocumentClass = &InputDocumentEmpty{}
-)
-
 // InputDocument represents TL type `inputDocument#1abfb575`.
 // Defines a video for subsequent interaction.
 //
@@ -152,6 +152,19 @@ type InputDocument struct {
 
 // InputDocumentTypeID is TL type id of InputDocument.
 const InputDocumentTypeID = 0x1abfb575
+
+// construct implements constructor of InputDocumentClass.
+func (i InputDocument) construct() InputDocumentClass { return &i }
+
+// Ensuring interfaces in compile-time for InputDocument.
+var (
+	_ bin.Encoder     = &InputDocument{}
+	_ bin.Decoder     = &InputDocument{}
+	_ bin.BareEncoder = &InputDocument{}
+	_ bin.BareDecoder = &InputDocument{}
+
+	_ InputDocumentClass = &InputDocument{}
+)
 
 func (i *InputDocument) Zero() bool {
 	if i == nil {
@@ -249,21 +262,6 @@ func (i *InputDocument) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputDocument) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputDocument) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
-// GetFileReference returns value of FileReference field.
-func (i *InputDocument) GetFileReference() (value []byte) {
-	return i.FileReference
-}
-
 // Decode implements bin.Decoder.
 func (i *InputDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -304,18 +302,20 @@ func (i *InputDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputDocumentClass.
-func (i InputDocument) construct() InputDocumentClass { return &i }
+// GetID returns value of ID field.
+func (i *InputDocument) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputDocument.
-var (
-	_ bin.Encoder     = &InputDocument{}
-	_ bin.Decoder     = &InputDocument{}
-	_ bin.BareEncoder = &InputDocument{}
-	_ bin.BareDecoder = &InputDocument{}
+// GetAccessHash returns value of AccessHash field.
+func (i *InputDocument) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
-	_ InputDocumentClass = &InputDocument{}
-)
+// GetFileReference returns value of FileReference field.
+func (i *InputDocument) GetFileReference() (value []byte) {
+	return i.FileReference
+}
 
 // InputDocumentClass represents InputDocument generic type.
 //

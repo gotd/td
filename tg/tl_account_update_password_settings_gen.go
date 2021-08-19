@@ -49,6 +49,14 @@ type AccountUpdatePasswordSettingsRequest struct {
 // AccountUpdatePasswordSettingsRequestTypeID is TL type id of AccountUpdatePasswordSettingsRequest.
 const AccountUpdatePasswordSettingsRequestTypeID = 0xa59b102f
 
+// Ensuring interfaces in compile-time for AccountUpdatePasswordSettingsRequest.
+var (
+	_ bin.Encoder     = &AccountUpdatePasswordSettingsRequest{}
+	_ bin.Decoder     = &AccountUpdatePasswordSettingsRequest{}
+	_ bin.BareEncoder = &AccountUpdatePasswordSettingsRequest{}
+	_ bin.BareDecoder = &AccountUpdatePasswordSettingsRequest{}
+)
+
 func (u *AccountUpdatePasswordSettingsRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -142,21 +150,6 @@ func (u *AccountUpdatePasswordSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPassword returns value of Password field.
-func (u *AccountUpdatePasswordSettingsRequest) GetPassword() (value InputCheckPasswordSRPClass) {
-	return u.Password
-}
-
-// GetPasswordAsNotEmpty returns mapped value of Password field.
-func (u *AccountUpdatePasswordSettingsRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
-	return u.Password.AsNotEmpty()
-}
-
-// GetNewSettings returns value of NewSettings field.
-func (u *AccountUpdatePasswordSettingsRequest) GetNewSettings() (value AccountPasswordInputSettings) {
-	return u.NewSettings
-}
-
 // Decode implements bin.Decoder.
 func (u *AccountUpdatePasswordSettingsRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -188,13 +181,20 @@ func (u *AccountUpdatePasswordSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountUpdatePasswordSettingsRequest.
-var (
-	_ bin.Encoder     = &AccountUpdatePasswordSettingsRequest{}
-	_ bin.Decoder     = &AccountUpdatePasswordSettingsRequest{}
-	_ bin.BareEncoder = &AccountUpdatePasswordSettingsRequest{}
-	_ bin.BareDecoder = &AccountUpdatePasswordSettingsRequest{}
-)
+// GetPassword returns value of Password field.
+func (u *AccountUpdatePasswordSettingsRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	return u.Password
+}
+
+// GetNewSettings returns value of NewSettings field.
+func (u *AccountUpdatePasswordSettingsRequest) GetNewSettings() (value AccountPasswordInputSettings) {
+	return u.NewSettings
+}
+
+// GetPasswordAsNotEmpty returns mapped value of Password field.
+func (u *AccountUpdatePasswordSettingsRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	return u.Password.AsNotEmpty()
+}
 
 // AccountUpdatePasswordSettings invokes method account.updatePasswordSettings#a59b102f returning error if any.
 // Set a new 2FA password

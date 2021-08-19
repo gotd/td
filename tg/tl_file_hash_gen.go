@@ -44,6 +44,14 @@ type FileHash struct {
 // FileHashTypeID is TL type id of FileHash.
 const FileHashTypeID = 0x6242c773
 
+// Ensuring interfaces in compile-time for FileHash.
+var (
+	_ bin.Encoder     = &FileHash{}
+	_ bin.Decoder     = &FileHash{}
+	_ bin.BareEncoder = &FileHash{}
+	_ bin.BareDecoder = &FileHash{}
+)
+
 func (f *FileHash) Zero() bool {
 	if f == nil {
 		return true
@@ -140,21 +148,6 @@ func (f *FileHash) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (f *FileHash) GetOffset() (value int) {
-	return f.Offset
-}
-
-// GetLimit returns value of Limit field.
-func (f *FileHash) GetLimit() (value int) {
-	return f.Limit
-}
-
-// GetHash returns value of Hash field.
-func (f *FileHash) GetHash() (value []byte) {
-	return f.Hash
-}
-
 // Decode implements bin.Decoder.
 func (f *FileHash) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -195,10 +188,17 @@ func (f *FileHash) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for FileHash.
-var (
-	_ bin.Encoder     = &FileHash{}
-	_ bin.Decoder     = &FileHash{}
-	_ bin.BareEncoder = &FileHash{}
-	_ bin.BareDecoder = &FileHash{}
-)
+// GetOffset returns value of Offset field.
+func (f *FileHash) GetOffset() (value int) {
+	return f.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (f *FileHash) GetLimit() (value int) {
+	return f.Limit
+}
+
+// GetHash returns value of Hash field.
+func (f *FileHash) GetHash() (value []byte) {
+	return f.Hash
+}

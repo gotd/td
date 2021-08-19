@@ -45,6 +45,14 @@ type AccountReportPeerRequest struct {
 // AccountReportPeerRequestTypeID is TL type id of AccountReportPeerRequest.
 const AccountReportPeerRequestTypeID = 0xc5ba3d86
 
+// Ensuring interfaces in compile-time for AccountReportPeerRequest.
+var (
+	_ bin.Encoder     = &AccountReportPeerRequest{}
+	_ bin.Decoder     = &AccountReportPeerRequest{}
+	_ bin.BareEncoder = &AccountReportPeerRequest{}
+	_ bin.BareDecoder = &AccountReportPeerRequest{}
+)
+
 func (r *AccountReportPeerRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -151,21 +159,6 @@ func (r *AccountReportPeerRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (r *AccountReportPeerRequest) GetPeer() (value InputPeerClass) {
-	return r.Peer
-}
-
-// GetReason returns value of Reason field.
-func (r *AccountReportPeerRequest) GetReason() (value ReportReasonClass) {
-	return r.Reason
-}
-
-// GetMessage returns value of Message field.
-func (r *AccountReportPeerRequest) GetMessage() (value string) {
-	return r.Message
-}
-
 // Decode implements bin.Decoder.
 func (r *AccountReportPeerRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -206,13 +199,20 @@ func (r *AccountReportPeerRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountReportPeerRequest.
-var (
-	_ bin.Encoder     = &AccountReportPeerRequest{}
-	_ bin.Decoder     = &AccountReportPeerRequest{}
-	_ bin.BareEncoder = &AccountReportPeerRequest{}
-	_ bin.BareDecoder = &AccountReportPeerRequest{}
-)
+// GetPeer returns value of Peer field.
+func (r *AccountReportPeerRequest) GetPeer() (value InputPeerClass) {
+	return r.Peer
+}
+
+// GetReason returns value of Reason field.
+func (r *AccountReportPeerRequest) GetReason() (value ReportReasonClass) {
+	return r.Reason
+}
+
+// GetMessage returns value of Message field.
+func (r *AccountReportPeerRequest) GetMessage() (value string) {
+	return r.Message
+}
 
 // AccountReportPeer invokes method account.reportPeer#c5ba3d86 returning error if any.
 // Report a peer for violation of telegram's Terms of Service

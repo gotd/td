@@ -38,6 +38,14 @@ type UserClassVector struct {
 // UserClassVectorTypeID is TL type id of UserClassVector.
 const UserClassVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for UserClassVector.
+var (
+	_ bin.Encoder     = &UserClassVector{}
+	_ bin.Decoder     = &UserClassVector{}
+	_ bin.BareEncoder = &UserClassVector{}
+	_ bin.BareDecoder = &UserClassVector{}
+)
+
 func (vec *UserClassVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -122,16 +130,6 @@ func (vec *UserClassVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *UserClassVector) GetElems() (value []UserClass) {
-	return vec.Elems
-}
-
-// MapElems returns field Elems wrapped in UserClassArray helper.
-func (vec *UserClassVector) MapElems() (value UserClassArray) {
-	return UserClassArray(vec.Elems)
-}
-
 // Decode implements bin.Decoder.
 func (vec *UserClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -166,10 +164,12 @@ func (vec *UserClassVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UserClassVector.
-var (
-	_ bin.Encoder     = &UserClassVector{}
-	_ bin.Decoder     = &UserClassVector{}
-	_ bin.BareEncoder = &UserClassVector{}
-	_ bin.BareDecoder = &UserClassVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *UserClassVector) GetElems() (value []UserClass) {
+	return vec.Elems
+}
+
+// MapElems returns field Elems wrapped in UserClassArray helper.
+func (vec *UserClassVector) MapElems() (value UserClassArray) {
+	return UserClassArray(vec.Elems)
+}

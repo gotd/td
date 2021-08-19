@@ -45,6 +45,19 @@ type MessageUserVote struct {
 // MessageUserVoteTypeID is TL type id of MessageUserVote.
 const MessageUserVoteTypeID = 0xa28e5559
 
+// construct implements constructor of MessageUserVoteClass.
+func (m MessageUserVote) construct() MessageUserVoteClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageUserVote.
+var (
+	_ bin.Encoder     = &MessageUserVote{}
+	_ bin.Decoder     = &MessageUserVote{}
+	_ bin.BareEncoder = &MessageUserVote{}
+	_ bin.BareDecoder = &MessageUserVote{}
+
+	_ MessageUserVoteClass = &MessageUserVote{}
+)
+
 func (m *MessageUserVote) Zero() bool {
 	if m == nil {
 		return true
@@ -141,21 +154,6 @@ func (m *MessageUserVote) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (m *MessageUserVote) GetUserID() (value int) {
-	return m.UserID
-}
-
-// GetOption returns value of Option field.
-func (m *MessageUserVote) GetOption() (value []byte) {
-	return m.Option
-}
-
-// GetDate returns value of Date field.
-func (m *MessageUserVote) GetDate() (value int) {
-	return m.Date
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageUserVote) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -196,18 +194,20 @@ func (m *MessageUserVote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageUserVoteClass.
-func (m MessageUserVote) construct() MessageUserVoteClass { return &m }
+// GetUserID returns value of UserID field.
+func (m *MessageUserVote) GetUserID() (value int) {
+	return m.UserID
+}
 
-// Ensuring interfaces in compile-time for MessageUserVote.
-var (
-	_ bin.Encoder     = &MessageUserVote{}
-	_ bin.Decoder     = &MessageUserVote{}
-	_ bin.BareEncoder = &MessageUserVote{}
-	_ bin.BareDecoder = &MessageUserVote{}
+// GetOption returns value of Option field.
+func (m *MessageUserVote) GetOption() (value []byte) {
+	return m.Option
+}
 
-	_ MessageUserVoteClass = &MessageUserVote{}
-)
+// GetDate returns value of Date field.
+func (m *MessageUserVote) GetDate() (value int) {
+	return m.Date
+}
 
 // MessageUserVoteInputOption represents TL type `messageUserVoteInputOption#36377430`.
 // How a user voted in a poll (reduced constructor, returned if an option was provided to
@@ -226,6 +226,19 @@ type MessageUserVoteInputOption struct {
 
 // MessageUserVoteInputOptionTypeID is TL type id of MessageUserVoteInputOption.
 const MessageUserVoteInputOptionTypeID = 0x36377430
+
+// construct implements constructor of MessageUserVoteClass.
+func (m MessageUserVoteInputOption) construct() MessageUserVoteClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageUserVoteInputOption.
+var (
+	_ bin.Encoder     = &MessageUserVoteInputOption{}
+	_ bin.Decoder     = &MessageUserVoteInputOption{}
+	_ bin.BareEncoder = &MessageUserVoteInputOption{}
+	_ bin.BareDecoder = &MessageUserVoteInputOption{}
+
+	_ MessageUserVoteClass = &MessageUserVoteInputOption{}
+)
 
 func (m *MessageUserVoteInputOption) Zero() bool {
 	if m == nil {
@@ -313,16 +326,6 @@ func (m *MessageUserVoteInputOption) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (m *MessageUserVoteInputOption) GetUserID() (value int) {
-	return m.UserID
-}
-
-// GetDate returns value of Date field.
-func (m *MessageUserVoteInputOption) GetDate() (value int) {
-	return m.Date
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageUserVoteInputOption) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -356,18 +359,15 @@ func (m *MessageUserVoteInputOption) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageUserVoteClass.
-func (m MessageUserVoteInputOption) construct() MessageUserVoteClass { return &m }
+// GetUserID returns value of UserID field.
+func (m *MessageUserVoteInputOption) GetUserID() (value int) {
+	return m.UserID
+}
 
-// Ensuring interfaces in compile-time for MessageUserVoteInputOption.
-var (
-	_ bin.Encoder     = &MessageUserVoteInputOption{}
-	_ bin.Decoder     = &MessageUserVoteInputOption{}
-	_ bin.BareEncoder = &MessageUserVoteInputOption{}
-	_ bin.BareDecoder = &MessageUserVoteInputOption{}
-
-	_ MessageUserVoteClass = &MessageUserVoteInputOption{}
-)
+// GetDate returns value of Date field.
+func (m *MessageUserVoteInputOption) GetDate() (value int) {
+	return m.Date
+}
 
 // MessageUserVoteMultiple represents TL type `messageUserVoteMultiple#e8fe0de`.
 // How a user voted in a multiple-choice poll
@@ -384,6 +384,19 @@ type MessageUserVoteMultiple struct {
 
 // MessageUserVoteMultipleTypeID is TL type id of MessageUserVoteMultiple.
 const MessageUserVoteMultipleTypeID = 0xe8fe0de
+
+// construct implements constructor of MessageUserVoteClass.
+func (m MessageUserVoteMultiple) construct() MessageUserVoteClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageUserVoteMultiple.
+var (
+	_ bin.Encoder     = &MessageUserVoteMultiple{}
+	_ bin.Decoder     = &MessageUserVoteMultiple{}
+	_ bin.BareEncoder = &MessageUserVoteMultiple{}
+	_ bin.BareDecoder = &MessageUserVoteMultiple{}
+
+	_ MessageUserVoteClass = &MessageUserVoteMultiple{}
+)
 
 func (m *MessageUserVoteMultiple) Zero() bool {
 	if m == nil {
@@ -484,21 +497,6 @@ func (m *MessageUserVoteMultiple) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (m *MessageUserVoteMultiple) GetUserID() (value int) {
-	return m.UserID
-}
-
-// GetOptions returns value of Options field.
-func (m *MessageUserVoteMultiple) GetOptions() (value [][]byte) {
-	return m.Options
-}
-
-// GetDate returns value of Date field.
-func (m *MessageUserVoteMultiple) GetDate() (value int) {
-	return m.Date
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageUserVoteMultiple) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -549,18 +547,20 @@ func (m *MessageUserVoteMultiple) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageUserVoteClass.
-func (m MessageUserVoteMultiple) construct() MessageUserVoteClass { return &m }
+// GetUserID returns value of UserID field.
+func (m *MessageUserVoteMultiple) GetUserID() (value int) {
+	return m.UserID
+}
 
-// Ensuring interfaces in compile-time for MessageUserVoteMultiple.
-var (
-	_ bin.Encoder     = &MessageUserVoteMultiple{}
-	_ bin.Decoder     = &MessageUserVoteMultiple{}
-	_ bin.BareEncoder = &MessageUserVoteMultiple{}
-	_ bin.BareDecoder = &MessageUserVoteMultiple{}
+// GetOptions returns value of Options field.
+func (m *MessageUserVoteMultiple) GetOptions() (value [][]byte) {
+	return m.Options
+}
 
-	_ MessageUserVoteClass = &MessageUserVoteMultiple{}
-)
+// GetDate returns value of Date field.
+func (m *MessageUserVoteMultiple) GetDate() (value int) {
+	return m.Date
+}
 
 // MessageUserVoteClass represents MessageUserVote generic type.
 //

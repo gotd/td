@@ -39,6 +39,14 @@ type AccountGetAuthorizationsRequest struct {
 // AccountGetAuthorizationsRequestTypeID is TL type id of AccountGetAuthorizationsRequest.
 const AccountGetAuthorizationsRequestTypeID = 0xe320c158
 
+// Ensuring interfaces in compile-time for AccountGetAuthorizationsRequest.
+var (
+	_ bin.Encoder     = &AccountGetAuthorizationsRequest{}
+	_ bin.Decoder     = &AccountGetAuthorizationsRequest{}
+	_ bin.BareEncoder = &AccountGetAuthorizationsRequest{}
+	_ bin.BareDecoder = &AccountGetAuthorizationsRequest{}
+)
+
 func (g *AccountGetAuthorizationsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *AccountGetAuthorizationsRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountGetAuthorizationsRequest.
-var (
-	_ bin.Encoder     = &AccountGetAuthorizationsRequest{}
-	_ bin.Decoder     = &AccountGetAuthorizationsRequest{}
-	_ bin.BareEncoder = &AccountGetAuthorizationsRequest{}
-	_ bin.BareDecoder = &AccountGetAuthorizationsRequest{}
-)
 
 // AccountGetAuthorizations invokes method account.getAuthorizations#e320c158 returning error if any.
 // Get logged-in sessions

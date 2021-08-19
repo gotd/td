@@ -57,6 +57,19 @@ type InputBotInlineMessageMediaAuto struct {
 // InputBotInlineMessageMediaAutoTypeID is TL type id of InputBotInlineMessageMediaAuto.
 const InputBotInlineMessageMediaAutoTypeID = 0x3380c786
 
+// construct implements constructor of InputBotInlineMessageClass.
+func (i InputBotInlineMessageMediaAuto) construct() InputBotInlineMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineMessageMediaAuto.
+var (
+	_ bin.Encoder     = &InputBotInlineMessageMediaAuto{}
+	_ bin.Decoder     = &InputBotInlineMessageMediaAuto{}
+	_ bin.BareEncoder = &InputBotInlineMessageMediaAuto{}
+	_ bin.BareDecoder = &InputBotInlineMessageMediaAuto{}
+
+	_ InputBotInlineMessageClass = &InputBotInlineMessageMediaAuto{}
+)
+
 func (i *InputBotInlineMessageMediaAuto) Zero() bool {
 	if i == nil {
 		return true
@@ -190,49 +203,6 @@ func (i *InputBotInlineMessageMediaAuto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (i *InputBotInlineMessageMediaAuto) GetMessage() (value string) {
-	return i.Message
-}
-
-// SetEntities sets value of Entities conditional field.
-func (i *InputBotInlineMessageMediaAuto) SetEntities(value []MessageEntityClass) {
-	i.Flags.Set(1)
-	i.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (i *InputBotInlineMessageMediaAuto) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (i *InputBotInlineMessageMediaAuto) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return MessageEntityClassArray(i.Entities), true
-}
-
-// SetReplyMarkup sets value of ReplyMarkup conditional field.
-func (i *InputBotInlineMessageMediaAuto) SetReplyMarkup(value ReplyMarkupClass) {
-	i.Flags.Set(2)
-	i.ReplyMarkup = value
-}
-
-// GetReplyMarkup returns value of ReplyMarkup conditional field and
-// boolean which is true if field was set.
-func (i *InputBotInlineMessageMediaAuto) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
-	if !i.Flags.Has(2) {
-		return value, false
-	}
-	return i.ReplyMarkup, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageMediaAuto) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -288,18 +258,48 @@ func (i *InputBotInlineMessageMediaAuto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputBotInlineMessageClass.
-func (i InputBotInlineMessageMediaAuto) construct() InputBotInlineMessageClass { return &i }
+// GetMessage returns value of Message field.
+func (i *InputBotInlineMessageMediaAuto) GetMessage() (value string) {
+	return i.Message
+}
 
-// Ensuring interfaces in compile-time for InputBotInlineMessageMediaAuto.
-var (
-	_ bin.Encoder     = &InputBotInlineMessageMediaAuto{}
-	_ bin.Decoder     = &InputBotInlineMessageMediaAuto{}
-	_ bin.BareEncoder = &InputBotInlineMessageMediaAuto{}
-	_ bin.BareDecoder = &InputBotInlineMessageMediaAuto{}
+// SetEntities sets value of Entities conditional field.
+func (i *InputBotInlineMessageMediaAuto) SetEntities(value []MessageEntityClass) {
+	i.Flags.Set(1)
+	i.Entities = value
+}
 
-	_ InputBotInlineMessageClass = &InputBotInlineMessageMediaAuto{}
-)
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineMessageMediaAuto) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Entities, true
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (i *InputBotInlineMessageMediaAuto) SetReplyMarkup(value ReplyMarkupClass) {
+	i.Flags.Set(2)
+	i.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineMessageMediaAuto) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.ReplyMarkup, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (i *InputBotInlineMessageMediaAuto) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return MessageEntityClassArray(i.Entities), true
+}
 
 // InputBotInlineMessageText represents TL type `inputBotInlineMessageText#3dcd7a87`.
 // Simple text message
@@ -330,6 +330,19 @@ type InputBotInlineMessageText struct {
 
 // InputBotInlineMessageTextTypeID is TL type id of InputBotInlineMessageText.
 const InputBotInlineMessageTextTypeID = 0x3dcd7a87
+
+// construct implements constructor of InputBotInlineMessageClass.
+func (i InputBotInlineMessageText) construct() InputBotInlineMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineMessageText.
+var (
+	_ bin.Encoder     = &InputBotInlineMessageText{}
+	_ bin.Decoder     = &InputBotInlineMessageText{}
+	_ bin.BareEncoder = &InputBotInlineMessageText{}
+	_ bin.BareDecoder = &InputBotInlineMessageText{}
+
+	_ InputBotInlineMessageClass = &InputBotInlineMessageText{}
+)
 
 func (i *InputBotInlineMessageText) Zero() bool {
 	if i == nil {
@@ -477,65 +490,6 @@ func (i *InputBotInlineMessageText) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetNoWebpage sets value of NoWebpage conditional field.
-func (i *InputBotInlineMessageText) SetNoWebpage(value bool) {
-	if value {
-		i.Flags.Set(0)
-		i.NoWebpage = true
-	} else {
-		i.Flags.Unset(0)
-		i.NoWebpage = false
-	}
-}
-
-// GetNoWebpage returns value of NoWebpage conditional field.
-func (i *InputBotInlineMessageText) GetNoWebpage() (value bool) {
-	return i.Flags.Has(0)
-}
-
-// GetMessage returns value of Message field.
-func (i *InputBotInlineMessageText) GetMessage() (value string) {
-	return i.Message
-}
-
-// SetEntities sets value of Entities conditional field.
-func (i *InputBotInlineMessageText) SetEntities(value []MessageEntityClass) {
-	i.Flags.Set(1)
-	i.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (i *InputBotInlineMessageText) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (i *InputBotInlineMessageText) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return MessageEntityClassArray(i.Entities), true
-}
-
-// SetReplyMarkup sets value of ReplyMarkup conditional field.
-func (i *InputBotInlineMessageText) SetReplyMarkup(value ReplyMarkupClass) {
-	i.Flags.Set(2)
-	i.ReplyMarkup = value
-}
-
-// GetReplyMarkup returns value of ReplyMarkup conditional field and
-// boolean which is true if field was set.
-func (i *InputBotInlineMessageText) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
-	if !i.Flags.Has(2) {
-		return value, false
-	}
-	return i.ReplyMarkup, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageText) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -592,18 +546,64 @@ func (i *InputBotInlineMessageText) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputBotInlineMessageClass.
-func (i InputBotInlineMessageText) construct() InputBotInlineMessageClass { return &i }
+// SetNoWebpage sets value of NoWebpage conditional field.
+func (i *InputBotInlineMessageText) SetNoWebpage(value bool) {
+	if value {
+		i.Flags.Set(0)
+		i.NoWebpage = true
+	} else {
+		i.Flags.Unset(0)
+		i.NoWebpage = false
+	}
+}
 
-// Ensuring interfaces in compile-time for InputBotInlineMessageText.
-var (
-	_ bin.Encoder     = &InputBotInlineMessageText{}
-	_ bin.Decoder     = &InputBotInlineMessageText{}
-	_ bin.BareEncoder = &InputBotInlineMessageText{}
-	_ bin.BareDecoder = &InputBotInlineMessageText{}
+// GetNoWebpage returns value of NoWebpage conditional field.
+func (i *InputBotInlineMessageText) GetNoWebpage() (value bool) {
+	return i.Flags.Has(0)
+}
 
-	_ InputBotInlineMessageClass = &InputBotInlineMessageText{}
-)
+// GetMessage returns value of Message field.
+func (i *InputBotInlineMessageText) GetMessage() (value string) {
+	return i.Message
+}
+
+// SetEntities sets value of Entities conditional field.
+func (i *InputBotInlineMessageText) SetEntities(value []MessageEntityClass) {
+	i.Flags.Set(1)
+	i.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineMessageText) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Entities, true
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (i *InputBotInlineMessageText) SetReplyMarkup(value ReplyMarkupClass) {
+	i.Flags.Set(2)
+	i.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineMessageText) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.ReplyMarkup, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (i *InputBotInlineMessageText) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return MessageEntityClassArray(i.Entities), true
+}
 
 // InputBotInlineMessageMediaGeo represents TL type `inputBotInlineMessageMediaGeo#96929a85`.
 // Geolocation
@@ -644,6 +644,19 @@ type InputBotInlineMessageMediaGeo struct {
 
 // InputBotInlineMessageMediaGeoTypeID is TL type id of InputBotInlineMessageMediaGeo.
 const InputBotInlineMessageMediaGeoTypeID = 0x96929a85
+
+// construct implements constructor of InputBotInlineMessageClass.
+func (i InputBotInlineMessageMediaGeo) construct() InputBotInlineMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineMessageMediaGeo.
+var (
+	_ bin.Encoder     = &InputBotInlineMessageMediaGeo{}
+	_ bin.Decoder     = &InputBotInlineMessageMediaGeo{}
+	_ bin.BareEncoder = &InputBotInlineMessageMediaGeo{}
+	_ bin.BareDecoder = &InputBotInlineMessageMediaGeo{}
+
+	_ InputBotInlineMessageClass = &InputBotInlineMessageMediaGeo{}
+)
 
 func (i *InputBotInlineMessageMediaGeo) Zero() bool {
 	if i == nil {
@@ -813,6 +826,65 @@ func (i *InputBotInlineMessageMediaGeo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (i *InputBotInlineMessageMediaGeo) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineMessageMediaGeo#96929a85 to nil")
+	}
+	if err := b.ConsumeID(InputBotInlineMessageMediaGeoTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputBotInlineMessageMediaGeo) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineMessageMediaGeo#96929a85 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field flags: %w", err)
+		}
+	}
+	{
+		value, err := DecodeInputGeoPoint(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field geo_point: %w", err)
+		}
+		i.GeoPoint = value
+	}
+	if i.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field heading: %w", err)
+		}
+		i.Heading = value
+	}
+	if i.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field period: %w", err)
+		}
+		i.Period = value
+	}
+	if i.Flags.Has(3) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field proximity_notification_radius: %w", err)
+		}
+		i.ProximityNotificationRadius = value
+	}
+	if i.Flags.Has(2) {
+		value, err := DecodeReplyMarkup(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field reply_markup: %w", err)
+		}
+		i.ReplyMarkup = value
+	}
+	return nil
+}
+
 // GetGeoPoint returns value of GeoPoint field.
 func (i *InputBotInlineMessageMediaGeo) GetGeoPoint() (value InputGeoPointClass) {
 	return i.GeoPoint
@@ -878,78 +950,6 @@ func (i *InputBotInlineMessageMediaGeo) GetReplyMarkup() (value ReplyMarkupClass
 	return i.ReplyMarkup, true
 }
 
-// Decode implements bin.Decoder.
-func (i *InputBotInlineMessageMediaGeo) Decode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaGeo#96929a85 to nil")
-	}
-	if err := b.ConsumeID(InputBotInlineMessageMediaGeoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: %w", err)
-	}
-	return i.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (i *InputBotInlineMessageMediaGeo) DecodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaGeo#96929a85 to nil")
-	}
-	{
-		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field flags: %w", err)
-		}
-	}
-	{
-		value, err := DecodeInputGeoPoint(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field geo_point: %w", err)
-		}
-		i.GeoPoint = value
-	}
-	if i.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field heading: %w", err)
-		}
-		i.Heading = value
-	}
-	if i.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field period: %w", err)
-		}
-		i.Period = value
-	}
-	if i.Flags.Has(3) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field proximity_notification_radius: %w", err)
-		}
-		i.ProximityNotificationRadius = value
-	}
-	if i.Flags.Has(2) {
-		value, err := DecodeReplyMarkup(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field reply_markup: %w", err)
-		}
-		i.ReplyMarkup = value
-	}
-	return nil
-}
-
-// construct implements constructor of InputBotInlineMessageClass.
-func (i InputBotInlineMessageMediaGeo) construct() InputBotInlineMessageClass { return &i }
-
-// Ensuring interfaces in compile-time for InputBotInlineMessageMediaGeo.
-var (
-	_ bin.Encoder     = &InputBotInlineMessageMediaGeo{}
-	_ bin.Decoder     = &InputBotInlineMessageMediaGeo{}
-	_ bin.BareEncoder = &InputBotInlineMessageMediaGeo{}
-	_ bin.BareDecoder = &InputBotInlineMessageMediaGeo{}
-
-	_ InputBotInlineMessageClass = &InputBotInlineMessageMediaGeo{}
-)
-
 // InputBotInlineMessageMediaVenue represents TL type `inputBotInlineMessageMediaVenue#417bbf11`.
 // Venue
 //
@@ -980,6 +980,19 @@ type InputBotInlineMessageMediaVenue struct {
 
 // InputBotInlineMessageMediaVenueTypeID is TL type id of InputBotInlineMessageMediaVenue.
 const InputBotInlineMessageMediaVenueTypeID = 0x417bbf11
+
+// construct implements constructor of InputBotInlineMessageClass.
+func (i InputBotInlineMessageMediaVenue) construct() InputBotInlineMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineMessageMediaVenue.
+var (
+	_ bin.Encoder     = &InputBotInlineMessageMediaVenue{}
+	_ bin.Decoder     = &InputBotInlineMessageMediaVenue{}
+	_ bin.BareEncoder = &InputBotInlineMessageMediaVenue{}
+	_ bin.BareDecoder = &InputBotInlineMessageMediaVenue{}
+
+	_ InputBotInlineMessageClass = &InputBotInlineMessageMediaVenue{}
+)
 
 func (i *InputBotInlineMessageMediaVenue) Zero() bool {
 	if i == nil {
@@ -1142,51 +1155,6 @@ func (i *InputBotInlineMessageMediaVenue) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetGeoPoint returns value of GeoPoint field.
-func (i *InputBotInlineMessageMediaVenue) GetGeoPoint() (value InputGeoPointClass) {
-	return i.GeoPoint
-}
-
-// GetTitle returns value of Title field.
-func (i *InputBotInlineMessageMediaVenue) GetTitle() (value string) {
-	return i.Title
-}
-
-// GetAddress returns value of Address field.
-func (i *InputBotInlineMessageMediaVenue) GetAddress() (value string) {
-	return i.Address
-}
-
-// GetProvider returns value of Provider field.
-func (i *InputBotInlineMessageMediaVenue) GetProvider() (value string) {
-	return i.Provider
-}
-
-// GetVenueID returns value of VenueID field.
-func (i *InputBotInlineMessageMediaVenue) GetVenueID() (value string) {
-	return i.VenueID
-}
-
-// GetVenueType returns value of VenueType field.
-func (i *InputBotInlineMessageMediaVenue) GetVenueType() (value string) {
-	return i.VenueType
-}
-
-// SetReplyMarkup sets value of ReplyMarkup conditional field.
-func (i *InputBotInlineMessageMediaVenue) SetReplyMarkup(value ReplyMarkupClass) {
-	i.Flags.Set(2)
-	i.ReplyMarkup = value
-}
-
-// GetReplyMarkup returns value of ReplyMarkup conditional field and
-// boolean which is true if field was set.
-func (i *InputBotInlineMessageMediaVenue) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
-	if !i.Flags.Has(2) {
-		return value, false
-	}
-	return i.ReplyMarkup, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageMediaVenue) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1260,18 +1228,50 @@ func (i *InputBotInlineMessageMediaVenue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputBotInlineMessageClass.
-func (i InputBotInlineMessageMediaVenue) construct() InputBotInlineMessageClass { return &i }
+// GetGeoPoint returns value of GeoPoint field.
+func (i *InputBotInlineMessageMediaVenue) GetGeoPoint() (value InputGeoPointClass) {
+	return i.GeoPoint
+}
 
-// Ensuring interfaces in compile-time for InputBotInlineMessageMediaVenue.
-var (
-	_ bin.Encoder     = &InputBotInlineMessageMediaVenue{}
-	_ bin.Decoder     = &InputBotInlineMessageMediaVenue{}
-	_ bin.BareEncoder = &InputBotInlineMessageMediaVenue{}
-	_ bin.BareDecoder = &InputBotInlineMessageMediaVenue{}
+// GetTitle returns value of Title field.
+func (i *InputBotInlineMessageMediaVenue) GetTitle() (value string) {
+	return i.Title
+}
 
-	_ InputBotInlineMessageClass = &InputBotInlineMessageMediaVenue{}
-)
+// GetAddress returns value of Address field.
+func (i *InputBotInlineMessageMediaVenue) GetAddress() (value string) {
+	return i.Address
+}
+
+// GetProvider returns value of Provider field.
+func (i *InputBotInlineMessageMediaVenue) GetProvider() (value string) {
+	return i.Provider
+}
+
+// GetVenueID returns value of VenueID field.
+func (i *InputBotInlineMessageMediaVenue) GetVenueID() (value string) {
+	return i.VenueID
+}
+
+// GetVenueType returns value of VenueType field.
+func (i *InputBotInlineMessageMediaVenue) GetVenueType() (value string) {
+	return i.VenueType
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (i *InputBotInlineMessageMediaVenue) SetReplyMarkup(value ReplyMarkupClass) {
+	i.Flags.Set(2)
+	i.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineMessageMediaVenue) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.ReplyMarkup, true
+}
 
 // InputBotInlineMessageMediaContact represents TL type `inputBotInlineMessageMediaContact#a6edbffd`.
 // A contact
@@ -1299,6 +1299,19 @@ type InputBotInlineMessageMediaContact struct {
 
 // InputBotInlineMessageMediaContactTypeID is TL type id of InputBotInlineMessageMediaContact.
 const InputBotInlineMessageMediaContactTypeID = 0xa6edbffd
+
+// construct implements constructor of InputBotInlineMessageClass.
+func (i InputBotInlineMessageMediaContact) construct() InputBotInlineMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineMessageMediaContact.
+var (
+	_ bin.Encoder     = &InputBotInlineMessageMediaContact{}
+	_ bin.Decoder     = &InputBotInlineMessageMediaContact{}
+	_ bin.BareEncoder = &InputBotInlineMessageMediaContact{}
+	_ bin.BareDecoder = &InputBotInlineMessageMediaContact{}
+
+	_ InputBotInlineMessageClass = &InputBotInlineMessageMediaContact{}
+)
 
 func (i *InputBotInlineMessageMediaContact) Zero() bool {
 	if i == nil {
@@ -1436,41 +1449,6 @@ func (i *InputBotInlineMessageMediaContact) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (i *InputBotInlineMessageMediaContact) GetPhoneNumber() (value string) {
-	return i.PhoneNumber
-}
-
-// GetFirstName returns value of FirstName field.
-func (i *InputBotInlineMessageMediaContact) GetFirstName() (value string) {
-	return i.FirstName
-}
-
-// GetLastName returns value of LastName field.
-func (i *InputBotInlineMessageMediaContact) GetLastName() (value string) {
-	return i.LastName
-}
-
-// GetVcard returns value of Vcard field.
-func (i *InputBotInlineMessageMediaContact) GetVcard() (value string) {
-	return i.Vcard
-}
-
-// SetReplyMarkup sets value of ReplyMarkup conditional field.
-func (i *InputBotInlineMessageMediaContact) SetReplyMarkup(value ReplyMarkupClass) {
-	i.Flags.Set(2)
-	i.ReplyMarkup = value
-}
-
-// GetReplyMarkup returns value of ReplyMarkup conditional field and
-// boolean which is true if field was set.
-func (i *InputBotInlineMessageMediaContact) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
-	if !i.Flags.Has(2) {
-		return value, false
-	}
-	return i.ReplyMarkup, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageMediaContact) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1530,18 +1508,40 @@ func (i *InputBotInlineMessageMediaContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputBotInlineMessageClass.
-func (i InputBotInlineMessageMediaContact) construct() InputBotInlineMessageClass { return &i }
+// GetPhoneNumber returns value of PhoneNumber field.
+func (i *InputBotInlineMessageMediaContact) GetPhoneNumber() (value string) {
+	return i.PhoneNumber
+}
 
-// Ensuring interfaces in compile-time for InputBotInlineMessageMediaContact.
-var (
-	_ bin.Encoder     = &InputBotInlineMessageMediaContact{}
-	_ bin.Decoder     = &InputBotInlineMessageMediaContact{}
-	_ bin.BareEncoder = &InputBotInlineMessageMediaContact{}
-	_ bin.BareDecoder = &InputBotInlineMessageMediaContact{}
+// GetFirstName returns value of FirstName field.
+func (i *InputBotInlineMessageMediaContact) GetFirstName() (value string) {
+	return i.FirstName
+}
 
-	_ InputBotInlineMessageClass = &InputBotInlineMessageMediaContact{}
-)
+// GetLastName returns value of LastName field.
+func (i *InputBotInlineMessageMediaContact) GetLastName() (value string) {
+	return i.LastName
+}
+
+// GetVcard returns value of Vcard field.
+func (i *InputBotInlineMessageMediaContact) GetVcard() (value string) {
+	return i.Vcard
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (i *InputBotInlineMessageMediaContact) SetReplyMarkup(value ReplyMarkupClass) {
+	i.Flags.Set(2)
+	i.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineMessageMediaContact) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.ReplyMarkup, true
+}
 
 // InputBotInlineMessageGame represents TL type `inputBotInlineMessageGame#4b425864`.
 // A game
@@ -1561,6 +1561,19 @@ type InputBotInlineMessageGame struct {
 
 // InputBotInlineMessageGameTypeID is TL type id of InputBotInlineMessageGame.
 const InputBotInlineMessageGameTypeID = 0x4b425864
+
+// construct implements constructor of InputBotInlineMessageClass.
+func (i InputBotInlineMessageGame) construct() InputBotInlineMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineMessageGame.
+var (
+	_ bin.Encoder     = &InputBotInlineMessageGame{}
+	_ bin.Decoder     = &InputBotInlineMessageGame{}
+	_ bin.BareEncoder = &InputBotInlineMessageGame{}
+	_ bin.BareDecoder = &InputBotInlineMessageGame{}
+
+	_ InputBotInlineMessageClass = &InputBotInlineMessageGame{}
+)
 
 func (i *InputBotInlineMessageGame) Zero() bool {
 	if i == nil {
@@ -1658,21 +1671,6 @@ func (i *InputBotInlineMessageGame) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetReplyMarkup sets value of ReplyMarkup conditional field.
-func (i *InputBotInlineMessageGame) SetReplyMarkup(value ReplyMarkupClass) {
-	i.Flags.Set(2)
-	i.ReplyMarkup = value
-}
-
-// GetReplyMarkup returns value of ReplyMarkup conditional field and
-// boolean which is true if field was set.
-func (i *InputBotInlineMessageGame) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
-	if !i.Flags.Has(2) {
-		return value, false
-	}
-	return i.ReplyMarkup, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageGame) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1704,18 +1702,20 @@ func (i *InputBotInlineMessageGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputBotInlineMessageClass.
-func (i InputBotInlineMessageGame) construct() InputBotInlineMessageClass { return &i }
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (i *InputBotInlineMessageGame) SetReplyMarkup(value ReplyMarkupClass) {
+	i.Flags.Set(2)
+	i.ReplyMarkup = value
+}
 
-// Ensuring interfaces in compile-time for InputBotInlineMessageGame.
-var (
-	_ bin.Encoder     = &InputBotInlineMessageGame{}
-	_ bin.Decoder     = &InputBotInlineMessageGame{}
-	_ bin.BareEncoder = &InputBotInlineMessageGame{}
-	_ bin.BareDecoder = &InputBotInlineMessageGame{}
-
-	_ InputBotInlineMessageClass = &InputBotInlineMessageGame{}
-)
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineMessageGame) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.ReplyMarkup, true
+}
 
 // InputBotInlineMessageMediaInvoice represents TL type `inputBotInlineMessageMediaInvoice#d7e78225`.
 //
@@ -1747,6 +1747,19 @@ type InputBotInlineMessageMediaInvoice struct {
 
 // InputBotInlineMessageMediaInvoiceTypeID is TL type id of InputBotInlineMessageMediaInvoice.
 const InputBotInlineMessageMediaInvoiceTypeID = 0xd7e78225
+
+// construct implements constructor of InputBotInlineMessageClass.
+func (i InputBotInlineMessageMediaInvoice) construct() InputBotInlineMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineMessageMediaInvoice.
+var (
+	_ bin.Encoder     = &InputBotInlineMessageMediaInvoice{}
+	_ bin.Decoder     = &InputBotInlineMessageMediaInvoice{}
+	_ bin.BareEncoder = &InputBotInlineMessageMediaInvoice{}
+	_ bin.BareDecoder = &InputBotInlineMessageMediaInvoice{}
+
+	_ InputBotInlineMessageClass = &InputBotInlineMessageMediaInvoice{}
+)
 
 func (i *InputBotInlineMessageMediaInvoice) Zero() bool {
 	if i == nil {
@@ -1929,66 +1942,6 @@ func (i *InputBotInlineMessageMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTitle returns value of Title field.
-func (i *InputBotInlineMessageMediaInvoice) GetTitle() (value string) {
-	return i.Title
-}
-
-// GetDescription returns value of Description field.
-func (i *InputBotInlineMessageMediaInvoice) GetDescription() (value string) {
-	return i.Description
-}
-
-// SetPhoto sets value of Photo conditional field.
-func (i *InputBotInlineMessageMediaInvoice) SetPhoto(value InputWebDocument) {
-	i.Flags.Set(0)
-	i.Photo = value
-}
-
-// GetPhoto returns value of Photo conditional field and
-// boolean which is true if field was set.
-func (i *InputBotInlineMessageMediaInvoice) GetPhoto() (value InputWebDocument, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.Photo, true
-}
-
-// GetInvoice returns value of Invoice field.
-func (i *InputBotInlineMessageMediaInvoice) GetInvoice() (value Invoice) {
-	return i.Invoice
-}
-
-// GetPayload returns value of Payload field.
-func (i *InputBotInlineMessageMediaInvoice) GetPayload() (value []byte) {
-	return i.Payload
-}
-
-// GetProvider returns value of Provider field.
-func (i *InputBotInlineMessageMediaInvoice) GetProvider() (value string) {
-	return i.Provider
-}
-
-// GetProviderData returns value of ProviderData field.
-func (i *InputBotInlineMessageMediaInvoice) GetProviderData() (value DataJSON) {
-	return i.ProviderData
-}
-
-// SetReplyMarkup sets value of ReplyMarkup conditional field.
-func (i *InputBotInlineMessageMediaInvoice) SetReplyMarkup(value ReplyMarkupClass) {
-	i.Flags.Set(2)
-	i.ReplyMarkup = value
-}
-
-// GetReplyMarkup returns value of ReplyMarkup conditional field and
-// boolean which is true if field was set.
-func (i *InputBotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
-	if !i.Flags.Has(2) {
-		return value, false
-	}
-	return i.ReplyMarkup, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageMediaInvoice) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -2063,18 +2016,65 @@ func (i *InputBotInlineMessageMediaInvoice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputBotInlineMessageClass.
-func (i InputBotInlineMessageMediaInvoice) construct() InputBotInlineMessageClass { return &i }
+// GetTitle returns value of Title field.
+func (i *InputBotInlineMessageMediaInvoice) GetTitle() (value string) {
+	return i.Title
+}
 
-// Ensuring interfaces in compile-time for InputBotInlineMessageMediaInvoice.
-var (
-	_ bin.Encoder     = &InputBotInlineMessageMediaInvoice{}
-	_ bin.Decoder     = &InputBotInlineMessageMediaInvoice{}
-	_ bin.BareEncoder = &InputBotInlineMessageMediaInvoice{}
-	_ bin.BareDecoder = &InputBotInlineMessageMediaInvoice{}
+// GetDescription returns value of Description field.
+func (i *InputBotInlineMessageMediaInvoice) GetDescription() (value string) {
+	return i.Description
+}
 
-	_ InputBotInlineMessageClass = &InputBotInlineMessageMediaInvoice{}
-)
+// SetPhoto sets value of Photo conditional field.
+func (i *InputBotInlineMessageMediaInvoice) SetPhoto(value InputWebDocument) {
+	i.Flags.Set(0)
+	i.Photo = value
+}
+
+// GetPhoto returns value of Photo conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineMessageMediaInvoice) GetPhoto() (value InputWebDocument, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.Photo, true
+}
+
+// GetInvoice returns value of Invoice field.
+func (i *InputBotInlineMessageMediaInvoice) GetInvoice() (value Invoice) {
+	return i.Invoice
+}
+
+// GetPayload returns value of Payload field.
+func (i *InputBotInlineMessageMediaInvoice) GetPayload() (value []byte) {
+	return i.Payload
+}
+
+// GetProvider returns value of Provider field.
+func (i *InputBotInlineMessageMediaInvoice) GetProvider() (value string) {
+	return i.Provider
+}
+
+// GetProviderData returns value of ProviderData field.
+func (i *InputBotInlineMessageMediaInvoice) GetProviderData() (value DataJSON) {
+	return i.ProviderData
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (i *InputBotInlineMessageMediaInvoice) SetReplyMarkup(value ReplyMarkupClass) {
+	i.Flags.Set(2)
+	i.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.ReplyMarkup, true
+}
 
 // InputBotInlineMessageClass represents InputBotInlineMessage generic type.
 //

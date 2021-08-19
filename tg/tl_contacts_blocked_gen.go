@@ -45,6 +45,19 @@ type ContactsBlocked struct {
 // ContactsBlockedTypeID is TL type id of ContactsBlocked.
 const ContactsBlockedTypeID = 0xade1591
 
+// construct implements constructor of ContactsBlockedClass.
+func (b ContactsBlocked) construct() ContactsBlockedClass { return &b }
+
+// Ensuring interfaces in compile-time for ContactsBlocked.
+var (
+	_ bin.Encoder     = &ContactsBlocked{}
+	_ bin.Decoder     = &ContactsBlocked{}
+	_ bin.BareEncoder = &ContactsBlocked{}
+	_ bin.BareDecoder = &ContactsBlocked{}
+
+	_ ContactsBlockedClass = &ContactsBlocked{}
+)
+
 func (b *ContactsBlocked) Zero() bool {
 	if b == nil {
 		return true
@@ -162,31 +175,6 @@ func (b *ContactsBlocked) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetBlocked returns value of Blocked field.
-func (b *ContactsBlocked) GetBlocked() (value []PeerBlocked) {
-	return b.Blocked
-}
-
-// GetChats returns value of Chats field.
-func (b *ContactsBlocked) GetChats() (value []ChatClass) {
-	return b.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (b *ContactsBlocked) MapChats() (value ChatClassArray) {
-	return ChatClassArray(b.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (b *ContactsBlocked) GetUsers() (value []UserClass) {
-	return b.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (b *ContactsBlocked) MapUsers() (value UserClassArray) {
-	return UserClassArray(b.Users)
-}
-
 // Decode implements bin.Decoder.
 func (b *ContactsBlocked) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -257,18 +245,30 @@ func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ContactsBlockedClass.
-func (b ContactsBlocked) construct() ContactsBlockedClass { return &b }
+// GetBlocked returns value of Blocked field.
+func (b *ContactsBlocked) GetBlocked() (value []PeerBlocked) {
+	return b.Blocked
+}
 
-// Ensuring interfaces in compile-time for ContactsBlocked.
-var (
-	_ bin.Encoder     = &ContactsBlocked{}
-	_ bin.Decoder     = &ContactsBlocked{}
-	_ bin.BareEncoder = &ContactsBlocked{}
-	_ bin.BareDecoder = &ContactsBlocked{}
+// GetChats returns value of Chats field.
+func (b *ContactsBlocked) GetChats() (value []ChatClass) {
+	return b.Chats
+}
 
-	_ ContactsBlockedClass = &ContactsBlocked{}
-)
+// GetUsers returns value of Users field.
+func (b *ContactsBlocked) GetUsers() (value []UserClass) {
+	return b.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (b *ContactsBlocked) MapChats() (value ChatClassArray) {
+	return ChatClassArray(b.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (b *ContactsBlocked) MapUsers() (value UserClassArray) {
+	return UserClassArray(b.Users)
+}
 
 // ContactsBlockedSlice represents TL type `contacts.blockedSlice#e1664194`.
 // Incomplete list of blocked users.
@@ -287,6 +287,19 @@ type ContactsBlockedSlice struct {
 
 // ContactsBlockedSliceTypeID is TL type id of ContactsBlockedSlice.
 const ContactsBlockedSliceTypeID = 0xe1664194
+
+// construct implements constructor of ContactsBlockedClass.
+func (b ContactsBlockedSlice) construct() ContactsBlockedClass { return &b }
+
+// Ensuring interfaces in compile-time for ContactsBlockedSlice.
+var (
+	_ bin.Encoder     = &ContactsBlockedSlice{}
+	_ bin.Decoder     = &ContactsBlockedSlice{}
+	_ bin.BareEncoder = &ContactsBlockedSlice{}
+	_ bin.BareDecoder = &ContactsBlockedSlice{}
+
+	_ ContactsBlockedClass = &ContactsBlockedSlice{}
+)
 
 func (b *ContactsBlockedSlice) Zero() bool {
 	if b == nil {
@@ -415,36 +428,6 @@ func (b *ContactsBlockedSlice) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (b *ContactsBlockedSlice) GetCount() (value int) {
-	return b.Count
-}
-
-// GetBlocked returns value of Blocked field.
-func (b *ContactsBlockedSlice) GetBlocked() (value []PeerBlocked) {
-	return b.Blocked
-}
-
-// GetChats returns value of Chats field.
-func (b *ContactsBlockedSlice) GetChats() (value []ChatClass) {
-	return b.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (b *ContactsBlockedSlice) MapChats() (value ChatClassArray) {
-	return ChatClassArray(b.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (b *ContactsBlockedSlice) GetUsers() (value []UserClass) {
-	return b.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (b *ContactsBlockedSlice) MapUsers() (value UserClassArray) {
-	return UserClassArray(b.Users)
-}
-
 // Decode implements bin.Decoder.
 func (b *ContactsBlockedSlice) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -522,18 +505,35 @@ func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ContactsBlockedClass.
-func (b ContactsBlockedSlice) construct() ContactsBlockedClass { return &b }
+// GetCount returns value of Count field.
+func (b *ContactsBlockedSlice) GetCount() (value int) {
+	return b.Count
+}
 
-// Ensuring interfaces in compile-time for ContactsBlockedSlice.
-var (
-	_ bin.Encoder     = &ContactsBlockedSlice{}
-	_ bin.Decoder     = &ContactsBlockedSlice{}
-	_ bin.BareEncoder = &ContactsBlockedSlice{}
-	_ bin.BareDecoder = &ContactsBlockedSlice{}
+// GetBlocked returns value of Blocked field.
+func (b *ContactsBlockedSlice) GetBlocked() (value []PeerBlocked) {
+	return b.Blocked
+}
 
-	_ ContactsBlockedClass = &ContactsBlockedSlice{}
-)
+// GetChats returns value of Chats field.
+func (b *ContactsBlockedSlice) GetChats() (value []ChatClass) {
+	return b.Chats
+}
+
+// GetUsers returns value of Users field.
+func (b *ContactsBlockedSlice) GetUsers() (value []UserClass) {
+	return b.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (b *ContactsBlockedSlice) MapChats() (value ChatClassArray) {
+	return ChatClassArray(b.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (b *ContactsBlockedSlice) MapUsers() (value UserClassArray) {
+	return UserClassArray(b.Users)
+}
 
 // ContactsBlockedClass represents contacts.Blocked generic type.
 //

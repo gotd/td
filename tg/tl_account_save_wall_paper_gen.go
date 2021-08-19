@@ -45,6 +45,14 @@ type AccountSaveWallPaperRequest struct {
 // AccountSaveWallPaperRequestTypeID is TL type id of AccountSaveWallPaperRequest.
 const AccountSaveWallPaperRequestTypeID = 0x6c5a5b37
 
+// Ensuring interfaces in compile-time for AccountSaveWallPaperRequest.
+var (
+	_ bin.Encoder     = &AccountSaveWallPaperRequest{}
+	_ bin.Decoder     = &AccountSaveWallPaperRequest{}
+	_ bin.BareEncoder = &AccountSaveWallPaperRequest{}
+	_ bin.BareDecoder = &AccountSaveWallPaperRequest{}
+)
+
 func (s *AccountSaveWallPaperRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -148,21 +156,6 @@ func (s *AccountSaveWallPaperRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetWallpaper returns value of Wallpaper field.
-func (s *AccountSaveWallPaperRequest) GetWallpaper() (value InputWallPaperClass) {
-	return s.Wallpaper
-}
-
-// GetUnsave returns value of Unsave field.
-func (s *AccountSaveWallPaperRequest) GetUnsave() (value bool) {
-	return s.Unsave
-}
-
-// GetSettings returns value of Settings field.
-func (s *AccountSaveWallPaperRequest) GetSettings() (value WallPaperSettings) {
-	return s.Settings
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSaveWallPaperRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -201,13 +194,20 @@ func (s *AccountSaveWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSaveWallPaperRequest.
-var (
-	_ bin.Encoder     = &AccountSaveWallPaperRequest{}
-	_ bin.Decoder     = &AccountSaveWallPaperRequest{}
-	_ bin.BareEncoder = &AccountSaveWallPaperRequest{}
-	_ bin.BareDecoder = &AccountSaveWallPaperRequest{}
-)
+// GetWallpaper returns value of Wallpaper field.
+func (s *AccountSaveWallPaperRequest) GetWallpaper() (value InputWallPaperClass) {
+	return s.Wallpaper
+}
+
+// GetUnsave returns value of Unsave field.
+func (s *AccountSaveWallPaperRequest) GetUnsave() (value bool) {
+	return s.Unsave
+}
+
+// GetSettings returns value of Settings field.
+func (s *AccountSaveWallPaperRequest) GetSettings() (value WallPaperSettings) {
+	return s.Settings
+}
 
 // AccountSaveWallPaper invokes method account.saveWallPaper#6c5a5b37 returning error if any.
 // Install/uninstall wallpaper

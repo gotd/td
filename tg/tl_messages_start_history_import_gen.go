@@ -42,6 +42,14 @@ type MessagesStartHistoryImportRequest struct {
 // MessagesStartHistoryImportRequestTypeID is TL type id of MessagesStartHistoryImportRequest.
 const MessagesStartHistoryImportRequestTypeID = 0xb43df344
 
+// Ensuring interfaces in compile-time for MessagesStartHistoryImportRequest.
+var (
+	_ bin.Encoder     = &MessagesStartHistoryImportRequest{}
+	_ bin.Decoder     = &MessagesStartHistoryImportRequest{}
+	_ bin.BareEncoder = &MessagesStartHistoryImportRequest{}
+	_ bin.BareDecoder = &MessagesStartHistoryImportRequest{}
+)
+
 func (s *MessagesStartHistoryImportRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -133,16 +141,6 @@ func (s *MessagesStartHistoryImportRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (s *MessagesStartHistoryImportRequest) GetPeer() (value InputPeerClass) {
-	return s.Peer
-}
-
-// GetImportID returns value of ImportID field.
-func (s *MessagesStartHistoryImportRequest) GetImportID() (value int64) {
-	return s.ImportID
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesStartHistoryImportRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -176,13 +174,15 @@ func (s *MessagesStartHistoryImportRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesStartHistoryImportRequest.
-var (
-	_ bin.Encoder     = &MessagesStartHistoryImportRequest{}
-	_ bin.Decoder     = &MessagesStartHistoryImportRequest{}
-	_ bin.BareEncoder = &MessagesStartHistoryImportRequest{}
-	_ bin.BareDecoder = &MessagesStartHistoryImportRequest{}
-)
+// GetPeer returns value of Peer field.
+func (s *MessagesStartHistoryImportRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetImportID returns value of ImportID field.
+func (s *MessagesStartHistoryImportRequest) GetImportID() (value int64) {
+	return s.ImportID
+}
 
 // MessagesStartHistoryImport invokes method messages.startHistoryImport#b43df344 returning error if any.
 //

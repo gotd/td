@@ -42,6 +42,14 @@ type True struct {
 // TrueTypeID is TL type id of True.
 const TrueTypeID = 0x3fedd339
 
+// Ensuring interfaces in compile-time for True.
+var (
+	_ bin.Encoder     = &True{}
+	_ bin.Decoder     = &True{}
+	_ bin.BareEncoder = &True{}
+	_ bin.BareDecoder = &True{}
+)
+
 func (t *True) Zero() bool {
 	if t == nil {
 		return true
@@ -120,11 +128,3 @@ func (t *True) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for True.
-var (
-	_ bin.Encoder     = &True{}
-	_ bin.Decoder     = &True{}
-	_ bin.BareEncoder = &True{}
-	_ bin.BareDecoder = &True{}
-)

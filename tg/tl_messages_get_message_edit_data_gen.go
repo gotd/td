@@ -43,6 +43,14 @@ type MessagesGetMessageEditDataRequest struct {
 // MessagesGetMessageEditDataRequestTypeID is TL type id of MessagesGetMessageEditDataRequest.
 const MessagesGetMessageEditDataRequestTypeID = 0xfda68d36
 
+// Ensuring interfaces in compile-time for MessagesGetMessageEditDataRequest.
+var (
+	_ bin.Encoder     = &MessagesGetMessageEditDataRequest{}
+	_ bin.Decoder     = &MessagesGetMessageEditDataRequest{}
+	_ bin.BareEncoder = &MessagesGetMessageEditDataRequest{}
+	_ bin.BareDecoder = &MessagesGetMessageEditDataRequest{}
+)
+
 func (g *MessagesGetMessageEditDataRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -134,16 +142,6 @@ func (g *MessagesGetMessageEditDataRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetMessageEditDataRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetID returns value of ID field.
-func (g *MessagesGetMessageEditDataRequest) GetID() (value int) {
-	return g.ID
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetMessageEditDataRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -177,13 +175,15 @@ func (g *MessagesGetMessageEditDataRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetMessageEditDataRequest.
-var (
-	_ bin.Encoder     = &MessagesGetMessageEditDataRequest{}
-	_ bin.Decoder     = &MessagesGetMessageEditDataRequest{}
-	_ bin.BareEncoder = &MessagesGetMessageEditDataRequest{}
-	_ bin.BareDecoder = &MessagesGetMessageEditDataRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetMessageEditDataRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetID returns value of ID field.
+func (g *MessagesGetMessageEditDataRequest) GetID() (value int) {
+	return g.ID
+}
 
 // MessagesGetMessageEditData invokes method messages.getMessageEditData#fda68d36 returning error if any.
 // Find out if a media message's caption can be edited

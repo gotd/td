@@ -46,6 +46,14 @@ type AccountDeleteAccountRequest struct {
 // AccountDeleteAccountRequestTypeID is TL type id of AccountDeleteAccountRequest.
 const AccountDeleteAccountRequestTypeID = 0x418d4e0b
 
+// Ensuring interfaces in compile-time for AccountDeleteAccountRequest.
+var (
+	_ bin.Encoder     = &AccountDeleteAccountRequest{}
+	_ bin.Decoder     = &AccountDeleteAccountRequest{}
+	_ bin.BareEncoder = &AccountDeleteAccountRequest{}
+	_ bin.BareDecoder = &AccountDeleteAccountRequest{}
+)
+
 func (d *AccountDeleteAccountRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -122,11 +130,6 @@ func (d *AccountDeleteAccountRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetReason returns value of Reason field.
-func (d *AccountDeleteAccountRequest) GetReason() (value string) {
-	return d.Reason
-}
-
 // Decode implements bin.Decoder.
 func (d *AccountDeleteAccountRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -153,13 +156,10 @@ func (d *AccountDeleteAccountRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountDeleteAccountRequest.
-var (
-	_ bin.Encoder     = &AccountDeleteAccountRequest{}
-	_ bin.Decoder     = &AccountDeleteAccountRequest{}
-	_ bin.BareEncoder = &AccountDeleteAccountRequest{}
-	_ bin.BareDecoder = &AccountDeleteAccountRequest{}
-)
+// GetReason returns value of Reason field.
+func (d *AccountDeleteAccountRequest) GetReason() (value string) {
+	return d.Reason
+}
 
 // AccountDeleteAccount invokes method account.deleteAccount#418d4e0b returning error if any.
 // Delete the user's account from the telegram servers. Can be used, for example, to

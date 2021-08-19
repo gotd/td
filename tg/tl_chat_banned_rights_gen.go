@@ -111,6 +111,14 @@ type ChatBannedRights struct {
 // ChatBannedRightsTypeID is TL type id of ChatBannedRights.
 const ChatBannedRightsTypeID = 0x9f120418
 
+// Ensuring interfaces in compile-time for ChatBannedRights.
+var (
+	_ bin.Encoder     = &ChatBannedRights{}
+	_ bin.Decoder     = &ChatBannedRights{}
+	_ bin.BareEncoder = &ChatBannedRights{}
+	_ bin.BareDecoder = &ChatBannedRights{}
+)
+
 func (c *ChatBannedRights) Zero() bool {
 	if c == nil {
 		return true
@@ -349,6 +357,49 @@ func (c *ChatBannedRights) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *ChatBannedRights) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatBannedRights#9f120418 to nil")
+	}
+	if err := b.ConsumeID(ChatBannedRightsTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatBannedRights#9f120418: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatBannedRights) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatBannedRights#9f120418 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatBannedRights#9f120418: field flags: %w", err)
+		}
+	}
+	c.ViewMessages = c.Flags.Has(0)
+	c.SendMessages = c.Flags.Has(1)
+	c.SendMedia = c.Flags.Has(2)
+	c.SendStickers = c.Flags.Has(3)
+	c.SendGifs = c.Flags.Has(4)
+	c.SendGames = c.Flags.Has(5)
+	c.SendInline = c.Flags.Has(6)
+	c.EmbedLinks = c.Flags.Has(7)
+	c.SendPolls = c.Flags.Has(8)
+	c.ChangeInfo = c.Flags.Has(10)
+	c.InviteUsers = c.Flags.Has(15)
+	c.PinMessages = c.Flags.Has(17)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatBannedRights#9f120418: field until_date: %w", err)
+		}
+		c.UntilDate = value
+	}
+	return nil
+}
+
 // SetViewMessages sets value of ViewMessages conditional field.
 func (c *ChatBannedRights) SetViewMessages(value bool) {
 	if value {
@@ -545,54 +596,3 @@ func (c *ChatBannedRights) GetPinMessages() (value bool) {
 func (c *ChatBannedRights) GetUntilDate() (value int) {
 	return c.UntilDate
 }
-
-// Decode implements bin.Decoder.
-func (c *ChatBannedRights) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatBannedRights#9f120418 to nil")
-	}
-	if err := b.ConsumeID(ChatBannedRightsTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatBannedRights#9f120418: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatBannedRights) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatBannedRights#9f120418 to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatBannedRights#9f120418: field flags: %w", err)
-		}
-	}
-	c.ViewMessages = c.Flags.Has(0)
-	c.SendMessages = c.Flags.Has(1)
-	c.SendMedia = c.Flags.Has(2)
-	c.SendStickers = c.Flags.Has(3)
-	c.SendGifs = c.Flags.Has(4)
-	c.SendGames = c.Flags.Has(5)
-	c.SendInline = c.Flags.Has(6)
-	c.EmbedLinks = c.Flags.Has(7)
-	c.SendPolls = c.Flags.Has(8)
-	c.ChangeInfo = c.Flags.Has(10)
-	c.InviteUsers = c.Flags.Has(15)
-	c.PinMessages = c.Flags.Has(17)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatBannedRights#9f120418: field until_date: %w", err)
-		}
-		c.UntilDate = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for ChatBannedRights.
-var (
-	_ bin.Encoder     = &ChatBannedRights{}
-	_ bin.Decoder     = &ChatBannedRights{}
-	_ bin.BareEncoder = &ChatBannedRights{}
-	_ bin.BareDecoder = &ChatBannedRights{}
-)

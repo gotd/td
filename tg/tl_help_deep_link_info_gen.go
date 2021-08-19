@@ -39,6 +39,19 @@ type HelpDeepLinkInfoEmpty struct {
 // HelpDeepLinkInfoEmptyTypeID is TL type id of HelpDeepLinkInfoEmpty.
 const HelpDeepLinkInfoEmptyTypeID = 0x66afa166
 
+// construct implements constructor of HelpDeepLinkInfoClass.
+func (d HelpDeepLinkInfoEmpty) construct() HelpDeepLinkInfoClass { return &d }
+
+// Ensuring interfaces in compile-time for HelpDeepLinkInfoEmpty.
+var (
+	_ bin.Encoder     = &HelpDeepLinkInfoEmpty{}
+	_ bin.Decoder     = &HelpDeepLinkInfoEmpty{}
+	_ bin.BareEncoder = &HelpDeepLinkInfoEmpty{}
+	_ bin.BareDecoder = &HelpDeepLinkInfoEmpty{}
+
+	_ HelpDeepLinkInfoClass = &HelpDeepLinkInfoEmpty{}
+)
+
 func (d *HelpDeepLinkInfoEmpty) Zero() bool {
 	if d == nil {
 		return true
@@ -118,19 +131,6 @@ func (d *HelpDeepLinkInfoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpDeepLinkInfoClass.
-func (d HelpDeepLinkInfoEmpty) construct() HelpDeepLinkInfoClass { return &d }
-
-// Ensuring interfaces in compile-time for HelpDeepLinkInfoEmpty.
-var (
-	_ bin.Encoder     = &HelpDeepLinkInfoEmpty{}
-	_ bin.Decoder     = &HelpDeepLinkInfoEmpty{}
-	_ bin.BareEncoder = &HelpDeepLinkInfoEmpty{}
-	_ bin.BareDecoder = &HelpDeepLinkInfoEmpty{}
-
-	_ HelpDeepLinkInfoClass = &HelpDeepLinkInfoEmpty{}
-)
-
 // HelpDeepLinkInfo represents TL type `help.deepLinkInfo#6a4ee832`.
 // Deep linking info
 //
@@ -156,6 +156,19 @@ type HelpDeepLinkInfo struct {
 
 // HelpDeepLinkInfoTypeID is TL type id of HelpDeepLinkInfo.
 const HelpDeepLinkInfoTypeID = 0x6a4ee832
+
+// construct implements constructor of HelpDeepLinkInfoClass.
+func (d HelpDeepLinkInfo) construct() HelpDeepLinkInfoClass { return &d }
+
+// Ensuring interfaces in compile-time for HelpDeepLinkInfo.
+var (
+	_ bin.Encoder     = &HelpDeepLinkInfo{}
+	_ bin.Decoder     = &HelpDeepLinkInfo{}
+	_ bin.BareEncoder = &HelpDeepLinkInfo{}
+	_ bin.BareDecoder = &HelpDeepLinkInfo{}
+
+	_ HelpDeepLinkInfoClass = &HelpDeepLinkInfo{}
+)
 
 func (d *HelpDeepLinkInfo) Zero() bool {
 	if d == nil {
@@ -279,50 +292,6 @@ func (d *HelpDeepLinkInfo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetUpdateApp sets value of UpdateApp conditional field.
-func (d *HelpDeepLinkInfo) SetUpdateApp(value bool) {
-	if value {
-		d.Flags.Set(0)
-		d.UpdateApp = true
-	} else {
-		d.Flags.Unset(0)
-		d.UpdateApp = false
-	}
-}
-
-// GetUpdateApp returns value of UpdateApp conditional field.
-func (d *HelpDeepLinkInfo) GetUpdateApp() (value bool) {
-	return d.Flags.Has(0)
-}
-
-// GetMessage returns value of Message field.
-func (d *HelpDeepLinkInfo) GetMessage() (value string) {
-	return d.Message
-}
-
-// SetEntities sets value of Entities conditional field.
-func (d *HelpDeepLinkInfo) SetEntities(value []MessageEntityClass) {
-	d.Flags.Set(1)
-	d.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (d *HelpDeepLinkInfo) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !d.Flags.Has(1) {
-		return value, false
-	}
-	return d.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (d *HelpDeepLinkInfo) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !d.Flags.Has(1) {
-		return value, false
-	}
-	return MessageEntityClassArray(d.Entities), true
-}
-
 // Decode implements bin.Decoder.
 func (d *HelpDeepLinkInfo) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -372,18 +341,49 @@ func (d *HelpDeepLinkInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpDeepLinkInfoClass.
-func (d HelpDeepLinkInfo) construct() HelpDeepLinkInfoClass { return &d }
+// SetUpdateApp sets value of UpdateApp conditional field.
+func (d *HelpDeepLinkInfo) SetUpdateApp(value bool) {
+	if value {
+		d.Flags.Set(0)
+		d.UpdateApp = true
+	} else {
+		d.Flags.Unset(0)
+		d.UpdateApp = false
+	}
+}
 
-// Ensuring interfaces in compile-time for HelpDeepLinkInfo.
-var (
-	_ bin.Encoder     = &HelpDeepLinkInfo{}
-	_ bin.Decoder     = &HelpDeepLinkInfo{}
-	_ bin.BareEncoder = &HelpDeepLinkInfo{}
-	_ bin.BareDecoder = &HelpDeepLinkInfo{}
+// GetUpdateApp returns value of UpdateApp conditional field.
+func (d *HelpDeepLinkInfo) GetUpdateApp() (value bool) {
+	return d.Flags.Has(0)
+}
 
-	_ HelpDeepLinkInfoClass = &HelpDeepLinkInfo{}
-)
+// GetMessage returns value of Message field.
+func (d *HelpDeepLinkInfo) GetMessage() (value string) {
+	return d.Message
+}
+
+// SetEntities sets value of Entities conditional field.
+func (d *HelpDeepLinkInfo) SetEntities(value []MessageEntityClass) {
+	d.Flags.Set(1)
+	d.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (d *HelpDeepLinkInfo) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !d.Flags.Has(1) {
+		return value, false
+	}
+	return d.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (d *HelpDeepLinkInfo) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !d.Flags.Has(1) {
+		return value, false
+	}
+	return MessageEntityClassArray(d.Entities), true
+}
 
 // HelpDeepLinkInfoClass represents help.DeepLinkInfo generic type.
 //

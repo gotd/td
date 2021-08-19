@@ -50,6 +50,14 @@ type GroupCallParticipantVideo struct {
 // GroupCallParticipantVideoTypeID is TL type id of GroupCallParticipantVideo.
 const GroupCallParticipantVideoTypeID = 0x67753ac8
 
+// Ensuring interfaces in compile-time for GroupCallParticipantVideo.
+var (
+	_ bin.Encoder     = &GroupCallParticipantVideo{}
+	_ bin.Decoder     = &GroupCallParticipantVideo{}
+	_ bin.BareEncoder = &GroupCallParticipantVideo{}
+	_ bin.BareDecoder = &GroupCallParticipantVideo{}
+)
+
 func (g *GroupCallParticipantVideo) Zero() bool {
 	if g == nil {
 		return true
@@ -179,47 +187,6 @@ func (g *GroupCallParticipantVideo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPaused sets value of Paused conditional field.
-func (g *GroupCallParticipantVideo) SetPaused(value bool) {
-	if value {
-		g.Flags.Set(0)
-		g.Paused = true
-	} else {
-		g.Flags.Unset(0)
-		g.Paused = false
-	}
-}
-
-// GetPaused returns value of Paused conditional field.
-func (g *GroupCallParticipantVideo) GetPaused() (value bool) {
-	return g.Flags.Has(0)
-}
-
-// GetEndpoint returns value of Endpoint field.
-func (g *GroupCallParticipantVideo) GetEndpoint() (value string) {
-	return g.Endpoint
-}
-
-// GetSourceGroups returns value of SourceGroups field.
-func (g *GroupCallParticipantVideo) GetSourceGroups() (value []GroupCallParticipantVideoSourceGroup) {
-	return g.SourceGroups
-}
-
-// SetAudioSource sets value of AudioSource conditional field.
-func (g *GroupCallParticipantVideo) SetAudioSource(value int) {
-	g.Flags.Set(1)
-	g.AudioSource = value
-}
-
-// GetAudioSource returns value of AudioSource conditional field and
-// boolean which is true if field was set.
-func (g *GroupCallParticipantVideo) GetAudioSource() (value int, ok bool) {
-	if !g.Flags.Has(1) {
-		return value, false
-	}
-	return g.AudioSource, true
-}
-
 // Decode implements bin.Decoder.
 func (g *GroupCallParticipantVideo) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -276,10 +243,43 @@ func (g *GroupCallParticipantVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for GroupCallParticipantVideo.
-var (
-	_ bin.Encoder     = &GroupCallParticipantVideo{}
-	_ bin.Decoder     = &GroupCallParticipantVideo{}
-	_ bin.BareEncoder = &GroupCallParticipantVideo{}
-	_ bin.BareDecoder = &GroupCallParticipantVideo{}
-)
+// SetPaused sets value of Paused conditional field.
+func (g *GroupCallParticipantVideo) SetPaused(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Paused = true
+	} else {
+		g.Flags.Unset(0)
+		g.Paused = false
+	}
+}
+
+// GetPaused returns value of Paused conditional field.
+func (g *GroupCallParticipantVideo) GetPaused() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// GetEndpoint returns value of Endpoint field.
+func (g *GroupCallParticipantVideo) GetEndpoint() (value string) {
+	return g.Endpoint
+}
+
+// GetSourceGroups returns value of SourceGroups field.
+func (g *GroupCallParticipantVideo) GetSourceGroups() (value []GroupCallParticipantVideoSourceGroup) {
+	return g.SourceGroups
+}
+
+// SetAudioSource sets value of AudioSource conditional field.
+func (g *GroupCallParticipantVideo) SetAudioSource(value int) {
+	g.Flags.Set(1)
+	g.AudioSource = value
+}
+
+// GetAudioSource returns value of AudioSource conditional field and
+// boolean which is true if field was set.
+func (g *GroupCallParticipantVideo) GetAudioSource() (value int, ok bool) {
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return g.AudioSource, true
+}

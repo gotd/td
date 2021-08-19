@@ -50,6 +50,19 @@ type ChatParticipantsForbidden struct {
 // ChatParticipantsForbiddenTypeID is TL type id of ChatParticipantsForbidden.
 const ChatParticipantsForbiddenTypeID = 0xfc900c2b
 
+// construct implements constructor of ChatParticipantsClass.
+func (c ChatParticipantsForbidden) construct() ChatParticipantsClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatParticipantsForbidden.
+var (
+	_ bin.Encoder     = &ChatParticipantsForbidden{}
+	_ bin.Decoder     = &ChatParticipantsForbidden{}
+	_ bin.BareEncoder = &ChatParticipantsForbidden{}
+	_ bin.BareDecoder = &ChatParticipantsForbidden{}
+
+	_ ChatParticipantsClass = &ChatParticipantsForbidden{}
+)
+
 func (c *ChatParticipantsForbidden) Zero() bool {
 	if c == nil {
 		return true
@@ -156,26 +169,6 @@ func (c *ChatParticipantsForbidden) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (c *ChatParticipantsForbidden) GetChatID() (value int) {
-	return c.ChatID
-}
-
-// SetSelfParticipant sets value of SelfParticipant conditional field.
-func (c *ChatParticipantsForbidden) SetSelfParticipant(value ChatParticipantClass) {
-	c.Flags.Set(0)
-	c.SelfParticipant = value
-}
-
-// GetSelfParticipant returns value of SelfParticipant conditional field and
-// boolean which is true if field was set.
-func (c *ChatParticipantsForbidden) GetSelfParticipant() (value ChatParticipantClass, ok bool) {
-	if !c.Flags.Has(0) {
-		return value, false
-	}
-	return c.SelfParticipant, true
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatParticipantsForbidden) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -214,18 +207,25 @@ func (c *ChatParticipantsForbidden) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatParticipantsClass.
-func (c ChatParticipantsForbidden) construct() ChatParticipantsClass { return &c }
+// GetChatID returns value of ChatID field.
+func (c *ChatParticipantsForbidden) GetChatID() (value int) {
+	return c.ChatID
+}
 
-// Ensuring interfaces in compile-time for ChatParticipantsForbidden.
-var (
-	_ bin.Encoder     = &ChatParticipantsForbidden{}
-	_ bin.Decoder     = &ChatParticipantsForbidden{}
-	_ bin.BareEncoder = &ChatParticipantsForbidden{}
-	_ bin.BareDecoder = &ChatParticipantsForbidden{}
+// SetSelfParticipant sets value of SelfParticipant conditional field.
+func (c *ChatParticipantsForbidden) SetSelfParticipant(value ChatParticipantClass) {
+	c.Flags.Set(0)
+	c.SelfParticipant = value
+}
 
-	_ ChatParticipantsClass = &ChatParticipantsForbidden{}
-)
+// GetSelfParticipant returns value of SelfParticipant conditional field and
+// boolean which is true if field was set.
+func (c *ChatParticipantsForbidden) GetSelfParticipant() (value ChatParticipantClass, ok bool) {
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.SelfParticipant, true
+}
 
 // ChatParticipants represents TL type `chatParticipants#3f460fed`.
 // Group members.
@@ -242,6 +242,19 @@ type ChatParticipants struct {
 
 // ChatParticipantsTypeID is TL type id of ChatParticipants.
 const ChatParticipantsTypeID = 0x3f460fed
+
+// construct implements constructor of ChatParticipantsClass.
+func (c ChatParticipants) construct() ChatParticipantsClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatParticipants.
+var (
+	_ bin.Encoder     = &ChatParticipants{}
+	_ bin.Decoder     = &ChatParticipants{}
+	_ bin.BareEncoder = &ChatParticipants{}
+	_ bin.BareDecoder = &ChatParticipants{}
+
+	_ ChatParticipantsClass = &ChatParticipants{}
+)
 
 func (c *ChatParticipants) Zero() bool {
 	if c == nil {
@@ -347,26 +360,6 @@ func (c *ChatParticipants) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (c *ChatParticipants) GetChatID() (value int) {
-	return c.ChatID
-}
-
-// GetParticipants returns value of Participants field.
-func (c *ChatParticipants) GetParticipants() (value []ChatParticipantClass) {
-	return c.Participants
-}
-
-// MapParticipants returns field Participants wrapped in ChatParticipantClassArray helper.
-func (c *ChatParticipants) MapParticipants() (value ChatParticipantClassArray) {
-	return ChatParticipantClassArray(c.Participants)
-}
-
-// GetVersion returns value of Version field.
-func (c *ChatParticipants) GetVersion() (value int) {
-	return c.Version
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatParticipants) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -417,18 +410,25 @@ func (c *ChatParticipants) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatParticipantsClass.
-func (c ChatParticipants) construct() ChatParticipantsClass { return &c }
+// GetChatID returns value of ChatID field.
+func (c *ChatParticipants) GetChatID() (value int) {
+	return c.ChatID
+}
 
-// Ensuring interfaces in compile-time for ChatParticipants.
-var (
-	_ bin.Encoder     = &ChatParticipants{}
-	_ bin.Decoder     = &ChatParticipants{}
-	_ bin.BareEncoder = &ChatParticipants{}
-	_ bin.BareDecoder = &ChatParticipants{}
+// GetParticipants returns value of Participants field.
+func (c *ChatParticipants) GetParticipants() (value []ChatParticipantClass) {
+	return c.Participants
+}
 
-	_ ChatParticipantsClass = &ChatParticipants{}
-)
+// GetVersion returns value of Version field.
+func (c *ChatParticipants) GetVersion() (value int) {
+	return c.Version
+}
+
+// MapParticipants returns field Participants wrapped in ChatParticipantClassArray helper.
+func (c *ChatParticipants) MapParticipants() (value ChatParticipantClassArray) {
+	return ChatParticipantClassArray(c.Participants)
+}
 
 // ChatParticipantsClass represents ChatParticipants generic type.
 //

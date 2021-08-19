@@ -39,6 +39,14 @@ type AuthLogOutRequest struct {
 // AuthLogOutRequestTypeID is TL type id of AuthLogOutRequest.
 const AuthLogOutRequestTypeID = 0x5717da40
 
+// Ensuring interfaces in compile-time for AuthLogOutRequest.
+var (
+	_ bin.Encoder     = &AuthLogOutRequest{}
+	_ bin.Decoder     = &AuthLogOutRequest{}
+	_ bin.BareEncoder = &AuthLogOutRequest{}
+	_ bin.BareDecoder = &AuthLogOutRequest{}
+)
+
 func (l *AuthLogOutRequest) Zero() bool {
 	if l == nil {
 		return true
@@ -117,14 +125,6 @@ func (l *AuthLogOutRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AuthLogOutRequest.
-var (
-	_ bin.Encoder     = &AuthLogOutRequest{}
-	_ bin.Decoder     = &AuthLogOutRequest{}
-	_ bin.BareEncoder = &AuthLogOutRequest{}
-	_ bin.BareDecoder = &AuthLogOutRequest{}
-)
 
 // AuthLogOut invokes method auth.logOut#5717da40 returning error if any.
 // Logs out the user.

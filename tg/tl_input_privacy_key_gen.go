@@ -39,6 +39,19 @@ type InputPrivacyKeyStatusTimestamp struct {
 // InputPrivacyKeyStatusTimestampTypeID is TL type id of InputPrivacyKeyStatusTimestamp.
 const InputPrivacyKeyStatusTimestampTypeID = 0x4f96cb18
 
+// construct implements constructor of InputPrivacyKeyClass.
+func (i InputPrivacyKeyStatusTimestamp) construct() InputPrivacyKeyClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyKeyStatusTimestamp.
+var (
+	_ bin.Encoder     = &InputPrivacyKeyStatusTimestamp{}
+	_ bin.Decoder     = &InputPrivacyKeyStatusTimestamp{}
+	_ bin.BareEncoder = &InputPrivacyKeyStatusTimestamp{}
+	_ bin.BareDecoder = &InputPrivacyKeyStatusTimestamp{}
+
+	_ InputPrivacyKeyClass = &InputPrivacyKeyStatusTimestamp{}
+)
+
 func (i *InputPrivacyKeyStatusTimestamp) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputPrivacyKeyStatusTimestamp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyKeyClass.
-func (i InputPrivacyKeyStatusTimestamp) construct() InputPrivacyKeyClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyKeyStatusTimestamp.
-var (
-	_ bin.Encoder     = &InputPrivacyKeyStatusTimestamp{}
-	_ bin.Decoder     = &InputPrivacyKeyStatusTimestamp{}
-	_ bin.BareEncoder = &InputPrivacyKeyStatusTimestamp{}
-	_ bin.BareDecoder = &InputPrivacyKeyStatusTimestamp{}
-
-	_ InputPrivacyKeyClass = &InputPrivacyKeyStatusTimestamp{}
-)
-
 // InputPrivacyKeyChatInvite represents TL type `inputPrivacyKeyChatInvite#bdfb0426`.
 // Whether the user can be invited to chats
 //
@@ -140,6 +140,19 @@ type InputPrivacyKeyChatInvite struct {
 
 // InputPrivacyKeyChatInviteTypeID is TL type id of InputPrivacyKeyChatInvite.
 const InputPrivacyKeyChatInviteTypeID = 0xbdfb0426
+
+// construct implements constructor of InputPrivacyKeyClass.
+func (i InputPrivacyKeyChatInvite) construct() InputPrivacyKeyClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyKeyChatInvite.
+var (
+	_ bin.Encoder     = &InputPrivacyKeyChatInvite{}
+	_ bin.Decoder     = &InputPrivacyKeyChatInvite{}
+	_ bin.BareEncoder = &InputPrivacyKeyChatInvite{}
+	_ bin.BareDecoder = &InputPrivacyKeyChatInvite{}
+
+	_ InputPrivacyKeyClass = &InputPrivacyKeyChatInvite{}
+)
 
 func (i *InputPrivacyKeyChatInvite) Zero() bool {
 	if i == nil {
@@ -220,19 +233,6 @@ func (i *InputPrivacyKeyChatInvite) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyKeyClass.
-func (i InputPrivacyKeyChatInvite) construct() InputPrivacyKeyClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyKeyChatInvite.
-var (
-	_ bin.Encoder     = &InputPrivacyKeyChatInvite{}
-	_ bin.Decoder     = &InputPrivacyKeyChatInvite{}
-	_ bin.BareEncoder = &InputPrivacyKeyChatInvite{}
-	_ bin.BareDecoder = &InputPrivacyKeyChatInvite{}
-
-	_ InputPrivacyKeyClass = &InputPrivacyKeyChatInvite{}
-)
-
 // InputPrivacyKeyPhoneCall represents TL type `inputPrivacyKeyPhoneCall#fabadc5f`.
 // Whether the user will accept phone calls
 //
@@ -242,6 +242,19 @@ type InputPrivacyKeyPhoneCall struct {
 
 // InputPrivacyKeyPhoneCallTypeID is TL type id of InputPrivacyKeyPhoneCall.
 const InputPrivacyKeyPhoneCallTypeID = 0xfabadc5f
+
+// construct implements constructor of InputPrivacyKeyClass.
+func (i InputPrivacyKeyPhoneCall) construct() InputPrivacyKeyClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyKeyPhoneCall.
+var (
+	_ bin.Encoder     = &InputPrivacyKeyPhoneCall{}
+	_ bin.Decoder     = &InputPrivacyKeyPhoneCall{}
+	_ bin.BareEncoder = &InputPrivacyKeyPhoneCall{}
+	_ bin.BareDecoder = &InputPrivacyKeyPhoneCall{}
+
+	_ InputPrivacyKeyClass = &InputPrivacyKeyPhoneCall{}
+)
 
 func (i *InputPrivacyKeyPhoneCall) Zero() bool {
 	if i == nil {
@@ -322,19 +335,6 @@ func (i *InputPrivacyKeyPhoneCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyKeyClass.
-func (i InputPrivacyKeyPhoneCall) construct() InputPrivacyKeyClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyKeyPhoneCall.
-var (
-	_ bin.Encoder     = &InputPrivacyKeyPhoneCall{}
-	_ bin.Decoder     = &InputPrivacyKeyPhoneCall{}
-	_ bin.BareEncoder = &InputPrivacyKeyPhoneCall{}
-	_ bin.BareDecoder = &InputPrivacyKeyPhoneCall{}
-
-	_ InputPrivacyKeyClass = &InputPrivacyKeyPhoneCall{}
-)
-
 // InputPrivacyKeyPhoneP2P represents TL type `inputPrivacyKeyPhoneP2P#db9e70d2`.
 // Whether the user allows P2P communication during VoIP calls
 //
@@ -344,6 +344,19 @@ type InputPrivacyKeyPhoneP2P struct {
 
 // InputPrivacyKeyPhoneP2PTypeID is TL type id of InputPrivacyKeyPhoneP2P.
 const InputPrivacyKeyPhoneP2PTypeID = 0xdb9e70d2
+
+// construct implements constructor of InputPrivacyKeyClass.
+func (i InputPrivacyKeyPhoneP2P) construct() InputPrivacyKeyClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyKeyPhoneP2P.
+var (
+	_ bin.Encoder     = &InputPrivacyKeyPhoneP2P{}
+	_ bin.Decoder     = &InputPrivacyKeyPhoneP2P{}
+	_ bin.BareEncoder = &InputPrivacyKeyPhoneP2P{}
+	_ bin.BareDecoder = &InputPrivacyKeyPhoneP2P{}
+
+	_ InputPrivacyKeyClass = &InputPrivacyKeyPhoneP2P{}
+)
 
 func (i *InputPrivacyKeyPhoneP2P) Zero() bool {
 	if i == nil {
@@ -424,19 +437,6 @@ func (i *InputPrivacyKeyPhoneP2P) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyKeyClass.
-func (i InputPrivacyKeyPhoneP2P) construct() InputPrivacyKeyClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyKeyPhoneP2P.
-var (
-	_ bin.Encoder     = &InputPrivacyKeyPhoneP2P{}
-	_ bin.Decoder     = &InputPrivacyKeyPhoneP2P{}
-	_ bin.BareEncoder = &InputPrivacyKeyPhoneP2P{}
-	_ bin.BareDecoder = &InputPrivacyKeyPhoneP2P{}
-
-	_ InputPrivacyKeyClass = &InputPrivacyKeyPhoneP2P{}
-)
-
 // InputPrivacyKeyForwards represents TL type `inputPrivacyKeyForwards#a4dd4c08`.
 // Whether messages forwarded from this user will be anonymous¹
 //
@@ -449,6 +449,19 @@ type InputPrivacyKeyForwards struct {
 
 // InputPrivacyKeyForwardsTypeID is TL type id of InputPrivacyKeyForwards.
 const InputPrivacyKeyForwardsTypeID = 0xa4dd4c08
+
+// construct implements constructor of InputPrivacyKeyClass.
+func (i InputPrivacyKeyForwards) construct() InputPrivacyKeyClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyKeyForwards.
+var (
+	_ bin.Encoder     = &InputPrivacyKeyForwards{}
+	_ bin.Decoder     = &InputPrivacyKeyForwards{}
+	_ bin.BareEncoder = &InputPrivacyKeyForwards{}
+	_ bin.BareDecoder = &InputPrivacyKeyForwards{}
+
+	_ InputPrivacyKeyClass = &InputPrivacyKeyForwards{}
+)
 
 func (i *InputPrivacyKeyForwards) Zero() bool {
 	if i == nil {
@@ -529,19 +542,6 @@ func (i *InputPrivacyKeyForwards) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyKeyClass.
-func (i InputPrivacyKeyForwards) construct() InputPrivacyKeyClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyKeyForwards.
-var (
-	_ bin.Encoder     = &InputPrivacyKeyForwards{}
-	_ bin.Decoder     = &InputPrivacyKeyForwards{}
-	_ bin.BareEncoder = &InputPrivacyKeyForwards{}
-	_ bin.BareDecoder = &InputPrivacyKeyForwards{}
-
-	_ InputPrivacyKeyClass = &InputPrivacyKeyForwards{}
-)
-
 // InputPrivacyKeyProfilePhoto represents TL type `inputPrivacyKeyProfilePhoto#5719bacc`.
 // Whether people will be able to see the user's profile picture
 //
@@ -551,6 +551,19 @@ type InputPrivacyKeyProfilePhoto struct {
 
 // InputPrivacyKeyProfilePhotoTypeID is TL type id of InputPrivacyKeyProfilePhoto.
 const InputPrivacyKeyProfilePhotoTypeID = 0x5719bacc
+
+// construct implements constructor of InputPrivacyKeyClass.
+func (i InputPrivacyKeyProfilePhoto) construct() InputPrivacyKeyClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyKeyProfilePhoto.
+var (
+	_ bin.Encoder     = &InputPrivacyKeyProfilePhoto{}
+	_ bin.Decoder     = &InputPrivacyKeyProfilePhoto{}
+	_ bin.BareEncoder = &InputPrivacyKeyProfilePhoto{}
+	_ bin.BareDecoder = &InputPrivacyKeyProfilePhoto{}
+
+	_ InputPrivacyKeyClass = &InputPrivacyKeyProfilePhoto{}
+)
 
 func (i *InputPrivacyKeyProfilePhoto) Zero() bool {
 	if i == nil {
@@ -631,19 +644,6 @@ func (i *InputPrivacyKeyProfilePhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyKeyClass.
-func (i InputPrivacyKeyProfilePhoto) construct() InputPrivacyKeyClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyKeyProfilePhoto.
-var (
-	_ bin.Encoder     = &InputPrivacyKeyProfilePhoto{}
-	_ bin.Decoder     = &InputPrivacyKeyProfilePhoto{}
-	_ bin.BareEncoder = &InputPrivacyKeyProfilePhoto{}
-	_ bin.BareDecoder = &InputPrivacyKeyProfilePhoto{}
-
-	_ InputPrivacyKeyClass = &InputPrivacyKeyProfilePhoto{}
-)
-
 // InputPrivacyKeyPhoneNumber represents TL type `inputPrivacyKeyPhoneNumber#352dafa`.
 // Whether people will be able to see the user's phone number
 //
@@ -653,6 +653,19 @@ type InputPrivacyKeyPhoneNumber struct {
 
 // InputPrivacyKeyPhoneNumberTypeID is TL type id of InputPrivacyKeyPhoneNumber.
 const InputPrivacyKeyPhoneNumberTypeID = 0x352dafa
+
+// construct implements constructor of InputPrivacyKeyClass.
+func (i InputPrivacyKeyPhoneNumber) construct() InputPrivacyKeyClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyKeyPhoneNumber.
+var (
+	_ bin.Encoder     = &InputPrivacyKeyPhoneNumber{}
+	_ bin.Decoder     = &InputPrivacyKeyPhoneNumber{}
+	_ bin.BareEncoder = &InputPrivacyKeyPhoneNumber{}
+	_ bin.BareDecoder = &InputPrivacyKeyPhoneNumber{}
+
+	_ InputPrivacyKeyClass = &InputPrivacyKeyPhoneNumber{}
+)
 
 func (i *InputPrivacyKeyPhoneNumber) Zero() bool {
 	if i == nil {
@@ -733,19 +746,6 @@ func (i *InputPrivacyKeyPhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyKeyClass.
-func (i InputPrivacyKeyPhoneNumber) construct() InputPrivacyKeyClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyKeyPhoneNumber.
-var (
-	_ bin.Encoder     = &InputPrivacyKeyPhoneNumber{}
-	_ bin.Decoder     = &InputPrivacyKeyPhoneNumber{}
-	_ bin.BareEncoder = &InputPrivacyKeyPhoneNumber{}
-	_ bin.BareDecoder = &InputPrivacyKeyPhoneNumber{}
-
-	_ InputPrivacyKeyClass = &InputPrivacyKeyPhoneNumber{}
-)
-
 // InputPrivacyKeyAddedByPhone represents TL type `inputPrivacyKeyAddedByPhone#d1219bdd`.
 // Whether people can add you to their contact list by your phone number
 //
@@ -755,6 +755,19 @@ type InputPrivacyKeyAddedByPhone struct {
 
 // InputPrivacyKeyAddedByPhoneTypeID is TL type id of InputPrivacyKeyAddedByPhone.
 const InputPrivacyKeyAddedByPhoneTypeID = 0xd1219bdd
+
+// construct implements constructor of InputPrivacyKeyClass.
+func (i InputPrivacyKeyAddedByPhone) construct() InputPrivacyKeyClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyKeyAddedByPhone.
+var (
+	_ bin.Encoder     = &InputPrivacyKeyAddedByPhone{}
+	_ bin.Decoder     = &InputPrivacyKeyAddedByPhone{}
+	_ bin.BareEncoder = &InputPrivacyKeyAddedByPhone{}
+	_ bin.BareDecoder = &InputPrivacyKeyAddedByPhone{}
+
+	_ InputPrivacyKeyClass = &InputPrivacyKeyAddedByPhone{}
+)
 
 func (i *InputPrivacyKeyAddedByPhone) Zero() bool {
 	if i == nil {
@@ -834,19 +847,6 @@ func (i *InputPrivacyKeyAddedByPhone) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of InputPrivacyKeyClass.
-func (i InputPrivacyKeyAddedByPhone) construct() InputPrivacyKeyClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyKeyAddedByPhone.
-var (
-	_ bin.Encoder     = &InputPrivacyKeyAddedByPhone{}
-	_ bin.Decoder     = &InputPrivacyKeyAddedByPhone{}
-	_ bin.BareEncoder = &InputPrivacyKeyAddedByPhone{}
-	_ bin.BareDecoder = &InputPrivacyKeyAddedByPhone{}
-
-	_ InputPrivacyKeyClass = &InputPrivacyKeyAddedByPhone{}
-)
 
 // InputPrivacyKeyClass represents InputPrivacyKey generic type.
 //

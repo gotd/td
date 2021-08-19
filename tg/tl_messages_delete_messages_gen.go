@@ -48,6 +48,14 @@ type MessagesDeleteMessagesRequest struct {
 // MessagesDeleteMessagesRequestTypeID is TL type id of MessagesDeleteMessagesRequest.
 const MessagesDeleteMessagesRequestTypeID = 0xe58e95d2
 
+// Ensuring interfaces in compile-time for MessagesDeleteMessagesRequest.
+var (
+	_ bin.Encoder     = &MessagesDeleteMessagesRequest{}
+	_ bin.Decoder     = &MessagesDeleteMessagesRequest{}
+	_ bin.BareEncoder = &MessagesDeleteMessagesRequest{}
+	_ bin.BareDecoder = &MessagesDeleteMessagesRequest{}
+)
+
 func (d *MessagesDeleteMessagesRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -146,27 +154,6 @@ func (d *MessagesDeleteMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetRevoke sets value of Revoke conditional field.
-func (d *MessagesDeleteMessagesRequest) SetRevoke(value bool) {
-	if value {
-		d.Flags.Set(0)
-		d.Revoke = true
-	} else {
-		d.Flags.Unset(0)
-		d.Revoke = false
-	}
-}
-
-// GetRevoke returns value of Revoke conditional field.
-func (d *MessagesDeleteMessagesRequest) GetRevoke() (value bool) {
-	return d.Flags.Has(0)
-}
-
-// GetID returns value of ID field.
-func (d *MessagesDeleteMessagesRequest) GetID() (value []int) {
-	return d.ID
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteMessagesRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -209,13 +196,26 @@ func (d *MessagesDeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesDeleteMessagesRequest.
-var (
-	_ bin.Encoder     = &MessagesDeleteMessagesRequest{}
-	_ bin.Decoder     = &MessagesDeleteMessagesRequest{}
-	_ bin.BareEncoder = &MessagesDeleteMessagesRequest{}
-	_ bin.BareDecoder = &MessagesDeleteMessagesRequest{}
-)
+// SetRevoke sets value of Revoke conditional field.
+func (d *MessagesDeleteMessagesRequest) SetRevoke(value bool) {
+	if value {
+		d.Flags.Set(0)
+		d.Revoke = true
+	} else {
+		d.Flags.Unset(0)
+		d.Revoke = false
+	}
+}
+
+// GetRevoke returns value of Revoke conditional field.
+func (d *MessagesDeleteMessagesRequest) GetRevoke() (value bool) {
+	return d.Flags.Has(0)
+}
+
+// GetID returns value of ID field.
+func (d *MessagesDeleteMessagesRequest) GetID() (value []int) {
+	return d.ID
+}
 
 // MessagesDeleteMessages invokes method messages.deleteMessages#e58e95d2 returning error if any.
 // Deletes messages by their identifiers.

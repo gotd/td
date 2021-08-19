@@ -49,6 +49,14 @@ type PaymentsGetPaymentFormRequest struct {
 // PaymentsGetPaymentFormRequestTypeID is TL type id of PaymentsGetPaymentFormRequest.
 const PaymentsGetPaymentFormRequestTypeID = 0x8a333c8d
 
+// Ensuring interfaces in compile-time for PaymentsGetPaymentFormRequest.
+var (
+	_ bin.Encoder     = &PaymentsGetPaymentFormRequest{}
+	_ bin.Decoder     = &PaymentsGetPaymentFormRequest{}
+	_ bin.BareEncoder = &PaymentsGetPaymentFormRequest{}
+	_ bin.BareDecoder = &PaymentsGetPaymentFormRequest{}
+)
+
 func (g *PaymentsGetPaymentFormRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -167,31 +175,6 @@ func (g *PaymentsGetPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *PaymentsGetPaymentFormRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (g *PaymentsGetPaymentFormRequest) GetMsgID() (value int) {
-	return g.MsgID
-}
-
-// SetThemeParams sets value of ThemeParams conditional field.
-func (g *PaymentsGetPaymentFormRequest) SetThemeParams(value DataJSON) {
-	g.Flags.Set(0)
-	g.ThemeParams = value
-}
-
-// GetThemeParams returns value of ThemeParams conditional field and
-// boolean which is true if field was set.
-func (g *PaymentsGetPaymentFormRequest) GetThemeParams() (value DataJSON, ok bool) {
-	if !g.Flags.Has(0) {
-		return value, false
-	}
-	return g.ThemeParams, true
-}
-
 // Decode implements bin.Decoder.
 func (g *PaymentsGetPaymentFormRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -235,13 +218,30 @@ func (g *PaymentsGetPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PaymentsGetPaymentFormRequest.
-var (
-	_ bin.Encoder     = &PaymentsGetPaymentFormRequest{}
-	_ bin.Decoder     = &PaymentsGetPaymentFormRequest{}
-	_ bin.BareEncoder = &PaymentsGetPaymentFormRequest{}
-	_ bin.BareDecoder = &PaymentsGetPaymentFormRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *PaymentsGetPaymentFormRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (g *PaymentsGetPaymentFormRequest) GetMsgID() (value int) {
+	return g.MsgID
+}
+
+// SetThemeParams sets value of ThemeParams conditional field.
+func (g *PaymentsGetPaymentFormRequest) SetThemeParams(value DataJSON) {
+	g.Flags.Set(0)
+	g.ThemeParams = value
+}
+
+// GetThemeParams returns value of ThemeParams conditional field and
+// boolean which is true if field was set.
+func (g *PaymentsGetPaymentFormRequest) GetThemeParams() (value DataJSON, ok bool) {
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.ThemeParams, true
+}
 
 // PaymentsGetPaymentForm invokes method payments.getPaymentForm#8a333c8d returning error if any.
 // Get a payment form

@@ -46,6 +46,14 @@ type PollAnswer struct {
 // PollAnswerTypeID is TL type id of PollAnswer.
 const PollAnswerTypeID = 0x6ca9c2e9
 
+// Ensuring interfaces in compile-time for PollAnswer.
+var (
+	_ bin.Encoder     = &PollAnswer{}
+	_ bin.Decoder     = &PollAnswer{}
+	_ bin.BareEncoder = &PollAnswer{}
+	_ bin.BareDecoder = &PollAnswer{}
+)
+
 func (p *PollAnswer) Zero() bool {
 	if p == nil {
 		return true
@@ -132,16 +140,6 @@ func (p *PollAnswer) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PollAnswer) GetText() (value string) {
-	return p.Text
-}
-
-// GetOption returns value of Option field.
-func (p *PollAnswer) GetOption() (value []byte) {
-	return p.Option
-}
-
 // Decode implements bin.Decoder.
 func (p *PollAnswer) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -175,10 +173,12 @@ func (p *PollAnswer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PollAnswer.
-var (
-	_ bin.Encoder     = &PollAnswer{}
-	_ bin.Decoder     = &PollAnswer{}
-	_ bin.BareEncoder = &PollAnswer{}
-	_ bin.BareDecoder = &PollAnswer{}
-)
+// GetText returns value of Text field.
+func (p *PollAnswer) GetText() (value string) {
+	return p.Text
+}
+
+// GetOption returns value of Option field.
+func (p *PollAnswer) GetOption() (value []byte) {
+	return p.Option
+}

@@ -40,6 +40,14 @@ type AuthCheckRecoveryPasswordRequest struct {
 // AuthCheckRecoveryPasswordRequestTypeID is TL type id of AuthCheckRecoveryPasswordRequest.
 const AuthCheckRecoveryPasswordRequestTypeID = 0xd36bf79
 
+// Ensuring interfaces in compile-time for AuthCheckRecoveryPasswordRequest.
+var (
+	_ bin.Encoder     = &AuthCheckRecoveryPasswordRequest{}
+	_ bin.Decoder     = &AuthCheckRecoveryPasswordRequest{}
+	_ bin.BareEncoder = &AuthCheckRecoveryPasswordRequest{}
+	_ bin.BareDecoder = &AuthCheckRecoveryPasswordRequest{}
+)
+
 func (c *AuthCheckRecoveryPasswordRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -116,11 +124,6 @@ func (c *AuthCheckRecoveryPasswordRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCode returns value of Code field.
-func (c *AuthCheckRecoveryPasswordRequest) GetCode() (value string) {
-	return c.Code
-}
-
 // Decode implements bin.Decoder.
 func (c *AuthCheckRecoveryPasswordRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -147,13 +150,10 @@ func (c *AuthCheckRecoveryPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthCheckRecoveryPasswordRequest.
-var (
-	_ bin.Encoder     = &AuthCheckRecoveryPasswordRequest{}
-	_ bin.Decoder     = &AuthCheckRecoveryPasswordRequest{}
-	_ bin.BareEncoder = &AuthCheckRecoveryPasswordRequest{}
-	_ bin.BareDecoder = &AuthCheckRecoveryPasswordRequest{}
-)
+// GetCode returns value of Code field.
+func (c *AuthCheckRecoveryPasswordRequest) GetCode() (value string) {
+	return c.Code
+}
 
 // AuthCheckRecoveryPassword invokes method auth.checkRecoveryPassword#d36bf79 returning error if any.
 //

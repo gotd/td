@@ -39,6 +39,14 @@ type AccountResetNotifySettingsRequest struct {
 // AccountResetNotifySettingsRequestTypeID is TL type id of AccountResetNotifySettingsRequest.
 const AccountResetNotifySettingsRequestTypeID = 0xdb7e1747
 
+// Ensuring interfaces in compile-time for AccountResetNotifySettingsRequest.
+var (
+	_ bin.Encoder     = &AccountResetNotifySettingsRequest{}
+	_ bin.Decoder     = &AccountResetNotifySettingsRequest{}
+	_ bin.BareEncoder = &AccountResetNotifySettingsRequest{}
+	_ bin.BareDecoder = &AccountResetNotifySettingsRequest{}
+)
+
 func (r *AccountResetNotifySettingsRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -117,14 +125,6 @@ func (r *AccountResetNotifySettingsRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountResetNotifySettingsRequest.
-var (
-	_ bin.Encoder     = &AccountResetNotifySettingsRequest{}
-	_ bin.Decoder     = &AccountResetNotifySettingsRequest{}
-	_ bin.BareEncoder = &AccountResetNotifySettingsRequest{}
-	_ bin.BareDecoder = &AccountResetNotifySettingsRequest{}
-)
 
 // AccountResetNotifySettings invokes method account.resetNotifySettings#db7e1747 returning error if any.
 // Resets all notification settings from users and groups.

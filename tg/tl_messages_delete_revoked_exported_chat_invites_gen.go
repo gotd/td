@@ -42,6 +42,14 @@ type MessagesDeleteRevokedExportedChatInvitesRequest struct {
 // MessagesDeleteRevokedExportedChatInvitesRequestTypeID is TL type id of MessagesDeleteRevokedExportedChatInvitesRequest.
 const MessagesDeleteRevokedExportedChatInvitesRequestTypeID = 0x56987bd5
 
+// Ensuring interfaces in compile-time for MessagesDeleteRevokedExportedChatInvitesRequest.
+var (
+	_ bin.Encoder     = &MessagesDeleteRevokedExportedChatInvitesRequest{}
+	_ bin.Decoder     = &MessagesDeleteRevokedExportedChatInvitesRequest{}
+	_ bin.BareEncoder = &MessagesDeleteRevokedExportedChatInvitesRequest{}
+	_ bin.BareDecoder = &MessagesDeleteRevokedExportedChatInvitesRequest{}
+)
+
 func (d *MessagesDeleteRevokedExportedChatInvitesRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -138,16 +146,6 @@ func (d *MessagesDeleteRevokedExportedChatInvitesRequest) EncodeBare(b *bin.Buff
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (d *MessagesDeleteRevokedExportedChatInvitesRequest) GetPeer() (value InputPeerClass) {
-	return d.Peer
-}
-
-// GetAdminID returns value of AdminID field.
-func (d *MessagesDeleteRevokedExportedChatInvitesRequest) GetAdminID() (value InputUserClass) {
-	return d.AdminID
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteRevokedExportedChatInvitesRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -181,13 +179,15 @@ func (d *MessagesDeleteRevokedExportedChatInvitesRequest) DecodeBare(b *bin.Buff
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesDeleteRevokedExportedChatInvitesRequest.
-var (
-	_ bin.Encoder     = &MessagesDeleteRevokedExportedChatInvitesRequest{}
-	_ bin.Decoder     = &MessagesDeleteRevokedExportedChatInvitesRequest{}
-	_ bin.BareEncoder = &MessagesDeleteRevokedExportedChatInvitesRequest{}
-	_ bin.BareDecoder = &MessagesDeleteRevokedExportedChatInvitesRequest{}
-)
+// GetPeer returns value of Peer field.
+func (d *MessagesDeleteRevokedExportedChatInvitesRequest) GetPeer() (value InputPeerClass) {
+	return d.Peer
+}
+
+// GetAdminID returns value of AdminID field.
+func (d *MessagesDeleteRevokedExportedChatInvitesRequest) GetAdminID() (value InputUserClass) {
+	return d.AdminID
+}
 
 // MessagesDeleteRevokedExportedChatInvites invokes method messages.deleteRevokedExportedChatInvites#56987bd5 returning error if any.
 //

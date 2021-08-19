@@ -45,6 +45,14 @@ type TopPeerCategoryPeers struct {
 // TopPeerCategoryPeersTypeID is TL type id of TopPeerCategoryPeers.
 const TopPeerCategoryPeersTypeID = 0xfb834291
 
+// Ensuring interfaces in compile-time for TopPeerCategoryPeers.
+var (
+	_ bin.Encoder     = &TopPeerCategoryPeers{}
+	_ bin.Decoder     = &TopPeerCategoryPeers{}
+	_ bin.BareEncoder = &TopPeerCategoryPeers{}
+	_ bin.BareDecoder = &TopPeerCategoryPeers{}
+)
+
 func (t *TopPeerCategoryPeers) Zero() bool {
 	if t == nil {
 		return true
@@ -151,21 +159,6 @@ func (t *TopPeerCategoryPeers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCategory returns value of Category field.
-func (t *TopPeerCategoryPeers) GetCategory() (value TopPeerCategoryClass) {
-	return t.Category
-}
-
-// GetCount returns value of Count field.
-func (t *TopPeerCategoryPeers) GetCount() (value int) {
-	return t.Count
-}
-
-// GetPeers returns value of Peers field.
-func (t *TopPeerCategoryPeers) GetPeers() (value []TopPeer) {
-	return t.Peers
-}
-
 // Decode implements bin.Decoder.
 func (t *TopPeerCategoryPeers) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -216,10 +209,17 @@ func (t *TopPeerCategoryPeers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for TopPeerCategoryPeers.
-var (
-	_ bin.Encoder     = &TopPeerCategoryPeers{}
-	_ bin.Decoder     = &TopPeerCategoryPeers{}
-	_ bin.BareEncoder = &TopPeerCategoryPeers{}
-	_ bin.BareDecoder = &TopPeerCategoryPeers{}
-)
+// GetCategory returns value of Category field.
+func (t *TopPeerCategoryPeers) GetCategory() (value TopPeerCategoryClass) {
+	return t.Category
+}
+
+// GetCount returns value of Count field.
+func (t *TopPeerCategoryPeers) GetCount() (value int) {
+	return t.Count
+}
+
+// GetPeers returns value of Peers field.
+func (t *TopPeerCategoryPeers) GetPeers() (value []TopPeer) {
+	return t.Peers
+}

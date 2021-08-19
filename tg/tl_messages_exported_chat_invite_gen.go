@@ -42,6 +42,19 @@ type MessagesExportedChatInvite struct {
 // MessagesExportedChatInviteTypeID is TL type id of MessagesExportedChatInvite.
 const MessagesExportedChatInviteTypeID = 0x1871be50
 
+// construct implements constructor of MessagesExportedChatInviteClass.
+func (e MessagesExportedChatInvite) construct() MessagesExportedChatInviteClass { return &e }
+
+// Ensuring interfaces in compile-time for MessagesExportedChatInvite.
+var (
+	_ bin.Encoder     = &MessagesExportedChatInvite{}
+	_ bin.Decoder     = &MessagesExportedChatInvite{}
+	_ bin.BareEncoder = &MessagesExportedChatInvite{}
+	_ bin.BareDecoder = &MessagesExportedChatInvite{}
+
+	_ MessagesExportedChatInviteClass = &MessagesExportedChatInvite{}
+)
+
 func (e *MessagesExportedChatInvite) Zero() bool {
 	if e == nil {
 		return true
@@ -138,21 +151,6 @@ func (e *MessagesExportedChatInvite) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetInvite returns value of Invite field.
-func (e *MessagesExportedChatInvite) GetInvite() (value ChatInviteExported) {
-	return e.Invite
-}
-
-// GetUsers returns value of Users field.
-func (e *MessagesExportedChatInvite) GetUsers() (value []UserClass) {
-	return e.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (e *MessagesExportedChatInvite) MapUsers() (value UserClassArray) {
-	return UserClassArray(e.Users)
-}
-
 // Decode implements bin.Decoder.
 func (e *MessagesExportedChatInvite) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -194,18 +192,20 @@ func (e *MessagesExportedChatInvite) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesExportedChatInviteClass.
-func (e MessagesExportedChatInvite) construct() MessagesExportedChatInviteClass { return &e }
+// GetInvite returns value of Invite field.
+func (e *MessagesExportedChatInvite) GetInvite() (value ChatInviteExported) {
+	return e.Invite
+}
 
-// Ensuring interfaces in compile-time for MessagesExportedChatInvite.
-var (
-	_ bin.Encoder     = &MessagesExportedChatInvite{}
-	_ bin.Decoder     = &MessagesExportedChatInvite{}
-	_ bin.BareEncoder = &MessagesExportedChatInvite{}
-	_ bin.BareDecoder = &MessagesExportedChatInvite{}
+// GetUsers returns value of Users field.
+func (e *MessagesExportedChatInvite) GetUsers() (value []UserClass) {
+	return e.Users
+}
 
-	_ MessagesExportedChatInviteClass = &MessagesExportedChatInvite{}
-)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (e *MessagesExportedChatInvite) MapUsers() (value UserClassArray) {
+	return UserClassArray(e.Users)
+}
 
 // MessagesExportedChatInviteReplaced represents TL type `messages.exportedChatInviteReplaced#222600ef`.
 //
@@ -221,6 +221,19 @@ type MessagesExportedChatInviteReplaced struct {
 
 // MessagesExportedChatInviteReplacedTypeID is TL type id of MessagesExportedChatInviteReplaced.
 const MessagesExportedChatInviteReplacedTypeID = 0x222600ef
+
+// construct implements constructor of MessagesExportedChatInviteClass.
+func (e MessagesExportedChatInviteReplaced) construct() MessagesExportedChatInviteClass { return &e }
+
+// Ensuring interfaces in compile-time for MessagesExportedChatInviteReplaced.
+var (
+	_ bin.Encoder     = &MessagesExportedChatInviteReplaced{}
+	_ bin.Decoder     = &MessagesExportedChatInviteReplaced{}
+	_ bin.BareEncoder = &MessagesExportedChatInviteReplaced{}
+	_ bin.BareDecoder = &MessagesExportedChatInviteReplaced{}
+
+	_ MessagesExportedChatInviteClass = &MessagesExportedChatInviteReplaced{}
+)
 
 func (e *MessagesExportedChatInviteReplaced) Zero() bool {
 	if e == nil {
@@ -330,26 +343,6 @@ func (e *MessagesExportedChatInviteReplaced) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetInvite returns value of Invite field.
-func (e *MessagesExportedChatInviteReplaced) GetInvite() (value ChatInviteExported) {
-	return e.Invite
-}
-
-// GetNewInvite returns value of NewInvite field.
-func (e *MessagesExportedChatInviteReplaced) GetNewInvite() (value ChatInviteExported) {
-	return e.NewInvite
-}
-
-// GetUsers returns value of Users field.
-func (e *MessagesExportedChatInviteReplaced) GetUsers() (value []UserClass) {
-	return e.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (e *MessagesExportedChatInviteReplaced) MapUsers() (value UserClassArray) {
-	return UserClassArray(e.Users)
-}
-
 // Decode implements bin.Decoder.
 func (e *MessagesExportedChatInviteReplaced) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -396,18 +389,25 @@ func (e *MessagesExportedChatInviteReplaced) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesExportedChatInviteClass.
-func (e MessagesExportedChatInviteReplaced) construct() MessagesExportedChatInviteClass { return &e }
+// GetInvite returns value of Invite field.
+func (e *MessagesExportedChatInviteReplaced) GetInvite() (value ChatInviteExported) {
+	return e.Invite
+}
 
-// Ensuring interfaces in compile-time for MessagesExportedChatInviteReplaced.
-var (
-	_ bin.Encoder     = &MessagesExportedChatInviteReplaced{}
-	_ bin.Decoder     = &MessagesExportedChatInviteReplaced{}
-	_ bin.BareEncoder = &MessagesExportedChatInviteReplaced{}
-	_ bin.BareDecoder = &MessagesExportedChatInviteReplaced{}
+// GetNewInvite returns value of NewInvite field.
+func (e *MessagesExportedChatInviteReplaced) GetNewInvite() (value ChatInviteExported) {
+	return e.NewInvite
+}
 
-	_ MessagesExportedChatInviteClass = &MessagesExportedChatInviteReplaced{}
-)
+// GetUsers returns value of Users field.
+func (e *MessagesExportedChatInviteReplaced) GetUsers() (value []UserClass) {
+	return e.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (e *MessagesExportedChatInviteReplaced) MapUsers() (value UserClassArray) {
+	return UserClassArray(e.Users)
+}
 
 // MessagesExportedChatInviteClass represents messages.ExportedChatInvite generic type.
 //

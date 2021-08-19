@@ -42,6 +42,14 @@ type PhoneJoinGroupCallPresentationRequest struct {
 // PhoneJoinGroupCallPresentationRequestTypeID is TL type id of PhoneJoinGroupCallPresentationRequest.
 const PhoneJoinGroupCallPresentationRequestTypeID = 0xcbea6bc4
 
+// Ensuring interfaces in compile-time for PhoneJoinGroupCallPresentationRequest.
+var (
+	_ bin.Encoder     = &PhoneJoinGroupCallPresentationRequest{}
+	_ bin.Decoder     = &PhoneJoinGroupCallPresentationRequest{}
+	_ bin.BareEncoder = &PhoneJoinGroupCallPresentationRequest{}
+	_ bin.BareDecoder = &PhoneJoinGroupCallPresentationRequest{}
+)
+
 func (j *PhoneJoinGroupCallPresentationRequest) Zero() bool {
 	if j == nil {
 		return true
@@ -132,16 +140,6 @@ func (j *PhoneJoinGroupCallPresentationRequest) EncodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (j *PhoneJoinGroupCallPresentationRequest) GetCall() (value InputGroupCall) {
-	return j.Call
-}
-
-// GetParams returns value of Params field.
-func (j *PhoneJoinGroupCallPresentationRequest) GetParams() (value DataJSON) {
-	return j.Params
-}
-
 // Decode implements bin.Decoder.
 func (j *PhoneJoinGroupCallPresentationRequest) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -171,13 +169,15 @@ func (j *PhoneJoinGroupCallPresentationRequest) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneJoinGroupCallPresentationRequest.
-var (
-	_ bin.Encoder     = &PhoneJoinGroupCallPresentationRequest{}
-	_ bin.Decoder     = &PhoneJoinGroupCallPresentationRequest{}
-	_ bin.BareEncoder = &PhoneJoinGroupCallPresentationRequest{}
-	_ bin.BareDecoder = &PhoneJoinGroupCallPresentationRequest{}
-)
+// GetCall returns value of Call field.
+func (j *PhoneJoinGroupCallPresentationRequest) GetCall() (value InputGroupCall) {
+	return j.Call
+}
+
+// GetParams returns value of Params field.
+func (j *PhoneJoinGroupCallPresentationRequest) GetParams() (value DataJSON) {
+	return j.Params
+}
 
 // PhoneJoinGroupCallPresentation invokes method phone.joinGroupCallPresentation#cbea6bc4 returning error if any.
 //

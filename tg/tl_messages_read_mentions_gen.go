@@ -41,6 +41,14 @@ type MessagesReadMentionsRequest struct {
 // MessagesReadMentionsRequestTypeID is TL type id of MessagesReadMentionsRequest.
 const MessagesReadMentionsRequestTypeID = 0xf0189d3
 
+// Ensuring interfaces in compile-time for MessagesReadMentionsRequest.
+var (
+	_ bin.Encoder     = &MessagesReadMentionsRequest{}
+	_ bin.Decoder     = &MessagesReadMentionsRequest{}
+	_ bin.BareEncoder = &MessagesReadMentionsRequest{}
+	_ bin.BareDecoder = &MessagesReadMentionsRequest{}
+)
+
 func (r *MessagesReadMentionsRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -122,11 +130,6 @@ func (r *MessagesReadMentionsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (r *MessagesReadMentionsRequest) GetPeer() (value InputPeerClass) {
-	return r.Peer
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesReadMentionsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -153,13 +156,10 @@ func (r *MessagesReadMentionsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesReadMentionsRequest.
-var (
-	_ bin.Encoder     = &MessagesReadMentionsRequest{}
-	_ bin.Decoder     = &MessagesReadMentionsRequest{}
-	_ bin.BareEncoder = &MessagesReadMentionsRequest{}
-	_ bin.BareDecoder = &MessagesReadMentionsRequest{}
-)
+// GetPeer returns value of Peer field.
+func (r *MessagesReadMentionsRequest) GetPeer() (value InputPeerClass) {
+	return r.Peer
+}
 
 // MessagesReadMentions invokes method messages.readMentions#f0189d3 returning error if any.
 // Mark mentions as read

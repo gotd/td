@@ -44,6 +44,14 @@ type MessagesGetAllStickersRequest struct {
 // MessagesGetAllStickersRequestTypeID is TL type id of MessagesGetAllStickersRequest.
 const MessagesGetAllStickersRequestTypeID = 0x1c9618b1
 
+// Ensuring interfaces in compile-time for MessagesGetAllStickersRequest.
+var (
+	_ bin.Encoder     = &MessagesGetAllStickersRequest{}
+	_ bin.Decoder     = &MessagesGetAllStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetAllStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetAllStickersRequest{}
+)
+
 func (g *MessagesGetAllStickersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,11 +128,6 @@ func (g *MessagesGetAllStickersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (g *MessagesGetAllStickersRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetAllStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -151,13 +154,10 @@ func (g *MessagesGetAllStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetAllStickersRequest.
-var (
-	_ bin.Encoder     = &MessagesGetAllStickersRequest{}
-	_ bin.Decoder     = &MessagesGetAllStickersRequest{}
-	_ bin.BareEncoder = &MessagesGetAllStickersRequest{}
-	_ bin.BareDecoder = &MessagesGetAllStickersRequest{}
-)
+// GetHash returns value of Hash field.
+func (g *MessagesGetAllStickersRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // MessagesGetAllStickers invokes method messages.getAllStickers#1c9618b1 returning error if any.
 // Get all installed stickers

@@ -41,6 +41,19 @@ type PageListItemText struct {
 // PageListItemTextTypeID is TL type id of PageListItemText.
 const PageListItemTextTypeID = 0xb92fb6cd
 
+// construct implements constructor of PageListItemClass.
+func (p PageListItemText) construct() PageListItemClass { return &p }
+
+// Ensuring interfaces in compile-time for PageListItemText.
+var (
+	_ bin.Encoder     = &PageListItemText{}
+	_ bin.Decoder     = &PageListItemText{}
+	_ bin.BareEncoder = &PageListItemText{}
+	_ bin.BareDecoder = &PageListItemText{}
+
+	_ PageListItemClass = &PageListItemText{}
+)
+
 func (p *PageListItemText) Zero() bool {
 	if p == nil {
 		return true
@@ -122,11 +135,6 @@ func (p *PageListItemText) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PageListItemText) GetText() (value RichTextClass) {
-	return p.Text
-}
-
 // Decode implements bin.Decoder.
 func (p *PageListItemText) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -153,18 +161,10 @@ func (p *PageListItemText) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageListItemClass.
-func (p PageListItemText) construct() PageListItemClass { return &p }
-
-// Ensuring interfaces in compile-time for PageListItemText.
-var (
-	_ bin.Encoder     = &PageListItemText{}
-	_ bin.Decoder     = &PageListItemText{}
-	_ bin.BareEncoder = &PageListItemText{}
-	_ bin.BareDecoder = &PageListItemText{}
-
-	_ PageListItemClass = &PageListItemText{}
-)
+// GetText returns value of Text field.
+func (p *PageListItemText) GetText() (value RichTextClass) {
+	return p.Text
+}
 
 // PageListItemBlocks represents TL type `pageListItemBlocks#25e073fc`.
 // List item
@@ -177,6 +177,19 @@ type PageListItemBlocks struct {
 
 // PageListItemBlocksTypeID is TL type id of PageListItemBlocks.
 const PageListItemBlocksTypeID = 0x25e073fc
+
+// construct implements constructor of PageListItemClass.
+func (p PageListItemBlocks) construct() PageListItemClass { return &p }
+
+// Ensuring interfaces in compile-time for PageListItemBlocks.
+var (
+	_ bin.Encoder     = &PageListItemBlocks{}
+	_ bin.Decoder     = &PageListItemBlocks{}
+	_ bin.BareEncoder = &PageListItemBlocks{}
+	_ bin.BareDecoder = &PageListItemBlocks{}
+
+	_ PageListItemClass = &PageListItemBlocks{}
+)
 
 func (p *PageListItemBlocks) Zero() bool {
 	if p == nil {
@@ -262,16 +275,6 @@ func (p *PageListItemBlocks) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetBlocks returns value of Blocks field.
-func (p *PageListItemBlocks) GetBlocks() (value []PageBlockClass) {
-	return p.Blocks
-}
-
-// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
-func (p *PageListItemBlocks) MapBlocks() (value PageBlockClassArray) {
-	return PageBlockClassArray(p.Blocks)
-}
-
 // Decode implements bin.Decoder.
 func (p *PageListItemBlocks) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -308,18 +311,15 @@ func (p *PageListItemBlocks) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageListItemClass.
-func (p PageListItemBlocks) construct() PageListItemClass { return &p }
+// GetBlocks returns value of Blocks field.
+func (p *PageListItemBlocks) GetBlocks() (value []PageBlockClass) {
+	return p.Blocks
+}
 
-// Ensuring interfaces in compile-time for PageListItemBlocks.
-var (
-	_ bin.Encoder     = &PageListItemBlocks{}
-	_ bin.Decoder     = &PageListItemBlocks{}
-	_ bin.BareEncoder = &PageListItemBlocks{}
-	_ bin.BareDecoder = &PageListItemBlocks{}
-
-	_ PageListItemClass = &PageListItemBlocks{}
-)
+// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
+func (p *PageListItemBlocks) MapBlocks() (value PageBlockClassArray) {
+	return PageBlockClassArray(p.Blocks)
+}
 
 // PageListItemClass represents PageListItem generic type.
 //

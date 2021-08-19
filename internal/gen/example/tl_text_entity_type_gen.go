@@ -38,6 +38,19 @@ type TextEntityTypeMention struct {
 // TextEntityTypeMentionTypeID is TL type id of TextEntityTypeMention.
 const TextEntityTypeMentionTypeID = 0x37b3df65
 
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeMention) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeMention.
+var (
+	_ bin.Encoder     = &TextEntityTypeMention{}
+	_ bin.Decoder     = &TextEntityTypeMention{}
+	_ bin.BareEncoder = &TextEntityTypeMention{}
+	_ bin.BareDecoder = &TextEntityTypeMention{}
+
+	_ TextEntityTypeClass = &TextEntityTypeMention{}
+)
+
 func (t *TextEntityTypeMention) Zero() bool {
 	if t == nil {
 		return true
@@ -117,19 +130,6 @@ func (t *TextEntityTypeMention) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeMention) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeMention.
-var (
-	_ bin.Encoder     = &TextEntityTypeMention{}
-	_ bin.Decoder     = &TextEntityTypeMention{}
-	_ bin.BareEncoder = &TextEntityTypeMention{}
-	_ bin.BareDecoder = &TextEntityTypeMention{}
-
-	_ TextEntityTypeClass = &TextEntityTypeMention{}
-)
-
 // TextEntityTypeHashtag represents TL type `textEntityTypeHashtag#c2f7a2dd`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeHashtag for reference.
@@ -138,6 +138,19 @@ type TextEntityTypeHashtag struct {
 
 // TextEntityTypeHashtagTypeID is TL type id of TextEntityTypeHashtag.
 const TextEntityTypeHashtagTypeID = 0xc2f7a2dd
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeHashtag) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeHashtag.
+var (
+	_ bin.Encoder     = &TextEntityTypeHashtag{}
+	_ bin.Decoder     = &TextEntityTypeHashtag{}
+	_ bin.BareEncoder = &TextEntityTypeHashtag{}
+	_ bin.BareDecoder = &TextEntityTypeHashtag{}
+
+	_ TextEntityTypeClass = &TextEntityTypeHashtag{}
+)
 
 func (t *TextEntityTypeHashtag) Zero() bool {
 	if t == nil {
@@ -218,19 +231,6 @@ func (t *TextEntityTypeHashtag) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeHashtag) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeHashtag.
-var (
-	_ bin.Encoder     = &TextEntityTypeHashtag{}
-	_ bin.Decoder     = &TextEntityTypeHashtag{}
-	_ bin.BareEncoder = &TextEntityTypeHashtag{}
-	_ bin.BareDecoder = &TextEntityTypeHashtag{}
-
-	_ TextEntityTypeClass = &TextEntityTypeHashtag{}
-)
-
 // TextEntityTypeCashtag represents TL type `textEntityTypeCashtag#48e4374b`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeCashtag for reference.
@@ -239,6 +239,19 @@ type TextEntityTypeCashtag struct {
 
 // TextEntityTypeCashtagTypeID is TL type id of TextEntityTypeCashtag.
 const TextEntityTypeCashtagTypeID = 0x48e4374b
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeCashtag) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeCashtag.
+var (
+	_ bin.Encoder     = &TextEntityTypeCashtag{}
+	_ bin.Decoder     = &TextEntityTypeCashtag{}
+	_ bin.BareEncoder = &TextEntityTypeCashtag{}
+	_ bin.BareDecoder = &TextEntityTypeCashtag{}
+
+	_ TextEntityTypeClass = &TextEntityTypeCashtag{}
+)
 
 func (t *TextEntityTypeCashtag) Zero() bool {
 	if t == nil {
@@ -319,19 +332,6 @@ func (t *TextEntityTypeCashtag) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeCashtag) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeCashtag.
-var (
-	_ bin.Encoder     = &TextEntityTypeCashtag{}
-	_ bin.Decoder     = &TextEntityTypeCashtag{}
-	_ bin.BareEncoder = &TextEntityTypeCashtag{}
-	_ bin.BareDecoder = &TextEntityTypeCashtag{}
-
-	_ TextEntityTypeClass = &TextEntityTypeCashtag{}
-)
-
 // TextEntityTypeBotCommand represents TL type `textEntityTypeBotCommand#bb652bb3`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeBotCommand for reference.
@@ -340,6 +340,19 @@ type TextEntityTypeBotCommand struct {
 
 // TextEntityTypeBotCommandTypeID is TL type id of TextEntityTypeBotCommand.
 const TextEntityTypeBotCommandTypeID = 0xbb652bb3
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeBotCommand) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeBotCommand.
+var (
+	_ bin.Encoder     = &TextEntityTypeBotCommand{}
+	_ bin.Decoder     = &TextEntityTypeBotCommand{}
+	_ bin.BareEncoder = &TextEntityTypeBotCommand{}
+	_ bin.BareDecoder = &TextEntityTypeBotCommand{}
+
+	_ TextEntityTypeClass = &TextEntityTypeBotCommand{}
+)
 
 func (t *TextEntityTypeBotCommand) Zero() bool {
 	if t == nil {
@@ -420,19 +433,6 @@ func (t *TextEntityTypeBotCommand) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeBotCommand) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeBotCommand.
-var (
-	_ bin.Encoder     = &TextEntityTypeBotCommand{}
-	_ bin.Decoder     = &TextEntityTypeBotCommand{}
-	_ bin.BareEncoder = &TextEntityTypeBotCommand{}
-	_ bin.BareDecoder = &TextEntityTypeBotCommand{}
-
-	_ TextEntityTypeClass = &TextEntityTypeBotCommand{}
-)
-
 // TextEntityTypeURL represents TL type `textEntityTypeUrl#b1c0d47c`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeUrl for reference.
@@ -441,6 +441,19 @@ type TextEntityTypeURL struct {
 
 // TextEntityTypeURLTypeID is TL type id of TextEntityTypeURL.
 const TextEntityTypeURLTypeID = 0xb1c0d47c
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeURL) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeURL.
+var (
+	_ bin.Encoder     = &TextEntityTypeURL{}
+	_ bin.Decoder     = &TextEntityTypeURL{}
+	_ bin.BareEncoder = &TextEntityTypeURL{}
+	_ bin.BareDecoder = &TextEntityTypeURL{}
+
+	_ TextEntityTypeClass = &TextEntityTypeURL{}
+)
 
 func (t *TextEntityTypeURL) Zero() bool {
 	if t == nil {
@@ -521,19 +534,6 @@ func (t *TextEntityTypeURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeURL) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeURL.
-var (
-	_ bin.Encoder     = &TextEntityTypeURL{}
-	_ bin.Decoder     = &TextEntityTypeURL{}
-	_ bin.BareEncoder = &TextEntityTypeURL{}
-	_ bin.BareDecoder = &TextEntityTypeURL{}
-
-	_ TextEntityTypeClass = &TextEntityTypeURL{}
-)
-
 // TextEntityTypeEmailAddress represents TL type `textEntityTypeEmailAddress#54f81821`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeEmailAddress for reference.
@@ -542,6 +542,19 @@ type TextEntityTypeEmailAddress struct {
 
 // TextEntityTypeEmailAddressTypeID is TL type id of TextEntityTypeEmailAddress.
 const TextEntityTypeEmailAddressTypeID = 0x54f81821
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeEmailAddress) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeEmailAddress.
+var (
+	_ bin.Encoder     = &TextEntityTypeEmailAddress{}
+	_ bin.Decoder     = &TextEntityTypeEmailAddress{}
+	_ bin.BareEncoder = &TextEntityTypeEmailAddress{}
+	_ bin.BareDecoder = &TextEntityTypeEmailAddress{}
+
+	_ TextEntityTypeClass = &TextEntityTypeEmailAddress{}
+)
 
 func (t *TextEntityTypeEmailAddress) Zero() bool {
 	if t == nil {
@@ -622,19 +635,6 @@ func (t *TextEntityTypeEmailAddress) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeEmailAddress) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeEmailAddress.
-var (
-	_ bin.Encoder     = &TextEntityTypeEmailAddress{}
-	_ bin.Decoder     = &TextEntityTypeEmailAddress{}
-	_ bin.BareEncoder = &TextEntityTypeEmailAddress{}
-	_ bin.BareDecoder = &TextEntityTypeEmailAddress{}
-
-	_ TextEntityTypeClass = &TextEntityTypeEmailAddress{}
-)
-
 // TextEntityTypePhoneNumber represents TL type `textEntityTypePhoneNumber#bad9aa2a`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypePhoneNumber for reference.
@@ -643,6 +643,19 @@ type TextEntityTypePhoneNumber struct {
 
 // TextEntityTypePhoneNumberTypeID is TL type id of TextEntityTypePhoneNumber.
 const TextEntityTypePhoneNumberTypeID = 0xbad9aa2a
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypePhoneNumber) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypePhoneNumber.
+var (
+	_ bin.Encoder     = &TextEntityTypePhoneNumber{}
+	_ bin.Decoder     = &TextEntityTypePhoneNumber{}
+	_ bin.BareEncoder = &TextEntityTypePhoneNumber{}
+	_ bin.BareDecoder = &TextEntityTypePhoneNumber{}
+
+	_ TextEntityTypeClass = &TextEntityTypePhoneNumber{}
+)
 
 func (t *TextEntityTypePhoneNumber) Zero() bool {
 	if t == nil {
@@ -723,19 +736,6 @@ func (t *TextEntityTypePhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypePhoneNumber) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypePhoneNumber.
-var (
-	_ bin.Encoder     = &TextEntityTypePhoneNumber{}
-	_ bin.Decoder     = &TextEntityTypePhoneNumber{}
-	_ bin.BareEncoder = &TextEntityTypePhoneNumber{}
-	_ bin.BareDecoder = &TextEntityTypePhoneNumber{}
-
-	_ TextEntityTypeClass = &TextEntityTypePhoneNumber{}
-)
-
 // TextEntityTypeBankCardNumber represents TL type `textEntityTypeBankCardNumber#6513910`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeBankCardNumber for reference.
@@ -744,6 +744,19 @@ type TextEntityTypeBankCardNumber struct {
 
 // TextEntityTypeBankCardNumberTypeID is TL type id of TextEntityTypeBankCardNumber.
 const TextEntityTypeBankCardNumberTypeID = 0x6513910
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeBankCardNumber) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeBankCardNumber.
+var (
+	_ bin.Encoder     = &TextEntityTypeBankCardNumber{}
+	_ bin.Decoder     = &TextEntityTypeBankCardNumber{}
+	_ bin.BareEncoder = &TextEntityTypeBankCardNumber{}
+	_ bin.BareDecoder = &TextEntityTypeBankCardNumber{}
+
+	_ TextEntityTypeClass = &TextEntityTypeBankCardNumber{}
+)
 
 func (t *TextEntityTypeBankCardNumber) Zero() bool {
 	if t == nil {
@@ -824,19 +837,6 @@ func (t *TextEntityTypeBankCardNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeBankCardNumber) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeBankCardNumber.
-var (
-	_ bin.Encoder     = &TextEntityTypeBankCardNumber{}
-	_ bin.Decoder     = &TextEntityTypeBankCardNumber{}
-	_ bin.BareEncoder = &TextEntityTypeBankCardNumber{}
-	_ bin.BareDecoder = &TextEntityTypeBankCardNumber{}
-
-	_ TextEntityTypeClass = &TextEntityTypeBankCardNumber{}
-)
-
 // TextEntityTypeBold represents TL type `textEntityTypeBold#bcc0e1b0`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeBold for reference.
@@ -845,6 +845,19 @@ type TextEntityTypeBold struct {
 
 // TextEntityTypeBoldTypeID is TL type id of TextEntityTypeBold.
 const TextEntityTypeBoldTypeID = 0xbcc0e1b0
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeBold) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeBold.
+var (
+	_ bin.Encoder     = &TextEntityTypeBold{}
+	_ bin.Decoder     = &TextEntityTypeBold{}
+	_ bin.BareEncoder = &TextEntityTypeBold{}
+	_ bin.BareDecoder = &TextEntityTypeBold{}
+
+	_ TextEntityTypeClass = &TextEntityTypeBold{}
+)
 
 func (t *TextEntityTypeBold) Zero() bool {
 	if t == nil {
@@ -925,19 +938,6 @@ func (t *TextEntityTypeBold) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeBold) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeBold.
-var (
-	_ bin.Encoder     = &TextEntityTypeBold{}
-	_ bin.Decoder     = &TextEntityTypeBold{}
-	_ bin.BareEncoder = &TextEntityTypeBold{}
-	_ bin.BareDecoder = &TextEntityTypeBold{}
-
-	_ TextEntityTypeClass = &TextEntityTypeBold{}
-)
-
 // TextEntityTypeItalic represents TL type `textEntityTypeItalic#f8f3965d`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeItalic for reference.
@@ -946,6 +946,19 @@ type TextEntityTypeItalic struct {
 
 // TextEntityTypeItalicTypeID is TL type id of TextEntityTypeItalic.
 const TextEntityTypeItalicTypeID = 0xf8f3965d
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeItalic) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeItalic.
+var (
+	_ bin.Encoder     = &TextEntityTypeItalic{}
+	_ bin.Decoder     = &TextEntityTypeItalic{}
+	_ bin.BareEncoder = &TextEntityTypeItalic{}
+	_ bin.BareDecoder = &TextEntityTypeItalic{}
+
+	_ TextEntityTypeClass = &TextEntityTypeItalic{}
+)
 
 func (t *TextEntityTypeItalic) Zero() bool {
 	if t == nil {
@@ -1026,19 +1039,6 @@ func (t *TextEntityTypeItalic) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeItalic) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeItalic.
-var (
-	_ bin.Encoder     = &TextEntityTypeItalic{}
-	_ bin.Decoder     = &TextEntityTypeItalic{}
-	_ bin.BareEncoder = &TextEntityTypeItalic{}
-	_ bin.BareDecoder = &TextEntityTypeItalic{}
-
-	_ TextEntityTypeClass = &TextEntityTypeItalic{}
-)
-
 // TextEntityTypeUnderline represents TL type `textEntityTypeUnderline#2f39cf92`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeUnderline for reference.
@@ -1047,6 +1047,19 @@ type TextEntityTypeUnderline struct {
 
 // TextEntityTypeUnderlineTypeID is TL type id of TextEntityTypeUnderline.
 const TextEntityTypeUnderlineTypeID = 0x2f39cf92
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeUnderline) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeUnderline.
+var (
+	_ bin.Encoder     = &TextEntityTypeUnderline{}
+	_ bin.Decoder     = &TextEntityTypeUnderline{}
+	_ bin.BareEncoder = &TextEntityTypeUnderline{}
+	_ bin.BareDecoder = &TextEntityTypeUnderline{}
+
+	_ TextEntityTypeClass = &TextEntityTypeUnderline{}
+)
 
 func (t *TextEntityTypeUnderline) Zero() bool {
 	if t == nil {
@@ -1127,19 +1140,6 @@ func (t *TextEntityTypeUnderline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeUnderline) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeUnderline.
-var (
-	_ bin.Encoder     = &TextEntityTypeUnderline{}
-	_ bin.Decoder     = &TextEntityTypeUnderline{}
-	_ bin.BareEncoder = &TextEntityTypeUnderline{}
-	_ bin.BareDecoder = &TextEntityTypeUnderline{}
-
-	_ TextEntityTypeClass = &TextEntityTypeUnderline{}
-)
-
 // TextEntityTypeStrikethrough represents TL type `textEntityTypeStrikethrough#394fc4fa`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeStrikethrough for reference.
@@ -1148,6 +1148,19 @@ type TextEntityTypeStrikethrough struct {
 
 // TextEntityTypeStrikethroughTypeID is TL type id of TextEntityTypeStrikethrough.
 const TextEntityTypeStrikethroughTypeID = 0x394fc4fa
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeStrikethrough) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeStrikethrough.
+var (
+	_ bin.Encoder     = &TextEntityTypeStrikethrough{}
+	_ bin.Decoder     = &TextEntityTypeStrikethrough{}
+	_ bin.BareEncoder = &TextEntityTypeStrikethrough{}
+	_ bin.BareDecoder = &TextEntityTypeStrikethrough{}
+
+	_ TextEntityTypeClass = &TextEntityTypeStrikethrough{}
+)
 
 func (t *TextEntityTypeStrikethrough) Zero() bool {
 	if t == nil {
@@ -1228,19 +1241,6 @@ func (t *TextEntityTypeStrikethrough) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeStrikethrough) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeStrikethrough.
-var (
-	_ bin.Encoder     = &TextEntityTypeStrikethrough{}
-	_ bin.Decoder     = &TextEntityTypeStrikethrough{}
-	_ bin.BareEncoder = &TextEntityTypeStrikethrough{}
-	_ bin.BareDecoder = &TextEntityTypeStrikethrough{}
-
-	_ TextEntityTypeClass = &TextEntityTypeStrikethrough{}
-)
-
 // TextEntityTypeCode represents TL type `textEntityTypeCode#c5e9c94a`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeCode for reference.
@@ -1249,6 +1249,19 @@ type TextEntityTypeCode struct {
 
 // TextEntityTypeCodeTypeID is TL type id of TextEntityTypeCode.
 const TextEntityTypeCodeTypeID = 0xc5e9c94a
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeCode) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeCode.
+var (
+	_ bin.Encoder     = &TextEntityTypeCode{}
+	_ bin.Decoder     = &TextEntityTypeCode{}
+	_ bin.BareEncoder = &TextEntityTypeCode{}
+	_ bin.BareDecoder = &TextEntityTypeCode{}
+
+	_ TextEntityTypeClass = &TextEntityTypeCode{}
+)
 
 func (t *TextEntityTypeCode) Zero() bool {
 	if t == nil {
@@ -1329,19 +1342,6 @@ func (t *TextEntityTypeCode) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeCode) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeCode.
-var (
-	_ bin.Encoder     = &TextEntityTypeCode{}
-	_ bin.Decoder     = &TextEntityTypeCode{}
-	_ bin.BareEncoder = &TextEntityTypeCode{}
-	_ bin.BareDecoder = &TextEntityTypeCode{}
-
-	_ TextEntityTypeClass = &TextEntityTypeCode{}
-)
-
 // TextEntityTypePre represents TL type `textEntityTypePre#62491c8e`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypePre for reference.
@@ -1350,6 +1350,19 @@ type TextEntityTypePre struct {
 
 // TextEntityTypePreTypeID is TL type id of TextEntityTypePre.
 const TextEntityTypePreTypeID = 0x62491c8e
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypePre) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypePre.
+var (
+	_ bin.Encoder     = &TextEntityTypePre{}
+	_ bin.Decoder     = &TextEntityTypePre{}
+	_ bin.BareEncoder = &TextEntityTypePre{}
+	_ bin.BareDecoder = &TextEntityTypePre{}
+
+	_ TextEntityTypeClass = &TextEntityTypePre{}
+)
 
 func (t *TextEntityTypePre) Zero() bool {
 	if t == nil {
@@ -1430,19 +1443,6 @@ func (t *TextEntityTypePre) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypePre) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypePre.
-var (
-	_ bin.Encoder     = &TextEntityTypePre{}
-	_ bin.Decoder     = &TextEntityTypePre{}
-	_ bin.BareEncoder = &TextEntityTypePre{}
-	_ bin.BareDecoder = &TextEntityTypePre{}
-
-	_ TextEntityTypeClass = &TextEntityTypePre{}
-)
-
 // TextEntityTypePreCode represents TL type `textEntityTypePreCode#c7a77aab`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypePreCode for reference.
@@ -1453,6 +1453,19 @@ type TextEntityTypePreCode struct {
 
 // TextEntityTypePreCodeTypeID is TL type id of TextEntityTypePreCode.
 const TextEntityTypePreCodeTypeID = 0xc7a77aab
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypePreCode) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypePreCode.
+var (
+	_ bin.Encoder     = &TextEntityTypePreCode{}
+	_ bin.Decoder     = &TextEntityTypePreCode{}
+	_ bin.BareEncoder = &TextEntityTypePreCode{}
+	_ bin.BareDecoder = &TextEntityTypePreCode{}
+
+	_ TextEntityTypeClass = &TextEntityTypePreCode{}
+)
 
 func (t *TextEntityTypePreCode) Zero() bool {
 	if t == nil {
@@ -1472,13 +1485,6 @@ func (t *TextEntityTypePreCode) String() string {
 	}
 	type Alias TextEntityTypePreCode
 	return fmt.Sprintf("TextEntityTypePreCode%+v", Alias(*t))
-}
-
-// FillFrom fills TextEntityTypePreCode from given interface.
-func (t *TextEntityTypePreCode) FillFrom(from interface {
-	GetLanguage() (value string)
-}) {
-	t.Language = from.GetLanguage()
 }
 
 // TypeID returns type id in TL schema.
@@ -1530,11 +1536,6 @@ func (t *TextEntityTypePreCode) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLanguage returns value of Language field.
-func (t *TextEntityTypePreCode) GetLanguage() (value string) {
-	return t.Language
-}
-
 // Decode implements bin.Decoder.
 func (t *TextEntityTypePreCode) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1561,18 +1562,10 @@ func (t *TextEntityTypePreCode) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypePreCode) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypePreCode.
-var (
-	_ bin.Encoder     = &TextEntityTypePreCode{}
-	_ bin.Decoder     = &TextEntityTypePreCode{}
-	_ bin.BareEncoder = &TextEntityTypePreCode{}
-	_ bin.BareDecoder = &TextEntityTypePreCode{}
-
-	_ TextEntityTypeClass = &TextEntityTypePreCode{}
-)
+// GetLanguage returns value of Language field.
+func (t *TextEntityTypePreCode) GetLanguage() (value string) {
+	return t.Language
+}
 
 // TextEntityTypeTextURL represents TL type `textEntityTypeTextUrl#1a912463`.
 //
@@ -1584,6 +1577,19 @@ type TextEntityTypeTextURL struct {
 
 // TextEntityTypeTextURLTypeID is TL type id of TextEntityTypeTextURL.
 const TextEntityTypeTextURLTypeID = 0x1a912463
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeTextURL) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeTextURL.
+var (
+	_ bin.Encoder     = &TextEntityTypeTextURL{}
+	_ bin.Decoder     = &TextEntityTypeTextURL{}
+	_ bin.BareEncoder = &TextEntityTypeTextURL{}
+	_ bin.BareDecoder = &TextEntityTypeTextURL{}
+
+	_ TextEntityTypeClass = &TextEntityTypeTextURL{}
+)
 
 func (t *TextEntityTypeTextURL) Zero() bool {
 	if t == nil {
@@ -1603,13 +1609,6 @@ func (t *TextEntityTypeTextURL) String() string {
 	}
 	type Alias TextEntityTypeTextURL
 	return fmt.Sprintf("TextEntityTypeTextURL%+v", Alias(*t))
-}
-
-// FillFrom fills TextEntityTypeTextURL from given interface.
-func (t *TextEntityTypeTextURL) FillFrom(from interface {
-	GetURL() (value string)
-}) {
-	t.URL = from.GetURL()
 }
 
 // TypeID returns type id in TL schema.
@@ -1661,11 +1660,6 @@ func (t *TextEntityTypeTextURL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (t *TextEntityTypeTextURL) GetURL() (value string) {
-	return t.URL
-}
-
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeTextURL) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1692,18 +1686,10 @@ func (t *TextEntityTypeTextURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeTextURL) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeTextURL.
-var (
-	_ bin.Encoder     = &TextEntityTypeTextURL{}
-	_ bin.Decoder     = &TextEntityTypeTextURL{}
-	_ bin.BareEncoder = &TextEntityTypeTextURL{}
-	_ bin.BareDecoder = &TextEntityTypeTextURL{}
-
-	_ TextEntityTypeClass = &TextEntityTypeTextURL{}
-)
+// GetURL returns value of URL field.
+func (t *TextEntityTypeTextURL) GetURL() (value string) {
+	return t.URL
+}
 
 // TextEntityTypeMentionName represents TL type `textEntityTypeMentionName#d0d2685d`.
 //
@@ -1715,6 +1701,19 @@ type TextEntityTypeMentionName struct {
 
 // TextEntityTypeMentionNameTypeID is TL type id of TextEntityTypeMentionName.
 const TextEntityTypeMentionNameTypeID = 0xd0d2685d
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeMentionName) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeMentionName.
+var (
+	_ bin.Encoder     = &TextEntityTypeMentionName{}
+	_ bin.Decoder     = &TextEntityTypeMentionName{}
+	_ bin.BareEncoder = &TextEntityTypeMentionName{}
+	_ bin.BareDecoder = &TextEntityTypeMentionName{}
+
+	_ TextEntityTypeClass = &TextEntityTypeMentionName{}
+)
 
 func (t *TextEntityTypeMentionName) Zero() bool {
 	if t == nil {
@@ -1734,13 +1733,6 @@ func (t *TextEntityTypeMentionName) String() string {
 	}
 	type Alias TextEntityTypeMentionName
 	return fmt.Sprintf("TextEntityTypeMentionName%+v", Alias(*t))
-}
-
-// FillFrom fills TextEntityTypeMentionName from given interface.
-func (t *TextEntityTypeMentionName) FillFrom(from interface {
-	GetUserID() (value int32)
-}) {
-	t.UserID = from.GetUserID()
 }
 
 // TypeID returns type id in TL schema.
@@ -1792,11 +1784,6 @@ func (t *TextEntityTypeMentionName) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (t *TextEntityTypeMentionName) GetUserID() (value int32) {
-	return t.UserID
-}
-
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeMentionName) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1823,18 +1810,10 @@ func (t *TextEntityTypeMentionName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeMentionName) construct() TextEntityTypeClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEntityTypeMentionName.
-var (
-	_ bin.Encoder     = &TextEntityTypeMentionName{}
-	_ bin.Decoder     = &TextEntityTypeMentionName{}
-	_ bin.BareEncoder = &TextEntityTypeMentionName{}
-	_ bin.BareDecoder = &TextEntityTypeMentionName{}
-
-	_ TextEntityTypeClass = &TextEntityTypeMentionName{}
-)
+// GetUserID returns value of UserID field.
+func (t *TextEntityTypeMentionName) GetUserID() (value int32) {
+	return t.UserID
+}
 
 // TextEntityTypeClass represents TextEntityType generic type.
 //
@@ -2039,371 +2018,4 @@ func (b *TextEntityTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode TextEntityTypeClass as nil")
 	}
 	return b.TextEntityType.Encode(buf)
-}
-
-// TextEntityTypeClassArray is adapter for slice of TextEntityTypeClass.
-type TextEntityTypeClassArray []TextEntityTypeClass
-
-// Sort sorts slice of TextEntityTypeClass.
-func (s TextEntityTypeClassArray) Sort(less func(a, b TextEntityTypeClass) bool) TextEntityTypeClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextEntityTypeClass.
-func (s TextEntityTypeClassArray) SortStable(less func(a, b TextEntityTypeClass) bool) TextEntityTypeClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextEntityTypeClass.
-func (s TextEntityTypeClassArray) Retain(keep func(x TextEntityTypeClass) bool) TextEntityTypeClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextEntityTypeClassArray) First() (v TextEntityTypeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextEntityTypeClassArray) Last() (v TextEntityTypeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextEntityTypeClassArray) PopFirst() (v TextEntityTypeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextEntityTypeClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextEntityTypeClassArray) Pop() (v TextEntityTypeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsTextEntityTypePreCode returns copy with only TextEntityTypePreCode constructors.
-func (s TextEntityTypeClassArray) AsTextEntityTypePreCode() (to TextEntityTypePreCodeArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextEntityTypePreCode)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextEntityTypeTextURL returns copy with only TextEntityTypeTextURL constructors.
-func (s TextEntityTypeClassArray) AsTextEntityTypeTextURL() (to TextEntityTypeTextURLArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextEntityTypeTextURL)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextEntityTypeMentionName returns copy with only TextEntityTypeMentionName constructors.
-func (s TextEntityTypeClassArray) AsTextEntityTypeMentionName() (to TextEntityTypeMentionNameArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextEntityTypeMentionName)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// TextEntityTypePreCodeArray is adapter for slice of TextEntityTypePreCode.
-type TextEntityTypePreCodeArray []TextEntityTypePreCode
-
-// Sort sorts slice of TextEntityTypePreCode.
-func (s TextEntityTypePreCodeArray) Sort(less func(a, b TextEntityTypePreCode) bool) TextEntityTypePreCodeArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextEntityTypePreCode.
-func (s TextEntityTypePreCodeArray) SortStable(less func(a, b TextEntityTypePreCode) bool) TextEntityTypePreCodeArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextEntityTypePreCode.
-func (s TextEntityTypePreCodeArray) Retain(keep func(x TextEntityTypePreCode) bool) TextEntityTypePreCodeArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextEntityTypePreCodeArray) First() (v TextEntityTypePreCode, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextEntityTypePreCodeArray) Last() (v TextEntityTypePreCode, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextEntityTypePreCodeArray) PopFirst() (v TextEntityTypePreCode, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextEntityTypePreCode
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextEntityTypePreCodeArray) Pop() (v TextEntityTypePreCode, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextEntityTypeTextURLArray is adapter for slice of TextEntityTypeTextURL.
-type TextEntityTypeTextURLArray []TextEntityTypeTextURL
-
-// Sort sorts slice of TextEntityTypeTextURL.
-func (s TextEntityTypeTextURLArray) Sort(less func(a, b TextEntityTypeTextURL) bool) TextEntityTypeTextURLArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextEntityTypeTextURL.
-func (s TextEntityTypeTextURLArray) SortStable(less func(a, b TextEntityTypeTextURL) bool) TextEntityTypeTextURLArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextEntityTypeTextURL.
-func (s TextEntityTypeTextURLArray) Retain(keep func(x TextEntityTypeTextURL) bool) TextEntityTypeTextURLArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextEntityTypeTextURLArray) First() (v TextEntityTypeTextURL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextEntityTypeTextURLArray) Last() (v TextEntityTypeTextURL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextEntityTypeTextURLArray) PopFirst() (v TextEntityTypeTextURL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextEntityTypeTextURL
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextEntityTypeTextURLArray) Pop() (v TextEntityTypeTextURL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextEntityTypeMentionNameArray is adapter for slice of TextEntityTypeMentionName.
-type TextEntityTypeMentionNameArray []TextEntityTypeMentionName
-
-// Sort sorts slice of TextEntityTypeMentionName.
-func (s TextEntityTypeMentionNameArray) Sort(less func(a, b TextEntityTypeMentionName) bool) TextEntityTypeMentionNameArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextEntityTypeMentionName.
-func (s TextEntityTypeMentionNameArray) SortStable(less func(a, b TextEntityTypeMentionName) bool) TextEntityTypeMentionNameArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextEntityTypeMentionName.
-func (s TextEntityTypeMentionNameArray) Retain(keep func(x TextEntityTypeMentionName) bool) TextEntityTypeMentionNameArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextEntityTypeMentionNameArray) First() (v TextEntityTypeMentionName, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextEntityTypeMentionNameArray) Last() (v TextEntityTypeMentionName, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextEntityTypeMentionNameArray) PopFirst() (v TextEntityTypeMentionName, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextEntityTypeMentionName
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextEntityTypeMentionNameArray) Pop() (v TextEntityTypeMentionName, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

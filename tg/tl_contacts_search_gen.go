@@ -43,6 +43,14 @@ type ContactsSearchRequest struct {
 // ContactsSearchRequestTypeID is TL type id of ContactsSearchRequest.
 const ContactsSearchRequestTypeID = 0x11f812d8
 
+// Ensuring interfaces in compile-time for ContactsSearchRequest.
+var (
+	_ bin.Encoder     = &ContactsSearchRequest{}
+	_ bin.Decoder     = &ContactsSearchRequest{}
+	_ bin.BareEncoder = &ContactsSearchRequest{}
+	_ bin.BareDecoder = &ContactsSearchRequest{}
+)
+
 func (s *ContactsSearchRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -129,16 +137,6 @@ func (s *ContactsSearchRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQ returns value of Q field.
-func (s *ContactsSearchRequest) GetQ() (value string) {
-	return s.Q
-}
-
-// GetLimit returns value of Limit field.
-func (s *ContactsSearchRequest) GetLimit() (value int) {
-	return s.Limit
-}
-
 // Decode implements bin.Decoder.
 func (s *ContactsSearchRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -172,13 +170,15 @@ func (s *ContactsSearchRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsSearchRequest.
-var (
-	_ bin.Encoder     = &ContactsSearchRequest{}
-	_ bin.Decoder     = &ContactsSearchRequest{}
-	_ bin.BareEncoder = &ContactsSearchRequest{}
-	_ bin.BareDecoder = &ContactsSearchRequest{}
-)
+// GetQ returns value of Q field.
+func (s *ContactsSearchRequest) GetQ() (value string) {
+	return s.Q
+}
+
+// GetLimit returns value of Limit field.
+func (s *ContactsSearchRequest) GetLimit() (value int) {
+	return s.Limit
+}
 
 // ContactsSearch invokes method contacts.search#11f812d8 returning error if any.
 // Returns users found by username substring.

@@ -46,6 +46,14 @@ type ContactsResetTopPeerRatingRequest struct {
 // ContactsResetTopPeerRatingRequestTypeID is TL type id of ContactsResetTopPeerRatingRequest.
 const ContactsResetTopPeerRatingRequestTypeID = 0x1ae373ac
 
+// Ensuring interfaces in compile-time for ContactsResetTopPeerRatingRequest.
+var (
+	_ bin.Encoder     = &ContactsResetTopPeerRatingRequest{}
+	_ bin.Decoder     = &ContactsResetTopPeerRatingRequest{}
+	_ bin.BareEncoder = &ContactsResetTopPeerRatingRequest{}
+	_ bin.BareDecoder = &ContactsResetTopPeerRatingRequest{}
+)
+
 func (r *ContactsResetTopPeerRatingRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -142,16 +150,6 @@ func (r *ContactsResetTopPeerRatingRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCategory returns value of Category field.
-func (r *ContactsResetTopPeerRatingRequest) GetCategory() (value TopPeerCategoryClass) {
-	return r.Category
-}
-
-// GetPeer returns value of Peer field.
-func (r *ContactsResetTopPeerRatingRequest) GetPeer() (value InputPeerClass) {
-	return r.Peer
-}
-
 // Decode implements bin.Decoder.
 func (r *ContactsResetTopPeerRatingRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -185,13 +183,15 @@ func (r *ContactsResetTopPeerRatingRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsResetTopPeerRatingRequest.
-var (
-	_ bin.Encoder     = &ContactsResetTopPeerRatingRequest{}
-	_ bin.Decoder     = &ContactsResetTopPeerRatingRequest{}
-	_ bin.BareEncoder = &ContactsResetTopPeerRatingRequest{}
-	_ bin.BareDecoder = &ContactsResetTopPeerRatingRequest{}
-)
+// GetCategory returns value of Category field.
+func (r *ContactsResetTopPeerRatingRequest) GetCategory() (value TopPeerCategoryClass) {
+	return r.Category
+}
+
+// GetPeer returns value of Peer field.
+func (r *ContactsResetTopPeerRatingRequest) GetPeer() (value InputPeerClass) {
+	return r.Peer
+}
 
 // ContactsResetTopPeerRating invokes method contacts.resetTopPeerRating#1ae373ac returning error if any.
 // Reset rating¹ of top peer

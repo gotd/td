@@ -39,6 +39,14 @@ type AccountGetAccountTTLRequest struct {
 // AccountGetAccountTTLRequestTypeID is TL type id of AccountGetAccountTTLRequest.
 const AccountGetAccountTTLRequestTypeID = 0x8fc711d
 
+// Ensuring interfaces in compile-time for AccountGetAccountTTLRequest.
+var (
+	_ bin.Encoder     = &AccountGetAccountTTLRequest{}
+	_ bin.Decoder     = &AccountGetAccountTTLRequest{}
+	_ bin.BareEncoder = &AccountGetAccountTTLRequest{}
+	_ bin.BareDecoder = &AccountGetAccountTTLRequest{}
+)
+
 func (g *AccountGetAccountTTLRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *AccountGetAccountTTLRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountGetAccountTTLRequest.
-var (
-	_ bin.Encoder     = &AccountGetAccountTTLRequest{}
-	_ bin.Decoder     = &AccountGetAccountTTLRequest{}
-	_ bin.BareEncoder = &AccountGetAccountTTLRequest{}
-	_ bin.BareDecoder = &AccountGetAccountTTLRequest{}
-)
 
 // AccountGetAccountTTL invokes method account.getAccountTTL#8fc711d returning error if any.
 // Get days to live of account

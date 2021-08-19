@@ -41,6 +41,19 @@ type MessagesFeaturedStickersNotModified struct {
 // MessagesFeaturedStickersNotModifiedTypeID is TL type id of MessagesFeaturedStickersNotModified.
 const MessagesFeaturedStickersNotModifiedTypeID = 0xc6dc0c66
 
+// construct implements constructor of MessagesFeaturedStickersClass.
+func (f MessagesFeaturedStickersNotModified) construct() MessagesFeaturedStickersClass { return &f }
+
+// Ensuring interfaces in compile-time for MessagesFeaturedStickersNotModified.
+var (
+	_ bin.Encoder     = &MessagesFeaturedStickersNotModified{}
+	_ bin.Decoder     = &MessagesFeaturedStickersNotModified{}
+	_ bin.BareEncoder = &MessagesFeaturedStickersNotModified{}
+	_ bin.BareDecoder = &MessagesFeaturedStickersNotModified{}
+
+	_ MessagesFeaturedStickersClass = &MessagesFeaturedStickersNotModified{}
+)
+
 func (f *MessagesFeaturedStickersNotModified) Zero() bool {
 	if f == nil {
 		return true
@@ -117,11 +130,6 @@ func (f *MessagesFeaturedStickersNotModified) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (f *MessagesFeaturedStickersNotModified) GetCount() (value int) {
-	return f.Count
-}
-
 // Decode implements bin.Decoder.
 func (f *MessagesFeaturedStickersNotModified) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -148,18 +156,10 @@ func (f *MessagesFeaturedStickersNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFeaturedStickersClass.
-func (f MessagesFeaturedStickersNotModified) construct() MessagesFeaturedStickersClass { return &f }
-
-// Ensuring interfaces in compile-time for MessagesFeaturedStickersNotModified.
-var (
-	_ bin.Encoder     = &MessagesFeaturedStickersNotModified{}
-	_ bin.Decoder     = &MessagesFeaturedStickersNotModified{}
-	_ bin.BareEncoder = &MessagesFeaturedStickersNotModified{}
-	_ bin.BareDecoder = &MessagesFeaturedStickersNotModified{}
-
-	_ MessagesFeaturedStickersClass = &MessagesFeaturedStickersNotModified{}
-)
+// GetCount returns value of Count field.
+func (f *MessagesFeaturedStickersNotModified) GetCount() (value int) {
+	return f.Count
+}
 
 // MessagesFeaturedStickers represents TL type `messages.featuredStickers#b6abc341`.
 // Featured stickersets
@@ -181,6 +181,19 @@ type MessagesFeaturedStickers struct {
 
 // MessagesFeaturedStickersTypeID is TL type id of MessagesFeaturedStickers.
 const MessagesFeaturedStickersTypeID = 0xb6abc341
+
+// construct implements constructor of MessagesFeaturedStickersClass.
+func (f MessagesFeaturedStickers) construct() MessagesFeaturedStickersClass { return &f }
+
+// Ensuring interfaces in compile-time for MessagesFeaturedStickers.
+var (
+	_ bin.Encoder     = &MessagesFeaturedStickers{}
+	_ bin.Decoder     = &MessagesFeaturedStickers{}
+	_ bin.BareEncoder = &MessagesFeaturedStickers{}
+	_ bin.BareDecoder = &MessagesFeaturedStickers{}
+
+	_ MessagesFeaturedStickersClass = &MessagesFeaturedStickers{}
+)
 
 func (f *MessagesFeaturedStickers) Zero() bool {
 	if f == nil {
@@ -299,31 +312,6 @@ func (f *MessagesFeaturedStickers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (f *MessagesFeaturedStickers) GetHash() (value int) {
-	return f.Hash
-}
-
-// GetCount returns value of Count field.
-func (f *MessagesFeaturedStickers) GetCount() (value int) {
-	return f.Count
-}
-
-// GetSets returns value of Sets field.
-func (f *MessagesFeaturedStickers) GetSets() (value []StickerSetCoveredClass) {
-	return f.Sets
-}
-
-// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
-func (f *MessagesFeaturedStickers) MapSets() (value StickerSetCoveredClassArray) {
-	return StickerSetCoveredClassArray(f.Sets)
-}
-
-// GetUnread returns value of Unread field.
-func (f *MessagesFeaturedStickers) GetUnread() (value []int64) {
-	return f.Unread
-}
-
 // Decode implements bin.Decoder.
 func (f *MessagesFeaturedStickers) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -391,18 +379,30 @@ func (f *MessagesFeaturedStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFeaturedStickersClass.
-func (f MessagesFeaturedStickers) construct() MessagesFeaturedStickersClass { return &f }
+// GetHash returns value of Hash field.
+func (f *MessagesFeaturedStickers) GetHash() (value int) {
+	return f.Hash
+}
 
-// Ensuring interfaces in compile-time for MessagesFeaturedStickers.
-var (
-	_ bin.Encoder     = &MessagesFeaturedStickers{}
-	_ bin.Decoder     = &MessagesFeaturedStickers{}
-	_ bin.BareEncoder = &MessagesFeaturedStickers{}
-	_ bin.BareDecoder = &MessagesFeaturedStickers{}
+// GetCount returns value of Count field.
+func (f *MessagesFeaturedStickers) GetCount() (value int) {
+	return f.Count
+}
 
-	_ MessagesFeaturedStickersClass = &MessagesFeaturedStickers{}
-)
+// GetSets returns value of Sets field.
+func (f *MessagesFeaturedStickers) GetSets() (value []StickerSetCoveredClass) {
+	return f.Sets
+}
+
+// GetUnread returns value of Unread field.
+func (f *MessagesFeaturedStickers) GetUnread() (value []int64) {
+	return f.Unread
+}
+
+// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
+func (f *MessagesFeaturedStickers) MapSets() (value StickerSetCoveredClassArray) {
+	return StickerSetCoveredClassArray(f.Sets)
+}
 
 // MessagesFeaturedStickersClass represents messages.FeaturedStickers generic type.
 //

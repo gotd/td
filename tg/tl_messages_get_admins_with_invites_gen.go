@@ -40,6 +40,14 @@ type MessagesGetAdminsWithInvitesRequest struct {
 // MessagesGetAdminsWithInvitesRequestTypeID is TL type id of MessagesGetAdminsWithInvitesRequest.
 const MessagesGetAdminsWithInvitesRequestTypeID = 0x3920e6ef
 
+// Ensuring interfaces in compile-time for MessagesGetAdminsWithInvitesRequest.
+var (
+	_ bin.Encoder     = &MessagesGetAdminsWithInvitesRequest{}
+	_ bin.Decoder     = &MessagesGetAdminsWithInvitesRequest{}
+	_ bin.BareEncoder = &MessagesGetAdminsWithInvitesRequest{}
+	_ bin.BareDecoder = &MessagesGetAdminsWithInvitesRequest{}
+)
+
 func (g *MessagesGetAdminsWithInvitesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -121,11 +129,6 @@ func (g *MessagesGetAdminsWithInvitesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetAdminsWithInvitesRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetAdminsWithInvitesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -152,13 +155,10 @@ func (g *MessagesGetAdminsWithInvitesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetAdminsWithInvitesRequest.
-var (
-	_ bin.Encoder     = &MessagesGetAdminsWithInvitesRequest{}
-	_ bin.Decoder     = &MessagesGetAdminsWithInvitesRequest{}
-	_ bin.BareEncoder = &MessagesGetAdminsWithInvitesRequest{}
-	_ bin.BareDecoder = &MessagesGetAdminsWithInvitesRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetAdminsWithInvitesRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
 
 // MessagesGetAdminsWithInvites invokes method messages.getAdminsWithInvites#3920e6ef returning error if any.
 //

@@ -39,6 +39,19 @@ type InputChatPhotoEmpty struct {
 // InputChatPhotoEmptyTypeID is TL type id of InputChatPhotoEmpty.
 const InputChatPhotoEmptyTypeID = 0x1ca48f57
 
+// construct implements constructor of InputChatPhotoClass.
+func (i InputChatPhotoEmpty) construct() InputChatPhotoClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChatPhotoEmpty.
+var (
+	_ bin.Encoder     = &InputChatPhotoEmpty{}
+	_ bin.Decoder     = &InputChatPhotoEmpty{}
+	_ bin.BareEncoder = &InputChatPhotoEmpty{}
+	_ bin.BareDecoder = &InputChatPhotoEmpty{}
+
+	_ InputChatPhotoClass = &InputChatPhotoEmpty{}
+)
+
 func (i *InputChatPhotoEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputChatPhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputChatPhotoClass.
-func (i InputChatPhotoEmpty) construct() InputChatPhotoClass { return &i }
-
-// Ensuring interfaces in compile-time for InputChatPhotoEmpty.
-var (
-	_ bin.Encoder     = &InputChatPhotoEmpty{}
-	_ bin.Decoder     = &InputChatPhotoEmpty{}
-	_ bin.BareEncoder = &InputChatPhotoEmpty{}
-	_ bin.BareDecoder = &InputChatPhotoEmpty{}
-
-	_ InputChatPhotoClass = &InputChatPhotoEmpty{}
-)
-
 // InputChatUploadedPhoto represents TL type `inputChatUploadedPhoto#c642724e`.
 // New photo to be set as group profile photo.
 //
@@ -160,6 +160,19 @@ type InputChatUploadedPhoto struct {
 
 // InputChatUploadedPhotoTypeID is TL type id of InputChatUploadedPhoto.
 const InputChatUploadedPhotoTypeID = 0xc642724e
+
+// construct implements constructor of InputChatPhotoClass.
+func (i InputChatUploadedPhoto) construct() InputChatPhotoClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChatUploadedPhoto.
+var (
+	_ bin.Encoder     = &InputChatUploadedPhoto{}
+	_ bin.Decoder     = &InputChatUploadedPhoto{}
+	_ bin.BareEncoder = &InputChatUploadedPhoto{}
+	_ bin.BareDecoder = &InputChatUploadedPhoto{}
+
+	_ InputChatPhotoClass = &InputChatUploadedPhoto{}
+)
 
 func (i *InputChatUploadedPhoto) Zero() bool {
 	if i == nil {
@@ -300,51 +313,6 @@ func (i *InputChatUploadedPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFile sets value of File conditional field.
-func (i *InputChatUploadedPhoto) SetFile(value InputFileClass) {
-	i.Flags.Set(0)
-	i.File = value
-}
-
-// GetFile returns value of File conditional field and
-// boolean which is true if field was set.
-func (i *InputChatUploadedPhoto) GetFile() (value InputFileClass, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.File, true
-}
-
-// SetVideo sets value of Video conditional field.
-func (i *InputChatUploadedPhoto) SetVideo(value InputFileClass) {
-	i.Flags.Set(1)
-	i.Video = value
-}
-
-// GetVideo returns value of Video conditional field and
-// boolean which is true if field was set.
-func (i *InputChatUploadedPhoto) GetVideo() (value InputFileClass, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.Video, true
-}
-
-// SetVideoStartTs sets value of VideoStartTs conditional field.
-func (i *InputChatUploadedPhoto) SetVideoStartTs(value float64) {
-	i.Flags.Set(2)
-	i.VideoStartTs = value
-}
-
-// GetVideoStartTs returns value of VideoStartTs conditional field and
-// boolean which is true if field was set.
-func (i *InputChatUploadedPhoto) GetVideoStartTs() (value float64, ok bool) {
-	if !i.Flags.Has(2) {
-		return value, false
-	}
-	return i.VideoStartTs, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputChatUploadedPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -390,18 +358,50 @@ func (i *InputChatUploadedPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputChatPhotoClass.
-func (i InputChatUploadedPhoto) construct() InputChatPhotoClass { return &i }
+// SetFile sets value of File conditional field.
+func (i *InputChatUploadedPhoto) SetFile(value InputFileClass) {
+	i.Flags.Set(0)
+	i.File = value
+}
 
-// Ensuring interfaces in compile-time for InputChatUploadedPhoto.
-var (
-	_ bin.Encoder     = &InputChatUploadedPhoto{}
-	_ bin.Decoder     = &InputChatUploadedPhoto{}
-	_ bin.BareEncoder = &InputChatUploadedPhoto{}
-	_ bin.BareDecoder = &InputChatUploadedPhoto{}
+// GetFile returns value of File conditional field and
+// boolean which is true if field was set.
+func (i *InputChatUploadedPhoto) GetFile() (value InputFileClass, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.File, true
+}
 
-	_ InputChatPhotoClass = &InputChatUploadedPhoto{}
-)
+// SetVideo sets value of Video conditional field.
+func (i *InputChatUploadedPhoto) SetVideo(value InputFileClass) {
+	i.Flags.Set(1)
+	i.Video = value
+}
+
+// GetVideo returns value of Video conditional field and
+// boolean which is true if field was set.
+func (i *InputChatUploadedPhoto) GetVideo() (value InputFileClass, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Video, true
+}
+
+// SetVideoStartTs sets value of VideoStartTs conditional field.
+func (i *InputChatUploadedPhoto) SetVideoStartTs(value float64) {
+	i.Flags.Set(2)
+	i.VideoStartTs = value
+}
+
+// GetVideoStartTs returns value of VideoStartTs conditional field and
+// boolean which is true if field was set.
+func (i *InputChatUploadedPhoto) GetVideoStartTs() (value float64, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.VideoStartTs, true
+}
 
 // InputChatPhoto represents TL type `inputChatPhoto#8953ad37`.
 // Existing photo to be set as a chat profile photo.
@@ -414,6 +414,19 @@ type InputChatPhoto struct {
 
 // InputChatPhotoTypeID is TL type id of InputChatPhoto.
 const InputChatPhotoTypeID = 0x8953ad37
+
+// construct implements constructor of InputChatPhotoClass.
+func (i InputChatPhoto) construct() InputChatPhotoClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChatPhoto.
+var (
+	_ bin.Encoder     = &InputChatPhoto{}
+	_ bin.Decoder     = &InputChatPhoto{}
+	_ bin.BareEncoder = &InputChatPhoto{}
+	_ bin.BareDecoder = &InputChatPhoto{}
+
+	_ InputChatPhotoClass = &InputChatPhoto{}
+)
 
 func (i *InputChatPhoto) Zero() bool {
 	if i == nil {
@@ -496,11 +509,6 @@ func (i *InputChatPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputChatPhoto) GetID() (value InputPhotoClass) {
-	return i.ID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputChatPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -527,18 +535,10 @@ func (i *InputChatPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputChatPhotoClass.
-func (i InputChatPhoto) construct() InputChatPhotoClass { return &i }
-
-// Ensuring interfaces in compile-time for InputChatPhoto.
-var (
-	_ bin.Encoder     = &InputChatPhoto{}
-	_ bin.Decoder     = &InputChatPhoto{}
-	_ bin.BareEncoder = &InputChatPhoto{}
-	_ bin.BareDecoder = &InputChatPhoto{}
-
-	_ InputChatPhotoClass = &InputChatPhoto{}
-)
+// GetID returns value of ID field.
+func (i *InputChatPhoto) GetID() (value InputPhotoClass) {
+	return i.ID
+}
 
 // InputChatPhotoClass represents InputChatPhoto generic type.
 //

@@ -39,6 +39,19 @@ type ChannelParticipantsRecent struct {
 // ChannelParticipantsRecentTypeID is TL type id of ChannelParticipantsRecent.
 const ChannelParticipantsRecentTypeID = 0xde3f3c79
 
+// construct implements constructor of ChannelParticipantsFilterClass.
+func (c ChannelParticipantsRecent) construct() ChannelParticipantsFilterClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantsRecent.
+var (
+	_ bin.Encoder     = &ChannelParticipantsRecent{}
+	_ bin.Decoder     = &ChannelParticipantsRecent{}
+	_ bin.BareEncoder = &ChannelParticipantsRecent{}
+	_ bin.BareDecoder = &ChannelParticipantsRecent{}
+
+	_ ChannelParticipantsFilterClass = &ChannelParticipantsRecent{}
+)
+
 func (c *ChannelParticipantsRecent) Zero() bool {
 	if c == nil {
 		return true
@@ -118,19 +131,6 @@ func (c *ChannelParticipantsRecent) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantsFilterClass.
-func (c ChannelParticipantsRecent) construct() ChannelParticipantsFilterClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelParticipantsRecent.
-var (
-	_ bin.Encoder     = &ChannelParticipantsRecent{}
-	_ bin.Decoder     = &ChannelParticipantsRecent{}
-	_ bin.BareEncoder = &ChannelParticipantsRecent{}
-	_ bin.BareDecoder = &ChannelParticipantsRecent{}
-
-	_ ChannelParticipantsFilterClass = &ChannelParticipantsRecent{}
-)
-
 // ChannelParticipantsAdmins represents TL type `channelParticipantsAdmins#b4608969`.
 // Fetch only admin participants
 //
@@ -140,6 +140,19 @@ type ChannelParticipantsAdmins struct {
 
 // ChannelParticipantsAdminsTypeID is TL type id of ChannelParticipantsAdmins.
 const ChannelParticipantsAdminsTypeID = 0xb4608969
+
+// construct implements constructor of ChannelParticipantsFilterClass.
+func (c ChannelParticipantsAdmins) construct() ChannelParticipantsFilterClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantsAdmins.
+var (
+	_ bin.Encoder     = &ChannelParticipantsAdmins{}
+	_ bin.Decoder     = &ChannelParticipantsAdmins{}
+	_ bin.BareEncoder = &ChannelParticipantsAdmins{}
+	_ bin.BareDecoder = &ChannelParticipantsAdmins{}
+
+	_ ChannelParticipantsFilterClass = &ChannelParticipantsAdmins{}
+)
 
 func (c *ChannelParticipantsAdmins) Zero() bool {
 	if c == nil {
@@ -220,19 +233,6 @@ func (c *ChannelParticipantsAdmins) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantsFilterClass.
-func (c ChannelParticipantsAdmins) construct() ChannelParticipantsFilterClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelParticipantsAdmins.
-var (
-	_ bin.Encoder     = &ChannelParticipantsAdmins{}
-	_ bin.Decoder     = &ChannelParticipantsAdmins{}
-	_ bin.BareEncoder = &ChannelParticipantsAdmins{}
-	_ bin.BareDecoder = &ChannelParticipantsAdmins{}
-
-	_ ChannelParticipantsFilterClass = &ChannelParticipantsAdmins{}
-)
-
 // ChannelParticipantsKicked represents TL type `channelParticipantsKicked#a3b54985`.
 // Fetch only kicked participants
 //
@@ -244,6 +244,19 @@ type ChannelParticipantsKicked struct {
 
 // ChannelParticipantsKickedTypeID is TL type id of ChannelParticipantsKicked.
 const ChannelParticipantsKickedTypeID = 0xa3b54985
+
+// construct implements constructor of ChannelParticipantsFilterClass.
+func (c ChannelParticipantsKicked) construct() ChannelParticipantsFilterClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantsKicked.
+var (
+	_ bin.Encoder     = &ChannelParticipantsKicked{}
+	_ bin.Decoder     = &ChannelParticipantsKicked{}
+	_ bin.BareEncoder = &ChannelParticipantsKicked{}
+	_ bin.BareDecoder = &ChannelParticipantsKicked{}
+
+	_ ChannelParticipantsFilterClass = &ChannelParticipantsKicked{}
+)
 
 func (c *ChannelParticipantsKicked) Zero() bool {
 	if c == nil {
@@ -321,11 +334,6 @@ func (c *ChannelParticipantsKicked) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQ returns value of Q field.
-func (c *ChannelParticipantsKicked) GetQ() (value string) {
-	return c.Q
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantsKicked) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -352,18 +360,10 @@ func (c *ChannelParticipantsKicked) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantsFilterClass.
-func (c ChannelParticipantsKicked) construct() ChannelParticipantsFilterClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelParticipantsKicked.
-var (
-	_ bin.Encoder     = &ChannelParticipantsKicked{}
-	_ bin.Decoder     = &ChannelParticipantsKicked{}
-	_ bin.BareEncoder = &ChannelParticipantsKicked{}
-	_ bin.BareDecoder = &ChannelParticipantsKicked{}
-
-	_ ChannelParticipantsFilterClass = &ChannelParticipantsKicked{}
-)
+// GetQ returns value of Q field.
+func (c *ChannelParticipantsKicked) GetQ() (value string) {
+	return c.Q
+}
 
 // ChannelParticipantsBots represents TL type `channelParticipantsBots#b0d1865b`.
 // Fetch only bot participants
@@ -374,6 +374,19 @@ type ChannelParticipantsBots struct {
 
 // ChannelParticipantsBotsTypeID is TL type id of ChannelParticipantsBots.
 const ChannelParticipantsBotsTypeID = 0xb0d1865b
+
+// construct implements constructor of ChannelParticipantsFilterClass.
+func (c ChannelParticipantsBots) construct() ChannelParticipantsFilterClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantsBots.
+var (
+	_ bin.Encoder     = &ChannelParticipantsBots{}
+	_ bin.Decoder     = &ChannelParticipantsBots{}
+	_ bin.BareEncoder = &ChannelParticipantsBots{}
+	_ bin.BareDecoder = &ChannelParticipantsBots{}
+
+	_ ChannelParticipantsFilterClass = &ChannelParticipantsBots{}
+)
 
 func (c *ChannelParticipantsBots) Zero() bool {
 	if c == nil {
@@ -454,19 +467,6 @@ func (c *ChannelParticipantsBots) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantsFilterClass.
-func (c ChannelParticipantsBots) construct() ChannelParticipantsFilterClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelParticipantsBots.
-var (
-	_ bin.Encoder     = &ChannelParticipantsBots{}
-	_ bin.Decoder     = &ChannelParticipantsBots{}
-	_ bin.BareEncoder = &ChannelParticipantsBots{}
-	_ bin.BareDecoder = &ChannelParticipantsBots{}
-
-	_ ChannelParticipantsFilterClass = &ChannelParticipantsBots{}
-)
-
 // ChannelParticipantsBanned represents TL type `channelParticipantsBanned#1427a5e1`.
 // Fetch only banned participants
 //
@@ -478,6 +478,19 @@ type ChannelParticipantsBanned struct {
 
 // ChannelParticipantsBannedTypeID is TL type id of ChannelParticipantsBanned.
 const ChannelParticipantsBannedTypeID = 0x1427a5e1
+
+// construct implements constructor of ChannelParticipantsFilterClass.
+func (c ChannelParticipantsBanned) construct() ChannelParticipantsFilterClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantsBanned.
+var (
+	_ bin.Encoder     = &ChannelParticipantsBanned{}
+	_ bin.Decoder     = &ChannelParticipantsBanned{}
+	_ bin.BareEncoder = &ChannelParticipantsBanned{}
+	_ bin.BareDecoder = &ChannelParticipantsBanned{}
+
+	_ ChannelParticipantsFilterClass = &ChannelParticipantsBanned{}
+)
 
 func (c *ChannelParticipantsBanned) Zero() bool {
 	if c == nil {
@@ -555,11 +568,6 @@ func (c *ChannelParticipantsBanned) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQ returns value of Q field.
-func (c *ChannelParticipantsBanned) GetQ() (value string) {
-	return c.Q
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantsBanned) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -586,18 +594,10 @@ func (c *ChannelParticipantsBanned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantsFilterClass.
-func (c ChannelParticipantsBanned) construct() ChannelParticipantsFilterClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelParticipantsBanned.
-var (
-	_ bin.Encoder     = &ChannelParticipantsBanned{}
-	_ bin.Decoder     = &ChannelParticipantsBanned{}
-	_ bin.BareEncoder = &ChannelParticipantsBanned{}
-	_ bin.BareDecoder = &ChannelParticipantsBanned{}
-
-	_ ChannelParticipantsFilterClass = &ChannelParticipantsBanned{}
-)
+// GetQ returns value of Q field.
+func (c *ChannelParticipantsBanned) GetQ() (value string) {
+	return c.Q
+}
 
 // ChannelParticipantsSearch represents TL type `channelParticipantsSearch#656ac4b`.
 // Query participants by name
@@ -610,6 +610,19 @@ type ChannelParticipantsSearch struct {
 
 // ChannelParticipantsSearchTypeID is TL type id of ChannelParticipantsSearch.
 const ChannelParticipantsSearchTypeID = 0x656ac4b
+
+// construct implements constructor of ChannelParticipantsFilterClass.
+func (c ChannelParticipantsSearch) construct() ChannelParticipantsFilterClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantsSearch.
+var (
+	_ bin.Encoder     = &ChannelParticipantsSearch{}
+	_ bin.Decoder     = &ChannelParticipantsSearch{}
+	_ bin.BareEncoder = &ChannelParticipantsSearch{}
+	_ bin.BareDecoder = &ChannelParticipantsSearch{}
+
+	_ ChannelParticipantsFilterClass = &ChannelParticipantsSearch{}
+)
 
 func (c *ChannelParticipantsSearch) Zero() bool {
 	if c == nil {
@@ -687,11 +700,6 @@ func (c *ChannelParticipantsSearch) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQ returns value of Q field.
-func (c *ChannelParticipantsSearch) GetQ() (value string) {
-	return c.Q
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantsSearch) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -718,18 +726,10 @@ func (c *ChannelParticipantsSearch) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantsFilterClass.
-func (c ChannelParticipantsSearch) construct() ChannelParticipantsFilterClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelParticipantsSearch.
-var (
-	_ bin.Encoder     = &ChannelParticipantsSearch{}
-	_ bin.Decoder     = &ChannelParticipantsSearch{}
-	_ bin.BareEncoder = &ChannelParticipantsSearch{}
-	_ bin.BareDecoder = &ChannelParticipantsSearch{}
-
-	_ ChannelParticipantsFilterClass = &ChannelParticipantsSearch{}
-)
+// GetQ returns value of Q field.
+func (c *ChannelParticipantsSearch) GetQ() (value string) {
+	return c.Q
+}
 
 // ChannelParticipantsContacts represents TL type `channelParticipantsContacts#bb6ae88d`.
 // Fetch only participants that are also contacts
@@ -742,6 +742,19 @@ type ChannelParticipantsContacts struct {
 
 // ChannelParticipantsContactsTypeID is TL type id of ChannelParticipantsContacts.
 const ChannelParticipantsContactsTypeID = 0xbb6ae88d
+
+// construct implements constructor of ChannelParticipantsFilterClass.
+func (c ChannelParticipantsContacts) construct() ChannelParticipantsFilterClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantsContacts.
+var (
+	_ bin.Encoder     = &ChannelParticipantsContacts{}
+	_ bin.Decoder     = &ChannelParticipantsContacts{}
+	_ bin.BareEncoder = &ChannelParticipantsContacts{}
+	_ bin.BareDecoder = &ChannelParticipantsContacts{}
+
+	_ ChannelParticipantsFilterClass = &ChannelParticipantsContacts{}
+)
 
 func (c *ChannelParticipantsContacts) Zero() bool {
 	if c == nil {
@@ -819,11 +832,6 @@ func (c *ChannelParticipantsContacts) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQ returns value of Q field.
-func (c *ChannelParticipantsContacts) GetQ() (value string) {
-	return c.Q
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantsContacts) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -850,18 +858,10 @@ func (c *ChannelParticipantsContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantsFilterClass.
-func (c ChannelParticipantsContacts) construct() ChannelParticipantsFilterClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelParticipantsContacts.
-var (
-	_ bin.Encoder     = &ChannelParticipantsContacts{}
-	_ bin.Decoder     = &ChannelParticipantsContacts{}
-	_ bin.BareEncoder = &ChannelParticipantsContacts{}
-	_ bin.BareDecoder = &ChannelParticipantsContacts{}
-
-	_ ChannelParticipantsFilterClass = &ChannelParticipantsContacts{}
-)
+// GetQ returns value of Q field.
+func (c *ChannelParticipantsContacts) GetQ() (value string) {
+	return c.Q
+}
 
 // ChannelParticipantsMentions represents TL type `channelParticipantsMentions#e04b5ceb`.
 // This filter is used when looking for supergroup members to mention.
@@ -895,6 +895,19 @@ type ChannelParticipantsMentions struct {
 
 // ChannelParticipantsMentionsTypeID is TL type id of ChannelParticipantsMentions.
 const ChannelParticipantsMentionsTypeID = 0xe04b5ceb
+
+// construct implements constructor of ChannelParticipantsFilterClass.
+func (c ChannelParticipantsMentions) construct() ChannelParticipantsFilterClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantsMentions.
+var (
+	_ bin.Encoder     = &ChannelParticipantsMentions{}
+	_ bin.Decoder     = &ChannelParticipantsMentions{}
+	_ bin.BareEncoder = &ChannelParticipantsMentions{}
+	_ bin.BareDecoder = &ChannelParticipantsMentions{}
+
+	_ ChannelParticipantsFilterClass = &ChannelParticipantsMentions{}
+)
 
 func (c *ChannelParticipantsMentions) Zero() bool {
 	if c == nil {
@@ -1006,36 +1019,6 @@ func (c *ChannelParticipantsMentions) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetQ sets value of Q conditional field.
-func (c *ChannelParticipantsMentions) SetQ(value string) {
-	c.Flags.Set(0)
-	c.Q = value
-}
-
-// GetQ returns value of Q conditional field and
-// boolean which is true if field was set.
-func (c *ChannelParticipantsMentions) GetQ() (value string, ok bool) {
-	if !c.Flags.Has(0) {
-		return value, false
-	}
-	return c.Q, true
-}
-
-// SetTopMsgID sets value of TopMsgID conditional field.
-func (c *ChannelParticipantsMentions) SetTopMsgID(value int) {
-	c.Flags.Set(1)
-	c.TopMsgID = value
-}
-
-// GetTopMsgID returns value of TopMsgID conditional field and
-// boolean which is true if field was set.
-func (c *ChannelParticipantsMentions) GetTopMsgID() (value int, ok bool) {
-	if !c.Flags.Has(1) {
-		return value, false
-	}
-	return c.TopMsgID, true
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantsMentions) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -1074,18 +1057,35 @@ func (c *ChannelParticipantsMentions) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantsFilterClass.
-func (c ChannelParticipantsMentions) construct() ChannelParticipantsFilterClass { return &c }
+// SetQ sets value of Q conditional field.
+func (c *ChannelParticipantsMentions) SetQ(value string) {
+	c.Flags.Set(0)
+	c.Q = value
+}
 
-// Ensuring interfaces in compile-time for ChannelParticipantsMentions.
-var (
-	_ bin.Encoder     = &ChannelParticipantsMentions{}
-	_ bin.Decoder     = &ChannelParticipantsMentions{}
-	_ bin.BareEncoder = &ChannelParticipantsMentions{}
-	_ bin.BareDecoder = &ChannelParticipantsMentions{}
+// GetQ returns value of Q conditional field and
+// boolean which is true if field was set.
+func (c *ChannelParticipantsMentions) GetQ() (value string, ok bool) {
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.Q, true
+}
 
-	_ ChannelParticipantsFilterClass = &ChannelParticipantsMentions{}
-)
+// SetTopMsgID sets value of TopMsgID conditional field.
+func (c *ChannelParticipantsMentions) SetTopMsgID(value int) {
+	c.Flags.Set(1)
+	c.TopMsgID = value
+}
+
+// GetTopMsgID returns value of TopMsgID conditional field and
+// boolean which is true if field was set.
+func (c *ChannelParticipantsMentions) GetTopMsgID() (value int, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.TopMsgID, true
+}
 
 // ChannelParticipantsFilterClass represents ChannelParticipantsFilter generic type.
 //

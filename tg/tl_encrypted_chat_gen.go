@@ -41,6 +41,19 @@ type EncryptedChatEmpty struct {
 // EncryptedChatEmptyTypeID is TL type id of EncryptedChatEmpty.
 const EncryptedChatEmptyTypeID = 0xab7ec0a0
 
+// construct implements constructor of EncryptedChatClass.
+func (e EncryptedChatEmpty) construct() EncryptedChatClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedChatEmpty.
+var (
+	_ bin.Encoder     = &EncryptedChatEmpty{}
+	_ bin.Decoder     = &EncryptedChatEmpty{}
+	_ bin.BareEncoder = &EncryptedChatEmpty{}
+	_ bin.BareDecoder = &EncryptedChatEmpty{}
+
+	_ EncryptedChatClass = &EncryptedChatEmpty{}
+)
+
 func (e *EncryptedChatEmpty) Zero() bool {
 	if e == nil {
 		return true
@@ -117,11 +130,6 @@ func (e *EncryptedChatEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (e *EncryptedChatEmpty) GetID() (value int) {
-	return e.ID
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedChatEmpty) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -148,18 +156,10 @@ func (e *EncryptedChatEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedChatClass.
-func (e EncryptedChatEmpty) construct() EncryptedChatClass { return &e }
-
-// Ensuring interfaces in compile-time for EncryptedChatEmpty.
-var (
-	_ bin.Encoder     = &EncryptedChatEmpty{}
-	_ bin.Decoder     = &EncryptedChatEmpty{}
-	_ bin.BareEncoder = &EncryptedChatEmpty{}
-	_ bin.BareDecoder = &EncryptedChatEmpty{}
-
-	_ EncryptedChatClass = &EncryptedChatEmpty{}
-)
+// GetID returns value of ID field.
+func (e *EncryptedChatEmpty) GetID() (value int) {
+	return e.ID
+}
 
 // EncryptedChatWaiting represents TL type `encryptedChatWaiting#3bf703dc`.
 // Chat waiting for approval of second participant.
@@ -180,6 +180,19 @@ type EncryptedChatWaiting struct {
 
 // EncryptedChatWaitingTypeID is TL type id of EncryptedChatWaiting.
 const EncryptedChatWaitingTypeID = 0x3bf703dc
+
+// construct implements constructor of EncryptedChatClass.
+func (e EncryptedChatWaiting) construct() EncryptedChatClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedChatWaiting.
+var (
+	_ bin.Encoder     = &EncryptedChatWaiting{}
+	_ bin.Decoder     = &EncryptedChatWaiting{}
+	_ bin.BareEncoder = &EncryptedChatWaiting{}
+	_ bin.BareDecoder = &EncryptedChatWaiting{}
+
+	_ EncryptedChatClass = &EncryptedChatWaiting{}
+)
 
 func (e *EncryptedChatWaiting) Zero() bool {
 	if e == nil {
@@ -297,31 +310,6 @@ func (e *EncryptedChatWaiting) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (e *EncryptedChatWaiting) GetID() (value int) {
-	return e.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (e *EncryptedChatWaiting) GetAccessHash() (value int64) {
-	return e.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (e *EncryptedChatWaiting) GetDate() (value int) {
-	return e.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (e *EncryptedChatWaiting) GetAdminID() (value int) {
-	return e.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (e *EncryptedChatWaiting) GetParticipantID() (value int) {
-	return e.ParticipantID
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedChatWaiting) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -376,18 +364,30 @@ func (e *EncryptedChatWaiting) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedChatClass.
-func (e EncryptedChatWaiting) construct() EncryptedChatClass { return &e }
+// GetID returns value of ID field.
+func (e *EncryptedChatWaiting) GetID() (value int) {
+	return e.ID
+}
 
-// Ensuring interfaces in compile-time for EncryptedChatWaiting.
-var (
-	_ bin.Encoder     = &EncryptedChatWaiting{}
-	_ bin.Decoder     = &EncryptedChatWaiting{}
-	_ bin.BareEncoder = &EncryptedChatWaiting{}
-	_ bin.BareDecoder = &EncryptedChatWaiting{}
+// GetAccessHash returns value of AccessHash field.
+func (e *EncryptedChatWaiting) GetAccessHash() (value int64) {
+	return e.AccessHash
+}
 
-	_ EncryptedChatClass = &EncryptedChatWaiting{}
-)
+// GetDate returns value of Date field.
+func (e *EncryptedChatWaiting) GetDate() (value int) {
+	return e.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (e *EncryptedChatWaiting) GetAdminID() (value int) {
+	return e.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (e *EncryptedChatWaiting) GetParticipantID() (value int) {
+	return e.ParticipantID
+}
 
 // EncryptedChatRequested represents TL type `encryptedChatRequested#62718a82`.
 // Request to create an encrypted chat.
@@ -425,6 +425,19 @@ type EncryptedChatRequested struct {
 
 // EncryptedChatRequestedTypeID is TL type id of EncryptedChatRequested.
 const EncryptedChatRequestedTypeID = 0x62718a82
+
+// construct implements constructor of EncryptedChatClass.
+func (e EncryptedChatRequested) construct() EncryptedChatClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedChatRequested.
+var (
+	_ bin.Encoder     = &EncryptedChatRequested{}
+	_ bin.Decoder     = &EncryptedChatRequested{}
+	_ bin.BareEncoder = &EncryptedChatRequested{}
+	_ bin.BareDecoder = &EncryptedChatRequested{}
+
+	_ EncryptedChatClass = &EncryptedChatRequested{}
+)
 
 func (e *EncryptedChatRequested) Zero() bool {
 	if e == nil {
@@ -577,51 +590,6 @@ func (e *EncryptedChatRequested) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFolderID sets value of FolderID conditional field.
-func (e *EncryptedChatRequested) SetFolderID(value int) {
-	e.Flags.Set(0)
-	e.FolderID = value
-}
-
-// GetFolderID returns value of FolderID conditional field and
-// boolean which is true if field was set.
-func (e *EncryptedChatRequested) GetFolderID() (value int, ok bool) {
-	if !e.Flags.Has(0) {
-		return value, false
-	}
-	return e.FolderID, true
-}
-
-// GetID returns value of ID field.
-func (e *EncryptedChatRequested) GetID() (value int) {
-	return e.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (e *EncryptedChatRequested) GetAccessHash() (value int64) {
-	return e.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (e *EncryptedChatRequested) GetDate() (value int) {
-	return e.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (e *EncryptedChatRequested) GetAdminID() (value int) {
-	return e.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (e *EncryptedChatRequested) GetParticipantID() (value int) {
-	return e.ParticipantID
-}
-
-// GetGA returns value of GA field.
-func (e *EncryptedChatRequested) GetGA() (value []byte) {
-	return e.GA
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedChatRequested) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -695,18 +663,50 @@ func (e *EncryptedChatRequested) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedChatClass.
-func (e EncryptedChatRequested) construct() EncryptedChatClass { return &e }
+// SetFolderID sets value of FolderID conditional field.
+func (e *EncryptedChatRequested) SetFolderID(value int) {
+	e.Flags.Set(0)
+	e.FolderID = value
+}
 
-// Ensuring interfaces in compile-time for EncryptedChatRequested.
-var (
-	_ bin.Encoder     = &EncryptedChatRequested{}
-	_ bin.Decoder     = &EncryptedChatRequested{}
-	_ bin.BareEncoder = &EncryptedChatRequested{}
-	_ bin.BareDecoder = &EncryptedChatRequested{}
+// GetFolderID returns value of FolderID conditional field and
+// boolean which is true if field was set.
+func (e *EncryptedChatRequested) GetFolderID() (value int, ok bool) {
+	if !e.Flags.Has(0) {
+		return value, false
+	}
+	return e.FolderID, true
+}
 
-	_ EncryptedChatClass = &EncryptedChatRequested{}
-)
+// GetID returns value of ID field.
+func (e *EncryptedChatRequested) GetID() (value int) {
+	return e.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (e *EncryptedChatRequested) GetAccessHash() (value int64) {
+	return e.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (e *EncryptedChatRequested) GetDate() (value int) {
+	return e.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (e *EncryptedChatRequested) GetAdminID() (value int) {
+	return e.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (e *EncryptedChatRequested) GetParticipantID() (value int) {
+	return e.ParticipantID
+}
+
+// GetGA returns value of GA field.
+func (e *EncryptedChatRequested) GetGA() (value []byte) {
+	return e.GA
+}
 
 // EncryptedChat represents TL type `encryptedChat#fa56ce36`.
 // Encrypted chat
@@ -735,6 +735,19 @@ type EncryptedChat struct {
 
 // EncryptedChatTypeID is TL type id of EncryptedChat.
 const EncryptedChatTypeID = 0xfa56ce36
+
+// construct implements constructor of EncryptedChatClass.
+func (e EncryptedChat) construct() EncryptedChatClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedChat.
+var (
+	_ bin.Encoder     = &EncryptedChat{}
+	_ bin.Decoder     = &EncryptedChat{}
+	_ bin.BareEncoder = &EncryptedChat{}
+	_ bin.BareDecoder = &EncryptedChat{}
+
+	_ EncryptedChatClass = &EncryptedChat{}
+)
 
 func (e *EncryptedChat) Zero() bool {
 	if e == nil {
@@ -872,41 +885,6 @@ func (e *EncryptedChat) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (e *EncryptedChat) GetID() (value int) {
-	return e.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (e *EncryptedChat) GetAccessHash() (value int64) {
-	return e.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (e *EncryptedChat) GetDate() (value int) {
-	return e.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (e *EncryptedChat) GetAdminID() (value int) {
-	return e.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (e *EncryptedChat) GetParticipantID() (value int) {
-	return e.ParticipantID
-}
-
-// GetGAOrB returns value of GAOrB field.
-func (e *EncryptedChat) GetGAOrB() (value []byte) {
-	return e.GAOrB
-}
-
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (e *EncryptedChat) GetKeyFingerprint() (value int64) {
-	return e.KeyFingerprint
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedChat) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -975,18 +953,40 @@ func (e *EncryptedChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedChatClass.
-func (e EncryptedChat) construct() EncryptedChatClass { return &e }
+// GetID returns value of ID field.
+func (e *EncryptedChat) GetID() (value int) {
+	return e.ID
+}
 
-// Ensuring interfaces in compile-time for EncryptedChat.
-var (
-	_ bin.Encoder     = &EncryptedChat{}
-	_ bin.Decoder     = &EncryptedChat{}
-	_ bin.BareEncoder = &EncryptedChat{}
-	_ bin.BareDecoder = &EncryptedChat{}
+// GetAccessHash returns value of AccessHash field.
+func (e *EncryptedChat) GetAccessHash() (value int64) {
+	return e.AccessHash
+}
 
-	_ EncryptedChatClass = &EncryptedChat{}
-)
+// GetDate returns value of Date field.
+func (e *EncryptedChat) GetDate() (value int) {
+	return e.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (e *EncryptedChat) GetAdminID() (value int) {
+	return e.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (e *EncryptedChat) GetParticipantID() (value int) {
+	return e.ParticipantID
+}
+
+// GetGAOrB returns value of GAOrB field.
+func (e *EncryptedChat) GetGAOrB() (value []byte) {
+	return e.GAOrB
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (e *EncryptedChat) GetKeyFingerprint() (value int64) {
+	return e.KeyFingerprint
+}
 
 // EncryptedChatDiscarded represents TL type `encryptedChatDiscarded#1e1c7c45`.
 // Discarded or deleted chat.
@@ -1003,6 +1003,19 @@ type EncryptedChatDiscarded struct {
 
 // EncryptedChatDiscardedTypeID is TL type id of EncryptedChatDiscarded.
 const EncryptedChatDiscardedTypeID = 0x1e1c7c45
+
+// construct implements constructor of EncryptedChatClass.
+func (e EncryptedChatDiscarded) construct() EncryptedChatClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedChatDiscarded.
+var (
+	_ bin.Encoder     = &EncryptedChatDiscarded{}
+	_ bin.Decoder     = &EncryptedChatDiscarded{}
+	_ bin.BareEncoder = &EncryptedChatDiscarded{}
+	_ bin.BareDecoder = &EncryptedChatDiscarded{}
+
+	_ EncryptedChatClass = &EncryptedChatDiscarded{}
+)
 
 func (e *EncryptedChatDiscarded) Zero() bool {
 	if e == nil {
@@ -1099,27 +1112,6 @@ func (e *EncryptedChatDiscarded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetHistoryDeleted sets value of HistoryDeleted conditional field.
-func (e *EncryptedChatDiscarded) SetHistoryDeleted(value bool) {
-	if value {
-		e.Flags.Set(0)
-		e.HistoryDeleted = true
-	} else {
-		e.Flags.Unset(0)
-		e.HistoryDeleted = false
-	}
-}
-
-// GetHistoryDeleted returns value of HistoryDeleted conditional field.
-func (e *EncryptedChatDiscarded) GetHistoryDeleted() (value bool) {
-	return e.Flags.Has(0)
-}
-
-// GetID returns value of ID field.
-func (e *EncryptedChatDiscarded) GetID() (value int) {
-	return e.ID
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedChatDiscarded) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -1152,18 +1144,26 @@ func (e *EncryptedChatDiscarded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedChatClass.
-func (e EncryptedChatDiscarded) construct() EncryptedChatClass { return &e }
+// SetHistoryDeleted sets value of HistoryDeleted conditional field.
+func (e *EncryptedChatDiscarded) SetHistoryDeleted(value bool) {
+	if value {
+		e.Flags.Set(0)
+		e.HistoryDeleted = true
+	} else {
+		e.Flags.Unset(0)
+		e.HistoryDeleted = false
+	}
+}
 
-// Ensuring interfaces in compile-time for EncryptedChatDiscarded.
-var (
-	_ bin.Encoder     = &EncryptedChatDiscarded{}
-	_ bin.Decoder     = &EncryptedChatDiscarded{}
-	_ bin.BareEncoder = &EncryptedChatDiscarded{}
-	_ bin.BareDecoder = &EncryptedChatDiscarded{}
+// GetHistoryDeleted returns value of HistoryDeleted conditional field.
+func (e *EncryptedChatDiscarded) GetHistoryDeleted() (value bool) {
+	return e.Flags.Has(0)
+}
 
-	_ EncryptedChatClass = &EncryptedChatDiscarded{}
-)
+// GetID returns value of ID field.
+func (e *EncryptedChatDiscarded) GetID() (value int) {
+	return e.ID
+}
 
 // EncryptedChatClass represents EncryptedChat generic type.
 //

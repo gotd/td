@@ -43,6 +43,19 @@ type StickerSetCovered struct {
 // StickerSetCoveredTypeID is TL type id of StickerSetCovered.
 const StickerSetCoveredTypeID = 0x6410a5d2
 
+// construct implements constructor of StickerSetCoveredClass.
+func (s StickerSetCovered) construct() StickerSetCoveredClass { return &s }
+
+// Ensuring interfaces in compile-time for StickerSetCovered.
+var (
+	_ bin.Encoder     = &StickerSetCovered{}
+	_ bin.Decoder     = &StickerSetCovered{}
+	_ bin.BareEncoder = &StickerSetCovered{}
+	_ bin.BareDecoder = &StickerSetCovered{}
+
+	_ StickerSetCoveredClass = &StickerSetCovered{}
+)
+
 func (s *StickerSetCovered) Zero() bool {
 	if s == nil {
 		return true
@@ -136,16 +149,6 @@ func (s *StickerSetCovered) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSet returns value of Set field.
-func (s *StickerSetCovered) GetSet() (value StickerSet) {
-	return s.Set
-}
-
-// GetCover returns value of Cover field.
-func (s *StickerSetCovered) GetCover() (value DocumentClass) {
-	return s.Cover
-}
-
 // Decode implements bin.Decoder.
 func (s *StickerSetCovered) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -177,18 +180,15 @@ func (s *StickerSetCovered) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StickerSetCoveredClass.
-func (s StickerSetCovered) construct() StickerSetCoveredClass { return &s }
+// GetSet returns value of Set field.
+func (s *StickerSetCovered) GetSet() (value StickerSet) {
+	return s.Set
+}
 
-// Ensuring interfaces in compile-time for StickerSetCovered.
-var (
-	_ bin.Encoder     = &StickerSetCovered{}
-	_ bin.Decoder     = &StickerSetCovered{}
-	_ bin.BareEncoder = &StickerSetCovered{}
-	_ bin.BareDecoder = &StickerSetCovered{}
-
-	_ StickerSetCoveredClass = &StickerSetCovered{}
-)
+// GetCover returns value of Cover field.
+func (s *StickerSetCovered) GetCover() (value DocumentClass) {
+	return s.Cover
+}
 
 // StickerSetMultiCovered represents TL type `stickerSetMultiCovered#3407e51b`.
 // Stickerset, with a specific stickers as preview
@@ -203,6 +203,19 @@ type StickerSetMultiCovered struct {
 
 // StickerSetMultiCoveredTypeID is TL type id of StickerSetMultiCovered.
 const StickerSetMultiCoveredTypeID = 0x3407e51b
+
+// construct implements constructor of StickerSetCoveredClass.
+func (s StickerSetMultiCovered) construct() StickerSetCoveredClass { return &s }
+
+// Ensuring interfaces in compile-time for StickerSetMultiCovered.
+var (
+	_ bin.Encoder     = &StickerSetMultiCovered{}
+	_ bin.Decoder     = &StickerSetMultiCovered{}
+	_ bin.BareEncoder = &StickerSetMultiCovered{}
+	_ bin.BareDecoder = &StickerSetMultiCovered{}
+
+	_ StickerSetCoveredClass = &StickerSetMultiCovered{}
+)
 
 func (s *StickerSetMultiCovered) Zero() bool {
 	if s == nil {
@@ -300,21 +313,6 @@ func (s *StickerSetMultiCovered) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSet returns value of Set field.
-func (s *StickerSetMultiCovered) GetSet() (value StickerSet) {
-	return s.Set
-}
-
-// GetCovers returns value of Covers field.
-func (s *StickerSetMultiCovered) GetCovers() (value []DocumentClass) {
-	return s.Covers
-}
-
-// MapCovers returns field Covers wrapped in DocumentClassArray helper.
-func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
-	return DocumentClassArray(s.Covers)
-}
-
 // Decode implements bin.Decoder.
 func (s *StickerSetMultiCovered) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -356,18 +354,20 @@ func (s *StickerSetMultiCovered) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StickerSetCoveredClass.
-func (s StickerSetMultiCovered) construct() StickerSetCoveredClass { return &s }
+// GetSet returns value of Set field.
+func (s *StickerSetMultiCovered) GetSet() (value StickerSet) {
+	return s.Set
+}
 
-// Ensuring interfaces in compile-time for StickerSetMultiCovered.
-var (
-	_ bin.Encoder     = &StickerSetMultiCovered{}
-	_ bin.Decoder     = &StickerSetMultiCovered{}
-	_ bin.BareEncoder = &StickerSetMultiCovered{}
-	_ bin.BareDecoder = &StickerSetMultiCovered{}
+// GetCovers returns value of Covers field.
+func (s *StickerSetMultiCovered) GetCovers() (value []DocumentClass) {
+	return s.Covers
+}
 
-	_ StickerSetCoveredClass = &StickerSetMultiCovered{}
-)
+// MapCovers returns field Covers wrapped in DocumentClassArray helper.
+func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
+	return DocumentClassArray(s.Covers)
+}
 
 // StickerSetCoveredClass represents StickerSetCovered generic type.
 //

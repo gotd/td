@@ -47,6 +47,14 @@ type MessagesGetSearchCountersRequest struct {
 // MessagesGetSearchCountersRequestTypeID is TL type id of MessagesGetSearchCountersRequest.
 const MessagesGetSearchCountersRequestTypeID = 0x732eef00
 
+// Ensuring interfaces in compile-time for MessagesGetSearchCountersRequest.
+var (
+	_ bin.Encoder     = &MessagesGetSearchCountersRequest{}
+	_ bin.Decoder     = &MessagesGetSearchCountersRequest{}
+	_ bin.BareEncoder = &MessagesGetSearchCountersRequest{}
+	_ bin.BareDecoder = &MessagesGetSearchCountersRequest{}
+)
+
 func (g *MessagesGetSearchCountersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -146,21 +154,6 @@ func (g *MessagesGetSearchCountersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetSearchCountersRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetFilters returns value of Filters field.
-func (g *MessagesGetSearchCountersRequest) GetFilters() (value []MessagesFilterClass) {
-	return g.Filters
-}
-
-// MapFilters returns field Filters wrapped in MessagesFilterClassArray helper.
-func (g *MessagesGetSearchCountersRequest) MapFilters() (value MessagesFilterClassArray) {
-	return MessagesFilterClassArray(g.Filters)
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetSearchCountersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -204,13 +197,20 @@ func (g *MessagesGetSearchCountersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetSearchCountersRequest.
-var (
-	_ bin.Encoder     = &MessagesGetSearchCountersRequest{}
-	_ bin.Decoder     = &MessagesGetSearchCountersRequest{}
-	_ bin.BareEncoder = &MessagesGetSearchCountersRequest{}
-	_ bin.BareDecoder = &MessagesGetSearchCountersRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetSearchCountersRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetFilters returns value of Filters field.
+func (g *MessagesGetSearchCountersRequest) GetFilters() (value []MessagesFilterClass) {
+	return g.Filters
+}
+
+// MapFilters returns field Filters wrapped in MessagesFilterClassArray helper.
+func (g *MessagesGetSearchCountersRequest) MapFilters() (value MessagesFilterClassArray) {
+	return MessagesFilterClassArray(g.Filters)
+}
 
 // MessagesGetSearchCounters invokes method messages.getSearchCounters#732eef00 returning error if any.
 // Get the number of results that would be found by a messages.search¹ call with the

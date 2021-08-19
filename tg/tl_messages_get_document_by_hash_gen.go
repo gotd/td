@@ -45,6 +45,14 @@ type MessagesGetDocumentByHashRequest struct {
 // MessagesGetDocumentByHashRequestTypeID is TL type id of MessagesGetDocumentByHashRequest.
 const MessagesGetDocumentByHashRequestTypeID = 0x338e2464
 
+// Ensuring interfaces in compile-time for MessagesGetDocumentByHashRequest.
+var (
+	_ bin.Encoder     = &MessagesGetDocumentByHashRequest{}
+	_ bin.Decoder     = &MessagesGetDocumentByHashRequest{}
+	_ bin.BareEncoder = &MessagesGetDocumentByHashRequest{}
+	_ bin.BareDecoder = &MessagesGetDocumentByHashRequest{}
+)
+
 func (g *MessagesGetDocumentByHashRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -141,21 +149,6 @@ func (g *MessagesGetDocumentByHashRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSHA256 returns value of SHA256 field.
-func (g *MessagesGetDocumentByHashRequest) GetSHA256() (value []byte) {
-	return g.SHA256
-}
-
-// GetSize returns value of Size field.
-func (g *MessagesGetDocumentByHashRequest) GetSize() (value int) {
-	return g.Size
-}
-
-// GetMimeType returns value of MimeType field.
-func (g *MessagesGetDocumentByHashRequest) GetMimeType() (value string) {
-	return g.MimeType
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetDocumentByHashRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -196,13 +189,20 @@ func (g *MessagesGetDocumentByHashRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetDocumentByHashRequest.
-var (
-	_ bin.Encoder     = &MessagesGetDocumentByHashRequest{}
-	_ bin.Decoder     = &MessagesGetDocumentByHashRequest{}
-	_ bin.BareEncoder = &MessagesGetDocumentByHashRequest{}
-	_ bin.BareDecoder = &MessagesGetDocumentByHashRequest{}
-)
+// GetSHA256 returns value of SHA256 field.
+func (g *MessagesGetDocumentByHashRequest) GetSHA256() (value []byte) {
+	return g.SHA256
+}
+
+// GetSize returns value of Size field.
+func (g *MessagesGetDocumentByHashRequest) GetSize() (value int) {
+	return g.Size
+}
+
+// GetMimeType returns value of MimeType field.
+func (g *MessagesGetDocumentByHashRequest) GetMimeType() (value string) {
+	return g.MimeType
+}
 
 // MessagesGetDocumentByHash invokes method messages.getDocumentByHash#338e2464 returning error if any.
 // Get a document by its SHA256 hash, mainly used for gifs

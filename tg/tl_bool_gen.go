@@ -39,6 +39,19 @@ type BoolFalse struct {
 // BoolFalseTypeID is TL type id of BoolFalse.
 const BoolFalseTypeID = 0xbc799737
 
+// construct implements constructor of BoolClass.
+func (b BoolFalse) construct() BoolClass { return &b }
+
+// Ensuring interfaces in compile-time for BoolFalse.
+var (
+	_ bin.Encoder     = &BoolFalse{}
+	_ bin.Decoder     = &BoolFalse{}
+	_ bin.BareEncoder = &BoolFalse{}
+	_ bin.BareDecoder = &BoolFalse{}
+
+	_ BoolClass = &BoolFalse{}
+)
+
 func (b *BoolFalse) Zero() bool {
 	if b == nil {
 		return true
@@ -118,19 +131,6 @@ func (b *BoolFalse) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BoolClass.
-func (b BoolFalse) construct() BoolClass { return &b }
-
-// Ensuring interfaces in compile-time for BoolFalse.
-var (
-	_ bin.Encoder     = &BoolFalse{}
-	_ bin.Decoder     = &BoolFalse{}
-	_ bin.BareEncoder = &BoolFalse{}
-	_ bin.BareDecoder = &BoolFalse{}
-
-	_ BoolClass = &BoolFalse{}
-)
-
 // BoolTrue represents TL type `boolTrue#997275b5`.
 // The constructor can be interpreted as a booleantrue value.
 //
@@ -140,6 +140,19 @@ type BoolTrue struct {
 
 // BoolTrueTypeID is TL type id of BoolTrue.
 const BoolTrueTypeID = 0x997275b5
+
+// construct implements constructor of BoolClass.
+func (b BoolTrue) construct() BoolClass { return &b }
+
+// Ensuring interfaces in compile-time for BoolTrue.
+var (
+	_ bin.Encoder     = &BoolTrue{}
+	_ bin.Decoder     = &BoolTrue{}
+	_ bin.BareEncoder = &BoolTrue{}
+	_ bin.BareDecoder = &BoolTrue{}
+
+	_ BoolClass = &BoolTrue{}
+)
 
 func (b *BoolTrue) Zero() bool {
 	if b == nil {
@@ -219,19 +232,6 @@ func (b *BoolTrue) DecodeBare(buf *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of BoolClass.
-func (b BoolTrue) construct() BoolClass { return &b }
-
-// Ensuring interfaces in compile-time for BoolTrue.
-var (
-	_ bin.Encoder     = &BoolTrue{}
-	_ bin.Decoder     = &BoolTrue{}
-	_ bin.BareEncoder = &BoolTrue{}
-	_ bin.BareDecoder = &BoolTrue{}
-
-	_ BoolClass = &BoolTrue{}
-)
 
 // BoolClass represents Bool generic type.
 //

@@ -41,6 +41,19 @@ type WebPageEmpty struct {
 // WebPageEmptyTypeID is TL type id of WebPageEmpty.
 const WebPageEmptyTypeID = 0xeb1477e8
 
+// construct implements constructor of WebPageClass.
+func (w WebPageEmpty) construct() WebPageClass { return &w }
+
+// Ensuring interfaces in compile-time for WebPageEmpty.
+var (
+	_ bin.Encoder     = &WebPageEmpty{}
+	_ bin.Decoder     = &WebPageEmpty{}
+	_ bin.BareEncoder = &WebPageEmpty{}
+	_ bin.BareDecoder = &WebPageEmpty{}
+
+	_ WebPageClass = &WebPageEmpty{}
+)
+
 func (w *WebPageEmpty) Zero() bool {
 	if w == nil {
 		return true
@@ -117,11 +130,6 @@ func (w *WebPageEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (w *WebPageEmpty) GetID() (value int64) {
-	return w.ID
-}
-
 // Decode implements bin.Decoder.
 func (w *WebPageEmpty) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -148,18 +156,10 @@ func (w *WebPageEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of WebPageClass.
-func (w WebPageEmpty) construct() WebPageClass { return &w }
-
-// Ensuring interfaces in compile-time for WebPageEmpty.
-var (
-	_ bin.Encoder     = &WebPageEmpty{}
-	_ bin.Decoder     = &WebPageEmpty{}
-	_ bin.BareEncoder = &WebPageEmpty{}
-	_ bin.BareDecoder = &WebPageEmpty{}
-
-	_ WebPageClass = &WebPageEmpty{}
-)
+// GetID returns value of ID field.
+func (w *WebPageEmpty) GetID() (value int64) {
+	return w.ID
+}
 
 // WebPagePending represents TL type `webPagePending#c586da1c`.
 // A preview of the webpage is currently being generated
@@ -174,6 +174,19 @@ type WebPagePending struct {
 
 // WebPagePendingTypeID is TL type id of WebPagePending.
 const WebPagePendingTypeID = 0xc586da1c
+
+// construct implements constructor of WebPageClass.
+func (w WebPagePending) construct() WebPageClass { return &w }
+
+// Ensuring interfaces in compile-time for WebPagePending.
+var (
+	_ bin.Encoder     = &WebPagePending{}
+	_ bin.Decoder     = &WebPagePending{}
+	_ bin.BareEncoder = &WebPagePending{}
+	_ bin.BareDecoder = &WebPagePending{}
+
+	_ WebPageClass = &WebPagePending{}
+)
 
 func (w *WebPagePending) Zero() bool {
 	if w == nil {
@@ -261,16 +274,6 @@ func (w *WebPagePending) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (w *WebPagePending) GetID() (value int64) {
-	return w.ID
-}
-
-// GetDate returns value of Date field.
-func (w *WebPagePending) GetDate() (value int) {
-	return w.Date
-}
-
 // Decode implements bin.Decoder.
 func (w *WebPagePending) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -304,18 +307,15 @@ func (w *WebPagePending) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of WebPageClass.
-func (w WebPagePending) construct() WebPageClass { return &w }
+// GetID returns value of ID field.
+func (w *WebPagePending) GetID() (value int64) {
+	return w.ID
+}
 
-// Ensuring interfaces in compile-time for WebPagePending.
-var (
-	_ bin.Encoder     = &WebPagePending{}
-	_ bin.Decoder     = &WebPagePending{}
-	_ bin.BareEncoder = &WebPagePending{}
-	_ bin.BareDecoder = &WebPagePending{}
-
-	_ WebPageClass = &WebPagePending{}
-)
+// GetDate returns value of Date field.
+func (w *WebPagePending) GetDate() (value int) {
+	return w.Date
+}
 
 // WebPage represents TL type `webPage#e89c45b2`.
 // Webpage preview
@@ -402,6 +402,19 @@ type WebPage struct {
 
 // WebPageTypeID is TL type id of WebPage.
 const WebPageTypeID = 0xe89c45b2
+
+// construct implements constructor of WebPageClass.
+func (w WebPage) construct() WebPageClass { return &w }
+
+// Ensuring interfaces in compile-time for WebPage.
+var (
+	_ bin.Encoder     = &WebPage{}
+	_ bin.Decoder     = &WebPage{}
+	_ bin.BareEncoder = &WebPage{}
+	_ bin.BareDecoder = &WebPage{}
+
+	_ WebPageClass = &WebPage{}
+)
 
 func (w *WebPage) Zero() bool {
 	if w == nil {
@@ -798,6 +811,164 @@ func (w *WebPage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (w *WebPage) Decode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPage#e89c45b2 to nil")
+	}
+	if err := b.ConsumeID(WebPageTypeID); err != nil {
+		return fmt.Errorf("unable to decode webPage#e89c45b2: %w", err)
+	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WebPage) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPage#e89c45b2 to nil")
+	}
+	{
+		if err := w.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field id: %w", err)
+		}
+		w.ID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field url: %w", err)
+		}
+		w.URL = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field display_url: %w", err)
+		}
+		w.DisplayURL = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field hash: %w", err)
+		}
+		w.Hash = value
+	}
+	if w.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field type: %w", err)
+		}
+		w.Type = value
+	}
+	if w.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field site_name: %w", err)
+		}
+		w.SiteName = value
+	}
+	if w.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field title: %w", err)
+		}
+		w.Title = value
+	}
+	if w.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field description: %w", err)
+		}
+		w.Description = value
+	}
+	if w.Flags.Has(4) {
+		value, err := DecodePhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field photo: %w", err)
+		}
+		w.Photo = value
+	}
+	if w.Flags.Has(5) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field embed_url: %w", err)
+		}
+		w.EmbedURL = value
+	}
+	if w.Flags.Has(5) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field embed_type: %w", err)
+		}
+		w.EmbedType = value
+	}
+	if w.Flags.Has(6) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field embed_width: %w", err)
+		}
+		w.EmbedWidth = value
+	}
+	if w.Flags.Has(6) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field embed_height: %w", err)
+		}
+		w.EmbedHeight = value
+	}
+	if w.Flags.Has(7) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field duration: %w", err)
+		}
+		w.Duration = value
+	}
+	if w.Flags.Has(8) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field author: %w", err)
+		}
+		w.Author = value
+	}
+	if w.Flags.Has(9) {
+		value, err := DecodeDocument(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field document: %w", err)
+		}
+		w.Document = value
+	}
+	if w.Flags.Has(10) {
+		if err := w.CachedPage.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field cached_page: %w", err)
+		}
+	}
+	if w.Flags.Has(12) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#e89c45b2: field attributes: %w", err)
+		}
+
+		if headerLen > 0 {
+			w.Attributes = make([]WebPageAttributeTheme, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value WebPageAttributeTheme
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode webPage#e89c45b2: field attributes: %w", err)
+			}
+			w.Attributes = append(w.Attributes, value)
+		}
+	}
+	return nil
+}
+
 // GetID returns value of ID field.
 func (w *WebPage) GetID() (value int64) {
 	return w.ID
@@ -1028,177 +1199,6 @@ func (w *WebPage) GetAttributes() (value []WebPageAttributeTheme, ok bool) {
 	return w.Attributes, true
 }
 
-// Decode implements bin.Decoder.
-func (w *WebPage) Decode(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't decode webPage#e89c45b2 to nil")
-	}
-	if err := b.ConsumeID(WebPageTypeID); err != nil {
-		return fmt.Errorf("unable to decode webPage#e89c45b2: %w", err)
-	}
-	return w.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (w *WebPage) DecodeBare(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't decode webPage#e89c45b2 to nil")
-	}
-	{
-		if err := w.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field flags: %w", err)
-		}
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field id: %w", err)
-		}
-		w.ID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field url: %w", err)
-		}
-		w.URL = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field display_url: %w", err)
-		}
-		w.DisplayURL = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field hash: %w", err)
-		}
-		w.Hash = value
-	}
-	if w.Flags.Has(0) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field type: %w", err)
-		}
-		w.Type = value
-	}
-	if w.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field site_name: %w", err)
-		}
-		w.SiteName = value
-	}
-	if w.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field title: %w", err)
-		}
-		w.Title = value
-	}
-	if w.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field description: %w", err)
-		}
-		w.Description = value
-	}
-	if w.Flags.Has(4) {
-		value, err := DecodePhoto(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field photo: %w", err)
-		}
-		w.Photo = value
-	}
-	if w.Flags.Has(5) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field embed_url: %w", err)
-		}
-		w.EmbedURL = value
-	}
-	if w.Flags.Has(5) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field embed_type: %w", err)
-		}
-		w.EmbedType = value
-	}
-	if w.Flags.Has(6) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field embed_width: %w", err)
-		}
-		w.EmbedWidth = value
-	}
-	if w.Flags.Has(6) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field embed_height: %w", err)
-		}
-		w.EmbedHeight = value
-	}
-	if w.Flags.Has(7) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field duration: %w", err)
-		}
-		w.Duration = value
-	}
-	if w.Flags.Has(8) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field author: %w", err)
-		}
-		w.Author = value
-	}
-	if w.Flags.Has(9) {
-		value, err := DecodeDocument(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field document: %w", err)
-		}
-		w.Document = value
-	}
-	if w.Flags.Has(10) {
-		if err := w.CachedPage.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field cached_page: %w", err)
-		}
-	}
-	if w.Flags.Has(12) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPage#e89c45b2: field attributes: %w", err)
-		}
-
-		if headerLen > 0 {
-			w.Attributes = make([]WebPageAttributeTheme, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value WebPageAttributeTheme
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode webPage#e89c45b2: field attributes: %w", err)
-			}
-			w.Attributes = append(w.Attributes, value)
-		}
-	}
-	return nil
-}
-
-// construct implements constructor of WebPageClass.
-func (w WebPage) construct() WebPageClass { return &w }
-
-// Ensuring interfaces in compile-time for WebPage.
-var (
-	_ bin.Encoder     = &WebPage{}
-	_ bin.Decoder     = &WebPage{}
-	_ bin.BareEncoder = &WebPage{}
-	_ bin.BareDecoder = &WebPage{}
-
-	_ WebPageClass = &WebPage{}
-)
-
 // WebPageNotModified represents TL type `webPageNotModified#7311ca11`.
 // The preview of the webpage hasn't changed
 //
@@ -1217,6 +1217,19 @@ type WebPageNotModified struct {
 
 // WebPageNotModifiedTypeID is TL type id of WebPageNotModified.
 const WebPageNotModifiedTypeID = 0x7311ca11
+
+// construct implements constructor of WebPageClass.
+func (w WebPageNotModified) construct() WebPageClass { return &w }
+
+// Ensuring interfaces in compile-time for WebPageNotModified.
+var (
+	_ bin.Encoder     = &WebPageNotModified{}
+	_ bin.Decoder     = &WebPageNotModified{}
+	_ bin.BareEncoder = &WebPageNotModified{}
+	_ bin.BareDecoder = &WebPageNotModified{}
+
+	_ WebPageClass = &WebPageNotModified{}
+)
 
 func (w *WebPageNotModified) Zero() bool {
 	if w == nil {
@@ -1309,21 +1322,6 @@ func (w *WebPageNotModified) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetCachedPageViews sets value of CachedPageViews conditional field.
-func (w *WebPageNotModified) SetCachedPageViews(value int) {
-	w.Flags.Set(0)
-	w.CachedPageViews = value
-}
-
-// GetCachedPageViews returns value of CachedPageViews conditional field and
-// boolean which is true if field was set.
-func (w *WebPageNotModified) GetCachedPageViews() (value int, ok bool) {
-	if !w.Flags.Has(0) {
-		return value, false
-	}
-	return w.CachedPageViews, true
-}
-
 // Decode implements bin.Decoder.
 func (w *WebPageNotModified) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -1355,18 +1353,20 @@ func (w *WebPageNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of WebPageClass.
-func (w WebPageNotModified) construct() WebPageClass { return &w }
+// SetCachedPageViews sets value of CachedPageViews conditional field.
+func (w *WebPageNotModified) SetCachedPageViews(value int) {
+	w.Flags.Set(0)
+	w.CachedPageViews = value
+}
 
-// Ensuring interfaces in compile-time for WebPageNotModified.
-var (
-	_ bin.Encoder     = &WebPageNotModified{}
-	_ bin.Decoder     = &WebPageNotModified{}
-	_ bin.BareEncoder = &WebPageNotModified{}
-	_ bin.BareDecoder = &WebPageNotModified{}
-
-	_ WebPageClass = &WebPageNotModified{}
-)
+// GetCachedPageViews returns value of CachedPageViews conditional field and
+// boolean which is true if field was set.
+func (w *WebPageNotModified) GetCachedPageViews() (value int, ok bool) {
+	if !w.Flags.Has(0) {
+		return value, false
+	}
+	return w.CachedPageViews, true
+}
 
 // WebPageClass represents WebPage generic type.
 //

@@ -40,6 +40,14 @@ type MessagesCheckHistoryImportPeerRequest struct {
 // MessagesCheckHistoryImportPeerRequestTypeID is TL type id of MessagesCheckHistoryImportPeerRequest.
 const MessagesCheckHistoryImportPeerRequestTypeID = 0x5dc60f03
 
+// Ensuring interfaces in compile-time for MessagesCheckHistoryImportPeerRequest.
+var (
+	_ bin.Encoder     = &MessagesCheckHistoryImportPeerRequest{}
+	_ bin.Decoder     = &MessagesCheckHistoryImportPeerRequest{}
+	_ bin.BareEncoder = &MessagesCheckHistoryImportPeerRequest{}
+	_ bin.BareDecoder = &MessagesCheckHistoryImportPeerRequest{}
+)
+
 func (c *MessagesCheckHistoryImportPeerRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -121,11 +129,6 @@ func (c *MessagesCheckHistoryImportPeerRequest) EncodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (c *MessagesCheckHistoryImportPeerRequest) GetPeer() (value InputPeerClass) {
-	return c.Peer
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesCheckHistoryImportPeerRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -152,13 +155,10 @@ func (c *MessagesCheckHistoryImportPeerRequest) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesCheckHistoryImportPeerRequest.
-var (
-	_ bin.Encoder     = &MessagesCheckHistoryImportPeerRequest{}
-	_ bin.Decoder     = &MessagesCheckHistoryImportPeerRequest{}
-	_ bin.BareEncoder = &MessagesCheckHistoryImportPeerRequest{}
-	_ bin.BareDecoder = &MessagesCheckHistoryImportPeerRequest{}
-)
+// GetPeer returns value of Peer field.
+func (c *MessagesCheckHistoryImportPeerRequest) GetPeer() (value InputPeerClass) {
+	return c.Peer
+}
 
 // MessagesCheckHistoryImportPeer invokes method messages.checkHistoryImportPeer#5dc60f03 returning error if any.
 //

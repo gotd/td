@@ -57,6 +57,14 @@ type ContactsGetLocatedRequest struct {
 // ContactsGetLocatedRequestTypeID is TL type id of ContactsGetLocatedRequest.
 const ContactsGetLocatedRequestTypeID = 0xd348bc44
 
+// Ensuring interfaces in compile-time for ContactsGetLocatedRequest.
+var (
+	_ bin.Encoder     = &ContactsGetLocatedRequest{}
+	_ bin.Decoder     = &ContactsGetLocatedRequest{}
+	_ bin.BareEncoder = &ContactsGetLocatedRequest{}
+	_ bin.BareDecoder = &ContactsGetLocatedRequest{}
+)
+
 func (g *ContactsGetLocatedRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -176,47 +184,6 @@ func (g *ContactsGetLocatedRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetBackground sets value of Background conditional field.
-func (g *ContactsGetLocatedRequest) SetBackground(value bool) {
-	if value {
-		g.Flags.Set(1)
-		g.Background = true
-	} else {
-		g.Flags.Unset(1)
-		g.Background = false
-	}
-}
-
-// GetBackground returns value of Background conditional field.
-func (g *ContactsGetLocatedRequest) GetBackground() (value bool) {
-	return g.Flags.Has(1)
-}
-
-// GetGeoPoint returns value of GeoPoint field.
-func (g *ContactsGetLocatedRequest) GetGeoPoint() (value InputGeoPointClass) {
-	return g.GeoPoint
-}
-
-// GetGeoPointAsNotEmpty returns mapped value of GeoPoint field.
-func (g *ContactsGetLocatedRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, bool) {
-	return g.GeoPoint.AsNotEmpty()
-}
-
-// SetSelfExpires sets value of SelfExpires conditional field.
-func (g *ContactsGetLocatedRequest) SetSelfExpires(value int) {
-	g.Flags.Set(0)
-	g.SelfExpires = value
-}
-
-// GetSelfExpires returns value of SelfExpires conditional field and
-// boolean which is true if field was set.
-func (g *ContactsGetLocatedRequest) GetSelfExpires() (value int, ok bool) {
-	if !g.Flags.Has(0) {
-		return value, false
-	}
-	return g.SelfExpires, true
-}
-
 // Decode implements bin.Decoder.
 func (g *ContactsGetLocatedRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -256,13 +223,46 @@ func (g *ContactsGetLocatedRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsGetLocatedRequest.
-var (
-	_ bin.Encoder     = &ContactsGetLocatedRequest{}
-	_ bin.Decoder     = &ContactsGetLocatedRequest{}
-	_ bin.BareEncoder = &ContactsGetLocatedRequest{}
-	_ bin.BareDecoder = &ContactsGetLocatedRequest{}
-)
+// SetBackground sets value of Background conditional field.
+func (g *ContactsGetLocatedRequest) SetBackground(value bool) {
+	if value {
+		g.Flags.Set(1)
+		g.Background = true
+	} else {
+		g.Flags.Unset(1)
+		g.Background = false
+	}
+}
+
+// GetBackground returns value of Background conditional field.
+func (g *ContactsGetLocatedRequest) GetBackground() (value bool) {
+	return g.Flags.Has(1)
+}
+
+// GetGeoPoint returns value of GeoPoint field.
+func (g *ContactsGetLocatedRequest) GetGeoPoint() (value InputGeoPointClass) {
+	return g.GeoPoint
+}
+
+// SetSelfExpires sets value of SelfExpires conditional field.
+func (g *ContactsGetLocatedRequest) SetSelfExpires(value int) {
+	g.Flags.Set(0)
+	g.SelfExpires = value
+}
+
+// GetSelfExpires returns value of SelfExpires conditional field and
+// boolean which is true if field was set.
+func (g *ContactsGetLocatedRequest) GetSelfExpires() (value int, ok bool) {
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.SelfExpires, true
+}
+
+// GetGeoPointAsNotEmpty returns mapped value of GeoPoint field.
+func (g *ContactsGetLocatedRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, bool) {
+	return g.GeoPoint.AsNotEmpty()
+}
 
 // ContactsGetLocated invokes method contacts.getLocated#d348bc44 returning error if any.
 // Get contacts near you

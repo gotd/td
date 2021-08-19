@@ -44,6 +44,14 @@ type PhoneExportGroupCallInviteRequest struct {
 // PhoneExportGroupCallInviteRequestTypeID is TL type id of PhoneExportGroupCallInviteRequest.
 const PhoneExportGroupCallInviteRequestTypeID = 0xe6aa647f
 
+// Ensuring interfaces in compile-time for PhoneExportGroupCallInviteRequest.
+var (
+	_ bin.Encoder     = &PhoneExportGroupCallInviteRequest{}
+	_ bin.Decoder     = &PhoneExportGroupCallInviteRequest{}
+	_ bin.BareEncoder = &PhoneExportGroupCallInviteRequest{}
+	_ bin.BareDecoder = &PhoneExportGroupCallInviteRequest{}
+)
+
 func (e *PhoneExportGroupCallInviteRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -141,27 +149,6 @@ func (e *PhoneExportGroupCallInviteRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetCanSelfUnmute sets value of CanSelfUnmute conditional field.
-func (e *PhoneExportGroupCallInviteRequest) SetCanSelfUnmute(value bool) {
-	if value {
-		e.Flags.Set(0)
-		e.CanSelfUnmute = true
-	} else {
-		e.Flags.Unset(0)
-		e.CanSelfUnmute = false
-	}
-}
-
-// GetCanSelfUnmute returns value of CanSelfUnmute conditional field.
-func (e *PhoneExportGroupCallInviteRequest) GetCanSelfUnmute() (value bool) {
-	return e.Flags.Has(0)
-}
-
-// GetCall returns value of Call field.
-func (e *PhoneExportGroupCallInviteRequest) GetCall() (value InputGroupCall) {
-	return e.Call
-}
-
 // Decode implements bin.Decoder.
 func (e *PhoneExportGroupCallInviteRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -192,13 +179,26 @@ func (e *PhoneExportGroupCallInviteRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneExportGroupCallInviteRequest.
-var (
-	_ bin.Encoder     = &PhoneExportGroupCallInviteRequest{}
-	_ bin.Decoder     = &PhoneExportGroupCallInviteRequest{}
-	_ bin.BareEncoder = &PhoneExportGroupCallInviteRequest{}
-	_ bin.BareDecoder = &PhoneExportGroupCallInviteRequest{}
-)
+// SetCanSelfUnmute sets value of CanSelfUnmute conditional field.
+func (e *PhoneExportGroupCallInviteRequest) SetCanSelfUnmute(value bool) {
+	if value {
+		e.Flags.Set(0)
+		e.CanSelfUnmute = true
+	} else {
+		e.Flags.Unset(0)
+		e.CanSelfUnmute = false
+	}
+}
+
+// GetCanSelfUnmute returns value of CanSelfUnmute conditional field.
+func (e *PhoneExportGroupCallInviteRequest) GetCanSelfUnmute() (value bool) {
+	return e.Flags.Has(0)
+}
+
+// GetCall returns value of Call field.
+func (e *PhoneExportGroupCallInviteRequest) GetCall() (value InputGroupCall) {
+	return e.Call
+}
 
 // PhoneExportGroupCallInvite invokes method phone.exportGroupCallInvite#e6aa647f returning error if any.
 //

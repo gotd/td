@@ -39,6 +39,14 @@ type UpdatesGetStateRequest struct {
 // UpdatesGetStateRequestTypeID is TL type id of UpdatesGetStateRequest.
 const UpdatesGetStateRequestTypeID = 0xedd4882a
 
+// Ensuring interfaces in compile-time for UpdatesGetStateRequest.
+var (
+	_ bin.Encoder     = &UpdatesGetStateRequest{}
+	_ bin.Decoder     = &UpdatesGetStateRequest{}
+	_ bin.BareEncoder = &UpdatesGetStateRequest{}
+	_ bin.BareDecoder = &UpdatesGetStateRequest{}
+)
+
 func (g *UpdatesGetStateRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *UpdatesGetStateRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for UpdatesGetStateRequest.
-var (
-	_ bin.Encoder     = &UpdatesGetStateRequest{}
-	_ bin.Decoder     = &UpdatesGetStateRequest{}
-	_ bin.BareEncoder = &UpdatesGetStateRequest{}
-	_ bin.BareDecoder = &UpdatesGetStateRequest{}
-)
 
 // UpdatesGetState invokes method updates.getState#edd4882a returning error if any.
 // Returns a current state of updates.

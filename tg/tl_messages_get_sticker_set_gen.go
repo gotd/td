@@ -41,6 +41,14 @@ type MessagesGetStickerSetRequest struct {
 // MessagesGetStickerSetRequestTypeID is TL type id of MessagesGetStickerSetRequest.
 const MessagesGetStickerSetRequestTypeID = 0x2619a90e
 
+// Ensuring interfaces in compile-time for MessagesGetStickerSetRequest.
+var (
+	_ bin.Encoder     = &MessagesGetStickerSetRequest{}
+	_ bin.Decoder     = &MessagesGetStickerSetRequest{}
+	_ bin.BareEncoder = &MessagesGetStickerSetRequest{}
+	_ bin.BareDecoder = &MessagesGetStickerSetRequest{}
+)
+
 func (g *MessagesGetStickerSetRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -122,11 +130,6 @@ func (g *MessagesGetStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetStickerset returns value of Stickerset field.
-func (g *MessagesGetStickerSetRequest) GetStickerset() (value InputStickerSetClass) {
-	return g.Stickerset
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetStickerSetRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -153,13 +156,10 @@ func (g *MessagesGetStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetStickerSetRequest.
-var (
-	_ bin.Encoder     = &MessagesGetStickerSetRequest{}
-	_ bin.Decoder     = &MessagesGetStickerSetRequest{}
-	_ bin.BareEncoder = &MessagesGetStickerSetRequest{}
-	_ bin.BareDecoder = &MessagesGetStickerSetRequest{}
-)
+// GetStickerset returns value of Stickerset field.
+func (g *MessagesGetStickerSetRequest) GetStickerset() (value InputStickerSetClass) {
+	return g.Stickerset
+}
 
 // MessagesGetStickerSet invokes method messages.getStickerSet#2619a90e returning error if any.
 // Get info about a stickerset

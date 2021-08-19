@@ -40,6 +40,14 @@ type PingDelayDisconnectRequest struct {
 // PingDelayDisconnectRequestTypeID is TL type id of PingDelayDisconnectRequest.
 const PingDelayDisconnectRequestTypeID = 0xf3427b8c
 
+// Ensuring interfaces in compile-time for PingDelayDisconnectRequest.
+var (
+	_ bin.Encoder     = &PingDelayDisconnectRequest{}
+	_ bin.Decoder     = &PingDelayDisconnectRequest{}
+	_ bin.BareEncoder = &PingDelayDisconnectRequest{}
+	_ bin.BareDecoder = &PingDelayDisconnectRequest{}
+)
+
 func (p *PingDelayDisconnectRequest) Zero() bool {
 	if p == nil {
 		return true
@@ -61,15 +69,6 @@ func (p *PingDelayDisconnectRequest) String() string {
 	}
 	type Alias PingDelayDisconnectRequest
 	return fmt.Sprintf("PingDelayDisconnectRequest%+v", Alias(*p))
-}
-
-// FillFrom fills PingDelayDisconnectRequest from given interface.
-func (p *PingDelayDisconnectRequest) FillFrom(from interface {
-	GetPingID() (value int64)
-	GetDisconnectDelay() (value int)
-}) {
-	p.PingID = from.GetPingID()
-	p.DisconnectDelay = from.GetDisconnectDelay()
 }
 
 // TypeID returns type id in TL schema.
@@ -126,16 +125,6 @@ func (p *PingDelayDisconnectRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPingID returns value of PingID field.
-func (p *PingDelayDisconnectRequest) GetPingID() (value int64) {
-	return p.PingID
-}
-
-// GetDisconnectDelay returns value of DisconnectDelay field.
-func (p *PingDelayDisconnectRequest) GetDisconnectDelay() (value int) {
-	return p.DisconnectDelay
-}
-
 // Decode implements bin.Decoder.
 func (p *PingDelayDisconnectRequest) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -169,10 +158,12 @@ func (p *PingDelayDisconnectRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PingDelayDisconnectRequest.
-var (
-	_ bin.Encoder     = &PingDelayDisconnectRequest{}
-	_ bin.Decoder     = &PingDelayDisconnectRequest{}
-	_ bin.BareEncoder = &PingDelayDisconnectRequest{}
-	_ bin.BareDecoder = &PingDelayDisconnectRequest{}
-)
+// GetPingID returns value of PingID field.
+func (p *PingDelayDisconnectRequest) GetPingID() (value int64) {
+	return p.PingID
+}
+
+// GetDisconnectDelay returns value of DisconnectDelay field.
+func (p *PingDelayDisconnectRequest) GetDisconnectDelay() (value int) {
+	return p.DisconnectDelay
+}

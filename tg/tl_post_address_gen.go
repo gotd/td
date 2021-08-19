@@ -51,6 +51,14 @@ type PostAddress struct {
 // PostAddressTypeID is TL type id of PostAddress.
 const PostAddressTypeID = 0x1e8caaeb
 
+// Ensuring interfaces in compile-time for PostAddress.
+var (
+	_ bin.Encoder     = &PostAddress{}
+	_ bin.Decoder     = &PostAddress{}
+	_ bin.BareEncoder = &PostAddress{}
+	_ bin.BareDecoder = &PostAddress{}
+)
+
 func (p *PostAddress) Zero() bool {
 	if p == nil {
 		return true
@@ -177,36 +185,6 @@ func (p *PostAddress) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetStreetLine1 returns value of StreetLine1 field.
-func (p *PostAddress) GetStreetLine1() (value string) {
-	return p.StreetLine1
-}
-
-// GetStreetLine2 returns value of StreetLine2 field.
-func (p *PostAddress) GetStreetLine2() (value string) {
-	return p.StreetLine2
-}
-
-// GetCity returns value of City field.
-func (p *PostAddress) GetCity() (value string) {
-	return p.City
-}
-
-// GetState returns value of State field.
-func (p *PostAddress) GetState() (value string) {
-	return p.State
-}
-
-// GetCountryIso2 returns value of CountryIso2 field.
-func (p *PostAddress) GetCountryIso2() (value string) {
-	return p.CountryIso2
-}
-
-// GetPostCode returns value of PostCode field.
-func (p *PostAddress) GetPostCode() (value string) {
-	return p.PostCode
-}
-
 // Decode implements bin.Decoder.
 func (p *PostAddress) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -268,10 +246,32 @@ func (p *PostAddress) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PostAddress.
-var (
-	_ bin.Encoder     = &PostAddress{}
-	_ bin.Decoder     = &PostAddress{}
-	_ bin.BareEncoder = &PostAddress{}
-	_ bin.BareDecoder = &PostAddress{}
-)
+// GetStreetLine1 returns value of StreetLine1 field.
+func (p *PostAddress) GetStreetLine1() (value string) {
+	return p.StreetLine1
+}
+
+// GetStreetLine2 returns value of StreetLine2 field.
+func (p *PostAddress) GetStreetLine2() (value string) {
+	return p.StreetLine2
+}
+
+// GetCity returns value of City field.
+func (p *PostAddress) GetCity() (value string) {
+	return p.City
+}
+
+// GetState returns value of State field.
+func (p *PostAddress) GetState() (value string) {
+	return p.State
+}
+
+// GetCountryIso2 returns value of CountryIso2 field.
+func (p *PostAddress) GetCountryIso2() (value string) {
+	return p.CountryIso2
+}
+
+// GetPostCode returns value of PostCode field.
+func (p *PostAddress) GetPostCode() (value string) {
+	return p.PostCode
+}

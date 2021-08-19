@@ -38,6 +38,14 @@ type String struct {
 // StringTypeID is TL type id of String.
 const StringTypeID = 0xb5286e24
 
+// Ensuring interfaces in compile-time for String.
+var (
+	_ bin.Encoder     = &String{}
+	_ bin.Decoder     = &String{}
+	_ bin.BareEncoder = &String{}
+	_ bin.BareDecoder = &String{}
+)
+
 func (s *String) Zero() bool {
 	if s == nil {
 		return true
@@ -116,11 +124,3 @@ func (s *String) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for String.
-var (
-	_ bin.Encoder     = &String{}
-	_ bin.Decoder     = &String{}
-	_ bin.BareEncoder = &String{}
-	_ bin.BareDecoder = &String{}
-)

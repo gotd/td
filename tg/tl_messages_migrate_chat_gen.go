@@ -44,6 +44,14 @@ type MessagesMigrateChatRequest struct {
 // MessagesMigrateChatRequestTypeID is TL type id of MessagesMigrateChatRequest.
 const MessagesMigrateChatRequestTypeID = 0x15a3b8e3
 
+// Ensuring interfaces in compile-time for MessagesMigrateChatRequest.
+var (
+	_ bin.Encoder     = &MessagesMigrateChatRequest{}
+	_ bin.Decoder     = &MessagesMigrateChatRequest{}
+	_ bin.BareEncoder = &MessagesMigrateChatRequest{}
+	_ bin.BareDecoder = &MessagesMigrateChatRequest{}
+)
+
 func (m *MessagesMigrateChatRequest) Zero() bool {
 	if m == nil {
 		return true
@@ -120,11 +128,6 @@ func (m *MessagesMigrateChatRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (m *MessagesMigrateChatRequest) GetChatID() (value int) {
-	return m.ChatID
-}
-
 // Decode implements bin.Decoder.
 func (m *MessagesMigrateChatRequest) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -151,13 +154,10 @@ func (m *MessagesMigrateChatRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesMigrateChatRequest.
-var (
-	_ bin.Encoder     = &MessagesMigrateChatRequest{}
-	_ bin.Decoder     = &MessagesMigrateChatRequest{}
-	_ bin.BareEncoder = &MessagesMigrateChatRequest{}
-	_ bin.BareDecoder = &MessagesMigrateChatRequest{}
-)
+// GetChatID returns value of ChatID field.
+func (m *MessagesMigrateChatRequest) GetChatID() (value int) {
+	return m.ChatID
+}
 
 // MessagesMigrateChat invokes method messages.migrateChat#15a3b8e3 returning error if any.
 // Turn a legacy group into a supergroup¹

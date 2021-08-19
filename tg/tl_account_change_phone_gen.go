@@ -51,6 +51,14 @@ type AccountChangePhoneRequest struct {
 // AccountChangePhoneRequestTypeID is TL type id of AccountChangePhoneRequest.
 const AccountChangePhoneRequestTypeID = 0x70c32edb
 
+// Ensuring interfaces in compile-time for AccountChangePhoneRequest.
+var (
+	_ bin.Encoder     = &AccountChangePhoneRequest{}
+	_ bin.Decoder     = &AccountChangePhoneRequest{}
+	_ bin.BareEncoder = &AccountChangePhoneRequest{}
+	_ bin.BareDecoder = &AccountChangePhoneRequest{}
+)
+
 func (c *AccountChangePhoneRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -147,21 +155,6 @@ func (c *AccountChangePhoneRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (c *AccountChangePhoneRequest) GetPhoneNumber() (value string) {
-	return c.PhoneNumber
-}
-
-// GetPhoneCodeHash returns value of PhoneCodeHash field.
-func (c *AccountChangePhoneRequest) GetPhoneCodeHash() (value string) {
-	return c.PhoneCodeHash
-}
-
-// GetPhoneCode returns value of PhoneCode field.
-func (c *AccountChangePhoneRequest) GetPhoneCode() (value string) {
-	return c.PhoneCode
-}
-
 // Decode implements bin.Decoder.
 func (c *AccountChangePhoneRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -202,13 +195,20 @@ func (c *AccountChangePhoneRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountChangePhoneRequest.
-var (
-	_ bin.Encoder     = &AccountChangePhoneRequest{}
-	_ bin.Decoder     = &AccountChangePhoneRequest{}
-	_ bin.BareEncoder = &AccountChangePhoneRequest{}
-	_ bin.BareDecoder = &AccountChangePhoneRequest{}
-)
+// GetPhoneNumber returns value of PhoneNumber field.
+func (c *AccountChangePhoneRequest) GetPhoneNumber() (value string) {
+	return c.PhoneNumber
+}
+
+// GetPhoneCodeHash returns value of PhoneCodeHash field.
+func (c *AccountChangePhoneRequest) GetPhoneCodeHash() (value string) {
+	return c.PhoneCodeHash
+}
+
+// GetPhoneCode returns value of PhoneCode field.
+func (c *AccountChangePhoneRequest) GetPhoneCode() (value string) {
+	return c.PhoneCode
+}
 
 // AccountChangePhone invokes method account.changePhone#70c32edb returning error if any.
 // Change the phone number of the current account

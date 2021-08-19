@@ -41,6 +41,14 @@ type StatsURL struct {
 // StatsURLTypeID is TL type id of StatsURL.
 const StatsURLTypeID = 0x47a971e0
 
+// Ensuring interfaces in compile-time for StatsURL.
+var (
+	_ bin.Encoder     = &StatsURL{}
+	_ bin.Decoder     = &StatsURL{}
+	_ bin.BareEncoder = &StatsURL{}
+	_ bin.BareDecoder = &StatsURL{}
+)
+
 func (s *StatsURL) Zero() bool {
 	if s == nil {
 		return true
@@ -117,11 +125,6 @@ func (s *StatsURL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (s *StatsURL) GetURL() (value string) {
-	return s.URL
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsURL) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -148,10 +151,7 @@ func (s *StatsURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsURL.
-var (
-	_ bin.Encoder     = &StatsURL{}
-	_ bin.Decoder     = &StatsURL{}
-	_ bin.BareEncoder = &StatsURL{}
-	_ bin.BareDecoder = &StatsURL{}
-)
+// GetURL returns value of URL field.
+func (s *StatsURL) GetURL() (value string) {
+	return s.URL
+}

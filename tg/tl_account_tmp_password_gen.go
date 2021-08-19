@@ -43,6 +43,14 @@ type AccountTmpPassword struct {
 // AccountTmpPasswordTypeID is TL type id of AccountTmpPassword.
 const AccountTmpPasswordTypeID = 0xdb64fd34
 
+// Ensuring interfaces in compile-time for AccountTmpPassword.
+var (
+	_ bin.Encoder     = &AccountTmpPassword{}
+	_ bin.Decoder     = &AccountTmpPassword{}
+	_ bin.BareEncoder = &AccountTmpPassword{}
+	_ bin.BareDecoder = &AccountTmpPassword{}
+)
+
 func (t *AccountTmpPassword) Zero() bool {
 	if t == nil {
 		return true
@@ -129,16 +137,6 @@ func (t *AccountTmpPassword) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTmpPassword returns value of TmpPassword field.
-func (t *AccountTmpPassword) GetTmpPassword() (value []byte) {
-	return t.TmpPassword
-}
-
-// GetValidUntil returns value of ValidUntil field.
-func (t *AccountTmpPassword) GetValidUntil() (value int) {
-	return t.ValidUntil
-}
-
 // Decode implements bin.Decoder.
 func (t *AccountTmpPassword) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -172,10 +170,12 @@ func (t *AccountTmpPassword) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountTmpPassword.
-var (
-	_ bin.Encoder     = &AccountTmpPassword{}
-	_ bin.Decoder     = &AccountTmpPassword{}
-	_ bin.BareEncoder = &AccountTmpPassword{}
-	_ bin.BareDecoder = &AccountTmpPassword{}
-)
+// GetTmpPassword returns value of TmpPassword field.
+func (t *AccountTmpPassword) GetTmpPassword() (value []byte) {
+	return t.TmpPassword
+}
+
+// GetValidUntil returns value of ValidUntil field.
+func (t *AccountTmpPassword) GetValidUntil() (value int) {
+	return t.ValidUntil
+}

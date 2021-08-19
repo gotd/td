@@ -47,6 +47,19 @@ type ChannelsChannelParticipants struct {
 // ChannelsChannelParticipantsTypeID is TL type id of ChannelsChannelParticipants.
 const ChannelsChannelParticipantsTypeID = 0x9ab0feaf
 
+// construct implements constructor of ChannelsChannelParticipantsClass.
+func (c ChannelsChannelParticipants) construct() ChannelsChannelParticipantsClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelsChannelParticipants.
+var (
+	_ bin.Encoder     = &ChannelsChannelParticipants{}
+	_ bin.Decoder     = &ChannelsChannelParticipants{}
+	_ bin.BareEncoder = &ChannelsChannelParticipants{}
+	_ bin.BareDecoder = &ChannelsChannelParticipants{}
+
+	_ ChannelsChannelParticipantsClass = &ChannelsChannelParticipants{}
+)
+
 func (c *ChannelsChannelParticipants) Zero() bool {
 	if c == nil {
 		return true
@@ -177,41 +190,6 @@ func (c *ChannelsChannelParticipants) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (c *ChannelsChannelParticipants) GetCount() (value int) {
-	return c.Count
-}
-
-// GetParticipants returns value of Participants field.
-func (c *ChannelsChannelParticipants) GetParticipants() (value []ChannelParticipantClass) {
-	return c.Participants
-}
-
-// MapParticipants returns field Participants wrapped in ChannelParticipantClassArray helper.
-func (c *ChannelsChannelParticipants) MapParticipants() (value ChannelParticipantClassArray) {
-	return ChannelParticipantClassArray(c.Participants)
-}
-
-// GetChats returns value of Chats field.
-func (c *ChannelsChannelParticipants) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *ChannelsChannelParticipants) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (c *ChannelsChannelParticipants) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *ChannelsChannelParticipants) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelsChannelParticipants) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -289,18 +267,40 @@ func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelsChannelParticipantsClass.
-func (c ChannelsChannelParticipants) construct() ChannelsChannelParticipantsClass { return &c }
+// GetCount returns value of Count field.
+func (c *ChannelsChannelParticipants) GetCount() (value int) {
+	return c.Count
+}
 
-// Ensuring interfaces in compile-time for ChannelsChannelParticipants.
-var (
-	_ bin.Encoder     = &ChannelsChannelParticipants{}
-	_ bin.Decoder     = &ChannelsChannelParticipants{}
-	_ bin.BareEncoder = &ChannelsChannelParticipants{}
-	_ bin.BareDecoder = &ChannelsChannelParticipants{}
+// GetParticipants returns value of Participants field.
+func (c *ChannelsChannelParticipants) GetParticipants() (value []ChannelParticipantClass) {
+	return c.Participants
+}
 
-	_ ChannelsChannelParticipantsClass = &ChannelsChannelParticipants{}
-)
+// GetChats returns value of Chats field.
+func (c *ChannelsChannelParticipants) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *ChannelsChannelParticipants) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapParticipants returns field Participants wrapped in ChannelParticipantClassArray helper.
+func (c *ChannelsChannelParticipants) MapParticipants() (value ChannelParticipantClassArray) {
+	return ChannelParticipantClassArray(c.Participants)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *ChannelsChannelParticipants) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *ChannelsChannelParticipants) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}
 
 // ChannelsChannelParticipantsNotModified represents TL type `channels.channelParticipantsNotModified#f0173fe9`.
 // No new participant info could be found
@@ -311,6 +311,21 @@ type ChannelsChannelParticipantsNotModified struct {
 
 // ChannelsChannelParticipantsNotModifiedTypeID is TL type id of ChannelsChannelParticipantsNotModified.
 const ChannelsChannelParticipantsNotModifiedTypeID = 0xf0173fe9
+
+// construct implements constructor of ChannelsChannelParticipantsClass.
+func (c ChannelsChannelParticipantsNotModified) construct() ChannelsChannelParticipantsClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelsChannelParticipantsNotModified.
+var (
+	_ bin.Encoder     = &ChannelsChannelParticipantsNotModified{}
+	_ bin.Decoder     = &ChannelsChannelParticipantsNotModified{}
+	_ bin.BareEncoder = &ChannelsChannelParticipantsNotModified{}
+	_ bin.BareDecoder = &ChannelsChannelParticipantsNotModified{}
+
+	_ ChannelsChannelParticipantsClass = &ChannelsChannelParticipantsNotModified{}
+)
 
 func (c *ChannelsChannelParticipantsNotModified) Zero() bool {
 	if c == nil {
@@ -390,21 +405,6 @@ func (c *ChannelsChannelParticipantsNotModified) DecodeBare(b *bin.Buffer) error
 	}
 	return nil
 }
-
-// construct implements constructor of ChannelsChannelParticipantsClass.
-func (c ChannelsChannelParticipantsNotModified) construct() ChannelsChannelParticipantsClass {
-	return &c
-}
-
-// Ensuring interfaces in compile-time for ChannelsChannelParticipantsNotModified.
-var (
-	_ bin.Encoder     = &ChannelsChannelParticipantsNotModified{}
-	_ bin.Decoder     = &ChannelsChannelParticipantsNotModified{}
-	_ bin.BareEncoder = &ChannelsChannelParticipantsNotModified{}
-	_ bin.BareDecoder = &ChannelsChannelParticipantsNotModified{}
-
-	_ ChannelsChannelParticipantsClass = &ChannelsChannelParticipantsNotModified{}
-)
 
 // ChannelsChannelParticipantsClass represents channels.ChannelParticipants generic type.
 //

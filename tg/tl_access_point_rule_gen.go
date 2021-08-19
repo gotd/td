@@ -44,6 +44,14 @@ type AccessPointRule struct {
 // AccessPointRuleTypeID is TL type id of AccessPointRule.
 const AccessPointRuleTypeID = 0x4679b65f
 
+// Ensuring interfaces in compile-time for AccessPointRule.
+var (
+	_ bin.Encoder     = &AccessPointRule{}
+	_ bin.Decoder     = &AccessPointRule{}
+	_ bin.BareEncoder = &AccessPointRule{}
+	_ bin.BareDecoder = &AccessPointRule{}
+)
+
 func (a *AccessPointRule) Zero() bool {
 	if a == nil {
 		return true
@@ -148,26 +156,6 @@ func (a *AccessPointRule) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhonePrefixRules returns value of PhonePrefixRules field.
-func (a *AccessPointRule) GetPhonePrefixRules() (value string) {
-	return a.PhonePrefixRules
-}
-
-// GetDCID returns value of DCID field.
-func (a *AccessPointRule) GetDCID() (value int) {
-	return a.DCID
-}
-
-// GetIPs returns value of IPs field.
-func (a *AccessPointRule) GetIPs() (value []IPPortClass) {
-	return a.IPs
-}
-
-// MapIPs returns field IPs wrapped in IPPortClassArray helper.
-func (a *AccessPointRule) MapIPs() (value IPPortClassArray) {
-	return IPPortClassArray(a.IPs)
-}
-
 // Decode implements bin.Decoder.
 func (a *AccessPointRule) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -218,10 +206,22 @@ func (a *AccessPointRule) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccessPointRule.
-var (
-	_ bin.Encoder     = &AccessPointRule{}
-	_ bin.Decoder     = &AccessPointRule{}
-	_ bin.BareEncoder = &AccessPointRule{}
-	_ bin.BareDecoder = &AccessPointRule{}
-)
+// GetPhonePrefixRules returns value of PhonePrefixRules field.
+func (a *AccessPointRule) GetPhonePrefixRules() (value string) {
+	return a.PhonePrefixRules
+}
+
+// GetDCID returns value of DCID field.
+func (a *AccessPointRule) GetDCID() (value int) {
+	return a.DCID
+}
+
+// GetIPs returns value of IPs field.
+func (a *AccessPointRule) GetIPs() (value []IPPortClass) {
+	return a.IPs
+}
+
+// MapIPs returns field IPs wrapped in IPPortClassArray helper.
+func (a *AccessPointRule) MapIPs() (value IPPortClassArray) {
+	return IPPortClassArray(a.IPs)
+}

@@ -48,6 +48,14 @@ type PhoneToggleGroupCallRecordRequest struct {
 // PhoneToggleGroupCallRecordRequestTypeID is TL type id of PhoneToggleGroupCallRecordRequest.
 const PhoneToggleGroupCallRecordRequestTypeID = 0xc02a66d7
 
+// Ensuring interfaces in compile-time for PhoneToggleGroupCallRecordRequest.
+var (
+	_ bin.Encoder     = &PhoneToggleGroupCallRecordRequest{}
+	_ bin.Decoder     = &PhoneToggleGroupCallRecordRequest{}
+	_ bin.BareEncoder = &PhoneToggleGroupCallRecordRequest{}
+	_ bin.BareDecoder = &PhoneToggleGroupCallRecordRequest{}
+)
+
 func (t *PhoneToggleGroupCallRecordRequest) Zero() bool {
 	if t == nil {
 		return true
@@ -164,42 +172,6 @@ func (t *PhoneToggleGroupCallRecordRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetStart sets value of Start conditional field.
-func (t *PhoneToggleGroupCallRecordRequest) SetStart(value bool) {
-	if value {
-		t.Flags.Set(0)
-		t.Start = true
-	} else {
-		t.Flags.Unset(0)
-		t.Start = false
-	}
-}
-
-// GetStart returns value of Start conditional field.
-func (t *PhoneToggleGroupCallRecordRequest) GetStart() (value bool) {
-	return t.Flags.Has(0)
-}
-
-// GetCall returns value of Call field.
-func (t *PhoneToggleGroupCallRecordRequest) GetCall() (value InputGroupCall) {
-	return t.Call
-}
-
-// SetTitle sets value of Title conditional field.
-func (t *PhoneToggleGroupCallRecordRequest) SetTitle(value string) {
-	t.Flags.Set(1)
-	t.Title = value
-}
-
-// GetTitle returns value of Title conditional field and
-// boolean which is true if field was set.
-func (t *PhoneToggleGroupCallRecordRequest) GetTitle() (value string, ok bool) {
-	if !t.Flags.Has(1) {
-		return value, false
-	}
-	return t.Title, true
-}
-
 // Decode implements bin.Decoder.
 func (t *PhoneToggleGroupCallRecordRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -237,13 +209,41 @@ func (t *PhoneToggleGroupCallRecordRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneToggleGroupCallRecordRequest.
-var (
-	_ bin.Encoder     = &PhoneToggleGroupCallRecordRequest{}
-	_ bin.Decoder     = &PhoneToggleGroupCallRecordRequest{}
-	_ bin.BareEncoder = &PhoneToggleGroupCallRecordRequest{}
-	_ bin.BareDecoder = &PhoneToggleGroupCallRecordRequest{}
-)
+// SetStart sets value of Start conditional field.
+func (t *PhoneToggleGroupCallRecordRequest) SetStart(value bool) {
+	if value {
+		t.Flags.Set(0)
+		t.Start = true
+	} else {
+		t.Flags.Unset(0)
+		t.Start = false
+	}
+}
+
+// GetStart returns value of Start conditional field.
+func (t *PhoneToggleGroupCallRecordRequest) GetStart() (value bool) {
+	return t.Flags.Has(0)
+}
+
+// GetCall returns value of Call field.
+func (t *PhoneToggleGroupCallRecordRequest) GetCall() (value InputGroupCall) {
+	return t.Call
+}
+
+// SetTitle sets value of Title conditional field.
+func (t *PhoneToggleGroupCallRecordRequest) SetTitle(value string) {
+	t.Flags.Set(1)
+	t.Title = value
+}
+
+// GetTitle returns value of Title conditional field and
+// boolean which is true if field was set.
+func (t *PhoneToggleGroupCallRecordRequest) GetTitle() (value string, ok bool) {
+	if !t.Flags.Has(1) {
+		return value, false
+	}
+	return t.Title, true
+}
 
 // PhoneToggleGroupCallRecord invokes method phone.toggleGroupCallRecord#c02a66d7 returning error if any.
 //

@@ -42,6 +42,19 @@ type ServerDHParamsFail struct {
 // ServerDHParamsFailTypeID is TL type id of ServerDHParamsFail.
 const ServerDHParamsFailTypeID = 0x79cb045d
 
+// construct implements constructor of ServerDHParamsClass.
+func (s ServerDHParamsFail) construct() ServerDHParamsClass { return &s }
+
+// Ensuring interfaces in compile-time for ServerDHParamsFail.
+var (
+	_ bin.Encoder     = &ServerDHParamsFail{}
+	_ bin.Decoder     = &ServerDHParamsFail{}
+	_ bin.BareEncoder = &ServerDHParamsFail{}
+	_ bin.BareDecoder = &ServerDHParamsFail{}
+
+	_ ServerDHParamsClass = &ServerDHParamsFail{}
+)
+
 func (s *ServerDHParamsFail) Zero() bool {
 	if s == nil {
 		return true
@@ -66,17 +79,6 @@ func (s *ServerDHParamsFail) String() string {
 	}
 	type Alias ServerDHParamsFail
 	return fmt.Sprintf("ServerDHParamsFail%+v", Alias(*s))
-}
-
-// FillFrom fills ServerDHParamsFail from given interface.
-func (s *ServerDHParamsFail) FillFrom(from interface {
-	GetNonce() (value bin.Int128)
-	GetServerNonce() (value bin.Int128)
-	GetNewNonceHash() (value bin.Int128)
-}) {
-	s.Nonce = from.GetNonce()
-	s.ServerNonce = from.GetServerNonce()
-	s.NewNonceHash = from.GetNewNonceHash()
 }
 
 // TypeID returns type id in TL schema.
@@ -138,21 +140,6 @@ func (s *ServerDHParamsFail) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNonce returns value of Nonce field.
-func (s *ServerDHParamsFail) GetNonce() (value bin.Int128) {
-	return s.Nonce
-}
-
-// GetServerNonce returns value of ServerNonce field.
-func (s *ServerDHParamsFail) GetServerNonce() (value bin.Int128) {
-	return s.ServerNonce
-}
-
-// GetNewNonceHash returns value of NewNonceHash field.
-func (s *ServerDHParamsFail) GetNewNonceHash() (value bin.Int128) {
-	return s.NewNonceHash
-}
-
 // Decode implements bin.Decoder.
 func (s *ServerDHParamsFail) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -193,18 +180,20 @@ func (s *ServerDHParamsFail) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ServerDHParamsClass.
-func (s ServerDHParamsFail) construct() ServerDHParamsClass { return &s }
+// GetNonce returns value of Nonce field.
+func (s *ServerDHParamsFail) GetNonce() (value bin.Int128) {
+	return s.Nonce
+}
 
-// Ensuring interfaces in compile-time for ServerDHParamsFail.
-var (
-	_ bin.Encoder     = &ServerDHParamsFail{}
-	_ bin.Decoder     = &ServerDHParamsFail{}
-	_ bin.BareEncoder = &ServerDHParamsFail{}
-	_ bin.BareDecoder = &ServerDHParamsFail{}
+// GetServerNonce returns value of ServerNonce field.
+func (s *ServerDHParamsFail) GetServerNonce() (value bin.Int128) {
+	return s.ServerNonce
+}
 
-	_ ServerDHParamsClass = &ServerDHParamsFail{}
-)
+// GetNewNonceHash returns value of NewNonceHash field.
+func (s *ServerDHParamsFail) GetNewNonceHash() (value bin.Int128) {
+	return s.NewNonceHash
+}
 
 // ServerDHParamsOk represents TL type `server_DH_params_ok#d0e8075c`.
 type ServerDHParamsOk struct {
@@ -218,6 +207,19 @@ type ServerDHParamsOk struct {
 
 // ServerDHParamsOkTypeID is TL type id of ServerDHParamsOk.
 const ServerDHParamsOkTypeID = 0xd0e8075c
+
+// construct implements constructor of ServerDHParamsClass.
+func (s ServerDHParamsOk) construct() ServerDHParamsClass { return &s }
+
+// Ensuring interfaces in compile-time for ServerDHParamsOk.
+var (
+	_ bin.Encoder     = &ServerDHParamsOk{}
+	_ bin.Decoder     = &ServerDHParamsOk{}
+	_ bin.BareEncoder = &ServerDHParamsOk{}
+	_ bin.BareDecoder = &ServerDHParamsOk{}
+
+	_ ServerDHParamsClass = &ServerDHParamsOk{}
+)
 
 func (s *ServerDHParamsOk) Zero() bool {
 	if s == nil {
@@ -243,17 +245,6 @@ func (s *ServerDHParamsOk) String() string {
 	}
 	type Alias ServerDHParamsOk
 	return fmt.Sprintf("ServerDHParamsOk%+v", Alias(*s))
-}
-
-// FillFrom fills ServerDHParamsOk from given interface.
-func (s *ServerDHParamsOk) FillFrom(from interface {
-	GetNonce() (value bin.Int128)
-	GetServerNonce() (value bin.Int128)
-	GetEncryptedAnswer() (value []byte)
-}) {
-	s.Nonce = from.GetNonce()
-	s.ServerNonce = from.GetServerNonce()
-	s.EncryptedAnswer = from.GetEncryptedAnswer()
 }
 
 // TypeID returns type id in TL schema.
@@ -315,21 +306,6 @@ func (s *ServerDHParamsOk) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNonce returns value of Nonce field.
-func (s *ServerDHParamsOk) GetNonce() (value bin.Int128) {
-	return s.Nonce
-}
-
-// GetServerNonce returns value of ServerNonce field.
-func (s *ServerDHParamsOk) GetServerNonce() (value bin.Int128) {
-	return s.ServerNonce
-}
-
-// GetEncryptedAnswer returns value of EncryptedAnswer field.
-func (s *ServerDHParamsOk) GetEncryptedAnswer() (value []byte) {
-	return s.EncryptedAnswer
-}
-
 // Decode implements bin.Decoder.
 func (s *ServerDHParamsOk) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -370,18 +346,20 @@ func (s *ServerDHParamsOk) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ServerDHParamsClass.
-func (s ServerDHParamsOk) construct() ServerDHParamsClass { return &s }
+// GetNonce returns value of Nonce field.
+func (s *ServerDHParamsOk) GetNonce() (value bin.Int128) {
+	return s.Nonce
+}
 
-// Ensuring interfaces in compile-time for ServerDHParamsOk.
-var (
-	_ bin.Encoder     = &ServerDHParamsOk{}
-	_ bin.Decoder     = &ServerDHParamsOk{}
-	_ bin.BareEncoder = &ServerDHParamsOk{}
-	_ bin.BareDecoder = &ServerDHParamsOk{}
+// GetServerNonce returns value of ServerNonce field.
+func (s *ServerDHParamsOk) GetServerNonce() (value bin.Int128) {
+	return s.ServerNonce
+}
 
-	_ ServerDHParamsClass = &ServerDHParamsOk{}
-)
+// GetEncryptedAnswer returns value of EncryptedAnswer field.
+func (s *ServerDHParamsOk) GetEncryptedAnswer() (value []byte) {
+	return s.EncryptedAnswer
+}
 
 // ServerDHParamsClass represents Server_DH_Params generic type.
 //
@@ -415,7 +393,6 @@ type ServerDHParamsClass interface {
 
 	// Nonce field of ServerDHParamsFail.
 	GetNonce() (value bin.Int128)
-
 	// ServerNonce field of ServerDHParamsFail.
 	GetServerNonce() (value bin.Int128)
 }
@@ -470,276 +447,4 @@ func (b *ServerDHParamsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ServerDHParamsClass as nil")
 	}
 	return b.Server_DH_Params.Encode(buf)
-}
-
-// ServerDHParamsClassArray is adapter for slice of ServerDHParamsClass.
-type ServerDHParamsClassArray []ServerDHParamsClass
-
-// Sort sorts slice of ServerDHParamsClass.
-func (s ServerDHParamsClassArray) Sort(less func(a, b ServerDHParamsClass) bool) ServerDHParamsClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ServerDHParamsClass.
-func (s ServerDHParamsClassArray) SortStable(less func(a, b ServerDHParamsClass) bool) ServerDHParamsClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ServerDHParamsClass.
-func (s ServerDHParamsClassArray) Retain(keep func(x ServerDHParamsClass) bool) ServerDHParamsClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ServerDHParamsClassArray) First() (v ServerDHParamsClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ServerDHParamsClassArray) Last() (v ServerDHParamsClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ServerDHParamsClassArray) PopFirst() (v ServerDHParamsClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ServerDHParamsClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ServerDHParamsClassArray) Pop() (v ServerDHParamsClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsServerDHParamsFail returns copy with only ServerDHParamsFail constructors.
-func (s ServerDHParamsClassArray) AsServerDHParamsFail() (to ServerDHParamsFailArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ServerDHParamsFail)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsServerDHParamsOk returns copy with only ServerDHParamsOk constructors.
-func (s ServerDHParamsClassArray) AsServerDHParamsOk() (to ServerDHParamsOkArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ServerDHParamsOk)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// ServerDHParamsFailArray is adapter for slice of ServerDHParamsFail.
-type ServerDHParamsFailArray []ServerDHParamsFail
-
-// Sort sorts slice of ServerDHParamsFail.
-func (s ServerDHParamsFailArray) Sort(less func(a, b ServerDHParamsFail) bool) ServerDHParamsFailArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ServerDHParamsFail.
-func (s ServerDHParamsFailArray) SortStable(less func(a, b ServerDHParamsFail) bool) ServerDHParamsFailArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ServerDHParamsFail.
-func (s ServerDHParamsFailArray) Retain(keep func(x ServerDHParamsFail) bool) ServerDHParamsFailArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ServerDHParamsFailArray) First() (v ServerDHParamsFail, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ServerDHParamsFailArray) Last() (v ServerDHParamsFail, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ServerDHParamsFailArray) PopFirst() (v ServerDHParamsFail, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ServerDHParamsFail
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ServerDHParamsFailArray) Pop() (v ServerDHParamsFail, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// ServerDHParamsOkArray is adapter for slice of ServerDHParamsOk.
-type ServerDHParamsOkArray []ServerDHParamsOk
-
-// Sort sorts slice of ServerDHParamsOk.
-func (s ServerDHParamsOkArray) Sort(less func(a, b ServerDHParamsOk) bool) ServerDHParamsOkArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ServerDHParamsOk.
-func (s ServerDHParamsOkArray) SortStable(less func(a, b ServerDHParamsOk) bool) ServerDHParamsOkArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ServerDHParamsOk.
-func (s ServerDHParamsOkArray) Retain(keep func(x ServerDHParamsOk) bool) ServerDHParamsOkArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ServerDHParamsOkArray) First() (v ServerDHParamsOk, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ServerDHParamsOkArray) Last() (v ServerDHParamsOk, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ServerDHParamsOkArray) PopFirst() (v ServerDHParamsOk, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ServerDHParamsOk
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ServerDHParamsOkArray) Pop() (v ServerDHParamsOk, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

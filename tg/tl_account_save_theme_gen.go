@@ -43,6 +43,14 @@ type AccountSaveThemeRequest struct {
 // AccountSaveThemeRequestTypeID is TL type id of AccountSaveThemeRequest.
 const AccountSaveThemeRequestTypeID = 0xf257106c
 
+// Ensuring interfaces in compile-time for AccountSaveThemeRequest.
+var (
+	_ bin.Encoder     = &AccountSaveThemeRequest{}
+	_ bin.Decoder     = &AccountSaveThemeRequest{}
+	_ bin.BareEncoder = &AccountSaveThemeRequest{}
+	_ bin.BareDecoder = &AccountSaveThemeRequest{}
+)
+
 func (s *AccountSaveThemeRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -134,16 +142,6 @@ func (s *AccountSaveThemeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTheme returns value of Theme field.
-func (s *AccountSaveThemeRequest) GetTheme() (value InputThemeClass) {
-	return s.Theme
-}
-
-// GetUnsave returns value of Unsave field.
-func (s *AccountSaveThemeRequest) GetUnsave() (value bool) {
-	return s.Unsave
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSaveThemeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -177,13 +175,15 @@ func (s *AccountSaveThemeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSaveThemeRequest.
-var (
-	_ bin.Encoder     = &AccountSaveThemeRequest{}
-	_ bin.Decoder     = &AccountSaveThemeRequest{}
-	_ bin.BareEncoder = &AccountSaveThemeRequest{}
-	_ bin.BareDecoder = &AccountSaveThemeRequest{}
-)
+// GetTheme returns value of Theme field.
+func (s *AccountSaveThemeRequest) GetTheme() (value InputThemeClass) {
+	return s.Theme
+}
+
+// GetUnsave returns value of Unsave field.
+func (s *AccountSaveThemeRequest) GetUnsave() (value bool) {
+	return s.Unsave
+}
 
 // AccountSaveTheme invokes method account.saveTheme#f257106c returning error if any.
 // Save a theme

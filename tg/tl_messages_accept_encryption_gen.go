@@ -48,6 +48,14 @@ type MessagesAcceptEncryptionRequest struct {
 // MessagesAcceptEncryptionRequestTypeID is TL type id of MessagesAcceptEncryptionRequest.
 const MessagesAcceptEncryptionRequestTypeID = 0x3dbc0415
 
+// Ensuring interfaces in compile-time for MessagesAcceptEncryptionRequest.
+var (
+	_ bin.Encoder     = &MessagesAcceptEncryptionRequest{}
+	_ bin.Decoder     = &MessagesAcceptEncryptionRequest{}
+	_ bin.BareEncoder = &MessagesAcceptEncryptionRequest{}
+	_ bin.BareDecoder = &MessagesAcceptEncryptionRequest{}
+)
+
 func (a *MessagesAcceptEncryptionRequest) Zero() bool {
 	if a == nil {
 		return true
@@ -146,21 +154,6 @@ func (a *MessagesAcceptEncryptionRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (a *MessagesAcceptEncryptionRequest) GetPeer() (value InputEncryptedChat) {
-	return a.Peer
-}
-
-// GetGB returns value of GB field.
-func (a *MessagesAcceptEncryptionRequest) GetGB() (value []byte) {
-	return a.GB
-}
-
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (a *MessagesAcceptEncryptionRequest) GetKeyFingerprint() (value int64) {
-	return a.KeyFingerprint
-}
-
 // Decode implements bin.Decoder.
 func (a *MessagesAcceptEncryptionRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -199,13 +192,20 @@ func (a *MessagesAcceptEncryptionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesAcceptEncryptionRequest.
-var (
-	_ bin.Encoder     = &MessagesAcceptEncryptionRequest{}
-	_ bin.Decoder     = &MessagesAcceptEncryptionRequest{}
-	_ bin.BareEncoder = &MessagesAcceptEncryptionRequest{}
-	_ bin.BareDecoder = &MessagesAcceptEncryptionRequest{}
-)
+// GetPeer returns value of Peer field.
+func (a *MessagesAcceptEncryptionRequest) GetPeer() (value InputEncryptedChat) {
+	return a.Peer
+}
+
+// GetGB returns value of GB field.
+func (a *MessagesAcceptEncryptionRequest) GetGB() (value []byte) {
+	return a.GB
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (a *MessagesAcceptEncryptionRequest) GetKeyFingerprint() (value int64) {
+	return a.KeyFingerprint
+}
 
 // MessagesAcceptEncryption invokes method messages.acceptEncryption#3dbc0415 returning error if any.
 // Confirms creation of a secret chat

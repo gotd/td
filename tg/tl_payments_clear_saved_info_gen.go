@@ -48,6 +48,14 @@ type PaymentsClearSavedInfoRequest struct {
 // PaymentsClearSavedInfoRequestTypeID is TL type id of PaymentsClearSavedInfoRequest.
 const PaymentsClearSavedInfoRequestTypeID = 0xd83d70c1
 
+// Ensuring interfaces in compile-time for PaymentsClearSavedInfoRequest.
+var (
+	_ bin.Encoder     = &PaymentsClearSavedInfoRequest{}
+	_ bin.Decoder     = &PaymentsClearSavedInfoRequest{}
+	_ bin.BareEncoder = &PaymentsClearSavedInfoRequest{}
+	_ bin.BareDecoder = &PaymentsClearSavedInfoRequest{}
+)
+
 func (c *PaymentsClearSavedInfoRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -146,6 +154,32 @@ func (c *PaymentsClearSavedInfoRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *PaymentsClearSavedInfoRequest) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode payments.clearSavedInfo#d83d70c1 to nil")
+	}
+	if err := b.ConsumeID(PaymentsClearSavedInfoRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode payments.clearSavedInfo#d83d70c1: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *PaymentsClearSavedInfoRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode payments.clearSavedInfo#d83d70c1 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.clearSavedInfo#d83d70c1: field flags: %w", err)
+		}
+	}
+	c.Credentials = c.Flags.Has(0)
+	c.Info = c.Flags.Has(1)
+	return nil
+}
+
 // SetCredentials sets value of Credentials conditional field.
 func (c *PaymentsClearSavedInfoRequest) SetCredentials(value bool) {
 	if value {
@@ -177,40 +211,6 @@ func (c *PaymentsClearSavedInfoRequest) SetInfo(value bool) {
 func (c *PaymentsClearSavedInfoRequest) GetInfo() (value bool) {
 	return c.Flags.Has(1)
 }
-
-// Decode implements bin.Decoder.
-func (c *PaymentsClearSavedInfoRequest) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode payments.clearSavedInfo#d83d70c1 to nil")
-	}
-	if err := b.ConsumeID(PaymentsClearSavedInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.clearSavedInfo#d83d70c1: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *PaymentsClearSavedInfoRequest) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode payments.clearSavedInfo#d83d70c1 to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.clearSavedInfo#d83d70c1: field flags: %w", err)
-		}
-	}
-	c.Credentials = c.Flags.Has(0)
-	c.Info = c.Flags.Has(1)
-	return nil
-}
-
-// Ensuring interfaces in compile-time for PaymentsClearSavedInfoRequest.
-var (
-	_ bin.Encoder     = &PaymentsClearSavedInfoRequest{}
-	_ bin.Decoder     = &PaymentsClearSavedInfoRequest{}
-	_ bin.BareEncoder = &PaymentsClearSavedInfoRequest{}
-	_ bin.BareDecoder = &PaymentsClearSavedInfoRequest{}
-)
 
 // PaymentsClearSavedInfo invokes method payments.clearSavedInfo#d83d70c1 returning error if any.
 // Clear saved payment information

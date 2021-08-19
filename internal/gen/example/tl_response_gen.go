@@ -40,6 +40,19 @@ type ResponseID struct {
 // ResponseIDTypeID is TL type id of ResponseID.
 const ResponseIDTypeID = 0x85d7fd8b
 
+// construct implements constructor of ResponseClass.
+func (r ResponseID) construct() ResponseClass { return &r }
+
+// Ensuring interfaces in compile-time for ResponseID.
+var (
+	_ bin.Encoder     = &ResponseID{}
+	_ bin.Decoder     = &ResponseID{}
+	_ bin.BareEncoder = &ResponseID{}
+	_ bin.BareDecoder = &ResponseID{}
+
+	_ ResponseClass = &ResponseID{}
+)
+
 func (r *ResponseID) Zero() bool {
 	if r == nil {
 		return true
@@ -58,13 +71,6 @@ func (r *ResponseID) String() string {
 	}
 	type Alias ResponseID
 	return fmt.Sprintf("ResponseID%+v", Alias(*r))
-}
-
-// FillFrom fills ResponseID from given interface.
-func (r *ResponseID) FillFrom(from interface {
-	GetID() (value int32)
-}) {
-	r.ID = from.GetID()
 }
 
 // TypeID returns type id in TL schema.
@@ -116,11 +122,6 @@ func (r *ResponseID) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (r *ResponseID) GetID() (value int32) {
-	return r.ID
-}
-
 // Decode implements bin.Decoder.
 func (r *ResponseID) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -147,18 +148,10 @@ func (r *ResponseID) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ResponseClass.
-func (r ResponseID) construct() ResponseClass { return &r }
-
-// Ensuring interfaces in compile-time for ResponseID.
-var (
-	_ bin.Encoder     = &ResponseID{}
-	_ bin.Decoder     = &ResponseID{}
-	_ bin.BareEncoder = &ResponseID{}
-	_ bin.BareDecoder = &ResponseID{}
-
-	_ ResponseClass = &ResponseID{}
-)
+// GetID returns value of ID field.
+func (r *ResponseID) GetID() (value int32) {
+	return r.ID
+}
 
 // ResponseText represents TL type `responseText#cb0244f2`.
 //
@@ -170,6 +163,19 @@ type ResponseText struct {
 
 // ResponseTextTypeID is TL type id of ResponseText.
 const ResponseTextTypeID = 0xcb0244f2
+
+// construct implements constructor of ResponseClass.
+func (r ResponseText) construct() ResponseClass { return &r }
+
+// Ensuring interfaces in compile-time for ResponseText.
+var (
+	_ bin.Encoder     = &ResponseText{}
+	_ bin.Decoder     = &ResponseText{}
+	_ bin.BareEncoder = &ResponseText{}
+	_ bin.BareDecoder = &ResponseText{}
+
+	_ ResponseClass = &ResponseText{}
+)
 
 func (r *ResponseText) Zero() bool {
 	if r == nil {
@@ -189,13 +195,6 @@ func (r *ResponseText) String() string {
 	}
 	type Alias ResponseText
 	return fmt.Sprintf("ResponseText%+v", Alias(*r))
-}
-
-// FillFrom fills ResponseText from given interface.
-func (r *ResponseText) FillFrom(from interface {
-	GetText() (value string)
-}) {
-	r.Text = from.GetText()
 }
 
 // TypeID returns type id in TL schema.
@@ -247,11 +246,6 @@ func (r *ResponseText) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (r *ResponseText) GetText() (value string) {
-	return r.Text
-}
-
 // Decode implements bin.Decoder.
 func (r *ResponseText) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -278,18 +272,10 @@ func (r *ResponseText) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ResponseClass.
-func (r ResponseText) construct() ResponseClass { return &r }
-
-// Ensuring interfaces in compile-time for ResponseText.
-var (
-	_ bin.Encoder     = &ResponseText{}
-	_ bin.Decoder     = &ResponseText{}
-	_ bin.BareEncoder = &ResponseText{}
-	_ bin.BareDecoder = &ResponseText{}
-
-	_ ResponseClass = &ResponseText{}
-)
+// GetText returns value of Text field.
+func (r *ResponseText) GetText() (value string) {
+	return r.Text
+}
 
 // ResponseClass represents Response generic type.
 //
@@ -374,276 +360,4 @@ func (b *ResponseBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ResponseClass as nil")
 	}
 	return b.Response.Encode(buf)
-}
-
-// ResponseClassArray is adapter for slice of ResponseClass.
-type ResponseClassArray []ResponseClass
-
-// Sort sorts slice of ResponseClass.
-func (s ResponseClassArray) Sort(less func(a, b ResponseClass) bool) ResponseClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ResponseClass.
-func (s ResponseClassArray) SortStable(less func(a, b ResponseClass) bool) ResponseClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ResponseClass.
-func (s ResponseClassArray) Retain(keep func(x ResponseClass) bool) ResponseClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ResponseClassArray) First() (v ResponseClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ResponseClassArray) Last() (v ResponseClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ResponseClassArray) PopFirst() (v ResponseClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ResponseClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ResponseClassArray) Pop() (v ResponseClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsResponseID returns copy with only ResponseID constructors.
-func (s ResponseClassArray) AsResponseID() (to ResponseIDArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ResponseID)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsResponseText returns copy with only ResponseText constructors.
-func (s ResponseClassArray) AsResponseText() (to ResponseTextArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ResponseText)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// ResponseIDArray is adapter for slice of ResponseID.
-type ResponseIDArray []ResponseID
-
-// Sort sorts slice of ResponseID.
-func (s ResponseIDArray) Sort(less func(a, b ResponseID) bool) ResponseIDArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ResponseID.
-func (s ResponseIDArray) SortStable(less func(a, b ResponseID) bool) ResponseIDArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ResponseID.
-func (s ResponseIDArray) Retain(keep func(x ResponseID) bool) ResponseIDArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ResponseIDArray) First() (v ResponseID, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ResponseIDArray) Last() (v ResponseID, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ResponseIDArray) PopFirst() (v ResponseID, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ResponseID
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ResponseIDArray) Pop() (v ResponseID, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// ResponseTextArray is adapter for slice of ResponseText.
-type ResponseTextArray []ResponseText
-
-// Sort sorts slice of ResponseText.
-func (s ResponseTextArray) Sort(less func(a, b ResponseText) bool) ResponseTextArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ResponseText.
-func (s ResponseTextArray) SortStable(less func(a, b ResponseText) bool) ResponseTextArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ResponseText.
-func (s ResponseTextArray) Retain(keep func(x ResponseText) bool) ResponseTextArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ResponseTextArray) First() (v ResponseText, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ResponseTextArray) Last() (v ResponseText, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ResponseTextArray) PopFirst() (v ResponseText, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ResponseText
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ResponseTextArray) Pop() (v ResponseText, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

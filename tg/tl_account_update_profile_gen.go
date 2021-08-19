@@ -56,6 +56,14 @@ type AccountUpdateProfileRequest struct {
 // AccountUpdateProfileRequestTypeID is TL type id of AccountUpdateProfileRequest.
 const AccountUpdateProfileRequestTypeID = 0x78515775
 
+// Ensuring interfaces in compile-time for AccountUpdateProfileRequest.
+var (
+	_ bin.Encoder     = &AccountUpdateProfileRequest{}
+	_ bin.Decoder     = &AccountUpdateProfileRequest{}
+	_ bin.BareEncoder = &AccountUpdateProfileRequest{}
+	_ bin.BareDecoder = &AccountUpdateProfileRequest{}
+)
+
 func (u *AccountUpdateProfileRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -185,51 +193,6 @@ func (u *AccountUpdateProfileRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFirstName sets value of FirstName conditional field.
-func (u *AccountUpdateProfileRequest) SetFirstName(value string) {
-	u.Flags.Set(0)
-	u.FirstName = value
-}
-
-// GetFirstName returns value of FirstName conditional field and
-// boolean which is true if field was set.
-func (u *AccountUpdateProfileRequest) GetFirstName() (value string, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.FirstName, true
-}
-
-// SetLastName sets value of LastName conditional field.
-func (u *AccountUpdateProfileRequest) SetLastName(value string) {
-	u.Flags.Set(1)
-	u.LastName = value
-}
-
-// GetLastName returns value of LastName conditional field and
-// boolean which is true if field was set.
-func (u *AccountUpdateProfileRequest) GetLastName() (value string, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.LastName, true
-}
-
-// SetAbout sets value of About conditional field.
-func (u *AccountUpdateProfileRequest) SetAbout(value string) {
-	u.Flags.Set(2)
-	u.About = value
-}
-
-// GetAbout returns value of About conditional field and
-// boolean which is true if field was set.
-func (u *AccountUpdateProfileRequest) GetAbout() (value string, ok bool) {
-	if !u.Flags.Has(2) {
-		return value, false
-	}
-	return u.About, true
-}
-
 // Decode implements bin.Decoder.
 func (u *AccountUpdateProfileRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -275,13 +238,50 @@ func (u *AccountUpdateProfileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountUpdateProfileRequest.
-var (
-	_ bin.Encoder     = &AccountUpdateProfileRequest{}
-	_ bin.Decoder     = &AccountUpdateProfileRequest{}
-	_ bin.BareEncoder = &AccountUpdateProfileRequest{}
-	_ bin.BareDecoder = &AccountUpdateProfileRequest{}
-)
+// SetFirstName sets value of FirstName conditional field.
+func (u *AccountUpdateProfileRequest) SetFirstName(value string) {
+	u.Flags.Set(0)
+	u.FirstName = value
+}
+
+// GetFirstName returns value of FirstName conditional field and
+// boolean which is true if field was set.
+func (u *AccountUpdateProfileRequest) GetFirstName() (value string, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.FirstName, true
+}
+
+// SetLastName sets value of LastName conditional field.
+func (u *AccountUpdateProfileRequest) SetLastName(value string) {
+	u.Flags.Set(1)
+	u.LastName = value
+}
+
+// GetLastName returns value of LastName conditional field and
+// boolean which is true if field was set.
+func (u *AccountUpdateProfileRequest) GetLastName() (value string, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.LastName, true
+}
+
+// SetAbout sets value of About conditional field.
+func (u *AccountUpdateProfileRequest) SetAbout(value string) {
+	u.Flags.Set(2)
+	u.About = value
+}
+
+// GetAbout returns value of About conditional field and
+// boolean which is true if field was set.
+func (u *AccountUpdateProfileRequest) GetAbout() (value string, ok bool) {
+	if !u.Flags.Has(2) {
+		return value, false
+	}
+	return u.About, true
+}
 
 // AccountUpdateProfile invokes method account.updateProfile#78515775 returning error if any.
 // Updates user profile.

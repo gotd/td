@@ -41,6 +41,19 @@ type MessagesDhConfigNotModified struct {
 // MessagesDhConfigNotModifiedTypeID is TL type id of MessagesDhConfigNotModified.
 const MessagesDhConfigNotModifiedTypeID = 0xc0e24635
 
+// construct implements constructor of MessagesDhConfigClass.
+func (d MessagesDhConfigNotModified) construct() MessagesDhConfigClass { return &d }
+
+// Ensuring interfaces in compile-time for MessagesDhConfigNotModified.
+var (
+	_ bin.Encoder     = &MessagesDhConfigNotModified{}
+	_ bin.Decoder     = &MessagesDhConfigNotModified{}
+	_ bin.BareEncoder = &MessagesDhConfigNotModified{}
+	_ bin.BareDecoder = &MessagesDhConfigNotModified{}
+
+	_ MessagesDhConfigClass = &MessagesDhConfigNotModified{}
+)
+
 func (d *MessagesDhConfigNotModified) Zero() bool {
 	if d == nil {
 		return true
@@ -117,11 +130,6 @@ func (d *MessagesDhConfigNotModified) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandom returns value of Random field.
-func (d *MessagesDhConfigNotModified) GetRandom() (value []byte) {
-	return d.Random
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDhConfigNotModified) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -148,18 +156,10 @@ func (d *MessagesDhConfigNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesDhConfigClass.
-func (d MessagesDhConfigNotModified) construct() MessagesDhConfigClass { return &d }
-
-// Ensuring interfaces in compile-time for MessagesDhConfigNotModified.
-var (
-	_ bin.Encoder     = &MessagesDhConfigNotModified{}
-	_ bin.Decoder     = &MessagesDhConfigNotModified{}
-	_ bin.BareEncoder = &MessagesDhConfigNotModified{}
-	_ bin.BareDecoder = &MessagesDhConfigNotModified{}
-
-	_ MessagesDhConfigClass = &MessagesDhConfigNotModified{}
-)
+// GetRandom returns value of Random field.
+func (d *MessagesDhConfigNotModified) GetRandom() (value []byte) {
+	return d.Random
+}
 
 // MessagesDhConfig represents TL type `messages.dhConfig#2c221edd`.
 // New set of configuring parameters.
@@ -184,6 +184,19 @@ type MessagesDhConfig struct {
 
 // MessagesDhConfigTypeID is TL type id of MessagesDhConfig.
 const MessagesDhConfigTypeID = 0x2c221edd
+
+// construct implements constructor of MessagesDhConfigClass.
+func (d MessagesDhConfig) construct() MessagesDhConfigClass { return &d }
+
+// Ensuring interfaces in compile-time for MessagesDhConfig.
+var (
+	_ bin.Encoder     = &MessagesDhConfig{}
+	_ bin.Decoder     = &MessagesDhConfig{}
+	_ bin.BareEncoder = &MessagesDhConfig{}
+	_ bin.BareDecoder = &MessagesDhConfig{}
+
+	_ MessagesDhConfigClass = &MessagesDhConfig{}
+)
 
 func (d *MessagesDhConfig) Zero() bool {
 	if d == nil {
@@ -291,26 +304,6 @@ func (d *MessagesDhConfig) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetG returns value of G field.
-func (d *MessagesDhConfig) GetG() (value int) {
-	return d.G
-}
-
-// GetP returns value of P field.
-func (d *MessagesDhConfig) GetP() (value []byte) {
-	return d.P
-}
-
-// GetVersion returns value of Version field.
-func (d *MessagesDhConfig) GetVersion() (value int) {
-	return d.Version
-}
-
-// GetRandom returns value of Random field.
-func (d *MessagesDhConfig) GetRandom() (value []byte) {
-	return d.Random
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDhConfig) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -358,18 +351,25 @@ func (d *MessagesDhConfig) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesDhConfigClass.
-func (d MessagesDhConfig) construct() MessagesDhConfigClass { return &d }
+// GetG returns value of G field.
+func (d *MessagesDhConfig) GetG() (value int) {
+	return d.G
+}
 
-// Ensuring interfaces in compile-time for MessagesDhConfig.
-var (
-	_ bin.Encoder     = &MessagesDhConfig{}
-	_ bin.Decoder     = &MessagesDhConfig{}
-	_ bin.BareEncoder = &MessagesDhConfig{}
-	_ bin.BareDecoder = &MessagesDhConfig{}
+// GetP returns value of P field.
+func (d *MessagesDhConfig) GetP() (value []byte) {
+	return d.P
+}
 
-	_ MessagesDhConfigClass = &MessagesDhConfig{}
-)
+// GetVersion returns value of Version field.
+func (d *MessagesDhConfig) GetVersion() (value int) {
+	return d.Version
+}
+
+// GetRandom returns value of Random field.
+func (d *MessagesDhConfig) GetRandom() (value []byte) {
+	return d.Random
+}
 
 // MessagesDhConfigClass represents messages.DhConfig generic type.
 //

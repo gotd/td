@@ -39,6 +39,19 @@ type AccountThemesNotModified struct {
 // AccountThemesNotModifiedTypeID is TL type id of AccountThemesNotModified.
 const AccountThemesNotModifiedTypeID = 0xf41eb622
 
+// construct implements constructor of AccountThemesClass.
+func (t AccountThemesNotModified) construct() AccountThemesClass { return &t }
+
+// Ensuring interfaces in compile-time for AccountThemesNotModified.
+var (
+	_ bin.Encoder     = &AccountThemesNotModified{}
+	_ bin.Decoder     = &AccountThemesNotModified{}
+	_ bin.BareEncoder = &AccountThemesNotModified{}
+	_ bin.BareDecoder = &AccountThemesNotModified{}
+
+	_ AccountThemesClass = &AccountThemesNotModified{}
+)
+
 func (t *AccountThemesNotModified) Zero() bool {
 	if t == nil {
 		return true
@@ -118,19 +131,6 @@ func (t *AccountThemesNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AccountThemesClass.
-func (t AccountThemesNotModified) construct() AccountThemesClass { return &t }
-
-// Ensuring interfaces in compile-time for AccountThemesNotModified.
-var (
-	_ bin.Encoder     = &AccountThemesNotModified{}
-	_ bin.Decoder     = &AccountThemesNotModified{}
-	_ bin.BareEncoder = &AccountThemesNotModified{}
-	_ bin.BareDecoder = &AccountThemesNotModified{}
-
-	_ AccountThemesClass = &AccountThemesNotModified{}
-)
-
 // AccountThemes represents TL type `account.themes#7f676421`.
 // Installed themes
 //
@@ -147,6 +147,19 @@ type AccountThemes struct {
 
 // AccountThemesTypeID is TL type id of AccountThemes.
 const AccountThemesTypeID = 0x7f676421
+
+// construct implements constructor of AccountThemesClass.
+func (t AccountThemes) construct() AccountThemesClass { return &t }
+
+// Ensuring interfaces in compile-time for AccountThemes.
+var (
+	_ bin.Encoder     = &AccountThemes{}
+	_ bin.Decoder     = &AccountThemes{}
+	_ bin.BareEncoder = &AccountThemes{}
+	_ bin.BareDecoder = &AccountThemes{}
+
+	_ AccountThemesClass = &AccountThemes{}
+)
 
 func (t *AccountThemes) Zero() bool {
 	if t == nil {
@@ -239,16 +252,6 @@ func (t *AccountThemes) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (t *AccountThemes) GetHash() (value int) {
-	return t.Hash
-}
-
-// GetThemes returns value of Themes field.
-func (t *AccountThemes) GetThemes() (value []Theme) {
-	return t.Themes
-}
-
 // Decode implements bin.Decoder.
 func (t *AccountThemes) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -292,18 +295,15 @@ func (t *AccountThemes) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AccountThemesClass.
-func (t AccountThemes) construct() AccountThemesClass { return &t }
+// GetHash returns value of Hash field.
+func (t *AccountThemes) GetHash() (value int) {
+	return t.Hash
+}
 
-// Ensuring interfaces in compile-time for AccountThemes.
-var (
-	_ bin.Encoder     = &AccountThemes{}
-	_ bin.Decoder     = &AccountThemes{}
-	_ bin.BareEncoder = &AccountThemes{}
-	_ bin.BareDecoder = &AccountThemes{}
-
-	_ AccountThemesClass = &AccountThemes{}
-)
+// GetThemes returns value of Themes field.
+func (t *AccountThemes) GetThemes() (value []Theme) {
+	return t.Themes
+}
 
 // AccountThemesClass represents account.Themes generic type.
 //

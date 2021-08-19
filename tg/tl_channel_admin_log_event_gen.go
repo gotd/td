@@ -47,6 +47,14 @@ type ChannelAdminLogEvent struct {
 // ChannelAdminLogEventTypeID is TL type id of ChannelAdminLogEvent.
 const ChannelAdminLogEventTypeID = 0x3b5a3e40
 
+// Ensuring interfaces in compile-time for ChannelAdminLogEvent.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEvent{}
+	_ bin.Decoder     = &ChannelAdminLogEvent{}
+	_ bin.BareEncoder = &ChannelAdminLogEvent{}
+	_ bin.BareDecoder = &ChannelAdminLogEvent{}
+)
+
 func (c *ChannelAdminLogEvent) Zero() bool {
 	if c == nil {
 		return true
@@ -158,26 +166,6 @@ func (c *ChannelAdminLogEvent) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (c *ChannelAdminLogEvent) GetID() (value int64) {
-	return c.ID
-}
-
-// GetDate returns value of Date field.
-func (c *ChannelAdminLogEvent) GetDate() (value int) {
-	return c.Date
-}
-
-// GetUserID returns value of UserID field.
-func (c *ChannelAdminLogEvent) GetUserID() (value int) {
-	return c.UserID
-}
-
-// GetAction returns value of Action field.
-func (c *ChannelAdminLogEvent) GetAction() (value ChannelAdminLogEventActionClass) {
-	return c.Action
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEvent) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -225,10 +213,22 @@ func (c *ChannelAdminLogEvent) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEvent.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEvent{}
-	_ bin.Decoder     = &ChannelAdminLogEvent{}
-	_ bin.BareEncoder = &ChannelAdminLogEvent{}
-	_ bin.BareDecoder = &ChannelAdminLogEvent{}
-)
+// GetID returns value of ID field.
+func (c *ChannelAdminLogEvent) GetID() (value int64) {
+	return c.ID
+}
+
+// GetDate returns value of Date field.
+func (c *ChannelAdminLogEvent) GetDate() (value int) {
+	return c.Date
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChannelAdminLogEvent) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetAction returns value of Action field.
+func (c *ChannelAdminLogEvent) GetAction() (value ChannelAdminLogEventActionClass) {
+	return c.Action
+}

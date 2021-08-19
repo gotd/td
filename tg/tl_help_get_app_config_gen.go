@@ -42,6 +42,14 @@ type HelpGetAppConfigRequest struct {
 // HelpGetAppConfigRequestTypeID is TL type id of HelpGetAppConfigRequest.
 const HelpGetAppConfigRequestTypeID = 0x98914110
 
+// Ensuring interfaces in compile-time for HelpGetAppConfigRequest.
+var (
+	_ bin.Encoder     = &HelpGetAppConfigRequest{}
+	_ bin.Decoder     = &HelpGetAppConfigRequest{}
+	_ bin.BareEncoder = &HelpGetAppConfigRequest{}
+	_ bin.BareDecoder = &HelpGetAppConfigRequest{}
+)
+
 func (g *HelpGetAppConfigRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,14 +128,6 @@ func (g *HelpGetAppConfigRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for HelpGetAppConfigRequest.
-var (
-	_ bin.Encoder     = &HelpGetAppConfigRequest{}
-	_ bin.Decoder     = &HelpGetAppConfigRequest{}
-	_ bin.BareEncoder = &HelpGetAppConfigRequest{}
-	_ bin.BareDecoder = &HelpGetAppConfigRequest{}
-)
 
 // HelpGetAppConfig invokes method help.getAppConfig#98914110 returning error if any.
 // Get app-specific configuration, see client configuration¹ for more info on the result.

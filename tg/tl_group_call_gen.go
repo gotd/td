@@ -44,6 +44,19 @@ type GroupCallDiscarded struct {
 // GroupCallDiscardedTypeID is TL type id of GroupCallDiscarded.
 const GroupCallDiscardedTypeID = 0x7780bcb4
 
+// construct implements constructor of GroupCallClass.
+func (g GroupCallDiscarded) construct() GroupCallClass { return &g }
+
+// Ensuring interfaces in compile-time for GroupCallDiscarded.
+var (
+	_ bin.Encoder     = &GroupCallDiscarded{}
+	_ bin.Decoder     = &GroupCallDiscarded{}
+	_ bin.BareEncoder = &GroupCallDiscarded{}
+	_ bin.BareDecoder = &GroupCallDiscarded{}
+
+	_ GroupCallClass = &GroupCallDiscarded{}
+)
+
 func (g *GroupCallDiscarded) Zero() bool {
 	if g == nil {
 		return true
@@ -140,21 +153,6 @@ func (g *GroupCallDiscarded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (g *GroupCallDiscarded) GetID() (value int64) {
-	return g.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (g *GroupCallDiscarded) GetAccessHash() (value int64) {
-	return g.AccessHash
-}
-
-// GetDuration returns value of Duration field.
-func (g *GroupCallDiscarded) GetDuration() (value int) {
-	return g.Duration
-}
-
 // Decode implements bin.Decoder.
 func (g *GroupCallDiscarded) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -195,18 +193,20 @@ func (g *GroupCallDiscarded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of GroupCallClass.
-func (g GroupCallDiscarded) construct() GroupCallClass { return &g }
+// GetID returns value of ID field.
+func (g *GroupCallDiscarded) GetID() (value int64) {
+	return g.ID
+}
 
-// Ensuring interfaces in compile-time for GroupCallDiscarded.
-var (
-	_ bin.Encoder     = &GroupCallDiscarded{}
-	_ bin.Decoder     = &GroupCallDiscarded{}
-	_ bin.BareEncoder = &GroupCallDiscarded{}
-	_ bin.BareDecoder = &GroupCallDiscarded{}
+// GetAccessHash returns value of AccessHash field.
+func (g *GroupCallDiscarded) GetAccessHash() (value int64) {
+	return g.AccessHash
+}
 
-	_ GroupCallClass = &GroupCallDiscarded{}
-)
+// GetDuration returns value of Duration field.
+func (g *GroupCallDiscarded) GetDuration() (value int) {
+	return g.Duration
+}
 
 // GroupCall represents TL type `groupCall#d597650c`.
 //
@@ -258,6 +258,19 @@ type GroupCall struct {
 
 // GroupCallTypeID is TL type id of GroupCall.
 const GroupCallTypeID = 0xd597650c
+
+// construct implements constructor of GroupCallClass.
+func (g GroupCall) construct() GroupCallClass { return &g }
+
+// Ensuring interfaces in compile-time for GroupCall.
+var (
+	_ bin.Encoder     = &GroupCall{}
+	_ bin.Decoder     = &GroupCall{}
+	_ bin.BareEncoder = &GroupCall{}
+	_ bin.BareDecoder = &GroupCall{}
+
+	_ GroupCallClass = &GroupCall{}
+)
 
 func (g *GroupCall) Zero() bool {
 	if g == nil {
@@ -541,6 +554,105 @@ func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (g *GroupCall) Decode(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCall#d597650c to nil")
+	}
+	if err := b.ConsumeID(GroupCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode groupCall#d597650c: %w", err)
+	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCall#d597650c to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field flags: %w", err)
+		}
+	}
+	g.JoinMuted = g.Flags.Has(1)
+	g.CanChangeJoinMuted = g.Flags.Has(2)
+	g.JoinDateAsc = g.Flags.Has(6)
+	g.ScheduleStartSubscribed = g.Flags.Has(8)
+	g.CanStartVideo = g.Flags.Has(9)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field id: %w", err)
+		}
+		g.ID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field access_hash: %w", err)
+		}
+		g.AccessHash = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field participants_count: %w", err)
+		}
+		g.ParticipantsCount = value
+	}
+	if g.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field title: %w", err)
+		}
+		g.Title = value
+	}
+	if g.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field stream_dc_id: %w", err)
+		}
+		g.StreamDCID = value
+	}
+	if g.Flags.Has(5) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field record_start_date: %w", err)
+		}
+		g.RecordStartDate = value
+	}
+	if g.Flags.Has(7) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field schedule_date: %w", err)
+		}
+		g.ScheduleDate = value
+	}
+	if g.Flags.Has(10) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field unmuted_video_count: %w", err)
+		}
+		g.UnmutedVideoCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field unmuted_video_limit: %w", err)
+		}
+		g.UnmutedVideoLimit = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field version: %w", err)
+		}
+		g.Version = value
+	}
+	return nil
+}
+
 // SetJoinMuted sets value of JoinMuted conditional field.
 func (g *GroupCall) SetJoinMuted(value bool) {
 	if value {
@@ -720,118 +832,6 @@ func (g *GroupCall) GetUnmutedVideoLimit() (value int) {
 func (g *GroupCall) GetVersion() (value int) {
 	return g.Version
 }
-
-// Decode implements bin.Decoder.
-func (g *GroupCall) Decode(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't decode groupCall#d597650c to nil")
-	}
-	if err := b.ConsumeID(GroupCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCall#d597650c: %w", err)
-	}
-	return g.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't decode groupCall#d597650c to nil")
-	}
-	{
-		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field flags: %w", err)
-		}
-	}
-	g.JoinMuted = g.Flags.Has(1)
-	g.CanChangeJoinMuted = g.Flags.Has(2)
-	g.JoinDateAsc = g.Flags.Has(6)
-	g.ScheduleStartSubscribed = g.Flags.Has(8)
-	g.CanStartVideo = g.Flags.Has(9)
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field id: %w", err)
-		}
-		g.ID = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field access_hash: %w", err)
-		}
-		g.AccessHash = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field participants_count: %w", err)
-		}
-		g.ParticipantsCount = value
-	}
-	if g.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field title: %w", err)
-		}
-		g.Title = value
-	}
-	if g.Flags.Has(4) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field stream_dc_id: %w", err)
-		}
-		g.StreamDCID = value
-	}
-	if g.Flags.Has(5) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field record_start_date: %w", err)
-		}
-		g.RecordStartDate = value
-	}
-	if g.Flags.Has(7) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field schedule_date: %w", err)
-		}
-		g.ScheduleDate = value
-	}
-	if g.Flags.Has(10) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field unmuted_video_count: %w", err)
-		}
-		g.UnmutedVideoCount = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field unmuted_video_limit: %w", err)
-		}
-		g.UnmutedVideoLimit = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field version: %w", err)
-		}
-		g.Version = value
-	}
-	return nil
-}
-
-// construct implements constructor of GroupCallClass.
-func (g GroupCall) construct() GroupCallClass { return &g }
-
-// Ensuring interfaces in compile-time for GroupCall.
-var (
-	_ bin.Encoder     = &GroupCall{}
-	_ bin.Decoder     = &GroupCall{}
-	_ bin.BareEncoder = &GroupCall{}
-	_ bin.BareDecoder = &GroupCall{}
-
-	_ GroupCallClass = &GroupCall{}
-)
 
 // GroupCallClass represents GroupCall generic type.
 //

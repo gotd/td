@@ -42,6 +42,14 @@ type NewSessionCreated struct {
 // NewSessionCreatedTypeID is TL type id of NewSessionCreated.
 const NewSessionCreatedTypeID = 0x9ec20908
 
+// Ensuring interfaces in compile-time for NewSessionCreated.
+var (
+	_ bin.Encoder     = &NewSessionCreated{}
+	_ bin.Decoder     = &NewSessionCreated{}
+	_ bin.BareEncoder = &NewSessionCreated{}
+	_ bin.BareDecoder = &NewSessionCreated{}
+)
+
 func (n *NewSessionCreated) Zero() bool {
 	if n == nil {
 		return true
@@ -66,17 +74,6 @@ func (n *NewSessionCreated) String() string {
 	}
 	type Alias NewSessionCreated
 	return fmt.Sprintf("NewSessionCreated%+v", Alias(*n))
-}
-
-// FillFrom fills NewSessionCreated from given interface.
-func (n *NewSessionCreated) FillFrom(from interface {
-	GetFirstMsgID() (value int64)
-	GetUniqueID() (value int64)
-	GetServerSalt() (value int64)
-}) {
-	n.FirstMsgID = from.GetFirstMsgID()
-	n.UniqueID = from.GetUniqueID()
-	n.ServerSalt = from.GetServerSalt()
 }
 
 // TypeID returns type id in TL schema.
@@ -138,21 +135,6 @@ func (n *NewSessionCreated) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFirstMsgID returns value of FirstMsgID field.
-func (n *NewSessionCreated) GetFirstMsgID() (value int64) {
-	return n.FirstMsgID
-}
-
-// GetUniqueID returns value of UniqueID field.
-func (n *NewSessionCreated) GetUniqueID() (value int64) {
-	return n.UniqueID
-}
-
-// GetServerSalt returns value of ServerSalt field.
-func (n *NewSessionCreated) GetServerSalt() (value int64) {
-	return n.ServerSalt
-}
-
 // Decode implements bin.Decoder.
 func (n *NewSessionCreated) Decode(b *bin.Buffer) error {
 	if n == nil {
@@ -193,10 +175,17 @@ func (n *NewSessionCreated) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for NewSessionCreated.
-var (
-	_ bin.Encoder     = &NewSessionCreated{}
-	_ bin.Decoder     = &NewSessionCreated{}
-	_ bin.BareEncoder = &NewSessionCreated{}
-	_ bin.BareDecoder = &NewSessionCreated{}
-)
+// GetFirstMsgID returns value of FirstMsgID field.
+func (n *NewSessionCreated) GetFirstMsgID() (value int64) {
+	return n.FirstMsgID
+}
+
+// GetUniqueID returns value of UniqueID field.
+func (n *NewSessionCreated) GetUniqueID() (value int64) {
+	return n.UniqueID
+}
+
+// GetServerSalt returns value of ServerSalt field.
+func (n *NewSessionCreated) GetServerSalt() (value int64) {
+	return n.ServerSalt
+}

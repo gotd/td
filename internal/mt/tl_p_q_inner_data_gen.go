@@ -48,6 +48,14 @@ type PQInnerData struct {
 // PQInnerDataTypeID is TL type id of PQInnerData.
 const PQInnerDataTypeID = 0x83c95aec
 
+// Ensuring interfaces in compile-time for PQInnerData.
+var (
+	_ bin.Encoder     = &PQInnerData{}
+	_ bin.Decoder     = &PQInnerData{}
+	_ bin.BareEncoder = &PQInnerData{}
+	_ bin.BareDecoder = &PQInnerData{}
+)
+
 func (p *PQInnerData) Zero() bool {
 	if p == nil {
 		return true
@@ -81,23 +89,6 @@ func (p *PQInnerData) String() string {
 	}
 	type Alias PQInnerData
 	return fmt.Sprintf("PQInnerData%+v", Alias(*p))
-}
-
-// FillFrom fills PQInnerData from given interface.
-func (p *PQInnerData) FillFrom(from interface {
-	GetPq() (value []byte)
-	GetP() (value []byte)
-	GetQ() (value []byte)
-	GetNonce() (value bin.Int128)
-	GetServerNonce() (value bin.Int128)
-	GetNewNonce() (value bin.Int256)
-}) {
-	p.Pq = from.GetPq()
-	p.P = from.GetP()
-	p.Q = from.GetQ()
-	p.Nonce = from.GetNonce()
-	p.ServerNonce = from.GetServerNonce()
-	p.NewNonce = from.GetNewNonce()
 }
 
 // TypeID returns type id in TL schema.
@@ -174,36 +165,6 @@ func (p *PQInnerData) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPq returns value of Pq field.
-func (p *PQInnerData) GetPq() (value []byte) {
-	return p.Pq
-}
-
-// GetP returns value of P field.
-func (p *PQInnerData) GetP() (value []byte) {
-	return p.P
-}
-
-// GetQ returns value of Q field.
-func (p *PQInnerData) GetQ() (value []byte) {
-	return p.Q
-}
-
-// GetNonce returns value of Nonce field.
-func (p *PQInnerData) GetNonce() (value bin.Int128) {
-	return p.Nonce
-}
-
-// GetServerNonce returns value of ServerNonce field.
-func (p *PQInnerData) GetServerNonce() (value bin.Int128) {
-	return p.ServerNonce
-}
-
-// GetNewNonce returns value of NewNonce field.
-func (p *PQInnerData) GetNewNonce() (value bin.Int256) {
-	return p.NewNonce
-}
-
 // Decode implements bin.Decoder.
 func (p *PQInnerData) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -265,10 +226,32 @@ func (p *PQInnerData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PQInnerData.
-var (
-	_ bin.Encoder     = &PQInnerData{}
-	_ bin.Decoder     = &PQInnerData{}
-	_ bin.BareEncoder = &PQInnerData{}
-	_ bin.BareDecoder = &PQInnerData{}
-)
+// GetPq returns value of Pq field.
+func (p *PQInnerData) GetPq() (value []byte) {
+	return p.Pq
+}
+
+// GetP returns value of P field.
+func (p *PQInnerData) GetP() (value []byte) {
+	return p.P
+}
+
+// GetQ returns value of Q field.
+func (p *PQInnerData) GetQ() (value []byte) {
+	return p.Q
+}
+
+// GetNonce returns value of Nonce field.
+func (p *PQInnerData) GetNonce() (value bin.Int128) {
+	return p.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (p *PQInnerData) GetServerNonce() (value bin.Int128) {
+	return p.ServerNonce
+}
+
+// GetNewNonce returns value of NewNonce field.
+func (p *PQInnerData) GetNewNonce() (value bin.Int256) {
+	return p.NewNonce
+}

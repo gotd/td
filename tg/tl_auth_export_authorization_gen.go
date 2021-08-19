@@ -41,6 +41,14 @@ type AuthExportAuthorizationRequest struct {
 // AuthExportAuthorizationRequestTypeID is TL type id of AuthExportAuthorizationRequest.
 const AuthExportAuthorizationRequestTypeID = 0xe5bfffcd
 
+// Ensuring interfaces in compile-time for AuthExportAuthorizationRequest.
+var (
+	_ bin.Encoder     = &AuthExportAuthorizationRequest{}
+	_ bin.Decoder     = &AuthExportAuthorizationRequest{}
+	_ bin.BareEncoder = &AuthExportAuthorizationRequest{}
+	_ bin.BareDecoder = &AuthExportAuthorizationRequest{}
+)
+
 func (e *AuthExportAuthorizationRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -117,11 +125,6 @@ func (e *AuthExportAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDCID returns value of DCID field.
-func (e *AuthExportAuthorizationRequest) GetDCID() (value int) {
-	return e.DCID
-}
-
 // Decode implements bin.Decoder.
 func (e *AuthExportAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -148,13 +151,10 @@ func (e *AuthExportAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthExportAuthorizationRequest.
-var (
-	_ bin.Encoder     = &AuthExportAuthorizationRequest{}
-	_ bin.Decoder     = &AuthExportAuthorizationRequest{}
-	_ bin.BareEncoder = &AuthExportAuthorizationRequest{}
-	_ bin.BareDecoder = &AuthExportAuthorizationRequest{}
-)
+// GetDCID returns value of DCID field.
+func (e *AuthExportAuthorizationRequest) GetDCID() (value int) {
+	return e.DCID
+}
 
 // AuthExportAuthorization invokes method auth.exportAuthorization#e5bfffcd returning error if any.
 // Returns data for copying authorization to another data-centre.

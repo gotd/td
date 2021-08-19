@@ -41,6 +41,14 @@ type KeyboardButtonRow struct {
 // KeyboardButtonRowTypeID is TL type id of KeyboardButtonRow.
 const KeyboardButtonRowTypeID = 0x77608b83
 
+// Ensuring interfaces in compile-time for KeyboardButtonRow.
+var (
+	_ bin.Encoder     = &KeyboardButtonRow{}
+	_ bin.Decoder     = &KeyboardButtonRow{}
+	_ bin.BareEncoder = &KeyboardButtonRow{}
+	_ bin.BareDecoder = &KeyboardButtonRow{}
+)
+
 func (k *KeyboardButtonRow) Zero() bool {
 	if k == nil {
 		return true
@@ -125,16 +133,6 @@ func (k *KeyboardButtonRow) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetButtons returns value of Buttons field.
-func (k *KeyboardButtonRow) GetButtons() (value []KeyboardButtonClass) {
-	return k.Buttons
-}
-
-// MapButtons returns field Buttons wrapped in KeyboardButtonClassArray helper.
-func (k *KeyboardButtonRow) MapButtons() (value KeyboardButtonClassArray) {
-	return KeyboardButtonClassArray(k.Buttons)
-}
-
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonRow) Decode(b *bin.Buffer) error {
 	if k == nil {
@@ -171,10 +169,12 @@ func (k *KeyboardButtonRow) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for KeyboardButtonRow.
-var (
-	_ bin.Encoder     = &KeyboardButtonRow{}
-	_ bin.Decoder     = &KeyboardButtonRow{}
-	_ bin.BareEncoder = &KeyboardButtonRow{}
-	_ bin.BareDecoder = &KeyboardButtonRow{}
-)
+// GetButtons returns value of Buttons field.
+func (k *KeyboardButtonRow) GetButtons() (value []KeyboardButtonClass) {
+	return k.Buttons
+}
+
+// MapButtons returns field Buttons wrapped in KeyboardButtonClassArray helper.
+func (k *KeyboardButtonRow) MapButtons() (value KeyboardButtonClassArray) {
+	return KeyboardButtonClassArray(k.Buttons)
+}

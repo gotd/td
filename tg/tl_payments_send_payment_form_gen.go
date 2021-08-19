@@ -67,6 +67,14 @@ type PaymentsSendPaymentFormRequest struct {
 // PaymentsSendPaymentFormRequestTypeID is TL type id of PaymentsSendPaymentFormRequest.
 const PaymentsSendPaymentFormRequestTypeID = 0x30c3bc9d
 
+// Ensuring interfaces in compile-time for PaymentsSendPaymentFormRequest.
+var (
+	_ bin.Encoder     = &PaymentsSendPaymentFormRequest{}
+	_ bin.Decoder     = &PaymentsSendPaymentFormRequest{}
+	_ bin.BareEncoder = &PaymentsSendPaymentFormRequest{}
+	_ bin.BareDecoder = &PaymentsSendPaymentFormRequest{}
+)
+
 func (s *PaymentsSendPaymentFormRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -246,71 +254,6 @@ func (s *PaymentsSendPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFormID returns value of FormID field.
-func (s *PaymentsSendPaymentFormRequest) GetFormID() (value int64) {
-	return s.FormID
-}
-
-// GetPeer returns value of Peer field.
-func (s *PaymentsSendPaymentFormRequest) GetPeer() (value InputPeerClass) {
-	return s.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (s *PaymentsSendPaymentFormRequest) GetMsgID() (value int) {
-	return s.MsgID
-}
-
-// SetRequestedInfoID sets value of RequestedInfoID conditional field.
-func (s *PaymentsSendPaymentFormRequest) SetRequestedInfoID(value string) {
-	s.Flags.Set(0)
-	s.RequestedInfoID = value
-}
-
-// GetRequestedInfoID returns value of RequestedInfoID conditional field and
-// boolean which is true if field was set.
-func (s *PaymentsSendPaymentFormRequest) GetRequestedInfoID() (value string, ok bool) {
-	if !s.Flags.Has(0) {
-		return value, false
-	}
-	return s.RequestedInfoID, true
-}
-
-// SetShippingOptionID sets value of ShippingOptionID conditional field.
-func (s *PaymentsSendPaymentFormRequest) SetShippingOptionID(value string) {
-	s.Flags.Set(1)
-	s.ShippingOptionID = value
-}
-
-// GetShippingOptionID returns value of ShippingOptionID conditional field and
-// boolean which is true if field was set.
-func (s *PaymentsSendPaymentFormRequest) GetShippingOptionID() (value string, ok bool) {
-	if !s.Flags.Has(1) {
-		return value, false
-	}
-	return s.ShippingOptionID, true
-}
-
-// GetCredentials returns value of Credentials field.
-func (s *PaymentsSendPaymentFormRequest) GetCredentials() (value InputPaymentCredentialsClass) {
-	return s.Credentials
-}
-
-// SetTipAmount sets value of TipAmount conditional field.
-func (s *PaymentsSendPaymentFormRequest) SetTipAmount(value int64) {
-	s.Flags.Set(2)
-	s.TipAmount = value
-}
-
-// GetTipAmount returns value of TipAmount conditional field and
-// boolean which is true if field was set.
-func (s *PaymentsSendPaymentFormRequest) GetTipAmount() (value int64, ok bool) {
-	if !s.Flags.Has(2) {
-		return value, false
-	}
-	return s.TipAmount, true
-}
-
 // Decode implements bin.Decoder.
 func (s *PaymentsSendPaymentFormRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -384,13 +327,70 @@ func (s *PaymentsSendPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PaymentsSendPaymentFormRequest.
-var (
-	_ bin.Encoder     = &PaymentsSendPaymentFormRequest{}
-	_ bin.Decoder     = &PaymentsSendPaymentFormRequest{}
-	_ bin.BareEncoder = &PaymentsSendPaymentFormRequest{}
-	_ bin.BareDecoder = &PaymentsSendPaymentFormRequest{}
-)
+// GetFormID returns value of FormID field.
+func (s *PaymentsSendPaymentFormRequest) GetFormID() (value int64) {
+	return s.FormID
+}
+
+// GetPeer returns value of Peer field.
+func (s *PaymentsSendPaymentFormRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (s *PaymentsSendPaymentFormRequest) GetMsgID() (value int) {
+	return s.MsgID
+}
+
+// SetRequestedInfoID sets value of RequestedInfoID conditional field.
+func (s *PaymentsSendPaymentFormRequest) SetRequestedInfoID(value string) {
+	s.Flags.Set(0)
+	s.RequestedInfoID = value
+}
+
+// GetRequestedInfoID returns value of RequestedInfoID conditional field and
+// boolean which is true if field was set.
+func (s *PaymentsSendPaymentFormRequest) GetRequestedInfoID() (value string, ok bool) {
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.RequestedInfoID, true
+}
+
+// SetShippingOptionID sets value of ShippingOptionID conditional field.
+func (s *PaymentsSendPaymentFormRequest) SetShippingOptionID(value string) {
+	s.Flags.Set(1)
+	s.ShippingOptionID = value
+}
+
+// GetShippingOptionID returns value of ShippingOptionID conditional field and
+// boolean which is true if field was set.
+func (s *PaymentsSendPaymentFormRequest) GetShippingOptionID() (value string, ok bool) {
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.ShippingOptionID, true
+}
+
+// GetCredentials returns value of Credentials field.
+func (s *PaymentsSendPaymentFormRequest) GetCredentials() (value InputPaymentCredentialsClass) {
+	return s.Credentials
+}
+
+// SetTipAmount sets value of TipAmount conditional field.
+func (s *PaymentsSendPaymentFormRequest) SetTipAmount(value int64) {
+	s.Flags.Set(2)
+	s.TipAmount = value
+}
+
+// GetTipAmount returns value of TipAmount conditional field and
+// boolean which is true if field was set.
+func (s *PaymentsSendPaymentFormRequest) GetTipAmount() (value int64, ok bool) {
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.TipAmount, true
+}
 
 // PaymentsSendPaymentForm invokes method payments.sendPaymentForm#30c3bc9d returning error if any.
 // Send compiled payment form

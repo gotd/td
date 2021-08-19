@@ -64,6 +64,14 @@ type InputThemeSettings struct {
 // InputThemeSettingsTypeID is TL type id of InputThemeSettings.
 const InputThemeSettingsTypeID = 0xbd507cd1
 
+// Ensuring interfaces in compile-time for InputThemeSettings.
+var (
+	_ bin.Encoder     = &InputThemeSettings{}
+	_ bin.Decoder     = &InputThemeSettings{}
+	_ bin.BareEncoder = &InputThemeSettings{}
+	_ bin.BareDecoder = &InputThemeSettings{}
+)
+
 func (i *InputThemeSettings) Zero() bool {
 	if i == nil {
 		return true
@@ -244,6 +252,70 @@ func (i *InputThemeSettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (i *InputThemeSettings) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputThemeSettings#bd507cd1 to nil")
+	}
+	if err := b.ConsumeID(InputThemeSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputThemeSettings) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputThemeSettings#bd507cd1 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field flags: %w", err)
+		}
+	}
+	{
+		value, err := DecodeBaseTheme(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field base_theme: %w", err)
+		}
+		i.BaseTheme = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field accent_color: %w", err)
+		}
+		i.AccentColor = value
+	}
+	if i.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field message_top_color: %w", err)
+		}
+		i.MessageTopColor = value
+	}
+	if i.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field message_bottom_color: %w", err)
+		}
+		i.MessageBottomColor = value
+	}
+	if i.Flags.Has(1) {
+		value, err := DecodeInputWallPaper(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field wallpaper: %w", err)
+		}
+		i.Wallpaper = value
+	}
+	if i.Flags.Has(1) {
+		if err := i.WallpaperSettings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field wallpaper_settings: %w", err)
+		}
+	}
+	return nil
+}
+
 // GetBaseTheme returns value of BaseTheme field.
 func (i *InputThemeSettings) GetBaseTheme() (value BaseThemeClass) {
 	return i.BaseTheme
@@ -313,75 +385,3 @@ func (i *InputThemeSettings) GetWallpaperSettings() (value WallPaperSettings, ok
 	}
 	return i.WallpaperSettings, true
 }
-
-// Decode implements bin.Decoder.
-func (i *InputThemeSettings) Decode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputThemeSettings#bd507cd1 to nil")
-	}
-	if err := b.ConsumeID(InputThemeSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: %w", err)
-	}
-	return i.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (i *InputThemeSettings) DecodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputThemeSettings#bd507cd1 to nil")
-	}
-	{
-		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field flags: %w", err)
-		}
-	}
-	{
-		value, err := DecodeBaseTheme(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field base_theme: %w", err)
-		}
-		i.BaseTheme = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field accent_color: %w", err)
-		}
-		i.AccentColor = value
-	}
-	if i.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field message_top_color: %w", err)
-		}
-		i.MessageTopColor = value
-	}
-	if i.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field message_bottom_color: %w", err)
-		}
-		i.MessageBottomColor = value
-	}
-	if i.Flags.Has(1) {
-		value, err := DecodeInputWallPaper(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field wallpaper: %w", err)
-		}
-		i.Wallpaper = value
-	}
-	if i.Flags.Has(1) {
-		if err := i.WallpaperSettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field wallpaper_settings: %w", err)
-		}
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for InputThemeSettings.
-var (
-	_ bin.Encoder     = &InputThemeSettings{}
-	_ bin.Decoder     = &InputThemeSettings{}
-	_ bin.BareEncoder = &InputThemeSettings{}
-	_ bin.BareDecoder = &InputThemeSettings{}
-)

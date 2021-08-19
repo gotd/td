@@ -42,6 +42,14 @@ type HelpGetCDNConfigRequest struct {
 // HelpGetCDNConfigRequestTypeID is TL type id of HelpGetCDNConfigRequest.
 const HelpGetCDNConfigRequestTypeID = 0x52029342
 
+// Ensuring interfaces in compile-time for HelpGetCDNConfigRequest.
+var (
+	_ bin.Encoder     = &HelpGetCDNConfigRequest{}
+	_ bin.Decoder     = &HelpGetCDNConfigRequest{}
+	_ bin.BareEncoder = &HelpGetCDNConfigRequest{}
+	_ bin.BareDecoder = &HelpGetCDNConfigRequest{}
+)
+
 func (g *HelpGetCDNConfigRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,14 +128,6 @@ func (g *HelpGetCDNConfigRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for HelpGetCDNConfigRequest.
-var (
-	_ bin.Encoder     = &HelpGetCDNConfigRequest{}
-	_ bin.Decoder     = &HelpGetCDNConfigRequest{}
-	_ bin.BareEncoder = &HelpGetCDNConfigRequest{}
-	_ bin.BareDecoder = &HelpGetCDNConfigRequest{}
-)
 
 // HelpGetCDNConfig invokes method help.getCdnConfig#52029342 returning error if any.
 // Get configuration for CDN¹ file downloads.

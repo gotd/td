@@ -46,6 +46,14 @@ type AccountGetThemesRequest struct {
 // AccountGetThemesRequestTypeID is TL type id of AccountGetThemesRequest.
 const AccountGetThemesRequestTypeID = 0x285946f8
 
+// Ensuring interfaces in compile-time for AccountGetThemesRequest.
+var (
+	_ bin.Encoder     = &AccountGetThemesRequest{}
+	_ bin.Decoder     = &AccountGetThemesRequest{}
+	_ bin.BareEncoder = &AccountGetThemesRequest{}
+	_ bin.BareDecoder = &AccountGetThemesRequest{}
+)
+
 func (g *AccountGetThemesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -132,16 +140,6 @@ func (g *AccountGetThemesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFormat returns value of Format field.
-func (g *AccountGetThemesRequest) GetFormat() (value string) {
-	return g.Format
-}
-
-// GetHash returns value of Hash field.
-func (g *AccountGetThemesRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *AccountGetThemesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -175,13 +173,15 @@ func (g *AccountGetThemesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountGetThemesRequest.
-var (
-	_ bin.Encoder     = &AccountGetThemesRequest{}
-	_ bin.Decoder     = &AccountGetThemesRequest{}
-	_ bin.BareEncoder = &AccountGetThemesRequest{}
-	_ bin.BareDecoder = &AccountGetThemesRequest{}
-)
+// GetFormat returns value of Format field.
+func (g *AccountGetThemesRequest) GetFormat() (value string) {
+	return g.Format
+}
+
+// GetHash returns value of Hash field.
+func (g *AccountGetThemesRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // AccountGetThemes invokes method account.getThemes#285946f8 returning error if any.
 // Get installed themes

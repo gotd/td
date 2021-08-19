@@ -40,6 +40,14 @@ type SendMultipleSMSRequest struct {
 // SendMultipleSMSRequestTypeID is TL type id of SendMultipleSMSRequest.
 const SendMultipleSMSRequestTypeID = 0xdf18e5ca
 
+// Ensuring interfaces in compile-time for SendMultipleSMSRequest.
+var (
+	_ bin.Encoder     = &SendMultipleSMSRequest{}
+	_ bin.Decoder     = &SendMultipleSMSRequest{}
+	_ bin.BareEncoder = &SendMultipleSMSRequest{}
+	_ bin.BareDecoder = &SendMultipleSMSRequest{}
+)
+
 func (s *SendMultipleSMSRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -58,13 +66,6 @@ func (s *SendMultipleSMSRequest) String() string {
 	}
 	type Alias SendMultipleSMSRequest
 	return fmt.Sprintf("SendMultipleSMSRequest%+v", Alias(*s))
-}
-
-// FillFrom fills SendMultipleSMSRequest from given interface.
-func (s *SendMultipleSMSRequest) FillFrom(from interface {
-	GetMessages() (value []SMS)
-}) {
-	s.Messages = from.GetMessages()
 }
 
 // TypeID returns type id in TL schema.
@@ -121,11 +122,6 @@ func (s *SendMultipleSMSRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessages returns value of Messages field.
-func (s *SendMultipleSMSRequest) GetMessages() (value []SMS) {
-	return s.Messages
-}
-
 // Decode implements bin.Decoder.
 func (s *SendMultipleSMSRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -162,13 +158,10 @@ func (s *SendMultipleSMSRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SendMultipleSMSRequest.
-var (
-	_ bin.Encoder     = &SendMultipleSMSRequest{}
-	_ bin.Decoder     = &SendMultipleSMSRequest{}
-	_ bin.BareEncoder = &SendMultipleSMSRequest{}
-	_ bin.BareDecoder = &SendMultipleSMSRequest{}
-)
+// GetMessages returns value of Messages field.
+func (s *SendMultipleSMSRequest) GetMessages() (value []SMS) {
+	return s.Messages
+}
 
 // SendMultipleSMS invokes method sendMultipleSMS#df18e5ca returning error if any.
 //

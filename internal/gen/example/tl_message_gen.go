@@ -40,6 +40,14 @@ type Message struct {
 // MessageTypeID is TL type id of Message.
 const MessageTypeID = 0xec200d96
 
+// Ensuring interfaces in compile-time for Message.
+var (
+	_ bin.Encoder     = &Message{}
+	_ bin.Decoder     = &Message{}
+	_ bin.BareEncoder = &Message{}
+	_ bin.BareDecoder = &Message{}
+)
+
 func (m *Message) Zero() bool {
 	if m == nil {
 		return true
@@ -58,13 +66,6 @@ func (m *Message) String() string {
 	}
 	type Alias Message
 	return fmt.Sprintf("Message%+v", Alias(*m))
-}
-
-// FillFrom fills Message from given interface.
-func (m *Message) FillFrom(from interface {
-	GetErr() (value Error)
-}) {
-	m.Err = from.GetErr()
 }
 
 // TypeID returns type id in TL schema.
@@ -118,11 +119,6 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetErr returns value of Err field.
-func (m *Message) GetErr() (value Error) {
-	return m.Err
-}
-
 // Decode implements bin.Decoder.
 func (m *Message) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -147,10 +143,7 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for Message.
-var (
-	_ bin.Encoder     = &Message{}
-	_ bin.Decoder     = &Message{}
-	_ bin.BareEncoder = &Message{}
-	_ bin.BareDecoder = &Message{}
-)
+// GetErr returns value of Err field.
+func (m *Message) GetErr() (value Error) {
+	return m.Err
+}

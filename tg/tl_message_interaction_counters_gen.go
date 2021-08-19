@@ -45,6 +45,14 @@ type MessageInteractionCounters struct {
 // MessageInteractionCountersTypeID is TL type id of MessageInteractionCounters.
 const MessageInteractionCountersTypeID = 0xad4fc9bd
 
+// Ensuring interfaces in compile-time for MessageInteractionCounters.
+var (
+	_ bin.Encoder     = &MessageInteractionCounters{}
+	_ bin.Decoder     = &MessageInteractionCounters{}
+	_ bin.BareEncoder = &MessageInteractionCounters{}
+	_ bin.BareDecoder = &MessageInteractionCounters{}
+)
+
 func (m *MessageInteractionCounters) Zero() bool {
 	if m == nil {
 		return true
@@ -141,21 +149,6 @@ func (m *MessageInteractionCounters) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMsgID returns value of MsgID field.
-func (m *MessageInteractionCounters) GetMsgID() (value int) {
-	return m.MsgID
-}
-
-// GetViews returns value of Views field.
-func (m *MessageInteractionCounters) GetViews() (value int) {
-	return m.Views
-}
-
-// GetForwards returns value of Forwards field.
-func (m *MessageInteractionCounters) GetForwards() (value int) {
-	return m.Forwards
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageInteractionCounters) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -196,10 +189,17 @@ func (m *MessageInteractionCounters) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessageInteractionCounters.
-var (
-	_ bin.Encoder     = &MessageInteractionCounters{}
-	_ bin.Decoder     = &MessageInteractionCounters{}
-	_ bin.BareEncoder = &MessageInteractionCounters{}
-	_ bin.BareDecoder = &MessageInteractionCounters{}
-)
+// GetMsgID returns value of MsgID field.
+func (m *MessageInteractionCounters) GetMsgID() (value int) {
+	return m.MsgID
+}
+
+// GetViews returns value of Views field.
+func (m *MessageInteractionCounters) GetViews() (value int) {
+	return m.Views
+}
+
+// GetForwards returns value of Forwards field.
+func (m *MessageInteractionCounters) GetForwards() (value int) {
+	return m.Forwards
+}

@@ -39,6 +39,19 @@ type InputChannelEmpty struct {
 // InputChannelEmptyTypeID is TL type id of InputChannelEmpty.
 const InputChannelEmptyTypeID = 0xee8c1e86
 
+// construct implements constructor of InputChannelClass.
+func (i InputChannelEmpty) construct() InputChannelClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChannelEmpty.
+var (
+	_ bin.Encoder     = &InputChannelEmpty{}
+	_ bin.Decoder     = &InputChannelEmpty{}
+	_ bin.BareEncoder = &InputChannelEmpty{}
+	_ bin.BareDecoder = &InputChannelEmpty{}
+
+	_ InputChannelClass = &InputChannelEmpty{}
+)
+
 func (i *InputChannelEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputChannelEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputChannelClass.
-func (i InputChannelEmpty) construct() InputChannelClass { return &i }
-
-// Ensuring interfaces in compile-time for InputChannelEmpty.
-var (
-	_ bin.Encoder     = &InputChannelEmpty{}
-	_ bin.Decoder     = &InputChannelEmpty{}
-	_ bin.BareEncoder = &InputChannelEmpty{}
-	_ bin.BareDecoder = &InputChannelEmpty{}
-
-	_ InputChannelClass = &InputChannelEmpty{}
-)
-
 // InputChannel represents TL type `inputChannel#afeb712e`.
 // Represents a channel
 //
@@ -147,6 +147,19 @@ type InputChannel struct {
 
 // InputChannelTypeID is TL type id of InputChannel.
 const InputChannelTypeID = 0xafeb712e
+
+// construct implements constructor of InputChannelClass.
+func (i InputChannel) construct() InputChannelClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChannel.
+var (
+	_ bin.Encoder     = &InputChannel{}
+	_ bin.Decoder     = &InputChannel{}
+	_ bin.BareEncoder = &InputChannel{}
+	_ bin.BareDecoder = &InputChannel{}
+
+	_ InputChannelClass = &InputChannel{}
+)
 
 func (i *InputChannel) Zero() bool {
 	if i == nil {
@@ -234,16 +247,6 @@ func (i *InputChannel) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (i *InputChannel) GetChannelID() (value int) {
-	return i.ChannelID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputChannel) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputChannel) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -277,18 +280,15 @@ func (i *InputChannel) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputChannelClass.
-func (i InputChannel) construct() InputChannelClass { return &i }
+// GetChannelID returns value of ChannelID field.
+func (i *InputChannel) GetChannelID() (value int) {
+	return i.ChannelID
+}
 
-// Ensuring interfaces in compile-time for InputChannel.
-var (
-	_ bin.Encoder     = &InputChannel{}
-	_ bin.Decoder     = &InputChannel{}
-	_ bin.BareEncoder = &InputChannel{}
-	_ bin.BareDecoder = &InputChannel{}
-
-	_ InputChannelClass = &InputChannel{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputChannel) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputChannelFromMessage represents TL type `inputChannelFromMessage#2a286531`.
 // Defines a min¹ channel that was seen in a certain message of a certain chat.
@@ -308,6 +308,19 @@ type InputChannelFromMessage struct {
 
 // InputChannelFromMessageTypeID is TL type id of InputChannelFromMessage.
 const InputChannelFromMessageTypeID = 0x2a286531
+
+// construct implements constructor of InputChannelClass.
+func (i InputChannelFromMessage) construct() InputChannelClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChannelFromMessage.
+var (
+	_ bin.Encoder     = &InputChannelFromMessage{}
+	_ bin.Decoder     = &InputChannelFromMessage{}
+	_ bin.BareEncoder = &InputChannelFromMessage{}
+	_ bin.BareDecoder = &InputChannelFromMessage{}
+
+	_ InputChannelClass = &InputChannelFromMessage{}
+)
 
 func (i *InputChannelFromMessage) Zero() bool {
 	if i == nil {
@@ -410,21 +423,6 @@ func (i *InputChannelFromMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (i *InputChannelFromMessage) GetPeer() (value InputPeerClass) {
-	return i.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (i *InputChannelFromMessage) GetMsgID() (value int) {
-	return i.MsgID
-}
-
-// GetChannelID returns value of ChannelID field.
-func (i *InputChannelFromMessage) GetChannelID() (value int) {
-	return i.ChannelID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputChannelFromMessage) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -465,18 +463,20 @@ func (i *InputChannelFromMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputChannelClass.
-func (i InputChannelFromMessage) construct() InputChannelClass { return &i }
+// GetPeer returns value of Peer field.
+func (i *InputChannelFromMessage) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
 
-// Ensuring interfaces in compile-time for InputChannelFromMessage.
-var (
-	_ bin.Encoder     = &InputChannelFromMessage{}
-	_ bin.Decoder     = &InputChannelFromMessage{}
-	_ bin.BareEncoder = &InputChannelFromMessage{}
-	_ bin.BareDecoder = &InputChannelFromMessage{}
+// GetMsgID returns value of MsgID field.
+func (i *InputChannelFromMessage) GetMsgID() (value int) {
+	return i.MsgID
+}
 
-	_ InputChannelClass = &InputChannelFromMessage{}
-)
+// GetChannelID returns value of ChannelID field.
+func (i *InputChannelFromMessage) GetChannelID() (value int) {
+	return i.ChannelID
+}
 
 // InputChannelClass represents InputChannel generic type.
 //

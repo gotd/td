@@ -56,6 +56,14 @@ type HelpCountry struct {
 // HelpCountryTypeID is TL type id of HelpCountry.
 const HelpCountryTypeID = 0xc3878e23
 
+// Ensuring interfaces in compile-time for HelpCountry.
+var (
+	_ bin.Encoder     = &HelpCountry{}
+	_ bin.Decoder     = &HelpCountry{}
+	_ bin.BareEncoder = &HelpCountry{}
+	_ bin.BareDecoder = &HelpCountry{}
+)
+
 func (c *HelpCountry) Zero() bool {
 	if c == nil {
 		return true
@@ -195,52 +203,6 @@ func (c *HelpCountry) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetHidden sets value of Hidden conditional field.
-func (c *HelpCountry) SetHidden(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.Hidden = true
-	} else {
-		c.Flags.Unset(0)
-		c.Hidden = false
-	}
-}
-
-// GetHidden returns value of Hidden conditional field.
-func (c *HelpCountry) GetHidden() (value bool) {
-	return c.Flags.Has(0)
-}
-
-// GetIso2 returns value of Iso2 field.
-func (c *HelpCountry) GetIso2() (value string) {
-	return c.Iso2
-}
-
-// GetDefaultName returns value of DefaultName field.
-func (c *HelpCountry) GetDefaultName() (value string) {
-	return c.DefaultName
-}
-
-// SetName sets value of Name conditional field.
-func (c *HelpCountry) SetName(value string) {
-	c.Flags.Set(1)
-	c.Name = value
-}
-
-// GetName returns value of Name conditional field and
-// boolean which is true if field was set.
-func (c *HelpCountry) GetName() (value string, ok bool) {
-	if !c.Flags.Has(1) {
-		return value, false
-	}
-	return c.Name, true
-}
-
-// GetCountryCodes returns value of CountryCodes field.
-func (c *HelpCountry) GetCountryCodes() (value []HelpCountryCode) {
-	return c.CountryCodes
-}
-
 // Decode implements bin.Decoder.
 func (c *HelpCountry) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -304,10 +266,48 @@ func (c *HelpCountry) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpCountry.
-var (
-	_ bin.Encoder     = &HelpCountry{}
-	_ bin.Decoder     = &HelpCountry{}
-	_ bin.BareEncoder = &HelpCountry{}
-	_ bin.BareDecoder = &HelpCountry{}
-)
+// SetHidden sets value of Hidden conditional field.
+func (c *HelpCountry) SetHidden(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Hidden = true
+	} else {
+		c.Flags.Unset(0)
+		c.Hidden = false
+	}
+}
+
+// GetHidden returns value of Hidden conditional field.
+func (c *HelpCountry) GetHidden() (value bool) {
+	return c.Flags.Has(0)
+}
+
+// GetIso2 returns value of Iso2 field.
+func (c *HelpCountry) GetIso2() (value string) {
+	return c.Iso2
+}
+
+// GetDefaultName returns value of DefaultName field.
+func (c *HelpCountry) GetDefaultName() (value string) {
+	return c.DefaultName
+}
+
+// SetName sets value of Name conditional field.
+func (c *HelpCountry) SetName(value string) {
+	c.Flags.Set(1)
+	c.Name = value
+}
+
+// GetName returns value of Name conditional field and
+// boolean which is true if field was set.
+func (c *HelpCountry) GetName() (value string, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.Name, true
+}
+
+// GetCountryCodes returns value of CountryCodes field.
+func (c *HelpCountry) GetCountryCodes() (value []HelpCountryCode) {
+	return c.CountryCodes
+}

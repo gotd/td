@@ -46,6 +46,14 @@ type AccountSetContentSettingsRequest struct {
 // AccountSetContentSettingsRequestTypeID is TL type id of AccountSetContentSettingsRequest.
 const AccountSetContentSettingsRequestTypeID = 0xb574b16b
 
+// Ensuring interfaces in compile-time for AccountSetContentSettingsRequest.
+var (
+	_ bin.Encoder     = &AccountSetContentSettingsRequest{}
+	_ bin.Decoder     = &AccountSetContentSettingsRequest{}
+	_ bin.BareEncoder = &AccountSetContentSettingsRequest{}
+	_ bin.BareDecoder = &AccountSetContentSettingsRequest{}
+)
+
 func (s *AccountSetContentSettingsRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -131,22 +139,6 @@ func (s *AccountSetContentSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetSensitiveEnabled sets value of SensitiveEnabled conditional field.
-func (s *AccountSetContentSettingsRequest) SetSensitiveEnabled(value bool) {
-	if value {
-		s.Flags.Set(0)
-		s.SensitiveEnabled = true
-	} else {
-		s.Flags.Unset(0)
-		s.SensitiveEnabled = false
-	}
-}
-
-// GetSensitiveEnabled returns value of SensitiveEnabled conditional field.
-func (s *AccountSetContentSettingsRequest) GetSensitiveEnabled() (value bool) {
-	return s.Flags.Has(0)
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSetContentSettingsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -172,13 +164,21 @@ func (s *AccountSetContentSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSetContentSettingsRequest.
-var (
-	_ bin.Encoder     = &AccountSetContentSettingsRequest{}
-	_ bin.Decoder     = &AccountSetContentSettingsRequest{}
-	_ bin.BareEncoder = &AccountSetContentSettingsRequest{}
-	_ bin.BareDecoder = &AccountSetContentSettingsRequest{}
-)
+// SetSensitiveEnabled sets value of SensitiveEnabled conditional field.
+func (s *AccountSetContentSettingsRequest) SetSensitiveEnabled(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.SensitiveEnabled = true
+	} else {
+		s.Flags.Unset(0)
+		s.SensitiveEnabled = false
+	}
+}
+
+// GetSensitiveEnabled returns value of SensitiveEnabled conditional field.
+func (s *AccountSetContentSettingsRequest) GetSensitiveEnabled() (value bool) {
+	return s.Flags.Has(0)
+}
 
 // AccountSetContentSettings invokes method account.setContentSettings#b574b16b returning error if any.
 // Set sensitive content settings (for viewing or hiding NSFW content)

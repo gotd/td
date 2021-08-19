@@ -40,6 +40,19 @@ type AuthCodeTypeSMS struct {
 // AuthCodeTypeSMSTypeID is TL type id of AuthCodeTypeSMS.
 const AuthCodeTypeSMSTypeID = 0x72a3158c
 
+// construct implements constructor of AuthCodeTypeClass.
+func (c AuthCodeTypeSMS) construct() AuthCodeTypeClass { return &c }
+
+// Ensuring interfaces in compile-time for AuthCodeTypeSMS.
+var (
+	_ bin.Encoder     = &AuthCodeTypeSMS{}
+	_ bin.Decoder     = &AuthCodeTypeSMS{}
+	_ bin.BareEncoder = &AuthCodeTypeSMS{}
+	_ bin.BareDecoder = &AuthCodeTypeSMS{}
+
+	_ AuthCodeTypeClass = &AuthCodeTypeSMS{}
+)
+
 func (c *AuthCodeTypeSMS) Zero() bool {
 	if c == nil {
 		return true
@@ -119,19 +132,6 @@ func (c *AuthCodeTypeSMS) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthCodeTypeClass.
-func (c AuthCodeTypeSMS) construct() AuthCodeTypeClass { return &c }
-
-// Ensuring interfaces in compile-time for AuthCodeTypeSMS.
-var (
-	_ bin.Encoder     = &AuthCodeTypeSMS{}
-	_ bin.Decoder     = &AuthCodeTypeSMS{}
-	_ bin.BareEncoder = &AuthCodeTypeSMS{}
-	_ bin.BareDecoder = &AuthCodeTypeSMS{}
-
-	_ AuthCodeTypeClass = &AuthCodeTypeSMS{}
-)
-
 // AuthCodeTypeCall represents TL type `auth.codeTypeCall#741cd3e3`.
 // Type of verification code that will be sent next if you call the resendCode method:
 // SMS code
@@ -142,6 +142,19 @@ type AuthCodeTypeCall struct {
 
 // AuthCodeTypeCallTypeID is TL type id of AuthCodeTypeCall.
 const AuthCodeTypeCallTypeID = 0x741cd3e3
+
+// construct implements constructor of AuthCodeTypeClass.
+func (c AuthCodeTypeCall) construct() AuthCodeTypeClass { return &c }
+
+// Ensuring interfaces in compile-time for AuthCodeTypeCall.
+var (
+	_ bin.Encoder     = &AuthCodeTypeCall{}
+	_ bin.Decoder     = &AuthCodeTypeCall{}
+	_ bin.BareEncoder = &AuthCodeTypeCall{}
+	_ bin.BareDecoder = &AuthCodeTypeCall{}
+
+	_ AuthCodeTypeClass = &AuthCodeTypeCall{}
+)
 
 func (c *AuthCodeTypeCall) Zero() bool {
 	if c == nil {
@@ -222,19 +235,6 @@ func (c *AuthCodeTypeCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthCodeTypeClass.
-func (c AuthCodeTypeCall) construct() AuthCodeTypeClass { return &c }
-
-// Ensuring interfaces in compile-time for AuthCodeTypeCall.
-var (
-	_ bin.Encoder     = &AuthCodeTypeCall{}
-	_ bin.Decoder     = &AuthCodeTypeCall{}
-	_ bin.BareEncoder = &AuthCodeTypeCall{}
-	_ bin.BareDecoder = &AuthCodeTypeCall{}
-
-	_ AuthCodeTypeClass = &AuthCodeTypeCall{}
-)
-
 // AuthCodeTypeFlashCall represents TL type `auth.codeTypeFlashCall#226ccefb`.
 // Type of verification code that will be sent next if you call the resendCode method:
 // SMS code
@@ -245,6 +245,19 @@ type AuthCodeTypeFlashCall struct {
 
 // AuthCodeTypeFlashCallTypeID is TL type id of AuthCodeTypeFlashCall.
 const AuthCodeTypeFlashCallTypeID = 0x226ccefb
+
+// construct implements constructor of AuthCodeTypeClass.
+func (c AuthCodeTypeFlashCall) construct() AuthCodeTypeClass { return &c }
+
+// Ensuring interfaces in compile-time for AuthCodeTypeFlashCall.
+var (
+	_ bin.Encoder     = &AuthCodeTypeFlashCall{}
+	_ bin.Decoder     = &AuthCodeTypeFlashCall{}
+	_ bin.BareEncoder = &AuthCodeTypeFlashCall{}
+	_ bin.BareDecoder = &AuthCodeTypeFlashCall{}
+
+	_ AuthCodeTypeClass = &AuthCodeTypeFlashCall{}
+)
 
 func (c *AuthCodeTypeFlashCall) Zero() bool {
 	if c == nil {
@@ -324,19 +337,6 @@ func (c *AuthCodeTypeFlashCall) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of AuthCodeTypeClass.
-func (c AuthCodeTypeFlashCall) construct() AuthCodeTypeClass { return &c }
-
-// Ensuring interfaces in compile-time for AuthCodeTypeFlashCall.
-var (
-	_ bin.Encoder     = &AuthCodeTypeFlashCall{}
-	_ bin.Decoder     = &AuthCodeTypeFlashCall{}
-	_ bin.BareEncoder = &AuthCodeTypeFlashCall{}
-	_ bin.BareDecoder = &AuthCodeTypeFlashCall{}
-
-	_ AuthCodeTypeClass = &AuthCodeTypeFlashCall{}
-)
 
 // AuthCodeTypeClass represents auth.CodeType generic type.
 //

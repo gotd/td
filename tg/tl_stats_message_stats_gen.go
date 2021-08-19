@@ -41,6 +41,14 @@ type StatsMessageStats struct {
 // StatsMessageStatsTypeID is TL type id of StatsMessageStats.
 const StatsMessageStatsTypeID = 0x8999f295
 
+// Ensuring interfaces in compile-time for StatsMessageStats.
+var (
+	_ bin.Encoder     = &StatsMessageStats{}
+	_ bin.Decoder     = &StatsMessageStats{}
+	_ bin.BareEncoder = &StatsMessageStats{}
+	_ bin.BareDecoder = &StatsMessageStats{}
+)
+
 func (m *StatsMessageStats) Zero() bool {
 	if m == nil {
 		return true
@@ -122,11 +130,6 @@ func (m *StatsMessageStats) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetViewsGraph returns value of ViewsGraph field.
-func (m *StatsMessageStats) GetViewsGraph() (value StatsGraphClass) {
-	return m.ViewsGraph
-}
-
 // Decode implements bin.Decoder.
 func (m *StatsMessageStats) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -153,10 +156,7 @@ func (m *StatsMessageStats) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsMessageStats.
-var (
-	_ bin.Encoder     = &StatsMessageStats{}
-	_ bin.Decoder     = &StatsMessageStats{}
-	_ bin.BareEncoder = &StatsMessageStats{}
-	_ bin.BareDecoder = &StatsMessageStats{}
-)
+// GetViewsGraph returns value of ViewsGraph field.
+func (m *StatsMessageStats) GetViewsGraph() (value StatsGraphClass) {
+	return m.ViewsGraph
+}

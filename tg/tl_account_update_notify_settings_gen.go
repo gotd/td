@@ -43,6 +43,14 @@ type AccountUpdateNotifySettingsRequest struct {
 // AccountUpdateNotifySettingsRequestTypeID is TL type id of AccountUpdateNotifySettingsRequest.
 const AccountUpdateNotifySettingsRequestTypeID = 0x84be5b93
 
+// Ensuring interfaces in compile-time for AccountUpdateNotifySettingsRequest.
+var (
+	_ bin.Encoder     = &AccountUpdateNotifySettingsRequest{}
+	_ bin.Decoder     = &AccountUpdateNotifySettingsRequest{}
+	_ bin.BareEncoder = &AccountUpdateNotifySettingsRequest{}
+	_ bin.BareDecoder = &AccountUpdateNotifySettingsRequest{}
+)
+
 func (u *AccountUpdateNotifySettingsRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -136,16 +144,6 @@ func (u *AccountUpdateNotifySettingsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *AccountUpdateNotifySettingsRequest) GetPeer() (value InputNotifyPeerClass) {
-	return u.Peer
-}
-
-// GetSettings returns value of Settings field.
-func (u *AccountUpdateNotifySettingsRequest) GetSettings() (value InputPeerNotifySettings) {
-	return u.Settings
-}
-
 // Decode implements bin.Decoder.
 func (u *AccountUpdateNotifySettingsRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -177,13 +175,15 @@ func (u *AccountUpdateNotifySettingsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountUpdateNotifySettingsRequest.
-var (
-	_ bin.Encoder     = &AccountUpdateNotifySettingsRequest{}
-	_ bin.Decoder     = &AccountUpdateNotifySettingsRequest{}
-	_ bin.BareEncoder = &AccountUpdateNotifySettingsRequest{}
-	_ bin.BareDecoder = &AccountUpdateNotifySettingsRequest{}
-)
+// GetPeer returns value of Peer field.
+func (u *AccountUpdateNotifySettingsRequest) GetPeer() (value InputNotifyPeerClass) {
+	return u.Peer
+}
+
+// GetSettings returns value of Settings field.
+func (u *AccountUpdateNotifySettingsRequest) GetSettings() (value InputPeerNotifySettings) {
+	return u.Settings
+}
 
 // AccountUpdateNotifySettings invokes method account.updateNotifySettings#84be5b93 returning error if any.
 // Edits notification settings from a given user/group, from all users/all groups.

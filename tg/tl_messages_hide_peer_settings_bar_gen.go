@@ -46,6 +46,14 @@ type MessagesHidePeerSettingsBarRequest struct {
 // MessagesHidePeerSettingsBarRequestTypeID is TL type id of MessagesHidePeerSettingsBarRequest.
 const MessagesHidePeerSettingsBarRequestTypeID = 0x4facb138
 
+// Ensuring interfaces in compile-time for MessagesHidePeerSettingsBarRequest.
+var (
+	_ bin.Encoder     = &MessagesHidePeerSettingsBarRequest{}
+	_ bin.Decoder     = &MessagesHidePeerSettingsBarRequest{}
+	_ bin.BareEncoder = &MessagesHidePeerSettingsBarRequest{}
+	_ bin.BareDecoder = &MessagesHidePeerSettingsBarRequest{}
+)
+
 func (h *MessagesHidePeerSettingsBarRequest) Zero() bool {
 	if h == nil {
 		return true
@@ -127,11 +135,6 @@ func (h *MessagesHidePeerSettingsBarRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (h *MessagesHidePeerSettingsBarRequest) GetPeer() (value InputPeerClass) {
-	return h.Peer
-}
-
 // Decode implements bin.Decoder.
 func (h *MessagesHidePeerSettingsBarRequest) Decode(b *bin.Buffer) error {
 	if h == nil {
@@ -158,13 +161,10 @@ func (h *MessagesHidePeerSettingsBarRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesHidePeerSettingsBarRequest.
-var (
-	_ bin.Encoder     = &MessagesHidePeerSettingsBarRequest{}
-	_ bin.Decoder     = &MessagesHidePeerSettingsBarRequest{}
-	_ bin.BareEncoder = &MessagesHidePeerSettingsBarRequest{}
-	_ bin.BareDecoder = &MessagesHidePeerSettingsBarRequest{}
-)
+// GetPeer returns value of Peer field.
+func (h *MessagesHidePeerSettingsBarRequest) GetPeer() (value InputPeerClass) {
+	return h.Peer
+}
 
 // MessagesHidePeerSettingsBar invokes method messages.hidePeerSettingsBar#4facb138 returning error if any.
 // Should be called after the user hides the report spam/add as contact bar of a new chat

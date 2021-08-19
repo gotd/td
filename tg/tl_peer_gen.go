@@ -41,6 +41,19 @@ type PeerUser struct {
 // PeerUserTypeID is TL type id of PeerUser.
 const PeerUserTypeID = 0x9db1bc6d
 
+// construct implements constructor of PeerClass.
+func (p PeerUser) construct() PeerClass { return &p }
+
+// Ensuring interfaces in compile-time for PeerUser.
+var (
+	_ bin.Encoder     = &PeerUser{}
+	_ bin.Decoder     = &PeerUser{}
+	_ bin.BareEncoder = &PeerUser{}
+	_ bin.BareDecoder = &PeerUser{}
+
+	_ PeerClass = &PeerUser{}
+)
+
 func (p *PeerUser) Zero() bool {
 	if p == nil {
 		return true
@@ -117,11 +130,6 @@ func (p *PeerUser) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (p *PeerUser) GetUserID() (value int) {
-	return p.UserID
-}
-
 // Decode implements bin.Decoder.
 func (p *PeerUser) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -148,18 +156,10 @@ func (p *PeerUser) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PeerClass.
-func (p PeerUser) construct() PeerClass { return &p }
-
-// Ensuring interfaces in compile-time for PeerUser.
-var (
-	_ bin.Encoder     = &PeerUser{}
-	_ bin.Decoder     = &PeerUser{}
-	_ bin.BareEncoder = &PeerUser{}
-	_ bin.BareDecoder = &PeerUser{}
-
-	_ PeerClass = &PeerUser{}
-)
+// GetUserID returns value of UserID field.
+func (p *PeerUser) GetUserID() (value int) {
+	return p.UserID
+}
 
 // PeerChat represents TL type `peerChat#bad0e5bb`.
 // Group.
@@ -172,6 +172,19 @@ type PeerChat struct {
 
 // PeerChatTypeID is TL type id of PeerChat.
 const PeerChatTypeID = 0xbad0e5bb
+
+// construct implements constructor of PeerClass.
+func (p PeerChat) construct() PeerClass { return &p }
+
+// Ensuring interfaces in compile-time for PeerChat.
+var (
+	_ bin.Encoder     = &PeerChat{}
+	_ bin.Decoder     = &PeerChat{}
+	_ bin.BareEncoder = &PeerChat{}
+	_ bin.BareDecoder = &PeerChat{}
+
+	_ PeerClass = &PeerChat{}
+)
 
 func (p *PeerChat) Zero() bool {
 	if p == nil {
@@ -249,11 +262,6 @@ func (p *PeerChat) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (p *PeerChat) GetChatID() (value int) {
-	return p.ChatID
-}
-
 // Decode implements bin.Decoder.
 func (p *PeerChat) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -280,18 +288,10 @@ func (p *PeerChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PeerClass.
-func (p PeerChat) construct() PeerClass { return &p }
-
-// Ensuring interfaces in compile-time for PeerChat.
-var (
-	_ bin.Encoder     = &PeerChat{}
-	_ bin.Decoder     = &PeerChat{}
-	_ bin.BareEncoder = &PeerChat{}
-	_ bin.BareDecoder = &PeerChat{}
-
-	_ PeerClass = &PeerChat{}
-)
+// GetChatID returns value of ChatID field.
+func (p *PeerChat) GetChatID() (value int) {
+	return p.ChatID
+}
 
 // PeerChannel represents TL type `peerChannel#bddde532`.
 // Channel/supergroup
@@ -304,6 +304,19 @@ type PeerChannel struct {
 
 // PeerChannelTypeID is TL type id of PeerChannel.
 const PeerChannelTypeID = 0xbddde532
+
+// construct implements constructor of PeerClass.
+func (p PeerChannel) construct() PeerClass { return &p }
+
+// Ensuring interfaces in compile-time for PeerChannel.
+var (
+	_ bin.Encoder     = &PeerChannel{}
+	_ bin.Decoder     = &PeerChannel{}
+	_ bin.BareEncoder = &PeerChannel{}
+	_ bin.BareDecoder = &PeerChannel{}
+
+	_ PeerClass = &PeerChannel{}
+)
 
 func (p *PeerChannel) Zero() bool {
 	if p == nil {
@@ -381,11 +394,6 @@ func (p *PeerChannel) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (p *PeerChannel) GetChannelID() (value int) {
-	return p.ChannelID
-}
-
 // Decode implements bin.Decoder.
 func (p *PeerChannel) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -412,18 +420,10 @@ func (p *PeerChannel) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PeerClass.
-func (p PeerChannel) construct() PeerClass { return &p }
-
-// Ensuring interfaces in compile-time for PeerChannel.
-var (
-	_ bin.Encoder     = &PeerChannel{}
-	_ bin.Decoder     = &PeerChannel{}
-	_ bin.BareEncoder = &PeerChannel{}
-	_ bin.BareDecoder = &PeerChannel{}
-
-	_ PeerClass = &PeerChannel{}
-)
+// GetChannelID returns value of ChannelID field.
+func (p *PeerChannel) GetChannelID() (value int) {
+	return p.ChannelID
+}
 
 // PeerClass represents Peer generic type.
 //

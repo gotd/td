@@ -43,6 +43,14 @@ type AccountWebAuthorizations struct {
 // AccountWebAuthorizationsTypeID is TL type id of AccountWebAuthorizations.
 const AccountWebAuthorizationsTypeID = 0xed56c9fc
 
+// Ensuring interfaces in compile-time for AccountWebAuthorizations.
+var (
+	_ bin.Encoder     = &AccountWebAuthorizations{}
+	_ bin.Decoder     = &AccountWebAuthorizations{}
+	_ bin.BareEncoder = &AccountWebAuthorizations{}
+	_ bin.BareDecoder = &AccountWebAuthorizations{}
+)
+
 func (w *AccountWebAuthorizations) Zero() bool {
 	if w == nil {
 		return true
@@ -142,21 +150,6 @@ func (w *AccountWebAuthorizations) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAuthorizations returns value of Authorizations field.
-func (w *AccountWebAuthorizations) GetAuthorizations() (value []WebAuthorization) {
-	return w.Authorizations
-}
-
-// GetUsers returns value of Users field.
-func (w *AccountWebAuthorizations) GetUsers() (value []UserClass) {
-	return w.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (w *AccountWebAuthorizations) MapUsers() (value UserClassArray) {
-	return UserClassArray(w.Users)
-}
-
 // Decode implements bin.Decoder.
 func (w *AccountWebAuthorizations) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -210,10 +203,17 @@ func (w *AccountWebAuthorizations) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountWebAuthorizations.
-var (
-	_ bin.Encoder     = &AccountWebAuthorizations{}
-	_ bin.Decoder     = &AccountWebAuthorizations{}
-	_ bin.BareEncoder = &AccountWebAuthorizations{}
-	_ bin.BareDecoder = &AccountWebAuthorizations{}
-)
+// GetAuthorizations returns value of Authorizations field.
+func (w *AccountWebAuthorizations) GetAuthorizations() (value []WebAuthorization) {
+	return w.Authorizations
+}
+
+// GetUsers returns value of Users field.
+func (w *AccountWebAuthorizations) GetUsers() (value []UserClass) {
+	return w.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (w *AccountWebAuthorizations) MapUsers() (value UserClassArray) {
+	return UserClassArray(w.Users)
+}

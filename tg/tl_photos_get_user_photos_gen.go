@@ -48,6 +48,14 @@ type PhotosGetUserPhotosRequest struct {
 // PhotosGetUserPhotosRequestTypeID is TL type id of PhotosGetUserPhotosRequest.
 const PhotosGetUserPhotosRequestTypeID = 0x91cd32a8
 
+// Ensuring interfaces in compile-time for PhotosGetUserPhotosRequest.
+var (
+	_ bin.Encoder     = &PhotosGetUserPhotosRequest{}
+	_ bin.Decoder     = &PhotosGetUserPhotosRequest{}
+	_ bin.BareEncoder = &PhotosGetUserPhotosRequest{}
+	_ bin.BareDecoder = &PhotosGetUserPhotosRequest{}
+)
+
 func (g *PhotosGetUserPhotosRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -159,26 +167,6 @@ func (g *PhotosGetUserPhotosRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (g *PhotosGetUserPhotosRequest) GetUserID() (value InputUserClass) {
-	return g.UserID
-}
-
-// GetOffset returns value of Offset field.
-func (g *PhotosGetUserPhotosRequest) GetOffset() (value int) {
-	return g.Offset
-}
-
-// GetMaxID returns value of MaxID field.
-func (g *PhotosGetUserPhotosRequest) GetMaxID() (value int64) {
-	return g.MaxID
-}
-
-// GetLimit returns value of Limit field.
-func (g *PhotosGetUserPhotosRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *PhotosGetUserPhotosRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -226,13 +214,25 @@ func (g *PhotosGetUserPhotosRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhotosGetUserPhotosRequest.
-var (
-	_ bin.Encoder     = &PhotosGetUserPhotosRequest{}
-	_ bin.Decoder     = &PhotosGetUserPhotosRequest{}
-	_ bin.BareEncoder = &PhotosGetUserPhotosRequest{}
-	_ bin.BareDecoder = &PhotosGetUserPhotosRequest{}
-)
+// GetUserID returns value of UserID field.
+func (g *PhotosGetUserPhotosRequest) GetUserID() (value InputUserClass) {
+	return g.UserID
+}
+
+// GetOffset returns value of Offset field.
+func (g *PhotosGetUserPhotosRequest) GetOffset() (value int) {
+	return g.Offset
+}
+
+// GetMaxID returns value of MaxID field.
+func (g *PhotosGetUserPhotosRequest) GetMaxID() (value int64) {
+	return g.MaxID
+}
+
+// GetLimit returns value of Limit field.
+func (g *PhotosGetUserPhotosRequest) GetLimit() (value int) {
+	return g.Limit
+}
 
 // PhotosGetUserPhotos invokes method photos.getUserPhotos#91cd32a8 returning error if any.
 // Returns the list of user photos.

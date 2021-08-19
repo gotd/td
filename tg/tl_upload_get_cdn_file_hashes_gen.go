@@ -46,6 +46,14 @@ type UploadGetCDNFileHashesRequest struct {
 // UploadGetCDNFileHashesRequestTypeID is TL type id of UploadGetCDNFileHashesRequest.
 const UploadGetCDNFileHashesRequestTypeID = 0x4da54231
 
+// Ensuring interfaces in compile-time for UploadGetCDNFileHashesRequest.
+var (
+	_ bin.Encoder     = &UploadGetCDNFileHashesRequest{}
+	_ bin.Decoder     = &UploadGetCDNFileHashesRequest{}
+	_ bin.BareEncoder = &UploadGetCDNFileHashesRequest{}
+	_ bin.BareDecoder = &UploadGetCDNFileHashesRequest{}
+)
+
 func (g *UploadGetCDNFileHashesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -132,16 +140,6 @@ func (g *UploadGetCDNFileHashesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFileToken returns value of FileToken field.
-func (g *UploadGetCDNFileHashesRequest) GetFileToken() (value []byte) {
-	return g.FileToken
-}
-
-// GetOffset returns value of Offset field.
-func (g *UploadGetCDNFileHashesRequest) GetOffset() (value int) {
-	return g.Offset
-}
-
 // Decode implements bin.Decoder.
 func (g *UploadGetCDNFileHashesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -175,13 +173,15 @@ func (g *UploadGetCDNFileHashesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UploadGetCDNFileHashesRequest.
-var (
-	_ bin.Encoder     = &UploadGetCDNFileHashesRequest{}
-	_ bin.Decoder     = &UploadGetCDNFileHashesRequest{}
-	_ bin.BareEncoder = &UploadGetCDNFileHashesRequest{}
-	_ bin.BareDecoder = &UploadGetCDNFileHashesRequest{}
-)
+// GetFileToken returns value of FileToken field.
+func (g *UploadGetCDNFileHashesRequest) GetFileToken() (value []byte) {
+	return g.FileToken
+}
+
+// GetOffset returns value of Offset field.
+func (g *UploadGetCDNFileHashesRequest) GetOffset() (value int) {
+	return g.Offset
+}
 
 // UploadGetCDNFileHashes invokes method upload.getCdnFileHashes#4da54231 returning error if any.
 // Get SHA256 hashes for verifying downloaded CDN¹ files

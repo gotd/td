@@ -41,6 +41,14 @@ type ChannelsGetFullChannelRequest struct {
 // ChannelsGetFullChannelRequestTypeID is TL type id of ChannelsGetFullChannelRequest.
 const ChannelsGetFullChannelRequestTypeID = 0x8736a09
 
+// Ensuring interfaces in compile-time for ChannelsGetFullChannelRequest.
+var (
+	_ bin.Encoder     = &ChannelsGetFullChannelRequest{}
+	_ bin.Decoder     = &ChannelsGetFullChannelRequest{}
+	_ bin.BareEncoder = &ChannelsGetFullChannelRequest{}
+	_ bin.BareDecoder = &ChannelsGetFullChannelRequest{}
+)
+
 func (g *ChannelsGetFullChannelRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -122,16 +130,6 @@ func (g *ChannelsGetFullChannelRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (g *ChannelsGetFullChannelRequest) GetChannel() (value InputChannelClass) {
-	return g.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *ChannelsGetFullChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (g *ChannelsGetFullChannelRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -158,13 +156,15 @@ func (g *ChannelsGetFullChannelRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsGetFullChannelRequest.
-var (
-	_ bin.Encoder     = &ChannelsGetFullChannelRequest{}
-	_ bin.Decoder     = &ChannelsGetFullChannelRequest{}
-	_ bin.BareEncoder = &ChannelsGetFullChannelRequest{}
-	_ bin.BareDecoder = &ChannelsGetFullChannelRequest{}
-)
+// GetChannel returns value of Channel field.
+func (g *ChannelsGetFullChannelRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *ChannelsGetFullChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
 
 // ChannelsGetFullChannel invokes method channels.getFullChannel#8736a09 returning error if any.
 // Get full info about a channel

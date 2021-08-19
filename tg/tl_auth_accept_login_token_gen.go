@@ -49,6 +49,14 @@ type AuthAcceptLoginTokenRequest struct {
 // AuthAcceptLoginTokenRequestTypeID is TL type id of AuthAcceptLoginTokenRequest.
 const AuthAcceptLoginTokenRequestTypeID = 0xe894ad4d
 
+// Ensuring interfaces in compile-time for AuthAcceptLoginTokenRequest.
+var (
+	_ bin.Encoder     = &AuthAcceptLoginTokenRequest{}
+	_ bin.Decoder     = &AuthAcceptLoginTokenRequest{}
+	_ bin.BareEncoder = &AuthAcceptLoginTokenRequest{}
+	_ bin.BareDecoder = &AuthAcceptLoginTokenRequest{}
+)
+
 func (a *AuthAcceptLoginTokenRequest) Zero() bool {
 	if a == nil {
 		return true
@@ -125,11 +133,6 @@ func (a *AuthAcceptLoginTokenRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetToken returns value of Token field.
-func (a *AuthAcceptLoginTokenRequest) GetToken() (value []byte) {
-	return a.Token
-}
-
 // Decode implements bin.Decoder.
 func (a *AuthAcceptLoginTokenRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -156,13 +159,10 @@ func (a *AuthAcceptLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthAcceptLoginTokenRequest.
-var (
-	_ bin.Encoder     = &AuthAcceptLoginTokenRequest{}
-	_ bin.Decoder     = &AuthAcceptLoginTokenRequest{}
-	_ bin.BareEncoder = &AuthAcceptLoginTokenRequest{}
-	_ bin.BareDecoder = &AuthAcceptLoginTokenRequest{}
-)
+// GetToken returns value of Token field.
+func (a *AuthAcceptLoginTokenRequest) GetToken() (value []byte) {
+	return a.Token
+}
 
 // AuthAcceptLoginToken invokes method auth.acceptLoginToken#e894ad4d returning error if any.
 // Accept QR code login token, logging in the app that generated it.

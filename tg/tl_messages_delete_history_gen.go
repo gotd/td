@@ -53,6 +53,14 @@ type MessagesDeleteHistoryRequest struct {
 // MessagesDeleteHistoryRequestTypeID is TL type id of MessagesDeleteHistoryRequest.
 const MessagesDeleteHistoryRequestTypeID = 0x1c015b09
 
+// Ensuring interfaces in compile-time for MessagesDeleteHistoryRequest.
+var (
+	_ bin.Encoder     = &MessagesDeleteHistoryRequest{}
+	_ bin.Decoder     = &MessagesDeleteHistoryRequest{}
+	_ bin.BareEncoder = &MessagesDeleteHistoryRequest{}
+	_ bin.BareDecoder = &MessagesDeleteHistoryRequest{}
+)
+
 func (d *MessagesDeleteHistoryRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -176,6 +184,46 @@ func (d *MessagesDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (d *MessagesDeleteHistoryRequest) Decode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.deleteHistory#1c015b09 to nil")
+	}
+	if err := b.ConsumeID(MessagesDeleteHistoryRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.deleteHistory#1c015b09 to nil")
+	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field flags: %w", err)
+		}
+	}
+	d.JustClear = d.Flags.Has(0)
+	d.Revoke = d.Flags.Has(1)
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field peer: %w", err)
+		}
+		d.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field max_id: %w", err)
+		}
+		d.MaxID = value
+	}
+	return nil
+}
+
 // SetJustClear sets value of JustClear conditional field.
 func (d *MessagesDeleteHistoryRequest) SetJustClear(value bool) {
 	if value {
@@ -217,54 +265,6 @@ func (d *MessagesDeleteHistoryRequest) GetPeer() (value InputPeerClass) {
 func (d *MessagesDeleteHistoryRequest) GetMaxID() (value int) {
 	return d.MaxID
 }
-
-// Decode implements bin.Decoder.
-func (d *MessagesDeleteHistoryRequest) Decode(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteHistory#1c015b09 to nil")
-	}
-	if err := b.ConsumeID(MessagesDeleteHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: %w", err)
-	}
-	return d.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (d *MessagesDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteHistory#1c015b09 to nil")
-	}
-	{
-		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field flags: %w", err)
-		}
-	}
-	d.JustClear = d.Flags.Has(0)
-	d.Revoke = d.Flags.Has(1)
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field peer: %w", err)
-		}
-		d.Peer = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field max_id: %w", err)
-		}
-		d.MaxID = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesDeleteHistoryRequest.
-var (
-	_ bin.Encoder     = &MessagesDeleteHistoryRequest{}
-	_ bin.Decoder     = &MessagesDeleteHistoryRequest{}
-	_ bin.BareEncoder = &MessagesDeleteHistoryRequest{}
-	_ bin.BareDecoder = &MessagesDeleteHistoryRequest{}
-)
 
 // MessagesDeleteHistory invokes method messages.deleteHistory#1c015b09 returning error if any.
 // Deletes communication history.

@@ -38,6 +38,19 @@ type BotCommandScopeDefault struct {
 // BotCommandScopeDefaultTypeID is TL type id of BotCommandScopeDefault.
 const BotCommandScopeDefaultTypeID = 0x2f6cb2ab
 
+// construct implements constructor of BotCommandScopeClass.
+func (b BotCommandScopeDefault) construct() BotCommandScopeClass { return &b }
+
+// Ensuring interfaces in compile-time for BotCommandScopeDefault.
+var (
+	_ bin.Encoder     = &BotCommandScopeDefault{}
+	_ bin.Decoder     = &BotCommandScopeDefault{}
+	_ bin.BareEncoder = &BotCommandScopeDefault{}
+	_ bin.BareDecoder = &BotCommandScopeDefault{}
+
+	_ BotCommandScopeClass = &BotCommandScopeDefault{}
+)
+
 func (b *BotCommandScopeDefault) Zero() bool {
 	if b == nil {
 		return true
@@ -117,19 +130,6 @@ func (b *BotCommandScopeDefault) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BotCommandScopeClass.
-func (b BotCommandScopeDefault) construct() BotCommandScopeClass { return &b }
-
-// Ensuring interfaces in compile-time for BotCommandScopeDefault.
-var (
-	_ bin.Encoder     = &BotCommandScopeDefault{}
-	_ bin.Decoder     = &BotCommandScopeDefault{}
-	_ bin.BareEncoder = &BotCommandScopeDefault{}
-	_ bin.BareDecoder = &BotCommandScopeDefault{}
-
-	_ BotCommandScopeClass = &BotCommandScopeDefault{}
-)
-
 // BotCommandScopeUsers represents TL type `botCommandScopeUsers#3c4f04d8`.
 //
 // See https://core.telegram.org/constructor/botCommandScopeUsers for reference.
@@ -138,6 +138,19 @@ type BotCommandScopeUsers struct {
 
 // BotCommandScopeUsersTypeID is TL type id of BotCommandScopeUsers.
 const BotCommandScopeUsersTypeID = 0x3c4f04d8
+
+// construct implements constructor of BotCommandScopeClass.
+func (b BotCommandScopeUsers) construct() BotCommandScopeClass { return &b }
+
+// Ensuring interfaces in compile-time for BotCommandScopeUsers.
+var (
+	_ bin.Encoder     = &BotCommandScopeUsers{}
+	_ bin.Decoder     = &BotCommandScopeUsers{}
+	_ bin.BareEncoder = &BotCommandScopeUsers{}
+	_ bin.BareDecoder = &BotCommandScopeUsers{}
+
+	_ BotCommandScopeClass = &BotCommandScopeUsers{}
+)
 
 func (b *BotCommandScopeUsers) Zero() bool {
 	if b == nil {
@@ -218,19 +231,6 @@ func (b *BotCommandScopeUsers) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BotCommandScopeClass.
-func (b BotCommandScopeUsers) construct() BotCommandScopeClass { return &b }
-
-// Ensuring interfaces in compile-time for BotCommandScopeUsers.
-var (
-	_ bin.Encoder     = &BotCommandScopeUsers{}
-	_ bin.Decoder     = &BotCommandScopeUsers{}
-	_ bin.BareEncoder = &BotCommandScopeUsers{}
-	_ bin.BareDecoder = &BotCommandScopeUsers{}
-
-	_ BotCommandScopeClass = &BotCommandScopeUsers{}
-)
-
 // BotCommandScopeChats represents TL type `botCommandScopeChats#6fe1a881`.
 //
 // See https://core.telegram.org/constructor/botCommandScopeChats for reference.
@@ -239,6 +239,19 @@ type BotCommandScopeChats struct {
 
 // BotCommandScopeChatsTypeID is TL type id of BotCommandScopeChats.
 const BotCommandScopeChatsTypeID = 0x6fe1a881
+
+// construct implements constructor of BotCommandScopeClass.
+func (b BotCommandScopeChats) construct() BotCommandScopeClass { return &b }
+
+// Ensuring interfaces in compile-time for BotCommandScopeChats.
+var (
+	_ bin.Encoder     = &BotCommandScopeChats{}
+	_ bin.Decoder     = &BotCommandScopeChats{}
+	_ bin.BareEncoder = &BotCommandScopeChats{}
+	_ bin.BareDecoder = &BotCommandScopeChats{}
+
+	_ BotCommandScopeClass = &BotCommandScopeChats{}
+)
 
 func (b *BotCommandScopeChats) Zero() bool {
 	if b == nil {
@@ -319,19 +332,6 @@ func (b *BotCommandScopeChats) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BotCommandScopeClass.
-func (b BotCommandScopeChats) construct() BotCommandScopeClass { return &b }
-
-// Ensuring interfaces in compile-time for BotCommandScopeChats.
-var (
-	_ bin.Encoder     = &BotCommandScopeChats{}
-	_ bin.Decoder     = &BotCommandScopeChats{}
-	_ bin.BareEncoder = &BotCommandScopeChats{}
-	_ bin.BareDecoder = &BotCommandScopeChats{}
-
-	_ BotCommandScopeClass = &BotCommandScopeChats{}
-)
-
 // BotCommandScopeChatAdmins represents TL type `botCommandScopeChatAdmins#b9aa606a`.
 //
 // See https://core.telegram.org/constructor/botCommandScopeChatAdmins for reference.
@@ -340,6 +340,19 @@ type BotCommandScopeChatAdmins struct {
 
 // BotCommandScopeChatAdminsTypeID is TL type id of BotCommandScopeChatAdmins.
 const BotCommandScopeChatAdminsTypeID = 0xb9aa606a
+
+// construct implements constructor of BotCommandScopeClass.
+func (b BotCommandScopeChatAdmins) construct() BotCommandScopeClass { return &b }
+
+// Ensuring interfaces in compile-time for BotCommandScopeChatAdmins.
+var (
+	_ bin.Encoder     = &BotCommandScopeChatAdmins{}
+	_ bin.Decoder     = &BotCommandScopeChatAdmins{}
+	_ bin.BareEncoder = &BotCommandScopeChatAdmins{}
+	_ bin.BareDecoder = &BotCommandScopeChatAdmins{}
+
+	_ BotCommandScopeClass = &BotCommandScopeChatAdmins{}
+)
 
 func (b *BotCommandScopeChatAdmins) Zero() bool {
 	if b == nil {
@@ -420,19 +433,6 @@ func (b *BotCommandScopeChatAdmins) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BotCommandScopeClass.
-func (b BotCommandScopeChatAdmins) construct() BotCommandScopeClass { return &b }
-
-// Ensuring interfaces in compile-time for BotCommandScopeChatAdmins.
-var (
-	_ bin.Encoder     = &BotCommandScopeChatAdmins{}
-	_ bin.Decoder     = &BotCommandScopeChatAdmins{}
-	_ bin.BareEncoder = &BotCommandScopeChatAdmins{}
-	_ bin.BareDecoder = &BotCommandScopeChatAdmins{}
-
-	_ BotCommandScopeClass = &BotCommandScopeChatAdmins{}
-)
-
 // BotCommandScopePeer represents TL type `botCommandScopePeer#db9d897d`.
 //
 // See https://core.telegram.org/constructor/botCommandScopePeer for reference.
@@ -443,6 +443,19 @@ type BotCommandScopePeer struct {
 
 // BotCommandScopePeerTypeID is TL type id of BotCommandScopePeer.
 const BotCommandScopePeerTypeID = 0xdb9d897d
+
+// construct implements constructor of BotCommandScopeClass.
+func (b BotCommandScopePeer) construct() BotCommandScopeClass { return &b }
+
+// Ensuring interfaces in compile-time for BotCommandScopePeer.
+var (
+	_ bin.Encoder     = &BotCommandScopePeer{}
+	_ bin.Decoder     = &BotCommandScopePeer{}
+	_ bin.BareEncoder = &BotCommandScopePeer{}
+	_ bin.BareDecoder = &BotCommandScopePeer{}
+
+	_ BotCommandScopeClass = &BotCommandScopePeer{}
+)
 
 func (b *BotCommandScopePeer) Zero() bool {
 	if b == nil {
@@ -525,11 +538,6 @@ func (b *BotCommandScopePeer) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (b *BotCommandScopePeer) GetPeer() (value InputPeerClass) {
-	return b.Peer
-}
-
 // Decode implements bin.Decoder.
 func (b *BotCommandScopePeer) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -556,18 +564,10 @@ func (b *BotCommandScopePeer) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BotCommandScopeClass.
-func (b BotCommandScopePeer) construct() BotCommandScopeClass { return &b }
-
-// Ensuring interfaces in compile-time for BotCommandScopePeer.
-var (
-	_ bin.Encoder     = &BotCommandScopePeer{}
-	_ bin.Decoder     = &BotCommandScopePeer{}
-	_ bin.BareEncoder = &BotCommandScopePeer{}
-	_ bin.BareDecoder = &BotCommandScopePeer{}
-
-	_ BotCommandScopeClass = &BotCommandScopePeer{}
-)
+// GetPeer returns value of Peer field.
+func (b *BotCommandScopePeer) GetPeer() (value InputPeerClass) {
+	return b.Peer
+}
 
 // BotCommandScopePeerAdmins represents TL type `botCommandScopePeerAdmins#3fd863d1`.
 //
@@ -579,6 +579,19 @@ type BotCommandScopePeerAdmins struct {
 
 // BotCommandScopePeerAdminsTypeID is TL type id of BotCommandScopePeerAdmins.
 const BotCommandScopePeerAdminsTypeID = 0x3fd863d1
+
+// construct implements constructor of BotCommandScopeClass.
+func (b BotCommandScopePeerAdmins) construct() BotCommandScopeClass { return &b }
+
+// Ensuring interfaces in compile-time for BotCommandScopePeerAdmins.
+var (
+	_ bin.Encoder     = &BotCommandScopePeerAdmins{}
+	_ bin.Decoder     = &BotCommandScopePeerAdmins{}
+	_ bin.BareEncoder = &BotCommandScopePeerAdmins{}
+	_ bin.BareDecoder = &BotCommandScopePeerAdmins{}
+
+	_ BotCommandScopeClass = &BotCommandScopePeerAdmins{}
+)
 
 func (b *BotCommandScopePeerAdmins) Zero() bool {
 	if b == nil {
@@ -661,11 +674,6 @@ func (b *BotCommandScopePeerAdmins) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (b *BotCommandScopePeerAdmins) GetPeer() (value InputPeerClass) {
-	return b.Peer
-}
-
 // Decode implements bin.Decoder.
 func (b *BotCommandScopePeerAdmins) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -692,18 +700,10 @@ func (b *BotCommandScopePeerAdmins) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BotCommandScopeClass.
-func (b BotCommandScopePeerAdmins) construct() BotCommandScopeClass { return &b }
-
-// Ensuring interfaces in compile-time for BotCommandScopePeerAdmins.
-var (
-	_ bin.Encoder     = &BotCommandScopePeerAdmins{}
-	_ bin.Decoder     = &BotCommandScopePeerAdmins{}
-	_ bin.BareEncoder = &BotCommandScopePeerAdmins{}
-	_ bin.BareDecoder = &BotCommandScopePeerAdmins{}
-
-	_ BotCommandScopeClass = &BotCommandScopePeerAdmins{}
-)
+// GetPeer returns value of Peer field.
+func (b *BotCommandScopePeerAdmins) GetPeer() (value InputPeerClass) {
+	return b.Peer
+}
 
 // BotCommandScopePeerUser represents TL type `botCommandScopePeerUser#a1321f3`.
 //
@@ -717,6 +717,19 @@ type BotCommandScopePeerUser struct {
 
 // BotCommandScopePeerUserTypeID is TL type id of BotCommandScopePeerUser.
 const BotCommandScopePeerUserTypeID = 0xa1321f3
+
+// construct implements constructor of BotCommandScopeClass.
+func (b BotCommandScopePeerUser) construct() BotCommandScopeClass { return &b }
+
+// Ensuring interfaces in compile-time for BotCommandScopePeerUser.
+var (
+	_ bin.Encoder     = &BotCommandScopePeerUser{}
+	_ bin.Decoder     = &BotCommandScopePeerUser{}
+	_ bin.BareEncoder = &BotCommandScopePeerUser{}
+	_ bin.BareDecoder = &BotCommandScopePeerUser{}
+
+	_ BotCommandScopeClass = &BotCommandScopePeerUser{}
+)
 
 func (b *BotCommandScopePeerUser) Zero() bool {
 	if b == nil {
@@ -814,16 +827,6 @@ func (b *BotCommandScopePeerUser) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (b *BotCommandScopePeerUser) GetPeer() (value InputPeerClass) {
-	return b.Peer
-}
-
-// GetUserID returns value of UserID field.
-func (b *BotCommandScopePeerUser) GetUserID() (value InputUserClass) {
-	return b.UserID
-}
-
 // Decode implements bin.Decoder.
 func (b *BotCommandScopePeerUser) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -857,18 +860,15 @@ func (b *BotCommandScopePeerUser) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BotCommandScopeClass.
-func (b BotCommandScopePeerUser) construct() BotCommandScopeClass { return &b }
+// GetPeer returns value of Peer field.
+func (b *BotCommandScopePeerUser) GetPeer() (value InputPeerClass) {
+	return b.Peer
+}
 
-// Ensuring interfaces in compile-time for BotCommandScopePeerUser.
-var (
-	_ bin.Encoder     = &BotCommandScopePeerUser{}
-	_ bin.Decoder     = &BotCommandScopePeerUser{}
-	_ bin.BareEncoder = &BotCommandScopePeerUser{}
-	_ bin.BareDecoder = &BotCommandScopePeerUser{}
-
-	_ BotCommandScopeClass = &BotCommandScopePeerUser{}
-)
+// GetUserID returns value of UserID field.
+func (b *BotCommandScopePeerUser) GetUserID() (value InputUserClass) {
+	return b.UserID
+}
 
 // BotCommandScopeClass represents BotCommandScope generic type.
 //

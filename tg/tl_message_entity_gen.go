@@ -43,6 +43,19 @@ type MessageEntityUnknown struct {
 // MessageEntityUnknownTypeID is TL type id of MessageEntityUnknown.
 const MessageEntityUnknownTypeID = 0xbb92ba95
 
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityUnknown) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityUnknown.
+var (
+	_ bin.Encoder     = &MessageEntityUnknown{}
+	_ bin.Decoder     = &MessageEntityUnknown{}
+	_ bin.BareEncoder = &MessageEntityUnknown{}
+	_ bin.BareDecoder = &MessageEntityUnknown{}
+
+	_ MessageEntityClass = &MessageEntityUnknown{}
+)
+
 func (m *MessageEntityUnknown) Zero() bool {
 	if m == nil {
 		return true
@@ -129,16 +142,6 @@ func (m *MessageEntityUnknown) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityUnknown) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityUnknown) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityUnknown) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -172,18 +175,15 @@ func (m *MessageEntityUnknown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityUnknown) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityUnknown) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityUnknown.
-var (
-	_ bin.Encoder     = &MessageEntityUnknown{}
-	_ bin.Decoder     = &MessageEntityUnknown{}
-	_ bin.BareEncoder = &MessageEntityUnknown{}
-	_ bin.BareDecoder = &MessageEntityUnknown{}
-
-	_ MessageEntityClass = &MessageEntityUnknown{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityUnknown) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityMention represents TL type `messageEntityMention#fa04579d`.
 // Message entity mentioning¹ the current user
@@ -201,6 +201,19 @@ type MessageEntityMention struct {
 
 // MessageEntityMentionTypeID is TL type id of MessageEntityMention.
 const MessageEntityMentionTypeID = 0xfa04579d
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityMention) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityMention.
+var (
+	_ bin.Encoder     = &MessageEntityMention{}
+	_ bin.Decoder     = &MessageEntityMention{}
+	_ bin.BareEncoder = &MessageEntityMention{}
+	_ bin.BareDecoder = &MessageEntityMention{}
+
+	_ MessageEntityClass = &MessageEntityMention{}
+)
 
 func (m *MessageEntityMention) Zero() bool {
 	if m == nil {
@@ -288,16 +301,6 @@ func (m *MessageEntityMention) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityMention) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityMention) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityMention) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -331,18 +334,15 @@ func (m *MessageEntityMention) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityMention) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityMention) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityMention.
-var (
-	_ bin.Encoder     = &MessageEntityMention{}
-	_ bin.Decoder     = &MessageEntityMention{}
-	_ bin.BareEncoder = &MessageEntityMention{}
-	_ bin.BareDecoder = &MessageEntityMention{}
-
-	_ MessageEntityClass = &MessageEntityMention{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityMention) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityHashtag represents TL type `messageEntityHashtag#6f635b0d`.
 // #hashtag message entity
@@ -357,6 +357,19 @@ type MessageEntityHashtag struct {
 
 // MessageEntityHashtagTypeID is TL type id of MessageEntityHashtag.
 const MessageEntityHashtagTypeID = 0x6f635b0d
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityHashtag) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityHashtag.
+var (
+	_ bin.Encoder     = &MessageEntityHashtag{}
+	_ bin.Decoder     = &MessageEntityHashtag{}
+	_ bin.BareEncoder = &MessageEntityHashtag{}
+	_ bin.BareDecoder = &MessageEntityHashtag{}
+
+	_ MessageEntityClass = &MessageEntityHashtag{}
+)
 
 func (m *MessageEntityHashtag) Zero() bool {
 	if m == nil {
@@ -444,16 +457,6 @@ func (m *MessageEntityHashtag) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityHashtag) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityHashtag) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityHashtag) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -487,18 +490,15 @@ func (m *MessageEntityHashtag) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityHashtag) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityHashtag) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityHashtag.
-var (
-	_ bin.Encoder     = &MessageEntityHashtag{}
-	_ bin.Decoder     = &MessageEntityHashtag{}
-	_ bin.BareEncoder = &MessageEntityHashtag{}
-	_ bin.BareDecoder = &MessageEntityHashtag{}
-
-	_ MessageEntityClass = &MessageEntityHashtag{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityHashtag) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityBotCommand represents TL type `messageEntityBotCommand#6cef8ac7`.
 // Message entity representing a bot /command
@@ -513,6 +513,19 @@ type MessageEntityBotCommand struct {
 
 // MessageEntityBotCommandTypeID is TL type id of MessageEntityBotCommand.
 const MessageEntityBotCommandTypeID = 0x6cef8ac7
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityBotCommand) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityBotCommand.
+var (
+	_ bin.Encoder     = &MessageEntityBotCommand{}
+	_ bin.Decoder     = &MessageEntityBotCommand{}
+	_ bin.BareEncoder = &MessageEntityBotCommand{}
+	_ bin.BareDecoder = &MessageEntityBotCommand{}
+
+	_ MessageEntityClass = &MessageEntityBotCommand{}
+)
 
 func (m *MessageEntityBotCommand) Zero() bool {
 	if m == nil {
@@ -600,16 +613,6 @@ func (m *MessageEntityBotCommand) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityBotCommand) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityBotCommand) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityBotCommand) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -643,18 +646,15 @@ func (m *MessageEntityBotCommand) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityBotCommand) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBotCommand) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityBotCommand.
-var (
-	_ bin.Encoder     = &MessageEntityBotCommand{}
-	_ bin.Decoder     = &MessageEntityBotCommand{}
-	_ bin.BareEncoder = &MessageEntityBotCommand{}
-	_ bin.BareDecoder = &MessageEntityBotCommand{}
-
-	_ MessageEntityClass = &MessageEntityBotCommand{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityBotCommand) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityURL represents TL type `messageEntityUrl#6ed02538`.
 // Message entity representing an in-text url: https://google.com¹; for text urls², use
@@ -675,6 +675,19 @@ type MessageEntityURL struct {
 
 // MessageEntityURLTypeID is TL type id of MessageEntityURL.
 const MessageEntityURLTypeID = 0x6ed02538
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityURL) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityURL.
+var (
+	_ bin.Encoder     = &MessageEntityURL{}
+	_ bin.Decoder     = &MessageEntityURL{}
+	_ bin.BareEncoder = &MessageEntityURL{}
+	_ bin.BareDecoder = &MessageEntityURL{}
+
+	_ MessageEntityClass = &MessageEntityURL{}
+)
 
 func (m *MessageEntityURL) Zero() bool {
 	if m == nil {
@@ -762,16 +775,6 @@ func (m *MessageEntityURL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityURL) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityURL) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityURL) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -805,18 +808,15 @@ func (m *MessageEntityURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityURL) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityURL) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityURL.
-var (
-	_ bin.Encoder     = &MessageEntityURL{}
-	_ bin.Decoder     = &MessageEntityURL{}
-	_ bin.BareEncoder = &MessageEntityURL{}
-	_ bin.BareDecoder = &MessageEntityURL{}
-
-	_ MessageEntityClass = &MessageEntityURL{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityURL) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityEmail represents TL type `messageEntityEmail#64e475c2`.
 // Message entity representing an email@example.com¹.
@@ -834,6 +834,19 @@ type MessageEntityEmail struct {
 
 // MessageEntityEmailTypeID is TL type id of MessageEntityEmail.
 const MessageEntityEmailTypeID = 0x64e475c2
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityEmail) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityEmail.
+var (
+	_ bin.Encoder     = &MessageEntityEmail{}
+	_ bin.Decoder     = &MessageEntityEmail{}
+	_ bin.BareEncoder = &MessageEntityEmail{}
+	_ bin.BareDecoder = &MessageEntityEmail{}
+
+	_ MessageEntityClass = &MessageEntityEmail{}
+)
 
 func (m *MessageEntityEmail) Zero() bool {
 	if m == nil {
@@ -921,16 +934,6 @@ func (m *MessageEntityEmail) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityEmail) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityEmail) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityEmail) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -964,18 +967,15 @@ func (m *MessageEntityEmail) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityEmail) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityEmail) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityEmail.
-var (
-	_ bin.Encoder     = &MessageEntityEmail{}
-	_ bin.Decoder     = &MessageEntityEmail{}
-	_ bin.BareEncoder = &MessageEntityEmail{}
-	_ bin.BareDecoder = &MessageEntityEmail{}
-
-	_ MessageEntityClass = &MessageEntityEmail{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityEmail) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityBold represents TL type `messageEntityBold#bd610bc9`.
 // Message entity representing bold text.
@@ -990,6 +990,19 @@ type MessageEntityBold struct {
 
 // MessageEntityBoldTypeID is TL type id of MessageEntityBold.
 const MessageEntityBoldTypeID = 0xbd610bc9
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityBold) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityBold.
+var (
+	_ bin.Encoder     = &MessageEntityBold{}
+	_ bin.Decoder     = &MessageEntityBold{}
+	_ bin.BareEncoder = &MessageEntityBold{}
+	_ bin.BareDecoder = &MessageEntityBold{}
+
+	_ MessageEntityClass = &MessageEntityBold{}
+)
 
 func (m *MessageEntityBold) Zero() bool {
 	if m == nil {
@@ -1077,16 +1090,6 @@ func (m *MessageEntityBold) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityBold) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityBold) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityBold) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1120,18 +1123,15 @@ func (m *MessageEntityBold) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityBold) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBold) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityBold.
-var (
-	_ bin.Encoder     = &MessageEntityBold{}
-	_ bin.Decoder     = &MessageEntityBold{}
-	_ bin.BareEncoder = &MessageEntityBold{}
-	_ bin.BareDecoder = &MessageEntityBold{}
-
-	_ MessageEntityClass = &MessageEntityBold{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityBold) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityItalic represents TL type `messageEntityItalic#826f8b60`.
 // Message entity representing italic text.
@@ -1146,6 +1146,19 @@ type MessageEntityItalic struct {
 
 // MessageEntityItalicTypeID is TL type id of MessageEntityItalic.
 const MessageEntityItalicTypeID = 0x826f8b60
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityItalic) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityItalic.
+var (
+	_ bin.Encoder     = &MessageEntityItalic{}
+	_ bin.Decoder     = &MessageEntityItalic{}
+	_ bin.BareEncoder = &MessageEntityItalic{}
+	_ bin.BareDecoder = &MessageEntityItalic{}
+
+	_ MessageEntityClass = &MessageEntityItalic{}
+)
 
 func (m *MessageEntityItalic) Zero() bool {
 	if m == nil {
@@ -1233,16 +1246,6 @@ func (m *MessageEntityItalic) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityItalic) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityItalic) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityItalic) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1276,18 +1279,15 @@ func (m *MessageEntityItalic) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityItalic) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityItalic) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityItalic.
-var (
-	_ bin.Encoder     = &MessageEntityItalic{}
-	_ bin.Decoder     = &MessageEntityItalic{}
-	_ bin.BareEncoder = &MessageEntityItalic{}
-	_ bin.BareDecoder = &MessageEntityItalic{}
-
-	_ MessageEntityClass = &MessageEntityItalic{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityItalic) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityCode represents TL type `messageEntityCode#28a20571`.
 // Message entity representing a codeblock.
@@ -1302,6 +1302,19 @@ type MessageEntityCode struct {
 
 // MessageEntityCodeTypeID is TL type id of MessageEntityCode.
 const MessageEntityCodeTypeID = 0x28a20571
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityCode) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityCode.
+var (
+	_ bin.Encoder     = &MessageEntityCode{}
+	_ bin.Decoder     = &MessageEntityCode{}
+	_ bin.BareEncoder = &MessageEntityCode{}
+	_ bin.BareDecoder = &MessageEntityCode{}
+
+	_ MessageEntityClass = &MessageEntityCode{}
+)
 
 func (m *MessageEntityCode) Zero() bool {
 	if m == nil {
@@ -1389,16 +1402,6 @@ func (m *MessageEntityCode) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityCode) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityCode) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityCode) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1432,18 +1435,15 @@ func (m *MessageEntityCode) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityCode) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityCode) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityCode.
-var (
-	_ bin.Encoder     = &MessageEntityCode{}
-	_ bin.Decoder     = &MessageEntityCode{}
-	_ bin.BareEncoder = &MessageEntityCode{}
-	_ bin.BareDecoder = &MessageEntityCode{}
-
-	_ MessageEntityClass = &MessageEntityCode{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityCode) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityPre represents TL type `messageEntityPre#73924be0`.
 // Message entity representing a preformatted codeblock, allowing the user to specify a
@@ -1461,6 +1461,19 @@ type MessageEntityPre struct {
 
 // MessageEntityPreTypeID is TL type id of MessageEntityPre.
 const MessageEntityPreTypeID = 0x73924be0
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityPre) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityPre.
+var (
+	_ bin.Encoder     = &MessageEntityPre{}
+	_ bin.Decoder     = &MessageEntityPre{}
+	_ bin.BareEncoder = &MessageEntityPre{}
+	_ bin.BareDecoder = &MessageEntityPre{}
+
+	_ MessageEntityClass = &MessageEntityPre{}
+)
 
 func (m *MessageEntityPre) Zero() bool {
 	if m == nil {
@@ -1558,21 +1571,6 @@ func (m *MessageEntityPre) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityPre) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityPre) GetLength() (value int) {
-	return m.Length
-}
-
-// GetLanguage returns value of Language field.
-func (m *MessageEntityPre) GetLanguage() (value string) {
-	return m.Language
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityPre) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1613,18 +1611,20 @@ func (m *MessageEntityPre) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityPre) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityPre) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityPre.
-var (
-	_ bin.Encoder     = &MessageEntityPre{}
-	_ bin.Decoder     = &MessageEntityPre{}
-	_ bin.BareEncoder = &MessageEntityPre{}
-	_ bin.BareDecoder = &MessageEntityPre{}
+// GetLength returns value of Length field.
+func (m *MessageEntityPre) GetLength() (value int) {
+	return m.Length
+}
 
-	_ MessageEntityClass = &MessageEntityPre{}
-)
+// GetLanguage returns value of Language field.
+func (m *MessageEntityPre) GetLanguage() (value string) {
+	return m.Language
+}
 
 // MessageEntityTextURL represents TL type `messageEntityTextUrl#76a6d327`.
 // Message entity representing a text url¹: for in-text urls like https://google.com²
@@ -1647,6 +1647,19 @@ type MessageEntityTextURL struct {
 
 // MessageEntityTextURLTypeID is TL type id of MessageEntityTextURL.
 const MessageEntityTextURLTypeID = 0x76a6d327
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityTextURL) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityTextURL.
+var (
+	_ bin.Encoder     = &MessageEntityTextURL{}
+	_ bin.Decoder     = &MessageEntityTextURL{}
+	_ bin.BareEncoder = &MessageEntityTextURL{}
+	_ bin.BareDecoder = &MessageEntityTextURL{}
+
+	_ MessageEntityClass = &MessageEntityTextURL{}
+)
 
 func (m *MessageEntityTextURL) Zero() bool {
 	if m == nil {
@@ -1744,21 +1757,6 @@ func (m *MessageEntityTextURL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityTextURL) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityTextURL) GetLength() (value int) {
-	return m.Length
-}
-
-// GetURL returns value of URL field.
-func (m *MessageEntityTextURL) GetURL() (value string) {
-	return m.URL
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityTextURL) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1799,18 +1797,20 @@ func (m *MessageEntityTextURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityTextURL) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityTextURL) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityTextURL.
-var (
-	_ bin.Encoder     = &MessageEntityTextURL{}
-	_ bin.Decoder     = &MessageEntityTextURL{}
-	_ bin.BareEncoder = &MessageEntityTextURL{}
-	_ bin.BareDecoder = &MessageEntityTextURL{}
+// GetLength returns value of Length field.
+func (m *MessageEntityTextURL) GetLength() (value int) {
+	return m.Length
+}
 
-	_ MessageEntityClass = &MessageEntityTextURL{}
-)
+// GetURL returns value of URL field.
+func (m *MessageEntityTextURL) GetURL() (value string) {
+	return m.URL
+}
 
 // MessageEntityMentionName represents TL type `messageEntityMentionName#352dca58`.
 // Message entity representing a user mention¹: for creating a mention use
@@ -1832,6 +1832,19 @@ type MessageEntityMentionName struct {
 
 // MessageEntityMentionNameTypeID is TL type id of MessageEntityMentionName.
 const MessageEntityMentionNameTypeID = 0x352dca58
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityMentionName) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityMentionName.
+var (
+	_ bin.Encoder     = &MessageEntityMentionName{}
+	_ bin.Decoder     = &MessageEntityMentionName{}
+	_ bin.BareEncoder = &MessageEntityMentionName{}
+	_ bin.BareDecoder = &MessageEntityMentionName{}
+
+	_ MessageEntityClass = &MessageEntityMentionName{}
+)
 
 func (m *MessageEntityMentionName) Zero() bool {
 	if m == nil {
@@ -1929,21 +1942,6 @@ func (m *MessageEntityMentionName) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityMentionName) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityMentionName) GetLength() (value int) {
-	return m.Length
-}
-
-// GetUserID returns value of UserID field.
-func (m *MessageEntityMentionName) GetUserID() (value int) {
-	return m.UserID
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityMentionName) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1984,18 +1982,20 @@ func (m *MessageEntityMentionName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityMentionName) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityMentionName) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityMentionName.
-var (
-	_ bin.Encoder     = &MessageEntityMentionName{}
-	_ bin.Decoder     = &MessageEntityMentionName{}
-	_ bin.BareEncoder = &MessageEntityMentionName{}
-	_ bin.BareDecoder = &MessageEntityMentionName{}
+// GetLength returns value of Length field.
+func (m *MessageEntityMentionName) GetLength() (value int) {
+	return m.Length
+}
 
-	_ MessageEntityClass = &MessageEntityMentionName{}
-)
+// GetUserID returns value of UserID field.
+func (m *MessageEntityMentionName) GetUserID() (value int) {
+	return m.UserID
+}
 
 // InputMessageEntityMentionName represents TL type `inputMessageEntityMentionName#208e68c9`.
 // Message entity that can be used to create a user user mention¹: received mentions use
@@ -2017,6 +2017,19 @@ type InputMessageEntityMentionName struct {
 
 // InputMessageEntityMentionNameTypeID is TL type id of InputMessageEntityMentionName.
 const InputMessageEntityMentionNameTypeID = 0x208e68c9
+
+// construct implements constructor of MessageEntityClass.
+func (i InputMessageEntityMentionName) construct() MessageEntityClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessageEntityMentionName.
+var (
+	_ bin.Encoder     = &InputMessageEntityMentionName{}
+	_ bin.Decoder     = &InputMessageEntityMentionName{}
+	_ bin.BareEncoder = &InputMessageEntityMentionName{}
+	_ bin.BareDecoder = &InputMessageEntityMentionName{}
+
+	_ MessageEntityClass = &InputMessageEntityMentionName{}
+)
 
 func (i *InputMessageEntityMentionName) Zero() bool {
 	if i == nil {
@@ -2119,21 +2132,6 @@ func (i *InputMessageEntityMentionName) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (i *InputMessageEntityMentionName) GetOffset() (value int) {
-	return i.Offset
-}
-
-// GetLength returns value of Length field.
-func (i *InputMessageEntityMentionName) GetLength() (value int) {
-	return i.Length
-}
-
-// GetUserID returns value of UserID field.
-func (i *InputMessageEntityMentionName) GetUserID() (value InputUserClass) {
-	return i.UserID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMessageEntityMentionName) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -2174,18 +2172,20 @@ func (i *InputMessageEntityMentionName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (i InputMessageEntityMentionName) construct() MessageEntityClass { return &i }
+// GetOffset returns value of Offset field.
+func (i *InputMessageEntityMentionName) GetOffset() (value int) {
+	return i.Offset
+}
 
-// Ensuring interfaces in compile-time for InputMessageEntityMentionName.
-var (
-	_ bin.Encoder     = &InputMessageEntityMentionName{}
-	_ bin.Decoder     = &InputMessageEntityMentionName{}
-	_ bin.BareEncoder = &InputMessageEntityMentionName{}
-	_ bin.BareDecoder = &InputMessageEntityMentionName{}
+// GetLength returns value of Length field.
+func (i *InputMessageEntityMentionName) GetLength() (value int) {
+	return i.Length
+}
 
-	_ MessageEntityClass = &InputMessageEntityMentionName{}
-)
+// GetUserID returns value of UserID field.
+func (i *InputMessageEntityMentionName) GetUserID() (value InputUserClass) {
+	return i.UserID
+}
 
 // MessageEntityPhone represents TL type `messageEntityPhone#9b69e34b`.
 // Message entity representing a phone number.
@@ -2200,6 +2200,19 @@ type MessageEntityPhone struct {
 
 // MessageEntityPhoneTypeID is TL type id of MessageEntityPhone.
 const MessageEntityPhoneTypeID = 0x9b69e34b
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityPhone) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityPhone.
+var (
+	_ bin.Encoder     = &MessageEntityPhone{}
+	_ bin.Decoder     = &MessageEntityPhone{}
+	_ bin.BareEncoder = &MessageEntityPhone{}
+	_ bin.BareDecoder = &MessageEntityPhone{}
+
+	_ MessageEntityClass = &MessageEntityPhone{}
+)
 
 func (m *MessageEntityPhone) Zero() bool {
 	if m == nil {
@@ -2287,16 +2300,6 @@ func (m *MessageEntityPhone) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityPhone) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityPhone) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityPhone) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2330,18 +2333,15 @@ func (m *MessageEntityPhone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityPhone) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityPhone) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityPhone.
-var (
-	_ bin.Encoder     = &MessageEntityPhone{}
-	_ bin.Decoder     = &MessageEntityPhone{}
-	_ bin.BareEncoder = &MessageEntityPhone{}
-	_ bin.BareDecoder = &MessageEntityPhone{}
-
-	_ MessageEntityClass = &MessageEntityPhone{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityPhone) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityCashtag represents TL type `messageEntityCashtag#4c4e743f`.
 // Message entity representing a $cashtag.
@@ -2356,6 +2356,19 @@ type MessageEntityCashtag struct {
 
 // MessageEntityCashtagTypeID is TL type id of MessageEntityCashtag.
 const MessageEntityCashtagTypeID = 0x4c4e743f
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityCashtag) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityCashtag.
+var (
+	_ bin.Encoder     = &MessageEntityCashtag{}
+	_ bin.Decoder     = &MessageEntityCashtag{}
+	_ bin.BareEncoder = &MessageEntityCashtag{}
+	_ bin.BareDecoder = &MessageEntityCashtag{}
+
+	_ MessageEntityClass = &MessageEntityCashtag{}
+)
 
 func (m *MessageEntityCashtag) Zero() bool {
 	if m == nil {
@@ -2443,16 +2456,6 @@ func (m *MessageEntityCashtag) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityCashtag) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityCashtag) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityCashtag) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2486,18 +2489,15 @@ func (m *MessageEntityCashtag) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityCashtag) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityCashtag) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityCashtag.
-var (
-	_ bin.Encoder     = &MessageEntityCashtag{}
-	_ bin.Decoder     = &MessageEntityCashtag{}
-	_ bin.BareEncoder = &MessageEntityCashtag{}
-	_ bin.BareDecoder = &MessageEntityCashtag{}
-
-	_ MessageEntityClass = &MessageEntityCashtag{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityCashtag) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityUnderline represents TL type `messageEntityUnderline#9c4e7e8b`.
 // Message entity representing underlined text.
@@ -2512,6 +2512,19 @@ type MessageEntityUnderline struct {
 
 // MessageEntityUnderlineTypeID is TL type id of MessageEntityUnderline.
 const MessageEntityUnderlineTypeID = 0x9c4e7e8b
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityUnderline) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityUnderline.
+var (
+	_ bin.Encoder     = &MessageEntityUnderline{}
+	_ bin.Decoder     = &MessageEntityUnderline{}
+	_ bin.BareEncoder = &MessageEntityUnderline{}
+	_ bin.BareDecoder = &MessageEntityUnderline{}
+
+	_ MessageEntityClass = &MessageEntityUnderline{}
+)
 
 func (m *MessageEntityUnderline) Zero() bool {
 	if m == nil {
@@ -2599,16 +2612,6 @@ func (m *MessageEntityUnderline) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityUnderline) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityUnderline) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityUnderline) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2642,18 +2645,15 @@ func (m *MessageEntityUnderline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityUnderline) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityUnderline) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityUnderline.
-var (
-	_ bin.Encoder     = &MessageEntityUnderline{}
-	_ bin.Decoder     = &MessageEntityUnderline{}
-	_ bin.BareEncoder = &MessageEntityUnderline{}
-	_ bin.BareDecoder = &MessageEntityUnderline{}
-
-	_ MessageEntityClass = &MessageEntityUnderline{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityUnderline) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityStrike represents TL type `messageEntityStrike#bf0693d4`.
 // Message entity representing strikethrough text.
@@ -2668,6 +2668,19 @@ type MessageEntityStrike struct {
 
 // MessageEntityStrikeTypeID is TL type id of MessageEntityStrike.
 const MessageEntityStrikeTypeID = 0xbf0693d4
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityStrike) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityStrike.
+var (
+	_ bin.Encoder     = &MessageEntityStrike{}
+	_ bin.Decoder     = &MessageEntityStrike{}
+	_ bin.BareEncoder = &MessageEntityStrike{}
+	_ bin.BareDecoder = &MessageEntityStrike{}
+
+	_ MessageEntityClass = &MessageEntityStrike{}
+)
 
 func (m *MessageEntityStrike) Zero() bool {
 	if m == nil {
@@ -2755,16 +2768,6 @@ func (m *MessageEntityStrike) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityStrike) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityStrike) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityStrike) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2798,18 +2801,15 @@ func (m *MessageEntityStrike) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityStrike) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityStrike) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityStrike.
-var (
-	_ bin.Encoder     = &MessageEntityStrike{}
-	_ bin.Decoder     = &MessageEntityStrike{}
-	_ bin.BareEncoder = &MessageEntityStrike{}
-	_ bin.BareDecoder = &MessageEntityStrike{}
-
-	_ MessageEntityClass = &MessageEntityStrike{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityStrike) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityBlockquote represents TL type `messageEntityBlockquote#20df5d0`.
 // Message entity representing a block quote.
@@ -2824,6 +2824,19 @@ type MessageEntityBlockquote struct {
 
 // MessageEntityBlockquoteTypeID is TL type id of MessageEntityBlockquote.
 const MessageEntityBlockquoteTypeID = 0x20df5d0
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityBlockquote) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityBlockquote.
+var (
+	_ bin.Encoder     = &MessageEntityBlockquote{}
+	_ bin.Decoder     = &MessageEntityBlockquote{}
+	_ bin.BareEncoder = &MessageEntityBlockquote{}
+	_ bin.BareDecoder = &MessageEntityBlockquote{}
+
+	_ MessageEntityClass = &MessageEntityBlockquote{}
+)
 
 func (m *MessageEntityBlockquote) Zero() bool {
 	if m == nil {
@@ -2911,16 +2924,6 @@ func (m *MessageEntityBlockquote) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityBlockquote) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityBlockquote) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityBlockquote) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2954,18 +2957,15 @@ func (m *MessageEntityBlockquote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityBlockquote) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBlockquote) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityBlockquote.
-var (
-	_ bin.Encoder     = &MessageEntityBlockquote{}
-	_ bin.Decoder     = &MessageEntityBlockquote{}
-	_ bin.BareEncoder = &MessageEntityBlockquote{}
-	_ bin.BareDecoder = &MessageEntityBlockquote{}
-
-	_ MessageEntityClass = &MessageEntityBlockquote{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityBlockquote) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityBankCard represents TL type `messageEntityBankCard#761e6af4`.
 // Indicates a credit card number
@@ -2980,6 +2980,19 @@ type MessageEntityBankCard struct {
 
 // MessageEntityBankCardTypeID is TL type id of MessageEntityBankCard.
 const MessageEntityBankCardTypeID = 0x761e6af4
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityBankCard) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityBankCard.
+var (
+	_ bin.Encoder     = &MessageEntityBankCard{}
+	_ bin.Decoder     = &MessageEntityBankCard{}
+	_ bin.BareEncoder = &MessageEntityBankCard{}
+	_ bin.BareDecoder = &MessageEntityBankCard{}
+
+	_ MessageEntityClass = &MessageEntityBankCard{}
+)
 
 func (m *MessageEntityBankCard) Zero() bool {
 	if m == nil {
@@ -3067,16 +3080,6 @@ func (m *MessageEntityBankCard) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityBankCard) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityBankCard) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityBankCard) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -3110,18 +3113,15 @@ func (m *MessageEntityBankCard) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityBankCard) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBankCard) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityBankCard.
-var (
-	_ bin.Encoder     = &MessageEntityBankCard{}
-	_ bin.Decoder     = &MessageEntityBankCard{}
-	_ bin.BareEncoder = &MessageEntityBankCard{}
-	_ bin.BareDecoder = &MessageEntityBankCard{}
-
-	_ MessageEntityClass = &MessageEntityBankCard{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityBankCard) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityClass represents MessageEntity generic type.
 //

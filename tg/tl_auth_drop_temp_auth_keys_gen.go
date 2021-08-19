@@ -41,6 +41,14 @@ type AuthDropTempAuthKeysRequest struct {
 // AuthDropTempAuthKeysRequestTypeID is TL type id of AuthDropTempAuthKeysRequest.
 const AuthDropTempAuthKeysRequestTypeID = 0x8e48a188
 
+// Ensuring interfaces in compile-time for AuthDropTempAuthKeysRequest.
+var (
+	_ bin.Encoder     = &AuthDropTempAuthKeysRequest{}
+	_ bin.Decoder     = &AuthDropTempAuthKeysRequest{}
+	_ bin.BareEncoder = &AuthDropTempAuthKeysRequest{}
+	_ bin.BareDecoder = &AuthDropTempAuthKeysRequest{}
+)
+
 func (d *AuthDropTempAuthKeysRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -120,11 +128,6 @@ func (d *AuthDropTempAuthKeysRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExceptAuthKeys returns value of ExceptAuthKeys field.
-func (d *AuthDropTempAuthKeysRequest) GetExceptAuthKeys() (value []int64) {
-	return d.ExceptAuthKeys
-}
-
 // Decode implements bin.Decoder.
 func (d *AuthDropTempAuthKeysRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -161,13 +164,10 @@ func (d *AuthDropTempAuthKeysRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthDropTempAuthKeysRequest.
-var (
-	_ bin.Encoder     = &AuthDropTempAuthKeysRequest{}
-	_ bin.Decoder     = &AuthDropTempAuthKeysRequest{}
-	_ bin.BareEncoder = &AuthDropTempAuthKeysRequest{}
-	_ bin.BareDecoder = &AuthDropTempAuthKeysRequest{}
-)
+// GetExceptAuthKeys returns value of ExceptAuthKeys field.
+func (d *AuthDropTempAuthKeysRequest) GetExceptAuthKeys() (value []int64) {
+	return d.ExceptAuthKeys
+}
 
 // AuthDropTempAuthKeys invokes method auth.dropTempAuthKeys#8e48a188 returning error if any.
 // Delete all temporary authorization keys except for the ones specified

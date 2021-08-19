@@ -43,6 +43,14 @@ type UploadGetFileHashesRequest struct {
 // UploadGetFileHashesRequestTypeID is TL type id of UploadGetFileHashesRequest.
 const UploadGetFileHashesRequestTypeID = 0xc7025931
 
+// Ensuring interfaces in compile-time for UploadGetFileHashesRequest.
+var (
+	_ bin.Encoder     = &UploadGetFileHashesRequest{}
+	_ bin.Decoder     = &UploadGetFileHashesRequest{}
+	_ bin.BareEncoder = &UploadGetFileHashesRequest{}
+	_ bin.BareDecoder = &UploadGetFileHashesRequest{}
+)
+
 func (g *UploadGetFileHashesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -134,16 +142,6 @@ func (g *UploadGetFileHashesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLocation returns value of Location field.
-func (g *UploadGetFileHashesRequest) GetLocation() (value InputFileLocationClass) {
-	return g.Location
-}
-
-// GetOffset returns value of Offset field.
-func (g *UploadGetFileHashesRequest) GetOffset() (value int) {
-	return g.Offset
-}
-
 // Decode implements bin.Decoder.
 func (g *UploadGetFileHashesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -177,13 +175,15 @@ func (g *UploadGetFileHashesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UploadGetFileHashesRequest.
-var (
-	_ bin.Encoder     = &UploadGetFileHashesRequest{}
-	_ bin.Decoder     = &UploadGetFileHashesRequest{}
-	_ bin.BareEncoder = &UploadGetFileHashesRequest{}
-	_ bin.BareDecoder = &UploadGetFileHashesRequest{}
-)
+// GetLocation returns value of Location field.
+func (g *UploadGetFileHashesRequest) GetLocation() (value InputFileLocationClass) {
+	return g.Location
+}
+
+// GetOffset returns value of Offset field.
+func (g *UploadGetFileHashesRequest) GetOffset() (value int) {
+	return g.Offset
+}
 
 // UploadGetFileHashes invokes method upload.getFileHashes#c7025931 returning error if any.
 // Get SHA256 hashes for verifying downloaded files

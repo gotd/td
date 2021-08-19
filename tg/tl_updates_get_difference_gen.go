@@ -72,6 +72,14 @@ type UpdatesGetDifferenceRequest struct {
 // UpdatesGetDifferenceRequestTypeID is TL type id of UpdatesGetDifferenceRequest.
 const UpdatesGetDifferenceRequestTypeID = 0x25939651
 
+// Ensuring interfaces in compile-time for UpdatesGetDifferenceRequest.
+var (
+	_ bin.Encoder     = &UpdatesGetDifferenceRequest{}
+	_ bin.Decoder     = &UpdatesGetDifferenceRequest{}
+	_ bin.BareEncoder = &UpdatesGetDifferenceRequest{}
+	_ bin.BareDecoder = &UpdatesGetDifferenceRequest{}
+)
+
 func (g *UpdatesGetDifferenceRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -193,36 +201,6 @@ func (g *UpdatesGetDifferenceRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPts returns value of Pts field.
-func (g *UpdatesGetDifferenceRequest) GetPts() (value int) {
-	return g.Pts
-}
-
-// SetPtsTotalLimit sets value of PtsTotalLimit conditional field.
-func (g *UpdatesGetDifferenceRequest) SetPtsTotalLimit(value int) {
-	g.Flags.Set(0)
-	g.PtsTotalLimit = value
-}
-
-// GetPtsTotalLimit returns value of PtsTotalLimit conditional field and
-// boolean which is true if field was set.
-func (g *UpdatesGetDifferenceRequest) GetPtsTotalLimit() (value int, ok bool) {
-	if !g.Flags.Has(0) {
-		return value, false
-	}
-	return g.PtsTotalLimit, true
-}
-
-// GetDate returns value of Date field.
-func (g *UpdatesGetDifferenceRequest) GetDate() (value int) {
-	return g.Date
-}
-
-// GetQts returns value of Qts field.
-func (g *UpdatesGetDifferenceRequest) GetQts() (value int) {
-	return g.Qts
-}
-
 // Decode implements bin.Decoder.
 func (g *UpdatesGetDifferenceRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -275,13 +253,35 @@ func (g *UpdatesGetDifferenceRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UpdatesGetDifferenceRequest.
-var (
-	_ bin.Encoder     = &UpdatesGetDifferenceRequest{}
-	_ bin.Decoder     = &UpdatesGetDifferenceRequest{}
-	_ bin.BareEncoder = &UpdatesGetDifferenceRequest{}
-	_ bin.BareDecoder = &UpdatesGetDifferenceRequest{}
-)
+// GetPts returns value of Pts field.
+func (g *UpdatesGetDifferenceRequest) GetPts() (value int) {
+	return g.Pts
+}
+
+// SetPtsTotalLimit sets value of PtsTotalLimit conditional field.
+func (g *UpdatesGetDifferenceRequest) SetPtsTotalLimit(value int) {
+	g.Flags.Set(0)
+	g.PtsTotalLimit = value
+}
+
+// GetPtsTotalLimit returns value of PtsTotalLimit conditional field and
+// boolean which is true if field was set.
+func (g *UpdatesGetDifferenceRequest) GetPtsTotalLimit() (value int, ok bool) {
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.PtsTotalLimit, true
+}
+
+// GetDate returns value of Date field.
+func (g *UpdatesGetDifferenceRequest) GetDate() (value int) {
+	return g.Date
+}
+
+// GetQts returns value of Qts field.
+func (g *UpdatesGetDifferenceRequest) GetQts() (value int) {
+	return g.Qts
+}
 
 // UpdatesGetDifference invokes method updates.getDifference#25939651 returning error if any.
 // Get new updates¹.

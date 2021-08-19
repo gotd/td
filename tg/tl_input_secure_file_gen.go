@@ -52,6 +52,19 @@ type InputSecureFileUploaded struct {
 // InputSecureFileUploadedTypeID is TL type id of InputSecureFileUploaded.
 const InputSecureFileUploadedTypeID = 0x3334b0f0
 
+// construct implements constructor of InputSecureFileClass.
+func (i InputSecureFileUploaded) construct() InputSecureFileClass { return &i }
+
+// Ensuring interfaces in compile-time for InputSecureFileUploaded.
+var (
+	_ bin.Encoder     = &InputSecureFileUploaded{}
+	_ bin.Decoder     = &InputSecureFileUploaded{}
+	_ bin.BareEncoder = &InputSecureFileUploaded{}
+	_ bin.BareDecoder = &InputSecureFileUploaded{}
+
+	_ InputSecureFileClass = &InputSecureFileUploaded{}
+)
+
 func (i *InputSecureFileUploaded) Zero() bool {
 	if i == nil {
 		return true
@@ -168,31 +181,6 @@ func (i *InputSecureFileUploaded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputSecureFileUploaded) GetID() (value int64) {
-	return i.ID
-}
-
-// GetParts returns value of Parts field.
-func (i *InputSecureFileUploaded) GetParts() (value int) {
-	return i.Parts
-}
-
-// GetMD5Checksum returns value of MD5Checksum field.
-func (i *InputSecureFileUploaded) GetMD5Checksum() (value string) {
-	return i.MD5Checksum
-}
-
-// GetFileHash returns value of FileHash field.
-func (i *InputSecureFileUploaded) GetFileHash() (value []byte) {
-	return i.FileHash
-}
-
-// GetSecret returns value of Secret field.
-func (i *InputSecureFileUploaded) GetSecret() (value []byte) {
-	return i.Secret
-}
-
 // Decode implements bin.Decoder.
 func (i *InputSecureFileUploaded) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -247,18 +235,30 @@ func (i *InputSecureFileUploaded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputSecureFileClass.
-func (i InputSecureFileUploaded) construct() InputSecureFileClass { return &i }
+// GetID returns value of ID field.
+func (i *InputSecureFileUploaded) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputSecureFileUploaded.
-var (
-	_ bin.Encoder     = &InputSecureFileUploaded{}
-	_ bin.Decoder     = &InputSecureFileUploaded{}
-	_ bin.BareEncoder = &InputSecureFileUploaded{}
-	_ bin.BareDecoder = &InputSecureFileUploaded{}
+// GetParts returns value of Parts field.
+func (i *InputSecureFileUploaded) GetParts() (value int) {
+	return i.Parts
+}
 
-	_ InputSecureFileClass = &InputSecureFileUploaded{}
-)
+// GetMD5Checksum returns value of MD5Checksum field.
+func (i *InputSecureFileUploaded) GetMD5Checksum() (value string) {
+	return i.MD5Checksum
+}
+
+// GetFileHash returns value of FileHash field.
+func (i *InputSecureFileUploaded) GetFileHash() (value []byte) {
+	return i.FileHash
+}
+
+// GetSecret returns value of Secret field.
+func (i *InputSecureFileUploaded) GetSecret() (value []byte) {
+	return i.Secret
+}
 
 // InputSecureFile represents TL type `inputSecureFile#5367e5be`.
 // Preuploaded passport¹ file, for more info see the passport docs »²
@@ -277,6 +277,19 @@ type InputSecureFile struct {
 
 // InputSecureFileTypeID is TL type id of InputSecureFile.
 const InputSecureFileTypeID = 0x5367e5be
+
+// construct implements constructor of InputSecureFileClass.
+func (i InputSecureFile) construct() InputSecureFileClass { return &i }
+
+// Ensuring interfaces in compile-time for InputSecureFile.
+var (
+	_ bin.Encoder     = &InputSecureFile{}
+	_ bin.Decoder     = &InputSecureFile{}
+	_ bin.BareEncoder = &InputSecureFile{}
+	_ bin.BareDecoder = &InputSecureFile{}
+
+	_ InputSecureFileClass = &InputSecureFile{}
+)
 
 func (i *InputSecureFile) Zero() bool {
 	if i == nil {
@@ -364,16 +377,6 @@ func (i *InputSecureFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputSecureFile) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputSecureFile) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputSecureFile) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -407,18 +410,15 @@ func (i *InputSecureFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputSecureFileClass.
-func (i InputSecureFile) construct() InputSecureFileClass { return &i }
+// GetID returns value of ID field.
+func (i *InputSecureFile) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputSecureFile.
-var (
-	_ bin.Encoder     = &InputSecureFile{}
-	_ bin.Decoder     = &InputSecureFile{}
-	_ bin.BareEncoder = &InputSecureFile{}
-	_ bin.BareDecoder = &InputSecureFile{}
-
-	_ InputSecureFileClass = &InputSecureFile{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputSecureFile) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputSecureFileClass represents InputSecureFile generic type.
 //

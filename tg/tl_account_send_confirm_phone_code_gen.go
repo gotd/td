@@ -49,6 +49,14 @@ type AccountSendConfirmPhoneCodeRequest struct {
 // AccountSendConfirmPhoneCodeRequestTypeID is TL type id of AccountSendConfirmPhoneCodeRequest.
 const AccountSendConfirmPhoneCodeRequestTypeID = 0x1b3faa88
 
+// Ensuring interfaces in compile-time for AccountSendConfirmPhoneCodeRequest.
+var (
+	_ bin.Encoder     = &AccountSendConfirmPhoneCodeRequest{}
+	_ bin.Decoder     = &AccountSendConfirmPhoneCodeRequest{}
+	_ bin.BareEncoder = &AccountSendConfirmPhoneCodeRequest{}
+	_ bin.BareDecoder = &AccountSendConfirmPhoneCodeRequest{}
+)
+
 func (s *AccountSendConfirmPhoneCodeRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -137,16 +145,6 @@ func (s *AccountSendConfirmPhoneCodeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (s *AccountSendConfirmPhoneCodeRequest) GetHash() (value string) {
-	return s.Hash
-}
-
-// GetSettings returns value of Settings field.
-func (s *AccountSendConfirmPhoneCodeRequest) GetSettings() (value CodeSettings) {
-	return s.Settings
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSendConfirmPhoneCodeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -178,13 +176,15 @@ func (s *AccountSendConfirmPhoneCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSendConfirmPhoneCodeRequest.
-var (
-	_ bin.Encoder     = &AccountSendConfirmPhoneCodeRequest{}
-	_ bin.Decoder     = &AccountSendConfirmPhoneCodeRequest{}
-	_ bin.BareEncoder = &AccountSendConfirmPhoneCodeRequest{}
-	_ bin.BareDecoder = &AccountSendConfirmPhoneCodeRequest{}
-)
+// GetHash returns value of Hash field.
+func (s *AccountSendConfirmPhoneCodeRequest) GetHash() (value string) {
+	return s.Hash
+}
+
+// GetSettings returns value of Settings field.
+func (s *AccountSendConfirmPhoneCodeRequest) GetSettings() (value CodeSettings) {
+	return s.Settings
+}
 
 // AccountSendConfirmPhoneCode invokes method account.sendConfirmPhoneCode#1b3faa88 returning error if any.
 // Send confirmation code to cancel account deletion, for more info click here »¹

@@ -119,6 +119,14 @@ type DialogFilter struct {
 // DialogFilterTypeID is TL type id of DialogFilter.
 const DialogFilterTypeID = 0x7438f7e8
 
+// Ensuring interfaces in compile-time for DialogFilter.
+var (
+	_ bin.Encoder     = &DialogFilter{}
+	_ bin.Decoder     = &DialogFilter{}
+	_ bin.BareEncoder = &DialogFilter{}
+	_ bin.BareDecoder = &DialogFilter{}
+)
+
 func (d *DialogFilter) Zero() bool {
 	if d == nil {
 		return true
@@ -388,6 +396,110 @@ func (d *DialogFilter) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (d *DialogFilter) Decode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogFilter#7438f7e8 to nil")
+	}
+	if err := b.ConsumeID(DialogFilterTypeID); err != nil {
+		return fmt.Errorf("unable to decode dialogFilter#7438f7e8: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogFilter#7438f7e8 to nil")
+	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field flags: %w", err)
+		}
+	}
+	d.Contacts = d.Flags.Has(0)
+	d.NonContacts = d.Flags.Has(1)
+	d.Groups = d.Flags.Has(2)
+	d.Broadcasts = d.Flags.Has(3)
+	d.Bots = d.Flags.Has(4)
+	d.ExcludeMuted = d.Flags.Has(11)
+	d.ExcludeRead = d.Flags.Has(12)
+	d.ExcludeArchived = d.Flags.Has(13)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field id: %w", err)
+		}
+		d.ID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field title: %w", err)
+		}
+		d.Title = value
+	}
+	if d.Flags.Has(25) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field emoticon: %w", err)
+		}
+		d.Emoticon = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field pinned_peers: %w", err)
+		}
+
+		if headerLen > 0 {
+			d.PinnedPeers = make([]InputPeerClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeInputPeer(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field pinned_peers: %w", err)
+			}
+			d.PinnedPeers = append(d.PinnedPeers, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field include_peers: %w", err)
+		}
+
+		if headerLen > 0 {
+			d.IncludePeers = make([]InputPeerClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeInputPeer(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field include_peers: %w", err)
+			}
+			d.IncludePeers = append(d.IncludePeers, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field exclude_peers: %w", err)
+		}
+
+		if headerLen > 0 {
+			d.ExcludePeers = make([]InputPeerClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeInputPeer(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field exclude_peers: %w", err)
+			}
+			d.ExcludePeers = append(d.ExcludePeers, value)
+		}
+	}
+	return nil
+}
+
 // SetContacts sets value of Contacts conditional field.
 func (d *DialogFilter) SetContacts(value bool) {
 	if value {
@@ -546,19 +658,9 @@ func (d *DialogFilter) GetPinnedPeers() (value []InputPeerClass) {
 	return d.PinnedPeers
 }
 
-// MapPinnedPeers returns field PinnedPeers wrapped in InputPeerClassArray helper.
-func (d *DialogFilter) MapPinnedPeers() (value InputPeerClassArray) {
-	return InputPeerClassArray(d.PinnedPeers)
-}
-
 // GetIncludePeers returns value of IncludePeers field.
 func (d *DialogFilter) GetIncludePeers() (value []InputPeerClass) {
 	return d.IncludePeers
-}
-
-// MapIncludePeers returns field IncludePeers wrapped in InputPeerClassArray helper.
-func (d *DialogFilter) MapIncludePeers() (value InputPeerClassArray) {
-	return InputPeerClassArray(d.IncludePeers)
 }
 
 // GetExcludePeers returns value of ExcludePeers field.
@@ -566,119 +668,17 @@ func (d *DialogFilter) GetExcludePeers() (value []InputPeerClass) {
 	return d.ExcludePeers
 }
 
+// MapPinnedPeers returns field PinnedPeers wrapped in InputPeerClassArray helper.
+func (d *DialogFilter) MapPinnedPeers() (value InputPeerClassArray) {
+	return InputPeerClassArray(d.PinnedPeers)
+}
+
+// MapIncludePeers returns field IncludePeers wrapped in InputPeerClassArray helper.
+func (d *DialogFilter) MapIncludePeers() (value InputPeerClassArray) {
+	return InputPeerClassArray(d.IncludePeers)
+}
+
 // MapExcludePeers returns field ExcludePeers wrapped in InputPeerClassArray helper.
 func (d *DialogFilter) MapExcludePeers() (value InputPeerClassArray) {
 	return InputPeerClassArray(d.ExcludePeers)
 }
-
-// Decode implements bin.Decoder.
-func (d *DialogFilter) Decode(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't decode dialogFilter#7438f7e8 to nil")
-	}
-	if err := b.ConsumeID(DialogFilterTypeID); err != nil {
-		return fmt.Errorf("unable to decode dialogFilter#7438f7e8: %w", err)
-	}
-	return d.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't decode dialogFilter#7438f7e8 to nil")
-	}
-	{
-		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field flags: %w", err)
-		}
-	}
-	d.Contacts = d.Flags.Has(0)
-	d.NonContacts = d.Flags.Has(1)
-	d.Groups = d.Flags.Has(2)
-	d.Broadcasts = d.Flags.Has(3)
-	d.Bots = d.Flags.Has(4)
-	d.ExcludeMuted = d.Flags.Has(11)
-	d.ExcludeRead = d.Flags.Has(12)
-	d.ExcludeArchived = d.Flags.Has(13)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field id: %w", err)
-		}
-		d.ID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field title: %w", err)
-		}
-		d.Title = value
-	}
-	if d.Flags.Has(25) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field emoticon: %w", err)
-		}
-		d.Emoticon = value
-	}
-	{
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field pinned_peers: %w", err)
-		}
-
-		if headerLen > 0 {
-			d.PinnedPeers = make([]InputPeerClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeInputPeer(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field pinned_peers: %w", err)
-			}
-			d.PinnedPeers = append(d.PinnedPeers, value)
-		}
-	}
-	{
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field include_peers: %w", err)
-		}
-
-		if headerLen > 0 {
-			d.IncludePeers = make([]InputPeerClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeInputPeer(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field include_peers: %w", err)
-			}
-			d.IncludePeers = append(d.IncludePeers, value)
-		}
-	}
-	{
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field exclude_peers: %w", err)
-		}
-
-		if headerLen > 0 {
-			d.ExcludePeers = make([]InputPeerClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeInputPeer(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field exclude_peers: %w", err)
-			}
-			d.ExcludePeers = append(d.ExcludePeers, value)
-		}
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for DialogFilter.
-var (
-	_ bin.Encoder     = &DialogFilter{}
-	_ bin.Decoder     = &DialogFilter{}
-	_ bin.BareEncoder = &DialogFilter{}
-	_ bin.BareDecoder = &DialogFilter{}
-)

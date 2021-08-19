@@ -45,6 +45,14 @@ type AccountUpdateStatusRequest struct {
 // AccountUpdateStatusRequestTypeID is TL type id of AccountUpdateStatusRequest.
 const AccountUpdateStatusRequestTypeID = 0x6628562c
 
+// Ensuring interfaces in compile-time for AccountUpdateStatusRequest.
+var (
+	_ bin.Encoder     = &AccountUpdateStatusRequest{}
+	_ bin.Decoder     = &AccountUpdateStatusRequest{}
+	_ bin.BareEncoder = &AccountUpdateStatusRequest{}
+	_ bin.BareDecoder = &AccountUpdateStatusRequest{}
+)
+
 func (u *AccountUpdateStatusRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -121,11 +129,6 @@ func (u *AccountUpdateStatusRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffline returns value of Offline field.
-func (u *AccountUpdateStatusRequest) GetOffline() (value bool) {
-	return u.Offline
-}
-
 // Decode implements bin.Decoder.
 func (u *AccountUpdateStatusRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -152,13 +155,10 @@ func (u *AccountUpdateStatusRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountUpdateStatusRequest.
-var (
-	_ bin.Encoder     = &AccountUpdateStatusRequest{}
-	_ bin.Decoder     = &AccountUpdateStatusRequest{}
-	_ bin.BareEncoder = &AccountUpdateStatusRequest{}
-	_ bin.BareDecoder = &AccountUpdateStatusRequest{}
-)
+// GetOffline returns value of Offline field.
+func (u *AccountUpdateStatusRequest) GetOffline() (value bool) {
+	return u.Offline
+}
 
 // AccountUpdateStatus invokes method account.updateStatus#6628562c returning error if any.
 // Updates online user status.

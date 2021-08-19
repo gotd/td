@@ -43,6 +43,14 @@ type MessagesFaveStickerRequest struct {
 // MessagesFaveStickerRequestTypeID is TL type id of MessagesFaveStickerRequest.
 const MessagesFaveStickerRequestTypeID = 0xb9ffc55b
 
+// Ensuring interfaces in compile-time for MessagesFaveStickerRequest.
+var (
+	_ bin.Encoder     = &MessagesFaveStickerRequest{}
+	_ bin.Decoder     = &MessagesFaveStickerRequest{}
+	_ bin.BareEncoder = &MessagesFaveStickerRequest{}
+	_ bin.BareDecoder = &MessagesFaveStickerRequest{}
+)
+
 func (f *MessagesFaveStickerRequest) Zero() bool {
 	if f == nil {
 		return true
@@ -134,21 +142,6 @@ func (f *MessagesFaveStickerRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (f *MessagesFaveStickerRequest) GetID() (value InputDocumentClass) {
-	return f.ID
-}
-
-// GetIDAsNotEmpty returns mapped value of ID field.
-func (f *MessagesFaveStickerRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
-	return f.ID.AsNotEmpty()
-}
-
-// GetUnfave returns value of Unfave field.
-func (f *MessagesFaveStickerRequest) GetUnfave() (value bool) {
-	return f.Unfave
-}
-
 // Decode implements bin.Decoder.
 func (f *MessagesFaveStickerRequest) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -182,13 +175,20 @@ func (f *MessagesFaveStickerRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesFaveStickerRequest.
-var (
-	_ bin.Encoder     = &MessagesFaveStickerRequest{}
-	_ bin.Decoder     = &MessagesFaveStickerRequest{}
-	_ bin.BareEncoder = &MessagesFaveStickerRequest{}
-	_ bin.BareDecoder = &MessagesFaveStickerRequest{}
-)
+// GetID returns value of ID field.
+func (f *MessagesFaveStickerRequest) GetID() (value InputDocumentClass) {
+	return f.ID
+}
+
+// GetUnfave returns value of Unfave field.
+func (f *MessagesFaveStickerRequest) GetUnfave() (value bool) {
+	return f.Unfave
+}
+
+// GetIDAsNotEmpty returns mapped value of ID field.
+func (f *MessagesFaveStickerRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
+	return f.ID.AsNotEmpty()
+}
 
 // MessagesFaveSticker invokes method messages.faveSticker#b9ffc55b returning error if any.
 // Mark a sticker as favorite

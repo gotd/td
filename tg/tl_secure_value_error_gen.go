@@ -59,6 +59,19 @@ type SecureValueErrorData struct {
 // SecureValueErrorDataTypeID is TL type id of SecureValueErrorData.
 const SecureValueErrorDataTypeID = 0xe8a40bd9
 
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorData) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorData.
+var (
+	_ bin.Encoder     = &SecureValueErrorData{}
+	_ bin.Decoder     = &SecureValueErrorData{}
+	_ bin.BareEncoder = &SecureValueErrorData{}
+	_ bin.BareDecoder = &SecureValueErrorData{}
+
+	_ SecureValueErrorClass = &SecureValueErrorData{}
+)
+
 func (s *SecureValueErrorData) Zero() bool {
 	if s == nil {
 		return true
@@ -170,26 +183,6 @@ func (s *SecureValueErrorData) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorData) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetDataHash returns value of DataHash field.
-func (s *SecureValueErrorData) GetDataHash() (value []byte) {
-	return s.DataHash
-}
-
-// GetField returns value of Field field.
-func (s *SecureValueErrorData) GetField() (value string) {
-	return s.Field
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorData) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorData) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -237,18 +230,25 @@ func (s *SecureValueErrorData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorData) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorData) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorData.
-var (
-	_ bin.Encoder     = &SecureValueErrorData{}
-	_ bin.Decoder     = &SecureValueErrorData{}
-	_ bin.BareEncoder = &SecureValueErrorData{}
-	_ bin.BareDecoder = &SecureValueErrorData{}
+// GetDataHash returns value of DataHash field.
+func (s *SecureValueErrorData) GetDataHash() (value []byte) {
+	return s.DataHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorData{}
-)
+// GetField returns value of Field field.
+func (s *SecureValueErrorData) GetField() (value string) {
+	return s.Field
+}
+
+// GetText returns value of Text field.
+func (s *SecureValueErrorData) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorFrontSide represents TL type `secureValueErrorFrontSide#be3dfa`.
 // Represents an issue with the front side of a document. The error is considered
@@ -273,6 +273,19 @@ type SecureValueErrorFrontSide struct {
 
 // SecureValueErrorFrontSideTypeID is TL type id of SecureValueErrorFrontSide.
 const SecureValueErrorFrontSideTypeID = 0xbe3dfa
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorFrontSide) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorFrontSide.
+var (
+	_ bin.Encoder     = &SecureValueErrorFrontSide{}
+	_ bin.Decoder     = &SecureValueErrorFrontSide{}
+	_ bin.BareEncoder = &SecureValueErrorFrontSide{}
+	_ bin.BareDecoder = &SecureValueErrorFrontSide{}
+
+	_ SecureValueErrorClass = &SecureValueErrorFrontSide{}
+)
 
 func (s *SecureValueErrorFrontSide) Zero() bool {
 	if s == nil {
@@ -375,21 +388,6 @@ func (s *SecureValueErrorFrontSide) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorFrontSide) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorFrontSide) GetFileHash() (value []byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorFrontSide) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorFrontSide) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -430,18 +428,20 @@ func (s *SecureValueErrorFrontSide) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorFrontSide) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorFrontSide) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorFrontSide.
-var (
-	_ bin.Encoder     = &SecureValueErrorFrontSide{}
-	_ bin.Decoder     = &SecureValueErrorFrontSide{}
-	_ bin.BareEncoder = &SecureValueErrorFrontSide{}
-	_ bin.BareDecoder = &SecureValueErrorFrontSide{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorFrontSide) GetFileHash() (value []byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorFrontSide{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorFrontSide) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorReverseSide represents TL type `secureValueErrorReverseSide#868a2aa5`.
 // Represents an issue with the reverse side of a document. The error is considered
@@ -463,6 +463,19 @@ type SecureValueErrorReverseSide struct {
 
 // SecureValueErrorReverseSideTypeID is TL type id of SecureValueErrorReverseSide.
 const SecureValueErrorReverseSideTypeID = 0x868a2aa5
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorReverseSide) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorReverseSide.
+var (
+	_ bin.Encoder     = &SecureValueErrorReverseSide{}
+	_ bin.Decoder     = &SecureValueErrorReverseSide{}
+	_ bin.BareEncoder = &SecureValueErrorReverseSide{}
+	_ bin.BareDecoder = &SecureValueErrorReverseSide{}
+
+	_ SecureValueErrorClass = &SecureValueErrorReverseSide{}
+)
 
 func (s *SecureValueErrorReverseSide) Zero() bool {
 	if s == nil {
@@ -565,21 +578,6 @@ func (s *SecureValueErrorReverseSide) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorReverseSide) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorReverseSide) GetFileHash() (value []byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorReverseSide) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorReverseSide) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -620,18 +618,20 @@ func (s *SecureValueErrorReverseSide) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorReverseSide) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorReverseSide) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorReverseSide.
-var (
-	_ bin.Encoder     = &SecureValueErrorReverseSide{}
-	_ bin.Decoder     = &SecureValueErrorReverseSide{}
-	_ bin.BareEncoder = &SecureValueErrorReverseSide{}
-	_ bin.BareDecoder = &SecureValueErrorReverseSide{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorReverseSide) GetFileHash() (value []byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorReverseSide{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorReverseSide) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorSelfie represents TL type `secureValueErrorSelfie#e537ced6`.
 // Represents an issue with the selfie with a document. The error is considered resolved
@@ -656,6 +656,19 @@ type SecureValueErrorSelfie struct {
 
 // SecureValueErrorSelfieTypeID is TL type id of SecureValueErrorSelfie.
 const SecureValueErrorSelfieTypeID = 0xe537ced6
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorSelfie) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorSelfie.
+var (
+	_ bin.Encoder     = &SecureValueErrorSelfie{}
+	_ bin.Decoder     = &SecureValueErrorSelfie{}
+	_ bin.BareEncoder = &SecureValueErrorSelfie{}
+	_ bin.BareDecoder = &SecureValueErrorSelfie{}
+
+	_ SecureValueErrorClass = &SecureValueErrorSelfie{}
+)
 
 func (s *SecureValueErrorSelfie) Zero() bool {
 	if s == nil {
@@ -758,21 +771,6 @@ func (s *SecureValueErrorSelfie) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorSelfie) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorSelfie) GetFileHash() (value []byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorSelfie) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorSelfie) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -813,18 +811,20 @@ func (s *SecureValueErrorSelfie) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorSelfie) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorSelfie) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorSelfie.
-var (
-	_ bin.Encoder     = &SecureValueErrorSelfie{}
-	_ bin.Decoder     = &SecureValueErrorSelfie{}
-	_ bin.BareEncoder = &SecureValueErrorSelfie{}
-	_ bin.BareDecoder = &SecureValueErrorSelfie{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorSelfie) GetFileHash() (value []byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorSelfie{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorSelfie) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorFile represents TL type `secureValueErrorFile#7a700873`.
 // Represents an issue with a document scan. The error is considered resolved when the
@@ -851,6 +851,19 @@ type SecureValueErrorFile struct {
 
 // SecureValueErrorFileTypeID is TL type id of SecureValueErrorFile.
 const SecureValueErrorFileTypeID = 0x7a700873
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorFile) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorFile.
+var (
+	_ bin.Encoder     = &SecureValueErrorFile{}
+	_ bin.Decoder     = &SecureValueErrorFile{}
+	_ bin.BareEncoder = &SecureValueErrorFile{}
+	_ bin.BareDecoder = &SecureValueErrorFile{}
+
+	_ SecureValueErrorClass = &SecureValueErrorFile{}
+)
 
 func (s *SecureValueErrorFile) Zero() bool {
 	if s == nil {
@@ -953,21 +966,6 @@ func (s *SecureValueErrorFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorFile) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorFile) GetFileHash() (value []byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorFile) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorFile) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -1008,18 +1006,20 @@ func (s *SecureValueErrorFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorFile) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorFile) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorFile.
-var (
-	_ bin.Encoder     = &SecureValueErrorFile{}
-	_ bin.Decoder     = &SecureValueErrorFile{}
-	_ bin.BareEncoder = &SecureValueErrorFile{}
-	_ bin.BareDecoder = &SecureValueErrorFile{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorFile) GetFileHash() (value []byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorFile{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorFile) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorFiles represents TL type `secureValueErrorFiles#666220e9`.
 // Represents an issue with a list of scans. The error is considered resolved when the
@@ -1046,6 +1046,19 @@ type SecureValueErrorFiles struct {
 
 // SecureValueErrorFilesTypeID is TL type id of SecureValueErrorFiles.
 const SecureValueErrorFilesTypeID = 0x666220e9
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorFiles) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorFiles.
+var (
+	_ bin.Encoder     = &SecureValueErrorFiles{}
+	_ bin.Decoder     = &SecureValueErrorFiles{}
+	_ bin.BareEncoder = &SecureValueErrorFiles{}
+	_ bin.BareDecoder = &SecureValueErrorFiles{}
+
+	_ SecureValueErrorClass = &SecureValueErrorFiles{}
+)
 
 func (s *SecureValueErrorFiles) Zero() bool {
 	if s == nil {
@@ -1151,21 +1164,6 @@ func (s *SecureValueErrorFiles) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorFiles) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorFiles) GetFileHash() (value [][]byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorFiles) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorFiles) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -1216,18 +1214,20 @@ func (s *SecureValueErrorFiles) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorFiles) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorFiles) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorFiles.
-var (
-	_ bin.Encoder     = &SecureValueErrorFiles{}
-	_ bin.Decoder     = &SecureValueErrorFiles{}
-	_ bin.BareEncoder = &SecureValueErrorFiles{}
-	_ bin.BareDecoder = &SecureValueErrorFiles{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorFiles) GetFileHash() (value [][]byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorFiles{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorFiles) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueError represents TL type `secureValueError#869d758f`.
 // Secure value error
@@ -1244,6 +1244,19 @@ type SecureValueError struct {
 
 // SecureValueErrorTypeID is TL type id of SecureValueError.
 const SecureValueErrorTypeID = 0x869d758f
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueError) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueError.
+var (
+	_ bin.Encoder     = &SecureValueError{}
+	_ bin.Decoder     = &SecureValueError{}
+	_ bin.BareEncoder = &SecureValueError{}
+	_ bin.BareDecoder = &SecureValueError{}
+
+	_ SecureValueErrorClass = &SecureValueError{}
+)
 
 func (s *SecureValueError) Zero() bool {
 	if s == nil {
@@ -1346,21 +1359,6 @@ func (s *SecureValueError) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueError) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetHash returns value of Hash field.
-func (s *SecureValueError) GetHash() (value []byte) {
-	return s.Hash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueError) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueError) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -1401,18 +1399,20 @@ func (s *SecureValueError) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueError) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueError) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueError.
-var (
-	_ bin.Encoder     = &SecureValueError{}
-	_ bin.Decoder     = &SecureValueError{}
-	_ bin.BareEncoder = &SecureValueError{}
-	_ bin.BareDecoder = &SecureValueError{}
+// GetHash returns value of Hash field.
+func (s *SecureValueError) GetHash() (value []byte) {
+	return s.Hash
+}
 
-	_ SecureValueErrorClass = &SecureValueError{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueError) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorTranslationFile represents TL type `secureValueErrorTranslationFile#a1144770`.
 // Represents an issue with one of the files that constitute the translation of a
@@ -1446,6 +1446,19 @@ type SecureValueErrorTranslationFile struct {
 
 // SecureValueErrorTranslationFileTypeID is TL type id of SecureValueErrorTranslationFile.
 const SecureValueErrorTranslationFileTypeID = 0xa1144770
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorTranslationFile) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorTranslationFile.
+var (
+	_ bin.Encoder     = &SecureValueErrorTranslationFile{}
+	_ bin.Decoder     = &SecureValueErrorTranslationFile{}
+	_ bin.BareEncoder = &SecureValueErrorTranslationFile{}
+	_ bin.BareDecoder = &SecureValueErrorTranslationFile{}
+
+	_ SecureValueErrorClass = &SecureValueErrorTranslationFile{}
+)
 
 func (s *SecureValueErrorTranslationFile) Zero() bool {
 	if s == nil {
@@ -1548,21 +1561,6 @@ func (s *SecureValueErrorTranslationFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorTranslationFile) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorTranslationFile) GetFileHash() (value []byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorTranslationFile) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorTranslationFile) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -1603,18 +1601,20 @@ func (s *SecureValueErrorTranslationFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorTranslationFile) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorTranslationFile) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorTranslationFile.
-var (
-	_ bin.Encoder     = &SecureValueErrorTranslationFile{}
-	_ bin.Decoder     = &SecureValueErrorTranslationFile{}
-	_ bin.BareEncoder = &SecureValueErrorTranslationFile{}
-	_ bin.BareDecoder = &SecureValueErrorTranslationFile{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorTranslationFile) GetFileHash() (value []byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorTranslationFile{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorTranslationFile) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorTranslationFiles represents TL type `secureValueErrorTranslationFiles#34636dd8`.
 // Represents an issue with the translated version of a document. The error is considered
@@ -1648,6 +1648,19 @@ type SecureValueErrorTranslationFiles struct {
 
 // SecureValueErrorTranslationFilesTypeID is TL type id of SecureValueErrorTranslationFiles.
 const SecureValueErrorTranslationFilesTypeID = 0x34636dd8
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorTranslationFiles) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorTranslationFiles.
+var (
+	_ bin.Encoder     = &SecureValueErrorTranslationFiles{}
+	_ bin.Decoder     = &SecureValueErrorTranslationFiles{}
+	_ bin.BareEncoder = &SecureValueErrorTranslationFiles{}
+	_ bin.BareDecoder = &SecureValueErrorTranslationFiles{}
+
+	_ SecureValueErrorClass = &SecureValueErrorTranslationFiles{}
+)
 
 func (s *SecureValueErrorTranslationFiles) Zero() bool {
 	if s == nil {
@@ -1753,21 +1766,6 @@ func (s *SecureValueErrorTranslationFiles) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorTranslationFiles) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorTranslationFiles) GetFileHash() (value [][]byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorTranslationFiles) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorTranslationFiles) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -1818,18 +1816,20 @@ func (s *SecureValueErrorTranslationFiles) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorTranslationFiles) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorTranslationFiles) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorTranslationFiles.
-var (
-	_ bin.Encoder     = &SecureValueErrorTranslationFiles{}
-	_ bin.Decoder     = &SecureValueErrorTranslationFiles{}
-	_ bin.BareEncoder = &SecureValueErrorTranslationFiles{}
-	_ bin.BareDecoder = &SecureValueErrorTranslationFiles{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorTranslationFiles) GetFileHash() (value [][]byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorTranslationFiles{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorTranslationFiles) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorClass represents SecureValueError generic type.
 //

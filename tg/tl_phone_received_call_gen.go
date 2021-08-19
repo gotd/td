@@ -42,6 +42,14 @@ type PhoneReceivedCallRequest struct {
 // PhoneReceivedCallRequestTypeID is TL type id of PhoneReceivedCallRequest.
 const PhoneReceivedCallRequestTypeID = 0x17d54f61
 
+// Ensuring interfaces in compile-time for PhoneReceivedCallRequest.
+var (
+	_ bin.Encoder     = &PhoneReceivedCallRequest{}
+	_ bin.Decoder     = &PhoneReceivedCallRequest{}
+	_ bin.BareEncoder = &PhoneReceivedCallRequest{}
+	_ bin.BareDecoder = &PhoneReceivedCallRequest{}
+)
+
 func (r *PhoneReceivedCallRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -120,11 +128,6 @@ func (r *PhoneReceivedCallRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (r *PhoneReceivedCallRequest) GetPeer() (value InputPhoneCall) {
-	return r.Peer
-}
-
 // Decode implements bin.Decoder.
 func (r *PhoneReceivedCallRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -149,13 +152,10 @@ func (r *PhoneReceivedCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneReceivedCallRequest.
-var (
-	_ bin.Encoder     = &PhoneReceivedCallRequest{}
-	_ bin.Decoder     = &PhoneReceivedCallRequest{}
-	_ bin.BareEncoder = &PhoneReceivedCallRequest{}
-	_ bin.BareDecoder = &PhoneReceivedCallRequest{}
-)
+// GetPeer returns value of Peer field.
+func (r *PhoneReceivedCallRequest) GetPeer() (value InputPhoneCall) {
+	return r.Peer
+}
 
 // PhoneReceivedCall invokes method phone.receivedCall#17d54f61 returning error if any.
 // Optional: notify the server that the user is currently busy in a call: this will

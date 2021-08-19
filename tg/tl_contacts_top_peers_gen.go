@@ -39,6 +39,19 @@ type ContactsTopPeersNotModified struct {
 // ContactsTopPeersNotModifiedTypeID is TL type id of ContactsTopPeersNotModified.
 const ContactsTopPeersNotModifiedTypeID = 0xde266ef5
 
+// construct implements constructor of ContactsTopPeersClass.
+func (t ContactsTopPeersNotModified) construct() ContactsTopPeersClass { return &t }
+
+// Ensuring interfaces in compile-time for ContactsTopPeersNotModified.
+var (
+	_ bin.Encoder     = &ContactsTopPeersNotModified{}
+	_ bin.Decoder     = &ContactsTopPeersNotModified{}
+	_ bin.BareEncoder = &ContactsTopPeersNotModified{}
+	_ bin.BareDecoder = &ContactsTopPeersNotModified{}
+
+	_ ContactsTopPeersClass = &ContactsTopPeersNotModified{}
+)
+
 func (t *ContactsTopPeersNotModified) Zero() bool {
 	if t == nil {
 		return true
@@ -118,19 +131,6 @@ func (t *ContactsTopPeersNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ContactsTopPeersClass.
-func (t ContactsTopPeersNotModified) construct() ContactsTopPeersClass { return &t }
-
-// Ensuring interfaces in compile-time for ContactsTopPeersNotModified.
-var (
-	_ bin.Encoder     = &ContactsTopPeersNotModified{}
-	_ bin.Decoder     = &ContactsTopPeersNotModified{}
-	_ bin.BareEncoder = &ContactsTopPeersNotModified{}
-	_ bin.BareDecoder = &ContactsTopPeersNotModified{}
-
-	_ ContactsTopPeersClass = &ContactsTopPeersNotModified{}
-)
-
 // ContactsTopPeers represents TL type `contacts.topPeers#70b772a8`.
 // Top peers
 //
@@ -146,6 +146,19 @@ type ContactsTopPeers struct {
 
 // ContactsTopPeersTypeID is TL type id of ContactsTopPeers.
 const ContactsTopPeersTypeID = 0x70b772a8
+
+// construct implements constructor of ContactsTopPeersClass.
+func (t ContactsTopPeers) construct() ContactsTopPeersClass { return &t }
+
+// Ensuring interfaces in compile-time for ContactsTopPeers.
+var (
+	_ bin.Encoder     = &ContactsTopPeers{}
+	_ bin.Decoder     = &ContactsTopPeers{}
+	_ bin.BareEncoder = &ContactsTopPeers{}
+	_ bin.BareDecoder = &ContactsTopPeers{}
+
+	_ ContactsTopPeersClass = &ContactsTopPeers{}
+)
 
 func (t *ContactsTopPeers) Zero() bool {
 	if t == nil {
@@ -264,31 +277,6 @@ func (t *ContactsTopPeers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCategories returns value of Categories field.
-func (t *ContactsTopPeers) GetCategories() (value []TopPeerCategoryPeers) {
-	return t.Categories
-}
-
-// GetChats returns value of Chats field.
-func (t *ContactsTopPeers) GetChats() (value []ChatClass) {
-	return t.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (t *ContactsTopPeers) MapChats() (value ChatClassArray) {
-	return ChatClassArray(t.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (t *ContactsTopPeers) GetUsers() (value []UserClass) {
-	return t.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (t *ContactsTopPeers) MapUsers() (value UserClassArray) {
-	return UserClassArray(t.Users)
-}
-
 // Decode implements bin.Decoder.
 func (t *ContactsTopPeers) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -359,18 +347,30 @@ func (t *ContactsTopPeers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ContactsTopPeersClass.
-func (t ContactsTopPeers) construct() ContactsTopPeersClass { return &t }
+// GetCategories returns value of Categories field.
+func (t *ContactsTopPeers) GetCategories() (value []TopPeerCategoryPeers) {
+	return t.Categories
+}
 
-// Ensuring interfaces in compile-time for ContactsTopPeers.
-var (
-	_ bin.Encoder     = &ContactsTopPeers{}
-	_ bin.Decoder     = &ContactsTopPeers{}
-	_ bin.BareEncoder = &ContactsTopPeers{}
-	_ bin.BareDecoder = &ContactsTopPeers{}
+// GetChats returns value of Chats field.
+func (t *ContactsTopPeers) GetChats() (value []ChatClass) {
+	return t.Chats
+}
 
-	_ ContactsTopPeersClass = &ContactsTopPeers{}
-)
+// GetUsers returns value of Users field.
+func (t *ContactsTopPeers) GetUsers() (value []UserClass) {
+	return t.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (t *ContactsTopPeers) MapChats() (value ChatClassArray) {
+	return ChatClassArray(t.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (t *ContactsTopPeers) MapUsers() (value UserClassArray) {
+	return UserClassArray(t.Users)
+}
 
 // ContactsTopPeersDisabled represents TL type `contacts.topPeersDisabled#b52c939d`.
 // Top peers disabled
@@ -381,6 +381,19 @@ type ContactsTopPeersDisabled struct {
 
 // ContactsTopPeersDisabledTypeID is TL type id of ContactsTopPeersDisabled.
 const ContactsTopPeersDisabledTypeID = 0xb52c939d
+
+// construct implements constructor of ContactsTopPeersClass.
+func (t ContactsTopPeersDisabled) construct() ContactsTopPeersClass { return &t }
+
+// Ensuring interfaces in compile-time for ContactsTopPeersDisabled.
+var (
+	_ bin.Encoder     = &ContactsTopPeersDisabled{}
+	_ bin.Decoder     = &ContactsTopPeersDisabled{}
+	_ bin.BareEncoder = &ContactsTopPeersDisabled{}
+	_ bin.BareDecoder = &ContactsTopPeersDisabled{}
+
+	_ ContactsTopPeersClass = &ContactsTopPeersDisabled{}
+)
 
 func (t *ContactsTopPeersDisabled) Zero() bool {
 	if t == nil {
@@ -460,19 +473,6 @@ func (t *ContactsTopPeersDisabled) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of ContactsTopPeersClass.
-func (t ContactsTopPeersDisabled) construct() ContactsTopPeersClass { return &t }
-
-// Ensuring interfaces in compile-time for ContactsTopPeersDisabled.
-var (
-	_ bin.Encoder     = &ContactsTopPeersDisabled{}
-	_ bin.Decoder     = &ContactsTopPeersDisabled{}
-	_ bin.BareEncoder = &ContactsTopPeersDisabled{}
-	_ bin.BareDecoder = &ContactsTopPeersDisabled{}
-
-	_ ContactsTopPeersClass = &ContactsTopPeersDisabled{}
-)
 
 // ContactsTopPeersClass represents contacts.TopPeers generic type.
 //

@@ -41,6 +41,19 @@ type DocumentEmpty struct {
 // DocumentEmptyTypeID is TL type id of DocumentEmpty.
 const DocumentEmptyTypeID = 0x36f8c871
 
+// construct implements constructor of DocumentClass.
+func (d DocumentEmpty) construct() DocumentClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentEmpty.
+var (
+	_ bin.Encoder     = &DocumentEmpty{}
+	_ bin.Decoder     = &DocumentEmpty{}
+	_ bin.BareEncoder = &DocumentEmpty{}
+	_ bin.BareDecoder = &DocumentEmpty{}
+
+	_ DocumentClass = &DocumentEmpty{}
+)
+
 func (d *DocumentEmpty) Zero() bool {
 	if d == nil {
 		return true
@@ -117,11 +130,6 @@ func (d *DocumentEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (d *DocumentEmpty) GetID() (value int64) {
-	return d.ID
-}
-
 // Decode implements bin.Decoder.
 func (d *DocumentEmpty) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -148,18 +156,10 @@ func (d *DocumentEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentClass.
-func (d DocumentEmpty) construct() DocumentClass { return &d }
-
-// Ensuring interfaces in compile-time for DocumentEmpty.
-var (
-	_ bin.Encoder     = &DocumentEmpty{}
-	_ bin.Decoder     = &DocumentEmpty{}
-	_ bin.BareEncoder = &DocumentEmpty{}
-	_ bin.BareDecoder = &DocumentEmpty{}
-
-	_ DocumentClass = &DocumentEmpty{}
-)
+// GetID returns value of ID field.
+func (d *DocumentEmpty) GetID() (value int64) {
+	return d.ID
+}
 
 // Document represents TL type `document#1e87342b`.
 // Document
@@ -202,6 +202,19 @@ type Document struct {
 
 // DocumentTypeID is TL type id of Document.
 const DocumentTypeID = 0x1e87342b
+
+// construct implements constructor of DocumentClass.
+func (d Document) construct() DocumentClass { return &d }
+
+// Ensuring interfaces in compile-time for Document.
+var (
+	_ bin.Encoder     = &Document{}
+	_ bin.Decoder     = &Document{}
+	_ bin.BareEncoder = &Document{}
+	_ bin.BareDecoder = &Document{}
+
+	_ DocumentClass = &Document{}
+)
 
 func (d *Document) Zero() bool {
 	if d == nil {
@@ -414,89 +427,6 @@ func (d *Document) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (d *Document) GetID() (value int64) {
-	return d.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (d *Document) GetAccessHash() (value int64) {
-	return d.AccessHash
-}
-
-// GetFileReference returns value of FileReference field.
-func (d *Document) GetFileReference() (value []byte) {
-	return d.FileReference
-}
-
-// GetDate returns value of Date field.
-func (d *Document) GetDate() (value int) {
-	return d.Date
-}
-
-// GetMimeType returns value of MimeType field.
-func (d *Document) GetMimeType() (value string) {
-	return d.MimeType
-}
-
-// GetSize returns value of Size field.
-func (d *Document) GetSize() (value int) {
-	return d.Size
-}
-
-// SetThumbs sets value of Thumbs conditional field.
-func (d *Document) SetThumbs(value []PhotoSizeClass) {
-	d.Flags.Set(0)
-	d.Thumbs = value
-}
-
-// GetThumbs returns value of Thumbs conditional field and
-// boolean which is true if field was set.
-func (d *Document) GetThumbs() (value []PhotoSizeClass, ok bool) {
-	if !d.Flags.Has(0) {
-		return value, false
-	}
-	return d.Thumbs, true
-}
-
-// MapThumbs returns field Thumbs wrapped in PhotoSizeClassArray helper.
-func (d *Document) MapThumbs() (value PhotoSizeClassArray, ok bool) {
-	if !d.Flags.Has(0) {
-		return value, false
-	}
-	return PhotoSizeClassArray(d.Thumbs), true
-}
-
-// SetVideoThumbs sets value of VideoThumbs conditional field.
-func (d *Document) SetVideoThumbs(value []VideoSize) {
-	d.Flags.Set(1)
-	d.VideoThumbs = value
-}
-
-// GetVideoThumbs returns value of VideoThumbs conditional field and
-// boolean which is true if field was set.
-func (d *Document) GetVideoThumbs() (value []VideoSize, ok bool) {
-	if !d.Flags.Has(1) {
-		return value, false
-	}
-	return d.VideoThumbs, true
-}
-
-// GetDCID returns value of DCID field.
-func (d *Document) GetDCID() (value int) {
-	return d.DCID
-}
-
-// GetAttributes returns value of Attributes field.
-func (d *Document) GetAttributes() (value []DocumentAttributeClass) {
-	return d.Attributes
-}
-
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
-func (d *Document) MapAttributes() (value DocumentAttributeClassArray) {
-	return DocumentAttributeClassArray(d.Attributes)
-}
-
 // Decode implements bin.Decoder.
 func (d *Document) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -621,18 +551,88 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentClass.
-func (d Document) construct() DocumentClass { return &d }
+// GetID returns value of ID field.
+func (d *Document) GetID() (value int64) {
+	return d.ID
+}
 
-// Ensuring interfaces in compile-time for Document.
-var (
-	_ bin.Encoder     = &Document{}
-	_ bin.Decoder     = &Document{}
-	_ bin.BareEncoder = &Document{}
-	_ bin.BareDecoder = &Document{}
+// GetAccessHash returns value of AccessHash field.
+func (d *Document) GetAccessHash() (value int64) {
+	return d.AccessHash
+}
 
-	_ DocumentClass = &Document{}
-)
+// GetFileReference returns value of FileReference field.
+func (d *Document) GetFileReference() (value []byte) {
+	return d.FileReference
+}
+
+// GetDate returns value of Date field.
+func (d *Document) GetDate() (value int) {
+	return d.Date
+}
+
+// GetMimeType returns value of MimeType field.
+func (d *Document) GetMimeType() (value string) {
+	return d.MimeType
+}
+
+// GetSize returns value of Size field.
+func (d *Document) GetSize() (value int) {
+	return d.Size
+}
+
+// SetThumbs sets value of Thumbs conditional field.
+func (d *Document) SetThumbs(value []PhotoSizeClass) {
+	d.Flags.Set(0)
+	d.Thumbs = value
+}
+
+// GetThumbs returns value of Thumbs conditional field and
+// boolean which is true if field was set.
+func (d *Document) GetThumbs() (value []PhotoSizeClass, ok bool) {
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return d.Thumbs, true
+}
+
+// SetVideoThumbs sets value of VideoThumbs conditional field.
+func (d *Document) SetVideoThumbs(value []VideoSize) {
+	d.Flags.Set(1)
+	d.VideoThumbs = value
+}
+
+// GetVideoThumbs returns value of VideoThumbs conditional field and
+// boolean which is true if field was set.
+func (d *Document) GetVideoThumbs() (value []VideoSize, ok bool) {
+	if !d.Flags.Has(1) {
+		return value, false
+	}
+	return d.VideoThumbs, true
+}
+
+// GetDCID returns value of DCID field.
+func (d *Document) GetDCID() (value int) {
+	return d.DCID
+}
+
+// GetAttributes returns value of Attributes field.
+func (d *Document) GetAttributes() (value []DocumentAttributeClass) {
+	return d.Attributes
+}
+
+// MapThumbs returns field Thumbs wrapped in PhotoSizeClassArray helper.
+func (d *Document) MapThumbs() (value PhotoSizeClassArray, ok bool) {
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return PhotoSizeClassArray(d.Thumbs), true
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (d *Document) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(d.Attributes)
+}
 
 // DocumentClass represents Document generic type.
 //

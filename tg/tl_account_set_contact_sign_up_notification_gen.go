@@ -41,6 +41,14 @@ type AccountSetContactSignUpNotificationRequest struct {
 // AccountSetContactSignUpNotificationRequestTypeID is TL type id of AccountSetContactSignUpNotificationRequest.
 const AccountSetContactSignUpNotificationRequestTypeID = 0xcff43f61
 
+// Ensuring interfaces in compile-time for AccountSetContactSignUpNotificationRequest.
+var (
+	_ bin.Encoder     = &AccountSetContactSignUpNotificationRequest{}
+	_ bin.Decoder     = &AccountSetContactSignUpNotificationRequest{}
+	_ bin.BareEncoder = &AccountSetContactSignUpNotificationRequest{}
+	_ bin.BareDecoder = &AccountSetContactSignUpNotificationRequest{}
+)
+
 func (s *AccountSetContactSignUpNotificationRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -117,11 +125,6 @@ func (s *AccountSetContactSignUpNotificationRequest) EncodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// GetSilent returns value of Silent field.
-func (s *AccountSetContactSignUpNotificationRequest) GetSilent() (value bool) {
-	return s.Silent
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSetContactSignUpNotificationRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -148,13 +151,10 @@ func (s *AccountSetContactSignUpNotificationRequest) DecodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSetContactSignUpNotificationRequest.
-var (
-	_ bin.Encoder     = &AccountSetContactSignUpNotificationRequest{}
-	_ bin.Decoder     = &AccountSetContactSignUpNotificationRequest{}
-	_ bin.BareEncoder = &AccountSetContactSignUpNotificationRequest{}
-	_ bin.BareDecoder = &AccountSetContactSignUpNotificationRequest{}
-)
+// GetSilent returns value of Silent field.
+func (s *AccountSetContactSignUpNotificationRequest) GetSilent() (value bool) {
+	return s.Silent
+}
 
 // AccountSetContactSignUpNotification invokes method account.setContactSignUpNotification#cff43f61 returning error if any.
 // Toggle contact sign up notifications

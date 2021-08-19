@@ -42,6 +42,14 @@ type MessagesReadMessageContentsRequest struct {
 // MessagesReadMessageContentsRequestTypeID is TL type id of MessagesReadMessageContentsRequest.
 const MessagesReadMessageContentsRequestTypeID = 0x36a73f77
 
+// Ensuring interfaces in compile-time for MessagesReadMessageContentsRequest.
+var (
+	_ bin.Encoder     = &MessagesReadMessageContentsRequest{}
+	_ bin.Decoder     = &MessagesReadMessageContentsRequest{}
+	_ bin.BareEncoder = &MessagesReadMessageContentsRequest{}
+	_ bin.BareDecoder = &MessagesReadMessageContentsRequest{}
+)
+
 func (r *MessagesReadMessageContentsRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -121,11 +129,6 @@ func (r *MessagesReadMessageContentsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (r *MessagesReadMessageContentsRequest) GetID() (value []int) {
-	return r.ID
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesReadMessageContentsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -162,13 +165,10 @@ func (r *MessagesReadMessageContentsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesReadMessageContentsRequest.
-var (
-	_ bin.Encoder     = &MessagesReadMessageContentsRequest{}
-	_ bin.Decoder     = &MessagesReadMessageContentsRequest{}
-	_ bin.BareEncoder = &MessagesReadMessageContentsRequest{}
-	_ bin.BareDecoder = &MessagesReadMessageContentsRequest{}
-)
+// GetID returns value of ID field.
+func (r *MessagesReadMessageContentsRequest) GetID() (value []int) {
+	return r.ID
+}
 
 // MessagesReadMessageContents invokes method messages.readMessageContents#36a73f77 returning error if any.
 // Notifies the sender about the recipient having listened a voice message or watched a

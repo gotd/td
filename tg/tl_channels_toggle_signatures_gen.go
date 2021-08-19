@@ -43,6 +43,14 @@ type ChannelsToggleSignaturesRequest struct {
 // ChannelsToggleSignaturesRequestTypeID is TL type id of ChannelsToggleSignaturesRequest.
 const ChannelsToggleSignaturesRequestTypeID = 0x1f69b606
 
+// Ensuring interfaces in compile-time for ChannelsToggleSignaturesRequest.
+var (
+	_ bin.Encoder     = &ChannelsToggleSignaturesRequest{}
+	_ bin.Decoder     = &ChannelsToggleSignaturesRequest{}
+	_ bin.BareEncoder = &ChannelsToggleSignaturesRequest{}
+	_ bin.BareDecoder = &ChannelsToggleSignaturesRequest{}
+)
+
 func (t *ChannelsToggleSignaturesRequest) Zero() bool {
 	if t == nil {
 		return true
@@ -134,21 +142,6 @@ func (t *ChannelsToggleSignaturesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (t *ChannelsToggleSignaturesRequest) GetChannel() (value InputChannelClass) {
-	return t.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (t *ChannelsToggleSignaturesRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return t.Channel.AsNotEmpty()
-}
-
-// GetEnabled returns value of Enabled field.
-func (t *ChannelsToggleSignaturesRequest) GetEnabled() (value bool) {
-	return t.Enabled
-}
-
 // Decode implements bin.Decoder.
 func (t *ChannelsToggleSignaturesRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -182,13 +175,20 @@ func (t *ChannelsToggleSignaturesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsToggleSignaturesRequest.
-var (
-	_ bin.Encoder     = &ChannelsToggleSignaturesRequest{}
-	_ bin.Decoder     = &ChannelsToggleSignaturesRequest{}
-	_ bin.BareEncoder = &ChannelsToggleSignaturesRequest{}
-	_ bin.BareDecoder = &ChannelsToggleSignaturesRequest{}
-)
+// GetChannel returns value of Channel field.
+func (t *ChannelsToggleSignaturesRequest) GetChannel() (value InputChannelClass) {
+	return t.Channel
+}
+
+// GetEnabled returns value of Enabled field.
+func (t *ChannelsToggleSignaturesRequest) GetEnabled() (value bool) {
+	return t.Enabled
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (t *ChannelsToggleSignaturesRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return t.Channel.AsNotEmpty()
+}
 
 // ChannelsToggleSignatures invokes method channels.toggleSignatures#1f69b606 returning error if any.
 // Enable/disable message signatures in channels

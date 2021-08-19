@@ -75,6 +75,14 @@ type PollResults struct {
 // PollResultsTypeID is TL type id of PollResults.
 const PollResultsTypeID = 0xbadcc1a3
 
+// Ensuring interfaces in compile-time for PollResults.
+var (
+	_ bin.Encoder     = &PollResults{}
+	_ bin.Decoder     = &PollResults{}
+	_ bin.BareEncoder = &PollResults{}
+	_ bin.BareDecoder = &PollResults{}
+)
+
 func (p *PollResults) Zero() bool {
 	if p == nil {
 		return true
@@ -271,6 +279,96 @@ func (p *PollResults) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *PollResults) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pollResults#badcc1a3 to nil")
+	}
+	if err := b.ConsumeID(PollResultsTypeID); err != nil {
+		return fmt.Errorf("unable to decode pollResults#badcc1a3: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PollResults) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pollResults#badcc1a3 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pollResults#badcc1a3: field flags: %w", err)
+		}
+	}
+	p.Min = p.Flags.Has(0)
+	if p.Flags.Has(1) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode pollResults#badcc1a3: field results: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.Results = make([]PollAnswerVoters, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value PollAnswerVoters
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode pollResults#badcc1a3: field results: %w", err)
+			}
+			p.Results = append(p.Results, value)
+		}
+	}
+	if p.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode pollResults#badcc1a3: field total_voters: %w", err)
+		}
+		p.TotalVoters = value
+	}
+	if p.Flags.Has(3) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode pollResults#badcc1a3: field recent_voters: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.RecentVoters = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode pollResults#badcc1a3: field recent_voters: %w", err)
+			}
+			p.RecentVoters = append(p.RecentVoters, value)
+		}
+	}
+	if p.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pollResults#badcc1a3: field solution: %w", err)
+		}
+		p.Solution = value
+	}
+	if p.Flags.Has(4) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode pollResults#badcc1a3: field solution_entities: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.SolutionEntities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMessageEntity(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode pollResults#badcc1a3: field solution_entities: %w", err)
+			}
+			p.SolutionEntities = append(p.SolutionEntities, value)
+		}
+	}
+	return nil
+}
+
 // SetMin sets value of Min conditional field.
 func (p *PollResults) SetMin(value bool) {
 	if value {
@@ -369,101 +467,3 @@ func (p *PollResults) MapSolutionEntities() (value MessageEntityClassArray, ok b
 	}
 	return MessageEntityClassArray(p.SolutionEntities), true
 }
-
-// Decode implements bin.Decoder.
-func (p *PollResults) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode pollResults#badcc1a3 to nil")
-	}
-	if err := b.ConsumeID(PollResultsTypeID); err != nil {
-		return fmt.Errorf("unable to decode pollResults#badcc1a3: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *PollResults) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode pollResults#badcc1a3 to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pollResults#badcc1a3: field flags: %w", err)
-		}
-	}
-	p.Min = p.Flags.Has(0)
-	if p.Flags.Has(1) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode pollResults#badcc1a3: field results: %w", err)
-		}
-
-		if headerLen > 0 {
-			p.Results = make([]PollAnswerVoters, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value PollAnswerVoters
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode pollResults#badcc1a3: field results: %w", err)
-			}
-			p.Results = append(p.Results, value)
-		}
-	}
-	if p.Flags.Has(2) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode pollResults#badcc1a3: field total_voters: %w", err)
-		}
-		p.TotalVoters = value
-	}
-	if p.Flags.Has(3) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode pollResults#badcc1a3: field recent_voters: %w", err)
-		}
-
-		if headerLen > 0 {
-			p.RecentVoters = make([]int, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int()
-			if err != nil {
-				return fmt.Errorf("unable to decode pollResults#badcc1a3: field recent_voters: %w", err)
-			}
-			p.RecentVoters = append(p.RecentVoters, value)
-		}
-	}
-	if p.Flags.Has(4) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode pollResults#badcc1a3: field solution: %w", err)
-		}
-		p.Solution = value
-	}
-	if p.Flags.Has(4) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode pollResults#badcc1a3: field solution_entities: %w", err)
-		}
-
-		if headerLen > 0 {
-			p.SolutionEntities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeMessageEntity(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode pollResults#badcc1a3: field solution_entities: %w", err)
-			}
-			p.SolutionEntities = append(p.SolutionEntities, value)
-		}
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for PollResults.
-var (
-	_ bin.Encoder     = &PollResults{}
-	_ bin.Decoder     = &PollResults{}
-	_ bin.BareEncoder = &PollResults{}
-	_ bin.BareDecoder = &PollResults{}
-)

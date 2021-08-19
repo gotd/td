@@ -41,6 +41,14 @@ type HelpHidePromoDataRequest struct {
 // HelpHidePromoDataRequestTypeID is TL type id of HelpHidePromoDataRequest.
 const HelpHidePromoDataRequestTypeID = 0x1e251c95
 
+// Ensuring interfaces in compile-time for HelpHidePromoDataRequest.
+var (
+	_ bin.Encoder     = &HelpHidePromoDataRequest{}
+	_ bin.Decoder     = &HelpHidePromoDataRequest{}
+	_ bin.BareEncoder = &HelpHidePromoDataRequest{}
+	_ bin.BareDecoder = &HelpHidePromoDataRequest{}
+)
+
 func (h *HelpHidePromoDataRequest) Zero() bool {
 	if h == nil {
 		return true
@@ -122,11 +130,6 @@ func (h *HelpHidePromoDataRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (h *HelpHidePromoDataRequest) GetPeer() (value InputPeerClass) {
-	return h.Peer
-}
-
 // Decode implements bin.Decoder.
 func (h *HelpHidePromoDataRequest) Decode(b *bin.Buffer) error {
 	if h == nil {
@@ -153,13 +156,10 @@ func (h *HelpHidePromoDataRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpHidePromoDataRequest.
-var (
-	_ bin.Encoder     = &HelpHidePromoDataRequest{}
-	_ bin.Decoder     = &HelpHidePromoDataRequest{}
-	_ bin.BareEncoder = &HelpHidePromoDataRequest{}
-	_ bin.BareDecoder = &HelpHidePromoDataRequest{}
-)
+// GetPeer returns value of Peer field.
+func (h *HelpHidePromoDataRequest) GetPeer() (value InputPeerClass) {
+	return h.Peer
+}
 
 // HelpHidePromoData invokes method help.hidePromoData#1e251c95 returning error if any.
 // Hide MTProxy/Public Service Announcement information

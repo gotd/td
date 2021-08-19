@@ -100,6 +100,14 @@ type SecureValue struct {
 // SecureValueTypeID is TL type id of SecureValue.
 const SecureValueTypeID = 0x187fa0ca
 
+// Ensuring interfaces in compile-time for SecureValue.
+var (
+	_ bin.Encoder     = &SecureValue{}
+	_ bin.Decoder     = &SecureValue{}
+	_ bin.BareEncoder = &SecureValue{}
+	_ bin.BareDecoder = &SecureValue{}
+)
+
 func (s *SecureValue) Zero() bool {
 	if s == nil {
 		return true
@@ -368,164 +376,6 @@ func (s *SecureValue) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValue) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// SetData sets value of Data conditional field.
-func (s *SecureValue) SetData(value SecureData) {
-	s.Flags.Set(0)
-	s.Data = value
-}
-
-// GetData returns value of Data conditional field and
-// boolean which is true if field was set.
-func (s *SecureValue) GetData() (value SecureData, ok bool) {
-	if !s.Flags.Has(0) {
-		return value, false
-	}
-	return s.Data, true
-}
-
-// SetFrontSide sets value of FrontSide conditional field.
-func (s *SecureValue) SetFrontSide(value SecureFileClass) {
-	s.Flags.Set(1)
-	s.FrontSide = value
-}
-
-// GetFrontSide returns value of FrontSide conditional field and
-// boolean which is true if field was set.
-func (s *SecureValue) GetFrontSide() (value SecureFileClass, ok bool) {
-	if !s.Flags.Has(1) {
-		return value, false
-	}
-	return s.FrontSide, true
-}
-
-// GetFrontSideAsNotEmpty returns mapped value of FrontSide conditional field and
-// boolean which is true if field was set.
-func (s *SecureValue) GetFrontSideAsNotEmpty() (*SecureFile, bool) {
-	if value, ok := s.GetFrontSide(); ok {
-		return value.AsNotEmpty()
-	}
-	return nil, false
-}
-
-// SetReverseSide sets value of ReverseSide conditional field.
-func (s *SecureValue) SetReverseSide(value SecureFileClass) {
-	s.Flags.Set(2)
-	s.ReverseSide = value
-}
-
-// GetReverseSide returns value of ReverseSide conditional field and
-// boolean which is true if field was set.
-func (s *SecureValue) GetReverseSide() (value SecureFileClass, ok bool) {
-	if !s.Flags.Has(2) {
-		return value, false
-	}
-	return s.ReverseSide, true
-}
-
-// GetReverseSideAsNotEmpty returns mapped value of ReverseSide conditional field and
-// boolean which is true if field was set.
-func (s *SecureValue) GetReverseSideAsNotEmpty() (*SecureFile, bool) {
-	if value, ok := s.GetReverseSide(); ok {
-		return value.AsNotEmpty()
-	}
-	return nil, false
-}
-
-// SetSelfie sets value of Selfie conditional field.
-func (s *SecureValue) SetSelfie(value SecureFileClass) {
-	s.Flags.Set(3)
-	s.Selfie = value
-}
-
-// GetSelfie returns value of Selfie conditional field and
-// boolean which is true if field was set.
-func (s *SecureValue) GetSelfie() (value SecureFileClass, ok bool) {
-	if !s.Flags.Has(3) {
-		return value, false
-	}
-	return s.Selfie, true
-}
-
-// GetSelfieAsNotEmpty returns mapped value of Selfie conditional field and
-// boolean which is true if field was set.
-func (s *SecureValue) GetSelfieAsNotEmpty() (*SecureFile, bool) {
-	if value, ok := s.GetSelfie(); ok {
-		return value.AsNotEmpty()
-	}
-	return nil, false
-}
-
-// SetTranslation sets value of Translation conditional field.
-func (s *SecureValue) SetTranslation(value []SecureFileClass) {
-	s.Flags.Set(6)
-	s.Translation = value
-}
-
-// GetTranslation returns value of Translation conditional field and
-// boolean which is true if field was set.
-func (s *SecureValue) GetTranslation() (value []SecureFileClass, ok bool) {
-	if !s.Flags.Has(6) {
-		return value, false
-	}
-	return s.Translation, true
-}
-
-// MapTranslation returns field Translation wrapped in SecureFileClassArray helper.
-func (s *SecureValue) MapTranslation() (value SecureFileClassArray, ok bool) {
-	if !s.Flags.Has(6) {
-		return value, false
-	}
-	return SecureFileClassArray(s.Translation), true
-}
-
-// SetFiles sets value of Files conditional field.
-func (s *SecureValue) SetFiles(value []SecureFileClass) {
-	s.Flags.Set(4)
-	s.Files = value
-}
-
-// GetFiles returns value of Files conditional field and
-// boolean which is true if field was set.
-func (s *SecureValue) GetFiles() (value []SecureFileClass, ok bool) {
-	if !s.Flags.Has(4) {
-		return value, false
-	}
-	return s.Files, true
-}
-
-// MapFiles returns field Files wrapped in SecureFileClassArray helper.
-func (s *SecureValue) MapFiles() (value SecureFileClassArray, ok bool) {
-	if !s.Flags.Has(4) {
-		return value, false
-	}
-	return SecureFileClassArray(s.Files), true
-}
-
-// SetPlainData sets value of PlainData conditional field.
-func (s *SecureValue) SetPlainData(value SecurePlainDataClass) {
-	s.Flags.Set(5)
-	s.PlainData = value
-}
-
-// GetPlainData returns value of PlainData conditional field and
-// boolean which is true if field was set.
-func (s *SecureValue) GetPlainData() (value SecurePlainDataClass, ok bool) {
-	if !s.Flags.Has(5) {
-		return value, false
-	}
-	return s.PlainData, true
-}
-
-// GetHash returns value of Hash field.
-func (s *SecureValue) GetHash() (value []byte) {
-	return s.Hash
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValue) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -631,10 +481,160 @@ func (s *SecureValue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SecureValue.
-var (
-	_ bin.Encoder     = &SecureValue{}
-	_ bin.Decoder     = &SecureValue{}
-	_ bin.BareEncoder = &SecureValue{}
-	_ bin.BareDecoder = &SecureValue{}
-)
+// GetType returns value of Type field.
+func (s *SecureValue) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
+
+// SetData sets value of Data conditional field.
+func (s *SecureValue) SetData(value SecureData) {
+	s.Flags.Set(0)
+	s.Data = value
+}
+
+// GetData returns value of Data conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetData() (value SecureData, ok bool) {
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.Data, true
+}
+
+// SetFrontSide sets value of FrontSide conditional field.
+func (s *SecureValue) SetFrontSide(value SecureFileClass) {
+	s.Flags.Set(1)
+	s.FrontSide = value
+}
+
+// GetFrontSide returns value of FrontSide conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetFrontSide() (value SecureFileClass, ok bool) {
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.FrontSide, true
+}
+
+// SetReverseSide sets value of ReverseSide conditional field.
+func (s *SecureValue) SetReverseSide(value SecureFileClass) {
+	s.Flags.Set(2)
+	s.ReverseSide = value
+}
+
+// GetReverseSide returns value of ReverseSide conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetReverseSide() (value SecureFileClass, ok bool) {
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.ReverseSide, true
+}
+
+// SetSelfie sets value of Selfie conditional field.
+func (s *SecureValue) SetSelfie(value SecureFileClass) {
+	s.Flags.Set(3)
+	s.Selfie = value
+}
+
+// GetSelfie returns value of Selfie conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetSelfie() (value SecureFileClass, ok bool) {
+	if !s.Flags.Has(3) {
+		return value, false
+	}
+	return s.Selfie, true
+}
+
+// SetTranslation sets value of Translation conditional field.
+func (s *SecureValue) SetTranslation(value []SecureFileClass) {
+	s.Flags.Set(6)
+	s.Translation = value
+}
+
+// GetTranslation returns value of Translation conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetTranslation() (value []SecureFileClass, ok bool) {
+	if !s.Flags.Has(6) {
+		return value, false
+	}
+	return s.Translation, true
+}
+
+// SetFiles sets value of Files conditional field.
+func (s *SecureValue) SetFiles(value []SecureFileClass) {
+	s.Flags.Set(4)
+	s.Files = value
+}
+
+// GetFiles returns value of Files conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetFiles() (value []SecureFileClass, ok bool) {
+	if !s.Flags.Has(4) {
+		return value, false
+	}
+	return s.Files, true
+}
+
+// SetPlainData sets value of PlainData conditional field.
+func (s *SecureValue) SetPlainData(value SecurePlainDataClass) {
+	s.Flags.Set(5)
+	s.PlainData = value
+}
+
+// GetPlainData returns value of PlainData conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetPlainData() (value SecurePlainDataClass, ok bool) {
+	if !s.Flags.Has(5) {
+		return value, false
+	}
+	return s.PlainData, true
+}
+
+// GetHash returns value of Hash field.
+func (s *SecureValue) GetHash() (value []byte) {
+	return s.Hash
+}
+
+// GetFrontSideAsNotEmpty returns mapped value of FrontSide conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetFrontSideAsNotEmpty() (*SecureFile, bool) {
+	if value, ok := s.GetFrontSide(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
+
+// GetReverseSideAsNotEmpty returns mapped value of ReverseSide conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetReverseSideAsNotEmpty() (*SecureFile, bool) {
+	if value, ok := s.GetReverseSide(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
+
+// GetSelfieAsNotEmpty returns mapped value of Selfie conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetSelfieAsNotEmpty() (*SecureFile, bool) {
+	if value, ok := s.GetSelfie(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
+
+// MapTranslation returns field Translation wrapped in SecureFileClassArray helper.
+func (s *SecureValue) MapTranslation() (value SecureFileClassArray, ok bool) {
+	if !s.Flags.Has(6) {
+		return value, false
+	}
+	return SecureFileClassArray(s.Translation), true
+}
+
+// MapFiles returns field Files wrapped in SecureFileClassArray helper.
+func (s *SecureValue) MapFiles() (value SecureFileClassArray, ok bool) {
+	if !s.Flags.Has(4) {
+		return value, false
+	}
+	return SecureFileClassArray(s.Files), true
+}

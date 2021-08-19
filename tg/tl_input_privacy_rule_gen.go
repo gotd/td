@@ -39,6 +39,19 @@ type InputPrivacyValueAllowContacts struct {
 // InputPrivacyValueAllowContactsTypeID is TL type id of InputPrivacyValueAllowContacts.
 const InputPrivacyValueAllowContactsTypeID = 0xd09e07b
 
+// construct implements constructor of InputPrivacyRuleClass.
+func (i InputPrivacyValueAllowContacts) construct() InputPrivacyRuleClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyValueAllowContacts.
+var (
+	_ bin.Encoder     = &InputPrivacyValueAllowContacts{}
+	_ bin.Decoder     = &InputPrivacyValueAllowContacts{}
+	_ bin.BareEncoder = &InputPrivacyValueAllowContacts{}
+	_ bin.BareDecoder = &InputPrivacyValueAllowContacts{}
+
+	_ InputPrivacyRuleClass = &InputPrivacyValueAllowContacts{}
+)
+
 func (i *InputPrivacyValueAllowContacts) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputPrivacyValueAllowContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyRuleClass.
-func (i InputPrivacyValueAllowContacts) construct() InputPrivacyRuleClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyValueAllowContacts.
-var (
-	_ bin.Encoder     = &InputPrivacyValueAllowContacts{}
-	_ bin.Decoder     = &InputPrivacyValueAllowContacts{}
-	_ bin.BareEncoder = &InputPrivacyValueAllowContacts{}
-	_ bin.BareDecoder = &InputPrivacyValueAllowContacts{}
-
-	_ InputPrivacyRuleClass = &InputPrivacyValueAllowContacts{}
-)
-
 // InputPrivacyValueAllowAll represents TL type `inputPrivacyValueAllowAll#184b35ce`.
 // Allow all users
 //
@@ -140,6 +140,19 @@ type InputPrivacyValueAllowAll struct {
 
 // InputPrivacyValueAllowAllTypeID is TL type id of InputPrivacyValueAllowAll.
 const InputPrivacyValueAllowAllTypeID = 0x184b35ce
+
+// construct implements constructor of InputPrivacyRuleClass.
+func (i InputPrivacyValueAllowAll) construct() InputPrivacyRuleClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyValueAllowAll.
+var (
+	_ bin.Encoder     = &InputPrivacyValueAllowAll{}
+	_ bin.Decoder     = &InputPrivacyValueAllowAll{}
+	_ bin.BareEncoder = &InputPrivacyValueAllowAll{}
+	_ bin.BareDecoder = &InputPrivacyValueAllowAll{}
+
+	_ InputPrivacyRuleClass = &InputPrivacyValueAllowAll{}
+)
 
 func (i *InputPrivacyValueAllowAll) Zero() bool {
 	if i == nil {
@@ -220,19 +233,6 @@ func (i *InputPrivacyValueAllowAll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyRuleClass.
-func (i InputPrivacyValueAllowAll) construct() InputPrivacyRuleClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyValueAllowAll.
-var (
-	_ bin.Encoder     = &InputPrivacyValueAllowAll{}
-	_ bin.Decoder     = &InputPrivacyValueAllowAll{}
-	_ bin.BareEncoder = &InputPrivacyValueAllowAll{}
-	_ bin.BareDecoder = &InputPrivacyValueAllowAll{}
-
-	_ InputPrivacyRuleClass = &InputPrivacyValueAllowAll{}
-)
-
 // InputPrivacyValueAllowUsers represents TL type `inputPrivacyValueAllowUsers#131cc67f`.
 // Allow only certain users
 //
@@ -244,6 +244,19 @@ type InputPrivacyValueAllowUsers struct {
 
 // InputPrivacyValueAllowUsersTypeID is TL type id of InputPrivacyValueAllowUsers.
 const InputPrivacyValueAllowUsersTypeID = 0x131cc67f
+
+// construct implements constructor of InputPrivacyRuleClass.
+func (i InputPrivacyValueAllowUsers) construct() InputPrivacyRuleClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyValueAllowUsers.
+var (
+	_ bin.Encoder     = &InputPrivacyValueAllowUsers{}
+	_ bin.Decoder     = &InputPrivacyValueAllowUsers{}
+	_ bin.BareEncoder = &InputPrivacyValueAllowUsers{}
+	_ bin.BareDecoder = &InputPrivacyValueAllowUsers{}
+
+	_ InputPrivacyRuleClass = &InputPrivacyValueAllowUsers{}
+)
 
 func (i *InputPrivacyValueAllowUsers) Zero() bool {
 	if i == nil {
@@ -329,16 +342,6 @@ func (i *InputPrivacyValueAllowUsers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUsers returns value of Users field.
-func (i *InputPrivacyValueAllowUsers) GetUsers() (value []InputUserClass) {
-	return i.Users
-}
-
-// MapUsers returns field Users wrapped in InputUserClassArray helper.
-func (i *InputPrivacyValueAllowUsers) MapUsers() (value InputUserClassArray) {
-	return InputUserClassArray(i.Users)
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPrivacyValueAllowUsers) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -375,18 +378,15 @@ func (i *InputPrivacyValueAllowUsers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyRuleClass.
-func (i InputPrivacyValueAllowUsers) construct() InputPrivacyRuleClass { return &i }
+// GetUsers returns value of Users field.
+func (i *InputPrivacyValueAllowUsers) GetUsers() (value []InputUserClass) {
+	return i.Users
+}
 
-// Ensuring interfaces in compile-time for InputPrivacyValueAllowUsers.
-var (
-	_ bin.Encoder     = &InputPrivacyValueAllowUsers{}
-	_ bin.Decoder     = &InputPrivacyValueAllowUsers{}
-	_ bin.BareEncoder = &InputPrivacyValueAllowUsers{}
-	_ bin.BareDecoder = &InputPrivacyValueAllowUsers{}
-
-	_ InputPrivacyRuleClass = &InputPrivacyValueAllowUsers{}
-)
+// MapUsers returns field Users wrapped in InputUserClassArray helper.
+func (i *InputPrivacyValueAllowUsers) MapUsers() (value InputUserClassArray) {
+	return InputUserClassArray(i.Users)
+}
 
 // InputPrivacyValueDisallowContacts represents TL type `inputPrivacyValueDisallowContacts#ba52007`.
 // Disallow only contacts
@@ -397,6 +397,19 @@ type InputPrivacyValueDisallowContacts struct {
 
 // InputPrivacyValueDisallowContactsTypeID is TL type id of InputPrivacyValueDisallowContacts.
 const InputPrivacyValueDisallowContactsTypeID = 0xba52007
+
+// construct implements constructor of InputPrivacyRuleClass.
+func (i InputPrivacyValueDisallowContacts) construct() InputPrivacyRuleClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyValueDisallowContacts.
+var (
+	_ bin.Encoder     = &InputPrivacyValueDisallowContacts{}
+	_ bin.Decoder     = &InputPrivacyValueDisallowContacts{}
+	_ bin.BareEncoder = &InputPrivacyValueDisallowContacts{}
+	_ bin.BareDecoder = &InputPrivacyValueDisallowContacts{}
+
+	_ InputPrivacyRuleClass = &InputPrivacyValueDisallowContacts{}
+)
 
 func (i *InputPrivacyValueDisallowContacts) Zero() bool {
 	if i == nil {
@@ -477,19 +490,6 @@ func (i *InputPrivacyValueDisallowContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyRuleClass.
-func (i InputPrivacyValueDisallowContacts) construct() InputPrivacyRuleClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyValueDisallowContacts.
-var (
-	_ bin.Encoder     = &InputPrivacyValueDisallowContacts{}
-	_ bin.Decoder     = &InputPrivacyValueDisallowContacts{}
-	_ bin.BareEncoder = &InputPrivacyValueDisallowContacts{}
-	_ bin.BareDecoder = &InputPrivacyValueDisallowContacts{}
-
-	_ InputPrivacyRuleClass = &InputPrivacyValueDisallowContacts{}
-)
-
 // InputPrivacyValueDisallowAll represents TL type `inputPrivacyValueDisallowAll#d66b66c9`.
 // Disallow all
 //
@@ -499,6 +499,19 @@ type InputPrivacyValueDisallowAll struct {
 
 // InputPrivacyValueDisallowAllTypeID is TL type id of InputPrivacyValueDisallowAll.
 const InputPrivacyValueDisallowAllTypeID = 0xd66b66c9
+
+// construct implements constructor of InputPrivacyRuleClass.
+func (i InputPrivacyValueDisallowAll) construct() InputPrivacyRuleClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyValueDisallowAll.
+var (
+	_ bin.Encoder     = &InputPrivacyValueDisallowAll{}
+	_ bin.Decoder     = &InputPrivacyValueDisallowAll{}
+	_ bin.BareEncoder = &InputPrivacyValueDisallowAll{}
+	_ bin.BareDecoder = &InputPrivacyValueDisallowAll{}
+
+	_ InputPrivacyRuleClass = &InputPrivacyValueDisallowAll{}
+)
 
 func (i *InputPrivacyValueDisallowAll) Zero() bool {
 	if i == nil {
@@ -579,19 +592,6 @@ func (i *InputPrivacyValueDisallowAll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyRuleClass.
-func (i InputPrivacyValueDisallowAll) construct() InputPrivacyRuleClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyValueDisallowAll.
-var (
-	_ bin.Encoder     = &InputPrivacyValueDisallowAll{}
-	_ bin.Decoder     = &InputPrivacyValueDisallowAll{}
-	_ bin.BareEncoder = &InputPrivacyValueDisallowAll{}
-	_ bin.BareDecoder = &InputPrivacyValueDisallowAll{}
-
-	_ InputPrivacyRuleClass = &InputPrivacyValueDisallowAll{}
-)
-
 // InputPrivacyValueDisallowUsers represents TL type `inputPrivacyValueDisallowUsers#90110467`.
 // Disallow only certain users
 //
@@ -603,6 +603,19 @@ type InputPrivacyValueDisallowUsers struct {
 
 // InputPrivacyValueDisallowUsersTypeID is TL type id of InputPrivacyValueDisallowUsers.
 const InputPrivacyValueDisallowUsersTypeID = 0x90110467
+
+// construct implements constructor of InputPrivacyRuleClass.
+func (i InputPrivacyValueDisallowUsers) construct() InputPrivacyRuleClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyValueDisallowUsers.
+var (
+	_ bin.Encoder     = &InputPrivacyValueDisallowUsers{}
+	_ bin.Decoder     = &InputPrivacyValueDisallowUsers{}
+	_ bin.BareEncoder = &InputPrivacyValueDisallowUsers{}
+	_ bin.BareDecoder = &InputPrivacyValueDisallowUsers{}
+
+	_ InputPrivacyRuleClass = &InputPrivacyValueDisallowUsers{}
+)
 
 func (i *InputPrivacyValueDisallowUsers) Zero() bool {
 	if i == nil {
@@ -688,16 +701,6 @@ func (i *InputPrivacyValueDisallowUsers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUsers returns value of Users field.
-func (i *InputPrivacyValueDisallowUsers) GetUsers() (value []InputUserClass) {
-	return i.Users
-}
-
-// MapUsers returns field Users wrapped in InputUserClassArray helper.
-func (i *InputPrivacyValueDisallowUsers) MapUsers() (value InputUserClassArray) {
-	return InputUserClassArray(i.Users)
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPrivacyValueDisallowUsers) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -734,18 +737,15 @@ func (i *InputPrivacyValueDisallowUsers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPrivacyRuleClass.
-func (i InputPrivacyValueDisallowUsers) construct() InputPrivacyRuleClass { return &i }
+// GetUsers returns value of Users field.
+func (i *InputPrivacyValueDisallowUsers) GetUsers() (value []InputUserClass) {
+	return i.Users
+}
 
-// Ensuring interfaces in compile-time for InputPrivacyValueDisallowUsers.
-var (
-	_ bin.Encoder     = &InputPrivacyValueDisallowUsers{}
-	_ bin.Decoder     = &InputPrivacyValueDisallowUsers{}
-	_ bin.BareEncoder = &InputPrivacyValueDisallowUsers{}
-	_ bin.BareDecoder = &InputPrivacyValueDisallowUsers{}
-
-	_ InputPrivacyRuleClass = &InputPrivacyValueDisallowUsers{}
-)
+// MapUsers returns field Users wrapped in InputUserClassArray helper.
+func (i *InputPrivacyValueDisallowUsers) MapUsers() (value InputUserClassArray) {
+	return InputUserClassArray(i.Users)
+}
 
 // InputPrivacyValueAllowChatParticipants represents TL type `inputPrivacyValueAllowChatParticipants#4c81c1ba`.
 // Allow only participants of certain chats
@@ -758,6 +758,19 @@ type InputPrivacyValueAllowChatParticipants struct {
 
 // InputPrivacyValueAllowChatParticipantsTypeID is TL type id of InputPrivacyValueAllowChatParticipants.
 const InputPrivacyValueAllowChatParticipantsTypeID = 0x4c81c1ba
+
+// construct implements constructor of InputPrivacyRuleClass.
+func (i InputPrivacyValueAllowChatParticipants) construct() InputPrivacyRuleClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyValueAllowChatParticipants.
+var (
+	_ bin.Encoder     = &InputPrivacyValueAllowChatParticipants{}
+	_ bin.Decoder     = &InputPrivacyValueAllowChatParticipants{}
+	_ bin.BareEncoder = &InputPrivacyValueAllowChatParticipants{}
+	_ bin.BareDecoder = &InputPrivacyValueAllowChatParticipants{}
+
+	_ InputPrivacyRuleClass = &InputPrivacyValueAllowChatParticipants{}
+)
 
 func (i *InputPrivacyValueAllowChatParticipants) Zero() bool {
 	if i == nil {
@@ -838,11 +851,6 @@ func (i *InputPrivacyValueAllowChatParticipants) EncodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// GetChats returns value of Chats field.
-func (i *InputPrivacyValueAllowChatParticipants) GetChats() (value []int) {
-	return i.Chats
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPrivacyValueAllowChatParticipants) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -879,18 +887,10 @@ func (i *InputPrivacyValueAllowChatParticipants) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// construct implements constructor of InputPrivacyRuleClass.
-func (i InputPrivacyValueAllowChatParticipants) construct() InputPrivacyRuleClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyValueAllowChatParticipants.
-var (
-	_ bin.Encoder     = &InputPrivacyValueAllowChatParticipants{}
-	_ bin.Decoder     = &InputPrivacyValueAllowChatParticipants{}
-	_ bin.BareEncoder = &InputPrivacyValueAllowChatParticipants{}
-	_ bin.BareDecoder = &InputPrivacyValueAllowChatParticipants{}
-
-	_ InputPrivacyRuleClass = &InputPrivacyValueAllowChatParticipants{}
-)
+// GetChats returns value of Chats field.
+func (i *InputPrivacyValueAllowChatParticipants) GetChats() (value []int) {
+	return i.Chats
+}
 
 // InputPrivacyValueDisallowChatParticipants represents TL type `inputPrivacyValueDisallowChatParticipants#d82363af`.
 // Disallow only participants of certain chats
@@ -903,6 +903,19 @@ type InputPrivacyValueDisallowChatParticipants struct {
 
 // InputPrivacyValueDisallowChatParticipantsTypeID is TL type id of InputPrivacyValueDisallowChatParticipants.
 const InputPrivacyValueDisallowChatParticipantsTypeID = 0xd82363af
+
+// construct implements constructor of InputPrivacyRuleClass.
+func (i InputPrivacyValueDisallowChatParticipants) construct() InputPrivacyRuleClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyValueDisallowChatParticipants.
+var (
+	_ bin.Encoder     = &InputPrivacyValueDisallowChatParticipants{}
+	_ bin.Decoder     = &InputPrivacyValueDisallowChatParticipants{}
+	_ bin.BareEncoder = &InputPrivacyValueDisallowChatParticipants{}
+	_ bin.BareDecoder = &InputPrivacyValueDisallowChatParticipants{}
+
+	_ InputPrivacyRuleClass = &InputPrivacyValueDisallowChatParticipants{}
+)
 
 func (i *InputPrivacyValueDisallowChatParticipants) Zero() bool {
 	if i == nil {
@@ -983,11 +996,6 @@ func (i *InputPrivacyValueDisallowChatParticipants) EncodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// GetChats returns value of Chats field.
-func (i *InputPrivacyValueDisallowChatParticipants) GetChats() (value []int) {
-	return i.Chats
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPrivacyValueDisallowChatParticipants) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1024,18 +1032,10 @@ func (i *InputPrivacyValueDisallowChatParticipants) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// construct implements constructor of InputPrivacyRuleClass.
-func (i InputPrivacyValueDisallowChatParticipants) construct() InputPrivacyRuleClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPrivacyValueDisallowChatParticipants.
-var (
-	_ bin.Encoder     = &InputPrivacyValueDisallowChatParticipants{}
-	_ bin.Decoder     = &InputPrivacyValueDisallowChatParticipants{}
-	_ bin.BareEncoder = &InputPrivacyValueDisallowChatParticipants{}
-	_ bin.BareDecoder = &InputPrivacyValueDisallowChatParticipants{}
-
-	_ InputPrivacyRuleClass = &InputPrivacyValueDisallowChatParticipants{}
-)
+// GetChats returns value of Chats field.
+func (i *InputPrivacyValueDisallowChatParticipants) GetChats() (value []int) {
+	return i.Chats
+}
 
 // InputPrivacyRuleClass represents InputPrivacyRule generic type.
 //

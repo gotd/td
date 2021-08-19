@@ -40,6 +40,14 @@ type ChannelsConvertToGigagroupRequest struct {
 // ChannelsConvertToGigagroupRequestTypeID is TL type id of ChannelsConvertToGigagroupRequest.
 const ChannelsConvertToGigagroupRequestTypeID = 0xb290c69
 
+// Ensuring interfaces in compile-time for ChannelsConvertToGigagroupRequest.
+var (
+	_ bin.Encoder     = &ChannelsConvertToGigagroupRequest{}
+	_ bin.Decoder     = &ChannelsConvertToGigagroupRequest{}
+	_ bin.BareEncoder = &ChannelsConvertToGigagroupRequest{}
+	_ bin.BareDecoder = &ChannelsConvertToGigagroupRequest{}
+)
+
 func (c *ChannelsConvertToGigagroupRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -121,16 +129,6 @@ func (c *ChannelsConvertToGigagroupRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (c *ChannelsConvertToGigagroupRequest) GetChannel() (value InputChannelClass) {
-	return c.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (c *ChannelsConvertToGigagroupRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return c.Channel.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelsConvertToGigagroupRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -157,13 +155,15 @@ func (c *ChannelsConvertToGigagroupRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsConvertToGigagroupRequest.
-var (
-	_ bin.Encoder     = &ChannelsConvertToGigagroupRequest{}
-	_ bin.Decoder     = &ChannelsConvertToGigagroupRequest{}
-	_ bin.BareEncoder = &ChannelsConvertToGigagroupRequest{}
-	_ bin.BareDecoder = &ChannelsConvertToGigagroupRequest{}
-)
+// GetChannel returns value of Channel field.
+func (c *ChannelsConvertToGigagroupRequest) GetChannel() (value InputChannelClass) {
+	return c.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (c *ChannelsConvertToGigagroupRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return c.Channel.AsNotEmpty()
+}
 
 // ChannelsConvertToGigagroup invokes method channels.convertToGigagroup#b290c69 returning error if any.
 //

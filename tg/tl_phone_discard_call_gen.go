@@ -54,6 +54,14 @@ type PhoneDiscardCallRequest struct {
 // PhoneDiscardCallRequestTypeID is TL type id of PhoneDiscardCallRequest.
 const PhoneDiscardCallRequestTypeID = 0xb2cbc1c0
 
+// Ensuring interfaces in compile-time for PhoneDiscardCallRequest.
+var (
+	_ bin.Encoder     = &PhoneDiscardCallRequest{}
+	_ bin.Decoder     = &PhoneDiscardCallRequest{}
+	_ bin.BareEncoder = &PhoneDiscardCallRequest{}
+	_ bin.BareDecoder = &PhoneDiscardCallRequest{}
+)
+
 func (d *PhoneDiscardCallRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -186,42 +194,6 @@ func (d *PhoneDiscardCallRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetVideo sets value of Video conditional field.
-func (d *PhoneDiscardCallRequest) SetVideo(value bool) {
-	if value {
-		d.Flags.Set(0)
-		d.Video = true
-	} else {
-		d.Flags.Unset(0)
-		d.Video = false
-	}
-}
-
-// GetVideo returns value of Video conditional field.
-func (d *PhoneDiscardCallRequest) GetVideo() (value bool) {
-	return d.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (d *PhoneDiscardCallRequest) GetPeer() (value InputPhoneCall) {
-	return d.Peer
-}
-
-// GetDuration returns value of Duration field.
-func (d *PhoneDiscardCallRequest) GetDuration() (value int) {
-	return d.Duration
-}
-
-// GetReason returns value of Reason field.
-func (d *PhoneDiscardCallRequest) GetReason() (value PhoneCallDiscardReasonClass) {
-	return d.Reason
-}
-
-// GetConnectionID returns value of ConnectionID field.
-func (d *PhoneDiscardCallRequest) GetConnectionID() (value int64) {
-	return d.ConnectionID
-}
-
 // Decode implements bin.Decoder.
 func (d *PhoneDiscardCallRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -273,13 +245,41 @@ func (d *PhoneDiscardCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneDiscardCallRequest.
-var (
-	_ bin.Encoder     = &PhoneDiscardCallRequest{}
-	_ bin.Decoder     = &PhoneDiscardCallRequest{}
-	_ bin.BareEncoder = &PhoneDiscardCallRequest{}
-	_ bin.BareDecoder = &PhoneDiscardCallRequest{}
-)
+// SetVideo sets value of Video conditional field.
+func (d *PhoneDiscardCallRequest) SetVideo(value bool) {
+	if value {
+		d.Flags.Set(0)
+		d.Video = true
+	} else {
+		d.Flags.Unset(0)
+		d.Video = false
+	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (d *PhoneDiscardCallRequest) GetVideo() (value bool) {
+	return d.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (d *PhoneDiscardCallRequest) GetPeer() (value InputPhoneCall) {
+	return d.Peer
+}
+
+// GetDuration returns value of Duration field.
+func (d *PhoneDiscardCallRequest) GetDuration() (value int) {
+	return d.Duration
+}
+
+// GetReason returns value of Reason field.
+func (d *PhoneDiscardCallRequest) GetReason() (value PhoneCallDiscardReasonClass) {
+	return d.Reason
+}
+
+// GetConnectionID returns value of ConnectionID field.
+func (d *PhoneDiscardCallRequest) GetConnectionID() (value int64) {
+	return d.ConnectionID
+}
 
 // PhoneDiscardCall invokes method phone.discardCall#b2cbc1c0 returning error if any.
 // Refuse or end running call

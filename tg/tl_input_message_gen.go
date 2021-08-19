@@ -41,6 +41,19 @@ type InputMessageID struct {
 // InputMessageIDTypeID is TL type id of InputMessageID.
 const InputMessageIDTypeID = 0xa676a322
 
+// construct implements constructor of InputMessageClass.
+func (i InputMessageID) construct() InputMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessageID.
+var (
+	_ bin.Encoder     = &InputMessageID{}
+	_ bin.Decoder     = &InputMessageID{}
+	_ bin.BareEncoder = &InputMessageID{}
+	_ bin.BareDecoder = &InputMessageID{}
+
+	_ InputMessageClass = &InputMessageID{}
+)
+
 func (i *InputMessageID) Zero() bool {
 	if i == nil {
 		return true
@@ -117,11 +130,6 @@ func (i *InputMessageID) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputMessageID) GetID() (value int) {
-	return i.ID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMessageID) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -148,18 +156,10 @@ func (i *InputMessageID) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMessageClass.
-func (i InputMessageID) construct() InputMessageClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessageID.
-var (
-	_ bin.Encoder     = &InputMessageID{}
-	_ bin.Decoder     = &InputMessageID{}
-	_ bin.BareEncoder = &InputMessageID{}
-	_ bin.BareDecoder = &InputMessageID{}
-
-	_ InputMessageClass = &InputMessageID{}
-)
+// GetID returns value of ID field.
+func (i *InputMessageID) GetID() (value int) {
+	return i.ID
+}
 
 // InputMessageReplyTo represents TL type `inputMessageReplyTo#bad88395`.
 // Message to which the specified message replies to
@@ -172,6 +172,19 @@ type InputMessageReplyTo struct {
 
 // InputMessageReplyToTypeID is TL type id of InputMessageReplyTo.
 const InputMessageReplyToTypeID = 0xbad88395
+
+// construct implements constructor of InputMessageClass.
+func (i InputMessageReplyTo) construct() InputMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessageReplyTo.
+var (
+	_ bin.Encoder     = &InputMessageReplyTo{}
+	_ bin.Decoder     = &InputMessageReplyTo{}
+	_ bin.BareEncoder = &InputMessageReplyTo{}
+	_ bin.BareDecoder = &InputMessageReplyTo{}
+
+	_ InputMessageClass = &InputMessageReplyTo{}
+)
 
 func (i *InputMessageReplyTo) Zero() bool {
 	if i == nil {
@@ -249,11 +262,6 @@ func (i *InputMessageReplyTo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputMessageReplyTo) GetID() (value int) {
-	return i.ID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMessageReplyTo) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -280,18 +288,10 @@ func (i *InputMessageReplyTo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMessageClass.
-func (i InputMessageReplyTo) construct() InputMessageClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessageReplyTo.
-var (
-	_ bin.Encoder     = &InputMessageReplyTo{}
-	_ bin.Decoder     = &InputMessageReplyTo{}
-	_ bin.BareEncoder = &InputMessageReplyTo{}
-	_ bin.BareDecoder = &InputMessageReplyTo{}
-
-	_ InputMessageClass = &InputMessageReplyTo{}
-)
+// GetID returns value of ID field.
+func (i *InputMessageReplyTo) GetID() (value int) {
+	return i.ID
+}
 
 // InputMessagePinned represents TL type `inputMessagePinned#86872538`.
 // Pinned message
@@ -302,6 +302,19 @@ type InputMessagePinned struct {
 
 // InputMessagePinnedTypeID is TL type id of InputMessagePinned.
 const InputMessagePinnedTypeID = 0x86872538
+
+// construct implements constructor of InputMessageClass.
+func (i InputMessagePinned) construct() InputMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagePinned.
+var (
+	_ bin.Encoder     = &InputMessagePinned{}
+	_ bin.Decoder     = &InputMessagePinned{}
+	_ bin.BareEncoder = &InputMessagePinned{}
+	_ bin.BareDecoder = &InputMessagePinned{}
+
+	_ InputMessageClass = &InputMessagePinned{}
+)
 
 func (i *InputMessagePinned) Zero() bool {
 	if i == nil {
@@ -382,19 +395,6 @@ func (i *InputMessagePinned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMessageClass.
-func (i InputMessagePinned) construct() InputMessageClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagePinned.
-var (
-	_ bin.Encoder     = &InputMessagePinned{}
-	_ bin.Decoder     = &InputMessagePinned{}
-	_ bin.BareEncoder = &InputMessagePinned{}
-	_ bin.BareDecoder = &InputMessagePinned{}
-
-	_ InputMessageClass = &InputMessagePinned{}
-)
-
 // InputMessageCallbackQuery represents TL type `inputMessageCallbackQuery#acfa1a7e`.
 // Used by bots for fetching information about the message that originated a callback
 // query
@@ -409,6 +409,19 @@ type InputMessageCallbackQuery struct {
 
 // InputMessageCallbackQueryTypeID is TL type id of InputMessageCallbackQuery.
 const InputMessageCallbackQueryTypeID = 0xacfa1a7e
+
+// construct implements constructor of InputMessageClass.
+func (i InputMessageCallbackQuery) construct() InputMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessageCallbackQuery.
+var (
+	_ bin.Encoder     = &InputMessageCallbackQuery{}
+	_ bin.Decoder     = &InputMessageCallbackQuery{}
+	_ bin.BareEncoder = &InputMessageCallbackQuery{}
+	_ bin.BareDecoder = &InputMessageCallbackQuery{}
+
+	_ InputMessageClass = &InputMessageCallbackQuery{}
+)
 
 func (i *InputMessageCallbackQuery) Zero() bool {
 	if i == nil {
@@ -496,16 +509,6 @@ func (i *InputMessageCallbackQuery) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputMessageCallbackQuery) GetID() (value int) {
-	return i.ID
-}
-
-// GetQueryID returns value of QueryID field.
-func (i *InputMessageCallbackQuery) GetQueryID() (value int64) {
-	return i.QueryID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMessageCallbackQuery) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -539,18 +542,15 @@ func (i *InputMessageCallbackQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputMessageClass.
-func (i InputMessageCallbackQuery) construct() InputMessageClass { return &i }
+// GetID returns value of ID field.
+func (i *InputMessageCallbackQuery) GetID() (value int) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputMessageCallbackQuery.
-var (
-	_ bin.Encoder     = &InputMessageCallbackQuery{}
-	_ bin.Decoder     = &InputMessageCallbackQuery{}
-	_ bin.BareEncoder = &InputMessageCallbackQuery{}
-	_ bin.BareDecoder = &InputMessageCallbackQuery{}
-
-	_ InputMessageClass = &InputMessageCallbackQuery{}
-)
+// GetQueryID returns value of QueryID field.
+func (i *InputMessageCallbackQuery) GetQueryID() (value int64) {
+	return i.QueryID
+}
 
 // InputMessageClass represents InputMessage generic type.
 //

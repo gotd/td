@@ -47,6 +47,14 @@ type MessagesDeleteChatUserRequest struct {
 // MessagesDeleteChatUserRequestTypeID is TL type id of MessagesDeleteChatUserRequest.
 const MessagesDeleteChatUserRequestTypeID = 0xc534459a
 
+// Ensuring interfaces in compile-time for MessagesDeleteChatUserRequest.
+var (
+	_ bin.Encoder     = &MessagesDeleteChatUserRequest{}
+	_ bin.Decoder     = &MessagesDeleteChatUserRequest{}
+	_ bin.BareEncoder = &MessagesDeleteChatUserRequest{}
+	_ bin.BareDecoder = &MessagesDeleteChatUserRequest{}
+)
+
 func (d *MessagesDeleteChatUserRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -157,32 +165,6 @@ func (d *MessagesDeleteChatUserRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetRevokeHistory sets value of RevokeHistory conditional field.
-func (d *MessagesDeleteChatUserRequest) SetRevokeHistory(value bool) {
-	if value {
-		d.Flags.Set(0)
-		d.RevokeHistory = true
-	} else {
-		d.Flags.Unset(0)
-		d.RevokeHistory = false
-	}
-}
-
-// GetRevokeHistory returns value of RevokeHistory conditional field.
-func (d *MessagesDeleteChatUserRequest) GetRevokeHistory() (value bool) {
-	return d.Flags.Has(0)
-}
-
-// GetChatID returns value of ChatID field.
-func (d *MessagesDeleteChatUserRequest) GetChatID() (value int) {
-	return d.ChatID
-}
-
-// GetUserID returns value of UserID field.
-func (d *MessagesDeleteChatUserRequest) GetUserID() (value InputUserClass) {
-	return d.UserID
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteChatUserRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -222,13 +204,31 @@ func (d *MessagesDeleteChatUserRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesDeleteChatUserRequest.
-var (
-	_ bin.Encoder     = &MessagesDeleteChatUserRequest{}
-	_ bin.Decoder     = &MessagesDeleteChatUserRequest{}
-	_ bin.BareEncoder = &MessagesDeleteChatUserRequest{}
-	_ bin.BareDecoder = &MessagesDeleteChatUserRequest{}
-)
+// SetRevokeHistory sets value of RevokeHistory conditional field.
+func (d *MessagesDeleteChatUserRequest) SetRevokeHistory(value bool) {
+	if value {
+		d.Flags.Set(0)
+		d.RevokeHistory = true
+	} else {
+		d.Flags.Unset(0)
+		d.RevokeHistory = false
+	}
+}
+
+// GetRevokeHistory returns value of RevokeHistory conditional field.
+func (d *MessagesDeleteChatUserRequest) GetRevokeHistory() (value bool) {
+	return d.Flags.Has(0)
+}
+
+// GetChatID returns value of ChatID field.
+func (d *MessagesDeleteChatUserRequest) GetChatID() (value int) {
+	return d.ChatID
+}
+
+// GetUserID returns value of UserID field.
+func (d *MessagesDeleteChatUserRequest) GetUserID() (value InputUserClass) {
+	return d.UserID
+}
 
 // MessagesDeleteChatUser invokes method messages.deleteChatUser#c534459a returning error if any.
 // Deletes a user from a chat and sends a service message on it.

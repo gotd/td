@@ -47,6 +47,14 @@ type ChannelsGetLeftChannelsRequest struct {
 // ChannelsGetLeftChannelsRequestTypeID is TL type id of ChannelsGetLeftChannelsRequest.
 const ChannelsGetLeftChannelsRequestTypeID = 0x8341ecc0
 
+// Ensuring interfaces in compile-time for ChannelsGetLeftChannelsRequest.
+var (
+	_ bin.Encoder     = &ChannelsGetLeftChannelsRequest{}
+	_ bin.Decoder     = &ChannelsGetLeftChannelsRequest{}
+	_ bin.BareEncoder = &ChannelsGetLeftChannelsRequest{}
+	_ bin.BareDecoder = &ChannelsGetLeftChannelsRequest{}
+)
+
 func (g *ChannelsGetLeftChannelsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -123,11 +131,6 @@ func (g *ChannelsGetLeftChannelsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (g *ChannelsGetLeftChannelsRequest) GetOffset() (value int) {
-	return g.Offset
-}
-
 // Decode implements bin.Decoder.
 func (g *ChannelsGetLeftChannelsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -154,13 +157,10 @@ func (g *ChannelsGetLeftChannelsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsGetLeftChannelsRequest.
-var (
-	_ bin.Encoder     = &ChannelsGetLeftChannelsRequest{}
-	_ bin.Decoder     = &ChannelsGetLeftChannelsRequest{}
-	_ bin.BareEncoder = &ChannelsGetLeftChannelsRequest{}
-	_ bin.BareDecoder = &ChannelsGetLeftChannelsRequest{}
-)
+// GetOffset returns value of Offset field.
+func (g *ChannelsGetLeftChannelsRequest) GetOffset() (value int) {
+	return g.Offset
+}
 
 // ChannelsGetLeftChannels invokes method channels.getLeftChannels#8341ecc0 returning error if any.
 // Get a list of channels/supergroups¹ we left

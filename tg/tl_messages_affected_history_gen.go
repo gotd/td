@@ -47,6 +47,14 @@ type MessagesAffectedHistory struct {
 // MessagesAffectedHistoryTypeID is TL type id of MessagesAffectedHistory.
 const MessagesAffectedHistoryTypeID = 0xb45c69d1
 
+// Ensuring interfaces in compile-time for MessagesAffectedHistory.
+var (
+	_ bin.Encoder     = &MessagesAffectedHistory{}
+	_ bin.Decoder     = &MessagesAffectedHistory{}
+	_ bin.BareEncoder = &MessagesAffectedHistory{}
+	_ bin.BareDecoder = &MessagesAffectedHistory{}
+)
+
 func (a *MessagesAffectedHistory) Zero() bool {
 	if a == nil {
 		return true
@@ -143,21 +151,6 @@ func (a *MessagesAffectedHistory) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPts returns value of Pts field.
-func (a *MessagesAffectedHistory) GetPts() (value int) {
-	return a.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (a *MessagesAffectedHistory) GetPtsCount() (value int) {
-	return a.PtsCount
-}
-
-// GetOffset returns value of Offset field.
-func (a *MessagesAffectedHistory) GetOffset() (value int) {
-	return a.Offset
-}
-
 // Decode implements bin.Decoder.
 func (a *MessagesAffectedHistory) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -198,10 +191,17 @@ func (a *MessagesAffectedHistory) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesAffectedHistory.
-var (
-	_ bin.Encoder     = &MessagesAffectedHistory{}
-	_ bin.Decoder     = &MessagesAffectedHistory{}
-	_ bin.BareEncoder = &MessagesAffectedHistory{}
-	_ bin.BareDecoder = &MessagesAffectedHistory{}
-)
+// GetPts returns value of Pts field.
+func (a *MessagesAffectedHistory) GetPts() (value int) {
+	return a.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (a *MessagesAffectedHistory) GetPtsCount() (value int) {
+	return a.PtsCount
+}
+
+// GetOffset returns value of Offset field.
+func (a *MessagesAffectedHistory) GetOffset() (value int) {
+	return a.Offset
+}

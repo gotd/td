@@ -41,6 +41,14 @@ type ContactsBlockRequest struct {
 // ContactsBlockRequestTypeID is TL type id of ContactsBlockRequest.
 const ContactsBlockRequestTypeID = 0x68cc1411
 
+// Ensuring interfaces in compile-time for ContactsBlockRequest.
+var (
+	_ bin.Encoder     = &ContactsBlockRequest{}
+	_ bin.Decoder     = &ContactsBlockRequest{}
+	_ bin.BareEncoder = &ContactsBlockRequest{}
+	_ bin.BareDecoder = &ContactsBlockRequest{}
+)
+
 func (b *ContactsBlockRequest) Zero() bool {
 	if b == nil {
 		return true
@@ -122,11 +130,6 @@ func (b *ContactsBlockRequest) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (b *ContactsBlockRequest) GetID() (value InputPeerClass) {
-	return b.ID
-}
-
 // Decode implements bin.Decoder.
 func (b *ContactsBlockRequest) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -153,13 +156,10 @@ func (b *ContactsBlockRequest) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsBlockRequest.
-var (
-	_ bin.Encoder     = &ContactsBlockRequest{}
-	_ bin.Decoder     = &ContactsBlockRequest{}
-	_ bin.BareEncoder = &ContactsBlockRequest{}
-	_ bin.BareDecoder = &ContactsBlockRequest{}
-)
+// GetID returns value of ID field.
+func (b *ContactsBlockRequest) GetID() (value InputPeerClass) {
+	return b.ID
+}
 
 // ContactsBlock invokes method contacts.block#68cc1411 returning error if any.
 // Adds the user to the blacklist.

@@ -44,6 +44,14 @@ type AuthRequestPasswordRecoveryRequest struct {
 // AuthRequestPasswordRecoveryRequestTypeID is TL type id of AuthRequestPasswordRecoveryRequest.
 const AuthRequestPasswordRecoveryRequestTypeID = 0xd897bc66
 
+// Ensuring interfaces in compile-time for AuthRequestPasswordRecoveryRequest.
+var (
+	_ bin.Encoder     = &AuthRequestPasswordRecoveryRequest{}
+	_ bin.Decoder     = &AuthRequestPasswordRecoveryRequest{}
+	_ bin.BareEncoder = &AuthRequestPasswordRecoveryRequest{}
+	_ bin.BareDecoder = &AuthRequestPasswordRecoveryRequest{}
+)
+
 func (r *AuthRequestPasswordRecoveryRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -122,14 +130,6 @@ func (r *AuthRequestPasswordRecoveryRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AuthRequestPasswordRecoveryRequest.
-var (
-	_ bin.Encoder     = &AuthRequestPasswordRecoveryRequest{}
-	_ bin.Decoder     = &AuthRequestPasswordRecoveryRequest{}
-	_ bin.BareEncoder = &AuthRequestPasswordRecoveryRequest{}
-	_ bin.BareDecoder = &AuthRequestPasswordRecoveryRequest{}
-)
 
 // AuthRequestPasswordRecovery invokes method auth.requestPasswordRecovery#d897bc66 returning error if any.
 // Request recovery code of a 2FA password¹, only for accounts with a recovery email

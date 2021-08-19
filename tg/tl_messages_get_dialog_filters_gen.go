@@ -42,6 +42,14 @@ type MessagesGetDialogFiltersRequest struct {
 // MessagesGetDialogFiltersRequestTypeID is TL type id of MessagesGetDialogFiltersRequest.
 const MessagesGetDialogFiltersRequestTypeID = 0xf19ed96d
 
+// Ensuring interfaces in compile-time for MessagesGetDialogFiltersRequest.
+var (
+	_ bin.Encoder     = &MessagesGetDialogFiltersRequest{}
+	_ bin.Decoder     = &MessagesGetDialogFiltersRequest{}
+	_ bin.BareEncoder = &MessagesGetDialogFiltersRequest{}
+	_ bin.BareDecoder = &MessagesGetDialogFiltersRequest{}
+)
+
 func (g *MessagesGetDialogFiltersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,14 +128,6 @@ func (g *MessagesGetDialogFiltersRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for MessagesGetDialogFiltersRequest.
-var (
-	_ bin.Encoder     = &MessagesGetDialogFiltersRequest{}
-	_ bin.Decoder     = &MessagesGetDialogFiltersRequest{}
-	_ bin.BareEncoder = &MessagesGetDialogFiltersRequest{}
-	_ bin.BareDecoder = &MessagesGetDialogFiltersRequest{}
-)
 
 // MessagesGetDialogFilters invokes method messages.getDialogFilters#f19ed96d returning error if any.
 // Get folders¹

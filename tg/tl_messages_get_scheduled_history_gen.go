@@ -46,6 +46,14 @@ type MessagesGetScheduledHistoryRequest struct {
 // MessagesGetScheduledHistoryRequestTypeID is TL type id of MessagesGetScheduledHistoryRequest.
 const MessagesGetScheduledHistoryRequestTypeID = 0xe2c2685b
 
+// Ensuring interfaces in compile-time for MessagesGetScheduledHistoryRequest.
+var (
+	_ bin.Encoder     = &MessagesGetScheduledHistoryRequest{}
+	_ bin.Decoder     = &MessagesGetScheduledHistoryRequest{}
+	_ bin.BareEncoder = &MessagesGetScheduledHistoryRequest{}
+	_ bin.BareDecoder = &MessagesGetScheduledHistoryRequest{}
+)
+
 func (g *MessagesGetScheduledHistoryRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -137,16 +145,6 @@ func (g *MessagesGetScheduledHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetScheduledHistoryRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetHash returns value of Hash field.
-func (g *MessagesGetScheduledHistoryRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetScheduledHistoryRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -180,13 +178,15 @@ func (g *MessagesGetScheduledHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetScheduledHistoryRequest.
-var (
-	_ bin.Encoder     = &MessagesGetScheduledHistoryRequest{}
-	_ bin.Decoder     = &MessagesGetScheduledHistoryRequest{}
-	_ bin.BareEncoder = &MessagesGetScheduledHistoryRequest{}
-	_ bin.BareDecoder = &MessagesGetScheduledHistoryRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetScheduledHistoryRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetScheduledHistoryRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // MessagesGetScheduledHistory invokes method messages.getScheduledHistory#e2c2685b returning error if any.
 // Get scheduled messages

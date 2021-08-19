@@ -43,6 +43,19 @@ type PageListOrderedItemText struct {
 // PageListOrderedItemTextTypeID is TL type id of PageListOrderedItemText.
 const PageListOrderedItemTextTypeID = 0x5e068047
 
+// construct implements constructor of PageListOrderedItemClass.
+func (p PageListOrderedItemText) construct() PageListOrderedItemClass { return &p }
+
+// Ensuring interfaces in compile-time for PageListOrderedItemText.
+var (
+	_ bin.Encoder     = &PageListOrderedItemText{}
+	_ bin.Decoder     = &PageListOrderedItemText{}
+	_ bin.BareEncoder = &PageListOrderedItemText{}
+	_ bin.BareDecoder = &PageListOrderedItemText{}
+
+	_ PageListOrderedItemClass = &PageListOrderedItemText{}
+)
+
 func (p *PageListOrderedItemText) Zero() bool {
 	if p == nil {
 		return true
@@ -134,16 +147,6 @@ func (p *PageListOrderedItemText) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNum returns value of Num field.
-func (p *PageListOrderedItemText) GetNum() (value string) {
-	return p.Num
-}
-
-// GetText returns value of Text field.
-func (p *PageListOrderedItemText) GetText() (value RichTextClass) {
-	return p.Text
-}
-
 // Decode implements bin.Decoder.
 func (p *PageListOrderedItemText) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -177,18 +180,15 @@ func (p *PageListOrderedItemText) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageListOrderedItemClass.
-func (p PageListOrderedItemText) construct() PageListOrderedItemClass { return &p }
+// GetNum returns value of Num field.
+func (p *PageListOrderedItemText) GetNum() (value string) {
+	return p.Num
+}
 
-// Ensuring interfaces in compile-time for PageListOrderedItemText.
-var (
-	_ bin.Encoder     = &PageListOrderedItemText{}
-	_ bin.Decoder     = &PageListOrderedItemText{}
-	_ bin.BareEncoder = &PageListOrderedItemText{}
-	_ bin.BareDecoder = &PageListOrderedItemText{}
-
-	_ PageListOrderedItemClass = &PageListOrderedItemText{}
-)
+// GetText returns value of Text field.
+func (p *PageListOrderedItemText) GetText() (value RichTextClass) {
+	return p.Text
+}
 
 // PageListOrderedItemBlocks represents TL type `pageListOrderedItemBlocks#98dd8936`.
 // Ordered list of IV¹ blocks
@@ -206,6 +206,19 @@ type PageListOrderedItemBlocks struct {
 
 // PageListOrderedItemBlocksTypeID is TL type id of PageListOrderedItemBlocks.
 const PageListOrderedItemBlocksTypeID = 0x98dd8936
+
+// construct implements constructor of PageListOrderedItemClass.
+func (p PageListOrderedItemBlocks) construct() PageListOrderedItemClass { return &p }
+
+// Ensuring interfaces in compile-time for PageListOrderedItemBlocks.
+var (
+	_ bin.Encoder     = &PageListOrderedItemBlocks{}
+	_ bin.Decoder     = &PageListOrderedItemBlocks{}
+	_ bin.BareEncoder = &PageListOrderedItemBlocks{}
+	_ bin.BareDecoder = &PageListOrderedItemBlocks{}
+
+	_ PageListOrderedItemClass = &PageListOrderedItemBlocks{}
+)
 
 func (p *PageListOrderedItemBlocks) Zero() bool {
 	if p == nil {
@@ -301,21 +314,6 @@ func (p *PageListOrderedItemBlocks) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNum returns value of Num field.
-func (p *PageListOrderedItemBlocks) GetNum() (value string) {
-	return p.Num
-}
-
-// GetBlocks returns value of Blocks field.
-func (p *PageListOrderedItemBlocks) GetBlocks() (value []PageBlockClass) {
-	return p.Blocks
-}
-
-// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
-func (p *PageListOrderedItemBlocks) MapBlocks() (value PageBlockClassArray) {
-	return PageBlockClassArray(p.Blocks)
-}
-
 // Decode implements bin.Decoder.
 func (p *PageListOrderedItemBlocks) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -359,18 +357,20 @@ func (p *PageListOrderedItemBlocks) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageListOrderedItemClass.
-func (p PageListOrderedItemBlocks) construct() PageListOrderedItemClass { return &p }
+// GetNum returns value of Num field.
+func (p *PageListOrderedItemBlocks) GetNum() (value string) {
+	return p.Num
+}
 
-// Ensuring interfaces in compile-time for PageListOrderedItemBlocks.
-var (
-	_ bin.Encoder     = &PageListOrderedItemBlocks{}
-	_ bin.Decoder     = &PageListOrderedItemBlocks{}
-	_ bin.BareEncoder = &PageListOrderedItemBlocks{}
-	_ bin.BareDecoder = &PageListOrderedItemBlocks{}
+// GetBlocks returns value of Blocks field.
+func (p *PageListOrderedItemBlocks) GetBlocks() (value []PageBlockClass) {
+	return p.Blocks
+}
 
-	_ PageListOrderedItemClass = &PageListOrderedItemBlocks{}
-)
+// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
+func (p *PageListOrderedItemBlocks) MapBlocks() (value PageBlockClassArray) {
+	return PageBlockClassArray(p.Blocks)
+}
 
 // PageListOrderedItemClass represents PageListOrderedItem generic type.
 //

@@ -39,6 +39,19 @@ type HelpPassportConfigNotModified struct {
 // HelpPassportConfigNotModifiedTypeID is TL type id of HelpPassportConfigNotModified.
 const HelpPassportConfigNotModifiedTypeID = 0xbfb9f457
 
+// construct implements constructor of HelpPassportConfigClass.
+func (p HelpPassportConfigNotModified) construct() HelpPassportConfigClass { return &p }
+
+// Ensuring interfaces in compile-time for HelpPassportConfigNotModified.
+var (
+	_ bin.Encoder     = &HelpPassportConfigNotModified{}
+	_ bin.Decoder     = &HelpPassportConfigNotModified{}
+	_ bin.BareEncoder = &HelpPassportConfigNotModified{}
+	_ bin.BareDecoder = &HelpPassportConfigNotModified{}
+
+	_ HelpPassportConfigClass = &HelpPassportConfigNotModified{}
+)
+
 func (p *HelpPassportConfigNotModified) Zero() bool {
 	if p == nil {
 		return true
@@ -118,19 +131,6 @@ func (p *HelpPassportConfigNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpPassportConfigClass.
-func (p HelpPassportConfigNotModified) construct() HelpPassportConfigClass { return &p }
-
-// Ensuring interfaces in compile-time for HelpPassportConfigNotModified.
-var (
-	_ bin.Encoder     = &HelpPassportConfigNotModified{}
-	_ bin.Decoder     = &HelpPassportConfigNotModified{}
-	_ bin.BareEncoder = &HelpPassportConfigNotModified{}
-	_ bin.BareDecoder = &HelpPassportConfigNotModified{}
-
-	_ HelpPassportConfigClass = &HelpPassportConfigNotModified{}
-)
-
 // HelpPassportConfig represents TL type `help.passportConfig#a098d6af`.
 // Telegram passport¹ configuration
 //
@@ -150,6 +150,19 @@ type HelpPassportConfig struct {
 
 // HelpPassportConfigTypeID is TL type id of HelpPassportConfig.
 const HelpPassportConfigTypeID = 0xa098d6af
+
+// construct implements constructor of HelpPassportConfigClass.
+func (p HelpPassportConfig) construct() HelpPassportConfigClass { return &p }
+
+// Ensuring interfaces in compile-time for HelpPassportConfig.
+var (
+	_ bin.Encoder     = &HelpPassportConfig{}
+	_ bin.Decoder     = &HelpPassportConfig{}
+	_ bin.BareEncoder = &HelpPassportConfig{}
+	_ bin.BareDecoder = &HelpPassportConfig{}
+
+	_ HelpPassportConfigClass = &HelpPassportConfig{}
+)
 
 func (p *HelpPassportConfig) Zero() bool {
 	if p == nil {
@@ -239,16 +252,6 @@ func (p *HelpPassportConfig) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (p *HelpPassportConfig) GetHash() (value int) {
-	return p.Hash
-}
-
-// GetCountriesLangs returns value of CountriesLangs field.
-func (p *HelpPassportConfig) GetCountriesLangs() (value DataJSON) {
-	return p.CountriesLangs
-}
-
 // Decode implements bin.Decoder.
 func (p *HelpPassportConfig) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -280,18 +283,15 @@ func (p *HelpPassportConfig) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpPassportConfigClass.
-func (p HelpPassportConfig) construct() HelpPassportConfigClass { return &p }
+// GetHash returns value of Hash field.
+func (p *HelpPassportConfig) GetHash() (value int) {
+	return p.Hash
+}
 
-// Ensuring interfaces in compile-time for HelpPassportConfig.
-var (
-	_ bin.Encoder     = &HelpPassportConfig{}
-	_ bin.Decoder     = &HelpPassportConfig{}
-	_ bin.BareEncoder = &HelpPassportConfig{}
-	_ bin.BareDecoder = &HelpPassportConfig{}
-
-	_ HelpPassportConfigClass = &HelpPassportConfig{}
-)
+// GetCountriesLangs returns value of CountriesLangs field.
+func (p *HelpPassportConfig) GetCountriesLangs() (value DataJSON) {
+	return p.CountriesLangs
+}
 
 // HelpPassportConfigClass represents help.PassportConfig generic type.
 //

@@ -42,6 +42,14 @@ type MessagesClearAllDraftsRequest struct {
 // MessagesClearAllDraftsRequestTypeID is TL type id of MessagesClearAllDraftsRequest.
 const MessagesClearAllDraftsRequestTypeID = 0x7e58ee9c
 
+// Ensuring interfaces in compile-time for MessagesClearAllDraftsRequest.
+var (
+	_ bin.Encoder     = &MessagesClearAllDraftsRequest{}
+	_ bin.Decoder     = &MessagesClearAllDraftsRequest{}
+	_ bin.BareEncoder = &MessagesClearAllDraftsRequest{}
+	_ bin.BareDecoder = &MessagesClearAllDraftsRequest{}
+)
+
 func (c *MessagesClearAllDraftsRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -120,14 +128,6 @@ func (c *MessagesClearAllDraftsRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for MessagesClearAllDraftsRequest.
-var (
-	_ bin.Encoder     = &MessagesClearAllDraftsRequest{}
-	_ bin.Decoder     = &MessagesClearAllDraftsRequest{}
-	_ bin.BareEncoder = &MessagesClearAllDraftsRequest{}
-	_ bin.BareDecoder = &MessagesClearAllDraftsRequest{}
-)
 
 // MessagesClearAllDrafts invokes method messages.clearAllDrafts#7e58ee9c returning error if any.
 // Clear all drafts¹.

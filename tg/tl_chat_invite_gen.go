@@ -41,6 +41,19 @@ type ChatInviteAlready struct {
 // ChatInviteAlreadyTypeID is TL type id of ChatInviteAlready.
 const ChatInviteAlreadyTypeID = 0x5a686d7c
 
+// construct implements constructor of ChatInviteClass.
+func (c ChatInviteAlready) construct() ChatInviteClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatInviteAlready.
+var (
+	_ bin.Encoder     = &ChatInviteAlready{}
+	_ bin.Decoder     = &ChatInviteAlready{}
+	_ bin.BareEncoder = &ChatInviteAlready{}
+	_ bin.BareDecoder = &ChatInviteAlready{}
+
+	_ ChatInviteClass = &ChatInviteAlready{}
+)
+
 func (c *ChatInviteAlready) Zero() bool {
 	if c == nil {
 		return true
@@ -122,11 +135,6 @@ func (c *ChatInviteAlready) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChat returns value of Chat field.
-func (c *ChatInviteAlready) GetChat() (value ChatClass) {
-	return c.Chat
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatInviteAlready) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -153,18 +161,10 @@ func (c *ChatInviteAlready) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatInviteClass.
-func (c ChatInviteAlready) construct() ChatInviteClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatInviteAlready.
-var (
-	_ bin.Encoder     = &ChatInviteAlready{}
-	_ bin.Decoder     = &ChatInviteAlready{}
-	_ bin.BareEncoder = &ChatInviteAlready{}
-	_ bin.BareDecoder = &ChatInviteAlready{}
-
-	_ ChatInviteClass = &ChatInviteAlready{}
-)
+// GetChat returns value of Chat field.
+func (c *ChatInviteAlready) GetChat() (value ChatClass) {
+	return c.Chat
+}
 
 // ChatInvite represents TL type `chatInvite#dfc2f58e`.
 // Chat invite info
@@ -211,6 +211,19 @@ type ChatInvite struct {
 
 // ChatInviteTypeID is TL type id of ChatInvite.
 const ChatInviteTypeID = 0xdfc2f58e
+
+// construct implements constructor of ChatInviteClass.
+func (c ChatInvite) construct() ChatInviteClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatInvite.
+var (
+	_ bin.Encoder     = &ChatInvite{}
+	_ bin.Decoder     = &ChatInvite{}
+	_ bin.BareEncoder = &ChatInvite{}
+	_ bin.BareDecoder = &ChatInvite{}
+
+	_ ChatInviteClass = &ChatInvite{}
+)
 
 func (c *ChatInvite) Zero() bool {
 	if c == nil {
@@ -398,6 +411,72 @@ func (c *ChatInvite) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *ChatInvite) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInvite#dfc2f58e to nil")
+	}
+	if err := b.ConsumeID(ChatInviteTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatInvite#dfc2f58e: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatInvite) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInvite#dfc2f58e to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field flags: %w", err)
+		}
+	}
+	c.Channel = c.Flags.Has(0)
+	c.Broadcast = c.Flags.Has(1)
+	c.Public = c.Flags.Has(2)
+	c.Megagroup = c.Flags.Has(3)
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field title: %w", err)
+		}
+		c.Title = value
+	}
+	{
+		value, err := DecodePhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field photo: %w", err)
+		}
+		c.Photo = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants_count: %w", err)
+		}
+		c.ParticipantsCount = value
+	}
+	if c.Flags.Has(4) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.Participants = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeUser(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants: %w", err)
+			}
+			c.Participants = append(c.Participants, value)
+		}
+	}
+	return nil
+}
+
 // SetChannel sets value of Channel conditional field.
 func (c *ChatInvite) SetChannel(value bool) {
 	if value {
@@ -500,85 +579,6 @@ func (c *ChatInvite) MapParticipants() (value UserClassArray, ok bool) {
 	return UserClassArray(c.Participants), true
 }
 
-// Decode implements bin.Decoder.
-func (c *ChatInvite) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatInvite#dfc2f58e to nil")
-	}
-	if err := b.ConsumeID(ChatInviteTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatInvite#dfc2f58e: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatInvite) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatInvite#dfc2f58e to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field flags: %w", err)
-		}
-	}
-	c.Channel = c.Flags.Has(0)
-	c.Broadcast = c.Flags.Has(1)
-	c.Public = c.Flags.Has(2)
-	c.Megagroup = c.Flags.Has(3)
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field title: %w", err)
-		}
-		c.Title = value
-	}
-	{
-		value, err := DecodePhoto(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field photo: %w", err)
-		}
-		c.Photo = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants_count: %w", err)
-		}
-		c.ParticipantsCount = value
-	}
-	if c.Flags.Has(4) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants: %w", err)
-		}
-
-		if headerLen > 0 {
-			c.Participants = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeUser(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants: %w", err)
-			}
-			c.Participants = append(c.Participants, value)
-		}
-	}
-	return nil
-}
-
-// construct implements constructor of ChatInviteClass.
-func (c ChatInvite) construct() ChatInviteClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatInvite.
-var (
-	_ bin.Encoder     = &ChatInvite{}
-	_ bin.Decoder     = &ChatInvite{}
-	_ bin.BareEncoder = &ChatInvite{}
-	_ bin.BareDecoder = &ChatInvite{}
-
-	_ ChatInviteClass = &ChatInvite{}
-)
-
 // ChatInvitePeek represents TL type `chatInvitePeek#61695cb0`.
 // A chat invitation that also allows peeking into the group to read messages without
 // joining it.
@@ -593,6 +593,19 @@ type ChatInvitePeek struct {
 
 // ChatInvitePeekTypeID is TL type id of ChatInvitePeek.
 const ChatInvitePeekTypeID = 0x61695cb0
+
+// construct implements constructor of ChatInviteClass.
+func (c ChatInvitePeek) construct() ChatInviteClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatInvitePeek.
+var (
+	_ bin.Encoder     = &ChatInvitePeek{}
+	_ bin.Decoder     = &ChatInvitePeek{}
+	_ bin.BareEncoder = &ChatInvitePeek{}
+	_ bin.BareDecoder = &ChatInvitePeek{}
+
+	_ ChatInviteClass = &ChatInvitePeek{}
+)
 
 func (c *ChatInvitePeek) Zero() bool {
 	if c == nil {
@@ -685,16 +698,6 @@ func (c *ChatInvitePeek) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChat returns value of Chat field.
-func (c *ChatInvitePeek) GetChat() (value ChatClass) {
-	return c.Chat
-}
-
-// GetExpires returns value of Expires field.
-func (c *ChatInvitePeek) GetExpires() (value int) {
-	return c.Expires
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatInvitePeek) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -728,18 +731,15 @@ func (c *ChatInvitePeek) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatInviteClass.
-func (c ChatInvitePeek) construct() ChatInviteClass { return &c }
+// GetChat returns value of Chat field.
+func (c *ChatInvitePeek) GetChat() (value ChatClass) {
+	return c.Chat
+}
 
-// Ensuring interfaces in compile-time for ChatInvitePeek.
-var (
-	_ bin.Encoder     = &ChatInvitePeek{}
-	_ bin.Decoder     = &ChatInvitePeek{}
-	_ bin.BareEncoder = &ChatInvitePeek{}
-	_ bin.BareDecoder = &ChatInvitePeek{}
-
-	_ ChatInviteClass = &ChatInvitePeek{}
-)
+// GetExpires returns value of Expires field.
+func (c *ChatInvitePeek) GetExpires() (value int) {
+	return c.Expires
+}
 
 // ChatInviteClass represents ChatInvite generic type.
 //

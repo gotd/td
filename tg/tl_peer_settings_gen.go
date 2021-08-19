@@ -67,6 +67,14 @@ type PeerSettings struct {
 // PeerSettingsTypeID is TL type id of PeerSettings.
 const PeerSettingsTypeID = 0x733f2961
 
+// Ensuring interfaces in compile-time for PeerSettings.
+var (
+	_ bin.Encoder     = &PeerSettings{}
+	_ bin.Decoder     = &PeerSettings{}
+	_ bin.BareEncoder = &PeerSettings{}
+	_ bin.BareDecoder = &PeerSettings{}
+)
+
 func (p *PeerSettings) Zero() bool {
 	if p == nil {
 		return true
@@ -262,6 +270,45 @@ func (p *PeerSettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *PeerSettings) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerSettings#733f2961 to nil")
+	}
+	if err := b.ConsumeID(PeerSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode peerSettings#733f2961: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PeerSettings) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerSettings#733f2961 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode peerSettings#733f2961: field flags: %w", err)
+		}
+	}
+	p.ReportSpam = p.Flags.Has(0)
+	p.AddContact = p.Flags.Has(1)
+	p.BlockContact = p.Flags.Has(2)
+	p.ShareContact = p.Flags.Has(3)
+	p.NeedContactsException = p.Flags.Has(4)
+	p.ReportGeo = p.Flags.Has(5)
+	p.Autoarchived = p.Flags.Has(7)
+	p.InviteMembers = p.Flags.Has(8)
+	if p.Flags.Has(6) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerSettings#733f2961: field geo_distance: %w", err)
+		}
+		p.GeoDistance = value
+	}
+	return nil
+}
+
 // SetReportSpam sets value of ReportSpam conditional field.
 func (p *PeerSettings) SetReportSpam(value bool) {
 	if value {
@@ -404,50 +451,3 @@ func (p *PeerSettings) GetGeoDistance() (value int, ok bool) {
 	}
 	return p.GeoDistance, true
 }
-
-// Decode implements bin.Decoder.
-func (p *PeerSettings) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode peerSettings#733f2961 to nil")
-	}
-	if err := b.ConsumeID(PeerSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode peerSettings#733f2961: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *PeerSettings) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode peerSettings#733f2961 to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode peerSettings#733f2961: field flags: %w", err)
-		}
-	}
-	p.ReportSpam = p.Flags.Has(0)
-	p.AddContact = p.Flags.Has(1)
-	p.BlockContact = p.Flags.Has(2)
-	p.ShareContact = p.Flags.Has(3)
-	p.NeedContactsException = p.Flags.Has(4)
-	p.ReportGeo = p.Flags.Has(5)
-	p.Autoarchived = p.Flags.Has(7)
-	p.InviteMembers = p.Flags.Has(8)
-	if p.Flags.Has(6) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#733f2961: field geo_distance: %w", err)
-		}
-		p.GeoDistance = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for PeerSettings.
-var (
-	_ bin.Encoder     = &PeerSettings{}
-	_ bin.Decoder     = &PeerSettings{}
-	_ bin.BareEncoder = &PeerSettings{}
-	_ bin.BareDecoder = &PeerSettings{}
-)

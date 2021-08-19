@@ -76,6 +76,14 @@ type WallPaperSettings struct {
 // WallPaperSettingsTypeID is TL type id of WallPaperSettings.
 const WallPaperSettingsTypeID = 0x1dc1bca4
 
+// Ensuring interfaces in compile-time for WallPaperSettings.
+var (
+	_ bin.Encoder     = &WallPaperSettings{}
+	_ bin.Decoder     = &WallPaperSettings{}
+	_ bin.BareEncoder = &WallPaperSettings{}
+	_ bin.BareDecoder = &WallPaperSettings{}
+)
+
 func (w *WallPaperSettings) Zero() bool {
 	if w == nil {
 		return true
@@ -288,6 +296,74 @@ func (w *WallPaperSettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (w *WallPaperSettings) Decode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode wallPaperSettings#1dc1bca4 to nil")
+	}
+	if err := b.ConsumeID(WallPaperSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: %w", err)
+	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WallPaperSettings) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode wallPaperSettings#1dc1bca4 to nil")
+	}
+	{
+		if err := w.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field flags: %w", err)
+		}
+	}
+	w.Blur = w.Flags.Has(1)
+	w.Motion = w.Flags.Has(2)
+	if w.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field background_color: %w", err)
+		}
+		w.BackgroundColor = value
+	}
+	if w.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field second_background_color: %w", err)
+		}
+		w.SecondBackgroundColor = value
+	}
+	if w.Flags.Has(5) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field third_background_color: %w", err)
+		}
+		w.ThirdBackgroundColor = value
+	}
+	if w.Flags.Has(6) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field fourth_background_color: %w", err)
+		}
+		w.FourthBackgroundColor = value
+	}
+	if w.Flags.Has(3) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field intensity: %w", err)
+		}
+		w.Intensity = value
+	}
+	if w.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field rotation: %w", err)
+		}
+		w.Rotation = value
+	}
+	return nil
+}
+
 // SetBlur sets value of Blur conditional field.
 func (w *WallPaperSettings) SetBlur(value bool) {
 	if value {
@@ -409,79 +485,3 @@ func (w *WallPaperSettings) GetRotation() (value int, ok bool) {
 	}
 	return w.Rotation, true
 }
-
-// Decode implements bin.Decoder.
-func (w *WallPaperSettings) Decode(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't decode wallPaperSettings#1dc1bca4 to nil")
-	}
-	if err := b.ConsumeID(WallPaperSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: %w", err)
-	}
-	return w.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (w *WallPaperSettings) DecodeBare(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't decode wallPaperSettings#1dc1bca4 to nil")
-	}
-	{
-		if err := w.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field flags: %w", err)
-		}
-	}
-	w.Blur = w.Flags.Has(1)
-	w.Motion = w.Flags.Has(2)
-	if w.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field background_color: %w", err)
-		}
-		w.BackgroundColor = value
-	}
-	if w.Flags.Has(4) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field second_background_color: %w", err)
-		}
-		w.SecondBackgroundColor = value
-	}
-	if w.Flags.Has(5) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field third_background_color: %w", err)
-		}
-		w.ThirdBackgroundColor = value
-	}
-	if w.Flags.Has(6) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field fourth_background_color: %w", err)
-		}
-		w.FourthBackgroundColor = value
-	}
-	if w.Flags.Has(3) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field intensity: %w", err)
-		}
-		w.Intensity = value
-	}
-	if w.Flags.Has(4) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperSettings#1dc1bca4: field rotation: %w", err)
-		}
-		w.Rotation = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for WallPaperSettings.
-var (
-	_ bin.Encoder     = &WallPaperSettings{}
-	_ bin.Decoder     = &WallPaperSettings{}
-	_ bin.BareEncoder = &WallPaperSettings{}
-	_ bin.BareDecoder = &WallPaperSettings{}
-)

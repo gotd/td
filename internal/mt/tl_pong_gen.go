@@ -40,6 +40,14 @@ type Pong struct {
 // PongTypeID is TL type id of Pong.
 const PongTypeID = 0x347773c5
 
+// Ensuring interfaces in compile-time for Pong.
+var (
+	_ bin.Encoder     = &Pong{}
+	_ bin.Decoder     = &Pong{}
+	_ bin.BareEncoder = &Pong{}
+	_ bin.BareDecoder = &Pong{}
+)
+
 func (p *Pong) Zero() bool {
 	if p == nil {
 		return true
@@ -61,15 +69,6 @@ func (p *Pong) String() string {
 	}
 	type Alias Pong
 	return fmt.Sprintf("Pong%+v", Alias(*p))
-}
-
-// FillFrom fills Pong from given interface.
-func (p *Pong) FillFrom(from interface {
-	GetMsgID() (value int64)
-	GetPingID() (value int64)
-}) {
-	p.MsgID = from.GetMsgID()
-	p.PingID = from.GetPingID()
 }
 
 // TypeID returns type id in TL schema.
@@ -126,16 +125,6 @@ func (p *Pong) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMsgID returns value of MsgID field.
-func (p *Pong) GetMsgID() (value int64) {
-	return p.MsgID
-}
-
-// GetPingID returns value of PingID field.
-func (p *Pong) GetPingID() (value int64) {
-	return p.PingID
-}
-
 // Decode implements bin.Decoder.
 func (p *Pong) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -169,10 +158,12 @@ func (p *Pong) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for Pong.
-var (
-	_ bin.Encoder     = &Pong{}
-	_ bin.Decoder     = &Pong{}
-	_ bin.BareEncoder = &Pong{}
-	_ bin.BareDecoder = &Pong{}
-)
+// GetMsgID returns value of MsgID field.
+func (p *Pong) GetMsgID() (value int64) {
+	return p.MsgID
+}
+
+// GetPingID returns value of PingID field.
+func (p *Pong) GetPingID() (value int64) {
+	return p.PingID
+}

@@ -46,6 +46,14 @@ type AccountSentEmailCode struct {
 // AccountSentEmailCodeTypeID is TL type id of AccountSentEmailCode.
 const AccountSentEmailCodeTypeID = 0x811f854f
 
+// Ensuring interfaces in compile-time for AccountSentEmailCode.
+var (
+	_ bin.Encoder     = &AccountSentEmailCode{}
+	_ bin.Decoder     = &AccountSentEmailCode{}
+	_ bin.BareEncoder = &AccountSentEmailCode{}
+	_ bin.BareDecoder = &AccountSentEmailCode{}
+)
+
 func (s *AccountSentEmailCode) Zero() bool {
 	if s == nil {
 		return true
@@ -132,16 +140,6 @@ func (s *AccountSentEmailCode) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEmailPattern returns value of EmailPattern field.
-func (s *AccountSentEmailCode) GetEmailPattern() (value string) {
-	return s.EmailPattern
-}
-
-// GetLength returns value of Length field.
-func (s *AccountSentEmailCode) GetLength() (value int) {
-	return s.Length
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSentEmailCode) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -175,10 +173,12 @@ func (s *AccountSentEmailCode) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSentEmailCode.
-var (
-	_ bin.Encoder     = &AccountSentEmailCode{}
-	_ bin.Decoder     = &AccountSentEmailCode{}
-	_ bin.BareEncoder = &AccountSentEmailCode{}
-	_ bin.BareDecoder = &AccountSentEmailCode{}
-)
+// GetEmailPattern returns value of EmailPattern field.
+func (s *AccountSentEmailCode) GetEmailPattern() (value string) {
+	return s.EmailPattern
+}
+
+// GetLength returns value of Length field.
+func (s *AccountSentEmailCode) GetLength() (value int) {
+	return s.Length
+}

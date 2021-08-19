@@ -41,6 +41,19 @@ type RecentMeURLUnknown struct {
 // RecentMeURLUnknownTypeID is TL type id of RecentMeURLUnknown.
 const RecentMeURLUnknownTypeID = 0x46e1d13d
 
+// construct implements constructor of RecentMeURLClass.
+func (r RecentMeURLUnknown) construct() RecentMeURLClass { return &r }
+
+// Ensuring interfaces in compile-time for RecentMeURLUnknown.
+var (
+	_ bin.Encoder     = &RecentMeURLUnknown{}
+	_ bin.Decoder     = &RecentMeURLUnknown{}
+	_ bin.BareEncoder = &RecentMeURLUnknown{}
+	_ bin.BareDecoder = &RecentMeURLUnknown{}
+
+	_ RecentMeURLClass = &RecentMeURLUnknown{}
+)
+
 func (r *RecentMeURLUnknown) Zero() bool {
 	if r == nil {
 		return true
@@ -117,11 +130,6 @@ func (r *RecentMeURLUnknown) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (r *RecentMeURLUnknown) GetURL() (value string) {
-	return r.URL
-}
-
 // Decode implements bin.Decoder.
 func (r *RecentMeURLUnknown) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -148,18 +156,10 @@ func (r *RecentMeURLUnknown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RecentMeURLClass.
-func (r RecentMeURLUnknown) construct() RecentMeURLClass { return &r }
-
-// Ensuring interfaces in compile-time for RecentMeURLUnknown.
-var (
-	_ bin.Encoder     = &RecentMeURLUnknown{}
-	_ bin.Decoder     = &RecentMeURLUnknown{}
-	_ bin.BareEncoder = &RecentMeURLUnknown{}
-	_ bin.BareDecoder = &RecentMeURLUnknown{}
-
-	_ RecentMeURLClass = &RecentMeURLUnknown{}
-)
+// GetURL returns value of URL field.
+func (r *RecentMeURLUnknown) GetURL() (value string) {
+	return r.URL
+}
 
 // RecentMeURLUser represents TL type `recentMeUrlUser#8dbc3336`.
 // Recent t.me link to a user
@@ -174,6 +174,19 @@ type RecentMeURLUser struct {
 
 // RecentMeURLUserTypeID is TL type id of RecentMeURLUser.
 const RecentMeURLUserTypeID = 0x8dbc3336
+
+// construct implements constructor of RecentMeURLClass.
+func (r RecentMeURLUser) construct() RecentMeURLClass { return &r }
+
+// Ensuring interfaces in compile-time for RecentMeURLUser.
+var (
+	_ bin.Encoder     = &RecentMeURLUser{}
+	_ bin.Decoder     = &RecentMeURLUser{}
+	_ bin.BareEncoder = &RecentMeURLUser{}
+	_ bin.BareDecoder = &RecentMeURLUser{}
+
+	_ RecentMeURLClass = &RecentMeURLUser{}
+)
 
 func (r *RecentMeURLUser) Zero() bool {
 	if r == nil {
@@ -261,16 +274,6 @@ func (r *RecentMeURLUser) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (r *RecentMeURLUser) GetURL() (value string) {
-	return r.URL
-}
-
-// GetUserID returns value of UserID field.
-func (r *RecentMeURLUser) GetUserID() (value int) {
-	return r.UserID
-}
-
 // Decode implements bin.Decoder.
 func (r *RecentMeURLUser) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -304,18 +307,15 @@ func (r *RecentMeURLUser) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RecentMeURLClass.
-func (r RecentMeURLUser) construct() RecentMeURLClass { return &r }
+// GetURL returns value of URL field.
+func (r *RecentMeURLUser) GetURL() (value string) {
+	return r.URL
+}
 
-// Ensuring interfaces in compile-time for RecentMeURLUser.
-var (
-	_ bin.Encoder     = &RecentMeURLUser{}
-	_ bin.Decoder     = &RecentMeURLUser{}
-	_ bin.BareEncoder = &RecentMeURLUser{}
-	_ bin.BareDecoder = &RecentMeURLUser{}
-
-	_ RecentMeURLClass = &RecentMeURLUser{}
-)
+// GetUserID returns value of UserID field.
+func (r *RecentMeURLUser) GetUserID() (value int) {
+	return r.UserID
+}
 
 // RecentMeURLChat represents TL type `recentMeUrlChat#a01b22f9`.
 // Recent t.me link to a chat
@@ -330,6 +330,19 @@ type RecentMeURLChat struct {
 
 // RecentMeURLChatTypeID is TL type id of RecentMeURLChat.
 const RecentMeURLChatTypeID = 0xa01b22f9
+
+// construct implements constructor of RecentMeURLClass.
+func (r RecentMeURLChat) construct() RecentMeURLClass { return &r }
+
+// Ensuring interfaces in compile-time for RecentMeURLChat.
+var (
+	_ bin.Encoder     = &RecentMeURLChat{}
+	_ bin.Decoder     = &RecentMeURLChat{}
+	_ bin.BareEncoder = &RecentMeURLChat{}
+	_ bin.BareDecoder = &RecentMeURLChat{}
+
+	_ RecentMeURLClass = &RecentMeURLChat{}
+)
 
 func (r *RecentMeURLChat) Zero() bool {
 	if r == nil {
@@ -417,16 +430,6 @@ func (r *RecentMeURLChat) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (r *RecentMeURLChat) GetURL() (value string) {
-	return r.URL
-}
-
-// GetChatID returns value of ChatID field.
-func (r *RecentMeURLChat) GetChatID() (value int) {
-	return r.ChatID
-}
-
 // Decode implements bin.Decoder.
 func (r *RecentMeURLChat) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -460,18 +463,15 @@ func (r *RecentMeURLChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RecentMeURLClass.
-func (r RecentMeURLChat) construct() RecentMeURLClass { return &r }
+// GetURL returns value of URL field.
+func (r *RecentMeURLChat) GetURL() (value string) {
+	return r.URL
+}
 
-// Ensuring interfaces in compile-time for RecentMeURLChat.
-var (
-	_ bin.Encoder     = &RecentMeURLChat{}
-	_ bin.Decoder     = &RecentMeURLChat{}
-	_ bin.BareEncoder = &RecentMeURLChat{}
-	_ bin.BareDecoder = &RecentMeURLChat{}
-
-	_ RecentMeURLClass = &RecentMeURLChat{}
-)
+// GetChatID returns value of ChatID field.
+func (r *RecentMeURLChat) GetChatID() (value int) {
+	return r.ChatID
+}
 
 // RecentMeURLChatInvite represents TL type `recentMeUrlChatInvite#eb49081d`.
 // Recent t.me invite link to a chat
@@ -486,6 +486,19 @@ type RecentMeURLChatInvite struct {
 
 // RecentMeURLChatInviteTypeID is TL type id of RecentMeURLChatInvite.
 const RecentMeURLChatInviteTypeID = 0xeb49081d
+
+// construct implements constructor of RecentMeURLClass.
+func (r RecentMeURLChatInvite) construct() RecentMeURLClass { return &r }
+
+// Ensuring interfaces in compile-time for RecentMeURLChatInvite.
+var (
+	_ bin.Encoder     = &RecentMeURLChatInvite{}
+	_ bin.Decoder     = &RecentMeURLChatInvite{}
+	_ bin.BareEncoder = &RecentMeURLChatInvite{}
+	_ bin.BareDecoder = &RecentMeURLChatInvite{}
+
+	_ RecentMeURLClass = &RecentMeURLChatInvite{}
+)
 
 func (r *RecentMeURLChatInvite) Zero() bool {
 	if r == nil {
@@ -578,16 +591,6 @@ func (r *RecentMeURLChatInvite) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (r *RecentMeURLChatInvite) GetURL() (value string) {
-	return r.URL
-}
-
-// GetChatInvite returns value of ChatInvite field.
-func (r *RecentMeURLChatInvite) GetChatInvite() (value ChatInviteClass) {
-	return r.ChatInvite
-}
-
 // Decode implements bin.Decoder.
 func (r *RecentMeURLChatInvite) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -621,18 +624,15 @@ func (r *RecentMeURLChatInvite) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RecentMeURLClass.
-func (r RecentMeURLChatInvite) construct() RecentMeURLClass { return &r }
+// GetURL returns value of URL field.
+func (r *RecentMeURLChatInvite) GetURL() (value string) {
+	return r.URL
+}
 
-// Ensuring interfaces in compile-time for RecentMeURLChatInvite.
-var (
-	_ bin.Encoder     = &RecentMeURLChatInvite{}
-	_ bin.Decoder     = &RecentMeURLChatInvite{}
-	_ bin.BareEncoder = &RecentMeURLChatInvite{}
-	_ bin.BareDecoder = &RecentMeURLChatInvite{}
-
-	_ RecentMeURLClass = &RecentMeURLChatInvite{}
-)
+// GetChatInvite returns value of ChatInvite field.
+func (r *RecentMeURLChatInvite) GetChatInvite() (value ChatInviteClass) {
+	return r.ChatInvite
+}
 
 // RecentMeURLStickerSet represents TL type `recentMeUrlStickerSet#bc0a57dc`.
 // Recent t.me stickerset installation URL
@@ -647,6 +647,19 @@ type RecentMeURLStickerSet struct {
 
 // RecentMeURLStickerSetTypeID is TL type id of RecentMeURLStickerSet.
 const RecentMeURLStickerSetTypeID = 0xbc0a57dc
+
+// construct implements constructor of RecentMeURLClass.
+func (r RecentMeURLStickerSet) construct() RecentMeURLClass { return &r }
+
+// Ensuring interfaces in compile-time for RecentMeURLStickerSet.
+var (
+	_ bin.Encoder     = &RecentMeURLStickerSet{}
+	_ bin.Decoder     = &RecentMeURLStickerSet{}
+	_ bin.BareEncoder = &RecentMeURLStickerSet{}
+	_ bin.BareDecoder = &RecentMeURLStickerSet{}
+
+	_ RecentMeURLClass = &RecentMeURLStickerSet{}
+)
 
 func (r *RecentMeURLStickerSet) Zero() bool {
 	if r == nil {
@@ -739,16 +752,6 @@ func (r *RecentMeURLStickerSet) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (r *RecentMeURLStickerSet) GetURL() (value string) {
-	return r.URL
-}
-
-// GetSet returns value of Set field.
-func (r *RecentMeURLStickerSet) GetSet() (value StickerSetCoveredClass) {
-	return r.Set
-}
-
 // Decode implements bin.Decoder.
 func (r *RecentMeURLStickerSet) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -782,18 +785,15 @@ func (r *RecentMeURLStickerSet) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RecentMeURLClass.
-func (r RecentMeURLStickerSet) construct() RecentMeURLClass { return &r }
+// GetURL returns value of URL field.
+func (r *RecentMeURLStickerSet) GetURL() (value string) {
+	return r.URL
+}
 
-// Ensuring interfaces in compile-time for RecentMeURLStickerSet.
-var (
-	_ bin.Encoder     = &RecentMeURLStickerSet{}
-	_ bin.Decoder     = &RecentMeURLStickerSet{}
-	_ bin.BareEncoder = &RecentMeURLStickerSet{}
-	_ bin.BareDecoder = &RecentMeURLStickerSet{}
-
-	_ RecentMeURLClass = &RecentMeURLStickerSet{}
-)
+// GetSet returns value of Set field.
+func (r *RecentMeURLStickerSet) GetSet() (value StickerSetCoveredClass) {
+	return r.Set
+}
 
 // RecentMeURLClass represents RecentMeUrl generic type.
 //

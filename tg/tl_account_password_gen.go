@@ -104,6 +104,14 @@ type AccountPassword struct {
 // AccountPasswordTypeID is TL type id of AccountPassword.
 const AccountPasswordTypeID = 0x185b184f
 
+// Ensuring interfaces in compile-time for AccountPassword.
+var (
+	_ bin.Encoder     = &AccountPassword{}
+	_ bin.Decoder     = &AccountPassword{}
+	_ bin.BareEncoder = &AccountPassword{}
+	_ bin.BareDecoder = &AccountPassword{}
+)
+
 func (p *AccountPassword) Zero() bool {
 	if p == nil {
 		return true
@@ -374,6 +382,96 @@ func (p *AccountPassword) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *AccountPassword) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode account.password#185b184f to nil")
+	}
+	if err := b.ConsumeID(AccountPasswordTypeID); err != nil {
+		return fmt.Errorf("unable to decode account.password#185b184f: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *AccountPassword) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode account.password#185b184f to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode account.password#185b184f: field flags: %w", err)
+		}
+	}
+	p.HasRecovery = p.Flags.Has(0)
+	p.HasSecureValues = p.Flags.Has(1)
+	p.HasPassword = p.Flags.Has(2)
+	if p.Flags.Has(2) {
+		value, err := DecodePasswordKdfAlgo(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode account.password#185b184f: field current_algo: %w", err)
+		}
+		p.CurrentAlgo = value
+	}
+	if p.Flags.Has(2) {
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.password#185b184f: field srp_B: %w", err)
+		}
+		p.SRPB = value
+	}
+	if p.Flags.Has(2) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.password#185b184f: field srp_id: %w", err)
+		}
+		p.SRPID = value
+	}
+	if p.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.password#185b184f: field hint: %w", err)
+		}
+		p.Hint = value
+	}
+	if p.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.password#185b184f: field email_unconfirmed_pattern: %w", err)
+		}
+		p.EmailUnconfirmedPattern = value
+	}
+	{
+		value, err := DecodePasswordKdfAlgo(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode account.password#185b184f: field new_algo: %w", err)
+		}
+		p.NewAlgo = value
+	}
+	{
+		value, err := DecodeSecurePasswordKdfAlgo(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode account.password#185b184f: field new_secure_algo: %w", err)
+		}
+		p.NewSecureAlgo = value
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.password#185b184f: field secure_random: %w", err)
+		}
+		p.SecureRandom = value
+	}
+	if p.Flags.Has(5) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.password#185b184f: field pending_reset_date: %w", err)
+		}
+		p.PendingResetDate = value
+	}
+	return nil
+}
+
 // SetHasRecovery sets value of HasRecovery conditional field.
 func (p *AccountPassword) SetHasRecovery(value bool) {
 	if value {
@@ -526,101 +624,3 @@ func (p *AccountPassword) GetPendingResetDate() (value int, ok bool) {
 	}
 	return p.PendingResetDate, true
 }
-
-// Decode implements bin.Decoder.
-func (p *AccountPassword) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode account.password#185b184f to nil")
-	}
-	if err := b.ConsumeID(AccountPasswordTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.password#185b184f: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *AccountPassword) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode account.password#185b184f to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field flags: %w", err)
-		}
-	}
-	p.HasRecovery = p.Flags.Has(0)
-	p.HasSecureValues = p.Flags.Has(1)
-	p.HasPassword = p.Flags.Has(2)
-	if p.Flags.Has(2) {
-		value, err := DecodePasswordKdfAlgo(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field current_algo: %w", err)
-		}
-		p.CurrentAlgo = value
-	}
-	if p.Flags.Has(2) {
-		value, err := b.Bytes()
-		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field srp_B: %w", err)
-		}
-		p.SRPB = value
-	}
-	if p.Flags.Has(2) {
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field srp_id: %w", err)
-		}
-		p.SRPID = value
-	}
-	if p.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field hint: %w", err)
-		}
-		p.Hint = value
-	}
-	if p.Flags.Has(4) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field email_unconfirmed_pattern: %w", err)
-		}
-		p.EmailUnconfirmedPattern = value
-	}
-	{
-		value, err := DecodePasswordKdfAlgo(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field new_algo: %w", err)
-		}
-		p.NewAlgo = value
-	}
-	{
-		value, err := DecodeSecurePasswordKdfAlgo(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field new_secure_algo: %w", err)
-		}
-		p.NewSecureAlgo = value
-	}
-	{
-		value, err := b.Bytes()
-		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field secure_random: %w", err)
-		}
-		p.SecureRandom = value
-	}
-	if p.Flags.Has(5) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field pending_reset_date: %w", err)
-		}
-		p.PendingResetDate = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for AccountPassword.
-var (
-	_ bin.Encoder     = &AccountPassword{}
-	_ bin.Decoder     = &AccountPassword{}
-	_ bin.BareEncoder = &AccountPassword{}
-	_ bin.BareDecoder = &AccountPassword{}
-)

@@ -43,6 +43,19 @@ type InputPaymentCredentialsSaved struct {
 // InputPaymentCredentialsSavedTypeID is TL type id of InputPaymentCredentialsSaved.
 const InputPaymentCredentialsSavedTypeID = 0xc10eb2cf
 
+// construct implements constructor of InputPaymentCredentialsClass.
+func (i InputPaymentCredentialsSaved) construct() InputPaymentCredentialsClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPaymentCredentialsSaved.
+var (
+	_ bin.Encoder     = &InputPaymentCredentialsSaved{}
+	_ bin.Decoder     = &InputPaymentCredentialsSaved{}
+	_ bin.BareEncoder = &InputPaymentCredentialsSaved{}
+	_ bin.BareDecoder = &InputPaymentCredentialsSaved{}
+
+	_ InputPaymentCredentialsClass = &InputPaymentCredentialsSaved{}
+)
+
 func (i *InputPaymentCredentialsSaved) Zero() bool {
 	if i == nil {
 		return true
@@ -129,16 +142,6 @@ func (i *InputPaymentCredentialsSaved) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputPaymentCredentialsSaved) GetID() (value string) {
-	return i.ID
-}
-
-// GetTmpPassword returns value of TmpPassword field.
-func (i *InputPaymentCredentialsSaved) GetTmpPassword() (value []byte) {
-	return i.TmpPassword
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPaymentCredentialsSaved) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -172,18 +175,15 @@ func (i *InputPaymentCredentialsSaved) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPaymentCredentialsClass.
-func (i InputPaymentCredentialsSaved) construct() InputPaymentCredentialsClass { return &i }
+// GetID returns value of ID field.
+func (i *InputPaymentCredentialsSaved) GetID() (value string) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputPaymentCredentialsSaved.
-var (
-	_ bin.Encoder     = &InputPaymentCredentialsSaved{}
-	_ bin.Decoder     = &InputPaymentCredentialsSaved{}
-	_ bin.BareEncoder = &InputPaymentCredentialsSaved{}
-	_ bin.BareDecoder = &InputPaymentCredentialsSaved{}
-
-	_ InputPaymentCredentialsClass = &InputPaymentCredentialsSaved{}
-)
+// GetTmpPassword returns value of TmpPassword field.
+func (i *InputPaymentCredentialsSaved) GetTmpPassword() (value []byte) {
+	return i.TmpPassword
+}
 
 // InputPaymentCredentials represents TL type `inputPaymentCredentials#3417d728`.
 // Payment credentials
@@ -203,6 +203,19 @@ type InputPaymentCredentials struct {
 
 // InputPaymentCredentialsTypeID is TL type id of InputPaymentCredentials.
 const InputPaymentCredentialsTypeID = 0x3417d728
+
+// construct implements constructor of InputPaymentCredentialsClass.
+func (i InputPaymentCredentials) construct() InputPaymentCredentialsClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPaymentCredentials.
+var (
+	_ bin.Encoder     = &InputPaymentCredentials{}
+	_ bin.Decoder     = &InputPaymentCredentials{}
+	_ bin.BareEncoder = &InputPaymentCredentials{}
+	_ bin.BareDecoder = &InputPaymentCredentials{}
+
+	_ InputPaymentCredentialsClass = &InputPaymentCredentials{}
+)
 
 func (i *InputPaymentCredentials) Zero() bool {
 	if i == nil {
@@ -301,27 +314,6 @@ func (i *InputPaymentCredentials) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetSave sets value of Save conditional field.
-func (i *InputPaymentCredentials) SetSave(value bool) {
-	if value {
-		i.Flags.Set(0)
-		i.Save = true
-	} else {
-		i.Flags.Unset(0)
-		i.Save = false
-	}
-}
-
-// GetSave returns value of Save conditional field.
-func (i *InputPaymentCredentials) GetSave() (value bool) {
-	return i.Flags.Has(0)
-}
-
-// GetData returns value of Data field.
-func (i *InputPaymentCredentials) GetData() (value DataJSON) {
-	return i.Data
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPaymentCredentials) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -352,18 +344,26 @@ func (i *InputPaymentCredentials) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPaymentCredentialsClass.
-func (i InputPaymentCredentials) construct() InputPaymentCredentialsClass { return &i }
+// SetSave sets value of Save conditional field.
+func (i *InputPaymentCredentials) SetSave(value bool) {
+	if value {
+		i.Flags.Set(0)
+		i.Save = true
+	} else {
+		i.Flags.Unset(0)
+		i.Save = false
+	}
+}
 
-// Ensuring interfaces in compile-time for InputPaymentCredentials.
-var (
-	_ bin.Encoder     = &InputPaymentCredentials{}
-	_ bin.Decoder     = &InputPaymentCredentials{}
-	_ bin.BareEncoder = &InputPaymentCredentials{}
-	_ bin.BareDecoder = &InputPaymentCredentials{}
+// GetSave returns value of Save conditional field.
+func (i *InputPaymentCredentials) GetSave() (value bool) {
+	return i.Flags.Has(0)
+}
 
-	_ InputPaymentCredentialsClass = &InputPaymentCredentials{}
-)
+// GetData returns value of Data field.
+func (i *InputPaymentCredentials) GetData() (value DataJSON) {
+	return i.Data
+}
 
 // InputPaymentCredentialsApplePay represents TL type `inputPaymentCredentialsApplePay#aa1c39f`.
 // Apple pay payment credentials
@@ -376,6 +376,19 @@ type InputPaymentCredentialsApplePay struct {
 
 // InputPaymentCredentialsApplePayTypeID is TL type id of InputPaymentCredentialsApplePay.
 const InputPaymentCredentialsApplePayTypeID = 0xaa1c39f
+
+// construct implements constructor of InputPaymentCredentialsClass.
+func (i InputPaymentCredentialsApplePay) construct() InputPaymentCredentialsClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPaymentCredentialsApplePay.
+var (
+	_ bin.Encoder     = &InputPaymentCredentialsApplePay{}
+	_ bin.Decoder     = &InputPaymentCredentialsApplePay{}
+	_ bin.BareEncoder = &InputPaymentCredentialsApplePay{}
+	_ bin.BareDecoder = &InputPaymentCredentialsApplePay{}
+
+	_ InputPaymentCredentialsClass = &InputPaymentCredentialsApplePay{}
+)
 
 func (i *InputPaymentCredentialsApplePay) Zero() bool {
 	if i == nil {
@@ -455,11 +468,6 @@ func (i *InputPaymentCredentialsApplePay) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPaymentData returns value of PaymentData field.
-func (i *InputPaymentCredentialsApplePay) GetPaymentData() (value DataJSON) {
-	return i.PaymentData
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPaymentCredentialsApplePay) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -484,18 +492,10 @@ func (i *InputPaymentCredentialsApplePay) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPaymentCredentialsClass.
-func (i InputPaymentCredentialsApplePay) construct() InputPaymentCredentialsClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPaymentCredentialsApplePay.
-var (
-	_ bin.Encoder     = &InputPaymentCredentialsApplePay{}
-	_ bin.Decoder     = &InputPaymentCredentialsApplePay{}
-	_ bin.BareEncoder = &InputPaymentCredentialsApplePay{}
-	_ bin.BareDecoder = &InputPaymentCredentialsApplePay{}
-
-	_ InputPaymentCredentialsClass = &InputPaymentCredentialsApplePay{}
-)
+// GetPaymentData returns value of PaymentData field.
+func (i *InputPaymentCredentialsApplePay) GetPaymentData() (value DataJSON) {
+	return i.PaymentData
+}
 
 // InputPaymentCredentialsGooglePay represents TL type `inputPaymentCredentialsGooglePay#8ac32801`.
 //
@@ -507,6 +507,19 @@ type InputPaymentCredentialsGooglePay struct {
 
 // InputPaymentCredentialsGooglePayTypeID is TL type id of InputPaymentCredentialsGooglePay.
 const InputPaymentCredentialsGooglePayTypeID = 0x8ac32801
+
+// construct implements constructor of InputPaymentCredentialsClass.
+func (i InputPaymentCredentialsGooglePay) construct() InputPaymentCredentialsClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPaymentCredentialsGooglePay.
+var (
+	_ bin.Encoder     = &InputPaymentCredentialsGooglePay{}
+	_ bin.Decoder     = &InputPaymentCredentialsGooglePay{}
+	_ bin.BareEncoder = &InputPaymentCredentialsGooglePay{}
+	_ bin.BareDecoder = &InputPaymentCredentialsGooglePay{}
+
+	_ InputPaymentCredentialsClass = &InputPaymentCredentialsGooglePay{}
+)
 
 func (i *InputPaymentCredentialsGooglePay) Zero() bool {
 	if i == nil {
@@ -586,11 +599,6 @@ func (i *InputPaymentCredentialsGooglePay) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPaymentToken returns value of PaymentToken field.
-func (i *InputPaymentCredentialsGooglePay) GetPaymentToken() (value DataJSON) {
-	return i.PaymentToken
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPaymentCredentialsGooglePay) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -615,18 +623,10 @@ func (i *InputPaymentCredentialsGooglePay) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPaymentCredentialsClass.
-func (i InputPaymentCredentialsGooglePay) construct() InputPaymentCredentialsClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPaymentCredentialsGooglePay.
-var (
-	_ bin.Encoder     = &InputPaymentCredentialsGooglePay{}
-	_ bin.Decoder     = &InputPaymentCredentialsGooglePay{}
-	_ bin.BareEncoder = &InputPaymentCredentialsGooglePay{}
-	_ bin.BareDecoder = &InputPaymentCredentialsGooglePay{}
-
-	_ InputPaymentCredentialsClass = &InputPaymentCredentialsGooglePay{}
-)
+// GetPaymentToken returns value of PaymentToken field.
+func (i *InputPaymentCredentialsGooglePay) GetPaymentToken() (value DataJSON) {
+	return i.PaymentToken
+}
 
 // InputPaymentCredentialsClass represents InputPaymentCredentials generic type.
 //

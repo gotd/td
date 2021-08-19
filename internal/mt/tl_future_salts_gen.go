@@ -42,6 +42,14 @@ type FutureSalts struct {
 // FutureSaltsTypeID is TL type id of FutureSalts.
 const FutureSaltsTypeID = 0xae500895
 
+// Ensuring interfaces in compile-time for FutureSalts.
+var (
+	_ bin.Encoder     = &FutureSalts{}
+	_ bin.Decoder     = &FutureSalts{}
+	_ bin.BareEncoder = &FutureSalts{}
+	_ bin.BareDecoder = &FutureSalts{}
+)
+
 func (f *FutureSalts) Zero() bool {
 	if f == nil {
 		return true
@@ -66,17 +74,6 @@ func (f *FutureSalts) String() string {
 	}
 	type Alias FutureSalts
 	return fmt.Sprintf("FutureSalts%+v", Alias(*f))
-}
-
-// FillFrom fills FutureSalts from given interface.
-func (f *FutureSalts) FillFrom(from interface {
-	GetReqMsgID() (value int64)
-	GetNow() (value int)
-	GetSalts() (value []FutureSalt)
-}) {
-	f.ReqMsgID = from.GetReqMsgID()
-	f.Now = from.GetNow()
-	f.Salts = from.GetSalts()
 }
 
 // TypeID returns type id in TL schema.
@@ -143,21 +140,6 @@ func (f *FutureSalts) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetReqMsgID returns value of ReqMsgID field.
-func (f *FutureSalts) GetReqMsgID() (value int64) {
-	return f.ReqMsgID
-}
-
-// GetNow returns value of Now field.
-func (f *FutureSalts) GetNow() (value int) {
-	return f.Now
-}
-
-// GetSalts returns value of Salts field.
-func (f *FutureSalts) GetSalts() (value []FutureSalt) {
-	return f.Salts
-}
-
 // Decode implements bin.Decoder.
 func (f *FutureSalts) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -208,10 +190,17 @@ func (f *FutureSalts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for FutureSalts.
-var (
-	_ bin.Encoder     = &FutureSalts{}
-	_ bin.Decoder     = &FutureSalts{}
-	_ bin.BareEncoder = &FutureSalts{}
-	_ bin.BareDecoder = &FutureSalts{}
-)
+// GetReqMsgID returns value of ReqMsgID field.
+func (f *FutureSalts) GetReqMsgID() (value int64) {
+	return f.ReqMsgID
+}
+
+// GetNow returns value of Now field.
+func (f *FutureSalts) GetNow() (value int) {
+	return f.Now
+}
+
+// GetSalts returns value of Salts field.
+func (f *FutureSalts) GetSalts() (value []FutureSalt) {
+	return f.Salts
+}

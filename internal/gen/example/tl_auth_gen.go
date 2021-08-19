@@ -40,6 +40,19 @@ type Auth struct {
 // AuthTypeID is TL type id of Auth.
 const AuthTypeID = 0xf8bb4a38
 
+// construct implements constructor of AuthClass.
+func (a Auth) construct() AuthClass { return &a }
+
+// Ensuring interfaces in compile-time for Auth.
+var (
+	_ bin.Encoder     = &Auth{}
+	_ bin.Decoder     = &Auth{}
+	_ bin.BareEncoder = &Auth{}
+	_ bin.BareDecoder = &Auth{}
+
+	_ AuthClass = &Auth{}
+)
+
 func (a *Auth) Zero() bool {
 	if a == nil {
 		return true
@@ -58,13 +71,6 @@ func (a *Auth) String() string {
 	}
 	type Alias Auth
 	return fmt.Sprintf("Auth%+v", Alias(*a))
-}
-
-// FillFrom fills Auth from given interface.
-func (a *Auth) FillFrom(from interface {
-	GetName() (value string)
-}) {
-	a.Name = from.GetName()
 }
 
 // TypeID returns type id in TL schema.
@@ -116,11 +122,6 @@ func (a *Auth) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetName returns value of Name field.
-func (a *Auth) GetName() (value string) {
-	return a.Name
-}
-
 // Decode implements bin.Decoder.
 func (a *Auth) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -147,18 +148,10 @@ func (a *Auth) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthClass.
-func (a Auth) construct() AuthClass { return &a }
-
-// Ensuring interfaces in compile-time for Auth.
-var (
-	_ bin.Encoder     = &Auth{}
-	_ bin.Decoder     = &Auth{}
-	_ bin.BareEncoder = &Auth{}
-	_ bin.BareDecoder = &Auth{}
-
-	_ AuthClass = &Auth{}
-)
+// GetName returns value of Name field.
+func (a *Auth) GetName() (value string) {
+	return a.Name
+}
 
 // AuthPassword represents TL type `authPassword#29bacabb`.
 //
@@ -172,6 +165,19 @@ type AuthPassword struct {
 
 // AuthPasswordTypeID is TL type id of AuthPassword.
 const AuthPasswordTypeID = 0x29bacabb
+
+// construct implements constructor of AuthClass.
+func (a AuthPassword) construct() AuthClass { return &a }
+
+// Ensuring interfaces in compile-time for AuthPassword.
+var (
+	_ bin.Encoder     = &AuthPassword{}
+	_ bin.Decoder     = &AuthPassword{}
+	_ bin.BareEncoder = &AuthPassword{}
+	_ bin.BareDecoder = &AuthPassword{}
+
+	_ AuthClass = &AuthPassword{}
+)
 
 func (a *AuthPassword) Zero() bool {
 	if a == nil {
@@ -194,15 +200,6 @@ func (a *AuthPassword) String() string {
 	}
 	type Alias AuthPassword
 	return fmt.Sprintf("AuthPassword%+v", Alias(*a))
-}
-
-// FillFrom fills AuthPassword from given interface.
-func (a *AuthPassword) FillFrom(from interface {
-	GetName() (value string)
-	GetPassword() (value string)
-}) {
-	a.Name = from.GetName()
-	a.Password = from.GetPassword()
 }
 
 // TypeID returns type id in TL schema.
@@ -259,16 +256,6 @@ func (a *AuthPassword) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetName returns value of Name field.
-func (a *AuthPassword) GetName() (value string) {
-	return a.Name
-}
-
-// GetPassword returns value of Password field.
-func (a *AuthPassword) GetPassword() (value string) {
-	return a.Password
-}
-
 // Decode implements bin.Decoder.
 func (a *AuthPassword) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -302,18 +289,15 @@ func (a *AuthPassword) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthClass.
-func (a AuthPassword) construct() AuthClass { return &a }
+// GetName returns value of Name field.
+func (a *AuthPassword) GetName() (value string) {
+	return a.Name
+}
 
-// Ensuring interfaces in compile-time for AuthPassword.
-var (
-	_ bin.Encoder     = &AuthPassword{}
-	_ bin.Decoder     = &AuthPassword{}
-	_ bin.BareEncoder = &AuthPassword{}
-	_ bin.BareDecoder = &AuthPassword{}
-
-	_ AuthClass = &AuthPassword{}
-)
+// GetPassword returns value of Password field.
+func (a *AuthPassword) GetPassword() (value string) {
+	return a.Password
+}
 
 // AuthClass represents Auth generic type.
 //
@@ -401,276 +385,4 @@ func (b *AuthBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AuthClass as nil")
 	}
 	return b.Auth.Encode(buf)
-}
-
-// AuthClassArray is adapter for slice of AuthClass.
-type AuthClassArray []AuthClass
-
-// Sort sorts slice of AuthClass.
-func (s AuthClassArray) Sort(less func(a, b AuthClass) bool) AuthClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AuthClass.
-func (s AuthClassArray) SortStable(less func(a, b AuthClass) bool) AuthClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AuthClass.
-func (s AuthClassArray) Retain(keep func(x AuthClass) bool) AuthClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AuthClassArray) First() (v AuthClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AuthClassArray) Last() (v AuthClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthClassArray) PopFirst() (v AuthClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AuthClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthClassArray) Pop() (v AuthClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsAuth returns copy with only Auth constructors.
-func (s AuthClassArray) AsAuth() (to AuthArray) {
-	for _, elem := range s {
-		value, ok := elem.(*Auth)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsAuthPassword returns copy with only AuthPassword constructors.
-func (s AuthClassArray) AsAuthPassword() (to AuthPasswordArray) {
-	for _, elem := range s {
-		value, ok := elem.(*AuthPassword)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AuthArray is adapter for slice of Auth.
-type AuthArray []Auth
-
-// Sort sorts slice of Auth.
-func (s AuthArray) Sort(less func(a, b Auth) bool) AuthArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of Auth.
-func (s AuthArray) SortStable(less func(a, b Auth) bool) AuthArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of Auth.
-func (s AuthArray) Retain(keep func(x Auth) bool) AuthArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AuthArray) First() (v Auth, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AuthArray) Last() (v Auth, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthArray) PopFirst() (v Auth, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero Auth
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthArray) Pop() (v Auth, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AuthPasswordArray is adapter for slice of AuthPassword.
-type AuthPasswordArray []AuthPassword
-
-// Sort sorts slice of AuthPassword.
-func (s AuthPasswordArray) Sort(less func(a, b AuthPassword) bool) AuthPasswordArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AuthPassword.
-func (s AuthPasswordArray) SortStable(less func(a, b AuthPassword) bool) AuthPasswordArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AuthPassword.
-func (s AuthPasswordArray) Retain(keep func(x AuthPassword) bool) AuthPasswordArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AuthPasswordArray) First() (v AuthPassword, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AuthPasswordArray) Last() (v AuthPassword, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthPasswordArray) PopFirst() (v AuthPassword, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AuthPassword
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthPasswordArray) Pop() (v AuthPassword, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

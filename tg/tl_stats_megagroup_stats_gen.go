@@ -76,6 +76,14 @@ type StatsMegagroupStats struct {
 // StatsMegagroupStatsTypeID is TL type id of StatsMegagroupStats.
 const StatsMegagroupStatsTypeID = 0xef7ff916
 
+// Ensuring interfaces in compile-time for StatsMegagroupStats.
+var (
+	_ bin.Encoder     = &StatsMegagroupStats{}
+	_ bin.Decoder     = &StatsMegagroupStats{}
+	_ bin.BareEncoder = &StatsMegagroupStats{}
+	_ bin.BareDecoder = &StatsMegagroupStats{}
+)
+
 func (m *StatsMegagroupStats) Zero() bool {
 	if m == nil {
 		return true
@@ -385,96 +393,6 @@ func (m *StatsMegagroupStats) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeriod returns value of Period field.
-func (m *StatsMegagroupStats) GetPeriod() (value StatsDateRangeDays) {
-	return m.Period
-}
-
-// GetMembers returns value of Members field.
-func (m *StatsMegagroupStats) GetMembers() (value StatsAbsValueAndPrev) {
-	return m.Members
-}
-
-// GetMessages returns value of Messages field.
-func (m *StatsMegagroupStats) GetMessages() (value StatsAbsValueAndPrev) {
-	return m.Messages
-}
-
-// GetViewers returns value of Viewers field.
-func (m *StatsMegagroupStats) GetViewers() (value StatsAbsValueAndPrev) {
-	return m.Viewers
-}
-
-// GetPosters returns value of Posters field.
-func (m *StatsMegagroupStats) GetPosters() (value StatsAbsValueAndPrev) {
-	return m.Posters
-}
-
-// GetGrowthGraph returns value of GrowthGraph field.
-func (m *StatsMegagroupStats) GetGrowthGraph() (value StatsGraphClass) {
-	return m.GrowthGraph
-}
-
-// GetMembersGraph returns value of MembersGraph field.
-func (m *StatsMegagroupStats) GetMembersGraph() (value StatsGraphClass) {
-	return m.MembersGraph
-}
-
-// GetNewMembersBySourceGraph returns value of NewMembersBySourceGraph field.
-func (m *StatsMegagroupStats) GetNewMembersBySourceGraph() (value StatsGraphClass) {
-	return m.NewMembersBySourceGraph
-}
-
-// GetLanguagesGraph returns value of LanguagesGraph field.
-func (m *StatsMegagroupStats) GetLanguagesGraph() (value StatsGraphClass) {
-	return m.LanguagesGraph
-}
-
-// GetMessagesGraph returns value of MessagesGraph field.
-func (m *StatsMegagroupStats) GetMessagesGraph() (value StatsGraphClass) {
-	return m.MessagesGraph
-}
-
-// GetActionsGraph returns value of ActionsGraph field.
-func (m *StatsMegagroupStats) GetActionsGraph() (value StatsGraphClass) {
-	return m.ActionsGraph
-}
-
-// GetTopHoursGraph returns value of TopHoursGraph field.
-func (m *StatsMegagroupStats) GetTopHoursGraph() (value StatsGraphClass) {
-	return m.TopHoursGraph
-}
-
-// GetWeekdaysGraph returns value of WeekdaysGraph field.
-func (m *StatsMegagroupStats) GetWeekdaysGraph() (value StatsGraphClass) {
-	return m.WeekdaysGraph
-}
-
-// GetTopPosters returns value of TopPosters field.
-func (m *StatsMegagroupStats) GetTopPosters() (value []StatsGroupTopPoster) {
-	return m.TopPosters
-}
-
-// GetTopAdmins returns value of TopAdmins field.
-func (m *StatsMegagroupStats) GetTopAdmins() (value []StatsGroupTopAdmin) {
-	return m.TopAdmins
-}
-
-// GetTopInviters returns value of TopInviters field.
-func (m *StatsMegagroupStats) GetTopInviters() (value []StatsGroupTopInviter) {
-	return m.TopInviters
-}
-
-// GetUsers returns value of Users field.
-func (m *StatsMegagroupStats) GetUsers() (value []UserClass) {
-	return m.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (m *StatsMegagroupStats) MapUsers() (value UserClassArray) {
-	return UserClassArray(m.Users)
-}
-
 // Decode implements bin.Decoder.
 func (m *StatsMegagroupStats) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -643,10 +561,92 @@ func (m *StatsMegagroupStats) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsMegagroupStats.
-var (
-	_ bin.Encoder     = &StatsMegagroupStats{}
-	_ bin.Decoder     = &StatsMegagroupStats{}
-	_ bin.BareEncoder = &StatsMegagroupStats{}
-	_ bin.BareDecoder = &StatsMegagroupStats{}
-)
+// GetPeriod returns value of Period field.
+func (m *StatsMegagroupStats) GetPeriod() (value StatsDateRangeDays) {
+	return m.Period
+}
+
+// GetMembers returns value of Members field.
+func (m *StatsMegagroupStats) GetMembers() (value StatsAbsValueAndPrev) {
+	return m.Members
+}
+
+// GetMessages returns value of Messages field.
+func (m *StatsMegagroupStats) GetMessages() (value StatsAbsValueAndPrev) {
+	return m.Messages
+}
+
+// GetViewers returns value of Viewers field.
+func (m *StatsMegagroupStats) GetViewers() (value StatsAbsValueAndPrev) {
+	return m.Viewers
+}
+
+// GetPosters returns value of Posters field.
+func (m *StatsMegagroupStats) GetPosters() (value StatsAbsValueAndPrev) {
+	return m.Posters
+}
+
+// GetGrowthGraph returns value of GrowthGraph field.
+func (m *StatsMegagroupStats) GetGrowthGraph() (value StatsGraphClass) {
+	return m.GrowthGraph
+}
+
+// GetMembersGraph returns value of MembersGraph field.
+func (m *StatsMegagroupStats) GetMembersGraph() (value StatsGraphClass) {
+	return m.MembersGraph
+}
+
+// GetNewMembersBySourceGraph returns value of NewMembersBySourceGraph field.
+func (m *StatsMegagroupStats) GetNewMembersBySourceGraph() (value StatsGraphClass) {
+	return m.NewMembersBySourceGraph
+}
+
+// GetLanguagesGraph returns value of LanguagesGraph field.
+func (m *StatsMegagroupStats) GetLanguagesGraph() (value StatsGraphClass) {
+	return m.LanguagesGraph
+}
+
+// GetMessagesGraph returns value of MessagesGraph field.
+func (m *StatsMegagroupStats) GetMessagesGraph() (value StatsGraphClass) {
+	return m.MessagesGraph
+}
+
+// GetActionsGraph returns value of ActionsGraph field.
+func (m *StatsMegagroupStats) GetActionsGraph() (value StatsGraphClass) {
+	return m.ActionsGraph
+}
+
+// GetTopHoursGraph returns value of TopHoursGraph field.
+func (m *StatsMegagroupStats) GetTopHoursGraph() (value StatsGraphClass) {
+	return m.TopHoursGraph
+}
+
+// GetWeekdaysGraph returns value of WeekdaysGraph field.
+func (m *StatsMegagroupStats) GetWeekdaysGraph() (value StatsGraphClass) {
+	return m.WeekdaysGraph
+}
+
+// GetTopPosters returns value of TopPosters field.
+func (m *StatsMegagroupStats) GetTopPosters() (value []StatsGroupTopPoster) {
+	return m.TopPosters
+}
+
+// GetTopAdmins returns value of TopAdmins field.
+func (m *StatsMegagroupStats) GetTopAdmins() (value []StatsGroupTopAdmin) {
+	return m.TopAdmins
+}
+
+// GetTopInviters returns value of TopInviters field.
+func (m *StatsMegagroupStats) GetTopInviters() (value []StatsGroupTopInviter) {
+	return m.TopInviters
+}
+
+// GetUsers returns value of Users field.
+func (m *StatsMegagroupStats) GetUsers() (value []UserClass) {
+	return m.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (m *StatsMegagroupStats) MapUsers() (value UserClassArray) {
+	return UserClassArray(m.Users)
+}

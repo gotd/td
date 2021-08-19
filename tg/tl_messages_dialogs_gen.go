@@ -47,6 +47,19 @@ type MessagesDialogs struct {
 // MessagesDialogsTypeID is TL type id of MessagesDialogs.
 const MessagesDialogsTypeID = 0x15ba6c40
 
+// construct implements constructor of MessagesDialogsClass.
+func (d MessagesDialogs) construct() MessagesDialogsClass { return &d }
+
+// Ensuring interfaces in compile-time for MessagesDialogs.
+var (
+	_ bin.Encoder     = &MessagesDialogs{}
+	_ bin.Decoder     = &MessagesDialogs{}
+	_ bin.BareEncoder = &MessagesDialogs{}
+	_ bin.BareDecoder = &MessagesDialogs{}
+
+	_ MessagesDialogsClass = &MessagesDialogs{}
+)
+
 func (d *MessagesDialogs) Zero() bool {
 	if d == nil {
 		return true
@@ -185,46 +198,6 @@ func (d *MessagesDialogs) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDialogs returns value of Dialogs field.
-func (d *MessagesDialogs) GetDialogs() (value []DialogClass) {
-	return d.Dialogs
-}
-
-// MapDialogs returns field Dialogs wrapped in DialogClassArray helper.
-func (d *MessagesDialogs) MapDialogs() (value DialogClassArray) {
-	return DialogClassArray(d.Dialogs)
-}
-
-// GetMessages returns value of Messages field.
-func (d *MessagesDialogs) GetMessages() (value []MessageClass) {
-	return d.Messages
-}
-
-// MapMessages returns field Messages wrapped in MessageClassArray helper.
-func (d *MessagesDialogs) MapMessages() (value MessageClassArray) {
-	return MessageClassArray(d.Messages)
-}
-
-// GetChats returns value of Chats field.
-func (d *MessagesDialogs) GetChats() (value []ChatClass) {
-	return d.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (d *MessagesDialogs) MapChats() (value ChatClassArray) {
-	return ChatClassArray(d.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (d *MessagesDialogs) GetUsers() (value []UserClass) {
-	return d.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (d *MessagesDialogs) MapUsers() (value UserClassArray) {
-	return UserClassArray(d.Users)
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDialogs) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -312,18 +285,45 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesDialogsClass.
-func (d MessagesDialogs) construct() MessagesDialogsClass { return &d }
+// GetDialogs returns value of Dialogs field.
+func (d *MessagesDialogs) GetDialogs() (value []DialogClass) {
+	return d.Dialogs
+}
 
-// Ensuring interfaces in compile-time for MessagesDialogs.
-var (
-	_ bin.Encoder     = &MessagesDialogs{}
-	_ bin.Decoder     = &MessagesDialogs{}
-	_ bin.BareEncoder = &MessagesDialogs{}
-	_ bin.BareDecoder = &MessagesDialogs{}
+// GetMessages returns value of Messages field.
+func (d *MessagesDialogs) GetMessages() (value []MessageClass) {
+	return d.Messages
+}
 
-	_ MessagesDialogsClass = &MessagesDialogs{}
-)
+// GetChats returns value of Chats field.
+func (d *MessagesDialogs) GetChats() (value []ChatClass) {
+	return d.Chats
+}
+
+// GetUsers returns value of Users field.
+func (d *MessagesDialogs) GetUsers() (value []UserClass) {
+	return d.Users
+}
+
+// MapDialogs returns field Dialogs wrapped in DialogClassArray helper.
+func (d *MessagesDialogs) MapDialogs() (value DialogClassArray) {
+	return DialogClassArray(d.Dialogs)
+}
+
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (d *MessagesDialogs) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(d.Messages)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (d *MessagesDialogs) MapChats() (value ChatClassArray) {
+	return ChatClassArray(d.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (d *MessagesDialogs) MapUsers() (value UserClassArray) {
+	return UserClassArray(d.Users)
+}
 
 // MessagesDialogsSlice represents TL type `messages.dialogsSlice#71e094f3`.
 // Incomplete list of dialogs with messages and auxiliary data.
@@ -344,6 +344,19 @@ type MessagesDialogsSlice struct {
 
 // MessagesDialogsSliceTypeID is TL type id of MessagesDialogsSlice.
 const MessagesDialogsSliceTypeID = 0x71e094f3
+
+// construct implements constructor of MessagesDialogsClass.
+func (d MessagesDialogsSlice) construct() MessagesDialogsClass { return &d }
+
+// Ensuring interfaces in compile-time for MessagesDialogsSlice.
+var (
+	_ bin.Encoder     = &MessagesDialogsSlice{}
+	_ bin.Decoder     = &MessagesDialogsSlice{}
+	_ bin.BareEncoder = &MessagesDialogsSlice{}
+	_ bin.BareDecoder = &MessagesDialogsSlice{}
+
+	_ MessagesDialogsClass = &MessagesDialogsSlice{}
+)
 
 func (d *MessagesDialogsSlice) Zero() bool {
 	if d == nil {
@@ -493,51 +506,6 @@ func (d *MessagesDialogsSlice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (d *MessagesDialogsSlice) GetCount() (value int) {
-	return d.Count
-}
-
-// GetDialogs returns value of Dialogs field.
-func (d *MessagesDialogsSlice) GetDialogs() (value []DialogClass) {
-	return d.Dialogs
-}
-
-// MapDialogs returns field Dialogs wrapped in DialogClassArray helper.
-func (d *MessagesDialogsSlice) MapDialogs() (value DialogClassArray) {
-	return DialogClassArray(d.Dialogs)
-}
-
-// GetMessages returns value of Messages field.
-func (d *MessagesDialogsSlice) GetMessages() (value []MessageClass) {
-	return d.Messages
-}
-
-// MapMessages returns field Messages wrapped in MessageClassArray helper.
-func (d *MessagesDialogsSlice) MapMessages() (value MessageClassArray) {
-	return MessageClassArray(d.Messages)
-}
-
-// GetChats returns value of Chats field.
-func (d *MessagesDialogsSlice) GetChats() (value []ChatClass) {
-	return d.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (d *MessagesDialogsSlice) MapChats() (value ChatClassArray) {
-	return ChatClassArray(d.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (d *MessagesDialogsSlice) GetUsers() (value []UserClass) {
-	return d.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (d *MessagesDialogsSlice) MapUsers() (value UserClassArray) {
-	return UserClassArray(d.Users)
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDialogsSlice) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -632,18 +600,50 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesDialogsClass.
-func (d MessagesDialogsSlice) construct() MessagesDialogsClass { return &d }
+// GetCount returns value of Count field.
+func (d *MessagesDialogsSlice) GetCount() (value int) {
+	return d.Count
+}
 
-// Ensuring interfaces in compile-time for MessagesDialogsSlice.
-var (
-	_ bin.Encoder     = &MessagesDialogsSlice{}
-	_ bin.Decoder     = &MessagesDialogsSlice{}
-	_ bin.BareEncoder = &MessagesDialogsSlice{}
-	_ bin.BareDecoder = &MessagesDialogsSlice{}
+// GetDialogs returns value of Dialogs field.
+func (d *MessagesDialogsSlice) GetDialogs() (value []DialogClass) {
+	return d.Dialogs
+}
 
-	_ MessagesDialogsClass = &MessagesDialogsSlice{}
-)
+// GetMessages returns value of Messages field.
+func (d *MessagesDialogsSlice) GetMessages() (value []MessageClass) {
+	return d.Messages
+}
+
+// GetChats returns value of Chats field.
+func (d *MessagesDialogsSlice) GetChats() (value []ChatClass) {
+	return d.Chats
+}
+
+// GetUsers returns value of Users field.
+func (d *MessagesDialogsSlice) GetUsers() (value []UserClass) {
+	return d.Users
+}
+
+// MapDialogs returns field Dialogs wrapped in DialogClassArray helper.
+func (d *MessagesDialogsSlice) MapDialogs() (value DialogClassArray) {
+	return DialogClassArray(d.Dialogs)
+}
+
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (d *MessagesDialogsSlice) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(d.Messages)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (d *MessagesDialogsSlice) MapChats() (value ChatClassArray) {
+	return ChatClassArray(d.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (d *MessagesDialogsSlice) MapUsers() (value UserClassArray) {
+	return UserClassArray(d.Users)
+}
 
 // MessagesDialogsNotModified represents TL type `messages.dialogsNotModified#f0e3e596`.
 // Dialogs haven't changed
@@ -656,6 +656,19 @@ type MessagesDialogsNotModified struct {
 
 // MessagesDialogsNotModifiedTypeID is TL type id of MessagesDialogsNotModified.
 const MessagesDialogsNotModifiedTypeID = 0xf0e3e596
+
+// construct implements constructor of MessagesDialogsClass.
+func (d MessagesDialogsNotModified) construct() MessagesDialogsClass { return &d }
+
+// Ensuring interfaces in compile-time for MessagesDialogsNotModified.
+var (
+	_ bin.Encoder     = &MessagesDialogsNotModified{}
+	_ bin.Decoder     = &MessagesDialogsNotModified{}
+	_ bin.BareEncoder = &MessagesDialogsNotModified{}
+	_ bin.BareDecoder = &MessagesDialogsNotModified{}
+
+	_ MessagesDialogsClass = &MessagesDialogsNotModified{}
+)
 
 func (d *MessagesDialogsNotModified) Zero() bool {
 	if d == nil {
@@ -733,11 +746,6 @@ func (d *MessagesDialogsNotModified) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (d *MessagesDialogsNotModified) GetCount() (value int) {
-	return d.Count
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDialogsNotModified) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -764,18 +772,10 @@ func (d *MessagesDialogsNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesDialogsClass.
-func (d MessagesDialogsNotModified) construct() MessagesDialogsClass { return &d }
-
-// Ensuring interfaces in compile-time for MessagesDialogsNotModified.
-var (
-	_ bin.Encoder     = &MessagesDialogsNotModified{}
-	_ bin.Decoder     = &MessagesDialogsNotModified{}
-	_ bin.BareEncoder = &MessagesDialogsNotModified{}
-	_ bin.BareDecoder = &MessagesDialogsNotModified{}
-
-	_ MessagesDialogsClass = &MessagesDialogsNotModified{}
-)
+// GetCount returns value of Count field.
+func (d *MessagesDialogsNotModified) GetCount() (value int) {
+	return d.Count
+}
 
 // MessagesDialogsClass represents messages.Dialogs generic type.
 //

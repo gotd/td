@@ -40,6 +40,14 @@ type TextEntities struct {
 // TextEntitiesTypeID is TL type id of TextEntities.
 const TextEntitiesTypeID = 0xcf89c258
 
+// Ensuring interfaces in compile-time for TextEntities.
+var (
+	_ bin.Encoder     = &TextEntities{}
+	_ bin.Decoder     = &TextEntities{}
+	_ bin.BareEncoder = &TextEntities{}
+	_ bin.BareDecoder = &TextEntities{}
+)
+
 func (t *TextEntities) Zero() bool {
 	if t == nil {
 		return true
@@ -58,13 +66,6 @@ func (t *TextEntities) String() string {
 	}
 	type Alias TextEntities
 	return fmt.Sprintf("TextEntities%+v", Alias(*t))
-}
-
-// FillFrom fills TextEntities from given interface.
-func (t *TextEntities) FillFrom(from interface {
-	GetEntities() (value []TextEntity)
-}) {
-	t.Entities = from.GetEntities()
 }
 
 // TypeID returns type id in TL schema.
@@ -121,11 +122,6 @@ func (t *TextEntities) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEntities returns value of Entities field.
-func (t *TextEntities) GetEntities() (value []TextEntity) {
-	return t.Entities
-}
-
 // Decode implements bin.Decoder.
 func (t *TextEntities) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -162,10 +158,7 @@ func (t *TextEntities) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for TextEntities.
-var (
-	_ bin.Encoder     = &TextEntities{}
-	_ bin.Decoder     = &TextEntities{}
-	_ bin.BareEncoder = &TextEntities{}
-	_ bin.BareDecoder = &TextEntities{}
-)
+// GetEntities returns value of Entities field.
+func (t *TextEntities) GetEntities() (value []TextEntity) {
+	return t.Entities
+}

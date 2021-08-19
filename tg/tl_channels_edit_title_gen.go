@@ -46,6 +46,14 @@ type ChannelsEditTitleRequest struct {
 // ChannelsEditTitleRequestTypeID is TL type id of ChannelsEditTitleRequest.
 const ChannelsEditTitleRequestTypeID = 0x566decd0
 
+// Ensuring interfaces in compile-time for ChannelsEditTitleRequest.
+var (
+	_ bin.Encoder     = &ChannelsEditTitleRequest{}
+	_ bin.Decoder     = &ChannelsEditTitleRequest{}
+	_ bin.BareEncoder = &ChannelsEditTitleRequest{}
+	_ bin.BareDecoder = &ChannelsEditTitleRequest{}
+)
+
 func (e *ChannelsEditTitleRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -137,21 +145,6 @@ func (e *ChannelsEditTitleRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (e *ChannelsEditTitleRequest) GetChannel() (value InputChannelClass) {
-	return e.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (e *ChannelsEditTitleRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return e.Channel.AsNotEmpty()
-}
-
-// GetTitle returns value of Title field.
-func (e *ChannelsEditTitleRequest) GetTitle() (value string) {
-	return e.Title
-}
-
 // Decode implements bin.Decoder.
 func (e *ChannelsEditTitleRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -185,13 +178,20 @@ func (e *ChannelsEditTitleRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsEditTitleRequest.
-var (
-	_ bin.Encoder     = &ChannelsEditTitleRequest{}
-	_ bin.Decoder     = &ChannelsEditTitleRequest{}
-	_ bin.BareEncoder = &ChannelsEditTitleRequest{}
-	_ bin.BareDecoder = &ChannelsEditTitleRequest{}
-)
+// GetChannel returns value of Channel field.
+func (e *ChannelsEditTitleRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetTitle returns value of Title field.
+func (e *ChannelsEditTitleRequest) GetTitle() (value string) {
+	return e.Title
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsEditTitleRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
+}
 
 // ChannelsEditTitle invokes method channels.editTitle#566decd0 returning error if any.
 // Edit the name of a channel/supergroup¹

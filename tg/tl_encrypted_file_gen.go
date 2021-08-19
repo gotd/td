@@ -39,6 +39,19 @@ type EncryptedFileEmpty struct {
 // EncryptedFileEmptyTypeID is TL type id of EncryptedFileEmpty.
 const EncryptedFileEmptyTypeID = 0xc21f497e
 
+// construct implements constructor of EncryptedFileClass.
+func (e EncryptedFileEmpty) construct() EncryptedFileClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedFileEmpty.
+var (
+	_ bin.Encoder     = &EncryptedFileEmpty{}
+	_ bin.Decoder     = &EncryptedFileEmpty{}
+	_ bin.BareEncoder = &EncryptedFileEmpty{}
+	_ bin.BareDecoder = &EncryptedFileEmpty{}
+
+	_ EncryptedFileClass = &EncryptedFileEmpty{}
+)
+
 func (e *EncryptedFileEmpty) Zero() bool {
 	if e == nil {
 		return true
@@ -118,19 +131,6 @@ func (e *EncryptedFileEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedFileClass.
-func (e EncryptedFileEmpty) construct() EncryptedFileClass { return &e }
-
-// Ensuring interfaces in compile-time for EncryptedFileEmpty.
-var (
-	_ bin.Encoder     = &EncryptedFileEmpty{}
-	_ bin.Decoder     = &EncryptedFileEmpty{}
-	_ bin.BareEncoder = &EncryptedFileEmpty{}
-	_ bin.BareDecoder = &EncryptedFileEmpty{}
-
-	_ EncryptedFileClass = &EncryptedFileEmpty{}
-)
-
 // EncryptedFile represents TL type `encryptedFile#4a70994c`.
 // Encrypted file.
 //
@@ -150,6 +150,19 @@ type EncryptedFile struct {
 
 // EncryptedFileTypeID is TL type id of EncryptedFile.
 const EncryptedFileTypeID = 0x4a70994c
+
+// construct implements constructor of EncryptedFileClass.
+func (e EncryptedFile) construct() EncryptedFileClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedFile.
+var (
+	_ bin.Encoder     = &EncryptedFile{}
+	_ bin.Decoder     = &EncryptedFile{}
+	_ bin.BareEncoder = &EncryptedFile{}
+	_ bin.BareDecoder = &EncryptedFile{}
+
+	_ EncryptedFileClass = &EncryptedFile{}
+)
 
 func (e *EncryptedFile) Zero() bool {
 	if e == nil {
@@ -267,31 +280,6 @@ func (e *EncryptedFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (e *EncryptedFile) GetID() (value int64) {
-	return e.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (e *EncryptedFile) GetAccessHash() (value int64) {
-	return e.AccessHash
-}
-
-// GetSize returns value of Size field.
-func (e *EncryptedFile) GetSize() (value int) {
-	return e.Size
-}
-
-// GetDCID returns value of DCID field.
-func (e *EncryptedFile) GetDCID() (value int) {
-	return e.DCID
-}
-
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (e *EncryptedFile) GetKeyFingerprint() (value int) {
-	return e.KeyFingerprint
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedFile) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -346,18 +334,30 @@ func (e *EncryptedFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedFileClass.
-func (e EncryptedFile) construct() EncryptedFileClass { return &e }
+// GetID returns value of ID field.
+func (e *EncryptedFile) GetID() (value int64) {
+	return e.ID
+}
 
-// Ensuring interfaces in compile-time for EncryptedFile.
-var (
-	_ bin.Encoder     = &EncryptedFile{}
-	_ bin.Decoder     = &EncryptedFile{}
-	_ bin.BareEncoder = &EncryptedFile{}
-	_ bin.BareDecoder = &EncryptedFile{}
+// GetAccessHash returns value of AccessHash field.
+func (e *EncryptedFile) GetAccessHash() (value int64) {
+	return e.AccessHash
+}
 
-	_ EncryptedFileClass = &EncryptedFile{}
-)
+// GetSize returns value of Size field.
+func (e *EncryptedFile) GetSize() (value int) {
+	return e.Size
+}
+
+// GetDCID returns value of DCID field.
+func (e *EncryptedFile) GetDCID() (value int) {
+	return e.DCID
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (e *EncryptedFile) GetKeyFingerprint() (value int) {
+	return e.KeyFingerprint
+}
 
 // EncryptedFileClass represents EncryptedFile generic type.
 //

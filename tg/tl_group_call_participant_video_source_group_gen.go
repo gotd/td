@@ -42,6 +42,14 @@ type GroupCallParticipantVideoSourceGroup struct {
 // GroupCallParticipantVideoSourceGroupTypeID is TL type id of GroupCallParticipantVideoSourceGroup.
 const GroupCallParticipantVideoSourceGroupTypeID = 0xdcb118b7
 
+// Ensuring interfaces in compile-time for GroupCallParticipantVideoSourceGroup.
+var (
+	_ bin.Encoder     = &GroupCallParticipantVideoSourceGroup{}
+	_ bin.Decoder     = &GroupCallParticipantVideoSourceGroup{}
+	_ bin.BareEncoder = &GroupCallParticipantVideoSourceGroup{}
+	_ bin.BareDecoder = &GroupCallParticipantVideoSourceGroup{}
+)
+
 func (g *GroupCallParticipantVideoSourceGroup) Zero() bool {
 	if g == nil {
 		return true
@@ -131,16 +139,6 @@ func (g *GroupCallParticipantVideoSourceGroup) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSemantics returns value of Semantics field.
-func (g *GroupCallParticipantVideoSourceGroup) GetSemantics() (value string) {
-	return g.Semantics
-}
-
-// GetSources returns value of Sources field.
-func (g *GroupCallParticipantVideoSourceGroup) GetSources() (value []int) {
-	return g.Sources
-}
-
 // Decode implements bin.Decoder.
 func (g *GroupCallParticipantVideoSourceGroup) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -184,10 +182,12 @@ func (g *GroupCallParticipantVideoSourceGroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for GroupCallParticipantVideoSourceGroup.
-var (
-	_ bin.Encoder     = &GroupCallParticipantVideoSourceGroup{}
-	_ bin.Decoder     = &GroupCallParticipantVideoSourceGroup{}
-	_ bin.BareEncoder = &GroupCallParticipantVideoSourceGroup{}
-	_ bin.BareDecoder = &GroupCallParticipantVideoSourceGroup{}
-)
+// GetSemantics returns value of Semantics field.
+func (g *GroupCallParticipantVideoSourceGroup) GetSemantics() (value string) {
+	return g.Semantics
+}
+
+// GetSources returns value of Sources field.
+func (g *GroupCallParticipantVideoSourceGroup) GetSources() (value []int) {
+	return g.Sources
+}

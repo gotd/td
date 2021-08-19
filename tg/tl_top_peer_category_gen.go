@@ -39,6 +39,19 @@ type TopPeerCategoryBotsPM struct {
 // TopPeerCategoryBotsPMTypeID is TL type id of TopPeerCategoryBotsPM.
 const TopPeerCategoryBotsPMTypeID = 0xab661b5b
 
+// construct implements constructor of TopPeerCategoryClass.
+func (t TopPeerCategoryBotsPM) construct() TopPeerCategoryClass { return &t }
+
+// Ensuring interfaces in compile-time for TopPeerCategoryBotsPM.
+var (
+	_ bin.Encoder     = &TopPeerCategoryBotsPM{}
+	_ bin.Decoder     = &TopPeerCategoryBotsPM{}
+	_ bin.BareEncoder = &TopPeerCategoryBotsPM{}
+	_ bin.BareDecoder = &TopPeerCategoryBotsPM{}
+
+	_ TopPeerCategoryClass = &TopPeerCategoryBotsPM{}
+)
+
 func (t *TopPeerCategoryBotsPM) Zero() bool {
 	if t == nil {
 		return true
@@ -118,19 +131,6 @@ func (t *TopPeerCategoryBotsPM) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TopPeerCategoryClass.
-func (t TopPeerCategoryBotsPM) construct() TopPeerCategoryClass { return &t }
-
-// Ensuring interfaces in compile-time for TopPeerCategoryBotsPM.
-var (
-	_ bin.Encoder     = &TopPeerCategoryBotsPM{}
-	_ bin.Decoder     = &TopPeerCategoryBotsPM{}
-	_ bin.BareEncoder = &TopPeerCategoryBotsPM{}
-	_ bin.BareDecoder = &TopPeerCategoryBotsPM{}
-
-	_ TopPeerCategoryClass = &TopPeerCategoryBotsPM{}
-)
-
 // TopPeerCategoryBotsInline represents TL type `topPeerCategoryBotsInline#148677e2`.
 // Most used inline bots
 //
@@ -140,6 +140,19 @@ type TopPeerCategoryBotsInline struct {
 
 // TopPeerCategoryBotsInlineTypeID is TL type id of TopPeerCategoryBotsInline.
 const TopPeerCategoryBotsInlineTypeID = 0x148677e2
+
+// construct implements constructor of TopPeerCategoryClass.
+func (t TopPeerCategoryBotsInline) construct() TopPeerCategoryClass { return &t }
+
+// Ensuring interfaces in compile-time for TopPeerCategoryBotsInline.
+var (
+	_ bin.Encoder     = &TopPeerCategoryBotsInline{}
+	_ bin.Decoder     = &TopPeerCategoryBotsInline{}
+	_ bin.BareEncoder = &TopPeerCategoryBotsInline{}
+	_ bin.BareDecoder = &TopPeerCategoryBotsInline{}
+
+	_ TopPeerCategoryClass = &TopPeerCategoryBotsInline{}
+)
 
 func (t *TopPeerCategoryBotsInline) Zero() bool {
 	if t == nil {
@@ -220,19 +233,6 @@ func (t *TopPeerCategoryBotsInline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TopPeerCategoryClass.
-func (t TopPeerCategoryBotsInline) construct() TopPeerCategoryClass { return &t }
-
-// Ensuring interfaces in compile-time for TopPeerCategoryBotsInline.
-var (
-	_ bin.Encoder     = &TopPeerCategoryBotsInline{}
-	_ bin.Decoder     = &TopPeerCategoryBotsInline{}
-	_ bin.BareEncoder = &TopPeerCategoryBotsInline{}
-	_ bin.BareDecoder = &TopPeerCategoryBotsInline{}
-
-	_ TopPeerCategoryClass = &TopPeerCategoryBotsInline{}
-)
-
 // TopPeerCategoryCorrespondents represents TL type `topPeerCategoryCorrespondents#637b7ed`.
 // Users we've chatted most frequently with
 //
@@ -242,6 +242,19 @@ type TopPeerCategoryCorrespondents struct {
 
 // TopPeerCategoryCorrespondentsTypeID is TL type id of TopPeerCategoryCorrespondents.
 const TopPeerCategoryCorrespondentsTypeID = 0x637b7ed
+
+// construct implements constructor of TopPeerCategoryClass.
+func (t TopPeerCategoryCorrespondents) construct() TopPeerCategoryClass { return &t }
+
+// Ensuring interfaces in compile-time for TopPeerCategoryCorrespondents.
+var (
+	_ bin.Encoder     = &TopPeerCategoryCorrespondents{}
+	_ bin.Decoder     = &TopPeerCategoryCorrespondents{}
+	_ bin.BareEncoder = &TopPeerCategoryCorrespondents{}
+	_ bin.BareDecoder = &TopPeerCategoryCorrespondents{}
+
+	_ TopPeerCategoryClass = &TopPeerCategoryCorrespondents{}
+)
 
 func (t *TopPeerCategoryCorrespondents) Zero() bool {
 	if t == nil {
@@ -322,19 +335,6 @@ func (t *TopPeerCategoryCorrespondents) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TopPeerCategoryClass.
-func (t TopPeerCategoryCorrespondents) construct() TopPeerCategoryClass { return &t }
-
-// Ensuring interfaces in compile-time for TopPeerCategoryCorrespondents.
-var (
-	_ bin.Encoder     = &TopPeerCategoryCorrespondents{}
-	_ bin.Decoder     = &TopPeerCategoryCorrespondents{}
-	_ bin.BareEncoder = &TopPeerCategoryCorrespondents{}
-	_ bin.BareDecoder = &TopPeerCategoryCorrespondents{}
-
-	_ TopPeerCategoryClass = &TopPeerCategoryCorrespondents{}
-)
-
 // TopPeerCategoryGroups represents TL type `topPeerCategoryGroups#bd17a14a`.
 // Often-opened groups and supergroups
 //
@@ -344,6 +344,19 @@ type TopPeerCategoryGroups struct {
 
 // TopPeerCategoryGroupsTypeID is TL type id of TopPeerCategoryGroups.
 const TopPeerCategoryGroupsTypeID = 0xbd17a14a
+
+// construct implements constructor of TopPeerCategoryClass.
+func (t TopPeerCategoryGroups) construct() TopPeerCategoryClass { return &t }
+
+// Ensuring interfaces in compile-time for TopPeerCategoryGroups.
+var (
+	_ bin.Encoder     = &TopPeerCategoryGroups{}
+	_ bin.Decoder     = &TopPeerCategoryGroups{}
+	_ bin.BareEncoder = &TopPeerCategoryGroups{}
+	_ bin.BareDecoder = &TopPeerCategoryGroups{}
+
+	_ TopPeerCategoryClass = &TopPeerCategoryGroups{}
+)
 
 func (t *TopPeerCategoryGroups) Zero() bool {
 	if t == nil {
@@ -424,19 +437,6 @@ func (t *TopPeerCategoryGroups) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TopPeerCategoryClass.
-func (t TopPeerCategoryGroups) construct() TopPeerCategoryClass { return &t }
-
-// Ensuring interfaces in compile-time for TopPeerCategoryGroups.
-var (
-	_ bin.Encoder     = &TopPeerCategoryGroups{}
-	_ bin.Decoder     = &TopPeerCategoryGroups{}
-	_ bin.BareEncoder = &TopPeerCategoryGroups{}
-	_ bin.BareDecoder = &TopPeerCategoryGroups{}
-
-	_ TopPeerCategoryClass = &TopPeerCategoryGroups{}
-)
-
 // TopPeerCategoryChannels represents TL type `topPeerCategoryChannels#161d9628`.
 // Most frequently visited channels
 //
@@ -446,6 +446,19 @@ type TopPeerCategoryChannels struct {
 
 // TopPeerCategoryChannelsTypeID is TL type id of TopPeerCategoryChannels.
 const TopPeerCategoryChannelsTypeID = 0x161d9628
+
+// construct implements constructor of TopPeerCategoryClass.
+func (t TopPeerCategoryChannels) construct() TopPeerCategoryClass { return &t }
+
+// Ensuring interfaces in compile-time for TopPeerCategoryChannels.
+var (
+	_ bin.Encoder     = &TopPeerCategoryChannels{}
+	_ bin.Decoder     = &TopPeerCategoryChannels{}
+	_ bin.BareEncoder = &TopPeerCategoryChannels{}
+	_ bin.BareDecoder = &TopPeerCategoryChannels{}
+
+	_ TopPeerCategoryClass = &TopPeerCategoryChannels{}
+)
 
 func (t *TopPeerCategoryChannels) Zero() bool {
 	if t == nil {
@@ -526,19 +539,6 @@ func (t *TopPeerCategoryChannels) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TopPeerCategoryClass.
-func (t TopPeerCategoryChannels) construct() TopPeerCategoryClass { return &t }
-
-// Ensuring interfaces in compile-time for TopPeerCategoryChannels.
-var (
-	_ bin.Encoder     = &TopPeerCategoryChannels{}
-	_ bin.Decoder     = &TopPeerCategoryChannels{}
-	_ bin.BareEncoder = &TopPeerCategoryChannels{}
-	_ bin.BareDecoder = &TopPeerCategoryChannels{}
-
-	_ TopPeerCategoryClass = &TopPeerCategoryChannels{}
-)
-
 // TopPeerCategoryPhoneCalls represents TL type `topPeerCategoryPhoneCalls#1e76a78c`.
 // Most frequently called users
 //
@@ -548,6 +548,19 @@ type TopPeerCategoryPhoneCalls struct {
 
 // TopPeerCategoryPhoneCallsTypeID is TL type id of TopPeerCategoryPhoneCalls.
 const TopPeerCategoryPhoneCallsTypeID = 0x1e76a78c
+
+// construct implements constructor of TopPeerCategoryClass.
+func (t TopPeerCategoryPhoneCalls) construct() TopPeerCategoryClass { return &t }
+
+// Ensuring interfaces in compile-time for TopPeerCategoryPhoneCalls.
+var (
+	_ bin.Encoder     = &TopPeerCategoryPhoneCalls{}
+	_ bin.Decoder     = &TopPeerCategoryPhoneCalls{}
+	_ bin.BareEncoder = &TopPeerCategoryPhoneCalls{}
+	_ bin.BareDecoder = &TopPeerCategoryPhoneCalls{}
+
+	_ TopPeerCategoryClass = &TopPeerCategoryPhoneCalls{}
+)
 
 func (t *TopPeerCategoryPhoneCalls) Zero() bool {
 	if t == nil {
@@ -628,19 +641,6 @@ func (t *TopPeerCategoryPhoneCalls) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TopPeerCategoryClass.
-func (t TopPeerCategoryPhoneCalls) construct() TopPeerCategoryClass { return &t }
-
-// Ensuring interfaces in compile-time for TopPeerCategoryPhoneCalls.
-var (
-	_ bin.Encoder     = &TopPeerCategoryPhoneCalls{}
-	_ bin.Decoder     = &TopPeerCategoryPhoneCalls{}
-	_ bin.BareEncoder = &TopPeerCategoryPhoneCalls{}
-	_ bin.BareDecoder = &TopPeerCategoryPhoneCalls{}
-
-	_ TopPeerCategoryClass = &TopPeerCategoryPhoneCalls{}
-)
-
 // TopPeerCategoryForwardUsers represents TL type `topPeerCategoryForwardUsers#a8406ca9`.
 // Users to which the users often forwards messages to
 //
@@ -650,6 +650,19 @@ type TopPeerCategoryForwardUsers struct {
 
 // TopPeerCategoryForwardUsersTypeID is TL type id of TopPeerCategoryForwardUsers.
 const TopPeerCategoryForwardUsersTypeID = 0xa8406ca9
+
+// construct implements constructor of TopPeerCategoryClass.
+func (t TopPeerCategoryForwardUsers) construct() TopPeerCategoryClass { return &t }
+
+// Ensuring interfaces in compile-time for TopPeerCategoryForwardUsers.
+var (
+	_ bin.Encoder     = &TopPeerCategoryForwardUsers{}
+	_ bin.Decoder     = &TopPeerCategoryForwardUsers{}
+	_ bin.BareEncoder = &TopPeerCategoryForwardUsers{}
+	_ bin.BareDecoder = &TopPeerCategoryForwardUsers{}
+
+	_ TopPeerCategoryClass = &TopPeerCategoryForwardUsers{}
+)
 
 func (t *TopPeerCategoryForwardUsers) Zero() bool {
 	if t == nil {
@@ -730,19 +743,6 @@ func (t *TopPeerCategoryForwardUsers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of TopPeerCategoryClass.
-func (t TopPeerCategoryForwardUsers) construct() TopPeerCategoryClass { return &t }
-
-// Ensuring interfaces in compile-time for TopPeerCategoryForwardUsers.
-var (
-	_ bin.Encoder     = &TopPeerCategoryForwardUsers{}
-	_ bin.Decoder     = &TopPeerCategoryForwardUsers{}
-	_ bin.BareEncoder = &TopPeerCategoryForwardUsers{}
-	_ bin.BareDecoder = &TopPeerCategoryForwardUsers{}
-
-	_ TopPeerCategoryClass = &TopPeerCategoryForwardUsers{}
-)
-
 // TopPeerCategoryForwardChats represents TL type `topPeerCategoryForwardChats#fbeec0f0`.
 // Chats to which the users often forwards messages to
 //
@@ -752,6 +752,19 @@ type TopPeerCategoryForwardChats struct {
 
 // TopPeerCategoryForwardChatsTypeID is TL type id of TopPeerCategoryForwardChats.
 const TopPeerCategoryForwardChatsTypeID = 0xfbeec0f0
+
+// construct implements constructor of TopPeerCategoryClass.
+func (t TopPeerCategoryForwardChats) construct() TopPeerCategoryClass { return &t }
+
+// Ensuring interfaces in compile-time for TopPeerCategoryForwardChats.
+var (
+	_ bin.Encoder     = &TopPeerCategoryForwardChats{}
+	_ bin.Decoder     = &TopPeerCategoryForwardChats{}
+	_ bin.BareEncoder = &TopPeerCategoryForwardChats{}
+	_ bin.BareDecoder = &TopPeerCategoryForwardChats{}
+
+	_ TopPeerCategoryClass = &TopPeerCategoryForwardChats{}
+)
 
 func (t *TopPeerCategoryForwardChats) Zero() bool {
 	if t == nil {
@@ -831,19 +844,6 @@ func (t *TopPeerCategoryForwardChats) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of TopPeerCategoryClass.
-func (t TopPeerCategoryForwardChats) construct() TopPeerCategoryClass { return &t }
-
-// Ensuring interfaces in compile-time for TopPeerCategoryForwardChats.
-var (
-	_ bin.Encoder     = &TopPeerCategoryForwardChats{}
-	_ bin.Decoder     = &TopPeerCategoryForwardChats{}
-	_ bin.BareEncoder = &TopPeerCategoryForwardChats{}
-	_ bin.BareDecoder = &TopPeerCategoryForwardChats{}
-
-	_ TopPeerCategoryClass = &TopPeerCategoryForwardChats{}
-)
 
 // TopPeerCategoryClass represents TopPeerCategory generic type.
 //

@@ -68,6 +68,14 @@ type PageRelatedArticle struct {
 // PageRelatedArticleTypeID is TL type id of PageRelatedArticle.
 const PageRelatedArticleTypeID = 0xb390dc08
 
+// Ensuring interfaces in compile-time for PageRelatedArticle.
+var (
+	_ bin.Encoder     = &PageRelatedArticle{}
+	_ bin.Decoder     = &PageRelatedArticle{}
+	_ bin.BareEncoder = &PageRelatedArticle{}
+	_ bin.BareDecoder = &PageRelatedArticle{}
+)
+
 func (p *PageRelatedArticle) Zero() bool {
 	if p == nil {
 		return true
@@ -255,6 +263,79 @@ func (p *PageRelatedArticle) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *PageRelatedArticle) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageRelatedArticle#b390dc08 to nil")
+	}
+	if err := b.ConsumeID(PageRelatedArticleTypeID); err != nil {
+		return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageRelatedArticle) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageRelatedArticle#b390dc08 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field url: %w", err)
+		}
+		p.URL = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field webpage_id: %w", err)
+		}
+		p.WebpageID = value
+	}
+	if p.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field title: %w", err)
+		}
+		p.Title = value
+	}
+	if p.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field description: %w", err)
+		}
+		p.Description = value
+	}
+	if p.Flags.Has(2) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field photo_id: %w", err)
+		}
+		p.PhotoID = value
+	}
+	if p.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field author: %w", err)
+		}
+		p.Author = value
+	}
+	if p.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field published_date: %w", err)
+		}
+		p.PublishedDate = value
+	}
+	return nil
+}
+
 // GetURL returns value of URL field.
 func (p *PageRelatedArticle) GetURL() (value string) {
 	return p.URL
@@ -339,84 +420,3 @@ func (p *PageRelatedArticle) GetPublishedDate() (value int, ok bool) {
 	}
 	return p.PublishedDate, true
 }
-
-// Decode implements bin.Decoder.
-func (p *PageRelatedArticle) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode pageRelatedArticle#b390dc08 to nil")
-	}
-	if err := b.ConsumeID(PageRelatedArticleTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *PageRelatedArticle) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode pageRelatedArticle#b390dc08 to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field flags: %w", err)
-		}
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field url: %w", err)
-		}
-		p.URL = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field webpage_id: %w", err)
-		}
-		p.WebpageID = value
-	}
-	if p.Flags.Has(0) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field title: %w", err)
-		}
-		p.Title = value
-	}
-	if p.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field description: %w", err)
-		}
-		p.Description = value
-	}
-	if p.Flags.Has(2) {
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field photo_id: %w", err)
-		}
-		p.PhotoID = value
-	}
-	if p.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field author: %w", err)
-		}
-		p.Author = value
-	}
-	if p.Flags.Has(4) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field published_date: %w", err)
-		}
-		p.PublishedDate = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for PageRelatedArticle.
-var (
-	_ bin.Encoder     = &PageRelatedArticle{}
-	_ bin.Decoder     = &PageRelatedArticle{}
-	_ bin.BareEncoder = &PageRelatedArticle{}
-	_ bin.BareDecoder = &PageRelatedArticle{}
-)

@@ -39,6 +39,19 @@ type SecureFileEmpty struct {
 // SecureFileEmptyTypeID is TL type id of SecureFileEmpty.
 const SecureFileEmptyTypeID = 0x64199744
 
+// construct implements constructor of SecureFileClass.
+func (s SecureFileEmpty) construct() SecureFileClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureFileEmpty.
+var (
+	_ bin.Encoder     = &SecureFileEmpty{}
+	_ bin.Decoder     = &SecureFileEmpty{}
+	_ bin.BareEncoder = &SecureFileEmpty{}
+	_ bin.BareDecoder = &SecureFileEmpty{}
+
+	_ SecureFileClass = &SecureFileEmpty{}
+)
+
 func (s *SecureFileEmpty) Zero() bool {
 	if s == nil {
 		return true
@@ -118,19 +131,6 @@ func (s *SecureFileEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureFileClass.
-func (s SecureFileEmpty) construct() SecureFileClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureFileEmpty.
-var (
-	_ bin.Encoder     = &SecureFileEmpty{}
-	_ bin.Decoder     = &SecureFileEmpty{}
-	_ bin.BareEncoder = &SecureFileEmpty{}
-	_ bin.BareDecoder = &SecureFileEmpty{}
-
-	_ SecureFileClass = &SecureFileEmpty{}
-)
-
 // SecureFile represents TL type `secureFile#e0277a62`.
 // Secure passport¹ file, for more info see the passport docs »²
 //
@@ -158,6 +158,19 @@ type SecureFile struct {
 
 // SecureFileTypeID is TL type id of SecureFile.
 const SecureFileTypeID = 0xe0277a62
+
+// construct implements constructor of SecureFileClass.
+func (s SecureFile) construct() SecureFileClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureFile.
+var (
+	_ bin.Encoder     = &SecureFile{}
+	_ bin.Decoder     = &SecureFile{}
+	_ bin.BareEncoder = &SecureFile{}
+	_ bin.BareDecoder = &SecureFile{}
+
+	_ SecureFileClass = &SecureFile{}
+)
 
 func (s *SecureFile) Zero() bool {
 	if s == nil {
@@ -295,41 +308,6 @@ func (s *SecureFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (s *SecureFile) GetID() (value int64) {
-	return s.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (s *SecureFile) GetAccessHash() (value int64) {
-	return s.AccessHash
-}
-
-// GetSize returns value of Size field.
-func (s *SecureFile) GetSize() (value int) {
-	return s.Size
-}
-
-// GetDCID returns value of DCID field.
-func (s *SecureFile) GetDCID() (value int) {
-	return s.DCID
-}
-
-// GetDate returns value of Date field.
-func (s *SecureFile) GetDate() (value int) {
-	return s.Date
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureFile) GetFileHash() (value []byte) {
-	return s.FileHash
-}
-
-// GetSecret returns value of Secret field.
-func (s *SecureFile) GetSecret() (value []byte) {
-	return s.Secret
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureFile) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -398,18 +376,40 @@ func (s *SecureFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureFileClass.
-func (s SecureFile) construct() SecureFileClass { return &s }
+// GetID returns value of ID field.
+func (s *SecureFile) GetID() (value int64) {
+	return s.ID
+}
 
-// Ensuring interfaces in compile-time for SecureFile.
-var (
-	_ bin.Encoder     = &SecureFile{}
-	_ bin.Decoder     = &SecureFile{}
-	_ bin.BareEncoder = &SecureFile{}
-	_ bin.BareDecoder = &SecureFile{}
+// GetAccessHash returns value of AccessHash field.
+func (s *SecureFile) GetAccessHash() (value int64) {
+	return s.AccessHash
+}
 
-	_ SecureFileClass = &SecureFile{}
-)
+// GetSize returns value of Size field.
+func (s *SecureFile) GetSize() (value int) {
+	return s.Size
+}
+
+// GetDCID returns value of DCID field.
+func (s *SecureFile) GetDCID() (value int) {
+	return s.DCID
+}
+
+// GetDate returns value of Date field.
+func (s *SecureFile) GetDate() (value int) {
+	return s.Date
+}
+
+// GetFileHash returns value of FileHash field.
+func (s *SecureFile) GetFileHash() (value []byte) {
+	return s.FileHash
+}
+
+// GetSecret returns value of Secret field.
+func (s *SecureFile) GetSecret() (value []byte) {
+	return s.Secret
+}
 
 // SecureFileClass represents SecureFile generic type.
 //

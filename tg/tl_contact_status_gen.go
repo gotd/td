@@ -43,6 +43,14 @@ type ContactStatus struct {
 // ContactStatusTypeID is TL type id of ContactStatus.
 const ContactStatusTypeID = 0xd3680c61
 
+// Ensuring interfaces in compile-time for ContactStatus.
+var (
+	_ bin.Encoder     = &ContactStatus{}
+	_ bin.Decoder     = &ContactStatus{}
+	_ bin.BareEncoder = &ContactStatus{}
+	_ bin.BareDecoder = &ContactStatus{}
+)
+
 func (c *ContactStatus) Zero() bool {
 	if c == nil {
 		return true
@@ -134,16 +142,6 @@ func (c *ContactStatus) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (c *ContactStatus) GetUserID() (value int) {
-	return c.UserID
-}
-
-// GetStatus returns value of Status field.
-func (c *ContactStatus) GetStatus() (value UserStatusClass) {
-	return c.Status
-}
-
 // Decode implements bin.Decoder.
 func (c *ContactStatus) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -177,10 +175,12 @@ func (c *ContactStatus) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactStatus.
-var (
-	_ bin.Encoder     = &ContactStatus{}
-	_ bin.Decoder     = &ContactStatus{}
-	_ bin.BareEncoder = &ContactStatus{}
-	_ bin.BareDecoder = &ContactStatus{}
-)
+// GetUserID returns value of UserID field.
+func (c *ContactStatus) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetStatus returns value of Status field.
+func (c *ContactStatus) GetStatus() (value UserStatusClass) {
+	return c.Status
+}

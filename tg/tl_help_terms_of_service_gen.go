@@ -60,6 +60,14 @@ type HelpTermsOfService struct {
 // HelpTermsOfServiceTypeID is TL type id of HelpTermsOfService.
 const HelpTermsOfServiceTypeID = 0x780a0310
 
+// Ensuring interfaces in compile-time for HelpTermsOfService.
+var (
+	_ bin.Encoder     = &HelpTermsOfService{}
+	_ bin.Decoder     = &HelpTermsOfService{}
+	_ bin.BareEncoder = &HelpTermsOfService{}
+	_ bin.BareDecoder = &HelpTermsOfService{}
+)
+
 func (t *HelpTermsOfService) Zero() bool {
 	if t == nil {
 		return true
@@ -204,57 +212,6 @@ func (t *HelpTermsOfService) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPopup sets value of Popup conditional field.
-func (t *HelpTermsOfService) SetPopup(value bool) {
-	if value {
-		t.Flags.Set(0)
-		t.Popup = true
-	} else {
-		t.Flags.Unset(0)
-		t.Popup = false
-	}
-}
-
-// GetPopup returns value of Popup conditional field.
-func (t *HelpTermsOfService) GetPopup() (value bool) {
-	return t.Flags.Has(0)
-}
-
-// GetID returns value of ID field.
-func (t *HelpTermsOfService) GetID() (value DataJSON) {
-	return t.ID
-}
-
-// GetText returns value of Text field.
-func (t *HelpTermsOfService) GetText() (value string) {
-	return t.Text
-}
-
-// GetEntities returns value of Entities field.
-func (t *HelpTermsOfService) GetEntities() (value []MessageEntityClass) {
-	return t.Entities
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (t *HelpTermsOfService) MapEntities() (value MessageEntityClassArray) {
-	return MessageEntityClassArray(t.Entities)
-}
-
-// SetMinAgeConfirm sets value of MinAgeConfirm conditional field.
-func (t *HelpTermsOfService) SetMinAgeConfirm(value int) {
-	t.Flags.Set(1)
-	t.MinAgeConfirm = value
-}
-
-// GetMinAgeConfirm returns value of MinAgeConfirm conditional field and
-// boolean which is true if field was set.
-func (t *HelpTermsOfService) GetMinAgeConfirm() (value int, ok bool) {
-	if !t.Flags.Has(1) {
-		return value, false
-	}
-	return t.MinAgeConfirm, true
-}
-
 // Decode implements bin.Decoder.
 func (t *HelpTermsOfService) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -316,10 +273,53 @@ func (t *HelpTermsOfService) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpTermsOfService.
-var (
-	_ bin.Encoder     = &HelpTermsOfService{}
-	_ bin.Decoder     = &HelpTermsOfService{}
-	_ bin.BareEncoder = &HelpTermsOfService{}
-	_ bin.BareDecoder = &HelpTermsOfService{}
-)
+// SetPopup sets value of Popup conditional field.
+func (t *HelpTermsOfService) SetPopup(value bool) {
+	if value {
+		t.Flags.Set(0)
+		t.Popup = true
+	} else {
+		t.Flags.Unset(0)
+		t.Popup = false
+	}
+}
+
+// GetPopup returns value of Popup conditional field.
+func (t *HelpTermsOfService) GetPopup() (value bool) {
+	return t.Flags.Has(0)
+}
+
+// GetID returns value of ID field.
+func (t *HelpTermsOfService) GetID() (value DataJSON) {
+	return t.ID
+}
+
+// GetText returns value of Text field.
+func (t *HelpTermsOfService) GetText() (value string) {
+	return t.Text
+}
+
+// GetEntities returns value of Entities field.
+func (t *HelpTermsOfService) GetEntities() (value []MessageEntityClass) {
+	return t.Entities
+}
+
+// SetMinAgeConfirm sets value of MinAgeConfirm conditional field.
+func (t *HelpTermsOfService) SetMinAgeConfirm(value int) {
+	t.Flags.Set(1)
+	t.MinAgeConfirm = value
+}
+
+// GetMinAgeConfirm returns value of MinAgeConfirm conditional field and
+// boolean which is true if field was set.
+func (t *HelpTermsOfService) GetMinAgeConfirm() (value int, ok bool) {
+	if !t.Flags.Has(1) {
+		return value, false
+	}
+	return t.MinAgeConfirm, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (t *HelpTermsOfService) MapEntities() (value MessageEntityClassArray) {
+	return MessageEntityClassArray(t.Entities)
+}

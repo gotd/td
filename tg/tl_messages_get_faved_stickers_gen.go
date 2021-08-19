@@ -44,6 +44,14 @@ type MessagesGetFavedStickersRequest struct {
 // MessagesGetFavedStickersRequestTypeID is TL type id of MessagesGetFavedStickersRequest.
 const MessagesGetFavedStickersRequestTypeID = 0x21ce0b0e
 
+// Ensuring interfaces in compile-time for MessagesGetFavedStickersRequest.
+var (
+	_ bin.Encoder     = &MessagesGetFavedStickersRequest{}
+	_ bin.Decoder     = &MessagesGetFavedStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetFavedStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetFavedStickersRequest{}
+)
+
 func (g *MessagesGetFavedStickersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,11 +128,6 @@ func (g *MessagesGetFavedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (g *MessagesGetFavedStickersRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetFavedStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -151,13 +154,10 @@ func (g *MessagesGetFavedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetFavedStickersRequest.
-var (
-	_ bin.Encoder     = &MessagesGetFavedStickersRequest{}
-	_ bin.Decoder     = &MessagesGetFavedStickersRequest{}
-	_ bin.BareEncoder = &MessagesGetFavedStickersRequest{}
-	_ bin.BareDecoder = &MessagesGetFavedStickersRequest{}
-)
+// GetHash returns value of Hash field.
+func (g *MessagesGetFavedStickersRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // MessagesGetFavedStickers invokes method messages.getFavedStickers#21ce0b0e returning error if any.
 // Get faved stickers

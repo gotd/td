@@ -53,6 +53,14 @@ type MessagesReorderPinnedDialogsRequest struct {
 // MessagesReorderPinnedDialogsRequestTypeID is TL type id of MessagesReorderPinnedDialogsRequest.
 const MessagesReorderPinnedDialogsRequestTypeID = 0x3b1adf37
 
+// Ensuring interfaces in compile-time for MessagesReorderPinnedDialogsRequest.
+var (
+	_ bin.Encoder     = &MessagesReorderPinnedDialogsRequest{}
+	_ bin.Decoder     = &MessagesReorderPinnedDialogsRequest{}
+	_ bin.BareEncoder = &MessagesReorderPinnedDialogsRequest{}
+	_ bin.BareDecoder = &MessagesReorderPinnedDialogsRequest{}
+)
+
 func (r *MessagesReorderPinnedDialogsRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -166,37 +174,6 @@ func (r *MessagesReorderPinnedDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetForce sets value of Force conditional field.
-func (r *MessagesReorderPinnedDialogsRequest) SetForce(value bool) {
-	if value {
-		r.Flags.Set(0)
-		r.Force = true
-	} else {
-		r.Flags.Unset(0)
-		r.Force = false
-	}
-}
-
-// GetForce returns value of Force conditional field.
-func (r *MessagesReorderPinnedDialogsRequest) GetForce() (value bool) {
-	return r.Flags.Has(0)
-}
-
-// GetFolderID returns value of FolderID field.
-func (r *MessagesReorderPinnedDialogsRequest) GetFolderID() (value int) {
-	return r.FolderID
-}
-
-// GetOrder returns value of Order field.
-func (r *MessagesReorderPinnedDialogsRequest) GetOrder() (value []InputDialogPeerClass) {
-	return r.Order
-}
-
-// MapOrder returns field Order wrapped in InputDialogPeerClassArray helper.
-func (r *MessagesReorderPinnedDialogsRequest) MapOrder() (value InputDialogPeerClassArray) {
-	return InputDialogPeerClassArray(r.Order)
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesReorderPinnedDialogsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -246,13 +223,36 @@ func (r *MessagesReorderPinnedDialogsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesReorderPinnedDialogsRequest.
-var (
-	_ bin.Encoder     = &MessagesReorderPinnedDialogsRequest{}
-	_ bin.Decoder     = &MessagesReorderPinnedDialogsRequest{}
-	_ bin.BareEncoder = &MessagesReorderPinnedDialogsRequest{}
-	_ bin.BareDecoder = &MessagesReorderPinnedDialogsRequest{}
-)
+// SetForce sets value of Force conditional field.
+func (r *MessagesReorderPinnedDialogsRequest) SetForce(value bool) {
+	if value {
+		r.Flags.Set(0)
+		r.Force = true
+	} else {
+		r.Flags.Unset(0)
+		r.Force = false
+	}
+}
+
+// GetForce returns value of Force conditional field.
+func (r *MessagesReorderPinnedDialogsRequest) GetForce() (value bool) {
+	return r.Flags.Has(0)
+}
+
+// GetFolderID returns value of FolderID field.
+func (r *MessagesReorderPinnedDialogsRequest) GetFolderID() (value int) {
+	return r.FolderID
+}
+
+// GetOrder returns value of Order field.
+func (r *MessagesReorderPinnedDialogsRequest) GetOrder() (value []InputDialogPeerClass) {
+	return r.Order
+}
+
+// MapOrder returns field Order wrapped in InputDialogPeerClassArray helper.
+func (r *MessagesReorderPinnedDialogsRequest) MapOrder() (value InputDialogPeerClassArray) {
+	return InputDialogPeerClassArray(r.Order)
+}
 
 // MessagesReorderPinnedDialogs invokes method messages.reorderPinnedDialogs#3b1adf37 returning error if any.
 // Reorder pinned dialogs

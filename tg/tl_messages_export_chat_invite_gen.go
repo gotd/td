@@ -53,6 +53,14 @@ type MessagesExportChatInviteRequest struct {
 // MessagesExportChatInviteRequestTypeID is TL type id of MessagesExportChatInviteRequest.
 const MessagesExportChatInviteRequestTypeID = 0x14b9bcd7
 
+// Ensuring interfaces in compile-time for MessagesExportChatInviteRequest.
+var (
+	_ bin.Encoder     = &MessagesExportChatInviteRequest{}
+	_ bin.Decoder     = &MessagesExportChatInviteRequest{}
+	_ bin.BareEncoder = &MessagesExportChatInviteRequest{}
+	_ bin.BareDecoder = &MessagesExportChatInviteRequest{}
+)
+
 func (e *MessagesExportChatInviteRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -191,6 +199,52 @@ func (e *MessagesExportChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (e *MessagesExportChatInviteRequest) Decode(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.exportChatInvite#14b9bcd7 to nil")
+	}
+	if err := b.ConsumeID(MessagesExportChatInviteRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: %w", err)
+	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesExportChatInviteRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.exportChatInvite#14b9bcd7 to nil")
+	}
+	{
+		if err := e.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field flags: %w", err)
+		}
+	}
+	e.LegacyRevokePermanent = e.Flags.Has(2)
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field peer: %w", err)
+		}
+		e.Peer = value
+	}
+	if e.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field expire_date: %w", err)
+		}
+		e.ExpireDate = value
+	}
+	if e.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field usage_limit: %w", err)
+		}
+		e.UsageLimit = value
+	}
+	return nil
+}
+
 // SetLegacyRevokePermanent sets value of LegacyRevokePermanent conditional field.
 func (e *MessagesExportChatInviteRequest) SetLegacyRevokePermanent(value bool) {
 	if value {
@@ -241,60 +295,6 @@ func (e *MessagesExportChatInviteRequest) GetUsageLimit() (value int, ok bool) {
 	}
 	return e.UsageLimit, true
 }
-
-// Decode implements bin.Decoder.
-func (e *MessagesExportChatInviteRequest) Decode(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't decode messages.exportChatInvite#14b9bcd7 to nil")
-	}
-	if err := b.ConsumeID(MessagesExportChatInviteRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: %w", err)
-	}
-	return e.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (e *MessagesExportChatInviteRequest) DecodeBare(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't decode messages.exportChatInvite#14b9bcd7 to nil")
-	}
-	{
-		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field flags: %w", err)
-		}
-	}
-	e.LegacyRevokePermanent = e.Flags.Has(2)
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field peer: %w", err)
-		}
-		e.Peer = value
-	}
-	if e.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field expire_date: %w", err)
-		}
-		e.ExpireDate = value
-	}
-	if e.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field usage_limit: %w", err)
-		}
-		e.UsageLimit = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesExportChatInviteRequest.
-var (
-	_ bin.Encoder     = &MessagesExportChatInviteRequest{}
-	_ bin.Decoder     = &MessagesExportChatInviteRequest{}
-	_ bin.BareEncoder = &MessagesExportChatInviteRequest{}
-	_ bin.BareDecoder = &MessagesExportChatInviteRequest{}
-)
 
 // MessagesExportChatInvite invokes method messages.exportChatInvite#14b9bcd7 returning error if any.
 // Export an invite link for a chat

@@ -42,6 +42,14 @@ type MessagesGetAllDraftsRequest struct {
 // MessagesGetAllDraftsRequestTypeID is TL type id of MessagesGetAllDraftsRequest.
 const MessagesGetAllDraftsRequestTypeID = 0x6a3f8d65
 
+// Ensuring interfaces in compile-time for MessagesGetAllDraftsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetAllDraftsRequest{}
+	_ bin.Decoder     = &MessagesGetAllDraftsRequest{}
+	_ bin.BareEncoder = &MessagesGetAllDraftsRequest{}
+	_ bin.BareDecoder = &MessagesGetAllDraftsRequest{}
+)
+
 func (g *MessagesGetAllDraftsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,14 +128,6 @@ func (g *MessagesGetAllDraftsRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for MessagesGetAllDraftsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetAllDraftsRequest{}
-	_ bin.Decoder     = &MessagesGetAllDraftsRequest{}
-	_ bin.BareEncoder = &MessagesGetAllDraftsRequest{}
-	_ bin.BareDecoder = &MessagesGetAllDraftsRequest{}
-)
 
 // MessagesGetAllDrafts invokes method messages.getAllDrafts#6a3f8d65 returning error if any.
 // Save get all message drafts¹.

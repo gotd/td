@@ -41,6 +41,19 @@ type PhotoEmpty struct {
 // PhotoEmptyTypeID is TL type id of PhotoEmpty.
 const PhotoEmptyTypeID = 0x2331b22d
 
+// construct implements constructor of PhotoClass.
+func (p PhotoEmpty) construct() PhotoClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotoEmpty.
+var (
+	_ bin.Encoder     = &PhotoEmpty{}
+	_ bin.Decoder     = &PhotoEmpty{}
+	_ bin.BareEncoder = &PhotoEmpty{}
+	_ bin.BareDecoder = &PhotoEmpty{}
+
+	_ PhotoClass = &PhotoEmpty{}
+)
+
 func (p *PhotoEmpty) Zero() bool {
 	if p == nil {
 		return true
@@ -117,11 +130,6 @@ func (p *PhotoEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (p *PhotoEmpty) GetID() (value int64) {
-	return p.ID
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotoEmpty) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -148,18 +156,10 @@ func (p *PhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoClass.
-func (p PhotoEmpty) construct() PhotoClass { return &p }
-
-// Ensuring interfaces in compile-time for PhotoEmpty.
-var (
-	_ bin.Encoder     = &PhotoEmpty{}
-	_ bin.Decoder     = &PhotoEmpty{}
-	_ bin.BareEncoder = &PhotoEmpty{}
-	_ bin.BareDecoder = &PhotoEmpty{}
-
-	_ PhotoClass = &PhotoEmpty{}
-)
+// GetID returns value of ID field.
+func (p *PhotoEmpty) GetID() (value int64) {
+	return p.ID
+}
 
 // Photo represents TL type `photo#fb197a65`.
 // Photo
@@ -199,6 +199,19 @@ type Photo struct {
 
 // PhotoTypeID is TL type id of Photo.
 const PhotoTypeID = 0xfb197a65
+
+// construct implements constructor of PhotoClass.
+func (p Photo) construct() PhotoClass { return &p }
+
+// Ensuring interfaces in compile-time for Photo.
+var (
+	_ bin.Encoder     = &Photo{}
+	_ bin.Decoder     = &Photo{}
+	_ bin.BareEncoder = &Photo{}
+	_ bin.BareDecoder = &Photo{}
+
+	_ PhotoClass = &Photo{}
+)
 
 func (p *Photo) Zero() bool {
 	if p == nil {
@@ -377,72 +390,6 @@ func (p *Photo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetHasStickers sets value of HasStickers conditional field.
-func (p *Photo) SetHasStickers(value bool) {
-	if value {
-		p.Flags.Set(0)
-		p.HasStickers = true
-	} else {
-		p.Flags.Unset(0)
-		p.HasStickers = false
-	}
-}
-
-// GetHasStickers returns value of HasStickers conditional field.
-func (p *Photo) GetHasStickers() (value bool) {
-	return p.Flags.Has(0)
-}
-
-// GetID returns value of ID field.
-func (p *Photo) GetID() (value int64) {
-	return p.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (p *Photo) GetAccessHash() (value int64) {
-	return p.AccessHash
-}
-
-// GetFileReference returns value of FileReference field.
-func (p *Photo) GetFileReference() (value []byte) {
-	return p.FileReference
-}
-
-// GetDate returns value of Date field.
-func (p *Photo) GetDate() (value int) {
-	return p.Date
-}
-
-// GetSizes returns value of Sizes field.
-func (p *Photo) GetSizes() (value []PhotoSizeClass) {
-	return p.Sizes
-}
-
-// MapSizes returns field Sizes wrapped in PhotoSizeClassArray helper.
-func (p *Photo) MapSizes() (value PhotoSizeClassArray) {
-	return PhotoSizeClassArray(p.Sizes)
-}
-
-// SetVideoSizes sets value of VideoSizes conditional field.
-func (p *Photo) SetVideoSizes(value []VideoSize) {
-	p.Flags.Set(1)
-	p.VideoSizes = value
-}
-
-// GetVideoSizes returns value of VideoSizes conditional field and
-// boolean which is true if field was set.
-func (p *Photo) GetVideoSizes() (value []VideoSize, ok bool) {
-	if !p.Flags.Has(1) {
-		return value, false
-	}
-	return p.VideoSizes, true
-}
-
-// GetDCID returns value of DCID field.
-func (p *Photo) GetDCID() (value int) {
-	return p.DCID
-}
-
 // Decode implements bin.Decoder.
 func (p *Photo) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -537,18 +484,71 @@ func (p *Photo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoClass.
-func (p Photo) construct() PhotoClass { return &p }
+// SetHasStickers sets value of HasStickers conditional field.
+func (p *Photo) SetHasStickers(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.HasStickers = true
+	} else {
+		p.Flags.Unset(0)
+		p.HasStickers = false
+	}
+}
 
-// Ensuring interfaces in compile-time for Photo.
-var (
-	_ bin.Encoder     = &Photo{}
-	_ bin.Decoder     = &Photo{}
-	_ bin.BareEncoder = &Photo{}
-	_ bin.BareDecoder = &Photo{}
+// GetHasStickers returns value of HasStickers conditional field.
+func (p *Photo) GetHasStickers() (value bool) {
+	return p.Flags.Has(0)
+}
 
-	_ PhotoClass = &Photo{}
-)
+// GetID returns value of ID field.
+func (p *Photo) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *Photo) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetFileReference returns value of FileReference field.
+func (p *Photo) GetFileReference() (value []byte) {
+	return p.FileReference
+}
+
+// GetDate returns value of Date field.
+func (p *Photo) GetDate() (value int) {
+	return p.Date
+}
+
+// GetSizes returns value of Sizes field.
+func (p *Photo) GetSizes() (value []PhotoSizeClass) {
+	return p.Sizes
+}
+
+// SetVideoSizes sets value of VideoSizes conditional field.
+func (p *Photo) SetVideoSizes(value []VideoSize) {
+	p.Flags.Set(1)
+	p.VideoSizes = value
+}
+
+// GetVideoSizes returns value of VideoSizes conditional field and
+// boolean which is true if field was set.
+func (p *Photo) GetVideoSizes() (value []VideoSize, ok bool) {
+	if !p.Flags.Has(1) {
+		return value, false
+	}
+	return p.VideoSizes, true
+}
+
+// GetDCID returns value of DCID field.
+func (p *Photo) GetDCID() (value int) {
+	return p.DCID
+}
+
+// MapSizes returns field Sizes wrapped in PhotoSizeClassArray helper.
+func (p *Photo) MapSizes() (value PhotoSizeClassArray) {
+	return PhotoSizeClassArray(p.Sizes)
+}
 
 // PhotoClass represents Photo generic type.
 //

@@ -44,6 +44,14 @@ type MessagesReadHistoryRequest struct {
 // MessagesReadHistoryRequestTypeID is TL type id of MessagesReadHistoryRequest.
 const MessagesReadHistoryRequestTypeID = 0xe306d3a
 
+// Ensuring interfaces in compile-time for MessagesReadHistoryRequest.
+var (
+	_ bin.Encoder     = &MessagesReadHistoryRequest{}
+	_ bin.Decoder     = &MessagesReadHistoryRequest{}
+	_ bin.BareEncoder = &MessagesReadHistoryRequest{}
+	_ bin.BareDecoder = &MessagesReadHistoryRequest{}
+)
+
 func (r *MessagesReadHistoryRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -135,16 +143,6 @@ func (r *MessagesReadHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (r *MessagesReadHistoryRequest) GetPeer() (value InputPeerClass) {
-	return r.Peer
-}
-
-// GetMaxID returns value of MaxID field.
-func (r *MessagesReadHistoryRequest) GetMaxID() (value int) {
-	return r.MaxID
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesReadHistoryRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -178,13 +176,15 @@ func (r *MessagesReadHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesReadHistoryRequest.
-var (
-	_ bin.Encoder     = &MessagesReadHistoryRequest{}
-	_ bin.Decoder     = &MessagesReadHistoryRequest{}
-	_ bin.BareEncoder = &MessagesReadHistoryRequest{}
-	_ bin.BareDecoder = &MessagesReadHistoryRequest{}
-)
+// GetPeer returns value of Peer field.
+func (r *MessagesReadHistoryRequest) GetPeer() (value InputPeerClass) {
+	return r.Peer
+}
+
+// GetMaxID returns value of MaxID field.
+func (r *MessagesReadHistoryRequest) GetMaxID() (value int) {
+	return r.MaxID
+}
 
 // MessagesReadHistory invokes method messages.readHistory#e306d3a returning error if any.
 // Marks message history as read.

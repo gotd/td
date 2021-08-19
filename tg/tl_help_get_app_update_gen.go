@@ -41,6 +41,14 @@ type HelpGetAppUpdateRequest struct {
 // HelpGetAppUpdateRequestTypeID is TL type id of HelpGetAppUpdateRequest.
 const HelpGetAppUpdateRequestTypeID = 0x522d5a7d
 
+// Ensuring interfaces in compile-time for HelpGetAppUpdateRequest.
+var (
+	_ bin.Encoder     = &HelpGetAppUpdateRequest{}
+	_ bin.Decoder     = &HelpGetAppUpdateRequest{}
+	_ bin.BareEncoder = &HelpGetAppUpdateRequest{}
+	_ bin.BareDecoder = &HelpGetAppUpdateRequest{}
+)
+
 func (g *HelpGetAppUpdateRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,11 +125,6 @@ func (g *HelpGetAppUpdateRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSource returns value of Source field.
-func (g *HelpGetAppUpdateRequest) GetSource() (value string) {
-	return g.Source
-}
-
 // Decode implements bin.Decoder.
 func (g *HelpGetAppUpdateRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -148,13 +151,10 @@ func (g *HelpGetAppUpdateRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpGetAppUpdateRequest.
-var (
-	_ bin.Encoder     = &HelpGetAppUpdateRequest{}
-	_ bin.Decoder     = &HelpGetAppUpdateRequest{}
-	_ bin.BareEncoder = &HelpGetAppUpdateRequest{}
-	_ bin.BareDecoder = &HelpGetAppUpdateRequest{}
-)
+// GetSource returns value of Source field.
+func (g *HelpGetAppUpdateRequest) GetSource() (value string) {
+	return g.Source
+}
 
 // HelpGetAppUpdate invokes method help.getAppUpdate#522d5a7d returning error if any.
 // Returns information on update availability for the current application.

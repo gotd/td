@@ -51,6 +51,14 @@ type ChannelsEditBannedRequest struct {
 // ChannelsEditBannedRequestTypeID is TL type id of ChannelsEditBannedRequest.
 const ChannelsEditBannedRequestTypeID = 0x96e6cd81
 
+// Ensuring interfaces in compile-time for ChannelsEditBannedRequest.
+var (
+	_ bin.Encoder     = &ChannelsEditBannedRequest{}
+	_ bin.Decoder     = &ChannelsEditBannedRequest{}
+	_ bin.BareEncoder = &ChannelsEditBannedRequest{}
+	_ bin.BareDecoder = &ChannelsEditBannedRequest{}
+)
+
 func (e *ChannelsEditBannedRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -159,26 +167,6 @@ func (e *ChannelsEditBannedRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (e *ChannelsEditBannedRequest) GetChannel() (value InputChannelClass) {
-	return e.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (e *ChannelsEditBannedRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return e.Channel.AsNotEmpty()
-}
-
-// GetParticipant returns value of Participant field.
-func (e *ChannelsEditBannedRequest) GetParticipant() (value InputPeerClass) {
-	return e.Participant
-}
-
-// GetBannedRights returns value of BannedRights field.
-func (e *ChannelsEditBannedRequest) GetBannedRights() (value ChatBannedRights) {
-	return e.BannedRights
-}
-
 // Decode implements bin.Decoder.
 func (e *ChannelsEditBannedRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -217,13 +205,25 @@ func (e *ChannelsEditBannedRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsEditBannedRequest.
-var (
-	_ bin.Encoder     = &ChannelsEditBannedRequest{}
-	_ bin.Decoder     = &ChannelsEditBannedRequest{}
-	_ bin.BareEncoder = &ChannelsEditBannedRequest{}
-	_ bin.BareDecoder = &ChannelsEditBannedRequest{}
-)
+// GetChannel returns value of Channel field.
+func (e *ChannelsEditBannedRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetParticipant returns value of Participant field.
+func (e *ChannelsEditBannedRequest) GetParticipant() (value InputPeerClass) {
+	return e.Participant
+}
+
+// GetBannedRights returns value of BannedRights field.
+func (e *ChannelsEditBannedRequest) GetBannedRights() (value ChatBannedRights) {
+	return e.BannedRights
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsEditBannedRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
+}
 
 // ChannelsEditBanned invokes method channels.editBanned#96e6cd81 returning error if any.
 // Ban/unban/kick a user in a supergroup/channel¹.

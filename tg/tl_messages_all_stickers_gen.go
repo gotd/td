@@ -39,6 +39,19 @@ type MessagesAllStickersNotModified struct {
 // MessagesAllStickersNotModifiedTypeID is TL type id of MessagesAllStickersNotModified.
 const MessagesAllStickersNotModifiedTypeID = 0xe86602c3
 
+// construct implements constructor of MessagesAllStickersClass.
+func (a MessagesAllStickersNotModified) construct() MessagesAllStickersClass { return &a }
+
+// Ensuring interfaces in compile-time for MessagesAllStickersNotModified.
+var (
+	_ bin.Encoder     = &MessagesAllStickersNotModified{}
+	_ bin.Decoder     = &MessagesAllStickersNotModified{}
+	_ bin.BareEncoder = &MessagesAllStickersNotModified{}
+	_ bin.BareDecoder = &MessagesAllStickersNotModified{}
+
+	_ MessagesAllStickersClass = &MessagesAllStickersNotModified{}
+)
+
 func (a *MessagesAllStickersNotModified) Zero() bool {
 	if a == nil {
 		return true
@@ -118,19 +131,6 @@ func (a *MessagesAllStickersNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesAllStickersClass.
-func (a MessagesAllStickersNotModified) construct() MessagesAllStickersClass { return &a }
-
-// Ensuring interfaces in compile-time for MessagesAllStickersNotModified.
-var (
-	_ bin.Encoder     = &MessagesAllStickersNotModified{}
-	_ bin.Decoder     = &MessagesAllStickersNotModified{}
-	_ bin.BareEncoder = &MessagesAllStickersNotModified{}
-	_ bin.BareDecoder = &MessagesAllStickersNotModified{}
-
-	_ MessagesAllStickersClass = &MessagesAllStickersNotModified{}
-)
-
 // MessagesAllStickers represents TL type `messages.allStickers#edfd405f`.
 // Info about all installed stickers
 //
@@ -147,6 +147,19 @@ type MessagesAllStickers struct {
 
 // MessagesAllStickersTypeID is TL type id of MessagesAllStickers.
 const MessagesAllStickersTypeID = 0xedfd405f
+
+// construct implements constructor of MessagesAllStickersClass.
+func (a MessagesAllStickers) construct() MessagesAllStickersClass { return &a }
+
+// Ensuring interfaces in compile-time for MessagesAllStickers.
+var (
+	_ bin.Encoder     = &MessagesAllStickers{}
+	_ bin.Decoder     = &MessagesAllStickers{}
+	_ bin.BareEncoder = &MessagesAllStickers{}
+	_ bin.BareDecoder = &MessagesAllStickers{}
+
+	_ MessagesAllStickersClass = &MessagesAllStickers{}
+)
 
 func (a *MessagesAllStickers) Zero() bool {
 	if a == nil {
@@ -239,16 +252,6 @@ func (a *MessagesAllStickers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (a *MessagesAllStickers) GetHash() (value int) {
-	return a.Hash
-}
-
-// GetSets returns value of Sets field.
-func (a *MessagesAllStickers) GetSets() (value []StickerSet) {
-	return a.Sets
-}
-
 // Decode implements bin.Decoder.
 func (a *MessagesAllStickers) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -292,18 +295,15 @@ func (a *MessagesAllStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesAllStickersClass.
-func (a MessagesAllStickers) construct() MessagesAllStickersClass { return &a }
+// GetHash returns value of Hash field.
+func (a *MessagesAllStickers) GetHash() (value int) {
+	return a.Hash
+}
 
-// Ensuring interfaces in compile-time for MessagesAllStickers.
-var (
-	_ bin.Encoder     = &MessagesAllStickers{}
-	_ bin.Decoder     = &MessagesAllStickers{}
-	_ bin.BareEncoder = &MessagesAllStickers{}
-	_ bin.BareDecoder = &MessagesAllStickers{}
-
-	_ MessagesAllStickersClass = &MessagesAllStickers{}
-)
+// GetSets returns value of Sets field.
+func (a *MessagesAllStickers) GetSets() (value []StickerSet) {
+	return a.Sets
+}
 
 // MessagesAllStickersClass represents messages.AllStickers generic type.
 //

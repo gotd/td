@@ -48,6 +48,14 @@ type MessagesHistoryImportParsed struct {
 // MessagesHistoryImportParsedTypeID is TL type id of MessagesHistoryImportParsed.
 const MessagesHistoryImportParsedTypeID = 0x5e0fb7b9
 
+// Ensuring interfaces in compile-time for MessagesHistoryImportParsed.
+var (
+	_ bin.Encoder     = &MessagesHistoryImportParsed{}
+	_ bin.Decoder     = &MessagesHistoryImportParsed{}
+	_ bin.BareEncoder = &MessagesHistoryImportParsed{}
+	_ bin.BareDecoder = &MessagesHistoryImportParsed{}
+)
+
 func (h *MessagesHistoryImportParsed) Zero() bool {
 	if h == nil {
 		return true
@@ -165,6 +173,39 @@ func (h *MessagesHistoryImportParsed) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (h *MessagesHistoryImportParsed) Decode(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't decode messages.historyImportParsed#5e0fb7b9 to nil")
+	}
+	if err := b.ConsumeID(MessagesHistoryImportParsedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.historyImportParsed#5e0fb7b9: %w", err)
+	}
+	return h.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (h *MessagesHistoryImportParsed) DecodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't decode messages.historyImportParsed#5e0fb7b9 to nil")
+	}
+	{
+		if err := h.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.historyImportParsed#5e0fb7b9: field flags: %w", err)
+		}
+	}
+	h.Pm = h.Flags.Has(0)
+	h.Group = h.Flags.Has(1)
+	if h.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.historyImportParsed#5e0fb7b9: field title: %w", err)
+		}
+		h.Title = value
+	}
+	return nil
+}
+
 // SetPm sets value of Pm conditional field.
 func (h *MessagesHistoryImportParsed) SetPm(value bool) {
 	if value {
@@ -211,44 +252,3 @@ func (h *MessagesHistoryImportParsed) GetTitle() (value string, ok bool) {
 	}
 	return h.Title, true
 }
-
-// Decode implements bin.Decoder.
-func (h *MessagesHistoryImportParsed) Decode(b *bin.Buffer) error {
-	if h == nil {
-		return fmt.Errorf("can't decode messages.historyImportParsed#5e0fb7b9 to nil")
-	}
-	if err := b.ConsumeID(MessagesHistoryImportParsedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.historyImportParsed#5e0fb7b9: %w", err)
-	}
-	return h.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (h *MessagesHistoryImportParsed) DecodeBare(b *bin.Buffer) error {
-	if h == nil {
-		return fmt.Errorf("can't decode messages.historyImportParsed#5e0fb7b9 to nil")
-	}
-	{
-		if err := h.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.historyImportParsed#5e0fb7b9: field flags: %w", err)
-		}
-	}
-	h.Pm = h.Flags.Has(0)
-	h.Group = h.Flags.Has(1)
-	if h.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.historyImportParsed#5e0fb7b9: field title: %w", err)
-		}
-		h.Title = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesHistoryImportParsed.
-var (
-	_ bin.Encoder     = &MessagesHistoryImportParsed{}
-	_ bin.Decoder     = &MessagesHistoryImportParsed{}
-	_ bin.BareEncoder = &MessagesHistoryImportParsed{}
-	_ bin.BareDecoder = &MessagesHistoryImportParsed{}
-)

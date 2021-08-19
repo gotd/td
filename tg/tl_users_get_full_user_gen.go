@@ -41,6 +41,14 @@ type UsersGetFullUserRequest struct {
 // UsersGetFullUserRequestTypeID is TL type id of UsersGetFullUserRequest.
 const UsersGetFullUserRequestTypeID = 0xca30a5b1
 
+// Ensuring interfaces in compile-time for UsersGetFullUserRequest.
+var (
+	_ bin.Encoder     = &UsersGetFullUserRequest{}
+	_ bin.Decoder     = &UsersGetFullUserRequest{}
+	_ bin.BareEncoder = &UsersGetFullUserRequest{}
+	_ bin.BareDecoder = &UsersGetFullUserRequest{}
+)
+
 func (g *UsersGetFullUserRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -122,11 +130,6 @@ func (g *UsersGetFullUserRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (g *UsersGetFullUserRequest) GetID() (value InputUserClass) {
-	return g.ID
-}
-
 // Decode implements bin.Decoder.
 func (g *UsersGetFullUserRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -153,13 +156,10 @@ func (g *UsersGetFullUserRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UsersGetFullUserRequest.
-var (
-	_ bin.Encoder     = &UsersGetFullUserRequest{}
-	_ bin.Decoder     = &UsersGetFullUserRequest{}
-	_ bin.BareEncoder = &UsersGetFullUserRequest{}
-	_ bin.BareDecoder = &UsersGetFullUserRequest{}
-)
+// GetID returns value of ID field.
+func (g *UsersGetFullUserRequest) GetID() (value InputUserClass) {
+	return g.ID
+}
 
 // UsersGetFullUser invokes method users.getFullUser#ca30a5b1 returning error if any.
 // Returns extended user info by ID.

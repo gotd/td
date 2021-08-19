@@ -43,6 +43,14 @@ type MessagesArchivedStickers struct {
 // MessagesArchivedStickersTypeID is TL type id of MessagesArchivedStickers.
 const MessagesArchivedStickersTypeID = 0x4fcba9c8
 
+// Ensuring interfaces in compile-time for MessagesArchivedStickers.
+var (
+	_ bin.Encoder     = &MessagesArchivedStickers{}
+	_ bin.Decoder     = &MessagesArchivedStickers{}
+	_ bin.BareEncoder = &MessagesArchivedStickers{}
+	_ bin.BareDecoder = &MessagesArchivedStickers{}
+)
+
 func (a *MessagesArchivedStickers) Zero() bool {
 	if a == nil {
 		return true
@@ -137,21 +145,6 @@ func (a *MessagesArchivedStickers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (a *MessagesArchivedStickers) GetCount() (value int) {
-	return a.Count
-}
-
-// GetSets returns value of Sets field.
-func (a *MessagesArchivedStickers) GetSets() (value []StickerSetCoveredClass) {
-	return a.Sets
-}
-
-// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
-func (a *MessagesArchivedStickers) MapSets() (value StickerSetCoveredClassArray) {
-	return StickerSetCoveredClassArray(a.Sets)
-}
-
 // Decode implements bin.Decoder.
 func (a *MessagesArchivedStickers) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -195,10 +188,17 @@ func (a *MessagesArchivedStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesArchivedStickers.
-var (
-	_ bin.Encoder     = &MessagesArchivedStickers{}
-	_ bin.Decoder     = &MessagesArchivedStickers{}
-	_ bin.BareEncoder = &MessagesArchivedStickers{}
-	_ bin.BareDecoder = &MessagesArchivedStickers{}
-)
+// GetCount returns value of Count field.
+func (a *MessagesArchivedStickers) GetCount() (value int) {
+	return a.Count
+}
+
+// GetSets returns value of Sets field.
+func (a *MessagesArchivedStickers) GetSets() (value []StickerSetCoveredClass) {
+	return a.Sets
+}
+
+// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
+func (a *MessagesArchivedStickers) MapSets() (value StickerSetCoveredClassArray) {
+	return StickerSetCoveredClassArray(a.Sets)
+}

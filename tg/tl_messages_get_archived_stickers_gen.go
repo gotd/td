@@ -56,6 +56,14 @@ type MessagesGetArchivedStickersRequest struct {
 // MessagesGetArchivedStickersRequestTypeID is TL type id of MessagesGetArchivedStickersRequest.
 const MessagesGetArchivedStickersRequestTypeID = 0x57f17692
 
+// Ensuring interfaces in compile-time for MessagesGetArchivedStickersRequest.
+var (
+	_ bin.Encoder     = &MessagesGetArchivedStickersRequest{}
+	_ bin.Decoder     = &MessagesGetArchivedStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetArchivedStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetArchivedStickersRequest{}
+)
+
 func (g *MessagesGetArchivedStickersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -161,32 +169,6 @@ func (g *MessagesGetArchivedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetMasks sets value of Masks conditional field.
-func (g *MessagesGetArchivedStickersRequest) SetMasks(value bool) {
-	if value {
-		g.Flags.Set(0)
-		g.Masks = true
-	} else {
-		g.Flags.Unset(0)
-		g.Masks = false
-	}
-}
-
-// GetMasks returns value of Masks conditional field.
-func (g *MessagesGetArchivedStickersRequest) GetMasks() (value bool) {
-	return g.Flags.Has(0)
-}
-
-// GetOffsetID returns value of OffsetID field.
-func (g *MessagesGetArchivedStickersRequest) GetOffsetID() (value int64) {
-	return g.OffsetID
-}
-
-// GetLimit returns value of Limit field.
-func (g *MessagesGetArchivedStickersRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetArchivedStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -226,13 +208,31 @@ func (g *MessagesGetArchivedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetArchivedStickersRequest.
-var (
-	_ bin.Encoder     = &MessagesGetArchivedStickersRequest{}
-	_ bin.Decoder     = &MessagesGetArchivedStickersRequest{}
-	_ bin.BareEncoder = &MessagesGetArchivedStickersRequest{}
-	_ bin.BareDecoder = &MessagesGetArchivedStickersRequest{}
-)
+// SetMasks sets value of Masks conditional field.
+func (g *MessagesGetArchivedStickersRequest) SetMasks(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Masks = true
+	} else {
+		g.Flags.Unset(0)
+		g.Masks = false
+	}
+}
+
+// GetMasks returns value of Masks conditional field.
+func (g *MessagesGetArchivedStickersRequest) GetMasks() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (g *MessagesGetArchivedStickersRequest) GetOffsetID() (value int64) {
+	return g.OffsetID
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetArchivedStickersRequest) GetLimit() (value int) {
+	return g.Limit
+}
 
 // MessagesGetArchivedStickers invokes method messages.getArchivedStickers#57f17692 returning error if any.
 // Get all archived stickers

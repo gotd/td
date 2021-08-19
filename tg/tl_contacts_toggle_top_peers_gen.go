@@ -44,6 +44,14 @@ type ContactsToggleTopPeersRequest struct {
 // ContactsToggleTopPeersRequestTypeID is TL type id of ContactsToggleTopPeersRequest.
 const ContactsToggleTopPeersRequestTypeID = 0x8514bdda
 
+// Ensuring interfaces in compile-time for ContactsToggleTopPeersRequest.
+var (
+	_ bin.Encoder     = &ContactsToggleTopPeersRequest{}
+	_ bin.Decoder     = &ContactsToggleTopPeersRequest{}
+	_ bin.BareEncoder = &ContactsToggleTopPeersRequest{}
+	_ bin.BareDecoder = &ContactsToggleTopPeersRequest{}
+)
+
 func (t *ContactsToggleTopPeersRequest) Zero() bool {
 	if t == nil {
 		return true
@@ -120,11 +128,6 @@ func (t *ContactsToggleTopPeersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEnabled returns value of Enabled field.
-func (t *ContactsToggleTopPeersRequest) GetEnabled() (value bool) {
-	return t.Enabled
-}
-
 // Decode implements bin.Decoder.
 func (t *ContactsToggleTopPeersRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -151,13 +154,10 @@ func (t *ContactsToggleTopPeersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsToggleTopPeersRequest.
-var (
-	_ bin.Encoder     = &ContactsToggleTopPeersRequest{}
-	_ bin.Decoder     = &ContactsToggleTopPeersRequest{}
-	_ bin.BareEncoder = &ContactsToggleTopPeersRequest{}
-	_ bin.BareDecoder = &ContactsToggleTopPeersRequest{}
-)
+// GetEnabled returns value of Enabled field.
+func (t *ContactsToggleTopPeersRequest) GetEnabled() (value bool) {
+	return t.Enabled
+}
 
 // ContactsToggleTopPeers invokes method contacts.toggleTopPeers#8514bdda returning error if any.
 // Enable/disable top peers¹

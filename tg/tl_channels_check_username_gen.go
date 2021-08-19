@@ -46,6 +46,14 @@ type ChannelsCheckUsernameRequest struct {
 // ChannelsCheckUsernameRequestTypeID is TL type id of ChannelsCheckUsernameRequest.
 const ChannelsCheckUsernameRequestTypeID = 0x10e6bd2c
 
+// Ensuring interfaces in compile-time for ChannelsCheckUsernameRequest.
+var (
+	_ bin.Encoder     = &ChannelsCheckUsernameRequest{}
+	_ bin.Decoder     = &ChannelsCheckUsernameRequest{}
+	_ bin.BareEncoder = &ChannelsCheckUsernameRequest{}
+	_ bin.BareDecoder = &ChannelsCheckUsernameRequest{}
+)
+
 func (c *ChannelsCheckUsernameRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -137,21 +145,6 @@ func (c *ChannelsCheckUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (c *ChannelsCheckUsernameRequest) GetChannel() (value InputChannelClass) {
-	return c.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (c *ChannelsCheckUsernameRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return c.Channel.AsNotEmpty()
-}
-
-// GetUsername returns value of Username field.
-func (c *ChannelsCheckUsernameRequest) GetUsername() (value string) {
-	return c.Username
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelsCheckUsernameRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -185,13 +178,20 @@ func (c *ChannelsCheckUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsCheckUsernameRequest.
-var (
-	_ bin.Encoder     = &ChannelsCheckUsernameRequest{}
-	_ bin.Decoder     = &ChannelsCheckUsernameRequest{}
-	_ bin.BareEncoder = &ChannelsCheckUsernameRequest{}
-	_ bin.BareDecoder = &ChannelsCheckUsernameRequest{}
-)
+// GetChannel returns value of Channel field.
+func (c *ChannelsCheckUsernameRequest) GetChannel() (value InputChannelClass) {
+	return c.Channel
+}
+
+// GetUsername returns value of Username field.
+func (c *ChannelsCheckUsernameRequest) GetUsername() (value string) {
+	return c.Username
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (c *ChannelsCheckUsernameRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return c.Channel.AsNotEmpty()
+}
 
 // ChannelsCheckUsername invokes method channels.checkUsername#10e6bd2c returning error if any.
 // Check if a username is free and can be assigned to a channel/supergroup

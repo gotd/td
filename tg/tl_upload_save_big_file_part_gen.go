@@ -48,6 +48,14 @@ type UploadSaveBigFilePartRequest struct {
 // UploadSaveBigFilePartRequestTypeID is TL type id of UploadSaveBigFilePartRequest.
 const UploadSaveBigFilePartRequestTypeID = 0xde7b673d
 
+// Ensuring interfaces in compile-time for UploadSaveBigFilePartRequest.
+var (
+	_ bin.Encoder     = &UploadSaveBigFilePartRequest{}
+	_ bin.Decoder     = &UploadSaveBigFilePartRequest{}
+	_ bin.BareEncoder = &UploadSaveBigFilePartRequest{}
+	_ bin.BareDecoder = &UploadSaveBigFilePartRequest{}
+)
+
 func (s *UploadSaveBigFilePartRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -154,26 +162,6 @@ func (s *UploadSaveBigFilePartRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFileID returns value of FileID field.
-func (s *UploadSaveBigFilePartRequest) GetFileID() (value int64) {
-	return s.FileID
-}
-
-// GetFilePart returns value of FilePart field.
-func (s *UploadSaveBigFilePartRequest) GetFilePart() (value int) {
-	return s.FilePart
-}
-
-// GetFileTotalParts returns value of FileTotalParts field.
-func (s *UploadSaveBigFilePartRequest) GetFileTotalParts() (value int) {
-	return s.FileTotalParts
-}
-
-// GetBytes returns value of Bytes field.
-func (s *UploadSaveBigFilePartRequest) GetBytes() (value []byte) {
-	return s.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (s *UploadSaveBigFilePartRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -221,13 +209,25 @@ func (s *UploadSaveBigFilePartRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UploadSaveBigFilePartRequest.
-var (
-	_ bin.Encoder     = &UploadSaveBigFilePartRequest{}
-	_ bin.Decoder     = &UploadSaveBigFilePartRequest{}
-	_ bin.BareEncoder = &UploadSaveBigFilePartRequest{}
-	_ bin.BareDecoder = &UploadSaveBigFilePartRequest{}
-)
+// GetFileID returns value of FileID field.
+func (s *UploadSaveBigFilePartRequest) GetFileID() (value int64) {
+	return s.FileID
+}
+
+// GetFilePart returns value of FilePart field.
+func (s *UploadSaveBigFilePartRequest) GetFilePart() (value int) {
+	return s.FilePart
+}
+
+// GetFileTotalParts returns value of FileTotalParts field.
+func (s *UploadSaveBigFilePartRequest) GetFileTotalParts() (value int) {
+	return s.FileTotalParts
+}
+
+// GetBytes returns value of Bytes field.
+func (s *UploadSaveBigFilePartRequest) GetBytes() (value []byte) {
+	return s.Bytes
+}
 
 // UploadSaveBigFilePart invokes method upload.saveBigFilePart#de7b673d returning error if any.
 // Saves a part of a large file (over 10Mb in size) to be later passed to one of the

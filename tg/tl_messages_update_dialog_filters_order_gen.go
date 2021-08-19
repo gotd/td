@@ -47,6 +47,14 @@ type MessagesUpdateDialogFiltersOrderRequest struct {
 // MessagesUpdateDialogFiltersOrderRequestTypeID is TL type id of MessagesUpdateDialogFiltersOrderRequest.
 const MessagesUpdateDialogFiltersOrderRequestTypeID = 0xc563c1e4
 
+// Ensuring interfaces in compile-time for MessagesUpdateDialogFiltersOrderRequest.
+var (
+	_ bin.Encoder     = &MessagesUpdateDialogFiltersOrderRequest{}
+	_ bin.Decoder     = &MessagesUpdateDialogFiltersOrderRequest{}
+	_ bin.BareEncoder = &MessagesUpdateDialogFiltersOrderRequest{}
+	_ bin.BareDecoder = &MessagesUpdateDialogFiltersOrderRequest{}
+)
+
 func (u *MessagesUpdateDialogFiltersOrderRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -126,11 +134,6 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) EncodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// GetOrder returns value of Order field.
-func (u *MessagesUpdateDialogFiltersOrderRequest) GetOrder() (value []int) {
-	return u.Order
-}
-
 // Decode implements bin.Decoder.
 func (u *MessagesUpdateDialogFiltersOrderRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -167,13 +170,10 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesUpdateDialogFiltersOrderRequest.
-var (
-	_ bin.Encoder     = &MessagesUpdateDialogFiltersOrderRequest{}
-	_ bin.Decoder     = &MessagesUpdateDialogFiltersOrderRequest{}
-	_ bin.BareEncoder = &MessagesUpdateDialogFiltersOrderRequest{}
-	_ bin.BareDecoder = &MessagesUpdateDialogFiltersOrderRequest{}
-)
+// GetOrder returns value of Order field.
+func (u *MessagesUpdateDialogFiltersOrderRequest) GetOrder() (value []int) {
+	return u.Order
+}
 
 // MessagesUpdateDialogFiltersOrder invokes method messages.updateDialogFiltersOrder#c563c1e4 returning error if any.
 // Reorder folders¹

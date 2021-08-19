@@ -66,6 +66,14 @@ type PageTableCell struct {
 // PageTableCellTypeID is TL type id of PageTableCell.
 const PageTableCellTypeID = 0x34566b6a
 
+// Ensuring interfaces in compile-time for PageTableCell.
+var (
+	_ bin.Encoder     = &PageTableCell{}
+	_ bin.Decoder     = &PageTableCell{}
+	_ bin.BareEncoder = &PageTableCell{}
+	_ bin.BareDecoder = &PageTableCell{}
+)
+
 func (p *PageTableCell) Zero() bool {
 	if p == nil {
 		return true
@@ -265,6 +273,56 @@ func (p *PageTableCell) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *PageTableCell) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageTableCell#34566b6a to nil")
+	}
+	if err := b.ConsumeID(PageTableCellTypeID); err != nil {
+		return fmt.Errorf("unable to decode pageTableCell#34566b6a: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageTableCell) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageTableCell#34566b6a to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field flags: %w", err)
+		}
+	}
+	p.Header = p.Flags.Has(0)
+	p.AlignCenter = p.Flags.Has(3)
+	p.AlignRight = p.Flags.Has(4)
+	p.ValignMiddle = p.Flags.Has(5)
+	p.ValignBottom = p.Flags.Has(6)
+	if p.Flags.Has(7) {
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field text: %w", err)
+		}
+		p.Text = value
+	}
+	if p.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field colspan: %w", err)
+		}
+		p.Colspan = value
+	}
+	if p.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field rowspan: %w", err)
+		}
+		p.Rowspan = value
+	}
+	return nil
+}
+
 // SetHeader sets value of Header conditional field.
 func (p *PageTableCell) SetHeader(value bool) {
 	if value {
@@ -389,61 +447,3 @@ func (p *PageTableCell) GetRowspan() (value int, ok bool) {
 	}
 	return p.Rowspan, true
 }
-
-// Decode implements bin.Decoder.
-func (p *PageTableCell) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode pageTableCell#34566b6a to nil")
-	}
-	if err := b.ConsumeID(PageTableCellTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageTableCell#34566b6a: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *PageTableCell) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode pageTableCell#34566b6a to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field flags: %w", err)
-		}
-	}
-	p.Header = p.Flags.Has(0)
-	p.AlignCenter = p.Flags.Has(3)
-	p.AlignRight = p.Flags.Has(4)
-	p.ValignMiddle = p.Flags.Has(5)
-	p.ValignBottom = p.Flags.Has(6)
-	if p.Flags.Has(7) {
-		value, err := DecodeRichText(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field text: %w", err)
-		}
-		p.Text = value
-	}
-	if p.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field colspan: %w", err)
-		}
-		p.Colspan = value
-	}
-	if p.Flags.Has(2) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field rowspan: %w", err)
-		}
-		p.Rowspan = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for PageTableCell.
-var (
-	_ bin.Encoder     = &PageTableCell{}
-	_ bin.Decoder     = &PageTableCell{}
-	_ bin.BareEncoder = &PageTableCell{}
-	_ bin.BareDecoder = &PageTableCell{}
-)

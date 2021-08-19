@@ -44,6 +44,14 @@ type HelpConfigSimple struct {
 // HelpConfigSimpleTypeID is TL type id of HelpConfigSimple.
 const HelpConfigSimpleTypeID = 0x5a592a6c
 
+// Ensuring interfaces in compile-time for HelpConfigSimple.
+var (
+	_ bin.Encoder     = &HelpConfigSimple{}
+	_ bin.Decoder     = &HelpConfigSimple{}
+	_ bin.BareEncoder = &HelpConfigSimple{}
+	_ bin.BareDecoder = &HelpConfigSimple{}
+)
+
 func (c *HelpConfigSimple) Zero() bool {
 	if c == nil {
 		return true
@@ -145,21 +153,6 @@ func (c *HelpConfigSimple) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDate returns value of Date field.
-func (c *HelpConfigSimple) GetDate() (value int) {
-	return c.Date
-}
-
-// GetExpires returns value of Expires field.
-func (c *HelpConfigSimple) GetExpires() (value int) {
-	return c.Expires
-}
-
-// GetRules returns value of Rules field.
-func (c *HelpConfigSimple) GetRules() (value []AccessPointRule) {
-	return c.Rules
-}
-
 // Decode implements bin.Decoder.
 func (c *HelpConfigSimple) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -210,10 +203,17 @@ func (c *HelpConfigSimple) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpConfigSimple.
-var (
-	_ bin.Encoder     = &HelpConfigSimple{}
-	_ bin.Decoder     = &HelpConfigSimple{}
-	_ bin.BareEncoder = &HelpConfigSimple{}
-	_ bin.BareDecoder = &HelpConfigSimple{}
-)
+// GetDate returns value of Date field.
+func (c *HelpConfigSimple) GetDate() (value int) {
+	return c.Date
+}
+
+// GetExpires returns value of Expires field.
+func (c *HelpConfigSimple) GetExpires() (value int) {
+	return c.Expires
+}
+
+// GetRules returns value of Rules field.
+func (c *HelpConfigSimple) GetRules() (value []AccessPointRule) {
+	return c.Rules
+}

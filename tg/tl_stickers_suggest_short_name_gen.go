@@ -40,6 +40,14 @@ type StickersSuggestShortNameRequest struct {
 // StickersSuggestShortNameRequestTypeID is TL type id of StickersSuggestShortNameRequest.
 const StickersSuggestShortNameRequestTypeID = 0x4dafc503
 
+// Ensuring interfaces in compile-time for StickersSuggestShortNameRequest.
+var (
+	_ bin.Encoder     = &StickersSuggestShortNameRequest{}
+	_ bin.Decoder     = &StickersSuggestShortNameRequest{}
+	_ bin.BareEncoder = &StickersSuggestShortNameRequest{}
+	_ bin.BareDecoder = &StickersSuggestShortNameRequest{}
+)
+
 func (s *StickersSuggestShortNameRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -116,11 +124,6 @@ func (s *StickersSuggestShortNameRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTitle returns value of Title field.
-func (s *StickersSuggestShortNameRequest) GetTitle() (value string) {
-	return s.Title
-}
-
 // Decode implements bin.Decoder.
 func (s *StickersSuggestShortNameRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -147,13 +150,10 @@ func (s *StickersSuggestShortNameRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StickersSuggestShortNameRequest.
-var (
-	_ bin.Encoder     = &StickersSuggestShortNameRequest{}
-	_ bin.Decoder     = &StickersSuggestShortNameRequest{}
-	_ bin.BareEncoder = &StickersSuggestShortNameRequest{}
-	_ bin.BareDecoder = &StickersSuggestShortNameRequest{}
-)
+// GetTitle returns value of Title field.
+func (s *StickersSuggestShortNameRequest) GetTitle() (value string) {
+	return s.Title
+}
 
 // StickersSuggestShortName invokes method stickers.suggestShortName#4dafc503 returning error if any.
 //

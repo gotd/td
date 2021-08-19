@@ -49,6 +49,14 @@ type ChannelsGetGroupsForDiscussionRequest struct {
 // ChannelsGetGroupsForDiscussionRequestTypeID is TL type id of ChannelsGetGroupsForDiscussionRequest.
 const ChannelsGetGroupsForDiscussionRequestTypeID = 0xf5dad378
 
+// Ensuring interfaces in compile-time for ChannelsGetGroupsForDiscussionRequest.
+var (
+	_ bin.Encoder     = &ChannelsGetGroupsForDiscussionRequest{}
+	_ bin.Decoder     = &ChannelsGetGroupsForDiscussionRequest{}
+	_ bin.BareEncoder = &ChannelsGetGroupsForDiscussionRequest{}
+	_ bin.BareDecoder = &ChannelsGetGroupsForDiscussionRequest{}
+)
+
 func (g *ChannelsGetGroupsForDiscussionRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -127,14 +135,6 @@ func (g *ChannelsGetGroupsForDiscussionRequest) DecodeBare(b *bin.Buffer) error 
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for ChannelsGetGroupsForDiscussionRequest.
-var (
-	_ bin.Encoder     = &ChannelsGetGroupsForDiscussionRequest{}
-	_ bin.Decoder     = &ChannelsGetGroupsForDiscussionRequest{}
-	_ bin.BareEncoder = &ChannelsGetGroupsForDiscussionRequest{}
-	_ bin.BareDecoder = &ChannelsGetGroupsForDiscussionRequest{}
-)
 
 // ChannelsGetGroupsForDiscussion invokes method channels.getGroupsForDiscussion#f5dad378 returning error if any.
 // Get all groups that can be used as discussion groups¹.

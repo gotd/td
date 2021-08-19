@@ -39,6 +39,14 @@ type ContactsGetSavedRequest struct {
 // ContactsGetSavedRequestTypeID is TL type id of ContactsGetSavedRequest.
 const ContactsGetSavedRequestTypeID = 0x82f1e39f
 
+// Ensuring interfaces in compile-time for ContactsGetSavedRequest.
+var (
+	_ bin.Encoder     = &ContactsGetSavedRequest{}
+	_ bin.Decoder     = &ContactsGetSavedRequest{}
+	_ bin.BareEncoder = &ContactsGetSavedRequest{}
+	_ bin.BareDecoder = &ContactsGetSavedRequest{}
+)
+
 func (g *ContactsGetSavedRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *ContactsGetSavedRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for ContactsGetSavedRequest.
-var (
-	_ bin.Encoder     = &ContactsGetSavedRequest{}
-	_ bin.Decoder     = &ContactsGetSavedRequest{}
-	_ bin.BareEncoder = &ContactsGetSavedRequest{}
-	_ bin.BareDecoder = &ContactsGetSavedRequest{}
-)
 
 // ContactsGetSaved invokes method contacts.getSaved#82f1e39f returning error if any.
 // Get all contacts

@@ -44,6 +44,14 @@ type StickersChangeStickerPositionRequest struct {
 // StickersChangeStickerPositionRequestTypeID is TL type id of StickersChangeStickerPositionRequest.
 const StickersChangeStickerPositionRequestTypeID = 0xffb6d4ca
 
+// Ensuring interfaces in compile-time for StickersChangeStickerPositionRequest.
+var (
+	_ bin.Encoder     = &StickersChangeStickerPositionRequest{}
+	_ bin.Decoder     = &StickersChangeStickerPositionRequest{}
+	_ bin.BareEncoder = &StickersChangeStickerPositionRequest{}
+	_ bin.BareDecoder = &StickersChangeStickerPositionRequest{}
+)
+
 func (c *StickersChangeStickerPositionRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -135,21 +143,6 @@ func (c *StickersChangeStickerPositionRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSticker returns value of Sticker field.
-func (c *StickersChangeStickerPositionRequest) GetSticker() (value InputDocumentClass) {
-	return c.Sticker
-}
-
-// GetStickerAsNotEmpty returns mapped value of Sticker field.
-func (c *StickersChangeStickerPositionRequest) GetStickerAsNotEmpty() (*InputDocument, bool) {
-	return c.Sticker.AsNotEmpty()
-}
-
-// GetPosition returns value of Position field.
-func (c *StickersChangeStickerPositionRequest) GetPosition() (value int) {
-	return c.Position
-}
-
 // Decode implements bin.Decoder.
 func (c *StickersChangeStickerPositionRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -183,13 +176,20 @@ func (c *StickersChangeStickerPositionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StickersChangeStickerPositionRequest.
-var (
-	_ bin.Encoder     = &StickersChangeStickerPositionRequest{}
-	_ bin.Decoder     = &StickersChangeStickerPositionRequest{}
-	_ bin.BareEncoder = &StickersChangeStickerPositionRequest{}
-	_ bin.BareDecoder = &StickersChangeStickerPositionRequest{}
-)
+// GetSticker returns value of Sticker field.
+func (c *StickersChangeStickerPositionRequest) GetSticker() (value InputDocumentClass) {
+	return c.Sticker
+}
+
+// GetPosition returns value of Position field.
+func (c *StickersChangeStickerPositionRequest) GetPosition() (value int) {
+	return c.Position
+}
+
+// GetStickerAsNotEmpty returns mapped value of Sticker field.
+func (c *StickersChangeStickerPositionRequest) GetStickerAsNotEmpty() (*InputDocument, bool) {
+	return c.Sticker.AsNotEmpty()
+}
 
 // StickersChangeStickerPosition invokes method stickers.changeStickerPosition#ffb6d4ca returning error if any.
 // Changes the absolute position of a sticker in the set to which it belongs; for bots

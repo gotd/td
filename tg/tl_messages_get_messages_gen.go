@@ -41,6 +41,14 @@ type MessagesGetMessagesRequest struct {
 // MessagesGetMessagesRequestTypeID is TL type id of MessagesGetMessagesRequest.
 const MessagesGetMessagesRequestTypeID = 0x63c66506
 
+// Ensuring interfaces in compile-time for MessagesGetMessagesRequest.
+var (
+	_ bin.Encoder     = &MessagesGetMessagesRequest{}
+	_ bin.Decoder     = &MessagesGetMessagesRequest{}
+	_ bin.BareEncoder = &MessagesGetMessagesRequest{}
+	_ bin.BareDecoder = &MessagesGetMessagesRequest{}
+)
+
 func (g *MessagesGetMessagesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -125,16 +133,6 @@ func (g *MessagesGetMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (g *MessagesGetMessagesRequest) GetID() (value []InputMessageClass) {
-	return g.ID
-}
-
-// MapID returns field ID wrapped in InputMessageClassArray helper.
-func (g *MessagesGetMessagesRequest) MapID() (value InputMessageClassArray) {
-	return InputMessageClassArray(g.ID)
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetMessagesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -171,13 +169,15 @@ func (g *MessagesGetMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetMessagesRequest.
-var (
-	_ bin.Encoder     = &MessagesGetMessagesRequest{}
-	_ bin.Decoder     = &MessagesGetMessagesRequest{}
-	_ bin.BareEncoder = &MessagesGetMessagesRequest{}
-	_ bin.BareDecoder = &MessagesGetMessagesRequest{}
-)
+// GetID returns value of ID field.
+func (g *MessagesGetMessagesRequest) GetID() (value []InputMessageClass) {
+	return g.ID
+}
+
+// MapID returns field ID wrapped in InputMessageClassArray helper.
+func (g *MessagesGetMessagesRequest) MapID() (value InputMessageClassArray) {
+	return InputMessageClassArray(g.ID)
+}
 
 // MessagesGetMessages invokes method messages.getMessages#63c66506 returning error if any.
 // Returns the list of messages by their IDs.

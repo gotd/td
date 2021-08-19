@@ -51,6 +51,14 @@ type MessagesGetStatsURLRequest struct {
 // MessagesGetStatsURLRequestTypeID is TL type id of MessagesGetStatsURLRequest.
 const MessagesGetStatsURLRequestTypeID = 0x812c2ae6
 
+// Ensuring interfaces in compile-time for MessagesGetStatsURLRequest.
+var (
+	_ bin.Encoder     = &MessagesGetStatsURLRequest{}
+	_ bin.Decoder     = &MessagesGetStatsURLRequest{}
+	_ bin.BareEncoder = &MessagesGetStatsURLRequest{}
+	_ bin.BareDecoder = &MessagesGetStatsURLRequest{}
+)
+
 func (g *MessagesGetStatsURLRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -161,32 +169,6 @@ func (g *MessagesGetStatsURLRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetDark sets value of Dark conditional field.
-func (g *MessagesGetStatsURLRequest) SetDark(value bool) {
-	if value {
-		g.Flags.Set(0)
-		g.Dark = true
-	} else {
-		g.Flags.Unset(0)
-		g.Dark = false
-	}
-}
-
-// GetDark returns value of Dark conditional field.
-func (g *MessagesGetStatsURLRequest) GetDark() (value bool) {
-	return g.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (g *MessagesGetStatsURLRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetParams returns value of Params field.
-func (g *MessagesGetStatsURLRequest) GetParams() (value string) {
-	return g.Params
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetStatsURLRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -226,13 +208,31 @@ func (g *MessagesGetStatsURLRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetStatsURLRequest.
-var (
-	_ bin.Encoder     = &MessagesGetStatsURLRequest{}
-	_ bin.Decoder     = &MessagesGetStatsURLRequest{}
-	_ bin.BareEncoder = &MessagesGetStatsURLRequest{}
-	_ bin.BareDecoder = &MessagesGetStatsURLRequest{}
-)
+// SetDark sets value of Dark conditional field.
+func (g *MessagesGetStatsURLRequest) SetDark(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Dark = true
+	} else {
+		g.Flags.Unset(0)
+		g.Dark = false
+	}
+}
+
+// GetDark returns value of Dark conditional field.
+func (g *MessagesGetStatsURLRequest) GetDark() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetStatsURLRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetParams returns value of Params field.
+func (g *MessagesGetStatsURLRequest) GetParams() (value string) {
+	return g.Params
+}
 
 // MessagesGetStatsURL invokes method messages.getStatsURL#812c2ae6 returning error if any.
 // Returns URL with the chat statistics. Currently this method can be used only for

@@ -47,6 +47,14 @@ type HelpGetAppChangelogRequest struct {
 // HelpGetAppChangelogRequestTypeID is TL type id of HelpGetAppChangelogRequest.
 const HelpGetAppChangelogRequestTypeID = 0x9010ef6f
 
+// Ensuring interfaces in compile-time for HelpGetAppChangelogRequest.
+var (
+	_ bin.Encoder     = &HelpGetAppChangelogRequest{}
+	_ bin.Decoder     = &HelpGetAppChangelogRequest{}
+	_ bin.BareEncoder = &HelpGetAppChangelogRequest{}
+	_ bin.BareDecoder = &HelpGetAppChangelogRequest{}
+)
+
 func (g *HelpGetAppChangelogRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -123,11 +131,6 @@ func (g *HelpGetAppChangelogRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPrevAppVersion returns value of PrevAppVersion field.
-func (g *HelpGetAppChangelogRequest) GetPrevAppVersion() (value string) {
-	return g.PrevAppVersion
-}
-
 // Decode implements bin.Decoder.
 func (g *HelpGetAppChangelogRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -154,13 +157,10 @@ func (g *HelpGetAppChangelogRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpGetAppChangelogRequest.
-var (
-	_ bin.Encoder     = &HelpGetAppChangelogRequest{}
-	_ bin.Decoder     = &HelpGetAppChangelogRequest{}
-	_ bin.BareEncoder = &HelpGetAppChangelogRequest{}
-	_ bin.BareDecoder = &HelpGetAppChangelogRequest{}
-)
+// GetPrevAppVersion returns value of PrevAppVersion field.
+func (g *HelpGetAppChangelogRequest) GetPrevAppVersion() (value string) {
+	return g.PrevAppVersion
+}
 
 // HelpGetAppChangelog invokes method help.getAppChangelog#9010ef6f returning error if any.
 // Get changelog of current app.

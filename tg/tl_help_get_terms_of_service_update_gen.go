@@ -39,6 +39,14 @@ type HelpGetTermsOfServiceUpdateRequest struct {
 // HelpGetTermsOfServiceUpdateRequestTypeID is TL type id of HelpGetTermsOfServiceUpdateRequest.
 const HelpGetTermsOfServiceUpdateRequestTypeID = 0x2ca51fd1
 
+// Ensuring interfaces in compile-time for HelpGetTermsOfServiceUpdateRequest.
+var (
+	_ bin.Encoder     = &HelpGetTermsOfServiceUpdateRequest{}
+	_ bin.Decoder     = &HelpGetTermsOfServiceUpdateRequest{}
+	_ bin.BareEncoder = &HelpGetTermsOfServiceUpdateRequest{}
+	_ bin.BareDecoder = &HelpGetTermsOfServiceUpdateRequest{}
+)
+
 func (g *HelpGetTermsOfServiceUpdateRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *HelpGetTermsOfServiceUpdateRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for HelpGetTermsOfServiceUpdateRequest.
-var (
-	_ bin.Encoder     = &HelpGetTermsOfServiceUpdateRequest{}
-	_ bin.Decoder     = &HelpGetTermsOfServiceUpdateRequest{}
-	_ bin.BareEncoder = &HelpGetTermsOfServiceUpdateRequest{}
-	_ bin.BareDecoder = &HelpGetTermsOfServiceUpdateRequest{}
-)
 
 // HelpGetTermsOfServiceUpdate invokes method help.getTermsOfServiceUpdate#2ca51fd1 returning error if any.
 // Look for updates of telegram's terms of service

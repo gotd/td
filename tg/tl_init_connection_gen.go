@@ -72,6 +72,14 @@ type InitConnectionRequest struct {
 // InitConnectionRequestTypeID is TL type id of InitConnectionRequest.
 const InitConnectionRequestTypeID = 0xc1cd5ea9
 
+// Ensuring interfaces in compile-time for InitConnectionRequest.
+var (
+	_ bin.Encoder     = &InitConnectionRequest{}
+	_ bin.Decoder     = &InitConnectionRequest{}
+	_ bin.BareEncoder = &InitConnectionRequest{}
+	_ bin.BareDecoder = &InitConnectionRequest{}
+)
+
 func (i *InitConnectionRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -271,76 +279,6 @@ func (i *InitConnectionRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAPIID returns value of APIID field.
-func (i *InitConnectionRequest) GetAPIID() (value int) {
-	return i.APIID
-}
-
-// GetDeviceModel returns value of DeviceModel field.
-func (i *InitConnectionRequest) GetDeviceModel() (value string) {
-	return i.DeviceModel
-}
-
-// GetSystemVersion returns value of SystemVersion field.
-func (i *InitConnectionRequest) GetSystemVersion() (value string) {
-	return i.SystemVersion
-}
-
-// GetAppVersion returns value of AppVersion field.
-func (i *InitConnectionRequest) GetAppVersion() (value string) {
-	return i.AppVersion
-}
-
-// GetSystemLangCode returns value of SystemLangCode field.
-func (i *InitConnectionRequest) GetSystemLangCode() (value string) {
-	return i.SystemLangCode
-}
-
-// GetLangPack returns value of LangPack field.
-func (i *InitConnectionRequest) GetLangPack() (value string) {
-	return i.LangPack
-}
-
-// GetLangCode returns value of LangCode field.
-func (i *InitConnectionRequest) GetLangCode() (value string) {
-	return i.LangCode
-}
-
-// SetProxy sets value of Proxy conditional field.
-func (i *InitConnectionRequest) SetProxy(value InputClientProxy) {
-	i.Flags.Set(0)
-	i.Proxy = value
-}
-
-// GetProxy returns value of Proxy conditional field and
-// boolean which is true if field was set.
-func (i *InitConnectionRequest) GetProxy() (value InputClientProxy, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.Proxy, true
-}
-
-// SetParams sets value of Params conditional field.
-func (i *InitConnectionRequest) SetParams(value JSONValueClass) {
-	i.Flags.Set(1)
-	i.Params = value
-}
-
-// GetParams returns value of Params conditional field and
-// boolean which is true if field was set.
-func (i *InitConnectionRequest) GetParams() (value JSONValueClass, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.Params, true
-}
-
-// GetQuery returns value of Query field.
-func (i *InitConnectionRequest) GetQuery() (value bin.Object) {
-	return i.Query
-}
-
 // Decode implements bin.Decoder.
 func (i *InitConnectionRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -431,10 +369,72 @@ func (i *InitConnectionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InitConnectionRequest.
-var (
-	_ bin.Encoder     = &InitConnectionRequest{}
-	_ bin.Decoder     = &InitConnectionRequest{}
-	_ bin.BareEncoder = &InitConnectionRequest{}
-	_ bin.BareDecoder = &InitConnectionRequest{}
-)
+// GetAPIID returns value of APIID field.
+func (i *InitConnectionRequest) GetAPIID() (value int) {
+	return i.APIID
+}
+
+// GetDeviceModel returns value of DeviceModel field.
+func (i *InitConnectionRequest) GetDeviceModel() (value string) {
+	return i.DeviceModel
+}
+
+// GetSystemVersion returns value of SystemVersion field.
+func (i *InitConnectionRequest) GetSystemVersion() (value string) {
+	return i.SystemVersion
+}
+
+// GetAppVersion returns value of AppVersion field.
+func (i *InitConnectionRequest) GetAppVersion() (value string) {
+	return i.AppVersion
+}
+
+// GetSystemLangCode returns value of SystemLangCode field.
+func (i *InitConnectionRequest) GetSystemLangCode() (value string) {
+	return i.SystemLangCode
+}
+
+// GetLangPack returns value of LangPack field.
+func (i *InitConnectionRequest) GetLangPack() (value string) {
+	return i.LangPack
+}
+
+// GetLangCode returns value of LangCode field.
+func (i *InitConnectionRequest) GetLangCode() (value string) {
+	return i.LangCode
+}
+
+// SetProxy sets value of Proxy conditional field.
+func (i *InitConnectionRequest) SetProxy(value InputClientProxy) {
+	i.Flags.Set(0)
+	i.Proxy = value
+}
+
+// GetProxy returns value of Proxy conditional field and
+// boolean which is true if field was set.
+func (i *InitConnectionRequest) GetProxy() (value InputClientProxy, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.Proxy, true
+}
+
+// SetParams sets value of Params conditional field.
+func (i *InitConnectionRequest) SetParams(value JSONValueClass) {
+	i.Flags.Set(1)
+	i.Params = value
+}
+
+// GetParams returns value of Params conditional field and
+// boolean which is true if field was set.
+func (i *InitConnectionRequest) GetParams() (value JSONValueClass, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Params, true
+}
+
+// GetQuery returns value of Query field.
+func (i *InitConnectionRequest) GetQuery() (value bin.Object) {
+	return i.Query
+}

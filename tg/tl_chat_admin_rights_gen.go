@@ -94,6 +94,14 @@ type ChatAdminRights struct {
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.
 const ChatAdminRightsTypeID = 0x5fb224d5
 
+// Ensuring interfaces in compile-time for ChatAdminRights.
+var (
+	_ bin.Encoder     = &ChatAdminRights{}
+	_ bin.Decoder     = &ChatAdminRights{}
+	_ bin.BareEncoder = &ChatAdminRights{}
+	_ bin.BareDecoder = &ChatAdminRights{}
+)
+
 func (c *ChatAdminRights) Zero() bool {
 	if c == nil {
 		return true
@@ -309,6 +317,41 @@ func (c *ChatAdminRights) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *ChatAdminRights) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatAdminRights#5fb224d5 to nil")
+	}
+	if err := b.ConsumeID(ChatAdminRightsTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatAdminRights#5fb224d5: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatAdminRights) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatAdminRights#5fb224d5 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatAdminRights#5fb224d5: field flags: %w", err)
+		}
+	}
+	c.ChangeInfo = c.Flags.Has(0)
+	c.PostMessages = c.Flags.Has(1)
+	c.EditMessages = c.Flags.Has(2)
+	c.DeleteMessages = c.Flags.Has(3)
+	c.BanUsers = c.Flags.Has(4)
+	c.InviteUsers = c.Flags.Has(5)
+	c.PinMessages = c.Flags.Has(7)
+	c.AddAdmins = c.Flags.Has(9)
+	c.Anonymous = c.Flags.Has(10)
+	c.ManageCall = c.Flags.Has(11)
+	c.Other = c.Flags.Has(12)
+	return nil
+}
+
 // SetChangeInfo sets value of ChangeInfo conditional field.
 func (c *ChatAdminRights) SetChangeInfo(value bool) {
 	if value {
@@ -484,46 +527,3 @@ func (c *ChatAdminRights) SetOther(value bool) {
 func (c *ChatAdminRights) GetOther() (value bool) {
 	return c.Flags.Has(12)
 }
-
-// Decode implements bin.Decoder.
-func (c *ChatAdminRights) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatAdminRights#5fb224d5 to nil")
-	}
-	if err := b.ConsumeID(ChatAdminRightsTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatAdminRights#5fb224d5: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatAdminRights) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatAdminRights#5fb224d5 to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatAdminRights#5fb224d5: field flags: %w", err)
-		}
-	}
-	c.ChangeInfo = c.Flags.Has(0)
-	c.PostMessages = c.Flags.Has(1)
-	c.EditMessages = c.Flags.Has(2)
-	c.DeleteMessages = c.Flags.Has(3)
-	c.BanUsers = c.Flags.Has(4)
-	c.InviteUsers = c.Flags.Has(5)
-	c.PinMessages = c.Flags.Has(7)
-	c.AddAdmins = c.Flags.Has(9)
-	c.Anonymous = c.Flags.Has(10)
-	c.ManageCall = c.Flags.Has(11)
-	c.Other = c.Flags.Has(12)
-	return nil
-}
-
-// Ensuring interfaces in compile-time for ChatAdminRights.
-var (
-	_ bin.Encoder     = &ChatAdminRights{}
-	_ bin.Decoder     = &ChatAdminRights{}
-	_ bin.BareEncoder = &ChatAdminRights{}
-	_ bin.BareDecoder = &ChatAdminRights{}
-)

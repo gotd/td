@@ -39,6 +39,19 @@ type MessagesFavedStickersNotModified struct {
 // MessagesFavedStickersNotModifiedTypeID is TL type id of MessagesFavedStickersNotModified.
 const MessagesFavedStickersNotModifiedTypeID = 0x9e8fa6d3
 
+// construct implements constructor of MessagesFavedStickersClass.
+func (f MessagesFavedStickersNotModified) construct() MessagesFavedStickersClass { return &f }
+
+// Ensuring interfaces in compile-time for MessagesFavedStickersNotModified.
+var (
+	_ bin.Encoder     = &MessagesFavedStickersNotModified{}
+	_ bin.Decoder     = &MessagesFavedStickersNotModified{}
+	_ bin.BareEncoder = &MessagesFavedStickersNotModified{}
+	_ bin.BareDecoder = &MessagesFavedStickersNotModified{}
+
+	_ MessagesFavedStickersClass = &MessagesFavedStickersNotModified{}
+)
+
 func (f *MessagesFavedStickersNotModified) Zero() bool {
 	if f == nil {
 		return true
@@ -118,19 +131,6 @@ func (f *MessagesFavedStickersNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFavedStickersClass.
-func (f MessagesFavedStickersNotModified) construct() MessagesFavedStickersClass { return &f }
-
-// Ensuring interfaces in compile-time for MessagesFavedStickersNotModified.
-var (
-	_ bin.Encoder     = &MessagesFavedStickersNotModified{}
-	_ bin.Decoder     = &MessagesFavedStickersNotModified{}
-	_ bin.BareEncoder = &MessagesFavedStickersNotModified{}
-	_ bin.BareDecoder = &MessagesFavedStickersNotModified{}
-
-	_ MessagesFavedStickersClass = &MessagesFavedStickersNotModified{}
-)
-
 // MessagesFavedStickers represents TL type `messages.favedStickers#f37f2f16`.
 // Favorited stickers
 //
@@ -149,6 +149,19 @@ type MessagesFavedStickers struct {
 
 // MessagesFavedStickersTypeID is TL type id of MessagesFavedStickers.
 const MessagesFavedStickersTypeID = 0xf37f2f16
+
+// construct implements constructor of MessagesFavedStickersClass.
+func (f MessagesFavedStickers) construct() MessagesFavedStickersClass { return &f }
+
+// Ensuring interfaces in compile-time for MessagesFavedStickers.
+var (
+	_ bin.Encoder     = &MessagesFavedStickers{}
+	_ bin.Decoder     = &MessagesFavedStickers{}
+	_ bin.BareEncoder = &MessagesFavedStickers{}
+	_ bin.BareDecoder = &MessagesFavedStickers{}
+
+	_ MessagesFavedStickersClass = &MessagesFavedStickers{}
+)
 
 func (f *MessagesFavedStickers) Zero() bool {
 	if f == nil {
@@ -259,26 +272,6 @@ func (f *MessagesFavedStickers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (f *MessagesFavedStickers) GetHash() (value int) {
-	return f.Hash
-}
-
-// GetPacks returns value of Packs field.
-func (f *MessagesFavedStickers) GetPacks() (value []StickerPack) {
-	return f.Packs
-}
-
-// GetStickers returns value of Stickers field.
-func (f *MessagesFavedStickers) GetStickers() (value []DocumentClass) {
-	return f.Stickers
-}
-
-// MapStickers returns field Stickers wrapped in DocumentClassArray helper.
-func (f *MessagesFavedStickers) MapStickers() (value DocumentClassArray) {
-	return DocumentClassArray(f.Stickers)
-}
-
 // Decode implements bin.Decoder.
 func (f *MessagesFavedStickers) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -339,18 +332,25 @@ func (f *MessagesFavedStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFavedStickersClass.
-func (f MessagesFavedStickers) construct() MessagesFavedStickersClass { return &f }
+// GetHash returns value of Hash field.
+func (f *MessagesFavedStickers) GetHash() (value int) {
+	return f.Hash
+}
 
-// Ensuring interfaces in compile-time for MessagesFavedStickers.
-var (
-	_ bin.Encoder     = &MessagesFavedStickers{}
-	_ bin.Decoder     = &MessagesFavedStickers{}
-	_ bin.BareEncoder = &MessagesFavedStickers{}
-	_ bin.BareDecoder = &MessagesFavedStickers{}
+// GetPacks returns value of Packs field.
+func (f *MessagesFavedStickers) GetPacks() (value []StickerPack) {
+	return f.Packs
+}
 
-	_ MessagesFavedStickersClass = &MessagesFavedStickers{}
-)
+// GetStickers returns value of Stickers field.
+func (f *MessagesFavedStickers) GetStickers() (value []DocumentClass) {
+	return f.Stickers
+}
+
+// MapStickers returns field Stickers wrapped in DocumentClassArray helper.
+func (f *MessagesFavedStickers) MapStickers() (value DocumentClassArray) {
+	return DocumentClassArray(f.Stickers)
+}
 
 // MessagesFavedStickersClass represents messages.FavedStickers generic type.
 //

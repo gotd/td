@@ -50,6 +50,14 @@ type AccountSaveAutoDownloadSettingsRequest struct {
 // AccountSaveAutoDownloadSettingsRequestTypeID is TL type id of AccountSaveAutoDownloadSettingsRequest.
 const AccountSaveAutoDownloadSettingsRequestTypeID = 0x76f36233
 
+// Ensuring interfaces in compile-time for AccountSaveAutoDownloadSettingsRequest.
+var (
+	_ bin.Encoder     = &AccountSaveAutoDownloadSettingsRequest{}
+	_ bin.Decoder     = &AccountSaveAutoDownloadSettingsRequest{}
+	_ bin.BareEncoder = &AccountSaveAutoDownloadSettingsRequest{}
+	_ bin.BareDecoder = &AccountSaveAutoDownloadSettingsRequest{}
+)
+
 func (s *AccountSaveAutoDownloadSettingsRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -160,6 +168,37 @@ func (s *AccountSaveAutoDownloadSettingsRequest) EncodeBare(b *bin.Buffer) error
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (s *AccountSaveAutoDownloadSettingsRequest) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode account.saveAutoDownloadSettings#76f36233 to nil")
+	}
+	if err := b.ConsumeID(AccountSaveAutoDownloadSettingsRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode account.saveAutoDownloadSettings#76f36233: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AccountSaveAutoDownloadSettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode account.saveAutoDownloadSettings#76f36233 to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode account.saveAutoDownloadSettings#76f36233: field flags: %w", err)
+		}
+	}
+	s.Low = s.Flags.Has(0)
+	s.High = s.Flags.Has(1)
+	{
+		if err := s.Settings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode account.saveAutoDownloadSettings#76f36233: field settings: %w", err)
+		}
+	}
+	return nil
+}
+
 // SetLow sets value of Low conditional field.
 func (s *AccountSaveAutoDownloadSettingsRequest) SetLow(value bool) {
 	if value {
@@ -196,45 +235,6 @@ func (s *AccountSaveAutoDownloadSettingsRequest) GetHigh() (value bool) {
 func (s *AccountSaveAutoDownloadSettingsRequest) GetSettings() (value AutoDownloadSettings) {
 	return s.Settings
 }
-
-// Decode implements bin.Decoder.
-func (s *AccountSaveAutoDownloadSettingsRequest) Decode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode account.saveAutoDownloadSettings#76f36233 to nil")
-	}
-	if err := b.ConsumeID(AccountSaveAutoDownloadSettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.saveAutoDownloadSettings#76f36233: %w", err)
-	}
-	return s.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (s *AccountSaveAutoDownloadSettingsRequest) DecodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode account.saveAutoDownloadSettings#76f36233 to nil")
-	}
-	{
-		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.saveAutoDownloadSettings#76f36233: field flags: %w", err)
-		}
-	}
-	s.Low = s.Flags.Has(0)
-	s.High = s.Flags.Has(1)
-	{
-		if err := s.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.saveAutoDownloadSettings#76f36233: field settings: %w", err)
-		}
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for AccountSaveAutoDownloadSettingsRequest.
-var (
-	_ bin.Encoder     = &AccountSaveAutoDownloadSettingsRequest{}
-	_ bin.Decoder     = &AccountSaveAutoDownloadSettingsRequest{}
-	_ bin.BareEncoder = &AccountSaveAutoDownloadSettingsRequest{}
-	_ bin.BareDecoder = &AccountSaveAutoDownloadSettingsRequest{}
-)
 
 // AccountSaveAutoDownloadSettings invokes method account.saveAutoDownloadSettings#76f36233 returning error if any.
 // Change media autodownload settings

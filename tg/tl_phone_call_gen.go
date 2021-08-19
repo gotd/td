@@ -41,6 +41,19 @@ type PhoneCallEmpty struct {
 // PhoneCallEmptyTypeID is TL type id of PhoneCallEmpty.
 const PhoneCallEmptyTypeID = 0x5366c915
 
+// construct implements constructor of PhoneCallClass.
+func (p PhoneCallEmpty) construct() PhoneCallClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallEmpty.
+var (
+	_ bin.Encoder     = &PhoneCallEmpty{}
+	_ bin.Decoder     = &PhoneCallEmpty{}
+	_ bin.BareEncoder = &PhoneCallEmpty{}
+	_ bin.BareDecoder = &PhoneCallEmpty{}
+
+	_ PhoneCallClass = &PhoneCallEmpty{}
+)
+
 func (p *PhoneCallEmpty) Zero() bool {
 	if p == nil {
 		return true
@@ -117,11 +130,6 @@ func (p *PhoneCallEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (p *PhoneCallEmpty) GetID() (value int64) {
-	return p.ID
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneCallEmpty) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -148,18 +156,10 @@ func (p *PhoneCallEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallClass.
-func (p PhoneCallEmpty) construct() PhoneCallClass { return &p }
-
-// Ensuring interfaces in compile-time for PhoneCallEmpty.
-var (
-	_ bin.Encoder     = &PhoneCallEmpty{}
-	_ bin.Decoder     = &PhoneCallEmpty{}
-	_ bin.BareEncoder = &PhoneCallEmpty{}
-	_ bin.BareDecoder = &PhoneCallEmpty{}
-
-	_ PhoneCallClass = &PhoneCallEmpty{}
-)
+// GetID returns value of ID field.
+func (p *PhoneCallEmpty) GetID() (value int64) {
+	return p.ID
+}
 
 // PhoneCallWaiting represents TL type `phoneCallWaiting#1b8f4ad1`.
 // Incoming phone call
@@ -193,6 +193,19 @@ type PhoneCallWaiting struct {
 
 // PhoneCallWaitingTypeID is TL type id of PhoneCallWaiting.
 const PhoneCallWaitingTypeID = 0x1b8f4ad1
+
+// construct implements constructor of PhoneCallClass.
+func (p PhoneCallWaiting) construct() PhoneCallClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallWaiting.
+var (
+	_ bin.Encoder     = &PhoneCallWaiting{}
+	_ bin.Decoder     = &PhoneCallWaiting{}
+	_ bin.BareEncoder = &PhoneCallWaiting{}
+	_ bin.BareDecoder = &PhoneCallWaiting{}
+
+	_ PhoneCallClass = &PhoneCallWaiting{}
+)
 
 func (p *PhoneCallWaiting) Zero() bool {
 	if p == nil {
@@ -360,67 +373,6 @@ func (p *PhoneCallWaiting) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetVideo sets value of Video conditional field.
-func (p *PhoneCallWaiting) SetVideo(value bool) {
-	if value {
-		p.Flags.Set(6)
-		p.Video = true
-	} else {
-		p.Flags.Unset(6)
-		p.Video = false
-	}
-}
-
-// GetVideo returns value of Video conditional field.
-func (p *PhoneCallWaiting) GetVideo() (value bool) {
-	return p.Flags.Has(6)
-}
-
-// GetID returns value of ID field.
-func (p *PhoneCallWaiting) GetID() (value int64) {
-	return p.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (p *PhoneCallWaiting) GetAccessHash() (value int64) {
-	return p.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (p *PhoneCallWaiting) GetDate() (value int) {
-	return p.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (p *PhoneCallWaiting) GetAdminID() (value int) {
-	return p.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (p *PhoneCallWaiting) GetParticipantID() (value int) {
-	return p.ParticipantID
-}
-
-// GetProtocol returns value of Protocol field.
-func (p *PhoneCallWaiting) GetProtocol() (value PhoneCallProtocol) {
-	return p.Protocol
-}
-
-// SetReceiveDate sets value of ReceiveDate conditional field.
-func (p *PhoneCallWaiting) SetReceiveDate(value int) {
-	p.Flags.Set(0)
-	p.ReceiveDate = value
-}
-
-// GetReceiveDate returns value of ReceiveDate conditional field and
-// boolean which is true if field was set.
-func (p *PhoneCallWaiting) GetReceiveDate() (value int, ok bool) {
-	if !p.Flags.Has(0) {
-		return value, false
-	}
-	return p.ReceiveDate, true
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneCallWaiting) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -493,18 +445,66 @@ func (p *PhoneCallWaiting) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallClass.
-func (p PhoneCallWaiting) construct() PhoneCallClass { return &p }
+// SetVideo sets value of Video conditional field.
+func (p *PhoneCallWaiting) SetVideo(value bool) {
+	if value {
+		p.Flags.Set(6)
+		p.Video = true
+	} else {
+		p.Flags.Unset(6)
+		p.Video = false
+	}
+}
 
-// Ensuring interfaces in compile-time for PhoneCallWaiting.
-var (
-	_ bin.Encoder     = &PhoneCallWaiting{}
-	_ bin.Decoder     = &PhoneCallWaiting{}
-	_ bin.BareEncoder = &PhoneCallWaiting{}
-	_ bin.BareDecoder = &PhoneCallWaiting{}
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCallWaiting) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
 
-	_ PhoneCallClass = &PhoneCallWaiting{}
-)
+// GetID returns value of ID field.
+func (p *PhoneCallWaiting) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *PhoneCallWaiting) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (p *PhoneCallWaiting) GetDate() (value int) {
+	return p.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (p *PhoneCallWaiting) GetAdminID() (value int) {
+	return p.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (p *PhoneCallWaiting) GetParticipantID() (value int) {
+	return p.ParticipantID
+}
+
+// GetProtocol returns value of Protocol field.
+func (p *PhoneCallWaiting) GetProtocol() (value PhoneCallProtocol) {
+	return p.Protocol
+}
+
+// SetReceiveDate sets value of ReceiveDate conditional field.
+func (p *PhoneCallWaiting) SetReceiveDate(value int) {
+	p.Flags.Set(0)
+	p.ReceiveDate = value
+}
+
+// GetReceiveDate returns value of ReceiveDate conditional field and
+// boolean which is true if field was set.
+func (p *PhoneCallWaiting) GetReceiveDate() (value int, ok bool) {
+	if !p.Flags.Has(0) {
+		return value, false
+	}
+	return p.ReceiveDate, true
+}
 
 // PhoneCallRequested represents TL type `phoneCallRequested#87eabb53`.
 // Requested phone call
@@ -539,6 +539,19 @@ type PhoneCallRequested struct {
 
 // PhoneCallRequestedTypeID is TL type id of PhoneCallRequested.
 const PhoneCallRequestedTypeID = 0x87eabb53
+
+// construct implements constructor of PhoneCallClass.
+func (p PhoneCallRequested) construct() PhoneCallClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallRequested.
+var (
+	_ bin.Encoder     = &PhoneCallRequested{}
+	_ bin.Decoder     = &PhoneCallRequested{}
+	_ bin.BareEncoder = &PhoneCallRequested{}
+	_ bin.BareDecoder = &PhoneCallRequested{}
+
+	_ PhoneCallClass = &PhoneCallRequested{}
+)
 
 func (p *PhoneCallRequested) Zero() bool {
 	if p == nil {
@@ -697,57 +710,6 @@ func (p *PhoneCallRequested) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetVideo sets value of Video conditional field.
-func (p *PhoneCallRequested) SetVideo(value bool) {
-	if value {
-		p.Flags.Set(6)
-		p.Video = true
-	} else {
-		p.Flags.Unset(6)
-		p.Video = false
-	}
-}
-
-// GetVideo returns value of Video conditional field.
-func (p *PhoneCallRequested) GetVideo() (value bool) {
-	return p.Flags.Has(6)
-}
-
-// GetID returns value of ID field.
-func (p *PhoneCallRequested) GetID() (value int64) {
-	return p.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (p *PhoneCallRequested) GetAccessHash() (value int64) {
-	return p.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (p *PhoneCallRequested) GetDate() (value int) {
-	return p.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (p *PhoneCallRequested) GetAdminID() (value int) {
-	return p.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (p *PhoneCallRequested) GetParticipantID() (value int) {
-	return p.ParticipantID
-}
-
-// GetGAHash returns value of GAHash field.
-func (p *PhoneCallRequested) GetGAHash() (value []byte) {
-	return p.GAHash
-}
-
-// GetProtocol returns value of Protocol field.
-func (p *PhoneCallRequested) GetProtocol() (value PhoneCallProtocol) {
-	return p.Protocol
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneCallRequested) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -820,18 +782,56 @@ func (p *PhoneCallRequested) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallClass.
-func (p PhoneCallRequested) construct() PhoneCallClass { return &p }
+// SetVideo sets value of Video conditional field.
+func (p *PhoneCallRequested) SetVideo(value bool) {
+	if value {
+		p.Flags.Set(6)
+		p.Video = true
+	} else {
+		p.Flags.Unset(6)
+		p.Video = false
+	}
+}
 
-// Ensuring interfaces in compile-time for PhoneCallRequested.
-var (
-	_ bin.Encoder     = &PhoneCallRequested{}
-	_ bin.Decoder     = &PhoneCallRequested{}
-	_ bin.BareEncoder = &PhoneCallRequested{}
-	_ bin.BareDecoder = &PhoneCallRequested{}
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCallRequested) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
 
-	_ PhoneCallClass = &PhoneCallRequested{}
-)
+// GetID returns value of ID field.
+func (p *PhoneCallRequested) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *PhoneCallRequested) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (p *PhoneCallRequested) GetDate() (value int) {
+	return p.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (p *PhoneCallRequested) GetAdminID() (value int) {
+	return p.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (p *PhoneCallRequested) GetParticipantID() (value int) {
+	return p.ParticipantID
+}
+
+// GetGAHash returns value of GAHash field.
+func (p *PhoneCallRequested) GetGAHash() (value []byte) {
+	return p.GAHash
+}
+
+// GetProtocol returns value of Protocol field.
+func (p *PhoneCallRequested) GetProtocol() (value PhoneCallProtocol) {
+	return p.Protocol
+}
 
 // PhoneCallAccepted represents TL type `phoneCallAccepted#997c454a`.
 // An accepted phone call
@@ -866,6 +866,19 @@ type PhoneCallAccepted struct {
 
 // PhoneCallAcceptedTypeID is TL type id of PhoneCallAccepted.
 const PhoneCallAcceptedTypeID = 0x997c454a
+
+// construct implements constructor of PhoneCallClass.
+func (p PhoneCallAccepted) construct() PhoneCallClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallAccepted.
+var (
+	_ bin.Encoder     = &PhoneCallAccepted{}
+	_ bin.Decoder     = &PhoneCallAccepted{}
+	_ bin.BareEncoder = &PhoneCallAccepted{}
+	_ bin.BareDecoder = &PhoneCallAccepted{}
+
+	_ PhoneCallClass = &PhoneCallAccepted{}
+)
 
 func (p *PhoneCallAccepted) Zero() bool {
 	if p == nil {
@@ -1024,57 +1037,6 @@ func (p *PhoneCallAccepted) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetVideo sets value of Video conditional field.
-func (p *PhoneCallAccepted) SetVideo(value bool) {
-	if value {
-		p.Flags.Set(6)
-		p.Video = true
-	} else {
-		p.Flags.Unset(6)
-		p.Video = false
-	}
-}
-
-// GetVideo returns value of Video conditional field.
-func (p *PhoneCallAccepted) GetVideo() (value bool) {
-	return p.Flags.Has(6)
-}
-
-// GetID returns value of ID field.
-func (p *PhoneCallAccepted) GetID() (value int64) {
-	return p.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (p *PhoneCallAccepted) GetAccessHash() (value int64) {
-	return p.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (p *PhoneCallAccepted) GetDate() (value int) {
-	return p.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (p *PhoneCallAccepted) GetAdminID() (value int) {
-	return p.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (p *PhoneCallAccepted) GetParticipantID() (value int) {
-	return p.ParticipantID
-}
-
-// GetGB returns value of GB field.
-func (p *PhoneCallAccepted) GetGB() (value []byte) {
-	return p.GB
-}
-
-// GetProtocol returns value of Protocol field.
-func (p *PhoneCallAccepted) GetProtocol() (value PhoneCallProtocol) {
-	return p.Protocol
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneCallAccepted) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1147,18 +1109,56 @@ func (p *PhoneCallAccepted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallClass.
-func (p PhoneCallAccepted) construct() PhoneCallClass { return &p }
+// SetVideo sets value of Video conditional field.
+func (p *PhoneCallAccepted) SetVideo(value bool) {
+	if value {
+		p.Flags.Set(6)
+		p.Video = true
+	} else {
+		p.Flags.Unset(6)
+		p.Video = false
+	}
+}
 
-// Ensuring interfaces in compile-time for PhoneCallAccepted.
-var (
-	_ bin.Encoder     = &PhoneCallAccepted{}
-	_ bin.Decoder     = &PhoneCallAccepted{}
-	_ bin.BareEncoder = &PhoneCallAccepted{}
-	_ bin.BareDecoder = &PhoneCallAccepted{}
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCallAccepted) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
 
-	_ PhoneCallClass = &PhoneCallAccepted{}
-)
+// GetID returns value of ID field.
+func (p *PhoneCallAccepted) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *PhoneCallAccepted) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (p *PhoneCallAccepted) GetDate() (value int) {
+	return p.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (p *PhoneCallAccepted) GetAdminID() (value int) {
+	return p.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (p *PhoneCallAccepted) GetParticipantID() (value int) {
+	return p.ParticipantID
+}
+
+// GetGB returns value of GB field.
+func (p *PhoneCallAccepted) GetGB() (value []byte) {
+	return p.GB
+}
+
+// GetProtocol returns value of Protocol field.
+func (p *PhoneCallAccepted) GetProtocol() (value PhoneCallProtocol) {
+	return p.Protocol
+}
 
 // PhoneCall represents TL type `phoneCall#8742ae7f`.
 // Phone call
@@ -1204,6 +1204,19 @@ type PhoneCall struct {
 
 // PhoneCallTypeID is TL type id of PhoneCall.
 const PhoneCallTypeID = 0x8742ae7f
+
+// construct implements constructor of PhoneCallClass.
+func (p PhoneCall) construct() PhoneCallClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCall.
+var (
+	_ bin.Encoder     = &PhoneCall{}
+	_ bin.Decoder     = &PhoneCall{}
+	_ bin.BareEncoder = &PhoneCall{}
+	_ bin.BareDecoder = &PhoneCall{}
+
+	_ PhoneCallClass = &PhoneCall{}
+)
 
 func (p *PhoneCall) Zero() bool {
 	if p == nil {
@@ -1413,93 +1426,6 @@ func (p *PhoneCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetP2PAllowed sets value of P2PAllowed conditional field.
-func (p *PhoneCall) SetP2PAllowed(value bool) {
-	if value {
-		p.Flags.Set(5)
-		p.P2PAllowed = true
-	} else {
-		p.Flags.Unset(5)
-		p.P2PAllowed = false
-	}
-}
-
-// GetP2PAllowed returns value of P2PAllowed conditional field.
-func (p *PhoneCall) GetP2PAllowed() (value bool) {
-	return p.Flags.Has(5)
-}
-
-// SetVideo sets value of Video conditional field.
-func (p *PhoneCall) SetVideo(value bool) {
-	if value {
-		p.Flags.Set(6)
-		p.Video = true
-	} else {
-		p.Flags.Unset(6)
-		p.Video = false
-	}
-}
-
-// GetVideo returns value of Video conditional field.
-func (p *PhoneCall) GetVideo() (value bool) {
-	return p.Flags.Has(6)
-}
-
-// GetID returns value of ID field.
-func (p *PhoneCall) GetID() (value int64) {
-	return p.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (p *PhoneCall) GetAccessHash() (value int64) {
-	return p.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (p *PhoneCall) GetDate() (value int) {
-	return p.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (p *PhoneCall) GetAdminID() (value int) {
-	return p.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (p *PhoneCall) GetParticipantID() (value int) {
-	return p.ParticipantID
-}
-
-// GetGAOrB returns value of GAOrB field.
-func (p *PhoneCall) GetGAOrB() (value []byte) {
-	return p.GAOrB
-}
-
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (p *PhoneCall) GetKeyFingerprint() (value int64) {
-	return p.KeyFingerprint
-}
-
-// GetProtocol returns value of Protocol field.
-func (p *PhoneCall) GetProtocol() (value PhoneCallProtocol) {
-	return p.Protocol
-}
-
-// GetConnections returns value of Connections field.
-func (p *PhoneCall) GetConnections() (value []PhoneConnectionClass) {
-	return p.Connections
-}
-
-// MapConnections returns field Connections wrapped in PhoneConnectionClassArray helper.
-func (p *PhoneCall) MapConnections() (value PhoneConnectionClassArray) {
-	return PhoneConnectionClassArray(p.Connections)
-}
-
-// GetStartDate returns value of StartDate field.
-func (p *PhoneCall) GetStartDate() (value int) {
-	return p.StartDate
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneCall) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1604,18 +1530,92 @@ func (p *PhoneCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallClass.
-func (p PhoneCall) construct() PhoneCallClass { return &p }
+// SetP2PAllowed sets value of P2PAllowed conditional field.
+func (p *PhoneCall) SetP2PAllowed(value bool) {
+	if value {
+		p.Flags.Set(5)
+		p.P2PAllowed = true
+	} else {
+		p.Flags.Unset(5)
+		p.P2PAllowed = false
+	}
+}
 
-// Ensuring interfaces in compile-time for PhoneCall.
-var (
-	_ bin.Encoder     = &PhoneCall{}
-	_ bin.Decoder     = &PhoneCall{}
-	_ bin.BareEncoder = &PhoneCall{}
-	_ bin.BareDecoder = &PhoneCall{}
+// GetP2PAllowed returns value of P2PAllowed conditional field.
+func (p *PhoneCall) GetP2PAllowed() (value bool) {
+	return p.Flags.Has(5)
+}
 
-	_ PhoneCallClass = &PhoneCall{}
-)
+// SetVideo sets value of Video conditional field.
+func (p *PhoneCall) SetVideo(value bool) {
+	if value {
+		p.Flags.Set(6)
+		p.Video = true
+	} else {
+		p.Flags.Unset(6)
+		p.Video = false
+	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCall) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
+
+// GetID returns value of ID field.
+func (p *PhoneCall) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *PhoneCall) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (p *PhoneCall) GetDate() (value int) {
+	return p.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (p *PhoneCall) GetAdminID() (value int) {
+	return p.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (p *PhoneCall) GetParticipantID() (value int) {
+	return p.ParticipantID
+}
+
+// GetGAOrB returns value of GAOrB field.
+func (p *PhoneCall) GetGAOrB() (value []byte) {
+	return p.GAOrB
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (p *PhoneCall) GetKeyFingerprint() (value int64) {
+	return p.KeyFingerprint
+}
+
+// GetProtocol returns value of Protocol field.
+func (p *PhoneCall) GetProtocol() (value PhoneCallProtocol) {
+	return p.Protocol
+}
+
+// GetConnections returns value of Connections field.
+func (p *PhoneCall) GetConnections() (value []PhoneConnectionClass) {
+	return p.Connections
+}
+
+// GetStartDate returns value of StartDate field.
+func (p *PhoneCall) GetStartDate() (value int) {
+	return p.StartDate
+}
+
+// MapConnections returns field Connections wrapped in PhoneConnectionClassArray helper.
+func (p *PhoneCall) MapConnections() (value PhoneConnectionClassArray) {
+	return PhoneConnectionClassArray(p.Connections)
+}
 
 // PhoneCallDiscarded represents TL type `phoneCallDiscarded#50ca4de1`.
 // Indicates a discarded phone call
@@ -1653,6 +1653,19 @@ type PhoneCallDiscarded struct {
 
 // PhoneCallDiscardedTypeID is TL type id of PhoneCallDiscarded.
 const PhoneCallDiscardedTypeID = 0x50ca4de1
+
+// construct implements constructor of PhoneCallClass.
+func (p PhoneCallDiscarded) construct() PhoneCallClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallDiscarded.
+var (
+	_ bin.Encoder     = &PhoneCallDiscarded{}
+	_ bin.Decoder     = &PhoneCallDiscarded{}
+	_ bin.BareEncoder = &PhoneCallDiscarded{}
+	_ bin.BareDecoder = &PhoneCallDiscarded{}
+
+	_ PhoneCallClass = &PhoneCallDiscarded{}
+)
 
 func (p *PhoneCallDiscarded) Zero() bool {
 	if p == nil {
@@ -1818,6 +1831,54 @@ func (p *PhoneCallDiscarded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *PhoneCallDiscarded) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneCallDiscarded#50ca4de1 to nil")
+	}
+	if err := b.ConsumeID(PhoneCallDiscardedTypeID); err != nil {
+		return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhoneCallDiscarded) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneCallDiscarded#50ca4de1 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field flags: %w", err)
+		}
+	}
+	p.NeedRating = p.Flags.Has(2)
+	p.NeedDebug = p.Flags.Has(3)
+	p.Video = p.Flags.Has(6)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field id: %w", err)
+		}
+		p.ID = value
+	}
+	if p.Flags.Has(0) {
+		value, err := DecodePhoneCallDiscardReason(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field reason: %w", err)
+		}
+		p.Reason = value
+	}
+	if p.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field duration: %w", err)
+		}
+		p.Duration = value
+	}
+	return nil
+}
+
 // SetNeedRating sets value of NeedRating conditional field.
 func (p *PhoneCallDiscarded) SetNeedRating(value bool) {
 	if value {
@@ -1900,67 +1961,6 @@ func (p *PhoneCallDiscarded) GetDuration() (value int, ok bool) {
 	}
 	return p.Duration, true
 }
-
-// Decode implements bin.Decoder.
-func (p *PhoneCallDiscarded) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscarded#50ca4de1 to nil")
-	}
-	if err := b.ConsumeID(PhoneCallDiscardedTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *PhoneCallDiscarded) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscarded#50ca4de1 to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field flags: %w", err)
-		}
-	}
-	p.NeedRating = p.Flags.Has(2)
-	p.NeedDebug = p.Flags.Has(3)
-	p.Video = p.Flags.Has(6)
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field id: %w", err)
-		}
-		p.ID = value
-	}
-	if p.Flags.Has(0) {
-		value, err := DecodePhoneCallDiscardReason(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field reason: %w", err)
-		}
-		p.Reason = value
-	}
-	if p.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field duration: %w", err)
-		}
-		p.Duration = value
-	}
-	return nil
-}
-
-// construct implements constructor of PhoneCallClass.
-func (p PhoneCallDiscarded) construct() PhoneCallClass { return &p }
-
-// Ensuring interfaces in compile-time for PhoneCallDiscarded.
-var (
-	_ bin.Encoder     = &PhoneCallDiscarded{}
-	_ bin.Decoder     = &PhoneCallDiscarded{}
-	_ bin.BareEncoder = &PhoneCallDiscarded{}
-	_ bin.BareDecoder = &PhoneCallDiscarded{}
-
-	_ PhoneCallClass = &PhoneCallDiscarded{}
-)
 
 // PhoneCallClass represents PhoneCall generic type.
 //

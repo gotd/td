@@ -48,6 +48,19 @@ type UploadCDNFileReuploadNeeded struct {
 // UploadCDNFileReuploadNeededTypeID is TL type id of UploadCDNFileReuploadNeeded.
 const UploadCDNFileReuploadNeededTypeID = 0xeea8e46e
 
+// construct implements constructor of UploadCDNFileClass.
+func (c UploadCDNFileReuploadNeeded) construct() UploadCDNFileClass { return &c }
+
+// Ensuring interfaces in compile-time for UploadCDNFileReuploadNeeded.
+var (
+	_ bin.Encoder     = &UploadCDNFileReuploadNeeded{}
+	_ bin.Decoder     = &UploadCDNFileReuploadNeeded{}
+	_ bin.BareEncoder = &UploadCDNFileReuploadNeeded{}
+	_ bin.BareDecoder = &UploadCDNFileReuploadNeeded{}
+
+	_ UploadCDNFileClass = &UploadCDNFileReuploadNeeded{}
+)
+
 func (c *UploadCDNFileReuploadNeeded) Zero() bool {
 	if c == nil {
 		return true
@@ -124,11 +137,6 @@ func (c *UploadCDNFileReuploadNeeded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRequestToken returns value of RequestToken field.
-func (c *UploadCDNFileReuploadNeeded) GetRequestToken() (value []byte) {
-	return c.RequestToken
-}
-
 // Decode implements bin.Decoder.
 func (c *UploadCDNFileReuploadNeeded) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -155,18 +163,10 @@ func (c *UploadCDNFileReuploadNeeded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UploadCDNFileClass.
-func (c UploadCDNFileReuploadNeeded) construct() UploadCDNFileClass { return &c }
-
-// Ensuring interfaces in compile-time for UploadCDNFileReuploadNeeded.
-var (
-	_ bin.Encoder     = &UploadCDNFileReuploadNeeded{}
-	_ bin.Decoder     = &UploadCDNFileReuploadNeeded{}
-	_ bin.BareEncoder = &UploadCDNFileReuploadNeeded{}
-	_ bin.BareDecoder = &UploadCDNFileReuploadNeeded{}
-
-	_ UploadCDNFileClass = &UploadCDNFileReuploadNeeded{}
-)
+// GetRequestToken returns value of RequestToken field.
+func (c *UploadCDNFileReuploadNeeded) GetRequestToken() (value []byte) {
+	return c.RequestToken
+}
 
 // UploadCDNFile represents TL type `upload.cdnFile#a99fca4f`.
 // Represent a chunk of a CDN¹ file.
@@ -182,6 +182,19 @@ type UploadCDNFile struct {
 
 // UploadCDNFileTypeID is TL type id of UploadCDNFile.
 const UploadCDNFileTypeID = 0xa99fca4f
+
+// construct implements constructor of UploadCDNFileClass.
+func (c UploadCDNFile) construct() UploadCDNFileClass { return &c }
+
+// Ensuring interfaces in compile-time for UploadCDNFile.
+var (
+	_ bin.Encoder     = &UploadCDNFile{}
+	_ bin.Decoder     = &UploadCDNFile{}
+	_ bin.BareEncoder = &UploadCDNFile{}
+	_ bin.BareDecoder = &UploadCDNFile{}
+
+	_ UploadCDNFileClass = &UploadCDNFile{}
+)
 
 func (c *UploadCDNFile) Zero() bool {
 	if c == nil {
@@ -259,11 +272,6 @@ func (c *UploadCDNFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetBytes returns value of Bytes field.
-func (c *UploadCDNFile) GetBytes() (value []byte) {
-	return c.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (c *UploadCDNFile) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -290,18 +298,10 @@ func (c *UploadCDNFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UploadCDNFileClass.
-func (c UploadCDNFile) construct() UploadCDNFileClass { return &c }
-
-// Ensuring interfaces in compile-time for UploadCDNFile.
-var (
-	_ bin.Encoder     = &UploadCDNFile{}
-	_ bin.Decoder     = &UploadCDNFile{}
-	_ bin.BareEncoder = &UploadCDNFile{}
-	_ bin.BareDecoder = &UploadCDNFile{}
-
-	_ UploadCDNFileClass = &UploadCDNFile{}
-)
+// GetBytes returns value of Bytes field.
+func (c *UploadCDNFile) GetBytes() (value []byte) {
+	return c.Bytes
+}
 
 // UploadCDNFileClass represents upload.CdnFile generic type.
 //

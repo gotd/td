@@ -57,6 +57,14 @@ type AccountUploadThemeRequest struct {
 // AccountUploadThemeRequestTypeID is TL type id of AccountUploadThemeRequest.
 const AccountUploadThemeRequestTypeID = 0x1c3db333
 
+// Ensuring interfaces in compile-time for AccountUploadThemeRequest.
+var (
+	_ bin.Encoder     = &AccountUploadThemeRequest{}
+	_ bin.Decoder     = &AccountUploadThemeRequest{}
+	_ bin.BareEncoder = &AccountUploadThemeRequest{}
+	_ bin.BareDecoder = &AccountUploadThemeRequest{}
+)
+
 func (u *AccountUploadThemeRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -188,36 +196,6 @@ func (u *AccountUploadThemeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFile returns value of File field.
-func (u *AccountUploadThemeRequest) GetFile() (value InputFileClass) {
-	return u.File
-}
-
-// SetThumb sets value of Thumb conditional field.
-func (u *AccountUploadThemeRequest) SetThumb(value InputFileClass) {
-	u.Flags.Set(0)
-	u.Thumb = value
-}
-
-// GetThumb returns value of Thumb conditional field and
-// boolean which is true if field was set.
-func (u *AccountUploadThemeRequest) GetThumb() (value InputFileClass, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.Thumb, true
-}
-
-// GetFileName returns value of FileName field.
-func (u *AccountUploadThemeRequest) GetFileName() (value string) {
-	return u.FileName
-}
-
-// GetMimeType returns value of MimeType field.
-func (u *AccountUploadThemeRequest) GetMimeType() (value string) {
-	return u.MimeType
-}
-
 // Decode implements bin.Decoder.
 func (u *AccountUploadThemeRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -270,13 +248,35 @@ func (u *AccountUploadThemeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountUploadThemeRequest.
-var (
-	_ bin.Encoder     = &AccountUploadThemeRequest{}
-	_ bin.Decoder     = &AccountUploadThemeRequest{}
-	_ bin.BareEncoder = &AccountUploadThemeRequest{}
-	_ bin.BareDecoder = &AccountUploadThemeRequest{}
-)
+// GetFile returns value of File field.
+func (u *AccountUploadThemeRequest) GetFile() (value InputFileClass) {
+	return u.File
+}
+
+// SetThumb sets value of Thumb conditional field.
+func (u *AccountUploadThemeRequest) SetThumb(value InputFileClass) {
+	u.Flags.Set(0)
+	u.Thumb = value
+}
+
+// GetThumb returns value of Thumb conditional field and
+// boolean which is true if field was set.
+func (u *AccountUploadThemeRequest) GetThumb() (value InputFileClass, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Thumb, true
+}
+
+// GetFileName returns value of FileName field.
+func (u *AccountUploadThemeRequest) GetFileName() (value string) {
+	return u.FileName
+}
+
+// GetMimeType returns value of MimeType field.
+func (u *AccountUploadThemeRequest) GetMimeType() (value string) {
+	return u.MimeType
+}
 
 // AccountUploadTheme invokes method account.uploadTheme#1c3db333 returning error if any.
 // Upload theme

@@ -41,6 +41,19 @@ type MessagesChats struct {
 // MessagesChatsTypeID is TL type id of MessagesChats.
 const MessagesChatsTypeID = 0x64ff9fd5
 
+// construct implements constructor of MessagesChatsClass.
+func (c MessagesChats) construct() MessagesChatsClass { return &c }
+
+// Ensuring interfaces in compile-time for MessagesChats.
+var (
+	_ bin.Encoder     = &MessagesChats{}
+	_ bin.Decoder     = &MessagesChats{}
+	_ bin.BareEncoder = &MessagesChats{}
+	_ bin.BareDecoder = &MessagesChats{}
+
+	_ MessagesChatsClass = &MessagesChats{}
+)
+
 func (c *MessagesChats) Zero() bool {
 	if c == nil {
 		return true
@@ -125,16 +138,6 @@ func (c *MessagesChats) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChats returns value of Chats field.
-func (c *MessagesChats) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *MessagesChats) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesChats) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -171,18 +174,15 @@ func (c *MessagesChats) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesChatsClass.
-func (c MessagesChats) construct() MessagesChatsClass { return &c }
+// GetChats returns value of Chats field.
+func (c *MessagesChats) GetChats() (value []ChatClass) {
+	return c.Chats
+}
 
-// Ensuring interfaces in compile-time for MessagesChats.
-var (
-	_ bin.Encoder     = &MessagesChats{}
-	_ bin.Decoder     = &MessagesChats{}
-	_ bin.BareEncoder = &MessagesChats{}
-	_ bin.BareDecoder = &MessagesChats{}
-
-	_ MessagesChatsClass = &MessagesChats{}
-)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *MessagesChats) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
 
 // MessagesChatsSlice represents TL type `messages.chatsSlice#9cd81144`.
 // Partial list of chats, more would have to be fetched with pagination¹
@@ -200,6 +200,19 @@ type MessagesChatsSlice struct {
 
 // MessagesChatsSliceTypeID is TL type id of MessagesChatsSlice.
 const MessagesChatsSliceTypeID = 0x9cd81144
+
+// construct implements constructor of MessagesChatsClass.
+func (c MessagesChatsSlice) construct() MessagesChatsClass { return &c }
+
+// Ensuring interfaces in compile-time for MessagesChatsSlice.
+var (
+	_ bin.Encoder     = &MessagesChatsSlice{}
+	_ bin.Decoder     = &MessagesChatsSlice{}
+	_ bin.BareEncoder = &MessagesChatsSlice{}
+	_ bin.BareDecoder = &MessagesChatsSlice{}
+
+	_ MessagesChatsClass = &MessagesChatsSlice{}
+)
 
 func (c *MessagesChatsSlice) Zero() bool {
 	if c == nil {
@@ -295,21 +308,6 @@ func (c *MessagesChatsSlice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (c *MessagesChatsSlice) GetCount() (value int) {
-	return c.Count
-}
-
-// GetChats returns value of Chats field.
-func (c *MessagesChatsSlice) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *MessagesChatsSlice) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesChatsSlice) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -353,18 +351,20 @@ func (c *MessagesChatsSlice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesChatsClass.
-func (c MessagesChatsSlice) construct() MessagesChatsClass { return &c }
+// GetCount returns value of Count field.
+func (c *MessagesChatsSlice) GetCount() (value int) {
+	return c.Count
+}
 
-// Ensuring interfaces in compile-time for MessagesChatsSlice.
-var (
-	_ bin.Encoder     = &MessagesChatsSlice{}
-	_ bin.Decoder     = &MessagesChatsSlice{}
-	_ bin.BareEncoder = &MessagesChatsSlice{}
-	_ bin.BareDecoder = &MessagesChatsSlice{}
+// GetChats returns value of Chats field.
+func (c *MessagesChatsSlice) GetChats() (value []ChatClass) {
+	return c.Chats
+}
 
-	_ MessagesChatsClass = &MessagesChatsSlice{}
-)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *MessagesChatsSlice) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
 
 // MessagesChatsClass represents messages.Chats generic type.
 //

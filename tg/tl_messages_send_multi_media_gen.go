@@ -68,6 +68,14 @@ type MessagesSendMultiMediaRequest struct {
 // MessagesSendMultiMediaRequestTypeID is TL type id of MessagesSendMultiMediaRequest.
 const MessagesSendMultiMediaRequestTypeID = 0xcc0110cb
 
+// Ensuring interfaces in compile-time for MessagesSendMultiMediaRequest.
+var (
+	_ bin.Encoder     = &MessagesSendMultiMediaRequest{}
+	_ bin.Decoder     = &MessagesSendMultiMediaRequest{}
+	_ bin.BareEncoder = &MessagesSendMultiMediaRequest{}
+	_ bin.BareDecoder = &MessagesSendMultiMediaRequest{}
+)
+
 func (s *MessagesSendMultiMediaRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -247,6 +255,71 @@ func (s *MessagesSendMultiMediaRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (s *MessagesSendMultiMediaRequest) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendMultiMedia#cc0110cb to nil")
+	}
+	if err := b.ConsumeID(MessagesSendMultiMediaRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSendMultiMediaRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendMultiMedia#cc0110cb to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field flags: %w", err)
+		}
+	}
+	s.Silent = s.Flags.Has(5)
+	s.Background = s.Flags.Has(6)
+	s.ClearDraft = s.Flags.Has(7)
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field peer: %w", err)
+		}
+		s.Peer = value
+	}
+	if s.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field reply_to_msg_id: %w", err)
+		}
+		s.ReplyToMsgID = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field multi_media: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.MultiMedia = make([]InputSingleMedia, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value InputSingleMedia
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field multi_media: %w", err)
+			}
+			s.MultiMedia = append(s.MultiMedia, value)
+		}
+	}
+	if s.Flags.Has(10) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field schedule_date: %w", err)
+		}
+		s.ScheduleDate = value
+	}
+	return nil
+}
+
 // SetSilent sets value of Silent conditional field.
 func (s *MessagesSendMultiMediaRequest) SetSilent(value bool) {
 	if value {
@@ -334,79 +407,6 @@ func (s *MessagesSendMultiMediaRequest) GetScheduleDate() (value int, ok bool) {
 	}
 	return s.ScheduleDate, true
 }
-
-// Decode implements bin.Decoder.
-func (s *MessagesSendMultiMediaRequest) Decode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMultiMedia#cc0110cb to nil")
-	}
-	if err := b.ConsumeID(MessagesSendMultiMediaRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: %w", err)
-	}
-	return s.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (s *MessagesSendMultiMediaRequest) DecodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMultiMedia#cc0110cb to nil")
-	}
-	{
-		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field flags: %w", err)
-		}
-	}
-	s.Silent = s.Flags.Has(5)
-	s.Background = s.Flags.Has(6)
-	s.ClearDraft = s.Flags.Has(7)
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field peer: %w", err)
-		}
-		s.Peer = value
-	}
-	if s.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field reply_to_msg_id: %w", err)
-		}
-		s.ReplyToMsgID = value
-	}
-	{
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field multi_media: %w", err)
-		}
-
-		if headerLen > 0 {
-			s.MultiMedia = make([]InputSingleMedia, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value InputSingleMedia
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field multi_media: %w", err)
-			}
-			s.MultiMedia = append(s.MultiMedia, value)
-		}
-	}
-	if s.Flags.Has(10) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field schedule_date: %w", err)
-		}
-		s.ScheduleDate = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesSendMultiMediaRequest.
-var (
-	_ bin.Encoder     = &MessagesSendMultiMediaRequest{}
-	_ bin.Decoder     = &MessagesSendMultiMediaRequest{}
-	_ bin.BareEncoder = &MessagesSendMultiMediaRequest{}
-	_ bin.BareDecoder = &MessagesSendMultiMediaRequest{}
-)
 
 // MessagesSendMultiMedia invokes method messages.sendMultiMedia#cc0110cb returning error if any.
 // Send an album or grouped media¹

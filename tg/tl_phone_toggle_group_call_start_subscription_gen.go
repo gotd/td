@@ -42,6 +42,14 @@ type PhoneToggleGroupCallStartSubscriptionRequest struct {
 // PhoneToggleGroupCallStartSubscriptionRequestTypeID is TL type id of PhoneToggleGroupCallStartSubscriptionRequest.
 const PhoneToggleGroupCallStartSubscriptionRequestTypeID = 0x219c34e6
 
+// Ensuring interfaces in compile-time for PhoneToggleGroupCallStartSubscriptionRequest.
+var (
+	_ bin.Encoder     = &PhoneToggleGroupCallStartSubscriptionRequest{}
+	_ bin.Decoder     = &PhoneToggleGroupCallStartSubscriptionRequest{}
+	_ bin.BareEncoder = &PhoneToggleGroupCallStartSubscriptionRequest{}
+	_ bin.BareDecoder = &PhoneToggleGroupCallStartSubscriptionRequest{}
+)
+
 func (t *PhoneToggleGroupCallStartSubscriptionRequest) Zero() bool {
 	if t == nil {
 		return true
@@ -130,16 +138,6 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) EncodeBare(b *bin.Buffer)
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (t *PhoneToggleGroupCallStartSubscriptionRequest) GetCall() (value InputGroupCall) {
-	return t.Call
-}
-
-// GetSubscribed returns value of Subscribed field.
-func (t *PhoneToggleGroupCallStartSubscriptionRequest) GetSubscribed() (value bool) {
-	return t.Subscribed
-}
-
 // Decode implements bin.Decoder.
 func (t *PhoneToggleGroupCallStartSubscriptionRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -171,13 +169,15 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) DecodeBare(b *bin.Buffer)
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneToggleGroupCallStartSubscriptionRequest.
-var (
-	_ bin.Encoder     = &PhoneToggleGroupCallStartSubscriptionRequest{}
-	_ bin.Decoder     = &PhoneToggleGroupCallStartSubscriptionRequest{}
-	_ bin.BareEncoder = &PhoneToggleGroupCallStartSubscriptionRequest{}
-	_ bin.BareDecoder = &PhoneToggleGroupCallStartSubscriptionRequest{}
-)
+// GetCall returns value of Call field.
+func (t *PhoneToggleGroupCallStartSubscriptionRequest) GetCall() (value InputGroupCall) {
+	return t.Call
+}
+
+// GetSubscribed returns value of Subscribed field.
+func (t *PhoneToggleGroupCallStartSubscriptionRequest) GetSubscribed() (value bool) {
+	return t.Subscribed
+}
 
 // PhoneToggleGroupCallStartSubscription invokes method phone.toggleGroupCallStartSubscription#219c34e6 returning error if any.
 //

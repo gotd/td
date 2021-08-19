@@ -43,6 +43,14 @@ type MessagesEditChatPhotoRequest struct {
 // MessagesEditChatPhotoRequestTypeID is TL type id of MessagesEditChatPhotoRequest.
 const MessagesEditChatPhotoRequestTypeID = 0xca4c79d8
 
+// Ensuring interfaces in compile-time for MessagesEditChatPhotoRequest.
+var (
+	_ bin.Encoder     = &MessagesEditChatPhotoRequest{}
+	_ bin.Decoder     = &MessagesEditChatPhotoRequest{}
+	_ bin.BareEncoder = &MessagesEditChatPhotoRequest{}
+	_ bin.BareDecoder = &MessagesEditChatPhotoRequest{}
+)
+
 func (e *MessagesEditChatPhotoRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -134,16 +142,6 @@ func (e *MessagesEditChatPhotoRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (e *MessagesEditChatPhotoRequest) GetChatID() (value int) {
-	return e.ChatID
-}
-
-// GetPhoto returns value of Photo field.
-func (e *MessagesEditChatPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
-	return e.Photo
-}
-
 // Decode implements bin.Decoder.
 func (e *MessagesEditChatPhotoRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -177,13 +175,15 @@ func (e *MessagesEditChatPhotoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesEditChatPhotoRequest.
-var (
-	_ bin.Encoder     = &MessagesEditChatPhotoRequest{}
-	_ bin.Decoder     = &MessagesEditChatPhotoRequest{}
-	_ bin.BareEncoder = &MessagesEditChatPhotoRequest{}
-	_ bin.BareDecoder = &MessagesEditChatPhotoRequest{}
-)
+// GetChatID returns value of ChatID field.
+func (e *MessagesEditChatPhotoRequest) GetChatID() (value int) {
+	return e.ChatID
+}
+
+// GetPhoto returns value of Photo field.
+func (e *MessagesEditChatPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
+	return e.Photo
+}
 
 // MessagesEditChatPhoto invokes method messages.editChatPhoto#ca4c79d8 returning error if any.
 // Changes chat photo and sends a service message on it

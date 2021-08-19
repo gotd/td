@@ -47,6 +47,14 @@ type AuthCheckPasswordRequest struct {
 // AuthCheckPasswordRequestTypeID is TL type id of AuthCheckPasswordRequest.
 const AuthCheckPasswordRequestTypeID = 0xd18b4d16
 
+// Ensuring interfaces in compile-time for AuthCheckPasswordRequest.
+var (
+	_ bin.Encoder     = &AuthCheckPasswordRequest{}
+	_ bin.Decoder     = &AuthCheckPasswordRequest{}
+	_ bin.BareEncoder = &AuthCheckPasswordRequest{}
+	_ bin.BareDecoder = &AuthCheckPasswordRequest{}
+)
+
 func (c *AuthCheckPasswordRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -128,16 +136,6 @@ func (c *AuthCheckPasswordRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPassword returns value of Password field.
-func (c *AuthCheckPasswordRequest) GetPassword() (value InputCheckPasswordSRPClass) {
-	return c.Password
-}
-
-// GetPasswordAsNotEmpty returns mapped value of Password field.
-func (c *AuthCheckPasswordRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
-	return c.Password.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (c *AuthCheckPasswordRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -164,13 +162,15 @@ func (c *AuthCheckPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthCheckPasswordRequest.
-var (
-	_ bin.Encoder     = &AuthCheckPasswordRequest{}
-	_ bin.Decoder     = &AuthCheckPasswordRequest{}
-	_ bin.BareEncoder = &AuthCheckPasswordRequest{}
-	_ bin.BareDecoder = &AuthCheckPasswordRequest{}
-)
+// GetPassword returns value of Password field.
+func (c *AuthCheckPasswordRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	return c.Password
+}
+
+// GetPasswordAsNotEmpty returns mapped value of Password field.
+func (c *AuthCheckPasswordRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	return c.Password.AsNotEmpty()
+}
 
 // AuthCheckPassword invokes method auth.checkPassword#d18b4d16 returning error if any.
 // Try logging to an account protected by a 2FA password¹.

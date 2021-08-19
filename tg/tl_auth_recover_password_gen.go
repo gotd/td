@@ -52,6 +52,14 @@ type AuthRecoverPasswordRequest struct {
 // AuthRecoverPasswordRequestTypeID is TL type id of AuthRecoverPasswordRequest.
 const AuthRecoverPasswordRequestTypeID = 0x37096c70
 
+// Ensuring interfaces in compile-time for AuthRecoverPasswordRequest.
+var (
+	_ bin.Encoder     = &AuthRecoverPasswordRequest{}
+	_ bin.Decoder     = &AuthRecoverPasswordRequest{}
+	_ bin.BareEncoder = &AuthRecoverPasswordRequest{}
+	_ bin.BareDecoder = &AuthRecoverPasswordRequest{}
+)
+
 func (r *AuthRecoverPasswordRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -155,26 +163,6 @@ func (r *AuthRecoverPasswordRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCode returns value of Code field.
-func (r *AuthRecoverPasswordRequest) GetCode() (value string) {
-	return r.Code
-}
-
-// SetNewSettings sets value of NewSettings conditional field.
-func (r *AuthRecoverPasswordRequest) SetNewSettings(value AccountPasswordInputSettings) {
-	r.Flags.Set(0)
-	r.NewSettings = value
-}
-
-// GetNewSettings returns value of NewSettings conditional field and
-// boolean which is true if field was set.
-func (r *AuthRecoverPasswordRequest) GetNewSettings() (value AccountPasswordInputSettings, ok bool) {
-	if !r.Flags.Has(0) {
-		return value, false
-	}
-	return r.NewSettings, true
-}
-
 // Decode implements bin.Decoder.
 func (r *AuthRecoverPasswordRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -211,13 +199,25 @@ func (r *AuthRecoverPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthRecoverPasswordRequest.
-var (
-	_ bin.Encoder     = &AuthRecoverPasswordRequest{}
-	_ bin.Decoder     = &AuthRecoverPasswordRequest{}
-	_ bin.BareEncoder = &AuthRecoverPasswordRequest{}
-	_ bin.BareDecoder = &AuthRecoverPasswordRequest{}
-)
+// GetCode returns value of Code field.
+func (r *AuthRecoverPasswordRequest) GetCode() (value string) {
+	return r.Code
+}
+
+// SetNewSettings sets value of NewSettings conditional field.
+func (r *AuthRecoverPasswordRequest) SetNewSettings(value AccountPasswordInputSettings) {
+	r.Flags.Set(0)
+	r.NewSettings = value
+}
+
+// GetNewSettings returns value of NewSettings conditional field and
+// boolean which is true if field was set.
+func (r *AuthRecoverPasswordRequest) GetNewSettings() (value AccountPasswordInputSettings, ok bool) {
+	if !r.Flags.Has(0) {
+		return value, false
+	}
+	return r.NewSettings, true
+}
 
 // AuthRecoverPassword invokes method auth.recoverPassword#37096c70 returning error if any.
 // Reset the 2FA password¹ using the recovery code sent using auth

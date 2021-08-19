@@ -48,6 +48,14 @@ type PhoneToggleGroupCallSettingsRequest struct {
 // PhoneToggleGroupCallSettingsRequestTypeID is TL type id of PhoneToggleGroupCallSettingsRequest.
 const PhoneToggleGroupCallSettingsRequestTypeID = 0x74bbb43d
 
+// Ensuring interfaces in compile-time for PhoneToggleGroupCallSettingsRequest.
+var (
+	_ bin.Encoder     = &PhoneToggleGroupCallSettingsRequest{}
+	_ bin.Decoder     = &PhoneToggleGroupCallSettingsRequest{}
+	_ bin.BareEncoder = &PhoneToggleGroupCallSettingsRequest{}
+	_ bin.BareDecoder = &PhoneToggleGroupCallSettingsRequest{}
+)
+
 func (t *PhoneToggleGroupCallSettingsRequest) Zero() bool {
 	if t == nil {
 		return true
@@ -164,42 +172,6 @@ func (t *PhoneToggleGroupCallSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetResetInviteHash sets value of ResetInviteHash conditional field.
-func (t *PhoneToggleGroupCallSettingsRequest) SetResetInviteHash(value bool) {
-	if value {
-		t.Flags.Set(1)
-		t.ResetInviteHash = true
-	} else {
-		t.Flags.Unset(1)
-		t.ResetInviteHash = false
-	}
-}
-
-// GetResetInviteHash returns value of ResetInviteHash conditional field.
-func (t *PhoneToggleGroupCallSettingsRequest) GetResetInviteHash() (value bool) {
-	return t.Flags.Has(1)
-}
-
-// GetCall returns value of Call field.
-func (t *PhoneToggleGroupCallSettingsRequest) GetCall() (value InputGroupCall) {
-	return t.Call
-}
-
-// SetJoinMuted sets value of JoinMuted conditional field.
-func (t *PhoneToggleGroupCallSettingsRequest) SetJoinMuted(value bool) {
-	t.Flags.Set(0)
-	t.JoinMuted = value
-}
-
-// GetJoinMuted returns value of JoinMuted conditional field and
-// boolean which is true if field was set.
-func (t *PhoneToggleGroupCallSettingsRequest) GetJoinMuted() (value bool, ok bool) {
-	if !t.Flags.Has(0) {
-		return value, false
-	}
-	return t.JoinMuted, true
-}
-
 // Decode implements bin.Decoder.
 func (t *PhoneToggleGroupCallSettingsRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -237,13 +209,41 @@ func (t *PhoneToggleGroupCallSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneToggleGroupCallSettingsRequest.
-var (
-	_ bin.Encoder     = &PhoneToggleGroupCallSettingsRequest{}
-	_ bin.Decoder     = &PhoneToggleGroupCallSettingsRequest{}
-	_ bin.BareEncoder = &PhoneToggleGroupCallSettingsRequest{}
-	_ bin.BareDecoder = &PhoneToggleGroupCallSettingsRequest{}
-)
+// SetResetInviteHash sets value of ResetInviteHash conditional field.
+func (t *PhoneToggleGroupCallSettingsRequest) SetResetInviteHash(value bool) {
+	if value {
+		t.Flags.Set(1)
+		t.ResetInviteHash = true
+	} else {
+		t.Flags.Unset(1)
+		t.ResetInviteHash = false
+	}
+}
+
+// GetResetInviteHash returns value of ResetInviteHash conditional field.
+func (t *PhoneToggleGroupCallSettingsRequest) GetResetInviteHash() (value bool) {
+	return t.Flags.Has(1)
+}
+
+// GetCall returns value of Call field.
+func (t *PhoneToggleGroupCallSettingsRequest) GetCall() (value InputGroupCall) {
+	return t.Call
+}
+
+// SetJoinMuted sets value of JoinMuted conditional field.
+func (t *PhoneToggleGroupCallSettingsRequest) SetJoinMuted(value bool) {
+	t.Flags.Set(0)
+	t.JoinMuted = value
+}
+
+// GetJoinMuted returns value of JoinMuted conditional field and
+// boolean which is true if field was set.
+func (t *PhoneToggleGroupCallSettingsRequest) GetJoinMuted() (value bool, ok bool) {
+	if !t.Flags.Has(0) {
+		return value, false
+	}
+	return t.JoinMuted, true
+}
 
 // PhoneToggleGroupCallSettings invokes method phone.toggleGroupCallSettings#74bbb43d returning error if any.
 //

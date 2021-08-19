@@ -42,6 +42,14 @@ type MessagesGetSuggestedDialogFiltersRequest struct {
 // MessagesGetSuggestedDialogFiltersRequestTypeID is TL type id of MessagesGetSuggestedDialogFiltersRequest.
 const MessagesGetSuggestedDialogFiltersRequestTypeID = 0xa29cd42c
 
+// Ensuring interfaces in compile-time for MessagesGetSuggestedDialogFiltersRequest.
+var (
+	_ bin.Encoder     = &MessagesGetSuggestedDialogFiltersRequest{}
+	_ bin.Decoder     = &MessagesGetSuggestedDialogFiltersRequest{}
+	_ bin.BareEncoder = &MessagesGetSuggestedDialogFiltersRequest{}
+	_ bin.BareDecoder = &MessagesGetSuggestedDialogFiltersRequest{}
+)
+
 func (g *MessagesGetSuggestedDialogFiltersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,14 +128,6 @@ func (g *MessagesGetSuggestedDialogFiltersRequest) DecodeBare(b *bin.Buffer) err
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for MessagesGetSuggestedDialogFiltersRequest.
-var (
-	_ bin.Encoder     = &MessagesGetSuggestedDialogFiltersRequest{}
-	_ bin.Decoder     = &MessagesGetSuggestedDialogFiltersRequest{}
-	_ bin.BareEncoder = &MessagesGetSuggestedDialogFiltersRequest{}
-	_ bin.BareDecoder = &MessagesGetSuggestedDialogFiltersRequest{}
-)
 
 // MessagesGetSuggestedDialogFilters invokes method messages.getSuggestedDialogFilters#a29cd42c returning error if any.
 // Get suggested folders¹

@@ -54,6 +54,19 @@ type InputFile struct {
 // InputFileTypeID is TL type id of InputFile.
 const InputFileTypeID = 0xf52ff27f
 
+// construct implements constructor of InputFileClass.
+func (i InputFile) construct() InputFileClass { return &i }
+
+// Ensuring interfaces in compile-time for InputFile.
+var (
+	_ bin.Encoder     = &InputFile{}
+	_ bin.Decoder     = &InputFile{}
+	_ bin.BareEncoder = &InputFile{}
+	_ bin.BareDecoder = &InputFile{}
+
+	_ InputFileClass = &InputFile{}
+)
+
 func (i *InputFile) Zero() bool {
 	if i == nil {
 		return true
@@ -160,26 +173,6 @@ func (i *InputFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputFile) GetID() (value int64) {
-	return i.ID
-}
-
-// GetParts returns value of Parts field.
-func (i *InputFile) GetParts() (value int) {
-	return i.Parts
-}
-
-// GetName returns value of Name field.
-func (i *InputFile) GetName() (value string) {
-	return i.Name
-}
-
-// GetMD5Checksum returns value of MD5Checksum field.
-func (i *InputFile) GetMD5Checksum() (value string) {
-	return i.MD5Checksum
-}
-
 // Decode implements bin.Decoder.
 func (i *InputFile) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -227,18 +220,25 @@ func (i *InputFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileClass.
-func (i InputFile) construct() InputFileClass { return &i }
+// GetID returns value of ID field.
+func (i *InputFile) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputFile.
-var (
-	_ bin.Encoder     = &InputFile{}
-	_ bin.Decoder     = &InputFile{}
-	_ bin.BareEncoder = &InputFile{}
-	_ bin.BareDecoder = &InputFile{}
+// GetParts returns value of Parts field.
+func (i *InputFile) GetParts() (value int) {
+	return i.Parts
+}
 
-	_ InputFileClass = &InputFile{}
-)
+// GetName returns value of Name field.
+func (i *InputFile) GetName() (value string) {
+	return i.Name
+}
+
+// GetMD5Checksum returns value of MD5Checksum field.
+func (i *InputFile) GetMD5Checksum() (value string) {
+	return i.MD5Checksum
+}
 
 // InputFileBig represents TL type `inputFileBig#fa4f0bb5`.
 // Assigns a big file (over 10Mb in size), saved in part using the method upload
@@ -259,6 +259,19 @@ type InputFileBig struct {
 
 // InputFileBigTypeID is TL type id of InputFileBig.
 const InputFileBigTypeID = 0xfa4f0bb5
+
+// construct implements constructor of InputFileClass.
+func (i InputFileBig) construct() InputFileClass { return &i }
+
+// Ensuring interfaces in compile-time for InputFileBig.
+var (
+	_ bin.Encoder     = &InputFileBig{}
+	_ bin.Decoder     = &InputFileBig{}
+	_ bin.BareEncoder = &InputFileBig{}
+	_ bin.BareDecoder = &InputFileBig{}
+
+	_ InputFileClass = &InputFileBig{}
+)
 
 func (i *InputFileBig) Zero() bool {
 	if i == nil {
@@ -356,21 +369,6 @@ func (i *InputFileBig) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputFileBig) GetID() (value int64) {
-	return i.ID
-}
-
-// GetParts returns value of Parts field.
-func (i *InputFileBig) GetParts() (value int) {
-	return i.Parts
-}
-
-// GetName returns value of Name field.
-func (i *InputFileBig) GetName() (value string) {
-	return i.Name
-}
-
 // Decode implements bin.Decoder.
 func (i *InputFileBig) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -411,18 +409,20 @@ func (i *InputFileBig) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileClass.
-func (i InputFileBig) construct() InputFileClass { return &i }
+// GetID returns value of ID field.
+func (i *InputFileBig) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputFileBig.
-var (
-	_ bin.Encoder     = &InputFileBig{}
-	_ bin.Decoder     = &InputFileBig{}
-	_ bin.BareEncoder = &InputFileBig{}
-	_ bin.BareDecoder = &InputFileBig{}
+// GetParts returns value of Parts field.
+func (i *InputFileBig) GetParts() (value int) {
+	return i.Parts
+}
 
-	_ InputFileClass = &InputFileBig{}
-)
+// GetName returns value of Name field.
+func (i *InputFileBig) GetName() (value string) {
+	return i.Name
+}
 
 // InputFileClass represents InputFile generic type.
 //

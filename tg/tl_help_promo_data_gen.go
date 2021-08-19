@@ -41,6 +41,19 @@ type HelpPromoDataEmpty struct {
 // HelpPromoDataEmptyTypeID is TL type id of HelpPromoDataEmpty.
 const HelpPromoDataEmptyTypeID = 0x98f6ac75
 
+// construct implements constructor of HelpPromoDataClass.
+func (p HelpPromoDataEmpty) construct() HelpPromoDataClass { return &p }
+
+// Ensuring interfaces in compile-time for HelpPromoDataEmpty.
+var (
+	_ bin.Encoder     = &HelpPromoDataEmpty{}
+	_ bin.Decoder     = &HelpPromoDataEmpty{}
+	_ bin.BareEncoder = &HelpPromoDataEmpty{}
+	_ bin.BareDecoder = &HelpPromoDataEmpty{}
+
+	_ HelpPromoDataClass = &HelpPromoDataEmpty{}
+)
+
 func (p *HelpPromoDataEmpty) Zero() bool {
 	if p == nil {
 		return true
@@ -117,11 +130,6 @@ func (p *HelpPromoDataEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExpires returns value of Expires field.
-func (p *HelpPromoDataEmpty) GetExpires() (value int) {
-	return p.Expires
-}
-
 // Decode implements bin.Decoder.
 func (p *HelpPromoDataEmpty) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -148,18 +156,10 @@ func (p *HelpPromoDataEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpPromoDataClass.
-func (p HelpPromoDataEmpty) construct() HelpPromoDataClass { return &p }
-
-// Ensuring interfaces in compile-time for HelpPromoDataEmpty.
-var (
-	_ bin.Encoder     = &HelpPromoDataEmpty{}
-	_ bin.Decoder     = &HelpPromoDataEmpty{}
-	_ bin.BareEncoder = &HelpPromoDataEmpty{}
-	_ bin.BareDecoder = &HelpPromoDataEmpty{}
-
-	_ HelpPromoDataClass = &HelpPromoDataEmpty{}
-)
+// GetExpires returns value of Expires field.
+func (p *HelpPromoDataEmpty) GetExpires() (value int) {
+	return p.Expires
+}
 
 // HelpPromoData represents TL type `help.promoData#8c39793f`.
 // MTProxy/Public Service Announcement information
@@ -193,6 +193,19 @@ type HelpPromoData struct {
 
 // HelpPromoDataTypeID is TL type id of HelpPromoData.
 const HelpPromoDataTypeID = 0x8c39793f
+
+// construct implements constructor of HelpPromoDataClass.
+func (p HelpPromoData) construct() HelpPromoDataClass { return &p }
+
+// Ensuring interfaces in compile-time for HelpPromoData.
+var (
+	_ bin.Encoder     = &HelpPromoData{}
+	_ bin.Decoder     = &HelpPromoData{}
+	_ bin.BareEncoder = &HelpPromoData{}
+	_ bin.BareDecoder = &HelpPromoData{}
+
+	_ HelpPromoDataClass = &HelpPromoData{}
+)
 
 func (p *HelpPromoData) Zero() bool {
 	if p == nil {
@@ -378,82 +391,6 @@ func (p *HelpPromoData) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetProxy sets value of Proxy conditional field.
-func (p *HelpPromoData) SetProxy(value bool) {
-	if value {
-		p.Flags.Set(0)
-		p.Proxy = true
-	} else {
-		p.Flags.Unset(0)
-		p.Proxy = false
-	}
-}
-
-// GetProxy returns value of Proxy conditional field.
-func (p *HelpPromoData) GetProxy() (value bool) {
-	return p.Flags.Has(0)
-}
-
-// GetExpires returns value of Expires field.
-func (p *HelpPromoData) GetExpires() (value int) {
-	return p.Expires
-}
-
-// GetPeer returns value of Peer field.
-func (p *HelpPromoData) GetPeer() (value PeerClass) {
-	return p.Peer
-}
-
-// GetChats returns value of Chats field.
-func (p *HelpPromoData) GetChats() (value []ChatClass) {
-	return p.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (p *HelpPromoData) MapChats() (value ChatClassArray) {
-	return ChatClassArray(p.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (p *HelpPromoData) GetUsers() (value []UserClass) {
-	return p.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (p *HelpPromoData) MapUsers() (value UserClassArray) {
-	return UserClassArray(p.Users)
-}
-
-// SetPsaType sets value of PsaType conditional field.
-func (p *HelpPromoData) SetPsaType(value string) {
-	p.Flags.Set(1)
-	p.PsaType = value
-}
-
-// GetPsaType returns value of PsaType conditional field and
-// boolean which is true if field was set.
-func (p *HelpPromoData) GetPsaType() (value string, ok bool) {
-	if !p.Flags.Has(1) {
-		return value, false
-	}
-	return p.PsaType, true
-}
-
-// SetPsaMessage sets value of PsaMessage conditional field.
-func (p *HelpPromoData) SetPsaMessage(value string) {
-	p.Flags.Set(2)
-	p.PsaMessage = value
-}
-
-// GetPsaMessage returns value of PsaMessage conditional field and
-// boolean which is true if field was set.
-func (p *HelpPromoData) GetPsaMessage() (value string, ok bool) {
-	if !p.Flags.Has(2) {
-		return value, false
-	}
-	return p.PsaMessage, true
-}
-
 // Decode implements bin.Decoder.
 func (p *HelpPromoData) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -541,18 +478,81 @@ func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpPromoDataClass.
-func (p HelpPromoData) construct() HelpPromoDataClass { return &p }
+// SetProxy sets value of Proxy conditional field.
+func (p *HelpPromoData) SetProxy(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.Proxy = true
+	} else {
+		p.Flags.Unset(0)
+		p.Proxy = false
+	}
+}
 
-// Ensuring interfaces in compile-time for HelpPromoData.
-var (
-	_ bin.Encoder     = &HelpPromoData{}
-	_ bin.Decoder     = &HelpPromoData{}
-	_ bin.BareEncoder = &HelpPromoData{}
-	_ bin.BareDecoder = &HelpPromoData{}
+// GetProxy returns value of Proxy conditional field.
+func (p *HelpPromoData) GetProxy() (value bool) {
+	return p.Flags.Has(0)
+}
 
-	_ HelpPromoDataClass = &HelpPromoData{}
-)
+// GetExpires returns value of Expires field.
+func (p *HelpPromoData) GetExpires() (value int) {
+	return p.Expires
+}
+
+// GetPeer returns value of Peer field.
+func (p *HelpPromoData) GetPeer() (value PeerClass) {
+	return p.Peer
+}
+
+// GetChats returns value of Chats field.
+func (p *HelpPromoData) GetChats() (value []ChatClass) {
+	return p.Chats
+}
+
+// GetUsers returns value of Users field.
+func (p *HelpPromoData) GetUsers() (value []UserClass) {
+	return p.Users
+}
+
+// SetPsaType sets value of PsaType conditional field.
+func (p *HelpPromoData) SetPsaType(value string) {
+	p.Flags.Set(1)
+	p.PsaType = value
+}
+
+// GetPsaType returns value of PsaType conditional field and
+// boolean which is true if field was set.
+func (p *HelpPromoData) GetPsaType() (value string, ok bool) {
+	if !p.Flags.Has(1) {
+		return value, false
+	}
+	return p.PsaType, true
+}
+
+// SetPsaMessage sets value of PsaMessage conditional field.
+func (p *HelpPromoData) SetPsaMessage(value string) {
+	p.Flags.Set(2)
+	p.PsaMessage = value
+}
+
+// GetPsaMessage returns value of PsaMessage conditional field and
+// boolean which is true if field was set.
+func (p *HelpPromoData) GetPsaMessage() (value string, ok bool) {
+	if !p.Flags.Has(2) {
+		return value, false
+	}
+	return p.PsaMessage, true
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (p *HelpPromoData) MapChats() (value ChatClassArray) {
+	return ChatClassArray(p.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *HelpPromoData) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
+}
 
 // HelpPromoDataClass represents help.PromoData generic type.
 //

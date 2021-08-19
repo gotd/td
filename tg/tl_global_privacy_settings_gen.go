@@ -48,6 +48,14 @@ type GlobalPrivacySettings struct {
 // GlobalPrivacySettingsTypeID is TL type id of GlobalPrivacySettings.
 const GlobalPrivacySettingsTypeID = 0xbea2f424
 
+// Ensuring interfaces in compile-time for GlobalPrivacySettings.
+var (
+	_ bin.Encoder     = &GlobalPrivacySettings{}
+	_ bin.Decoder     = &GlobalPrivacySettings{}
+	_ bin.BareEncoder = &GlobalPrivacySettings{}
+	_ bin.BareDecoder = &GlobalPrivacySettings{}
+)
+
 func (g *GlobalPrivacySettings) Zero() bool {
 	if g == nil {
 		return true
@@ -139,21 +147,6 @@ func (g *GlobalPrivacySettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetArchiveAndMuteNewNoncontactPeers sets value of ArchiveAndMuteNewNoncontactPeers conditional field.
-func (g *GlobalPrivacySettings) SetArchiveAndMuteNewNoncontactPeers(value bool) {
-	g.Flags.Set(0)
-	g.ArchiveAndMuteNewNoncontactPeers = value
-}
-
-// GetArchiveAndMuteNewNoncontactPeers returns value of ArchiveAndMuteNewNoncontactPeers conditional field and
-// boolean which is true if field was set.
-func (g *GlobalPrivacySettings) GetArchiveAndMuteNewNoncontactPeers() (value bool, ok bool) {
-	if !g.Flags.Has(0) {
-		return value, false
-	}
-	return g.ArchiveAndMuteNewNoncontactPeers, true
-}
-
 // Decode implements bin.Decoder.
 func (g *GlobalPrivacySettings) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -185,10 +178,17 @@ func (g *GlobalPrivacySettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for GlobalPrivacySettings.
-var (
-	_ bin.Encoder     = &GlobalPrivacySettings{}
-	_ bin.Decoder     = &GlobalPrivacySettings{}
-	_ bin.BareEncoder = &GlobalPrivacySettings{}
-	_ bin.BareDecoder = &GlobalPrivacySettings{}
-)
+// SetArchiveAndMuteNewNoncontactPeers sets value of ArchiveAndMuteNewNoncontactPeers conditional field.
+func (g *GlobalPrivacySettings) SetArchiveAndMuteNewNoncontactPeers(value bool) {
+	g.Flags.Set(0)
+	g.ArchiveAndMuteNewNoncontactPeers = value
+}
+
+// GetArchiveAndMuteNewNoncontactPeers returns value of ArchiveAndMuteNewNoncontactPeers conditional field and
+// boolean which is true if field was set.
+func (g *GlobalPrivacySettings) GetArchiveAndMuteNewNoncontactPeers() (value bool, ok bool) {
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.ArchiveAndMuteNewNoncontactPeers, true
+}

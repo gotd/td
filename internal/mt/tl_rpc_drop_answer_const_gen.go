@@ -38,6 +38,14 @@ type RPCDropAnswerRequest struct {
 // RPCDropAnswerRequestTypeID is TL type id of RPCDropAnswerRequest.
 const RPCDropAnswerRequestTypeID = 0x58e4a740
 
+// Ensuring interfaces in compile-time for RPCDropAnswerRequest.
+var (
+	_ bin.Encoder     = &RPCDropAnswerRequest{}
+	_ bin.Decoder     = &RPCDropAnswerRequest{}
+	_ bin.BareEncoder = &RPCDropAnswerRequest{}
+	_ bin.BareDecoder = &RPCDropAnswerRequest{}
+)
+
 func (r *RPCDropAnswerRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -56,13 +64,6 @@ func (r *RPCDropAnswerRequest) String() string {
 	}
 	type Alias RPCDropAnswerRequest
 	return fmt.Sprintf("RPCDropAnswerRequest%+v", Alias(*r))
-}
-
-// FillFrom fills RPCDropAnswerRequest from given interface.
-func (r *RPCDropAnswerRequest) FillFrom(from interface {
-	GetReqMsgID() (value int64)
-}) {
-	r.ReqMsgID = from.GetReqMsgID()
 }
 
 // TypeID returns type id in TL schema.
@@ -114,11 +115,6 @@ func (r *RPCDropAnswerRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetReqMsgID returns value of ReqMsgID field.
-func (r *RPCDropAnswerRequest) GetReqMsgID() (value int64) {
-	return r.ReqMsgID
-}
-
 // Decode implements bin.Decoder.
 func (r *RPCDropAnswerRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -145,10 +141,7 @@ func (r *RPCDropAnswerRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for RPCDropAnswerRequest.
-var (
-	_ bin.Encoder     = &RPCDropAnswerRequest{}
-	_ bin.Decoder     = &RPCDropAnswerRequest{}
-	_ bin.BareEncoder = &RPCDropAnswerRequest{}
-	_ bin.BareDecoder = &RPCDropAnswerRequest{}
-)
+// GetReqMsgID returns value of ReqMsgID field.
+func (r *RPCDropAnswerRequest) GetReqMsgID() (value int64) {
+	return r.ReqMsgID
+}

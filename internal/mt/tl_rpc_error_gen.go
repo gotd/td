@@ -40,6 +40,14 @@ type RPCError struct {
 // RPCErrorTypeID is TL type id of RPCError.
 const RPCErrorTypeID = 0x2144ca19
 
+// Ensuring interfaces in compile-time for RPCError.
+var (
+	_ bin.Encoder     = &RPCError{}
+	_ bin.Decoder     = &RPCError{}
+	_ bin.BareEncoder = &RPCError{}
+	_ bin.BareDecoder = &RPCError{}
+)
+
 func (r *RPCError) Zero() bool {
 	if r == nil {
 		return true
@@ -61,15 +69,6 @@ func (r *RPCError) String() string {
 	}
 	type Alias RPCError
 	return fmt.Sprintf("RPCError%+v", Alias(*r))
-}
-
-// FillFrom fills RPCError from given interface.
-func (r *RPCError) FillFrom(from interface {
-	GetErrorCode() (value int)
-	GetErrorMessage() (value string)
-}) {
-	r.ErrorCode = from.GetErrorCode()
-	r.ErrorMessage = from.GetErrorMessage()
 }
 
 // TypeID returns type id in TL schema.
@@ -126,16 +125,6 @@ func (r *RPCError) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetErrorCode returns value of ErrorCode field.
-func (r *RPCError) GetErrorCode() (value int) {
-	return r.ErrorCode
-}
-
-// GetErrorMessage returns value of ErrorMessage field.
-func (r *RPCError) GetErrorMessage() (value string) {
-	return r.ErrorMessage
-}
-
 // Decode implements bin.Decoder.
 func (r *RPCError) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -169,10 +158,12 @@ func (r *RPCError) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for RPCError.
-var (
-	_ bin.Encoder     = &RPCError{}
-	_ bin.Decoder     = &RPCError{}
-	_ bin.BareEncoder = &RPCError{}
-	_ bin.BareDecoder = &RPCError{}
-)
+// GetErrorCode returns value of ErrorCode field.
+func (r *RPCError) GetErrorCode() (value int) {
+	return r.ErrorCode
+}
+
+// GetErrorMessage returns value of ErrorMessage field.
+func (r *RPCError) GetErrorMessage() (value string) {
+	return r.ErrorMessage
+}

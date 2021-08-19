@@ -53,6 +53,14 @@ type ChannelsEditAdminRequest struct {
 // ChannelsEditAdminRequestTypeID is TL type id of ChannelsEditAdminRequest.
 const ChannelsEditAdminRequestTypeID = 0xd33c8902
 
+// Ensuring interfaces in compile-time for ChannelsEditAdminRequest.
+var (
+	_ bin.Encoder     = &ChannelsEditAdminRequest{}
+	_ bin.Decoder     = &ChannelsEditAdminRequest{}
+	_ bin.BareEncoder = &ChannelsEditAdminRequest{}
+	_ bin.BareDecoder = &ChannelsEditAdminRequest{}
+)
+
 func (e *ChannelsEditAdminRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -171,31 +179,6 @@ func (e *ChannelsEditAdminRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (e *ChannelsEditAdminRequest) GetChannel() (value InputChannelClass) {
-	return e.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (e *ChannelsEditAdminRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return e.Channel.AsNotEmpty()
-}
-
-// GetUserID returns value of UserID field.
-func (e *ChannelsEditAdminRequest) GetUserID() (value InputUserClass) {
-	return e.UserID
-}
-
-// GetAdminRights returns value of AdminRights field.
-func (e *ChannelsEditAdminRequest) GetAdminRights() (value ChatAdminRights) {
-	return e.AdminRights
-}
-
-// GetRank returns value of Rank field.
-func (e *ChannelsEditAdminRequest) GetRank() (value string) {
-	return e.Rank
-}
-
 // Decode implements bin.Decoder.
 func (e *ChannelsEditAdminRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -241,13 +224,30 @@ func (e *ChannelsEditAdminRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsEditAdminRequest.
-var (
-	_ bin.Encoder     = &ChannelsEditAdminRequest{}
-	_ bin.Decoder     = &ChannelsEditAdminRequest{}
-	_ bin.BareEncoder = &ChannelsEditAdminRequest{}
-	_ bin.BareDecoder = &ChannelsEditAdminRequest{}
-)
+// GetChannel returns value of Channel field.
+func (e *ChannelsEditAdminRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetUserID returns value of UserID field.
+func (e *ChannelsEditAdminRequest) GetUserID() (value InputUserClass) {
+	return e.UserID
+}
+
+// GetAdminRights returns value of AdminRights field.
+func (e *ChannelsEditAdminRequest) GetAdminRights() (value ChatAdminRights) {
+	return e.AdminRights
+}
+
+// GetRank returns value of Rank field.
+func (e *ChannelsEditAdminRequest) GetRank() (value string) {
+	return e.Rank
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsEditAdminRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
+}
 
 // ChannelsEditAdmin invokes method channels.editAdmin#d33c8902 returning error if any.
 // Modify the admin rights of a user in a supergroup/channel¹.

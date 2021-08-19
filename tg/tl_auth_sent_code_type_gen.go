@@ -41,6 +41,19 @@ type AuthSentCodeTypeApp struct {
 // AuthSentCodeTypeAppTypeID is TL type id of AuthSentCodeTypeApp.
 const AuthSentCodeTypeAppTypeID = 0x3dbb5986
 
+// construct implements constructor of AuthSentCodeTypeClass.
+func (s AuthSentCodeTypeApp) construct() AuthSentCodeTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeTypeApp.
+var (
+	_ bin.Encoder     = &AuthSentCodeTypeApp{}
+	_ bin.Decoder     = &AuthSentCodeTypeApp{}
+	_ bin.BareEncoder = &AuthSentCodeTypeApp{}
+	_ bin.BareDecoder = &AuthSentCodeTypeApp{}
+
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeApp{}
+)
+
 func (s *AuthSentCodeTypeApp) Zero() bool {
 	if s == nil {
 		return true
@@ -117,11 +130,6 @@ func (s *AuthSentCodeTypeApp) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLength returns value of Length field.
-func (s *AuthSentCodeTypeApp) GetLength() (value int) {
-	return s.Length
-}
-
 // Decode implements bin.Decoder.
 func (s *AuthSentCodeTypeApp) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -148,18 +156,10 @@ func (s *AuthSentCodeTypeApp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthSentCodeTypeClass.
-func (s AuthSentCodeTypeApp) construct() AuthSentCodeTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for AuthSentCodeTypeApp.
-var (
-	_ bin.Encoder     = &AuthSentCodeTypeApp{}
-	_ bin.Decoder     = &AuthSentCodeTypeApp{}
-	_ bin.BareEncoder = &AuthSentCodeTypeApp{}
-	_ bin.BareDecoder = &AuthSentCodeTypeApp{}
-
-	_ AuthSentCodeTypeClass = &AuthSentCodeTypeApp{}
-)
+// GetLength returns value of Length field.
+func (s *AuthSentCodeTypeApp) GetLength() (value int) {
+	return s.Length
+}
 
 // AuthSentCodeTypeSMS represents TL type `auth.sentCodeTypeSms#c000bba2`.
 // The code was sent via SMS
@@ -172,6 +172,19 @@ type AuthSentCodeTypeSMS struct {
 
 // AuthSentCodeTypeSMSTypeID is TL type id of AuthSentCodeTypeSMS.
 const AuthSentCodeTypeSMSTypeID = 0xc000bba2
+
+// construct implements constructor of AuthSentCodeTypeClass.
+func (s AuthSentCodeTypeSMS) construct() AuthSentCodeTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeTypeSMS.
+var (
+	_ bin.Encoder     = &AuthSentCodeTypeSMS{}
+	_ bin.Decoder     = &AuthSentCodeTypeSMS{}
+	_ bin.BareEncoder = &AuthSentCodeTypeSMS{}
+	_ bin.BareDecoder = &AuthSentCodeTypeSMS{}
+
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeSMS{}
+)
 
 func (s *AuthSentCodeTypeSMS) Zero() bool {
 	if s == nil {
@@ -249,11 +262,6 @@ func (s *AuthSentCodeTypeSMS) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLength returns value of Length field.
-func (s *AuthSentCodeTypeSMS) GetLength() (value int) {
-	return s.Length
-}
-
 // Decode implements bin.Decoder.
 func (s *AuthSentCodeTypeSMS) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -280,18 +288,10 @@ func (s *AuthSentCodeTypeSMS) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthSentCodeTypeClass.
-func (s AuthSentCodeTypeSMS) construct() AuthSentCodeTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for AuthSentCodeTypeSMS.
-var (
-	_ bin.Encoder     = &AuthSentCodeTypeSMS{}
-	_ bin.Decoder     = &AuthSentCodeTypeSMS{}
-	_ bin.BareEncoder = &AuthSentCodeTypeSMS{}
-	_ bin.BareDecoder = &AuthSentCodeTypeSMS{}
-
-	_ AuthSentCodeTypeClass = &AuthSentCodeTypeSMS{}
-)
+// GetLength returns value of Length field.
+func (s *AuthSentCodeTypeSMS) GetLength() (value int) {
+	return s.Length
+}
 
 // AuthSentCodeTypeCall represents TL type `auth.sentCodeTypeCall#5353e5a7`.
 // The code will be sent via a phone call: a synthesized voice will tell the user which
@@ -305,6 +305,19 @@ type AuthSentCodeTypeCall struct {
 
 // AuthSentCodeTypeCallTypeID is TL type id of AuthSentCodeTypeCall.
 const AuthSentCodeTypeCallTypeID = 0x5353e5a7
+
+// construct implements constructor of AuthSentCodeTypeClass.
+func (s AuthSentCodeTypeCall) construct() AuthSentCodeTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeTypeCall.
+var (
+	_ bin.Encoder     = &AuthSentCodeTypeCall{}
+	_ bin.Decoder     = &AuthSentCodeTypeCall{}
+	_ bin.BareEncoder = &AuthSentCodeTypeCall{}
+	_ bin.BareDecoder = &AuthSentCodeTypeCall{}
+
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeCall{}
+)
 
 func (s *AuthSentCodeTypeCall) Zero() bool {
 	if s == nil {
@@ -382,11 +395,6 @@ func (s *AuthSentCodeTypeCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLength returns value of Length field.
-func (s *AuthSentCodeTypeCall) GetLength() (value int) {
-	return s.Length
-}
-
 // Decode implements bin.Decoder.
 func (s *AuthSentCodeTypeCall) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -413,18 +421,10 @@ func (s *AuthSentCodeTypeCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthSentCodeTypeClass.
-func (s AuthSentCodeTypeCall) construct() AuthSentCodeTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for AuthSentCodeTypeCall.
-var (
-	_ bin.Encoder     = &AuthSentCodeTypeCall{}
-	_ bin.Decoder     = &AuthSentCodeTypeCall{}
-	_ bin.BareEncoder = &AuthSentCodeTypeCall{}
-	_ bin.BareDecoder = &AuthSentCodeTypeCall{}
-
-	_ AuthSentCodeTypeClass = &AuthSentCodeTypeCall{}
-)
+// GetLength returns value of Length field.
+func (s *AuthSentCodeTypeCall) GetLength() (value int) {
+	return s.Length
+}
 
 // AuthSentCodeTypeFlashCall represents TL type `auth.sentCodeTypeFlashCall#ab03c6d9`.
 // The code will be sent via a flash phone call, that will be closed immediately. The
@@ -442,6 +442,19 @@ type AuthSentCodeTypeFlashCall struct {
 
 // AuthSentCodeTypeFlashCallTypeID is TL type id of AuthSentCodeTypeFlashCall.
 const AuthSentCodeTypeFlashCallTypeID = 0xab03c6d9
+
+// construct implements constructor of AuthSentCodeTypeClass.
+func (s AuthSentCodeTypeFlashCall) construct() AuthSentCodeTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeTypeFlashCall.
+var (
+	_ bin.Encoder     = &AuthSentCodeTypeFlashCall{}
+	_ bin.Decoder     = &AuthSentCodeTypeFlashCall{}
+	_ bin.BareEncoder = &AuthSentCodeTypeFlashCall{}
+	_ bin.BareDecoder = &AuthSentCodeTypeFlashCall{}
+
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeFlashCall{}
+)
 
 func (s *AuthSentCodeTypeFlashCall) Zero() bool {
 	if s == nil {
@@ -519,11 +532,6 @@ func (s *AuthSentCodeTypeFlashCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPattern returns value of Pattern field.
-func (s *AuthSentCodeTypeFlashCall) GetPattern() (value string) {
-	return s.Pattern
-}
-
 // Decode implements bin.Decoder.
 func (s *AuthSentCodeTypeFlashCall) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -550,18 +558,10 @@ func (s *AuthSentCodeTypeFlashCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthSentCodeTypeClass.
-func (s AuthSentCodeTypeFlashCall) construct() AuthSentCodeTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for AuthSentCodeTypeFlashCall.
-var (
-	_ bin.Encoder     = &AuthSentCodeTypeFlashCall{}
-	_ bin.Decoder     = &AuthSentCodeTypeFlashCall{}
-	_ bin.BareEncoder = &AuthSentCodeTypeFlashCall{}
-	_ bin.BareDecoder = &AuthSentCodeTypeFlashCall{}
-
-	_ AuthSentCodeTypeClass = &AuthSentCodeTypeFlashCall{}
-)
+// GetPattern returns value of Pattern field.
+func (s *AuthSentCodeTypeFlashCall) GetPattern() (value string) {
+	return s.Pattern
+}
 
 // AuthSentCodeTypeClass represents auth.SentCodeType generic type.
 //

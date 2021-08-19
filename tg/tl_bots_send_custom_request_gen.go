@@ -43,6 +43,14 @@ type BotsSendCustomRequestRequest struct {
 // BotsSendCustomRequestRequestTypeID is TL type id of BotsSendCustomRequestRequest.
 const BotsSendCustomRequestRequestTypeID = 0xaa2769ed
 
+// Ensuring interfaces in compile-time for BotsSendCustomRequestRequest.
+var (
+	_ bin.Encoder     = &BotsSendCustomRequestRequest{}
+	_ bin.Decoder     = &BotsSendCustomRequestRequest{}
+	_ bin.BareEncoder = &BotsSendCustomRequestRequest{}
+	_ bin.BareDecoder = &BotsSendCustomRequestRequest{}
+)
+
 func (s *BotsSendCustomRequestRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -131,16 +139,6 @@ func (s *BotsSendCustomRequestRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCustomMethod returns value of CustomMethod field.
-func (s *BotsSendCustomRequestRequest) GetCustomMethod() (value string) {
-	return s.CustomMethod
-}
-
-// GetParams returns value of Params field.
-func (s *BotsSendCustomRequestRequest) GetParams() (value DataJSON) {
-	return s.Params
-}
-
 // Decode implements bin.Decoder.
 func (s *BotsSendCustomRequestRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -172,13 +170,15 @@ func (s *BotsSendCustomRequestRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for BotsSendCustomRequestRequest.
-var (
-	_ bin.Encoder     = &BotsSendCustomRequestRequest{}
-	_ bin.Decoder     = &BotsSendCustomRequestRequest{}
-	_ bin.BareEncoder = &BotsSendCustomRequestRequest{}
-	_ bin.BareDecoder = &BotsSendCustomRequestRequest{}
-)
+// GetCustomMethod returns value of CustomMethod field.
+func (s *BotsSendCustomRequestRequest) GetCustomMethod() (value string) {
+	return s.CustomMethod
+}
+
+// GetParams returns value of Params field.
+func (s *BotsSendCustomRequestRequest) GetParams() (value DataJSON) {
+	return s.Params
+}
 
 // BotsSendCustomRequest invokes method bots.sendCustomRequest#aa2769ed returning error if any.
 // Sends a custom request; for bots only

@@ -44,6 +44,14 @@ type StatsAbsValueAndPrev struct {
 // StatsAbsValueAndPrevTypeID is TL type id of StatsAbsValueAndPrev.
 const StatsAbsValueAndPrevTypeID = 0xcb43acde
 
+// Ensuring interfaces in compile-time for StatsAbsValueAndPrev.
+var (
+	_ bin.Encoder     = &StatsAbsValueAndPrev{}
+	_ bin.Decoder     = &StatsAbsValueAndPrev{}
+	_ bin.BareEncoder = &StatsAbsValueAndPrev{}
+	_ bin.BareDecoder = &StatsAbsValueAndPrev{}
+)
+
 func (s *StatsAbsValueAndPrev) Zero() bool {
 	if s == nil {
 		return true
@@ -130,16 +138,6 @@ func (s *StatsAbsValueAndPrev) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCurrent returns value of Current field.
-func (s *StatsAbsValueAndPrev) GetCurrent() (value float64) {
-	return s.Current
-}
-
-// GetPrevious returns value of Previous field.
-func (s *StatsAbsValueAndPrev) GetPrevious() (value float64) {
-	return s.Previous
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsAbsValueAndPrev) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -173,10 +171,12 @@ func (s *StatsAbsValueAndPrev) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsAbsValueAndPrev.
-var (
-	_ bin.Encoder     = &StatsAbsValueAndPrev{}
-	_ bin.Decoder     = &StatsAbsValueAndPrev{}
-	_ bin.BareEncoder = &StatsAbsValueAndPrev{}
-	_ bin.BareDecoder = &StatsAbsValueAndPrev{}
-)
+// GetCurrent returns value of Current field.
+func (s *StatsAbsValueAndPrev) GetCurrent() (value float64) {
+	return s.Current
+}
+
+// GetPrevious returns value of Previous field.
+func (s *StatsAbsValueAndPrev) GetPrevious() (value float64) {
+	return s.Previous
+}

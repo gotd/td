@@ -40,6 +40,14 @@ type RPCResult struct {
 // RPCResultTypeID is TL type id of RPCResult.
 const RPCResultTypeID = 0xf35c6d01
 
+// Ensuring interfaces in compile-time for RPCResult.
+var (
+	_ bin.Encoder     = &RPCResult{}
+	_ bin.Decoder     = &RPCResult{}
+	_ bin.BareEncoder = &RPCResult{}
+	_ bin.BareDecoder = &RPCResult{}
+)
+
 func (r *RPCResult) Zero() bool {
 	if r == nil {
 		return true
@@ -61,15 +69,6 @@ func (r *RPCResult) String() string {
 	}
 	type Alias RPCResult
 	return fmt.Sprintf("RPCResult%+v", Alias(*r))
-}
-
-// FillFrom fills RPCResult from given interface.
-func (r *RPCResult) FillFrom(from interface {
-	GetReqMsgID() (value int64)
-	GetResult() (value GzipPacked)
-}) {
-	r.ReqMsgID = from.GetReqMsgID()
-	r.Result = from.GetResult()
 }
 
 // TypeID returns type id in TL schema.
@@ -128,16 +127,6 @@ func (r *RPCResult) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetReqMsgID returns value of ReqMsgID field.
-func (r *RPCResult) GetReqMsgID() (value int64) {
-	return r.ReqMsgID
-}
-
-// GetResult returns value of Result field.
-func (r *RPCResult) GetResult() (value GzipPacked) {
-	return r.Result
-}
-
 // Decode implements bin.Decoder.
 func (r *RPCResult) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -169,10 +158,12 @@ func (r *RPCResult) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for RPCResult.
-var (
-	_ bin.Encoder     = &RPCResult{}
-	_ bin.Decoder     = &RPCResult{}
-	_ bin.BareEncoder = &RPCResult{}
-	_ bin.BareDecoder = &RPCResult{}
-)
+// GetReqMsgID returns value of ReqMsgID field.
+func (r *RPCResult) GetReqMsgID() (value int64) {
+	return r.ReqMsgID
+}
+
+// GetResult returns value of Result field.
+func (r *RPCResult) GetResult() (value GzipPacked) {
+	return r.Result
+}

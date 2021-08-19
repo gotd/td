@@ -64,6 +64,19 @@ type WallPaper struct {
 // WallPaperTypeID is TL type id of WallPaper.
 const WallPaperTypeID = 0xa437c3ed
 
+// construct implements constructor of WallPaperClass.
+func (w WallPaper) construct() WallPaperClass { return &w }
+
+// Ensuring interfaces in compile-time for WallPaper.
+var (
+	_ bin.Encoder     = &WallPaper{}
+	_ bin.Decoder     = &WallPaper{}
+	_ bin.BareEncoder = &WallPaper{}
+	_ bin.BareDecoder = &WallPaper{}
+
+	_ WallPaperClass = &WallPaper{}
+)
+
 func (w *WallPaper) Zero() bool {
 	if w == nil {
 		return true
@@ -254,6 +267,67 @@ func (w *WallPaper) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (w *WallPaper) Decode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode wallPaper#a437c3ed to nil")
+	}
+	if err := b.ConsumeID(WallPaperTypeID); err != nil {
+		return fmt.Errorf("unable to decode wallPaper#a437c3ed: %w", err)
+	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WallPaper) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode wallPaper#a437c3ed to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode wallPaper#a437c3ed: field id: %w", err)
+		}
+		w.ID = value
+	}
+	{
+		if err := w.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode wallPaper#a437c3ed: field flags: %w", err)
+		}
+	}
+	w.Creator = w.Flags.Has(0)
+	w.Default = w.Flags.Has(1)
+	w.Pattern = w.Flags.Has(3)
+	w.Dark = w.Flags.Has(4)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode wallPaper#a437c3ed: field access_hash: %w", err)
+		}
+		w.AccessHash = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode wallPaper#a437c3ed: field slug: %w", err)
+		}
+		w.Slug = value
+	}
+	{
+		value, err := DecodeDocument(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode wallPaper#a437c3ed: field document: %w", err)
+		}
+		w.Document = value
+	}
+	if w.Flags.Has(2) {
+		if err := w.Settings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode wallPaper#a437c3ed: field settings: %w", err)
+		}
+	}
+	return nil
+}
+
 // GetID returns value of ID field.
 func (w *WallPaper) GetID() (value int64) {
 	return w.ID
@@ -353,80 +427,6 @@ func (w *WallPaper) GetSettings() (value WallPaperSettings, ok bool) {
 	return w.Settings, true
 }
 
-// Decode implements bin.Decoder.
-func (w *WallPaper) Decode(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't decode wallPaper#a437c3ed to nil")
-	}
-	if err := b.ConsumeID(WallPaperTypeID); err != nil {
-		return fmt.Errorf("unable to decode wallPaper#a437c3ed: %w", err)
-	}
-	return w.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (w *WallPaper) DecodeBare(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't decode wallPaper#a437c3ed to nil")
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode wallPaper#a437c3ed: field id: %w", err)
-		}
-		w.ID = value
-	}
-	{
-		if err := w.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode wallPaper#a437c3ed: field flags: %w", err)
-		}
-	}
-	w.Creator = w.Flags.Has(0)
-	w.Default = w.Flags.Has(1)
-	w.Pattern = w.Flags.Has(3)
-	w.Dark = w.Flags.Has(4)
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode wallPaper#a437c3ed: field access_hash: %w", err)
-		}
-		w.AccessHash = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode wallPaper#a437c3ed: field slug: %w", err)
-		}
-		w.Slug = value
-	}
-	{
-		value, err := DecodeDocument(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode wallPaper#a437c3ed: field document: %w", err)
-		}
-		w.Document = value
-	}
-	if w.Flags.Has(2) {
-		if err := w.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode wallPaper#a437c3ed: field settings: %w", err)
-		}
-	}
-	return nil
-}
-
-// construct implements constructor of WallPaperClass.
-func (w WallPaper) construct() WallPaperClass { return &w }
-
-// Ensuring interfaces in compile-time for WallPaper.
-var (
-	_ bin.Encoder     = &WallPaper{}
-	_ bin.Decoder     = &WallPaper{}
-	_ bin.BareEncoder = &WallPaper{}
-	_ bin.BareDecoder = &WallPaper{}
-
-	_ WallPaperClass = &WallPaper{}
-)
-
 // WallPaperNoFile represents TL type `wallPaperNoFile#e0804116`.
 // No file wallpaper
 //
@@ -451,6 +451,19 @@ type WallPaperNoFile struct {
 
 // WallPaperNoFileTypeID is TL type id of WallPaperNoFile.
 const WallPaperNoFileTypeID = 0xe0804116
+
+// construct implements constructor of WallPaperClass.
+func (w WallPaperNoFile) construct() WallPaperClass { return &w }
+
+// Ensuring interfaces in compile-time for WallPaperNoFile.
+var (
+	_ bin.Encoder     = &WallPaperNoFile{}
+	_ bin.Decoder     = &WallPaperNoFile{}
+	_ bin.BareEncoder = &WallPaperNoFile{}
+	_ bin.BareDecoder = &WallPaperNoFile{}
+
+	_ WallPaperClass = &WallPaperNoFile{}
+)
 
 func (w *WallPaperNoFile) Zero() bool {
 	if w == nil {
@@ -581,6 +594,44 @@ func (w *WallPaperNoFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (w *WallPaperNoFile) Decode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode wallPaperNoFile#e0804116 to nil")
+	}
+	if err := b.ConsumeID(WallPaperNoFileTypeID); err != nil {
+		return fmt.Errorf("unable to decode wallPaperNoFile#e0804116: %w", err)
+	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WallPaperNoFile) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode wallPaperNoFile#e0804116 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode wallPaperNoFile#e0804116: field id: %w", err)
+		}
+		w.ID = value
+	}
+	{
+		if err := w.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode wallPaperNoFile#e0804116: field flags: %w", err)
+		}
+	}
+	w.Default = w.Flags.Has(1)
+	w.Dark = w.Flags.Has(4)
+	if w.Flags.Has(2) {
+		if err := w.Settings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode wallPaperNoFile#e0804116: field settings: %w", err)
+		}
+	}
+	return nil
+}
+
 // GetID returns value of ID field.
 func (w *WallPaperNoFile) GetID() (value int64) {
 	return w.ID
@@ -632,57 +683,6 @@ func (w *WallPaperNoFile) GetSettings() (value WallPaperSettings, ok bool) {
 	}
 	return w.Settings, true
 }
-
-// Decode implements bin.Decoder.
-func (w *WallPaperNoFile) Decode(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't decode wallPaperNoFile#e0804116 to nil")
-	}
-	if err := b.ConsumeID(WallPaperNoFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode wallPaperNoFile#e0804116: %w", err)
-	}
-	return w.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (w *WallPaperNoFile) DecodeBare(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't decode wallPaperNoFile#e0804116 to nil")
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode wallPaperNoFile#e0804116: field id: %w", err)
-		}
-		w.ID = value
-	}
-	{
-		if err := w.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode wallPaperNoFile#e0804116: field flags: %w", err)
-		}
-	}
-	w.Default = w.Flags.Has(1)
-	w.Dark = w.Flags.Has(4)
-	if w.Flags.Has(2) {
-		if err := w.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode wallPaperNoFile#e0804116: field settings: %w", err)
-		}
-	}
-	return nil
-}
-
-// construct implements constructor of WallPaperClass.
-func (w WallPaperNoFile) construct() WallPaperClass { return &w }
-
-// Ensuring interfaces in compile-time for WallPaperNoFile.
-var (
-	_ bin.Encoder     = &WallPaperNoFile{}
-	_ bin.Decoder     = &WallPaperNoFile{}
-	_ bin.BareEncoder = &WallPaperNoFile{}
-	_ bin.BareDecoder = &WallPaperNoFile{}
-
-	_ WallPaperClass = &WallPaperNoFile{}
-)
 
 // WallPaperClass represents WallPaper generic type.
 //

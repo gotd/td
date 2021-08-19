@@ -63,6 +63,14 @@ type MessagesForwardMessagesRequest struct {
 // MessagesForwardMessagesRequestTypeID is TL type id of MessagesForwardMessagesRequest.
 const MessagesForwardMessagesRequestTypeID = 0xd9fee60e
 
+// Ensuring interfaces in compile-time for MessagesForwardMessagesRequest.
+var (
+	_ bin.Encoder     = &MessagesForwardMessagesRequest{}
+	_ bin.Decoder     = &MessagesForwardMessagesRequest{}
+	_ bin.BareEncoder = &MessagesForwardMessagesRequest{}
+	_ bin.BareDecoder = &MessagesForwardMessagesRequest{}
+)
+
 func (f *MessagesForwardMessagesRequest) Zero() bool {
 	if f == nil {
 		return true
@@ -249,89 +257,6 @@ func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetSilent sets value of Silent conditional field.
-func (f *MessagesForwardMessagesRequest) SetSilent(value bool) {
-	if value {
-		f.Flags.Set(5)
-		f.Silent = true
-	} else {
-		f.Flags.Unset(5)
-		f.Silent = false
-	}
-}
-
-// GetSilent returns value of Silent conditional field.
-func (f *MessagesForwardMessagesRequest) GetSilent() (value bool) {
-	return f.Flags.Has(5)
-}
-
-// SetBackground sets value of Background conditional field.
-func (f *MessagesForwardMessagesRequest) SetBackground(value bool) {
-	if value {
-		f.Flags.Set(6)
-		f.Background = true
-	} else {
-		f.Flags.Unset(6)
-		f.Background = false
-	}
-}
-
-// GetBackground returns value of Background conditional field.
-func (f *MessagesForwardMessagesRequest) GetBackground() (value bool) {
-	return f.Flags.Has(6)
-}
-
-// SetWithMyScore sets value of WithMyScore conditional field.
-func (f *MessagesForwardMessagesRequest) SetWithMyScore(value bool) {
-	if value {
-		f.Flags.Set(8)
-		f.WithMyScore = true
-	} else {
-		f.Flags.Unset(8)
-		f.WithMyScore = false
-	}
-}
-
-// GetWithMyScore returns value of WithMyScore conditional field.
-func (f *MessagesForwardMessagesRequest) GetWithMyScore() (value bool) {
-	return f.Flags.Has(8)
-}
-
-// GetFromPeer returns value of FromPeer field.
-func (f *MessagesForwardMessagesRequest) GetFromPeer() (value InputPeerClass) {
-	return f.FromPeer
-}
-
-// GetID returns value of ID field.
-func (f *MessagesForwardMessagesRequest) GetID() (value []int) {
-	return f.ID
-}
-
-// GetRandomID returns value of RandomID field.
-func (f *MessagesForwardMessagesRequest) GetRandomID() (value []int64) {
-	return f.RandomID
-}
-
-// GetToPeer returns value of ToPeer field.
-func (f *MessagesForwardMessagesRequest) GetToPeer() (value InputPeerClass) {
-	return f.ToPeer
-}
-
-// SetScheduleDate sets value of ScheduleDate conditional field.
-func (f *MessagesForwardMessagesRequest) SetScheduleDate(value int) {
-	f.Flags.Set(10)
-	f.ScheduleDate = value
-}
-
-// GetScheduleDate returns value of ScheduleDate conditional field and
-// boolean which is true if field was set.
-func (f *MessagesForwardMessagesRequest) GetScheduleDate() (value int, ok bool) {
-	if !f.Flags.Has(10) {
-		return value, false
-	}
-	return f.ScheduleDate, true
-}
-
 // Decode implements bin.Decoder.
 func (f *MessagesForwardMessagesRequest) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -414,13 +339,88 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesForwardMessagesRequest.
-var (
-	_ bin.Encoder     = &MessagesForwardMessagesRequest{}
-	_ bin.Decoder     = &MessagesForwardMessagesRequest{}
-	_ bin.BareEncoder = &MessagesForwardMessagesRequest{}
-	_ bin.BareDecoder = &MessagesForwardMessagesRequest{}
-)
+// SetSilent sets value of Silent conditional field.
+func (f *MessagesForwardMessagesRequest) SetSilent(value bool) {
+	if value {
+		f.Flags.Set(5)
+		f.Silent = true
+	} else {
+		f.Flags.Unset(5)
+		f.Silent = false
+	}
+}
+
+// GetSilent returns value of Silent conditional field.
+func (f *MessagesForwardMessagesRequest) GetSilent() (value bool) {
+	return f.Flags.Has(5)
+}
+
+// SetBackground sets value of Background conditional field.
+func (f *MessagesForwardMessagesRequest) SetBackground(value bool) {
+	if value {
+		f.Flags.Set(6)
+		f.Background = true
+	} else {
+		f.Flags.Unset(6)
+		f.Background = false
+	}
+}
+
+// GetBackground returns value of Background conditional field.
+func (f *MessagesForwardMessagesRequest) GetBackground() (value bool) {
+	return f.Flags.Has(6)
+}
+
+// SetWithMyScore sets value of WithMyScore conditional field.
+func (f *MessagesForwardMessagesRequest) SetWithMyScore(value bool) {
+	if value {
+		f.Flags.Set(8)
+		f.WithMyScore = true
+	} else {
+		f.Flags.Unset(8)
+		f.WithMyScore = false
+	}
+}
+
+// GetWithMyScore returns value of WithMyScore conditional field.
+func (f *MessagesForwardMessagesRequest) GetWithMyScore() (value bool) {
+	return f.Flags.Has(8)
+}
+
+// GetFromPeer returns value of FromPeer field.
+func (f *MessagesForwardMessagesRequest) GetFromPeer() (value InputPeerClass) {
+	return f.FromPeer
+}
+
+// GetID returns value of ID field.
+func (f *MessagesForwardMessagesRequest) GetID() (value []int) {
+	return f.ID
+}
+
+// GetRandomID returns value of RandomID field.
+func (f *MessagesForwardMessagesRequest) GetRandomID() (value []int64) {
+	return f.RandomID
+}
+
+// GetToPeer returns value of ToPeer field.
+func (f *MessagesForwardMessagesRequest) GetToPeer() (value InputPeerClass) {
+	return f.ToPeer
+}
+
+// SetScheduleDate sets value of ScheduleDate conditional field.
+func (f *MessagesForwardMessagesRequest) SetScheduleDate(value int) {
+	f.Flags.Set(10)
+	f.ScheduleDate = value
+}
+
+// GetScheduleDate returns value of ScheduleDate conditional field and
+// boolean which is true if field was set.
+func (f *MessagesForwardMessagesRequest) GetScheduleDate() (value int, ok bool) {
+	if !f.Flags.Has(10) {
+		return value, false
+	}
+	return f.ScheduleDate, true
+}
 
 // MessagesForwardMessages invokes method messages.forwardMessages#d9fee60e returning error if any.
 // Forwards messages by their IDs.

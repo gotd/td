@@ -44,6 +44,14 @@ type ContactsGetContactIDsRequest struct {
 // ContactsGetContactIDsRequestTypeID is TL type id of ContactsGetContactIDsRequest.
 const ContactsGetContactIDsRequestTypeID = 0x2caa4a42
 
+// Ensuring interfaces in compile-time for ContactsGetContactIDsRequest.
+var (
+	_ bin.Encoder     = &ContactsGetContactIDsRequest{}
+	_ bin.Decoder     = &ContactsGetContactIDsRequest{}
+	_ bin.BareEncoder = &ContactsGetContactIDsRequest{}
+	_ bin.BareDecoder = &ContactsGetContactIDsRequest{}
+)
+
 func (g *ContactsGetContactIDsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,11 +128,6 @@ func (g *ContactsGetContactIDsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (g *ContactsGetContactIDsRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *ContactsGetContactIDsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -151,13 +154,10 @@ func (g *ContactsGetContactIDsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsGetContactIDsRequest.
-var (
-	_ bin.Encoder     = &ContactsGetContactIDsRequest{}
-	_ bin.Decoder     = &ContactsGetContactIDsRequest{}
-	_ bin.BareEncoder = &ContactsGetContactIDsRequest{}
-	_ bin.BareDecoder = &ContactsGetContactIDsRequest{}
-)
+// GetHash returns value of Hash field.
+func (g *ContactsGetContactIDsRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // ContactsGetContactIDs invokes method contacts.getContactIDs#2caa4a42 returning error if any.
 // Get contact by telegram IDs

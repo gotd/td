@@ -41,6 +41,19 @@ type DialogPeer struct {
 // DialogPeerTypeID is TL type id of DialogPeer.
 const DialogPeerTypeID = 0xe56dbf05
 
+// construct implements constructor of DialogPeerClass.
+func (d DialogPeer) construct() DialogPeerClass { return &d }
+
+// Ensuring interfaces in compile-time for DialogPeer.
+var (
+	_ bin.Encoder     = &DialogPeer{}
+	_ bin.Decoder     = &DialogPeer{}
+	_ bin.BareEncoder = &DialogPeer{}
+	_ bin.BareDecoder = &DialogPeer{}
+
+	_ DialogPeerClass = &DialogPeer{}
+)
+
 func (d *DialogPeer) Zero() bool {
 	if d == nil {
 		return true
@@ -122,11 +135,6 @@ func (d *DialogPeer) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (d *DialogPeer) GetPeer() (value PeerClass) {
-	return d.Peer
-}
-
 // Decode implements bin.Decoder.
 func (d *DialogPeer) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -153,18 +161,10 @@ func (d *DialogPeer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DialogPeerClass.
-func (d DialogPeer) construct() DialogPeerClass { return &d }
-
-// Ensuring interfaces in compile-time for DialogPeer.
-var (
-	_ bin.Encoder     = &DialogPeer{}
-	_ bin.Decoder     = &DialogPeer{}
-	_ bin.BareEncoder = &DialogPeer{}
-	_ bin.BareDecoder = &DialogPeer{}
-
-	_ DialogPeerClass = &DialogPeer{}
-)
+// GetPeer returns value of Peer field.
+func (d *DialogPeer) GetPeer() (value PeerClass) {
+	return d.Peer
+}
 
 // DialogPeerFolder represents TL type `dialogPeerFolder#514519e2`.
 // Peer folder¹
@@ -183,6 +183,19 @@ type DialogPeerFolder struct {
 
 // DialogPeerFolderTypeID is TL type id of DialogPeerFolder.
 const DialogPeerFolderTypeID = 0x514519e2
+
+// construct implements constructor of DialogPeerClass.
+func (d DialogPeerFolder) construct() DialogPeerClass { return &d }
+
+// Ensuring interfaces in compile-time for DialogPeerFolder.
+var (
+	_ bin.Encoder     = &DialogPeerFolder{}
+	_ bin.Decoder     = &DialogPeerFolder{}
+	_ bin.BareEncoder = &DialogPeerFolder{}
+	_ bin.BareDecoder = &DialogPeerFolder{}
+
+	_ DialogPeerClass = &DialogPeerFolder{}
+)
 
 func (d *DialogPeerFolder) Zero() bool {
 	if d == nil {
@@ -260,11 +273,6 @@ func (d *DialogPeerFolder) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFolderID returns value of FolderID field.
-func (d *DialogPeerFolder) GetFolderID() (value int) {
-	return d.FolderID
-}
-
 // Decode implements bin.Decoder.
 func (d *DialogPeerFolder) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -291,18 +299,10 @@ func (d *DialogPeerFolder) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DialogPeerClass.
-func (d DialogPeerFolder) construct() DialogPeerClass { return &d }
-
-// Ensuring interfaces in compile-time for DialogPeerFolder.
-var (
-	_ bin.Encoder     = &DialogPeerFolder{}
-	_ bin.Decoder     = &DialogPeerFolder{}
-	_ bin.BareEncoder = &DialogPeerFolder{}
-	_ bin.BareDecoder = &DialogPeerFolder{}
-
-	_ DialogPeerClass = &DialogPeerFolder{}
-)
+// GetFolderID returns value of FolderID field.
+func (d *DialogPeerFolder) GetFolderID() (value int) {
+	return d.FolderID
+}
 
 // DialogPeerClass represents DialogPeer generic type.
 //

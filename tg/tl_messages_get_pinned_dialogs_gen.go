@@ -44,6 +44,14 @@ type MessagesGetPinnedDialogsRequest struct {
 // MessagesGetPinnedDialogsRequestTypeID is TL type id of MessagesGetPinnedDialogsRequest.
 const MessagesGetPinnedDialogsRequestTypeID = 0xd6b94df2
 
+// Ensuring interfaces in compile-time for MessagesGetPinnedDialogsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetPinnedDialogsRequest{}
+	_ bin.Decoder     = &MessagesGetPinnedDialogsRequest{}
+	_ bin.BareEncoder = &MessagesGetPinnedDialogsRequest{}
+	_ bin.BareDecoder = &MessagesGetPinnedDialogsRequest{}
+)
+
 func (g *MessagesGetPinnedDialogsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,11 +128,6 @@ func (g *MessagesGetPinnedDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFolderID returns value of FolderID field.
-func (g *MessagesGetPinnedDialogsRequest) GetFolderID() (value int) {
-	return g.FolderID
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetPinnedDialogsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -151,13 +154,10 @@ func (g *MessagesGetPinnedDialogsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetPinnedDialogsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetPinnedDialogsRequest{}
-	_ bin.Decoder     = &MessagesGetPinnedDialogsRequest{}
-	_ bin.BareEncoder = &MessagesGetPinnedDialogsRequest{}
-	_ bin.BareDecoder = &MessagesGetPinnedDialogsRequest{}
-)
+// GetFolderID returns value of FolderID field.
+func (g *MessagesGetPinnedDialogsRequest) GetFolderID() (value int) {
+	return g.FolderID
+}
 
 // MessagesGetPinnedDialogs invokes method messages.getPinnedDialogs#d6b94df2 returning error if any.
 // Get pinned dialogs

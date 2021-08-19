@@ -60,6 +60,14 @@ type MessagesBotCallbackAnswer struct {
 // MessagesBotCallbackAnswerTypeID is TL type id of MessagesBotCallbackAnswer.
 const MessagesBotCallbackAnswerTypeID = 0x36585ea4
 
+// Ensuring interfaces in compile-time for MessagesBotCallbackAnswer.
+var (
+	_ bin.Encoder     = &MessagesBotCallbackAnswer{}
+	_ bin.Decoder     = &MessagesBotCallbackAnswer{}
+	_ bin.BareEncoder = &MessagesBotCallbackAnswer{}
+	_ bin.BareDecoder = &MessagesBotCallbackAnswer{}
+)
+
 func (b *MessagesBotCallbackAnswer) Zero() bool {
 	if b == nil {
 		return true
@@ -219,6 +227,54 @@ func (b *MessagesBotCallbackAnswer) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (b *MessagesBotCallbackAnswer) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode messages.botCallbackAnswer#36585ea4 to nil")
+	}
+	if err := buf.ConsumeID(MessagesBotCallbackAnswerTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *MessagesBotCallbackAnswer) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode messages.botCallbackAnswer#36585ea4 to nil")
+	}
+	{
+		if err := b.Flags.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field flags: %w", err)
+		}
+	}
+	b.Alert = b.Flags.Has(1)
+	b.HasURL = b.Flags.Has(3)
+	b.NativeUI = b.Flags.Has(4)
+	if b.Flags.Has(0) {
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field message: %w", err)
+		}
+		b.Message = value
+	}
+	if b.Flags.Has(2) {
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field url: %w", err)
+		}
+		b.URL = value
+	}
+	{
+		value, err := buf.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field cache_time: %w", err)
+		}
+		b.CacheTime = value
+	}
+	return nil
+}
+
 // SetAlert sets value of Alert conditional field.
 func (b *MessagesBotCallbackAnswer) SetAlert(value bool) {
 	if value {
@@ -301,59 +357,3 @@ func (b *MessagesBotCallbackAnswer) GetURL() (value string, ok bool) {
 func (b *MessagesBotCallbackAnswer) GetCacheTime() (value int) {
 	return b.CacheTime
 }
-
-// Decode implements bin.Decoder.
-func (b *MessagesBotCallbackAnswer) Decode(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't decode messages.botCallbackAnswer#36585ea4 to nil")
-	}
-	if err := buf.ConsumeID(MessagesBotCallbackAnswerTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: %w", err)
-	}
-	return b.DecodeBare(buf)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (b *MessagesBotCallbackAnswer) DecodeBare(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't decode messages.botCallbackAnswer#36585ea4 to nil")
-	}
-	{
-		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field flags: %w", err)
-		}
-	}
-	b.Alert = b.Flags.Has(1)
-	b.HasURL = b.Flags.Has(3)
-	b.NativeUI = b.Flags.Has(4)
-	if b.Flags.Has(0) {
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field message: %w", err)
-		}
-		b.Message = value
-	}
-	if b.Flags.Has(2) {
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field url: %w", err)
-		}
-		b.URL = value
-	}
-	{
-		value, err := buf.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field cache_time: %w", err)
-		}
-		b.CacheTime = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesBotCallbackAnswer.
-var (
-	_ bin.Encoder     = &MessagesBotCallbackAnswer{}
-	_ bin.Decoder     = &MessagesBotCallbackAnswer{}
-	_ bin.BareEncoder = &MessagesBotCallbackAnswer{}
-	_ bin.BareDecoder = &MessagesBotCallbackAnswer{}
-)

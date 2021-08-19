@@ -50,6 +50,14 @@ type MessagesSaveRecentStickerRequest struct {
 // MessagesSaveRecentStickerRequestTypeID is TL type id of MessagesSaveRecentStickerRequest.
 const MessagesSaveRecentStickerRequestTypeID = 0x392718f8
 
+// Ensuring interfaces in compile-time for MessagesSaveRecentStickerRequest.
+var (
+	_ bin.Encoder     = &MessagesSaveRecentStickerRequest{}
+	_ bin.Decoder     = &MessagesSaveRecentStickerRequest{}
+	_ bin.BareEncoder = &MessagesSaveRecentStickerRequest{}
+	_ bin.BareDecoder = &MessagesSaveRecentStickerRequest{}
+)
+
 func (s *MessagesSaveRecentStickerRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -160,37 +168,6 @@ func (s *MessagesSaveRecentStickerRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetAttached sets value of Attached conditional field.
-func (s *MessagesSaveRecentStickerRequest) SetAttached(value bool) {
-	if value {
-		s.Flags.Set(0)
-		s.Attached = true
-	} else {
-		s.Flags.Unset(0)
-		s.Attached = false
-	}
-}
-
-// GetAttached returns value of Attached conditional field.
-func (s *MessagesSaveRecentStickerRequest) GetAttached() (value bool) {
-	return s.Flags.Has(0)
-}
-
-// GetID returns value of ID field.
-func (s *MessagesSaveRecentStickerRequest) GetID() (value InputDocumentClass) {
-	return s.ID
-}
-
-// GetIDAsNotEmpty returns mapped value of ID field.
-func (s *MessagesSaveRecentStickerRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
-	return s.ID.AsNotEmpty()
-}
-
-// GetUnsave returns value of Unsave field.
-func (s *MessagesSaveRecentStickerRequest) GetUnsave() (value bool) {
-	return s.Unsave
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSaveRecentStickerRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -230,13 +207,36 @@ func (s *MessagesSaveRecentStickerRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSaveRecentStickerRequest.
-var (
-	_ bin.Encoder     = &MessagesSaveRecentStickerRequest{}
-	_ bin.Decoder     = &MessagesSaveRecentStickerRequest{}
-	_ bin.BareEncoder = &MessagesSaveRecentStickerRequest{}
-	_ bin.BareDecoder = &MessagesSaveRecentStickerRequest{}
-)
+// SetAttached sets value of Attached conditional field.
+func (s *MessagesSaveRecentStickerRequest) SetAttached(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.Attached = true
+	} else {
+		s.Flags.Unset(0)
+		s.Attached = false
+	}
+}
+
+// GetAttached returns value of Attached conditional field.
+func (s *MessagesSaveRecentStickerRequest) GetAttached() (value bool) {
+	return s.Flags.Has(0)
+}
+
+// GetID returns value of ID field.
+func (s *MessagesSaveRecentStickerRequest) GetID() (value InputDocumentClass) {
+	return s.ID
+}
+
+// GetUnsave returns value of Unsave field.
+func (s *MessagesSaveRecentStickerRequest) GetUnsave() (value bool) {
+	return s.Unsave
+}
+
+// GetIDAsNotEmpty returns mapped value of ID field.
+func (s *MessagesSaveRecentStickerRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
+	return s.ID.AsNotEmpty()
+}
 
 // MessagesSaveRecentSticker invokes method messages.saveRecentSticker#392718f8 returning error if any.
 // Add/remove sticker from recent stickers list

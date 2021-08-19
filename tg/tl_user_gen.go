@@ -41,6 +41,19 @@ type UserEmpty struct {
 // UserEmptyTypeID is TL type id of UserEmpty.
 const UserEmptyTypeID = 0x200250ba
 
+// construct implements constructor of UserClass.
+func (u UserEmpty) construct() UserClass { return &u }
+
+// Ensuring interfaces in compile-time for UserEmpty.
+var (
+	_ bin.Encoder     = &UserEmpty{}
+	_ bin.Decoder     = &UserEmpty{}
+	_ bin.BareEncoder = &UserEmpty{}
+	_ bin.BareDecoder = &UserEmpty{}
+
+	_ UserClass = &UserEmpty{}
+)
+
 func (u *UserEmpty) Zero() bool {
 	if u == nil {
 		return true
@@ -117,11 +130,6 @@ func (u *UserEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (u *UserEmpty) GetID() (value int) {
-	return u.ID
-}
-
 // Decode implements bin.Decoder.
 func (u *UserEmpty) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -148,18 +156,10 @@ func (u *UserEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UserClass.
-func (u UserEmpty) construct() UserClass { return &u }
-
-// Ensuring interfaces in compile-time for UserEmpty.
-var (
-	_ bin.Encoder     = &UserEmpty{}
-	_ bin.Decoder     = &UserEmpty{}
-	_ bin.BareEncoder = &UserEmpty{}
-	_ bin.BareDecoder = &UserEmpty{}
-
-	_ UserClass = &UserEmpty{}
-)
+// GetID returns value of ID field.
+func (u *UserEmpty) GetID() (value int) {
+	return u.ID
+}
 
 // User represents TL type `user#938458c1`.
 // Indicates info about a certain user
@@ -257,6 +257,19 @@ type User struct {
 
 // UserTypeID is TL type id of User.
 const UserTypeID = 0x938458c1
+
+// construct implements constructor of UserClass.
+func (u User) construct() UserClass { return &u }
+
+// Ensuring interfaces in compile-time for User.
+var (
+	_ bin.Encoder     = &User{}
+	_ bin.Decoder     = &User{}
+	_ bin.BareEncoder = &User{}
+	_ bin.BareDecoder = &User{}
+
+	_ UserClass = &User{}
+)
 
 func (u *User) Zero() bool {
 	if u == nil {
@@ -759,6 +772,139 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (u *User) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode user#938458c1 to nil")
+	}
+	if err := b.ConsumeID(UserTypeID); err != nil {
+		return fmt.Errorf("unable to decode user#938458c1: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *User) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode user#938458c1 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field flags: %w", err)
+		}
+	}
+	u.Self = u.Flags.Has(10)
+	u.Contact = u.Flags.Has(11)
+	u.MutualContact = u.Flags.Has(12)
+	u.Deleted = u.Flags.Has(13)
+	u.Bot = u.Flags.Has(14)
+	u.BotChatHistory = u.Flags.Has(15)
+	u.BotNochats = u.Flags.Has(16)
+	u.Verified = u.Flags.Has(17)
+	u.Restricted = u.Flags.Has(18)
+	u.Min = u.Flags.Has(20)
+	u.BotInlineGeo = u.Flags.Has(21)
+	u.Support = u.Flags.Has(23)
+	u.Scam = u.Flags.Has(24)
+	u.ApplyMinPhoto = u.Flags.Has(25)
+	u.Fake = u.Flags.Has(26)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field id: %w", err)
+		}
+		u.ID = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field access_hash: %w", err)
+		}
+		u.AccessHash = value
+	}
+	if u.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field first_name: %w", err)
+		}
+		u.FirstName = value
+	}
+	if u.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field last_name: %w", err)
+		}
+		u.LastName = value
+	}
+	if u.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field username: %w", err)
+		}
+		u.Username = value
+	}
+	if u.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field phone: %w", err)
+		}
+		u.Phone = value
+	}
+	if u.Flags.Has(5) {
+		value, err := DecodeUserProfilePhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field photo: %w", err)
+		}
+		u.Photo = value
+	}
+	if u.Flags.Has(6) {
+		value, err := DecodeUserStatus(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field status: %w", err)
+		}
+		u.Status = value
+	}
+	if u.Flags.Has(14) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field bot_info_version: %w", err)
+		}
+		u.BotInfoVersion = value
+	}
+	if u.Flags.Has(18) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.RestrictionReason = make([]RestrictionReason, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value RestrictionReason
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
+			}
+			u.RestrictionReason = append(u.RestrictionReason, value)
+		}
+	}
+	if u.Flags.Has(19) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field bot_inline_placeholder: %w", err)
+		}
+		u.BotInlinePlaceholder = value
+	}
+	if u.Flags.Has(22) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field lang_code: %w", err)
+		}
+		u.LangCode = value
+	}
+	return nil
+}
+
 // SetSelf sets value of Self conditional field.
 func (u *User) SetSelf(value bool) {
 	if value {
@@ -1168,152 +1314,6 @@ func (u *User) GetLangCode() (value string, ok bool) {
 	}
 	return u.LangCode, true
 }
-
-// Decode implements bin.Decoder.
-func (u *User) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode user#938458c1 to nil")
-	}
-	if err := b.ConsumeID(UserTypeID); err != nil {
-		return fmt.Errorf("unable to decode user#938458c1: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *User) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode user#938458c1 to nil")
-	}
-	{
-		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field flags: %w", err)
-		}
-	}
-	u.Self = u.Flags.Has(10)
-	u.Contact = u.Flags.Has(11)
-	u.MutualContact = u.Flags.Has(12)
-	u.Deleted = u.Flags.Has(13)
-	u.Bot = u.Flags.Has(14)
-	u.BotChatHistory = u.Flags.Has(15)
-	u.BotNochats = u.Flags.Has(16)
-	u.Verified = u.Flags.Has(17)
-	u.Restricted = u.Flags.Has(18)
-	u.Min = u.Flags.Has(20)
-	u.BotInlineGeo = u.Flags.Has(21)
-	u.Support = u.Flags.Has(23)
-	u.Scam = u.Flags.Has(24)
-	u.ApplyMinPhoto = u.Flags.Has(25)
-	u.Fake = u.Flags.Has(26)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field id: %w", err)
-		}
-		u.ID = value
-	}
-	if u.Flags.Has(0) {
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field access_hash: %w", err)
-		}
-		u.AccessHash = value
-	}
-	if u.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field first_name: %w", err)
-		}
-		u.FirstName = value
-	}
-	if u.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field last_name: %w", err)
-		}
-		u.LastName = value
-	}
-	if u.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field username: %w", err)
-		}
-		u.Username = value
-	}
-	if u.Flags.Has(4) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field phone: %w", err)
-		}
-		u.Phone = value
-	}
-	if u.Flags.Has(5) {
-		value, err := DecodeUserProfilePhoto(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field photo: %w", err)
-		}
-		u.Photo = value
-	}
-	if u.Flags.Has(6) {
-		value, err := DecodeUserStatus(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field status: %w", err)
-		}
-		u.Status = value
-	}
-	if u.Flags.Has(14) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field bot_info_version: %w", err)
-		}
-		u.BotInfoVersion = value
-	}
-	if u.Flags.Has(18) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
-		}
-
-		if headerLen > 0 {
-			u.RestrictionReason = make([]RestrictionReason, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value RestrictionReason
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
-			}
-			u.RestrictionReason = append(u.RestrictionReason, value)
-		}
-	}
-	if u.Flags.Has(19) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field bot_inline_placeholder: %w", err)
-		}
-		u.BotInlinePlaceholder = value
-	}
-	if u.Flags.Has(22) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field lang_code: %w", err)
-		}
-		u.LangCode = value
-	}
-	return nil
-}
-
-// construct implements constructor of UserClass.
-func (u User) construct() UserClass { return &u }
-
-// Ensuring interfaces in compile-time for User.
-var (
-	_ bin.Encoder     = &User{}
-	_ bin.Decoder     = &User{}
-	_ bin.BareEncoder = &User{}
-	_ bin.BareDecoder = &User{}
-
-	_ UserClass = &User{}
-)
 
 // UserClass represents User generic type.
 //

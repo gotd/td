@@ -39,6 +39,14 @@ type HelpGetInviteTextRequest struct {
 // HelpGetInviteTextRequestTypeID is TL type id of HelpGetInviteTextRequest.
 const HelpGetInviteTextRequestTypeID = 0x4d392343
 
+// Ensuring interfaces in compile-time for HelpGetInviteTextRequest.
+var (
+	_ bin.Encoder     = &HelpGetInviteTextRequest{}
+	_ bin.Decoder     = &HelpGetInviteTextRequest{}
+	_ bin.BareEncoder = &HelpGetInviteTextRequest{}
+	_ bin.BareDecoder = &HelpGetInviteTextRequest{}
+)
+
 func (g *HelpGetInviteTextRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *HelpGetInviteTextRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for HelpGetInviteTextRequest.
-var (
-	_ bin.Encoder     = &HelpGetInviteTextRequest{}
-	_ bin.Decoder     = &HelpGetInviteTextRequest{}
-	_ bin.BareEncoder = &HelpGetInviteTextRequest{}
-	_ bin.BareDecoder = &HelpGetInviteTextRequest{}
-)
 
 // HelpGetInviteText invokes method help.getInviteText#4d392343 returning error if any.
 // Returns localized text of a text message with an invitation.

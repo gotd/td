@@ -41,6 +41,14 @@ type HelpInviteText struct {
 // HelpInviteTextTypeID is TL type id of HelpInviteText.
 const HelpInviteTextTypeID = 0x18cb9f78
 
+// Ensuring interfaces in compile-time for HelpInviteText.
+var (
+	_ bin.Encoder     = &HelpInviteText{}
+	_ bin.Decoder     = &HelpInviteText{}
+	_ bin.BareEncoder = &HelpInviteText{}
+	_ bin.BareDecoder = &HelpInviteText{}
+)
+
 func (i *HelpInviteText) Zero() bool {
 	if i == nil {
 		return true
@@ -117,11 +125,6 @@ func (i *HelpInviteText) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (i *HelpInviteText) GetMessage() (value string) {
-	return i.Message
-}
-
 // Decode implements bin.Decoder.
 func (i *HelpInviteText) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -148,10 +151,7 @@ func (i *HelpInviteText) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpInviteText.
-var (
-	_ bin.Encoder     = &HelpInviteText{}
-	_ bin.Decoder     = &HelpInviteText{}
-	_ bin.BareEncoder = &HelpInviteText{}
-	_ bin.BareDecoder = &HelpInviteText{}
-)
+// GetMessage returns value of Message field.
+func (i *HelpInviteText) GetMessage() (value string) {
+	return i.Message
+}

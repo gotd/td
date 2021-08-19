@@ -43,6 +43,14 @@ type ChannelsSetStickersRequest struct {
 // ChannelsSetStickersRequestTypeID is TL type id of ChannelsSetStickersRequest.
 const ChannelsSetStickersRequestTypeID = 0xea8ca4f9
 
+// Ensuring interfaces in compile-time for ChannelsSetStickersRequest.
+var (
+	_ bin.Encoder     = &ChannelsSetStickersRequest{}
+	_ bin.Decoder     = &ChannelsSetStickersRequest{}
+	_ bin.BareEncoder = &ChannelsSetStickersRequest{}
+	_ bin.BareDecoder = &ChannelsSetStickersRequest{}
+)
+
 func (s *ChannelsSetStickersRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -139,21 +147,6 @@ func (s *ChannelsSetStickersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (s *ChannelsSetStickersRequest) GetChannel() (value InputChannelClass) {
-	return s.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (s *ChannelsSetStickersRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return s.Channel.AsNotEmpty()
-}
-
-// GetStickerset returns value of Stickerset field.
-func (s *ChannelsSetStickersRequest) GetStickerset() (value InputStickerSetClass) {
-	return s.Stickerset
-}
-
 // Decode implements bin.Decoder.
 func (s *ChannelsSetStickersRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -187,13 +180,20 @@ func (s *ChannelsSetStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsSetStickersRequest.
-var (
-	_ bin.Encoder     = &ChannelsSetStickersRequest{}
-	_ bin.Decoder     = &ChannelsSetStickersRequest{}
-	_ bin.BareEncoder = &ChannelsSetStickersRequest{}
-	_ bin.BareDecoder = &ChannelsSetStickersRequest{}
-)
+// GetChannel returns value of Channel field.
+func (s *ChannelsSetStickersRequest) GetChannel() (value InputChannelClass) {
+	return s.Channel
+}
+
+// GetStickerset returns value of Stickerset field.
+func (s *ChannelsSetStickersRequest) GetStickerset() (value InputStickerSetClass) {
+	return s.Stickerset
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (s *ChannelsSetStickersRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return s.Channel.AsNotEmpty()
+}
 
 // ChannelsSetStickers invokes method channels.setStickers#ea8ca4f9 returning error if any.
 // Associate a stickerset to the supergroup

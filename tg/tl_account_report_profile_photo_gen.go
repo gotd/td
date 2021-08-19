@@ -46,6 +46,14 @@ type AccountReportProfilePhotoRequest struct {
 // AccountReportProfilePhotoRequestTypeID is TL type id of AccountReportProfilePhotoRequest.
 const AccountReportProfilePhotoRequestTypeID = 0xfa8cc6f5
 
+// Ensuring interfaces in compile-time for AccountReportProfilePhotoRequest.
+var (
+	_ bin.Encoder     = &AccountReportProfilePhotoRequest{}
+	_ bin.Decoder     = &AccountReportProfilePhotoRequest{}
+	_ bin.BareEncoder = &AccountReportProfilePhotoRequest{}
+	_ bin.BareDecoder = &AccountReportProfilePhotoRequest{}
+)
+
 func (r *AccountReportProfilePhotoRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -167,31 +175,6 @@ func (r *AccountReportProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (r *AccountReportProfilePhotoRequest) GetPeer() (value InputPeerClass) {
-	return r.Peer
-}
-
-// GetPhotoID returns value of PhotoID field.
-func (r *AccountReportProfilePhotoRequest) GetPhotoID() (value InputPhotoClass) {
-	return r.PhotoID
-}
-
-// GetPhotoIDAsNotEmpty returns mapped value of PhotoID field.
-func (r *AccountReportProfilePhotoRequest) GetPhotoIDAsNotEmpty() (*InputPhoto, bool) {
-	return r.PhotoID.AsNotEmpty()
-}
-
-// GetReason returns value of Reason field.
-func (r *AccountReportProfilePhotoRequest) GetReason() (value ReportReasonClass) {
-	return r.Reason
-}
-
-// GetMessage returns value of Message field.
-func (r *AccountReportProfilePhotoRequest) GetMessage() (value string) {
-	return r.Message
-}
-
 // Decode implements bin.Decoder.
 func (r *AccountReportProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -239,13 +222,30 @@ func (r *AccountReportProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountReportProfilePhotoRequest.
-var (
-	_ bin.Encoder     = &AccountReportProfilePhotoRequest{}
-	_ bin.Decoder     = &AccountReportProfilePhotoRequest{}
-	_ bin.BareEncoder = &AccountReportProfilePhotoRequest{}
-	_ bin.BareDecoder = &AccountReportProfilePhotoRequest{}
-)
+// GetPeer returns value of Peer field.
+func (r *AccountReportProfilePhotoRequest) GetPeer() (value InputPeerClass) {
+	return r.Peer
+}
+
+// GetPhotoID returns value of PhotoID field.
+func (r *AccountReportProfilePhotoRequest) GetPhotoID() (value InputPhotoClass) {
+	return r.PhotoID
+}
+
+// GetReason returns value of Reason field.
+func (r *AccountReportProfilePhotoRequest) GetReason() (value ReportReasonClass) {
+	return r.Reason
+}
+
+// GetMessage returns value of Message field.
+func (r *AccountReportProfilePhotoRequest) GetMessage() (value string) {
+	return r.Message
+}
+
+// GetPhotoIDAsNotEmpty returns mapped value of PhotoID field.
+func (r *AccountReportProfilePhotoRequest) GetPhotoIDAsNotEmpty() (*InputPhoto, bool) {
+	return r.PhotoID.AsNotEmpty()
+}
 
 // AccountReportProfilePhoto invokes method account.reportProfilePhoto#fa8cc6f5 returning error if any.
 //

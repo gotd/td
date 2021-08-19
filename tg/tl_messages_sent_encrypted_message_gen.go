@@ -41,6 +41,19 @@ type MessagesSentEncryptedMessage struct {
 // MessagesSentEncryptedMessageTypeID is TL type id of MessagesSentEncryptedMessage.
 const MessagesSentEncryptedMessageTypeID = 0x560f8935
 
+// construct implements constructor of MessagesSentEncryptedMessageClass.
+func (s MessagesSentEncryptedMessage) construct() MessagesSentEncryptedMessageClass { return &s }
+
+// Ensuring interfaces in compile-time for MessagesSentEncryptedMessage.
+var (
+	_ bin.Encoder     = &MessagesSentEncryptedMessage{}
+	_ bin.Decoder     = &MessagesSentEncryptedMessage{}
+	_ bin.BareEncoder = &MessagesSentEncryptedMessage{}
+	_ bin.BareDecoder = &MessagesSentEncryptedMessage{}
+
+	_ MessagesSentEncryptedMessageClass = &MessagesSentEncryptedMessage{}
+)
+
 func (s *MessagesSentEncryptedMessage) Zero() bool {
 	if s == nil {
 		return true
@@ -117,11 +130,6 @@ func (s *MessagesSentEncryptedMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDate returns value of Date field.
-func (s *MessagesSentEncryptedMessage) GetDate() (value int) {
-	return s.Date
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSentEncryptedMessage) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -148,18 +156,10 @@ func (s *MessagesSentEncryptedMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesSentEncryptedMessageClass.
-func (s MessagesSentEncryptedMessage) construct() MessagesSentEncryptedMessageClass { return &s }
-
-// Ensuring interfaces in compile-time for MessagesSentEncryptedMessage.
-var (
-	_ bin.Encoder     = &MessagesSentEncryptedMessage{}
-	_ bin.Decoder     = &MessagesSentEncryptedMessage{}
-	_ bin.BareEncoder = &MessagesSentEncryptedMessage{}
-	_ bin.BareDecoder = &MessagesSentEncryptedMessage{}
-
-	_ MessagesSentEncryptedMessageClass = &MessagesSentEncryptedMessage{}
-)
+// GetDate returns value of Date field.
+func (s *MessagesSentEncryptedMessage) GetDate() (value int) {
+	return s.Date
+}
 
 // MessagesSentEncryptedFile represents TL type `messages.sentEncryptedFile#9493ff32`.
 // Message with a file enclosure sent to a protected chat
@@ -174,6 +174,19 @@ type MessagesSentEncryptedFile struct {
 
 // MessagesSentEncryptedFileTypeID is TL type id of MessagesSentEncryptedFile.
 const MessagesSentEncryptedFileTypeID = 0x9493ff32
+
+// construct implements constructor of MessagesSentEncryptedMessageClass.
+func (s MessagesSentEncryptedFile) construct() MessagesSentEncryptedMessageClass { return &s }
+
+// Ensuring interfaces in compile-time for MessagesSentEncryptedFile.
+var (
+	_ bin.Encoder     = &MessagesSentEncryptedFile{}
+	_ bin.Decoder     = &MessagesSentEncryptedFile{}
+	_ bin.BareEncoder = &MessagesSentEncryptedFile{}
+	_ bin.BareDecoder = &MessagesSentEncryptedFile{}
+
+	_ MessagesSentEncryptedMessageClass = &MessagesSentEncryptedFile{}
+)
 
 func (s *MessagesSentEncryptedFile) Zero() bool {
 	if s == nil {
@@ -266,16 +279,6 @@ func (s *MessagesSentEncryptedFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDate returns value of Date field.
-func (s *MessagesSentEncryptedFile) GetDate() (value int) {
-	return s.Date
-}
-
-// GetFile returns value of File field.
-func (s *MessagesSentEncryptedFile) GetFile() (value EncryptedFileClass) {
-	return s.File
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSentEncryptedFile) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -309,18 +312,15 @@ func (s *MessagesSentEncryptedFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesSentEncryptedMessageClass.
-func (s MessagesSentEncryptedFile) construct() MessagesSentEncryptedMessageClass { return &s }
+// GetDate returns value of Date field.
+func (s *MessagesSentEncryptedFile) GetDate() (value int) {
+	return s.Date
+}
 
-// Ensuring interfaces in compile-time for MessagesSentEncryptedFile.
-var (
-	_ bin.Encoder     = &MessagesSentEncryptedFile{}
-	_ bin.Decoder     = &MessagesSentEncryptedFile{}
-	_ bin.BareEncoder = &MessagesSentEncryptedFile{}
-	_ bin.BareDecoder = &MessagesSentEncryptedFile{}
-
-	_ MessagesSentEncryptedMessageClass = &MessagesSentEncryptedFile{}
-)
+// GetFile returns value of File field.
+func (s *MessagesSentEncryptedFile) GetFile() (value EncryptedFileClass) {
+	return s.File
+}
 
 // MessagesSentEncryptedMessageClass represents messages.SentEncryptedMessage generic type.
 //

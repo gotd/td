@@ -61,6 +61,14 @@ type ChannelsGetParticipantsRequest struct {
 // ChannelsGetParticipantsRequestTypeID is TL type id of ChannelsGetParticipantsRequest.
 const ChannelsGetParticipantsRequestTypeID = 0x123e05e9
 
+// Ensuring interfaces in compile-time for ChannelsGetParticipantsRequest.
+var (
+	_ bin.Encoder     = &ChannelsGetParticipantsRequest{}
+	_ bin.Decoder     = &ChannelsGetParticipantsRequest{}
+	_ bin.BareEncoder = &ChannelsGetParticipantsRequest{}
+	_ bin.BareDecoder = &ChannelsGetParticipantsRequest{}
+)
+
 func (g *ChannelsGetParticipantsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -187,36 +195,6 @@ func (g *ChannelsGetParticipantsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (g *ChannelsGetParticipantsRequest) GetChannel() (value InputChannelClass) {
-	return g.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *ChannelsGetParticipantsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
-// GetFilter returns value of Filter field.
-func (g *ChannelsGetParticipantsRequest) GetFilter() (value ChannelParticipantsFilterClass) {
-	return g.Filter
-}
-
-// GetOffset returns value of Offset field.
-func (g *ChannelsGetParticipantsRequest) GetOffset() (value int) {
-	return g.Offset
-}
-
-// GetLimit returns value of Limit field.
-func (g *ChannelsGetParticipantsRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
-// GetHash returns value of Hash field.
-func (g *ChannelsGetParticipantsRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *ChannelsGetParticipantsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -271,13 +249,35 @@ func (g *ChannelsGetParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsGetParticipantsRequest.
-var (
-	_ bin.Encoder     = &ChannelsGetParticipantsRequest{}
-	_ bin.Decoder     = &ChannelsGetParticipantsRequest{}
-	_ bin.BareEncoder = &ChannelsGetParticipantsRequest{}
-	_ bin.BareDecoder = &ChannelsGetParticipantsRequest{}
-)
+// GetChannel returns value of Channel field.
+func (g *ChannelsGetParticipantsRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetFilter returns value of Filter field.
+func (g *ChannelsGetParticipantsRequest) GetFilter() (value ChannelParticipantsFilterClass) {
+	return g.Filter
+}
+
+// GetOffset returns value of Offset field.
+func (g *ChannelsGetParticipantsRequest) GetOffset() (value int) {
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *ChannelsGetParticipantsRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetHash returns value of Hash field.
+func (g *ChannelsGetParticipantsRequest) GetHash() (value int) {
+	return g.Hash
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *ChannelsGetParticipantsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
 
 // ChannelsGetParticipants invokes method channels.getParticipants#123e05e9 returning error if any.
 // Get the participants of a supergroup/channel¹

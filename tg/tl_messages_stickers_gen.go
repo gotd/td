@@ -39,6 +39,19 @@ type MessagesStickersNotModified struct {
 // MessagesStickersNotModifiedTypeID is TL type id of MessagesStickersNotModified.
 const MessagesStickersNotModifiedTypeID = 0xf1749a22
 
+// construct implements constructor of MessagesStickersClass.
+func (s MessagesStickersNotModified) construct() MessagesStickersClass { return &s }
+
+// Ensuring interfaces in compile-time for MessagesStickersNotModified.
+var (
+	_ bin.Encoder     = &MessagesStickersNotModified{}
+	_ bin.Decoder     = &MessagesStickersNotModified{}
+	_ bin.BareEncoder = &MessagesStickersNotModified{}
+	_ bin.BareDecoder = &MessagesStickersNotModified{}
+
+	_ MessagesStickersClass = &MessagesStickersNotModified{}
+)
+
 func (s *MessagesStickersNotModified) Zero() bool {
 	if s == nil {
 		return true
@@ -118,19 +131,6 @@ func (s *MessagesStickersNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesStickersClass.
-func (s MessagesStickersNotModified) construct() MessagesStickersClass { return &s }
-
-// Ensuring interfaces in compile-time for MessagesStickersNotModified.
-var (
-	_ bin.Encoder     = &MessagesStickersNotModified{}
-	_ bin.Decoder     = &MessagesStickersNotModified{}
-	_ bin.BareEncoder = &MessagesStickersNotModified{}
-	_ bin.BareDecoder = &MessagesStickersNotModified{}
-
-	_ MessagesStickersClass = &MessagesStickersNotModified{}
-)
-
 // MessagesStickers represents TL type `messages.stickers#e4599bbd`.
 // Found stickers
 //
@@ -147,6 +147,19 @@ type MessagesStickers struct {
 
 // MessagesStickersTypeID is TL type id of MessagesStickers.
 const MessagesStickersTypeID = 0xe4599bbd
+
+// construct implements constructor of MessagesStickersClass.
+func (s MessagesStickers) construct() MessagesStickersClass { return &s }
+
+// Ensuring interfaces in compile-time for MessagesStickers.
+var (
+	_ bin.Encoder     = &MessagesStickers{}
+	_ bin.Decoder     = &MessagesStickers{}
+	_ bin.BareEncoder = &MessagesStickers{}
+	_ bin.BareDecoder = &MessagesStickers{}
+
+	_ MessagesStickersClass = &MessagesStickers{}
+)
 
 func (s *MessagesStickers) Zero() bool {
 	if s == nil {
@@ -242,21 +255,6 @@ func (s *MessagesStickers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (s *MessagesStickers) GetHash() (value int) {
-	return s.Hash
-}
-
-// GetStickers returns value of Stickers field.
-func (s *MessagesStickers) GetStickers() (value []DocumentClass) {
-	return s.Stickers
-}
-
-// MapStickers returns field Stickers wrapped in DocumentClassArray helper.
-func (s *MessagesStickers) MapStickers() (value DocumentClassArray) {
-	return DocumentClassArray(s.Stickers)
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesStickers) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -300,18 +298,20 @@ func (s *MessagesStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesStickersClass.
-func (s MessagesStickers) construct() MessagesStickersClass { return &s }
+// GetHash returns value of Hash field.
+func (s *MessagesStickers) GetHash() (value int) {
+	return s.Hash
+}
 
-// Ensuring interfaces in compile-time for MessagesStickers.
-var (
-	_ bin.Encoder     = &MessagesStickers{}
-	_ bin.Decoder     = &MessagesStickers{}
-	_ bin.BareEncoder = &MessagesStickers{}
-	_ bin.BareDecoder = &MessagesStickers{}
+// GetStickers returns value of Stickers field.
+func (s *MessagesStickers) GetStickers() (value []DocumentClass) {
+	return s.Stickers
+}
 
-	_ MessagesStickersClass = &MessagesStickers{}
-)
+// MapStickers returns field Stickers wrapped in DocumentClassArray helper.
+func (s *MessagesStickers) MapStickers() (value DocumentClassArray) {
+	return DocumentClassArray(s.Stickers)
+}
 
 // MessagesStickersClass represents messages.Stickers generic type.
 //

@@ -51,6 +51,19 @@ type ReplyKeyboardHide struct {
 // ReplyKeyboardHideTypeID is TL type id of ReplyKeyboardHide.
 const ReplyKeyboardHideTypeID = 0xa03e5b85
 
+// construct implements constructor of ReplyMarkupClass.
+func (r ReplyKeyboardHide) construct() ReplyMarkupClass { return &r }
+
+// Ensuring interfaces in compile-time for ReplyKeyboardHide.
+var (
+	_ bin.Encoder     = &ReplyKeyboardHide{}
+	_ bin.Decoder     = &ReplyKeyboardHide{}
+	_ bin.BareEncoder = &ReplyKeyboardHide{}
+	_ bin.BareDecoder = &ReplyKeyboardHide{}
+
+	_ ReplyMarkupClass = &ReplyKeyboardHide{}
+)
+
 func (r *ReplyKeyboardHide) Zero() bool {
 	if r == nil {
 		return true
@@ -136,22 +149,6 @@ func (r *ReplyKeyboardHide) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetSelective sets value of Selective conditional field.
-func (r *ReplyKeyboardHide) SetSelective(value bool) {
-	if value {
-		r.Flags.Set(2)
-		r.Selective = true
-	} else {
-		r.Flags.Unset(2)
-		r.Selective = false
-	}
-}
-
-// GetSelective returns value of Selective conditional field.
-func (r *ReplyKeyboardHide) GetSelective() (value bool) {
-	return r.Flags.Has(2)
-}
-
 // Decode implements bin.Decoder.
 func (r *ReplyKeyboardHide) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -177,18 +174,21 @@ func (r *ReplyKeyboardHide) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ReplyMarkupClass.
-func (r ReplyKeyboardHide) construct() ReplyMarkupClass { return &r }
+// SetSelective sets value of Selective conditional field.
+func (r *ReplyKeyboardHide) SetSelective(value bool) {
+	if value {
+		r.Flags.Set(2)
+		r.Selective = true
+	} else {
+		r.Flags.Unset(2)
+		r.Selective = false
+	}
+}
 
-// Ensuring interfaces in compile-time for ReplyKeyboardHide.
-var (
-	_ bin.Encoder     = &ReplyKeyboardHide{}
-	_ bin.Decoder     = &ReplyKeyboardHide{}
-	_ bin.BareEncoder = &ReplyKeyboardHide{}
-	_ bin.BareDecoder = &ReplyKeyboardHide{}
-
-	_ ReplyMarkupClass = &ReplyKeyboardHide{}
-)
+// GetSelective returns value of Selective conditional field.
+func (r *ReplyKeyboardHide) GetSelective() (value bool) {
+	return r.Flags.Has(2)
+}
 
 // ReplyKeyboardForceReply represents TL type `replyKeyboardForceReply#86b40b08`.
 // Force the user to send a reply
@@ -219,6 +219,19 @@ type ReplyKeyboardForceReply struct {
 
 // ReplyKeyboardForceReplyTypeID is TL type id of ReplyKeyboardForceReply.
 const ReplyKeyboardForceReplyTypeID = 0x86b40b08
+
+// construct implements constructor of ReplyMarkupClass.
+func (r ReplyKeyboardForceReply) construct() ReplyMarkupClass { return &r }
+
+// Ensuring interfaces in compile-time for ReplyKeyboardForceReply.
+var (
+	_ bin.Encoder     = &ReplyKeyboardForceReply{}
+	_ bin.Decoder     = &ReplyKeyboardForceReply{}
+	_ bin.BareEncoder = &ReplyKeyboardForceReply{}
+	_ bin.BareDecoder = &ReplyKeyboardForceReply{}
+
+	_ ReplyMarkupClass = &ReplyKeyboardForceReply{}
+)
 
 func (r *ReplyKeyboardForceReply) Zero() bool {
 	if r == nil {
@@ -337,6 +350,39 @@ func (r *ReplyKeyboardForceReply) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (r *ReplyKeyboardForceReply) Decode(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode replyKeyboardForceReply#86b40b08 to nil")
+	}
+	if err := b.ConsumeID(ReplyKeyboardForceReplyTypeID); err != nil {
+		return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: %w", err)
+	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReplyKeyboardForceReply) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode replyKeyboardForceReply#86b40b08 to nil")
+	}
+	{
+		if err := r.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: field flags: %w", err)
+		}
+	}
+	r.SingleUse = r.Flags.Has(1)
+	r.Selective = r.Flags.Has(2)
+	if r.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: field placeholder: %w", err)
+		}
+		r.Placeholder = value
+	}
+	return nil
+}
+
 // SetSingleUse sets value of SingleUse conditional field.
 func (r *ReplyKeyboardForceReply) SetSingleUse(value bool) {
 	if value {
@@ -384,52 +430,6 @@ func (r *ReplyKeyboardForceReply) GetPlaceholder() (value string, ok bool) {
 	return r.Placeholder, true
 }
 
-// Decode implements bin.Decoder.
-func (r *ReplyKeyboardForceReply) Decode(b *bin.Buffer) error {
-	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardForceReply#86b40b08 to nil")
-	}
-	if err := b.ConsumeID(ReplyKeyboardForceReplyTypeID); err != nil {
-		return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: %w", err)
-	}
-	return r.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (r *ReplyKeyboardForceReply) DecodeBare(b *bin.Buffer) error {
-	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardForceReply#86b40b08 to nil")
-	}
-	{
-		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: field flags: %w", err)
-		}
-	}
-	r.SingleUse = r.Flags.Has(1)
-	r.Selective = r.Flags.Has(2)
-	if r.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: field placeholder: %w", err)
-		}
-		r.Placeholder = value
-	}
-	return nil
-}
-
-// construct implements constructor of ReplyMarkupClass.
-func (r ReplyKeyboardForceReply) construct() ReplyMarkupClass { return &r }
-
-// Ensuring interfaces in compile-time for ReplyKeyboardForceReply.
-var (
-	_ bin.Encoder     = &ReplyKeyboardForceReply{}
-	_ bin.Decoder     = &ReplyKeyboardForceReply{}
-	_ bin.BareEncoder = &ReplyKeyboardForceReply{}
-	_ bin.BareDecoder = &ReplyKeyboardForceReply{}
-
-	_ ReplyMarkupClass = &ReplyKeyboardForceReply{}
-)
-
 // ReplyKeyboardMarkup represents TL type `replyKeyboardMarkup#85dd99d1`.
 // Bot keyboard
 //
@@ -465,6 +465,19 @@ type ReplyKeyboardMarkup struct {
 
 // ReplyKeyboardMarkupTypeID is TL type id of ReplyKeyboardMarkup.
 const ReplyKeyboardMarkupTypeID = 0x85dd99d1
+
+// construct implements constructor of ReplyMarkupClass.
+func (r ReplyKeyboardMarkup) construct() ReplyMarkupClass { return &r }
+
+// Ensuring interfaces in compile-time for ReplyKeyboardMarkup.
+var (
+	_ bin.Encoder     = &ReplyKeyboardMarkup{}
+	_ bin.Decoder     = &ReplyKeyboardMarkup{}
+	_ bin.BareEncoder = &ReplyKeyboardMarkup{}
+	_ bin.BareDecoder = &ReplyKeyboardMarkup{}
+
+	_ ReplyMarkupClass = &ReplyKeyboardMarkup{}
+)
 
 func (r *ReplyKeyboardMarkup) Zero() bool {
 	if r == nil {
@@ -611,6 +624,57 @@ func (r *ReplyKeyboardMarkup) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (r *ReplyKeyboardMarkup) Decode(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode replyKeyboardMarkup#85dd99d1 to nil")
+	}
+	if err := b.ConsumeID(ReplyKeyboardMarkupTypeID); err != nil {
+		return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: %w", err)
+	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReplyKeyboardMarkup) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode replyKeyboardMarkup#85dd99d1 to nil")
+	}
+	{
+		if err := r.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field flags: %w", err)
+		}
+	}
+	r.Resize = r.Flags.Has(0)
+	r.SingleUse = r.Flags.Has(1)
+	r.Selective = r.Flags.Has(2)
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field rows: %w", err)
+		}
+
+		if headerLen > 0 {
+			r.Rows = make([]KeyboardButtonRow, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value KeyboardButtonRow
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field rows: %w", err)
+			}
+			r.Rows = append(r.Rows, value)
+		}
+	}
+	if r.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field placeholder: %w", err)
+		}
+		r.Placeholder = value
+	}
+	return nil
+}
+
 // SetResize sets value of Resize conditional field.
 func (r *ReplyKeyboardMarkup) SetResize(value bool) {
 	if value {
@@ -679,70 +743,6 @@ func (r *ReplyKeyboardMarkup) GetPlaceholder() (value string, ok bool) {
 	return r.Placeholder, true
 }
 
-// Decode implements bin.Decoder.
-func (r *ReplyKeyboardMarkup) Decode(b *bin.Buffer) error {
-	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardMarkup#85dd99d1 to nil")
-	}
-	if err := b.ConsumeID(ReplyKeyboardMarkupTypeID); err != nil {
-		return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: %w", err)
-	}
-	return r.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (r *ReplyKeyboardMarkup) DecodeBare(b *bin.Buffer) error {
-	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardMarkup#85dd99d1 to nil")
-	}
-	{
-		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field flags: %w", err)
-		}
-	}
-	r.Resize = r.Flags.Has(0)
-	r.SingleUse = r.Flags.Has(1)
-	r.Selective = r.Flags.Has(2)
-	{
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field rows: %w", err)
-		}
-
-		if headerLen > 0 {
-			r.Rows = make([]KeyboardButtonRow, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value KeyboardButtonRow
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field rows: %w", err)
-			}
-			r.Rows = append(r.Rows, value)
-		}
-	}
-	if r.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field placeholder: %w", err)
-		}
-		r.Placeholder = value
-	}
-	return nil
-}
-
-// construct implements constructor of ReplyMarkupClass.
-func (r ReplyKeyboardMarkup) construct() ReplyMarkupClass { return &r }
-
-// Ensuring interfaces in compile-time for ReplyKeyboardMarkup.
-var (
-	_ bin.Encoder     = &ReplyKeyboardMarkup{}
-	_ bin.Decoder     = &ReplyKeyboardMarkup{}
-	_ bin.BareEncoder = &ReplyKeyboardMarkup{}
-	_ bin.BareDecoder = &ReplyKeyboardMarkup{}
-
-	_ ReplyMarkupClass = &ReplyKeyboardMarkup{}
-)
-
 // ReplyInlineMarkup represents TL type `replyInlineMarkup#48a30254`.
 // Bot or inline keyboard
 //
@@ -754,6 +754,19 @@ type ReplyInlineMarkup struct {
 
 // ReplyInlineMarkupTypeID is TL type id of ReplyInlineMarkup.
 const ReplyInlineMarkupTypeID = 0x48a30254
+
+// construct implements constructor of ReplyMarkupClass.
+func (r ReplyInlineMarkup) construct() ReplyMarkupClass { return &r }
+
+// Ensuring interfaces in compile-time for ReplyInlineMarkup.
+var (
+	_ bin.Encoder     = &ReplyInlineMarkup{}
+	_ bin.Decoder     = &ReplyInlineMarkup{}
+	_ bin.BareEncoder = &ReplyInlineMarkup{}
+	_ bin.BareDecoder = &ReplyInlineMarkup{}
+
+	_ ReplyMarkupClass = &ReplyInlineMarkup{}
+)
 
 func (r *ReplyInlineMarkup) Zero() bool {
 	if r == nil {
@@ -836,11 +849,6 @@ func (r *ReplyInlineMarkup) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRows returns value of Rows field.
-func (r *ReplyInlineMarkup) GetRows() (value []KeyboardButtonRow) {
-	return r.Rows
-}
-
 // Decode implements bin.Decoder.
 func (r *ReplyInlineMarkup) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -877,18 +885,10 @@ func (r *ReplyInlineMarkup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ReplyMarkupClass.
-func (r ReplyInlineMarkup) construct() ReplyMarkupClass { return &r }
-
-// Ensuring interfaces in compile-time for ReplyInlineMarkup.
-var (
-	_ bin.Encoder     = &ReplyInlineMarkup{}
-	_ bin.Decoder     = &ReplyInlineMarkup{}
-	_ bin.BareEncoder = &ReplyInlineMarkup{}
-	_ bin.BareDecoder = &ReplyInlineMarkup{}
-
-	_ ReplyMarkupClass = &ReplyInlineMarkup{}
-)
+// GetRows returns value of Rows field.
+func (r *ReplyInlineMarkup) GetRows() (value []KeyboardButtonRow) {
+	return r.Rows
+}
 
 // ReplyMarkupClass represents ReplyMarkup generic type.
 //

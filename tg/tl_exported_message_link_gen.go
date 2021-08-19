@@ -43,6 +43,14 @@ type ExportedMessageLink struct {
 // ExportedMessageLinkTypeID is TL type id of ExportedMessageLink.
 const ExportedMessageLinkTypeID = 0x5dab1af4
 
+// Ensuring interfaces in compile-time for ExportedMessageLink.
+var (
+	_ bin.Encoder     = &ExportedMessageLink{}
+	_ bin.Decoder     = &ExportedMessageLink{}
+	_ bin.BareEncoder = &ExportedMessageLink{}
+	_ bin.BareDecoder = &ExportedMessageLink{}
+)
+
 func (e *ExportedMessageLink) Zero() bool {
 	if e == nil {
 		return true
@@ -129,16 +137,6 @@ func (e *ExportedMessageLink) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLink returns value of Link field.
-func (e *ExportedMessageLink) GetLink() (value string) {
-	return e.Link
-}
-
-// GetHTML returns value of HTML field.
-func (e *ExportedMessageLink) GetHTML() (value string) {
-	return e.HTML
-}
-
 // Decode implements bin.Decoder.
 func (e *ExportedMessageLink) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -172,10 +170,12 @@ func (e *ExportedMessageLink) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ExportedMessageLink.
-var (
-	_ bin.Encoder     = &ExportedMessageLink{}
-	_ bin.Decoder     = &ExportedMessageLink{}
-	_ bin.BareEncoder = &ExportedMessageLink{}
-	_ bin.BareDecoder = &ExportedMessageLink{}
-)
+// GetLink returns value of Link field.
+func (e *ExportedMessageLink) GetLink() (value string) {
+	return e.Link
+}
+
+// GetHTML returns value of HTML field.
+func (e *ExportedMessageLink) GetHTML() (value string) {
+	return e.HTML
+}

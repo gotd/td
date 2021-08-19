@@ -39,6 +39,19 @@ type JSONNull struct {
 // JSONNullTypeID is TL type id of JSONNull.
 const JSONNullTypeID = 0x3f6d7b68
 
+// construct implements constructor of JSONValueClass.
+func (j JSONNull) construct() JSONValueClass { return &j }
+
+// Ensuring interfaces in compile-time for JSONNull.
+var (
+	_ bin.Encoder     = &JSONNull{}
+	_ bin.Decoder     = &JSONNull{}
+	_ bin.BareEncoder = &JSONNull{}
+	_ bin.BareDecoder = &JSONNull{}
+
+	_ JSONValueClass = &JSONNull{}
+)
+
 func (j *JSONNull) Zero() bool {
 	if j == nil {
 		return true
@@ -118,19 +131,6 @@ func (j *JSONNull) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of JSONValueClass.
-func (j JSONNull) construct() JSONValueClass { return &j }
-
-// Ensuring interfaces in compile-time for JSONNull.
-var (
-	_ bin.Encoder     = &JSONNull{}
-	_ bin.Decoder     = &JSONNull{}
-	_ bin.BareEncoder = &JSONNull{}
-	_ bin.BareDecoder = &JSONNull{}
-
-	_ JSONValueClass = &JSONNull{}
-)
-
 // JSONBool represents TL type `jsonBool#c7345e6a`.
 // JSON boolean value
 //
@@ -142,6 +142,19 @@ type JSONBool struct {
 
 // JSONBoolTypeID is TL type id of JSONBool.
 const JSONBoolTypeID = 0xc7345e6a
+
+// construct implements constructor of JSONValueClass.
+func (j JSONBool) construct() JSONValueClass { return &j }
+
+// Ensuring interfaces in compile-time for JSONBool.
+var (
+	_ bin.Encoder     = &JSONBool{}
+	_ bin.Decoder     = &JSONBool{}
+	_ bin.BareEncoder = &JSONBool{}
+	_ bin.BareDecoder = &JSONBool{}
+
+	_ JSONValueClass = &JSONBool{}
+)
 
 func (j *JSONBool) Zero() bool {
 	if j == nil {
@@ -219,11 +232,6 @@ func (j *JSONBool) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (j *JSONBool) GetValue() (value bool) {
-	return j.Value
-}
-
 // Decode implements bin.Decoder.
 func (j *JSONBool) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -250,18 +258,10 @@ func (j *JSONBool) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of JSONValueClass.
-func (j JSONBool) construct() JSONValueClass { return &j }
-
-// Ensuring interfaces in compile-time for JSONBool.
-var (
-	_ bin.Encoder     = &JSONBool{}
-	_ bin.Decoder     = &JSONBool{}
-	_ bin.BareEncoder = &JSONBool{}
-	_ bin.BareDecoder = &JSONBool{}
-
-	_ JSONValueClass = &JSONBool{}
-)
+// GetValue returns value of Value field.
+func (j *JSONBool) GetValue() (value bool) {
+	return j.Value
+}
 
 // JSONNumber represents TL type `jsonNumber#2be0dfa4`.
 // JSON numeric value
@@ -274,6 +274,19 @@ type JSONNumber struct {
 
 // JSONNumberTypeID is TL type id of JSONNumber.
 const JSONNumberTypeID = 0x2be0dfa4
+
+// construct implements constructor of JSONValueClass.
+func (j JSONNumber) construct() JSONValueClass { return &j }
+
+// Ensuring interfaces in compile-time for JSONNumber.
+var (
+	_ bin.Encoder     = &JSONNumber{}
+	_ bin.Decoder     = &JSONNumber{}
+	_ bin.BareEncoder = &JSONNumber{}
+	_ bin.BareDecoder = &JSONNumber{}
+
+	_ JSONValueClass = &JSONNumber{}
+)
 
 func (j *JSONNumber) Zero() bool {
 	if j == nil {
@@ -351,11 +364,6 @@ func (j *JSONNumber) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (j *JSONNumber) GetValue() (value float64) {
-	return j.Value
-}
-
 // Decode implements bin.Decoder.
 func (j *JSONNumber) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -382,18 +390,10 @@ func (j *JSONNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of JSONValueClass.
-func (j JSONNumber) construct() JSONValueClass { return &j }
-
-// Ensuring interfaces in compile-time for JSONNumber.
-var (
-	_ bin.Encoder     = &JSONNumber{}
-	_ bin.Decoder     = &JSONNumber{}
-	_ bin.BareEncoder = &JSONNumber{}
-	_ bin.BareDecoder = &JSONNumber{}
-
-	_ JSONValueClass = &JSONNumber{}
-)
+// GetValue returns value of Value field.
+func (j *JSONNumber) GetValue() (value float64) {
+	return j.Value
+}
 
 // JSONString represents TL type `jsonString#b71e767a`.
 // JSON string
@@ -406,6 +406,19 @@ type JSONString struct {
 
 // JSONStringTypeID is TL type id of JSONString.
 const JSONStringTypeID = 0xb71e767a
+
+// construct implements constructor of JSONValueClass.
+func (j JSONString) construct() JSONValueClass { return &j }
+
+// Ensuring interfaces in compile-time for JSONString.
+var (
+	_ bin.Encoder     = &JSONString{}
+	_ bin.Decoder     = &JSONString{}
+	_ bin.BareEncoder = &JSONString{}
+	_ bin.BareDecoder = &JSONString{}
+
+	_ JSONValueClass = &JSONString{}
+)
 
 func (j *JSONString) Zero() bool {
 	if j == nil {
@@ -483,11 +496,6 @@ func (j *JSONString) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (j *JSONString) GetValue() (value string) {
-	return j.Value
-}
-
 // Decode implements bin.Decoder.
 func (j *JSONString) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -514,18 +522,10 @@ func (j *JSONString) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of JSONValueClass.
-func (j JSONString) construct() JSONValueClass { return &j }
-
-// Ensuring interfaces in compile-time for JSONString.
-var (
-	_ bin.Encoder     = &JSONString{}
-	_ bin.Decoder     = &JSONString{}
-	_ bin.BareEncoder = &JSONString{}
-	_ bin.BareDecoder = &JSONString{}
-
-	_ JSONValueClass = &JSONString{}
-)
+// GetValue returns value of Value field.
+func (j *JSONString) GetValue() (value string) {
+	return j.Value
+}
 
 // JSONArray represents TL type `jsonArray#f7444763`.
 // JSON array
@@ -538,6 +538,19 @@ type JSONArray struct {
 
 // JSONArrayTypeID is TL type id of JSONArray.
 const JSONArrayTypeID = 0xf7444763
+
+// construct implements constructor of JSONValueClass.
+func (j JSONArray) construct() JSONValueClass { return &j }
+
+// Ensuring interfaces in compile-time for JSONArray.
+var (
+	_ bin.Encoder     = &JSONArray{}
+	_ bin.Decoder     = &JSONArray{}
+	_ bin.BareEncoder = &JSONArray{}
+	_ bin.BareDecoder = &JSONArray{}
+
+	_ JSONValueClass = &JSONArray{}
+)
 
 func (j *JSONArray) Zero() bool {
 	if j == nil {
@@ -623,16 +636,6 @@ func (j *JSONArray) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (j *JSONArray) GetValue() (value []JSONValueClass) {
-	return j.Value
-}
-
-// MapValue returns field Value wrapped in JSONValueClassArray helper.
-func (j *JSONArray) MapValue() (value JSONValueClassArray) {
-	return JSONValueClassArray(j.Value)
-}
-
 // Decode implements bin.Decoder.
 func (j *JSONArray) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -669,18 +672,15 @@ func (j *JSONArray) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of JSONValueClass.
-func (j JSONArray) construct() JSONValueClass { return &j }
+// GetValue returns value of Value field.
+func (j *JSONArray) GetValue() (value []JSONValueClass) {
+	return j.Value
+}
 
-// Ensuring interfaces in compile-time for JSONArray.
-var (
-	_ bin.Encoder     = &JSONArray{}
-	_ bin.Decoder     = &JSONArray{}
-	_ bin.BareEncoder = &JSONArray{}
-	_ bin.BareDecoder = &JSONArray{}
-
-	_ JSONValueClass = &JSONArray{}
-)
+// MapValue returns field Value wrapped in JSONValueClassArray helper.
+func (j *JSONArray) MapValue() (value JSONValueClassArray) {
+	return JSONValueClassArray(j.Value)
+}
 
 // JSONObject represents TL type `jsonObject#99c1d49d`.
 // JSON object value
@@ -693,6 +693,19 @@ type JSONObject struct {
 
 // JSONObjectTypeID is TL type id of JSONObject.
 const JSONObjectTypeID = 0x99c1d49d
+
+// construct implements constructor of JSONValueClass.
+func (j JSONObject) construct() JSONValueClass { return &j }
+
+// Ensuring interfaces in compile-time for JSONObject.
+var (
+	_ bin.Encoder     = &JSONObject{}
+	_ bin.Decoder     = &JSONObject{}
+	_ bin.BareEncoder = &JSONObject{}
+	_ bin.BareDecoder = &JSONObject{}
+
+	_ JSONValueClass = &JSONObject{}
+)
 
 func (j *JSONObject) Zero() bool {
 	if j == nil {
@@ -775,11 +788,6 @@ func (j *JSONObject) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (j *JSONObject) GetValue() (value []JSONObjectValue) {
-	return j.Value
-}
-
 // Decode implements bin.Decoder.
 func (j *JSONObject) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -816,18 +824,10 @@ func (j *JSONObject) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of JSONValueClass.
-func (j JSONObject) construct() JSONValueClass { return &j }
-
-// Ensuring interfaces in compile-time for JSONObject.
-var (
-	_ bin.Encoder     = &JSONObject{}
-	_ bin.Decoder     = &JSONObject{}
-	_ bin.BareEncoder = &JSONObject{}
-	_ bin.BareDecoder = &JSONObject{}
-
-	_ JSONValueClass = &JSONObject{}
-)
+// GetValue returns value of Value field.
+func (j *JSONObject) GetValue() (value []JSONObjectValue) {
+	return j.Value
+}
 
 // JSONValueClass represents JSONValue generic type.
 //

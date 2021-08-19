@@ -40,6 +40,14 @@ type TestBytes struct {
 // TestBytesTypeID is TL type id of TestBytes.
 const TestBytesTypeID = 0xa422c4de
 
+// Ensuring interfaces in compile-time for TestBytes.
+var (
+	_ bin.Encoder     = &TestBytes{}
+	_ bin.Decoder     = &TestBytes{}
+	_ bin.BareEncoder = &TestBytes{}
+	_ bin.BareDecoder = &TestBytes{}
+)
+
 func (t *TestBytes) Zero() bool {
 	if t == nil {
 		return true
@@ -58,13 +66,6 @@ func (t *TestBytes) String() string {
 	}
 	type Alias TestBytes
 	return fmt.Sprintf("TestBytes%+v", Alias(*t))
-}
-
-// FillFrom fills TestBytes from given interface.
-func (t *TestBytes) FillFrom(from interface {
-	GetValue() (value []byte)
-}) {
-	t.Value = from.GetValue()
 }
 
 // TypeID returns type id in TL schema.
@@ -116,11 +117,6 @@ func (t *TestBytes) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (t *TestBytes) GetValue() (value []byte) {
-	return t.Value
-}
-
 // Decode implements bin.Decoder.
 func (t *TestBytes) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -147,10 +143,7 @@ func (t *TestBytes) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for TestBytes.
-var (
-	_ bin.Encoder     = &TestBytes{}
-	_ bin.Decoder     = &TestBytes{}
-	_ bin.BareEncoder = &TestBytes{}
-	_ bin.BareDecoder = &TestBytes{}
-)
+// GetValue returns value of Value field.
+func (t *TestBytes) GetValue() (value []byte) {
+	return t.Value
+}

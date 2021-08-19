@@ -40,6 +40,14 @@ type PhoneLeaveGroupCallPresentationRequest struct {
 // PhoneLeaveGroupCallPresentationRequestTypeID is TL type id of PhoneLeaveGroupCallPresentationRequest.
 const PhoneLeaveGroupCallPresentationRequestTypeID = 0x1c50d144
 
+// Ensuring interfaces in compile-time for PhoneLeaveGroupCallPresentationRequest.
+var (
+	_ bin.Encoder     = &PhoneLeaveGroupCallPresentationRequest{}
+	_ bin.Decoder     = &PhoneLeaveGroupCallPresentationRequest{}
+	_ bin.BareEncoder = &PhoneLeaveGroupCallPresentationRequest{}
+	_ bin.BareDecoder = &PhoneLeaveGroupCallPresentationRequest{}
+)
+
 func (l *PhoneLeaveGroupCallPresentationRequest) Zero() bool {
 	if l == nil {
 		return true
@@ -118,11 +126,6 @@ func (l *PhoneLeaveGroupCallPresentationRequest) EncodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (l *PhoneLeaveGroupCallPresentationRequest) GetCall() (value InputGroupCall) {
-	return l.Call
-}
-
 // Decode implements bin.Decoder.
 func (l *PhoneLeaveGroupCallPresentationRequest) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -147,13 +150,10 @@ func (l *PhoneLeaveGroupCallPresentationRequest) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneLeaveGroupCallPresentationRequest.
-var (
-	_ bin.Encoder     = &PhoneLeaveGroupCallPresentationRequest{}
-	_ bin.Decoder     = &PhoneLeaveGroupCallPresentationRequest{}
-	_ bin.BareEncoder = &PhoneLeaveGroupCallPresentationRequest{}
-	_ bin.BareDecoder = &PhoneLeaveGroupCallPresentationRequest{}
-)
+// GetCall returns value of Call field.
+func (l *PhoneLeaveGroupCallPresentationRequest) GetCall() (value InputGroupCall) {
+	return l.Call
+}
 
 // PhoneLeaveGroupCallPresentation invokes method phone.leaveGroupCallPresentation#1c50d144 returning error if any.
 //

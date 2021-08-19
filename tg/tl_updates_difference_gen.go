@@ -43,6 +43,19 @@ type UpdatesDifferenceEmpty struct {
 // UpdatesDifferenceEmptyTypeID is TL type id of UpdatesDifferenceEmpty.
 const UpdatesDifferenceEmptyTypeID = 0x5d75a138
 
+// construct implements constructor of UpdatesDifferenceClass.
+func (d UpdatesDifferenceEmpty) construct() UpdatesDifferenceClass { return &d }
+
+// Ensuring interfaces in compile-time for UpdatesDifferenceEmpty.
+var (
+	_ bin.Encoder     = &UpdatesDifferenceEmpty{}
+	_ bin.Decoder     = &UpdatesDifferenceEmpty{}
+	_ bin.BareEncoder = &UpdatesDifferenceEmpty{}
+	_ bin.BareDecoder = &UpdatesDifferenceEmpty{}
+
+	_ UpdatesDifferenceClass = &UpdatesDifferenceEmpty{}
+)
+
 func (d *UpdatesDifferenceEmpty) Zero() bool {
 	if d == nil {
 		return true
@@ -129,16 +142,6 @@ func (d *UpdatesDifferenceEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDate returns value of Date field.
-func (d *UpdatesDifferenceEmpty) GetDate() (value int) {
-	return d.Date
-}
-
-// GetSeq returns value of Seq field.
-func (d *UpdatesDifferenceEmpty) GetSeq() (value int) {
-	return d.Seq
-}
-
 // Decode implements bin.Decoder.
 func (d *UpdatesDifferenceEmpty) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -172,18 +175,15 @@ func (d *UpdatesDifferenceEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesDifferenceClass.
-func (d UpdatesDifferenceEmpty) construct() UpdatesDifferenceClass { return &d }
+// GetDate returns value of Date field.
+func (d *UpdatesDifferenceEmpty) GetDate() (value int) {
+	return d.Date
+}
 
-// Ensuring interfaces in compile-time for UpdatesDifferenceEmpty.
-var (
-	_ bin.Encoder     = &UpdatesDifferenceEmpty{}
-	_ bin.Decoder     = &UpdatesDifferenceEmpty{}
-	_ bin.BareEncoder = &UpdatesDifferenceEmpty{}
-	_ bin.BareDecoder = &UpdatesDifferenceEmpty{}
-
-	_ UpdatesDifferenceClass = &UpdatesDifferenceEmpty{}
-)
+// GetSeq returns value of Seq field.
+func (d *UpdatesDifferenceEmpty) GetSeq() (value int) {
+	return d.Seq
+}
 
 // UpdatesDifference represents TL type `updates.difference#f49ca0`.
 // Full list of occurred events.
@@ -206,6 +206,19 @@ type UpdatesDifference struct {
 
 // UpdatesDifferenceTypeID is TL type id of UpdatesDifference.
 const UpdatesDifferenceTypeID = 0xf49ca0
+
+// construct implements constructor of UpdatesDifferenceClass.
+func (d UpdatesDifference) construct() UpdatesDifferenceClass { return &d }
+
+// Ensuring interfaces in compile-time for UpdatesDifference.
+var (
+	_ bin.Encoder     = &UpdatesDifference{}
+	_ bin.Decoder     = &UpdatesDifference{}
+	_ bin.BareEncoder = &UpdatesDifference{}
+	_ bin.BareDecoder = &UpdatesDifference{}
+
+	_ UpdatesDifferenceClass = &UpdatesDifference{}
+)
 
 func (d *UpdatesDifference) Zero() bool {
 	if d == nil {
@@ -375,61 +388,6 @@ func (d *UpdatesDifference) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNewMessages returns value of NewMessages field.
-func (d *UpdatesDifference) GetNewMessages() (value []MessageClass) {
-	return d.NewMessages
-}
-
-// MapNewMessages returns field NewMessages wrapped in MessageClassArray helper.
-func (d *UpdatesDifference) MapNewMessages() (value MessageClassArray) {
-	return MessageClassArray(d.NewMessages)
-}
-
-// GetNewEncryptedMessages returns value of NewEncryptedMessages field.
-func (d *UpdatesDifference) GetNewEncryptedMessages() (value []EncryptedMessageClass) {
-	return d.NewEncryptedMessages
-}
-
-// MapNewEncryptedMessages returns field NewEncryptedMessages wrapped in EncryptedMessageClassArray helper.
-func (d *UpdatesDifference) MapNewEncryptedMessages() (value EncryptedMessageClassArray) {
-	return EncryptedMessageClassArray(d.NewEncryptedMessages)
-}
-
-// GetOtherUpdates returns value of OtherUpdates field.
-func (d *UpdatesDifference) GetOtherUpdates() (value []UpdateClass) {
-	return d.OtherUpdates
-}
-
-// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassArray helper.
-func (d *UpdatesDifference) MapOtherUpdates() (value UpdateClassArray) {
-	return UpdateClassArray(d.OtherUpdates)
-}
-
-// GetChats returns value of Chats field.
-func (d *UpdatesDifference) GetChats() (value []ChatClass) {
-	return d.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (d *UpdatesDifference) MapChats() (value ChatClassArray) {
-	return ChatClassArray(d.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (d *UpdatesDifference) GetUsers() (value []UserClass) {
-	return d.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (d *UpdatesDifference) MapUsers() (value UserClassArray) {
-	return UserClassArray(d.Users)
-}
-
-// GetState returns value of State field.
-func (d *UpdatesDifference) GetState() (value UpdatesState) {
-	return d.State
-}
-
 // Decode implements bin.Decoder.
 func (d *UpdatesDifference) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -539,18 +497,60 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesDifferenceClass.
-func (d UpdatesDifference) construct() UpdatesDifferenceClass { return &d }
+// GetNewMessages returns value of NewMessages field.
+func (d *UpdatesDifference) GetNewMessages() (value []MessageClass) {
+	return d.NewMessages
+}
 
-// Ensuring interfaces in compile-time for UpdatesDifference.
-var (
-	_ bin.Encoder     = &UpdatesDifference{}
-	_ bin.Decoder     = &UpdatesDifference{}
-	_ bin.BareEncoder = &UpdatesDifference{}
-	_ bin.BareDecoder = &UpdatesDifference{}
+// GetNewEncryptedMessages returns value of NewEncryptedMessages field.
+func (d *UpdatesDifference) GetNewEncryptedMessages() (value []EncryptedMessageClass) {
+	return d.NewEncryptedMessages
+}
 
-	_ UpdatesDifferenceClass = &UpdatesDifference{}
-)
+// GetOtherUpdates returns value of OtherUpdates field.
+func (d *UpdatesDifference) GetOtherUpdates() (value []UpdateClass) {
+	return d.OtherUpdates
+}
+
+// GetChats returns value of Chats field.
+func (d *UpdatesDifference) GetChats() (value []ChatClass) {
+	return d.Chats
+}
+
+// GetUsers returns value of Users field.
+func (d *UpdatesDifference) GetUsers() (value []UserClass) {
+	return d.Users
+}
+
+// GetState returns value of State field.
+func (d *UpdatesDifference) GetState() (value UpdatesState) {
+	return d.State
+}
+
+// MapNewMessages returns field NewMessages wrapped in MessageClassArray helper.
+func (d *UpdatesDifference) MapNewMessages() (value MessageClassArray) {
+	return MessageClassArray(d.NewMessages)
+}
+
+// MapNewEncryptedMessages returns field NewEncryptedMessages wrapped in EncryptedMessageClassArray helper.
+func (d *UpdatesDifference) MapNewEncryptedMessages() (value EncryptedMessageClassArray) {
+	return EncryptedMessageClassArray(d.NewEncryptedMessages)
+}
+
+// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassArray helper.
+func (d *UpdatesDifference) MapOtherUpdates() (value UpdateClassArray) {
+	return UpdateClassArray(d.OtherUpdates)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (d *UpdatesDifference) MapChats() (value ChatClassArray) {
+	return ChatClassArray(d.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (d *UpdatesDifference) MapUsers() (value UserClassArray) {
+	return UserClassArray(d.Users)
+}
 
 // UpdatesDifferenceSlice represents TL type `updates.differenceSlice#a8fb1981`.
 // Incomplete list of occurred events.
@@ -576,6 +576,19 @@ type UpdatesDifferenceSlice struct {
 
 // UpdatesDifferenceSliceTypeID is TL type id of UpdatesDifferenceSlice.
 const UpdatesDifferenceSliceTypeID = 0xa8fb1981
+
+// construct implements constructor of UpdatesDifferenceClass.
+func (d UpdatesDifferenceSlice) construct() UpdatesDifferenceClass { return &d }
+
+// Ensuring interfaces in compile-time for UpdatesDifferenceSlice.
+var (
+	_ bin.Encoder     = &UpdatesDifferenceSlice{}
+	_ bin.Decoder     = &UpdatesDifferenceSlice{}
+	_ bin.BareEncoder = &UpdatesDifferenceSlice{}
+	_ bin.BareDecoder = &UpdatesDifferenceSlice{}
+
+	_ UpdatesDifferenceClass = &UpdatesDifferenceSlice{}
+)
 
 func (d *UpdatesDifferenceSlice) Zero() bool {
 	if d == nil {
@@ -745,61 +758,6 @@ func (d *UpdatesDifferenceSlice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNewMessages returns value of NewMessages field.
-func (d *UpdatesDifferenceSlice) GetNewMessages() (value []MessageClass) {
-	return d.NewMessages
-}
-
-// MapNewMessages returns field NewMessages wrapped in MessageClassArray helper.
-func (d *UpdatesDifferenceSlice) MapNewMessages() (value MessageClassArray) {
-	return MessageClassArray(d.NewMessages)
-}
-
-// GetNewEncryptedMessages returns value of NewEncryptedMessages field.
-func (d *UpdatesDifferenceSlice) GetNewEncryptedMessages() (value []EncryptedMessageClass) {
-	return d.NewEncryptedMessages
-}
-
-// MapNewEncryptedMessages returns field NewEncryptedMessages wrapped in EncryptedMessageClassArray helper.
-func (d *UpdatesDifferenceSlice) MapNewEncryptedMessages() (value EncryptedMessageClassArray) {
-	return EncryptedMessageClassArray(d.NewEncryptedMessages)
-}
-
-// GetOtherUpdates returns value of OtherUpdates field.
-func (d *UpdatesDifferenceSlice) GetOtherUpdates() (value []UpdateClass) {
-	return d.OtherUpdates
-}
-
-// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassArray helper.
-func (d *UpdatesDifferenceSlice) MapOtherUpdates() (value UpdateClassArray) {
-	return UpdateClassArray(d.OtherUpdates)
-}
-
-// GetChats returns value of Chats field.
-func (d *UpdatesDifferenceSlice) GetChats() (value []ChatClass) {
-	return d.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (d *UpdatesDifferenceSlice) MapChats() (value ChatClassArray) {
-	return ChatClassArray(d.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (d *UpdatesDifferenceSlice) GetUsers() (value []UserClass) {
-	return d.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (d *UpdatesDifferenceSlice) MapUsers() (value UserClassArray) {
-	return UserClassArray(d.Users)
-}
-
-// GetIntermediateState returns value of IntermediateState field.
-func (d *UpdatesDifferenceSlice) GetIntermediateState() (value UpdatesState) {
-	return d.IntermediateState
-}
-
 // Decode implements bin.Decoder.
 func (d *UpdatesDifferenceSlice) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -909,18 +867,60 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesDifferenceClass.
-func (d UpdatesDifferenceSlice) construct() UpdatesDifferenceClass { return &d }
+// GetNewMessages returns value of NewMessages field.
+func (d *UpdatesDifferenceSlice) GetNewMessages() (value []MessageClass) {
+	return d.NewMessages
+}
 
-// Ensuring interfaces in compile-time for UpdatesDifferenceSlice.
-var (
-	_ bin.Encoder     = &UpdatesDifferenceSlice{}
-	_ bin.Decoder     = &UpdatesDifferenceSlice{}
-	_ bin.BareEncoder = &UpdatesDifferenceSlice{}
-	_ bin.BareDecoder = &UpdatesDifferenceSlice{}
+// GetNewEncryptedMessages returns value of NewEncryptedMessages field.
+func (d *UpdatesDifferenceSlice) GetNewEncryptedMessages() (value []EncryptedMessageClass) {
+	return d.NewEncryptedMessages
+}
 
-	_ UpdatesDifferenceClass = &UpdatesDifferenceSlice{}
-)
+// GetOtherUpdates returns value of OtherUpdates field.
+func (d *UpdatesDifferenceSlice) GetOtherUpdates() (value []UpdateClass) {
+	return d.OtherUpdates
+}
+
+// GetChats returns value of Chats field.
+func (d *UpdatesDifferenceSlice) GetChats() (value []ChatClass) {
+	return d.Chats
+}
+
+// GetUsers returns value of Users field.
+func (d *UpdatesDifferenceSlice) GetUsers() (value []UserClass) {
+	return d.Users
+}
+
+// GetIntermediateState returns value of IntermediateState field.
+func (d *UpdatesDifferenceSlice) GetIntermediateState() (value UpdatesState) {
+	return d.IntermediateState
+}
+
+// MapNewMessages returns field NewMessages wrapped in MessageClassArray helper.
+func (d *UpdatesDifferenceSlice) MapNewMessages() (value MessageClassArray) {
+	return MessageClassArray(d.NewMessages)
+}
+
+// MapNewEncryptedMessages returns field NewEncryptedMessages wrapped in EncryptedMessageClassArray helper.
+func (d *UpdatesDifferenceSlice) MapNewEncryptedMessages() (value EncryptedMessageClassArray) {
+	return EncryptedMessageClassArray(d.NewEncryptedMessages)
+}
+
+// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassArray helper.
+func (d *UpdatesDifferenceSlice) MapOtherUpdates() (value UpdateClassArray) {
+	return UpdateClassArray(d.OtherUpdates)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (d *UpdatesDifferenceSlice) MapChats() (value ChatClassArray) {
+	return ChatClassArray(d.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (d *UpdatesDifferenceSlice) MapUsers() (value UserClassArray) {
+	return UserClassArray(d.Users)
+}
 
 // UpdatesDifferenceTooLong represents TL type `updates.differenceTooLong#4afe8f6d`.
 // The difference is too long¹, and the specified state must be used to refetch updates.
@@ -936,6 +936,19 @@ type UpdatesDifferenceTooLong struct {
 
 // UpdatesDifferenceTooLongTypeID is TL type id of UpdatesDifferenceTooLong.
 const UpdatesDifferenceTooLongTypeID = 0x4afe8f6d
+
+// construct implements constructor of UpdatesDifferenceClass.
+func (d UpdatesDifferenceTooLong) construct() UpdatesDifferenceClass { return &d }
+
+// Ensuring interfaces in compile-time for UpdatesDifferenceTooLong.
+var (
+	_ bin.Encoder     = &UpdatesDifferenceTooLong{}
+	_ bin.Decoder     = &UpdatesDifferenceTooLong{}
+	_ bin.BareEncoder = &UpdatesDifferenceTooLong{}
+	_ bin.BareDecoder = &UpdatesDifferenceTooLong{}
+
+	_ UpdatesDifferenceClass = &UpdatesDifferenceTooLong{}
+)
 
 func (d *UpdatesDifferenceTooLong) Zero() bool {
 	if d == nil {
@@ -1013,11 +1026,6 @@ func (d *UpdatesDifferenceTooLong) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPts returns value of Pts field.
-func (d *UpdatesDifferenceTooLong) GetPts() (value int) {
-	return d.Pts
-}
-
 // Decode implements bin.Decoder.
 func (d *UpdatesDifferenceTooLong) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1044,18 +1052,10 @@ func (d *UpdatesDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesDifferenceClass.
-func (d UpdatesDifferenceTooLong) construct() UpdatesDifferenceClass { return &d }
-
-// Ensuring interfaces in compile-time for UpdatesDifferenceTooLong.
-var (
-	_ bin.Encoder     = &UpdatesDifferenceTooLong{}
-	_ bin.Decoder     = &UpdatesDifferenceTooLong{}
-	_ bin.BareEncoder = &UpdatesDifferenceTooLong{}
-	_ bin.BareDecoder = &UpdatesDifferenceTooLong{}
-
-	_ UpdatesDifferenceClass = &UpdatesDifferenceTooLong{}
-)
+// GetPts returns value of Pts field.
+func (d *UpdatesDifferenceTooLong) GetPts() (value int) {
+	return d.Pts
+}
 
 // UpdatesDifferenceClass represents updates.Difference generic type.
 //

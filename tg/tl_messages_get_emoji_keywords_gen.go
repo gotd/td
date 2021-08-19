@@ -41,6 +41,14 @@ type MessagesGetEmojiKeywordsRequest struct {
 // MessagesGetEmojiKeywordsRequestTypeID is TL type id of MessagesGetEmojiKeywordsRequest.
 const MessagesGetEmojiKeywordsRequestTypeID = 0x35a0e062
 
+// Ensuring interfaces in compile-time for MessagesGetEmojiKeywordsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetEmojiKeywordsRequest{}
+	_ bin.Decoder     = &MessagesGetEmojiKeywordsRequest{}
+	_ bin.BareEncoder = &MessagesGetEmojiKeywordsRequest{}
+	_ bin.BareDecoder = &MessagesGetEmojiKeywordsRequest{}
+)
+
 func (g *MessagesGetEmojiKeywordsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,11 +125,6 @@ func (g *MessagesGetEmojiKeywordsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLangCode returns value of LangCode field.
-func (g *MessagesGetEmojiKeywordsRequest) GetLangCode() (value string) {
-	return g.LangCode
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetEmojiKeywordsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -148,13 +151,10 @@ func (g *MessagesGetEmojiKeywordsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetEmojiKeywordsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetEmojiKeywordsRequest{}
-	_ bin.Decoder     = &MessagesGetEmojiKeywordsRequest{}
-	_ bin.BareEncoder = &MessagesGetEmojiKeywordsRequest{}
-	_ bin.BareDecoder = &MessagesGetEmojiKeywordsRequest{}
-)
+// GetLangCode returns value of LangCode field.
+func (g *MessagesGetEmojiKeywordsRequest) GetLangCode() (value string) {
+	return g.LangCode
+}
 
 // MessagesGetEmojiKeywords invokes method messages.getEmojiKeywords#35a0e062 returning error if any.
 // Get localized emoji keywords

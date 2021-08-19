@@ -39,6 +39,19 @@ type HelpCountriesListNotModified struct {
 // HelpCountriesListNotModifiedTypeID is TL type id of HelpCountriesListNotModified.
 const HelpCountriesListNotModifiedTypeID = 0x93cc1f32
 
+// construct implements constructor of HelpCountriesListClass.
+func (c HelpCountriesListNotModified) construct() HelpCountriesListClass { return &c }
+
+// Ensuring interfaces in compile-time for HelpCountriesListNotModified.
+var (
+	_ bin.Encoder     = &HelpCountriesListNotModified{}
+	_ bin.Decoder     = &HelpCountriesListNotModified{}
+	_ bin.BareEncoder = &HelpCountriesListNotModified{}
+	_ bin.BareDecoder = &HelpCountriesListNotModified{}
+
+	_ HelpCountriesListClass = &HelpCountriesListNotModified{}
+)
+
 func (c *HelpCountriesListNotModified) Zero() bool {
 	if c == nil {
 		return true
@@ -118,19 +131,6 @@ func (c *HelpCountriesListNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpCountriesListClass.
-func (c HelpCountriesListNotModified) construct() HelpCountriesListClass { return &c }
-
-// Ensuring interfaces in compile-time for HelpCountriesListNotModified.
-var (
-	_ bin.Encoder     = &HelpCountriesListNotModified{}
-	_ bin.Decoder     = &HelpCountriesListNotModified{}
-	_ bin.BareEncoder = &HelpCountriesListNotModified{}
-	_ bin.BareDecoder = &HelpCountriesListNotModified{}
-
-	_ HelpCountriesListClass = &HelpCountriesListNotModified{}
-)
-
 // HelpCountriesList represents TL type `help.countriesList#87d0759e`.
 // Name, ISO code, localized name and phone codes/patterns of all available countries
 //
@@ -147,6 +147,19 @@ type HelpCountriesList struct {
 
 // HelpCountriesListTypeID is TL type id of HelpCountriesList.
 const HelpCountriesListTypeID = 0x87d0759e
+
+// construct implements constructor of HelpCountriesListClass.
+func (c HelpCountriesList) construct() HelpCountriesListClass { return &c }
+
+// Ensuring interfaces in compile-time for HelpCountriesList.
+var (
+	_ bin.Encoder     = &HelpCountriesList{}
+	_ bin.Decoder     = &HelpCountriesList{}
+	_ bin.BareEncoder = &HelpCountriesList{}
+	_ bin.BareDecoder = &HelpCountriesList{}
+
+	_ HelpCountriesListClass = &HelpCountriesList{}
+)
 
 func (c *HelpCountriesList) Zero() bool {
 	if c == nil {
@@ -239,16 +252,6 @@ func (c *HelpCountriesList) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCountries returns value of Countries field.
-func (c *HelpCountriesList) GetCountries() (value []HelpCountry) {
-	return c.Countries
-}
-
-// GetHash returns value of Hash field.
-func (c *HelpCountriesList) GetHash() (value int) {
-	return c.Hash
-}
-
 // Decode implements bin.Decoder.
 func (c *HelpCountriesList) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -292,18 +295,15 @@ func (c *HelpCountriesList) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpCountriesListClass.
-func (c HelpCountriesList) construct() HelpCountriesListClass { return &c }
+// GetCountries returns value of Countries field.
+func (c *HelpCountriesList) GetCountries() (value []HelpCountry) {
+	return c.Countries
+}
 
-// Ensuring interfaces in compile-time for HelpCountriesList.
-var (
-	_ bin.Encoder     = &HelpCountriesList{}
-	_ bin.Decoder     = &HelpCountriesList{}
-	_ bin.BareEncoder = &HelpCountriesList{}
-	_ bin.BareDecoder = &HelpCountriesList{}
-
-	_ HelpCountriesListClass = &HelpCountriesList{}
-)
+// GetHash returns value of Hash field.
+func (c *HelpCountriesList) GetHash() (value int) {
+	return c.Hash
+}
 
 // HelpCountriesListClass represents help.CountriesList generic type.
 //

@@ -43,6 +43,14 @@ type Error struct {
 // ErrorTypeID is TL type id of Error.
 const ErrorTypeID = 0xc4b9f9bb
 
+// Ensuring interfaces in compile-time for Error.
+var (
+	_ bin.Encoder     = &Error{}
+	_ bin.Decoder     = &Error{}
+	_ bin.BareEncoder = &Error{}
+	_ bin.BareDecoder = &Error{}
+)
+
 func (e *Error) Zero() bool {
 	if e == nil {
 		return true
@@ -129,16 +137,6 @@ func (e *Error) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCode returns value of Code field.
-func (e *Error) GetCode() (value int) {
-	return e.Code
-}
-
-// GetText returns value of Text field.
-func (e *Error) GetText() (value string) {
-	return e.Text
-}
-
 // Decode implements bin.Decoder.
 func (e *Error) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -172,10 +170,12 @@ func (e *Error) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for Error.
-var (
-	_ bin.Encoder     = &Error{}
-	_ bin.Decoder     = &Error{}
-	_ bin.BareEncoder = &Error{}
-	_ bin.BareDecoder = &Error{}
-)
+// GetCode returns value of Code field.
+func (e *Error) GetCode() (value int) {
+	return e.Code
+}
+
+// GetText returns value of Text field.
+func (e *Error) GetText() (value string) {
+	return e.Text
+}

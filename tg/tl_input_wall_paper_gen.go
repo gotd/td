@@ -43,6 +43,19 @@ type InputWallPaper struct {
 // InputWallPaperTypeID is TL type id of InputWallPaper.
 const InputWallPaperTypeID = 0xe630b979
 
+// construct implements constructor of InputWallPaperClass.
+func (i InputWallPaper) construct() InputWallPaperClass { return &i }
+
+// Ensuring interfaces in compile-time for InputWallPaper.
+var (
+	_ bin.Encoder     = &InputWallPaper{}
+	_ bin.Decoder     = &InputWallPaper{}
+	_ bin.BareEncoder = &InputWallPaper{}
+	_ bin.BareDecoder = &InputWallPaper{}
+
+	_ InputWallPaperClass = &InputWallPaper{}
+)
+
 func (i *InputWallPaper) Zero() bool {
 	if i == nil {
 		return true
@@ -129,16 +142,6 @@ func (i *InputWallPaper) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputWallPaper) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputWallPaper) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputWallPaper) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -172,18 +175,15 @@ func (i *InputWallPaper) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputWallPaperClass.
-func (i InputWallPaper) construct() InputWallPaperClass { return &i }
+// GetID returns value of ID field.
+func (i *InputWallPaper) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputWallPaper.
-var (
-	_ bin.Encoder     = &InputWallPaper{}
-	_ bin.Decoder     = &InputWallPaper{}
-	_ bin.BareEncoder = &InputWallPaper{}
-	_ bin.BareDecoder = &InputWallPaper{}
-
-	_ InputWallPaperClass = &InputWallPaper{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputWallPaper) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputWallPaperSlug represents TL type `inputWallPaperSlug#72091c80`.
 // Wallpaper by slug (a unique ID)
@@ -196,6 +196,19 @@ type InputWallPaperSlug struct {
 
 // InputWallPaperSlugTypeID is TL type id of InputWallPaperSlug.
 const InputWallPaperSlugTypeID = 0x72091c80
+
+// construct implements constructor of InputWallPaperClass.
+func (i InputWallPaperSlug) construct() InputWallPaperClass { return &i }
+
+// Ensuring interfaces in compile-time for InputWallPaperSlug.
+var (
+	_ bin.Encoder     = &InputWallPaperSlug{}
+	_ bin.Decoder     = &InputWallPaperSlug{}
+	_ bin.BareEncoder = &InputWallPaperSlug{}
+	_ bin.BareDecoder = &InputWallPaperSlug{}
+
+	_ InputWallPaperClass = &InputWallPaperSlug{}
+)
 
 func (i *InputWallPaperSlug) Zero() bool {
 	if i == nil {
@@ -273,11 +286,6 @@ func (i *InputWallPaperSlug) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSlug returns value of Slug field.
-func (i *InputWallPaperSlug) GetSlug() (value string) {
-	return i.Slug
-}
-
 // Decode implements bin.Decoder.
 func (i *InputWallPaperSlug) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -304,18 +312,10 @@ func (i *InputWallPaperSlug) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputWallPaperClass.
-func (i InputWallPaperSlug) construct() InputWallPaperClass { return &i }
-
-// Ensuring interfaces in compile-time for InputWallPaperSlug.
-var (
-	_ bin.Encoder     = &InputWallPaperSlug{}
-	_ bin.Decoder     = &InputWallPaperSlug{}
-	_ bin.BareEncoder = &InputWallPaperSlug{}
-	_ bin.BareDecoder = &InputWallPaperSlug{}
-
-	_ InputWallPaperClass = &InputWallPaperSlug{}
-)
+// GetSlug returns value of Slug field.
+func (i *InputWallPaperSlug) GetSlug() (value string) {
+	return i.Slug
+}
 
 // InputWallPaperNoFile represents TL type `inputWallPaperNoFile#967a462e`.
 // Wallpaper with no file
@@ -328,6 +328,19 @@ type InputWallPaperNoFile struct {
 
 // InputWallPaperNoFileTypeID is TL type id of InputWallPaperNoFile.
 const InputWallPaperNoFileTypeID = 0x967a462e
+
+// construct implements constructor of InputWallPaperClass.
+func (i InputWallPaperNoFile) construct() InputWallPaperClass { return &i }
+
+// Ensuring interfaces in compile-time for InputWallPaperNoFile.
+var (
+	_ bin.Encoder     = &InputWallPaperNoFile{}
+	_ bin.Decoder     = &InputWallPaperNoFile{}
+	_ bin.BareEncoder = &InputWallPaperNoFile{}
+	_ bin.BareDecoder = &InputWallPaperNoFile{}
+
+	_ InputWallPaperClass = &InputWallPaperNoFile{}
+)
 
 func (i *InputWallPaperNoFile) Zero() bool {
 	if i == nil {
@@ -405,11 +418,6 @@ func (i *InputWallPaperNoFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputWallPaperNoFile) GetID() (value int64) {
-	return i.ID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputWallPaperNoFile) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -436,18 +444,10 @@ func (i *InputWallPaperNoFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputWallPaperClass.
-func (i InputWallPaperNoFile) construct() InputWallPaperClass { return &i }
-
-// Ensuring interfaces in compile-time for InputWallPaperNoFile.
-var (
-	_ bin.Encoder     = &InputWallPaperNoFile{}
-	_ bin.Decoder     = &InputWallPaperNoFile{}
-	_ bin.BareEncoder = &InputWallPaperNoFile{}
-	_ bin.BareDecoder = &InputWallPaperNoFile{}
-
-	_ InputWallPaperClass = &InputWallPaperNoFile{}
-)
+// GetID returns value of ID field.
+func (i *InputWallPaperNoFile) GetID() (value int64) {
+	return i.ID
+}
 
 // InputWallPaperClass represents InputWallPaper generic type.
 //

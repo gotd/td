@@ -44,6 +44,14 @@ type MessagesGetFeaturedStickersRequest struct {
 // MessagesGetFeaturedStickersRequestTypeID is TL type id of MessagesGetFeaturedStickersRequest.
 const MessagesGetFeaturedStickersRequestTypeID = 0x2dacca4f
 
+// Ensuring interfaces in compile-time for MessagesGetFeaturedStickersRequest.
+var (
+	_ bin.Encoder     = &MessagesGetFeaturedStickersRequest{}
+	_ bin.Decoder     = &MessagesGetFeaturedStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetFeaturedStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetFeaturedStickersRequest{}
+)
+
 func (g *MessagesGetFeaturedStickersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,11 +128,6 @@ func (g *MessagesGetFeaturedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (g *MessagesGetFeaturedStickersRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -151,13 +154,10 @@ func (g *MessagesGetFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetFeaturedStickersRequest.
-var (
-	_ bin.Encoder     = &MessagesGetFeaturedStickersRequest{}
-	_ bin.Decoder     = &MessagesGetFeaturedStickersRequest{}
-	_ bin.BareEncoder = &MessagesGetFeaturedStickersRequest{}
-	_ bin.BareDecoder = &MessagesGetFeaturedStickersRequest{}
-)
+// GetHash returns value of Hash field.
+func (g *MessagesGetFeaturedStickersRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // MessagesGetFeaturedStickers invokes method messages.getFeaturedStickers#2dacca4f returning error if any.
 // Get featured stickers

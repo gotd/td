@@ -49,6 +49,14 @@ type MessagesRequestEncryptionRequest struct {
 // MessagesRequestEncryptionRequestTypeID is TL type id of MessagesRequestEncryptionRequest.
 const MessagesRequestEncryptionRequestTypeID = 0xf64daf43
 
+// Ensuring interfaces in compile-time for MessagesRequestEncryptionRequest.
+var (
+	_ bin.Encoder     = &MessagesRequestEncryptionRequest{}
+	_ bin.Decoder     = &MessagesRequestEncryptionRequest{}
+	_ bin.BareEncoder = &MessagesRequestEncryptionRequest{}
+	_ bin.BareDecoder = &MessagesRequestEncryptionRequest{}
+)
+
 func (r *MessagesRequestEncryptionRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -150,21 +158,6 @@ func (r *MessagesRequestEncryptionRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (r *MessagesRequestEncryptionRequest) GetUserID() (value InputUserClass) {
-	return r.UserID
-}
-
-// GetRandomID returns value of RandomID field.
-func (r *MessagesRequestEncryptionRequest) GetRandomID() (value int) {
-	return r.RandomID
-}
-
-// GetGA returns value of GA field.
-func (r *MessagesRequestEncryptionRequest) GetGA() (value []byte) {
-	return r.GA
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesRequestEncryptionRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -205,13 +198,20 @@ func (r *MessagesRequestEncryptionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesRequestEncryptionRequest.
-var (
-	_ bin.Encoder     = &MessagesRequestEncryptionRequest{}
-	_ bin.Decoder     = &MessagesRequestEncryptionRequest{}
-	_ bin.BareEncoder = &MessagesRequestEncryptionRequest{}
-	_ bin.BareDecoder = &MessagesRequestEncryptionRequest{}
-)
+// GetUserID returns value of UserID field.
+func (r *MessagesRequestEncryptionRequest) GetUserID() (value InputUserClass) {
+	return r.UserID
+}
+
+// GetRandomID returns value of RandomID field.
+func (r *MessagesRequestEncryptionRequest) GetRandomID() (value int) {
+	return r.RandomID
+}
+
+// GetGA returns value of GA field.
+func (r *MessagesRequestEncryptionRequest) GetGA() (value []byte) {
+	return r.GA
+}
 
 // MessagesRequestEncryption invokes method messages.requestEncryption#f64daf43 returning error if any.
 // Sends a request to start a secret chat to the user.

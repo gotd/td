@@ -41,6 +41,14 @@ type MessagesUninstallStickerSetRequest struct {
 // MessagesUninstallStickerSetRequestTypeID is TL type id of MessagesUninstallStickerSetRequest.
 const MessagesUninstallStickerSetRequestTypeID = 0xf96e55de
 
+// Ensuring interfaces in compile-time for MessagesUninstallStickerSetRequest.
+var (
+	_ bin.Encoder     = &MessagesUninstallStickerSetRequest{}
+	_ bin.Decoder     = &MessagesUninstallStickerSetRequest{}
+	_ bin.BareEncoder = &MessagesUninstallStickerSetRequest{}
+	_ bin.BareDecoder = &MessagesUninstallStickerSetRequest{}
+)
+
 func (u *MessagesUninstallStickerSetRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -122,11 +130,6 @@ func (u *MessagesUninstallStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetStickerset returns value of Stickerset field.
-func (u *MessagesUninstallStickerSetRequest) GetStickerset() (value InputStickerSetClass) {
-	return u.Stickerset
-}
-
 // Decode implements bin.Decoder.
 func (u *MessagesUninstallStickerSetRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -153,13 +156,10 @@ func (u *MessagesUninstallStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesUninstallStickerSetRequest.
-var (
-	_ bin.Encoder     = &MessagesUninstallStickerSetRequest{}
-	_ bin.Decoder     = &MessagesUninstallStickerSetRequest{}
-	_ bin.BareEncoder = &MessagesUninstallStickerSetRequest{}
-	_ bin.BareDecoder = &MessagesUninstallStickerSetRequest{}
-)
+// GetStickerset returns value of Stickerset field.
+func (u *MessagesUninstallStickerSetRequest) GetStickerset() (value InputStickerSetClass) {
+	return u.Stickerset
+}
 
 // MessagesUninstallStickerSet invokes method messages.uninstallStickerSet#f96e55de returning error if any.
 // Uninstall a stickerset

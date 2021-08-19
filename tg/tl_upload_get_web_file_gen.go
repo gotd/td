@@ -44,6 +44,14 @@ type UploadGetWebFileRequest struct {
 // UploadGetWebFileRequestTypeID is TL type id of UploadGetWebFileRequest.
 const UploadGetWebFileRequestTypeID = 0x24e6818d
 
+// Ensuring interfaces in compile-time for UploadGetWebFileRequest.
+var (
+	_ bin.Encoder     = &UploadGetWebFileRequest{}
+	_ bin.Decoder     = &UploadGetWebFileRequest{}
+	_ bin.BareEncoder = &UploadGetWebFileRequest{}
+	_ bin.BareDecoder = &UploadGetWebFileRequest{}
+)
+
 func (g *UploadGetWebFileRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -145,21 +153,6 @@ func (g *UploadGetWebFileRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLocation returns value of Location field.
-func (g *UploadGetWebFileRequest) GetLocation() (value InputWebFileLocationClass) {
-	return g.Location
-}
-
-// GetOffset returns value of Offset field.
-func (g *UploadGetWebFileRequest) GetOffset() (value int) {
-	return g.Offset
-}
-
-// GetLimit returns value of Limit field.
-func (g *UploadGetWebFileRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *UploadGetWebFileRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -200,13 +193,20 @@ func (g *UploadGetWebFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UploadGetWebFileRequest.
-var (
-	_ bin.Encoder     = &UploadGetWebFileRequest{}
-	_ bin.Decoder     = &UploadGetWebFileRequest{}
-	_ bin.BareEncoder = &UploadGetWebFileRequest{}
-	_ bin.BareDecoder = &UploadGetWebFileRequest{}
-)
+// GetLocation returns value of Location field.
+func (g *UploadGetWebFileRequest) GetLocation() (value InputWebFileLocationClass) {
+	return g.Location
+}
+
+// GetOffset returns value of Offset field.
+func (g *UploadGetWebFileRequest) GetOffset() (value int) {
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *UploadGetWebFileRequest) GetLimit() (value int) {
+	return g.Limit
+}
 
 // UploadGetWebFile invokes method upload.getWebFile#24e6818d returning error if any.
 //

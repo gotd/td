@@ -39,6 +39,21 @@ type MessagesStickerSetInstallResultSuccess struct {
 // MessagesStickerSetInstallResultSuccessTypeID is TL type id of MessagesStickerSetInstallResultSuccess.
 const MessagesStickerSetInstallResultSuccessTypeID = 0x38641628
 
+// construct implements constructor of MessagesStickerSetInstallResultClass.
+func (s MessagesStickerSetInstallResultSuccess) construct() MessagesStickerSetInstallResultClass {
+	return &s
+}
+
+// Ensuring interfaces in compile-time for MessagesStickerSetInstallResultSuccess.
+var (
+	_ bin.Encoder     = &MessagesStickerSetInstallResultSuccess{}
+	_ bin.Decoder     = &MessagesStickerSetInstallResultSuccess{}
+	_ bin.BareEncoder = &MessagesStickerSetInstallResultSuccess{}
+	_ bin.BareDecoder = &MessagesStickerSetInstallResultSuccess{}
+
+	_ MessagesStickerSetInstallResultClass = &MessagesStickerSetInstallResultSuccess{}
+)
+
 func (s *MessagesStickerSetInstallResultSuccess) Zero() bool {
 	if s == nil {
 		return true
@@ -118,21 +133,6 @@ func (s *MessagesStickerSetInstallResultSuccess) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// construct implements constructor of MessagesStickerSetInstallResultClass.
-func (s MessagesStickerSetInstallResultSuccess) construct() MessagesStickerSetInstallResultClass {
-	return &s
-}
-
-// Ensuring interfaces in compile-time for MessagesStickerSetInstallResultSuccess.
-var (
-	_ bin.Encoder     = &MessagesStickerSetInstallResultSuccess{}
-	_ bin.Decoder     = &MessagesStickerSetInstallResultSuccess{}
-	_ bin.BareEncoder = &MessagesStickerSetInstallResultSuccess{}
-	_ bin.BareDecoder = &MessagesStickerSetInstallResultSuccess{}
-
-	_ MessagesStickerSetInstallResultClass = &MessagesStickerSetInstallResultSuccess{}
-)
-
 // MessagesStickerSetInstallResultArchive represents TL type `messages.stickerSetInstallResultArchive#35e410a8`.
 // The stickerset was installed, but since there are too many stickersets some were
 // archived
@@ -145,6 +145,21 @@ type MessagesStickerSetInstallResultArchive struct {
 
 // MessagesStickerSetInstallResultArchiveTypeID is TL type id of MessagesStickerSetInstallResultArchive.
 const MessagesStickerSetInstallResultArchiveTypeID = 0x35e410a8
+
+// construct implements constructor of MessagesStickerSetInstallResultClass.
+func (s MessagesStickerSetInstallResultArchive) construct() MessagesStickerSetInstallResultClass {
+	return &s
+}
+
+// Ensuring interfaces in compile-time for MessagesStickerSetInstallResultArchive.
+var (
+	_ bin.Encoder     = &MessagesStickerSetInstallResultArchive{}
+	_ bin.Decoder     = &MessagesStickerSetInstallResultArchive{}
+	_ bin.BareEncoder = &MessagesStickerSetInstallResultArchive{}
+	_ bin.BareDecoder = &MessagesStickerSetInstallResultArchive{}
+
+	_ MessagesStickerSetInstallResultClass = &MessagesStickerSetInstallResultArchive{}
+)
 
 func (s *MessagesStickerSetInstallResultArchive) Zero() bool {
 	if s == nil {
@@ -230,16 +245,6 @@ func (s *MessagesStickerSetInstallResultArchive) EncodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// GetSets returns value of Sets field.
-func (s *MessagesStickerSetInstallResultArchive) GetSets() (value []StickerSetCoveredClass) {
-	return s.Sets
-}
-
-// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
-func (s *MessagesStickerSetInstallResultArchive) MapSets() (value StickerSetCoveredClassArray) {
-	return StickerSetCoveredClassArray(s.Sets)
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesStickerSetInstallResultArchive) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -276,20 +281,15 @@ func (s *MessagesStickerSetInstallResultArchive) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// construct implements constructor of MessagesStickerSetInstallResultClass.
-func (s MessagesStickerSetInstallResultArchive) construct() MessagesStickerSetInstallResultClass {
-	return &s
+// GetSets returns value of Sets field.
+func (s *MessagesStickerSetInstallResultArchive) GetSets() (value []StickerSetCoveredClass) {
+	return s.Sets
 }
 
-// Ensuring interfaces in compile-time for MessagesStickerSetInstallResultArchive.
-var (
-	_ bin.Encoder     = &MessagesStickerSetInstallResultArchive{}
-	_ bin.Decoder     = &MessagesStickerSetInstallResultArchive{}
-	_ bin.BareEncoder = &MessagesStickerSetInstallResultArchive{}
-	_ bin.BareDecoder = &MessagesStickerSetInstallResultArchive{}
-
-	_ MessagesStickerSetInstallResultClass = &MessagesStickerSetInstallResultArchive{}
-)
+// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
+func (s *MessagesStickerSetInstallResultArchive) MapSets() (value StickerSetCoveredClassArray) {
+	return StickerSetCoveredClassArray(s.Sets)
+}
 
 // MessagesStickerSetInstallResultClass represents messages.StickerSetInstallResult generic type.
 //

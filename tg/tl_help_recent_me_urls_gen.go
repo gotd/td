@@ -45,6 +45,14 @@ type HelpRecentMeURLs struct {
 // HelpRecentMeURLsTypeID is TL type id of HelpRecentMeURLs.
 const HelpRecentMeURLsTypeID = 0xe0310d7
 
+// Ensuring interfaces in compile-time for HelpRecentMeURLs.
+var (
+	_ bin.Encoder     = &HelpRecentMeURLs{}
+	_ bin.Decoder     = &HelpRecentMeURLs{}
+	_ bin.BareEncoder = &HelpRecentMeURLs{}
+	_ bin.BareDecoder = &HelpRecentMeURLs{}
+)
+
 func (r *HelpRecentMeURLs) Zero() bool {
 	if r == nil {
 		return true
@@ -165,36 +173,6 @@ func (r *HelpRecentMeURLs) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURLs returns value of URLs field.
-func (r *HelpRecentMeURLs) GetURLs() (value []RecentMeURLClass) {
-	return r.URLs
-}
-
-// MapURLs returns field URLs wrapped in RecentMeURLClassArray helper.
-func (r *HelpRecentMeURLs) MapURLs() (value RecentMeURLClassArray) {
-	return RecentMeURLClassArray(r.URLs)
-}
-
-// GetChats returns value of Chats field.
-func (r *HelpRecentMeURLs) GetChats() (value []ChatClass) {
-	return r.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (r *HelpRecentMeURLs) MapChats() (value ChatClassArray) {
-	return ChatClassArray(r.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (r *HelpRecentMeURLs) GetUsers() (value []UserClass) {
-	return r.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (r *HelpRecentMeURLs) MapUsers() (value UserClassArray) {
-	return UserClassArray(r.Users)
-}
-
 // Decode implements bin.Decoder.
 func (r *HelpRecentMeURLs) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -265,10 +243,32 @@ func (r *HelpRecentMeURLs) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpRecentMeURLs.
-var (
-	_ bin.Encoder     = &HelpRecentMeURLs{}
-	_ bin.Decoder     = &HelpRecentMeURLs{}
-	_ bin.BareEncoder = &HelpRecentMeURLs{}
-	_ bin.BareDecoder = &HelpRecentMeURLs{}
-)
+// GetURLs returns value of URLs field.
+func (r *HelpRecentMeURLs) GetURLs() (value []RecentMeURLClass) {
+	return r.URLs
+}
+
+// GetChats returns value of Chats field.
+func (r *HelpRecentMeURLs) GetChats() (value []ChatClass) {
+	return r.Chats
+}
+
+// GetUsers returns value of Users field.
+func (r *HelpRecentMeURLs) GetUsers() (value []UserClass) {
+	return r.Users
+}
+
+// MapURLs returns field URLs wrapped in RecentMeURLClassArray helper.
+func (r *HelpRecentMeURLs) MapURLs() (value RecentMeURLClassArray) {
+	return RecentMeURLClassArray(r.URLs)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (r *HelpRecentMeURLs) MapChats() (value ChatClassArray) {
+	return ChatClassArray(r.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (r *HelpRecentMeURLs) MapUsers() (value UserClassArray) {
+	return UserClassArray(r.Users)
+}

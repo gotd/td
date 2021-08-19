@@ -38,6 +38,14 @@ type MsgsAck struct {
 // MsgsAckTypeID is TL type id of MsgsAck.
 const MsgsAckTypeID = 0x62d6b459
 
+// Ensuring interfaces in compile-time for MsgsAck.
+var (
+	_ bin.Encoder     = &MsgsAck{}
+	_ bin.Decoder     = &MsgsAck{}
+	_ bin.BareEncoder = &MsgsAck{}
+	_ bin.BareDecoder = &MsgsAck{}
+)
+
 func (m *MsgsAck) Zero() bool {
 	if m == nil {
 		return true
@@ -56,13 +64,6 @@ func (m *MsgsAck) String() string {
 	}
 	type Alias MsgsAck
 	return fmt.Sprintf("MsgsAck%+v", Alias(*m))
-}
-
-// FillFrom fills MsgsAck from given interface.
-func (m *MsgsAck) FillFrom(from interface {
-	GetMsgIDs() (value []int64)
-}) {
-	m.MsgIDs = from.GetMsgIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -117,11 +118,6 @@ func (m *MsgsAck) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMsgIDs returns value of MsgIDs field.
-func (m *MsgsAck) GetMsgIDs() (value []int64) {
-	return m.MsgIDs
-}
-
 // Decode implements bin.Decoder.
 func (m *MsgsAck) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -158,10 +154,7 @@ func (m *MsgsAck) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MsgsAck.
-var (
-	_ bin.Encoder     = &MsgsAck{}
-	_ bin.Decoder     = &MsgsAck{}
-	_ bin.BareEncoder = &MsgsAck{}
-	_ bin.BareDecoder = &MsgsAck{}
-)
+// GetMsgIDs returns value of MsgIDs field.
+func (m *MsgsAck) GetMsgIDs() (value []int64) {
+	return m.MsgIDs
+}

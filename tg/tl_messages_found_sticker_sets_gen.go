@@ -39,6 +39,19 @@ type MessagesFoundStickerSetsNotModified struct {
 // MessagesFoundStickerSetsNotModifiedTypeID is TL type id of MessagesFoundStickerSetsNotModified.
 const MessagesFoundStickerSetsNotModifiedTypeID = 0xd54b65d
 
+// construct implements constructor of MessagesFoundStickerSetsClass.
+func (f MessagesFoundStickerSetsNotModified) construct() MessagesFoundStickerSetsClass { return &f }
+
+// Ensuring interfaces in compile-time for MessagesFoundStickerSetsNotModified.
+var (
+	_ bin.Encoder     = &MessagesFoundStickerSetsNotModified{}
+	_ bin.Decoder     = &MessagesFoundStickerSetsNotModified{}
+	_ bin.BareEncoder = &MessagesFoundStickerSetsNotModified{}
+	_ bin.BareDecoder = &MessagesFoundStickerSetsNotModified{}
+
+	_ MessagesFoundStickerSetsClass = &MessagesFoundStickerSetsNotModified{}
+)
+
 func (f *MessagesFoundStickerSetsNotModified) Zero() bool {
 	if f == nil {
 		return true
@@ -118,19 +131,6 @@ func (f *MessagesFoundStickerSetsNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFoundStickerSetsClass.
-func (f MessagesFoundStickerSetsNotModified) construct() MessagesFoundStickerSetsClass { return &f }
-
-// Ensuring interfaces in compile-time for MessagesFoundStickerSetsNotModified.
-var (
-	_ bin.Encoder     = &MessagesFoundStickerSetsNotModified{}
-	_ bin.Decoder     = &MessagesFoundStickerSetsNotModified{}
-	_ bin.BareEncoder = &MessagesFoundStickerSetsNotModified{}
-	_ bin.BareDecoder = &MessagesFoundStickerSetsNotModified{}
-
-	_ MessagesFoundStickerSetsClass = &MessagesFoundStickerSetsNotModified{}
-)
-
 // MessagesFoundStickerSets represents TL type `messages.foundStickerSets#5108d648`.
 // Found stickersets
 //
@@ -147,6 +147,19 @@ type MessagesFoundStickerSets struct {
 
 // MessagesFoundStickerSetsTypeID is TL type id of MessagesFoundStickerSets.
 const MessagesFoundStickerSetsTypeID = 0x5108d648
+
+// construct implements constructor of MessagesFoundStickerSetsClass.
+func (f MessagesFoundStickerSets) construct() MessagesFoundStickerSetsClass { return &f }
+
+// Ensuring interfaces in compile-time for MessagesFoundStickerSets.
+var (
+	_ bin.Encoder     = &MessagesFoundStickerSets{}
+	_ bin.Decoder     = &MessagesFoundStickerSets{}
+	_ bin.BareEncoder = &MessagesFoundStickerSets{}
+	_ bin.BareDecoder = &MessagesFoundStickerSets{}
+
+	_ MessagesFoundStickerSetsClass = &MessagesFoundStickerSets{}
+)
 
 func (f *MessagesFoundStickerSets) Zero() bool {
 	if f == nil {
@@ -242,21 +255,6 @@ func (f *MessagesFoundStickerSets) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (f *MessagesFoundStickerSets) GetHash() (value int) {
-	return f.Hash
-}
-
-// GetSets returns value of Sets field.
-func (f *MessagesFoundStickerSets) GetSets() (value []StickerSetCoveredClass) {
-	return f.Sets
-}
-
-// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
-func (f *MessagesFoundStickerSets) MapSets() (value StickerSetCoveredClassArray) {
-	return StickerSetCoveredClassArray(f.Sets)
-}
-
 // Decode implements bin.Decoder.
 func (f *MessagesFoundStickerSets) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -300,18 +298,20 @@ func (f *MessagesFoundStickerSets) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFoundStickerSetsClass.
-func (f MessagesFoundStickerSets) construct() MessagesFoundStickerSetsClass { return &f }
+// GetHash returns value of Hash field.
+func (f *MessagesFoundStickerSets) GetHash() (value int) {
+	return f.Hash
+}
 
-// Ensuring interfaces in compile-time for MessagesFoundStickerSets.
-var (
-	_ bin.Encoder     = &MessagesFoundStickerSets{}
-	_ bin.Decoder     = &MessagesFoundStickerSets{}
-	_ bin.BareEncoder = &MessagesFoundStickerSets{}
-	_ bin.BareDecoder = &MessagesFoundStickerSets{}
+// GetSets returns value of Sets field.
+func (f *MessagesFoundStickerSets) GetSets() (value []StickerSetCoveredClass) {
+	return f.Sets
+}
 
-	_ MessagesFoundStickerSetsClass = &MessagesFoundStickerSets{}
-)
+// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
+func (f *MessagesFoundStickerSets) MapSets() (value StickerSetCoveredClassArray) {
+	return StickerSetCoveredClassArray(f.Sets)
+}
 
 // MessagesFoundStickerSetsClass represents messages.FoundStickerSets generic type.
 //

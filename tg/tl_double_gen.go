@@ -38,6 +38,14 @@ type Double struct {
 // DoubleTypeID is TL type id of Double.
 const DoubleTypeID = 0x2210c154
 
+// Ensuring interfaces in compile-time for Double.
+var (
+	_ bin.Encoder     = &Double{}
+	_ bin.Decoder     = &Double{}
+	_ bin.BareEncoder = &Double{}
+	_ bin.BareDecoder = &Double{}
+)
+
 func (d *Double) Zero() bool {
 	if d == nil {
 		return true
@@ -116,11 +124,3 @@ func (d *Double) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for Double.
-var (
-	_ bin.Encoder     = &Double{}
-	_ bin.Decoder     = &Double{}
-	_ bin.BareEncoder = &Double{}
-	_ bin.BareDecoder = &Double{}
-)

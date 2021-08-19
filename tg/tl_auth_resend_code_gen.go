@@ -50,6 +50,14 @@ type AuthResendCodeRequest struct {
 // AuthResendCodeRequestTypeID is TL type id of AuthResendCodeRequest.
 const AuthResendCodeRequestTypeID = 0x3ef1a9bf
 
+// Ensuring interfaces in compile-time for AuthResendCodeRequest.
+var (
+	_ bin.Encoder     = &AuthResendCodeRequest{}
+	_ bin.Decoder     = &AuthResendCodeRequest{}
+	_ bin.BareEncoder = &AuthResendCodeRequest{}
+	_ bin.BareDecoder = &AuthResendCodeRequest{}
+)
+
 func (r *AuthResendCodeRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -136,16 +144,6 @@ func (r *AuthResendCodeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (r *AuthResendCodeRequest) GetPhoneNumber() (value string) {
-	return r.PhoneNumber
-}
-
-// GetPhoneCodeHash returns value of PhoneCodeHash field.
-func (r *AuthResendCodeRequest) GetPhoneCodeHash() (value string) {
-	return r.PhoneCodeHash
-}
-
 // Decode implements bin.Decoder.
 func (r *AuthResendCodeRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -179,13 +177,15 @@ func (r *AuthResendCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthResendCodeRequest.
-var (
-	_ bin.Encoder     = &AuthResendCodeRequest{}
-	_ bin.Decoder     = &AuthResendCodeRequest{}
-	_ bin.BareEncoder = &AuthResendCodeRequest{}
-	_ bin.BareDecoder = &AuthResendCodeRequest{}
-)
+// GetPhoneNumber returns value of PhoneNumber field.
+func (r *AuthResendCodeRequest) GetPhoneNumber() (value string) {
+	return r.PhoneNumber
+}
+
+// GetPhoneCodeHash returns value of PhoneCodeHash field.
+func (r *AuthResendCodeRequest) GetPhoneCodeHash() (value string) {
+	return r.PhoneCodeHash
+}
 
 // AuthResendCode invokes method auth.resendCode#3ef1a9bf returning error if any.
 // Resend the login code via another medium, the phone code type is determined by the

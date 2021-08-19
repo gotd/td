@@ -38,6 +38,14 @@ type Int struct {
 // IntTypeID is TL type id of Int.
 const IntTypeID = 0xa8509bda
 
+// Ensuring interfaces in compile-time for Int.
+var (
+	_ bin.Encoder     = &Int{}
+	_ bin.Decoder     = &Int{}
+	_ bin.BareEncoder = &Int{}
+	_ bin.BareDecoder = &Int{}
+)
+
 func (i *Int) Zero() bool {
 	if i == nil {
 		return true
@@ -116,11 +124,3 @@ func (i *Int) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for Int.
-var (
-	_ bin.Encoder     = &Int{}
-	_ bin.Decoder     = &Int{}
-	_ bin.BareEncoder = &Int{}
-	_ bin.BareDecoder = &Int{}
-)

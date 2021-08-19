@@ -52,6 +52,14 @@ type PaymentsValidateRequestedInfoRequest struct {
 // PaymentsValidateRequestedInfoRequestTypeID is TL type id of PaymentsValidateRequestedInfoRequest.
 const PaymentsValidateRequestedInfoRequestTypeID = 0xdb103170
 
+// Ensuring interfaces in compile-time for PaymentsValidateRequestedInfoRequest.
+var (
+	_ bin.Encoder     = &PaymentsValidateRequestedInfoRequest{}
+	_ bin.Decoder     = &PaymentsValidateRequestedInfoRequest{}
+	_ bin.BareEncoder = &PaymentsValidateRequestedInfoRequest{}
+	_ bin.BareDecoder = &PaymentsValidateRequestedInfoRequest{}
+)
+
 func (v *PaymentsValidateRequestedInfoRequest) Zero() bool {
 	if v == nil {
 		return true
@@ -174,37 +182,6 @@ func (v *PaymentsValidateRequestedInfoRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetSave sets value of Save conditional field.
-func (v *PaymentsValidateRequestedInfoRequest) SetSave(value bool) {
-	if value {
-		v.Flags.Set(0)
-		v.Save = true
-	} else {
-		v.Flags.Unset(0)
-		v.Save = false
-	}
-}
-
-// GetSave returns value of Save conditional field.
-func (v *PaymentsValidateRequestedInfoRequest) GetSave() (value bool) {
-	return v.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (v *PaymentsValidateRequestedInfoRequest) GetPeer() (value InputPeerClass) {
-	return v.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (v *PaymentsValidateRequestedInfoRequest) GetMsgID() (value int) {
-	return v.MsgID
-}
-
-// GetInfo returns value of Info field.
-func (v *PaymentsValidateRequestedInfoRequest) GetInfo() (value PaymentRequestedInfo) {
-	return v.Info
-}
-
 // Decode implements bin.Decoder.
 func (v *PaymentsValidateRequestedInfoRequest) Decode(b *bin.Buffer) error {
 	if v == nil {
@@ -249,13 +226,36 @@ func (v *PaymentsValidateRequestedInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PaymentsValidateRequestedInfoRequest.
-var (
-	_ bin.Encoder     = &PaymentsValidateRequestedInfoRequest{}
-	_ bin.Decoder     = &PaymentsValidateRequestedInfoRequest{}
-	_ bin.BareEncoder = &PaymentsValidateRequestedInfoRequest{}
-	_ bin.BareDecoder = &PaymentsValidateRequestedInfoRequest{}
-)
+// SetSave sets value of Save conditional field.
+func (v *PaymentsValidateRequestedInfoRequest) SetSave(value bool) {
+	if value {
+		v.Flags.Set(0)
+		v.Save = true
+	} else {
+		v.Flags.Unset(0)
+		v.Save = false
+	}
+}
+
+// GetSave returns value of Save conditional field.
+func (v *PaymentsValidateRequestedInfoRequest) GetSave() (value bool) {
+	return v.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (v *PaymentsValidateRequestedInfoRequest) GetPeer() (value InputPeerClass) {
+	return v.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (v *PaymentsValidateRequestedInfoRequest) GetMsgID() (value int) {
+	return v.MsgID
+}
+
+// GetInfo returns value of Info field.
+func (v *PaymentsValidateRequestedInfoRequest) GetInfo() (value PaymentRequestedInfo) {
+	return v.Info
+}
 
 // PaymentsValidateRequestedInfo invokes method payments.validateRequestedInfo#db103170 returning error if any.
 // Submit requested order information for validation

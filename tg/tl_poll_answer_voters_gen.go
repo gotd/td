@@ -55,6 +55,14 @@ type PollAnswerVoters struct {
 // PollAnswerVotersTypeID is TL type id of PollAnswerVoters.
 const PollAnswerVotersTypeID = 0x3b6ddad2
 
+// Ensuring interfaces in compile-time for PollAnswerVoters.
+var (
+	_ bin.Encoder     = &PollAnswerVoters{}
+	_ bin.Decoder     = &PollAnswerVoters{}
+	_ bin.BareEncoder = &PollAnswerVoters{}
+	_ bin.BareDecoder = &PollAnswerVoters{}
+)
+
 func (p *PollAnswerVoters) Zero() bool {
 	if p == nil {
 		return true
@@ -173,6 +181,46 @@ func (p *PollAnswerVoters) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *PollAnswerVoters) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pollAnswerVoters#3b6ddad2 to nil")
+	}
+	if err := b.ConsumeID(PollAnswerVotersTypeID); err != nil {
+		return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PollAnswerVoters) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pollAnswerVoters#3b6ddad2 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field flags: %w", err)
+		}
+	}
+	p.Chosen = p.Flags.Has(0)
+	p.Correct = p.Flags.Has(1)
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field option: %w", err)
+		}
+		p.Option = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field voters: %w", err)
+		}
+		p.Voters = value
+	}
+	return nil
+}
+
 // SetChosen sets value of Chosen conditional field.
 func (p *PollAnswerVoters) SetChosen(value bool) {
 	if value {
@@ -214,51 +262,3 @@ func (p *PollAnswerVoters) GetOption() (value []byte) {
 func (p *PollAnswerVoters) GetVoters() (value int) {
 	return p.Voters
 }
-
-// Decode implements bin.Decoder.
-func (p *PollAnswerVoters) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode pollAnswerVoters#3b6ddad2 to nil")
-	}
-	if err := b.ConsumeID(PollAnswerVotersTypeID); err != nil {
-		return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *PollAnswerVoters) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode pollAnswerVoters#3b6ddad2 to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field flags: %w", err)
-		}
-	}
-	p.Chosen = p.Flags.Has(0)
-	p.Correct = p.Flags.Has(1)
-	{
-		value, err := b.Bytes()
-		if err != nil {
-			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field option: %w", err)
-		}
-		p.Option = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field voters: %w", err)
-		}
-		p.Voters = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for PollAnswerVoters.
-var (
-	_ bin.Encoder     = &PollAnswerVoters{}
-	_ bin.Decoder     = &PollAnswerVoters{}
-	_ bin.BareEncoder = &PollAnswerVoters{}
-	_ bin.BareDecoder = &PollAnswerVoters{}
-)

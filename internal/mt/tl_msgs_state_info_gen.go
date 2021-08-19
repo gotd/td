@@ -40,6 +40,14 @@ type MsgsStateInfo struct {
 // MsgsStateInfoTypeID is TL type id of MsgsStateInfo.
 const MsgsStateInfoTypeID = 0x4deb57d
 
+// Ensuring interfaces in compile-time for MsgsStateInfo.
+var (
+	_ bin.Encoder     = &MsgsStateInfo{}
+	_ bin.Decoder     = &MsgsStateInfo{}
+	_ bin.BareEncoder = &MsgsStateInfo{}
+	_ bin.BareDecoder = &MsgsStateInfo{}
+)
+
 func (m *MsgsStateInfo) Zero() bool {
 	if m == nil {
 		return true
@@ -61,15 +69,6 @@ func (m *MsgsStateInfo) String() string {
 	}
 	type Alias MsgsStateInfo
 	return fmt.Sprintf("MsgsStateInfo%+v", Alias(*m))
-}
-
-// FillFrom fills MsgsStateInfo from given interface.
-func (m *MsgsStateInfo) FillFrom(from interface {
-	GetReqMsgID() (value int64)
-	GetInfo() (value []byte)
-}) {
-	m.ReqMsgID = from.GetReqMsgID()
-	m.Info = from.GetInfo()
 }
 
 // TypeID returns type id in TL schema.
@@ -126,16 +125,6 @@ func (m *MsgsStateInfo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetReqMsgID returns value of ReqMsgID field.
-func (m *MsgsStateInfo) GetReqMsgID() (value int64) {
-	return m.ReqMsgID
-}
-
-// GetInfo returns value of Info field.
-func (m *MsgsStateInfo) GetInfo() (value []byte) {
-	return m.Info
-}
-
 // Decode implements bin.Decoder.
 func (m *MsgsStateInfo) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -169,10 +158,12 @@ func (m *MsgsStateInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MsgsStateInfo.
-var (
-	_ bin.Encoder     = &MsgsStateInfo{}
-	_ bin.Decoder     = &MsgsStateInfo{}
-	_ bin.BareEncoder = &MsgsStateInfo{}
-	_ bin.BareDecoder = &MsgsStateInfo{}
-)
+// GetReqMsgID returns value of ReqMsgID field.
+func (m *MsgsStateInfo) GetReqMsgID() (value int64) {
+	return m.ReqMsgID
+}
+
+// GetInfo returns value of Info field.
+func (m *MsgsStateInfo) GetInfo() (value []byte) {
+	return m.Info
+}

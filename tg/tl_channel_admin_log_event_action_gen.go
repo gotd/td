@@ -43,6 +43,19 @@ type ChannelAdminLogEventActionChangeTitle struct {
 // ChannelAdminLogEventActionChangeTitleTypeID is TL type id of ChannelAdminLogEventActionChangeTitle.
 const ChannelAdminLogEventActionChangeTitleTypeID = 0xe6dfb825
 
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionChangeTitle) construct() ChannelAdminLogEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeTitle.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeTitle{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeTitle{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeTitle{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeTitle{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeTitle{}
+)
+
 func (c *ChannelAdminLogEventActionChangeTitle) Zero() bool {
 	if c == nil {
 		return true
@@ -129,16 +142,6 @@ func (c *ChannelAdminLogEventActionChangeTitle) EncodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// GetPrevValue returns value of PrevValue field.
-func (c *ChannelAdminLogEventActionChangeTitle) GetPrevValue() (value string) {
-	return c.PrevValue
-}
-
-// GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionChangeTitle) GetNewValue() (value string) {
-	return c.NewValue
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionChangeTitle) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -172,18 +175,15 @@ func (c *ChannelAdminLogEventActionChangeTitle) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionChangeTitle) construct() ChannelAdminLogEventActionClass { return &c }
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeTitle) GetPrevValue() (value string) {
+	return c.PrevValue
+}
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeTitle.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionChangeTitle{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionChangeTitle{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeTitle{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeTitle{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeTitle{}
-)
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeTitle) GetNewValue() (value string) {
+	return c.NewValue
+}
 
 // ChannelAdminLogEventActionChangeAbout represents TL type `channelAdminLogEventActionChangeAbout#55188a2e`.
 // The description was changed
@@ -198,6 +198,19 @@ type ChannelAdminLogEventActionChangeAbout struct {
 
 // ChannelAdminLogEventActionChangeAboutTypeID is TL type id of ChannelAdminLogEventActionChangeAbout.
 const ChannelAdminLogEventActionChangeAboutTypeID = 0x55188a2e
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionChangeAbout) construct() ChannelAdminLogEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeAbout.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeAbout{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeAbout{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeAbout{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeAbout{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeAbout{}
+)
 
 func (c *ChannelAdminLogEventActionChangeAbout) Zero() bool {
 	if c == nil {
@@ -285,16 +298,6 @@ func (c *ChannelAdminLogEventActionChangeAbout) EncodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// GetPrevValue returns value of PrevValue field.
-func (c *ChannelAdminLogEventActionChangeAbout) GetPrevValue() (value string) {
-	return c.PrevValue
-}
-
-// GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionChangeAbout) GetNewValue() (value string) {
-	return c.NewValue
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionChangeAbout) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -328,18 +331,15 @@ func (c *ChannelAdminLogEventActionChangeAbout) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionChangeAbout) construct() ChannelAdminLogEventActionClass { return &c }
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeAbout) GetPrevValue() (value string) {
+	return c.PrevValue
+}
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeAbout.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionChangeAbout{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionChangeAbout{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeAbout{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeAbout{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeAbout{}
-)
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeAbout) GetNewValue() (value string) {
+	return c.NewValue
+}
 
 // ChannelAdminLogEventActionChangeUsername represents TL type `channelAdminLogEventActionChangeUsername#6a4afc38`.
 // Channel/supergroup username was changed
@@ -354,6 +354,21 @@ type ChannelAdminLogEventActionChangeUsername struct {
 
 // ChannelAdminLogEventActionChangeUsernameTypeID is TL type id of ChannelAdminLogEventActionChangeUsername.
 const ChannelAdminLogEventActionChangeUsernameTypeID = 0x6a4afc38
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionChangeUsername) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeUsername.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeUsername{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeUsername{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeUsername{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeUsername{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeUsername{}
+)
 
 func (c *ChannelAdminLogEventActionChangeUsername) Zero() bool {
 	if c == nil {
@@ -441,16 +456,6 @@ func (c *ChannelAdminLogEventActionChangeUsername) EncodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// GetPrevValue returns value of PrevValue field.
-func (c *ChannelAdminLogEventActionChangeUsername) GetPrevValue() (value string) {
-	return c.PrevValue
-}
-
-// GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionChangeUsername) GetNewValue() (value string) {
-	return c.NewValue
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionChangeUsername) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -484,20 +489,15 @@ func (c *ChannelAdminLogEventActionChangeUsername) DecodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionChangeUsername) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeUsername) GetPrevValue() (value string) {
+	return c.PrevValue
 }
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeUsername.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionChangeUsername{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionChangeUsername{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeUsername{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeUsername{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeUsername{}
-)
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeUsername) GetNewValue() (value string) {
+	return c.NewValue
+}
 
 // ChannelAdminLogEventActionChangePhoto represents TL type `channelAdminLogEventActionChangePhoto#434bd2af`.
 // The channel/supergroup's picture was changed
@@ -512,6 +512,19 @@ type ChannelAdminLogEventActionChangePhoto struct {
 
 // ChannelAdminLogEventActionChangePhotoTypeID is TL type id of ChannelAdminLogEventActionChangePhoto.
 const ChannelAdminLogEventActionChangePhotoTypeID = 0x434bd2af
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionChangePhoto) construct() ChannelAdminLogEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangePhoto.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangePhoto{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangePhoto{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangePhoto{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangePhoto{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangePhoto{}
+)
 
 func (c *ChannelAdminLogEventActionChangePhoto) Zero() bool {
 	if c == nil {
@@ -609,16 +622,6 @@ func (c *ChannelAdminLogEventActionChangePhoto) EncodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// GetPrevPhoto returns value of PrevPhoto field.
-func (c *ChannelAdminLogEventActionChangePhoto) GetPrevPhoto() (value PhotoClass) {
-	return c.PrevPhoto
-}
-
-// GetNewPhoto returns value of NewPhoto field.
-func (c *ChannelAdminLogEventActionChangePhoto) GetNewPhoto() (value PhotoClass) {
-	return c.NewPhoto
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionChangePhoto) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -652,18 +655,15 @@ func (c *ChannelAdminLogEventActionChangePhoto) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionChangePhoto) construct() ChannelAdminLogEventActionClass { return &c }
+// GetPrevPhoto returns value of PrevPhoto field.
+func (c *ChannelAdminLogEventActionChangePhoto) GetPrevPhoto() (value PhotoClass) {
+	return c.PrevPhoto
+}
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangePhoto.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionChangePhoto{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionChangePhoto{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionChangePhoto{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionChangePhoto{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangePhoto{}
-)
+// GetNewPhoto returns value of NewPhoto field.
+func (c *ChannelAdminLogEventActionChangePhoto) GetNewPhoto() (value PhotoClass) {
+	return c.NewPhoto
+}
 
 // ChannelAdminLogEventActionToggleInvites represents TL type `channelAdminLogEventActionToggleInvites#1b7907ae`.
 // Invites were enabled/disabled
@@ -676,6 +676,21 @@ type ChannelAdminLogEventActionToggleInvites struct {
 
 // ChannelAdminLogEventActionToggleInvitesTypeID is TL type id of ChannelAdminLogEventActionToggleInvites.
 const ChannelAdminLogEventActionToggleInvitesTypeID = 0x1b7907ae
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionToggleInvites) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleInvites.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionToggleInvites{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionToggleInvites{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleInvites{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleInvites{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleInvites{}
+)
 
 func (c *ChannelAdminLogEventActionToggleInvites) Zero() bool {
 	if c == nil {
@@ -753,11 +768,6 @@ func (c *ChannelAdminLogEventActionToggleInvites) EncodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionToggleInvites) GetNewValue() (value bool) {
-	return c.NewValue
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionToggleInvites) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -784,20 +794,10 @@ func (c *ChannelAdminLogEventActionToggleInvites) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionToggleInvites) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionToggleInvites) GetNewValue() (value bool) {
+	return c.NewValue
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleInvites.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionToggleInvites{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionToggleInvites{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleInvites{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleInvites{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleInvites{}
-)
 
 // ChannelAdminLogEventActionToggleSignatures represents TL type `channelAdminLogEventActionToggleSignatures#26ae0971`.
 // Channel signatures were enabled/disabled
@@ -810,6 +810,21 @@ type ChannelAdminLogEventActionToggleSignatures struct {
 
 // ChannelAdminLogEventActionToggleSignaturesTypeID is TL type id of ChannelAdminLogEventActionToggleSignatures.
 const ChannelAdminLogEventActionToggleSignaturesTypeID = 0x26ae0971
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionToggleSignatures) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleSignatures.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionToggleSignatures{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionToggleSignatures{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleSignatures{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleSignatures{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleSignatures{}
+)
 
 func (c *ChannelAdminLogEventActionToggleSignatures) Zero() bool {
 	if c == nil {
@@ -887,11 +902,6 @@ func (c *ChannelAdminLogEventActionToggleSignatures) EncodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionToggleSignatures) GetNewValue() (value bool) {
-	return c.NewValue
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionToggleSignatures) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -918,20 +928,10 @@ func (c *ChannelAdminLogEventActionToggleSignatures) DecodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionToggleSignatures) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionToggleSignatures) GetNewValue() (value bool) {
+	return c.NewValue
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleSignatures.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionToggleSignatures{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionToggleSignatures{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleSignatures{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleSignatures{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleSignatures{}
-)
 
 // ChannelAdminLogEventActionUpdatePinned represents TL type `channelAdminLogEventActionUpdatePinned#e9e82c18`.
 // A message was pinned
@@ -944,6 +944,21 @@ type ChannelAdminLogEventActionUpdatePinned struct {
 
 // ChannelAdminLogEventActionUpdatePinnedTypeID is TL type id of ChannelAdminLogEventActionUpdatePinned.
 const ChannelAdminLogEventActionUpdatePinnedTypeID = 0xe9e82c18
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionUpdatePinned) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionUpdatePinned.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionUpdatePinned{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionUpdatePinned{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionUpdatePinned{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionUpdatePinned{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionUpdatePinned{}
+)
 
 func (c *ChannelAdminLogEventActionUpdatePinned) Zero() bool {
 	if c == nil {
@@ -1026,11 +1041,6 @@ func (c *ChannelAdminLogEventActionUpdatePinned) EncodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (c *ChannelAdminLogEventActionUpdatePinned) GetMessage() (value MessageClass) {
-	return c.Message
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionUpdatePinned) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -1057,20 +1067,10 @@ func (c *ChannelAdminLogEventActionUpdatePinned) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionUpdatePinned) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetMessage returns value of Message field.
+func (c *ChannelAdminLogEventActionUpdatePinned) GetMessage() (value MessageClass) {
+	return c.Message
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionUpdatePinned.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionUpdatePinned{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionUpdatePinned{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionUpdatePinned{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionUpdatePinned{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionUpdatePinned{}
-)
 
 // ChannelAdminLogEventActionEditMessage represents TL type `channelAdminLogEventActionEditMessage#709b2405`.
 // A message was edited
@@ -1085,6 +1085,19 @@ type ChannelAdminLogEventActionEditMessage struct {
 
 // ChannelAdminLogEventActionEditMessageTypeID is TL type id of ChannelAdminLogEventActionEditMessage.
 const ChannelAdminLogEventActionEditMessageTypeID = 0x709b2405
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionEditMessage) construct() ChannelAdminLogEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionEditMessage.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionEditMessage{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionEditMessage{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionEditMessage{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionEditMessage{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionEditMessage{}
+)
 
 func (c *ChannelAdminLogEventActionEditMessage) Zero() bool {
 	if c == nil {
@@ -1182,16 +1195,6 @@ func (c *ChannelAdminLogEventActionEditMessage) EncodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// GetPrevMessage returns value of PrevMessage field.
-func (c *ChannelAdminLogEventActionEditMessage) GetPrevMessage() (value MessageClass) {
-	return c.PrevMessage
-}
-
-// GetNewMessage returns value of NewMessage field.
-func (c *ChannelAdminLogEventActionEditMessage) GetNewMessage() (value MessageClass) {
-	return c.NewMessage
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionEditMessage) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -1225,18 +1228,15 @@ func (c *ChannelAdminLogEventActionEditMessage) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionEditMessage) construct() ChannelAdminLogEventActionClass { return &c }
+// GetPrevMessage returns value of PrevMessage field.
+func (c *ChannelAdminLogEventActionEditMessage) GetPrevMessage() (value MessageClass) {
+	return c.PrevMessage
+}
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionEditMessage.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionEditMessage{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionEditMessage{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionEditMessage{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionEditMessage{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionEditMessage{}
-)
+// GetNewMessage returns value of NewMessage field.
+func (c *ChannelAdminLogEventActionEditMessage) GetNewMessage() (value MessageClass) {
+	return c.NewMessage
+}
 
 // ChannelAdminLogEventActionDeleteMessage represents TL type `channelAdminLogEventActionDeleteMessage#42e047bb`.
 // A message was deleted
@@ -1249,6 +1249,21 @@ type ChannelAdminLogEventActionDeleteMessage struct {
 
 // ChannelAdminLogEventActionDeleteMessageTypeID is TL type id of ChannelAdminLogEventActionDeleteMessage.
 const ChannelAdminLogEventActionDeleteMessageTypeID = 0x42e047bb
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionDeleteMessage) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionDeleteMessage.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionDeleteMessage{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionDeleteMessage{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionDeleteMessage{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionDeleteMessage{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionDeleteMessage{}
+)
 
 func (c *ChannelAdminLogEventActionDeleteMessage) Zero() bool {
 	if c == nil {
@@ -1331,11 +1346,6 @@ func (c *ChannelAdminLogEventActionDeleteMessage) EncodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (c *ChannelAdminLogEventActionDeleteMessage) GetMessage() (value MessageClass) {
-	return c.Message
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionDeleteMessage) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -1362,20 +1372,10 @@ func (c *ChannelAdminLogEventActionDeleteMessage) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionDeleteMessage) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetMessage returns value of Message field.
+func (c *ChannelAdminLogEventActionDeleteMessage) GetMessage() (value MessageClass) {
+	return c.Message
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionDeleteMessage.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionDeleteMessage{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionDeleteMessage{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionDeleteMessage{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionDeleteMessage{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionDeleteMessage{}
-)
 
 // ChannelAdminLogEventActionParticipantJoin represents TL type `channelAdminLogEventActionParticipantJoin#183040d3`.
 // A user has joined the group (in the case of big groups, info of the user that has
@@ -1387,6 +1387,21 @@ type ChannelAdminLogEventActionParticipantJoin struct {
 
 // ChannelAdminLogEventActionParticipantJoinTypeID is TL type id of ChannelAdminLogEventActionParticipantJoin.
 const ChannelAdminLogEventActionParticipantJoinTypeID = 0x183040d3
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantJoin) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantJoin.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantJoin{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantJoin{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantJoin{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantJoin{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantJoin{}
+)
 
 func (c *ChannelAdminLogEventActionParticipantJoin) Zero() bool {
 	if c == nil {
@@ -1467,21 +1482,6 @@ func (c *ChannelAdminLogEventActionParticipantJoin) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionParticipantJoin) construct() ChannelAdminLogEventActionClass {
-	return &c
-}
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantJoin.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantJoin{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantJoin{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantJoin{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantJoin{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantJoin{}
-)
-
 // ChannelAdminLogEventActionParticipantLeave represents TL type `channelAdminLogEventActionParticipantLeave#f89777f2`.
 // A user left the channel/supergroup (in the case of big groups, info of the user that
 // has joined isn't shown)
@@ -1492,6 +1492,21 @@ type ChannelAdminLogEventActionParticipantLeave struct {
 
 // ChannelAdminLogEventActionParticipantLeaveTypeID is TL type id of ChannelAdminLogEventActionParticipantLeave.
 const ChannelAdminLogEventActionParticipantLeaveTypeID = 0xf89777f2
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantLeave) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantLeave.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantLeave{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantLeave{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantLeave{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantLeave{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantLeave{}
+)
 
 func (c *ChannelAdminLogEventActionParticipantLeave) Zero() bool {
 	if c == nil {
@@ -1572,21 +1587,6 @@ func (c *ChannelAdminLogEventActionParticipantLeave) DecodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionParticipantLeave) construct() ChannelAdminLogEventActionClass {
-	return &c
-}
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantLeave.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantLeave{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantLeave{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantLeave{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantLeave{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantLeave{}
-)
-
 // ChannelAdminLogEventActionParticipantInvite represents TL type `channelAdminLogEventActionParticipantInvite#e31c34d8`.
 // A user was invited to the group
 //
@@ -1598,6 +1598,21 @@ type ChannelAdminLogEventActionParticipantInvite struct {
 
 // ChannelAdminLogEventActionParticipantInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantInvite.
 const ChannelAdminLogEventActionParticipantInviteTypeID = 0xe31c34d8
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantInvite) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantInvite.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantInvite{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantInvite{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantInvite{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantInvite{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantInvite{}
+)
 
 func (c *ChannelAdminLogEventActionParticipantInvite) Zero() bool {
 	if c == nil {
@@ -1680,11 +1695,6 @@ func (c *ChannelAdminLogEventActionParticipantInvite) EncodeBare(b *bin.Buffer) 
 	return nil
 }
 
-// GetParticipant returns value of Participant field.
-func (c *ChannelAdminLogEventActionParticipantInvite) GetParticipant() (value ChannelParticipantClass) {
-	return c.Participant
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionParticipantInvite) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -1711,20 +1721,10 @@ func (c *ChannelAdminLogEventActionParticipantInvite) DecodeBare(b *bin.Buffer) 
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionParticipantInvite) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetParticipant returns value of Participant field.
+func (c *ChannelAdminLogEventActionParticipantInvite) GetParticipant() (value ChannelParticipantClass) {
+	return c.Participant
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantInvite.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantInvite{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantInvite{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantInvite{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantInvite{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantInvite{}
-)
 
 // ChannelAdminLogEventActionParticipantToggleBan represents TL type `channelAdminLogEventActionParticipantToggleBan#e6d83d7e`.
 // The banned rights¹ of a user were changed
@@ -1742,6 +1742,21 @@ type ChannelAdminLogEventActionParticipantToggleBan struct {
 
 // ChannelAdminLogEventActionParticipantToggleBanTypeID is TL type id of ChannelAdminLogEventActionParticipantToggleBan.
 const ChannelAdminLogEventActionParticipantToggleBanTypeID = 0xe6d83d7e
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantToggleBan) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantToggleBan.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantToggleBan{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantToggleBan{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantToggleBan{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantToggleBan{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantToggleBan{}
+)
 
 func (c *ChannelAdminLogEventActionParticipantToggleBan) Zero() bool {
 	if c == nil {
@@ -1839,16 +1854,6 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) EncodeBare(b *bin.Buffe
 	return nil
 }
 
-// GetPrevParticipant returns value of PrevParticipant field.
-func (c *ChannelAdminLogEventActionParticipantToggleBan) GetPrevParticipant() (value ChannelParticipantClass) {
-	return c.PrevParticipant
-}
-
-// GetNewParticipant returns value of NewParticipant field.
-func (c *ChannelAdminLogEventActionParticipantToggleBan) GetNewParticipant() (value ChannelParticipantClass) {
-	return c.NewParticipant
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionParticipantToggleBan) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -1882,20 +1887,15 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) DecodeBare(b *bin.Buffe
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionParticipantToggleBan) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetPrevParticipant returns value of PrevParticipant field.
+func (c *ChannelAdminLogEventActionParticipantToggleBan) GetPrevParticipant() (value ChannelParticipantClass) {
+	return c.PrevParticipant
 }
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantToggleBan.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantToggleBan{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantToggleBan{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantToggleBan{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantToggleBan{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantToggleBan{}
-)
+// GetNewParticipant returns value of NewParticipant field.
+func (c *ChannelAdminLogEventActionParticipantToggleBan) GetNewParticipant() (value ChannelParticipantClass) {
+	return c.NewParticipant
+}
 
 // ChannelAdminLogEventActionParticipantToggleAdmin represents TL type `channelAdminLogEventActionParticipantToggleAdmin#d5676710`.
 // The admin rights¹ of a user were changed
@@ -1913,6 +1913,21 @@ type ChannelAdminLogEventActionParticipantToggleAdmin struct {
 
 // ChannelAdminLogEventActionParticipantToggleAdminTypeID is TL type id of ChannelAdminLogEventActionParticipantToggleAdmin.
 const ChannelAdminLogEventActionParticipantToggleAdminTypeID = 0xd5676710
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantToggleAdmin) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantToggleAdmin.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantToggleAdmin{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantToggleAdmin{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantToggleAdmin{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantToggleAdmin{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantToggleAdmin{}
+)
 
 func (c *ChannelAdminLogEventActionParticipantToggleAdmin) Zero() bool {
 	if c == nil {
@@ -2010,16 +2025,6 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) EncodeBare(b *bin.Buf
 	return nil
 }
 
-// GetPrevParticipant returns value of PrevParticipant field.
-func (c *ChannelAdminLogEventActionParticipantToggleAdmin) GetPrevParticipant() (value ChannelParticipantClass) {
-	return c.PrevParticipant
-}
-
-// GetNewParticipant returns value of NewParticipant field.
-func (c *ChannelAdminLogEventActionParticipantToggleAdmin) GetNewParticipant() (value ChannelParticipantClass) {
-	return c.NewParticipant
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionParticipantToggleAdmin) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -2053,20 +2058,15 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) DecodeBare(b *bin.Buf
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionParticipantToggleAdmin) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetPrevParticipant returns value of PrevParticipant field.
+func (c *ChannelAdminLogEventActionParticipantToggleAdmin) GetPrevParticipant() (value ChannelParticipantClass) {
+	return c.PrevParticipant
 }
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantToggleAdmin.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantToggleAdmin{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantToggleAdmin{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantToggleAdmin{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantToggleAdmin{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantToggleAdmin{}
-)
+// GetNewParticipant returns value of NewParticipant field.
+func (c *ChannelAdminLogEventActionParticipantToggleAdmin) GetNewParticipant() (value ChannelParticipantClass) {
+	return c.NewParticipant
+}
 
 // ChannelAdminLogEventActionChangeStickerSet represents TL type `channelAdminLogEventActionChangeStickerSet#b1c3caa7`.
 // The supergroup's stickerset was changed
@@ -2081,6 +2081,21 @@ type ChannelAdminLogEventActionChangeStickerSet struct {
 
 // ChannelAdminLogEventActionChangeStickerSetTypeID is TL type id of ChannelAdminLogEventActionChangeStickerSet.
 const ChannelAdminLogEventActionChangeStickerSetTypeID = 0xb1c3caa7
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionChangeStickerSet) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeStickerSet.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeStickerSet{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeStickerSet{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeStickerSet{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeStickerSet{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeStickerSet{}
+)
 
 func (c *ChannelAdminLogEventActionChangeStickerSet) Zero() bool {
 	if c == nil {
@@ -2178,16 +2193,6 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) EncodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// GetPrevStickerset returns value of PrevStickerset field.
-func (c *ChannelAdminLogEventActionChangeStickerSet) GetPrevStickerset() (value InputStickerSetClass) {
-	return c.PrevStickerset
-}
-
-// GetNewStickerset returns value of NewStickerset field.
-func (c *ChannelAdminLogEventActionChangeStickerSet) GetNewStickerset() (value InputStickerSetClass) {
-	return c.NewStickerset
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionChangeStickerSet) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -2221,20 +2226,15 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) DecodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionChangeStickerSet) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetPrevStickerset returns value of PrevStickerset field.
+func (c *ChannelAdminLogEventActionChangeStickerSet) GetPrevStickerset() (value InputStickerSetClass) {
+	return c.PrevStickerset
 }
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeStickerSet.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionChangeStickerSet{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionChangeStickerSet{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeStickerSet{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeStickerSet{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeStickerSet{}
-)
+// GetNewStickerset returns value of NewStickerset field.
+func (c *ChannelAdminLogEventActionChangeStickerSet) GetNewStickerset() (value InputStickerSetClass) {
+	return c.NewStickerset
+}
 
 // ChannelAdminLogEventActionTogglePreHistoryHidden represents TL type `channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1`.
 // The hidden prehistory setting was changed¹
@@ -2250,6 +2250,21 @@ type ChannelAdminLogEventActionTogglePreHistoryHidden struct {
 
 // ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID is TL type id of ChannelAdminLogEventActionTogglePreHistoryHidden.
 const ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID = 0x5f5c95f1
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionTogglePreHistoryHidden) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionTogglePreHistoryHidden.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
+)
 
 func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) Zero() bool {
 	if c == nil {
@@ -2327,11 +2342,6 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) EncodeBare(b *bin.Buf
 	return nil
 }
 
-// GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) GetNewValue() (value bool) {
-	return c.NewValue
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -2358,20 +2368,10 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) DecodeBare(b *bin.Buf
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionTogglePreHistoryHidden) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) GetNewValue() (value bool) {
+	return c.NewValue
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionTogglePreHistoryHidden.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
-)
 
 // ChannelAdminLogEventActionDefaultBannedRights represents TL type `channelAdminLogEventActionDefaultBannedRights#2df5fc0a`.
 // The default banned rights were modified
@@ -2392,6 +2392,21 @@ type ChannelAdminLogEventActionDefaultBannedRights struct {
 
 // ChannelAdminLogEventActionDefaultBannedRightsTypeID is TL type id of ChannelAdminLogEventActionDefaultBannedRights.
 const ChannelAdminLogEventActionDefaultBannedRightsTypeID = 0x2df5fc0a
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionDefaultBannedRights) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionDefaultBannedRights.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionDefaultBannedRights{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionDefaultBannedRights{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionDefaultBannedRights{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionDefaultBannedRights{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionDefaultBannedRights{}
+)
 
 func (c *ChannelAdminLogEventActionDefaultBannedRights) Zero() bool {
 	if c == nil {
@@ -2483,16 +2498,6 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) EncodeBare(b *bin.Buffer
 	return nil
 }
 
-// GetPrevBannedRights returns value of PrevBannedRights field.
-func (c *ChannelAdminLogEventActionDefaultBannedRights) GetPrevBannedRights() (value ChatBannedRights) {
-	return c.PrevBannedRights
-}
-
-// GetNewBannedRights returns value of NewBannedRights field.
-func (c *ChannelAdminLogEventActionDefaultBannedRights) GetNewBannedRights() (value ChatBannedRights) {
-	return c.NewBannedRights
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionDefaultBannedRights) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -2522,20 +2527,15 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) DecodeBare(b *bin.Buffer
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionDefaultBannedRights) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetPrevBannedRights returns value of PrevBannedRights field.
+func (c *ChannelAdminLogEventActionDefaultBannedRights) GetPrevBannedRights() (value ChatBannedRights) {
+	return c.PrevBannedRights
 }
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionDefaultBannedRights.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionDefaultBannedRights{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionDefaultBannedRights{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionDefaultBannedRights{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionDefaultBannedRights{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionDefaultBannedRights{}
-)
+// GetNewBannedRights returns value of NewBannedRights field.
+func (c *ChannelAdminLogEventActionDefaultBannedRights) GetNewBannedRights() (value ChatBannedRights) {
+	return c.NewBannedRights
+}
 
 // ChannelAdminLogEventActionStopPoll represents TL type `channelAdminLogEventActionStopPoll#8f079643`.
 // A poll was stopped
@@ -2548,6 +2548,19 @@ type ChannelAdminLogEventActionStopPoll struct {
 
 // ChannelAdminLogEventActionStopPollTypeID is TL type id of ChannelAdminLogEventActionStopPoll.
 const ChannelAdminLogEventActionStopPollTypeID = 0x8f079643
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionStopPoll) construct() ChannelAdminLogEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionStopPoll.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionStopPoll{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionStopPoll{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionStopPoll{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionStopPoll{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionStopPoll{}
+)
 
 func (c *ChannelAdminLogEventActionStopPoll) Zero() bool {
 	if c == nil {
@@ -2630,11 +2643,6 @@ func (c *ChannelAdminLogEventActionStopPoll) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (c *ChannelAdminLogEventActionStopPoll) GetMessage() (value MessageClass) {
-	return c.Message
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionStopPoll) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -2661,18 +2669,10 @@ func (c *ChannelAdminLogEventActionStopPoll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionStopPoll) construct() ChannelAdminLogEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionStopPoll.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionStopPoll{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionStopPoll{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionStopPoll{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionStopPoll{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionStopPoll{}
-)
+// GetMessage returns value of Message field.
+func (c *ChannelAdminLogEventActionStopPoll) GetMessage() (value MessageClass) {
+	return c.Message
+}
 
 // ChannelAdminLogEventActionChangeLinkedChat represents TL type `channelAdminLogEventActionChangeLinkedChat#a26f881b`.
 // The linked chat was changed
@@ -2687,6 +2687,21 @@ type ChannelAdminLogEventActionChangeLinkedChat struct {
 
 // ChannelAdminLogEventActionChangeLinkedChatTypeID is TL type id of ChannelAdminLogEventActionChangeLinkedChat.
 const ChannelAdminLogEventActionChangeLinkedChatTypeID = 0xa26f881b
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionChangeLinkedChat) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeLinkedChat.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeLinkedChat{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeLinkedChat{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeLinkedChat{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeLinkedChat{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeLinkedChat{}
+)
 
 func (c *ChannelAdminLogEventActionChangeLinkedChat) Zero() bool {
 	if c == nil {
@@ -2774,16 +2789,6 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) EncodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// GetPrevValue returns value of PrevValue field.
-func (c *ChannelAdminLogEventActionChangeLinkedChat) GetPrevValue() (value int) {
-	return c.PrevValue
-}
-
-// GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionChangeLinkedChat) GetNewValue() (value int) {
-	return c.NewValue
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionChangeLinkedChat) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -2817,20 +2822,15 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) DecodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionChangeLinkedChat) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeLinkedChat) GetPrevValue() (value int) {
+	return c.PrevValue
 }
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeLinkedChat.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionChangeLinkedChat{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionChangeLinkedChat{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeLinkedChat{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeLinkedChat{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeLinkedChat{}
-)
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeLinkedChat) GetNewValue() (value int) {
+	return c.NewValue
+}
 
 // ChannelAdminLogEventActionChangeLocation represents TL type `channelAdminLogEventActionChangeLocation#e6b76ae`.
 // The geogroup location was changed
@@ -2845,6 +2845,21 @@ type ChannelAdminLogEventActionChangeLocation struct {
 
 // ChannelAdminLogEventActionChangeLocationTypeID is TL type id of ChannelAdminLogEventActionChangeLocation.
 const ChannelAdminLogEventActionChangeLocationTypeID = 0xe6b76ae
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionChangeLocation) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeLocation.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeLocation{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeLocation{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeLocation{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeLocation{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeLocation{}
+)
 
 func (c *ChannelAdminLogEventActionChangeLocation) Zero() bool {
 	if c == nil {
@@ -2942,16 +2957,6 @@ func (c *ChannelAdminLogEventActionChangeLocation) EncodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// GetPrevValue returns value of PrevValue field.
-func (c *ChannelAdminLogEventActionChangeLocation) GetPrevValue() (value ChannelLocationClass) {
-	return c.PrevValue
-}
-
-// GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionChangeLocation) GetNewValue() (value ChannelLocationClass) {
-	return c.NewValue
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionChangeLocation) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -2985,20 +2990,15 @@ func (c *ChannelAdminLogEventActionChangeLocation) DecodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionChangeLocation) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeLocation) GetPrevValue() (value ChannelLocationClass) {
+	return c.PrevValue
 }
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeLocation.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionChangeLocation{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionChangeLocation{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeLocation{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeLocation{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeLocation{}
-)
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeLocation) GetNewValue() (value ChannelLocationClass) {
+	return c.NewValue
+}
 
 // ChannelAdminLogEventActionToggleSlowMode represents TL type `channelAdminLogEventActionToggleSlowMode#53909779`.
 // Slow mode setting for supergroups was changed¹
@@ -3016,6 +3016,21 @@ type ChannelAdminLogEventActionToggleSlowMode struct {
 
 // ChannelAdminLogEventActionToggleSlowModeTypeID is TL type id of ChannelAdminLogEventActionToggleSlowMode.
 const ChannelAdminLogEventActionToggleSlowModeTypeID = 0x53909779
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionToggleSlowMode) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleSlowMode.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionToggleSlowMode{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionToggleSlowMode{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleSlowMode{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleSlowMode{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleSlowMode{}
+)
 
 func (c *ChannelAdminLogEventActionToggleSlowMode) Zero() bool {
 	if c == nil {
@@ -3103,16 +3118,6 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) EncodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// GetPrevValue returns value of PrevValue field.
-func (c *ChannelAdminLogEventActionToggleSlowMode) GetPrevValue() (value int) {
-	return c.PrevValue
-}
-
-// GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionToggleSlowMode) GetNewValue() (value int) {
-	return c.NewValue
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionToggleSlowMode) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -3146,20 +3151,15 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) DecodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionToggleSlowMode) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionToggleSlowMode) GetPrevValue() (value int) {
+	return c.PrevValue
 }
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleSlowMode.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionToggleSlowMode{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionToggleSlowMode{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleSlowMode{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleSlowMode{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleSlowMode{}
-)
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionToggleSlowMode) GetNewValue() (value int) {
+	return c.NewValue
+}
 
 // ChannelAdminLogEventActionStartGroupCall represents TL type `channelAdminLogEventActionStartGroupCall#23209745`.
 //
@@ -3171,6 +3171,21 @@ type ChannelAdminLogEventActionStartGroupCall struct {
 
 // ChannelAdminLogEventActionStartGroupCallTypeID is TL type id of ChannelAdminLogEventActionStartGroupCall.
 const ChannelAdminLogEventActionStartGroupCallTypeID = 0x23209745
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionStartGroupCall) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionStartGroupCall.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionStartGroupCall{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionStartGroupCall{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionStartGroupCall{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionStartGroupCall{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionStartGroupCall{}
+)
 
 func (c *ChannelAdminLogEventActionStartGroupCall) Zero() bool {
 	if c == nil {
@@ -3250,11 +3265,6 @@ func (c *ChannelAdminLogEventActionStartGroupCall) EncodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (c *ChannelAdminLogEventActionStartGroupCall) GetCall() (value InputGroupCall) {
-	return c.Call
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionStartGroupCall) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -3279,20 +3289,10 @@ func (c *ChannelAdminLogEventActionStartGroupCall) DecodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionStartGroupCall) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetCall returns value of Call field.
+func (c *ChannelAdminLogEventActionStartGroupCall) GetCall() (value InputGroupCall) {
+	return c.Call
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionStartGroupCall.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionStartGroupCall{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionStartGroupCall{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionStartGroupCall{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionStartGroupCall{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionStartGroupCall{}
-)
 
 // ChannelAdminLogEventActionDiscardGroupCall represents TL type `channelAdminLogEventActionDiscardGroupCall#db9f9140`.
 //
@@ -3304,6 +3304,21 @@ type ChannelAdminLogEventActionDiscardGroupCall struct {
 
 // ChannelAdminLogEventActionDiscardGroupCallTypeID is TL type id of ChannelAdminLogEventActionDiscardGroupCall.
 const ChannelAdminLogEventActionDiscardGroupCallTypeID = 0xdb9f9140
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionDiscardGroupCall) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionDiscardGroupCall.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionDiscardGroupCall{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionDiscardGroupCall{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionDiscardGroupCall{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionDiscardGroupCall{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionDiscardGroupCall{}
+)
 
 func (c *ChannelAdminLogEventActionDiscardGroupCall) Zero() bool {
 	if c == nil {
@@ -3383,11 +3398,6 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) EncodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (c *ChannelAdminLogEventActionDiscardGroupCall) GetCall() (value InputGroupCall) {
-	return c.Call
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionDiscardGroupCall) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -3412,20 +3422,10 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) DecodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionDiscardGroupCall) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetCall returns value of Call field.
+func (c *ChannelAdminLogEventActionDiscardGroupCall) GetCall() (value InputGroupCall) {
+	return c.Call
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionDiscardGroupCall.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionDiscardGroupCall{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionDiscardGroupCall{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionDiscardGroupCall{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionDiscardGroupCall{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionDiscardGroupCall{}
-)
 
 // ChannelAdminLogEventActionParticipantMute represents TL type `channelAdminLogEventActionParticipantMute#f92424d2`.
 //
@@ -3437,6 +3437,21 @@ type ChannelAdminLogEventActionParticipantMute struct {
 
 // ChannelAdminLogEventActionParticipantMuteTypeID is TL type id of ChannelAdminLogEventActionParticipantMute.
 const ChannelAdminLogEventActionParticipantMuteTypeID = 0xf92424d2
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantMute) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantMute.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantMute{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantMute{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantMute{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantMute{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantMute{}
+)
 
 func (c *ChannelAdminLogEventActionParticipantMute) Zero() bool {
 	if c == nil {
@@ -3516,11 +3531,6 @@ func (c *ChannelAdminLogEventActionParticipantMute) EncodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// GetParticipant returns value of Participant field.
-func (c *ChannelAdminLogEventActionParticipantMute) GetParticipant() (value GroupCallParticipant) {
-	return c.Participant
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionParticipantMute) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -3545,20 +3555,10 @@ func (c *ChannelAdminLogEventActionParticipantMute) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionParticipantMute) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetParticipant returns value of Participant field.
+func (c *ChannelAdminLogEventActionParticipantMute) GetParticipant() (value GroupCallParticipant) {
+	return c.Participant
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantMute.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantMute{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantMute{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantMute{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantMute{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantMute{}
-)
 
 // ChannelAdminLogEventActionParticipantUnmute represents TL type `channelAdminLogEventActionParticipantUnmute#e64429c0`.
 //
@@ -3570,6 +3570,21 @@ type ChannelAdminLogEventActionParticipantUnmute struct {
 
 // ChannelAdminLogEventActionParticipantUnmuteTypeID is TL type id of ChannelAdminLogEventActionParticipantUnmute.
 const ChannelAdminLogEventActionParticipantUnmuteTypeID = 0xe64429c0
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantUnmute) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantUnmute.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantUnmute{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantUnmute{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantUnmute{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantUnmute{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantUnmute{}
+)
 
 func (c *ChannelAdminLogEventActionParticipantUnmute) Zero() bool {
 	if c == nil {
@@ -3649,11 +3664,6 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) EncodeBare(b *bin.Buffer) 
 	return nil
 }
 
-// GetParticipant returns value of Participant field.
-func (c *ChannelAdminLogEventActionParticipantUnmute) GetParticipant() (value GroupCallParticipant) {
-	return c.Participant
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionParticipantUnmute) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -3678,20 +3688,10 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) DecodeBare(b *bin.Buffer) 
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionParticipantUnmute) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetParticipant returns value of Participant field.
+func (c *ChannelAdminLogEventActionParticipantUnmute) GetParticipant() (value GroupCallParticipant) {
+	return c.Participant
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantUnmute.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantUnmute{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantUnmute{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantUnmute{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantUnmute{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantUnmute{}
-)
 
 // ChannelAdminLogEventActionToggleGroupCallSetting represents TL type `channelAdminLogEventActionToggleGroupCallSetting#56d6a247`.
 //
@@ -3703,6 +3703,21 @@ type ChannelAdminLogEventActionToggleGroupCallSetting struct {
 
 // ChannelAdminLogEventActionToggleGroupCallSettingTypeID is TL type id of ChannelAdminLogEventActionToggleGroupCallSetting.
 const ChannelAdminLogEventActionToggleGroupCallSettingTypeID = 0x56d6a247
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionToggleGroupCallSetting) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleGroupCallSetting.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionToggleGroupCallSetting{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionToggleGroupCallSetting{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleGroupCallSetting{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleGroupCallSetting{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleGroupCallSetting{}
+)
 
 func (c *ChannelAdminLogEventActionToggleGroupCallSetting) Zero() bool {
 	if c == nil {
@@ -3780,11 +3795,6 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) EncodeBare(b *bin.Buf
 	return nil
 }
 
-// GetJoinMuted returns value of JoinMuted field.
-func (c *ChannelAdminLogEventActionToggleGroupCallSetting) GetJoinMuted() (value bool) {
-	return c.JoinMuted
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionToggleGroupCallSetting) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -3811,20 +3821,10 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) DecodeBare(b *bin.Buf
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionToggleGroupCallSetting) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetJoinMuted returns value of JoinMuted field.
+func (c *ChannelAdminLogEventActionToggleGroupCallSetting) GetJoinMuted() (value bool) {
+	return c.JoinMuted
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleGroupCallSetting.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionToggleGroupCallSetting{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionToggleGroupCallSetting{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleGroupCallSetting{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleGroupCallSetting{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleGroupCallSetting{}
-)
 
 // ChannelAdminLogEventActionParticipantJoinByInvite represents TL type `channelAdminLogEventActionParticipantJoinByInvite#5cdada77`.
 //
@@ -3836,6 +3836,21 @@ type ChannelAdminLogEventActionParticipantJoinByInvite struct {
 
 // ChannelAdminLogEventActionParticipantJoinByInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantJoinByInvite.
 const ChannelAdminLogEventActionParticipantJoinByInviteTypeID = 0x5cdada77
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantJoinByInvite) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantJoinByInvite.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantJoinByInvite{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantJoinByInvite{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantJoinByInvite{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantJoinByInvite{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantJoinByInvite{}
+)
 
 func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Zero() bool {
 	if c == nil {
@@ -3915,11 +3930,6 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) EncodeBare(b *bin.Bu
 	return nil
 }
 
-// GetInvite returns value of Invite field.
-func (c *ChannelAdminLogEventActionParticipantJoinByInvite) GetInvite() (value ChatInviteExported) {
-	return c.Invite
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -3944,20 +3954,10 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) DecodeBare(b *bin.Bu
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionParticipantJoinByInvite) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetInvite returns value of Invite field.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) GetInvite() (value ChatInviteExported) {
+	return c.Invite
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantJoinByInvite.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantJoinByInvite{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantJoinByInvite{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantJoinByInvite{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantJoinByInvite{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantJoinByInvite{}
-)
 
 // ChannelAdminLogEventActionExportedInviteDelete represents TL type `channelAdminLogEventActionExportedInviteDelete#5a50fca4`.
 //
@@ -3969,6 +3969,21 @@ type ChannelAdminLogEventActionExportedInviteDelete struct {
 
 // ChannelAdminLogEventActionExportedInviteDeleteTypeID is TL type id of ChannelAdminLogEventActionExportedInviteDelete.
 const ChannelAdminLogEventActionExportedInviteDeleteTypeID = 0x5a50fca4
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionExportedInviteDelete) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionExportedInviteDelete.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionExportedInviteDelete{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionExportedInviteDelete{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionExportedInviteDelete{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionExportedInviteDelete{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionExportedInviteDelete{}
+)
 
 func (c *ChannelAdminLogEventActionExportedInviteDelete) Zero() bool {
 	if c == nil {
@@ -4048,11 +4063,6 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) EncodeBare(b *bin.Buffe
 	return nil
 }
 
-// GetInvite returns value of Invite field.
-func (c *ChannelAdminLogEventActionExportedInviteDelete) GetInvite() (value ChatInviteExported) {
-	return c.Invite
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionExportedInviteDelete) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -4077,20 +4087,10 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) DecodeBare(b *bin.Buffe
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionExportedInviteDelete) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetInvite returns value of Invite field.
+func (c *ChannelAdminLogEventActionExportedInviteDelete) GetInvite() (value ChatInviteExported) {
+	return c.Invite
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionExportedInviteDelete.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionExportedInviteDelete{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionExportedInviteDelete{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionExportedInviteDelete{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionExportedInviteDelete{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionExportedInviteDelete{}
-)
 
 // ChannelAdminLogEventActionExportedInviteRevoke represents TL type `channelAdminLogEventActionExportedInviteRevoke#410a134e`.
 //
@@ -4102,6 +4102,21 @@ type ChannelAdminLogEventActionExportedInviteRevoke struct {
 
 // ChannelAdminLogEventActionExportedInviteRevokeTypeID is TL type id of ChannelAdminLogEventActionExportedInviteRevoke.
 const ChannelAdminLogEventActionExportedInviteRevokeTypeID = 0x410a134e
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionExportedInviteRevoke) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionExportedInviteRevoke.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionExportedInviteRevoke{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionExportedInviteRevoke{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionExportedInviteRevoke{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionExportedInviteRevoke{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionExportedInviteRevoke{}
+)
 
 func (c *ChannelAdminLogEventActionExportedInviteRevoke) Zero() bool {
 	if c == nil {
@@ -4181,11 +4196,6 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) EncodeBare(b *bin.Buffe
 	return nil
 }
 
-// GetInvite returns value of Invite field.
-func (c *ChannelAdminLogEventActionExportedInviteRevoke) GetInvite() (value ChatInviteExported) {
-	return c.Invite
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionExportedInviteRevoke) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -4210,20 +4220,10 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) DecodeBare(b *bin.Buffe
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionExportedInviteRevoke) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetInvite returns value of Invite field.
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) GetInvite() (value ChatInviteExported) {
+	return c.Invite
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionExportedInviteRevoke.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionExportedInviteRevoke{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionExportedInviteRevoke{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionExportedInviteRevoke{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionExportedInviteRevoke{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionExportedInviteRevoke{}
-)
 
 // ChannelAdminLogEventActionExportedInviteEdit represents TL type `channelAdminLogEventActionExportedInviteEdit#e90ebb59`.
 //
@@ -4237,6 +4237,21 @@ type ChannelAdminLogEventActionExportedInviteEdit struct {
 
 // ChannelAdminLogEventActionExportedInviteEditTypeID is TL type id of ChannelAdminLogEventActionExportedInviteEdit.
 const ChannelAdminLogEventActionExportedInviteEditTypeID = 0xe90ebb59
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionExportedInviteEdit) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionExportedInviteEdit.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionExportedInviteEdit{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionExportedInviteEdit{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionExportedInviteEdit{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionExportedInviteEdit{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionExportedInviteEdit{}
+)
 
 func (c *ChannelAdminLogEventActionExportedInviteEdit) Zero() bool {
 	if c == nil {
@@ -4328,16 +4343,6 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) EncodeBare(b *bin.Buffer)
 	return nil
 }
 
-// GetPrevInvite returns value of PrevInvite field.
-func (c *ChannelAdminLogEventActionExportedInviteEdit) GetPrevInvite() (value ChatInviteExported) {
-	return c.PrevInvite
-}
-
-// GetNewInvite returns value of NewInvite field.
-func (c *ChannelAdminLogEventActionExportedInviteEdit) GetNewInvite() (value ChatInviteExported) {
-	return c.NewInvite
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionExportedInviteEdit) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -4367,20 +4372,15 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) DecodeBare(b *bin.Buffer)
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionExportedInviteEdit) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetPrevInvite returns value of PrevInvite field.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) GetPrevInvite() (value ChatInviteExported) {
+	return c.PrevInvite
 }
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionExportedInviteEdit.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionExportedInviteEdit{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionExportedInviteEdit{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionExportedInviteEdit{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionExportedInviteEdit{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionExportedInviteEdit{}
-)
+// GetNewInvite returns value of NewInvite field.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) GetNewInvite() (value ChatInviteExported) {
+	return c.NewInvite
+}
 
 // ChannelAdminLogEventActionParticipantVolume represents TL type `channelAdminLogEventActionParticipantVolume#3e7f6847`.
 //
@@ -4392,6 +4392,21 @@ type ChannelAdminLogEventActionParticipantVolume struct {
 
 // ChannelAdminLogEventActionParticipantVolumeTypeID is TL type id of ChannelAdminLogEventActionParticipantVolume.
 const ChannelAdminLogEventActionParticipantVolumeTypeID = 0x3e7f6847
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantVolume) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantVolume.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantVolume{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantVolume{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantVolume{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantVolume{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantVolume{}
+)
 
 func (c *ChannelAdminLogEventActionParticipantVolume) Zero() bool {
 	if c == nil {
@@ -4471,11 +4486,6 @@ func (c *ChannelAdminLogEventActionParticipantVolume) EncodeBare(b *bin.Buffer) 
 	return nil
 }
 
-// GetParticipant returns value of Participant field.
-func (c *ChannelAdminLogEventActionParticipantVolume) GetParticipant() (value GroupCallParticipant) {
-	return c.Participant
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionParticipantVolume) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -4500,20 +4510,10 @@ func (c *ChannelAdminLogEventActionParticipantVolume) DecodeBare(b *bin.Buffer) 
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionParticipantVolume) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetParticipant returns value of Participant field.
+func (c *ChannelAdminLogEventActionParticipantVolume) GetParticipant() (value GroupCallParticipant) {
+	return c.Participant
 }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantVolume.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantVolume{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantVolume{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantVolume{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantVolume{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantVolume{}
-)
 
 // ChannelAdminLogEventActionChangeHistoryTTL represents TL type `channelAdminLogEventActionChangeHistoryTTL#6e941a38`.
 //
@@ -4527,6 +4527,21 @@ type ChannelAdminLogEventActionChangeHistoryTTL struct {
 
 // ChannelAdminLogEventActionChangeHistoryTTLTypeID is TL type id of ChannelAdminLogEventActionChangeHistoryTTL.
 const ChannelAdminLogEventActionChangeHistoryTTLTypeID = 0x6e941a38
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionChangeHistoryTTL) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeHistoryTTL.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeHistoryTTL{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeHistoryTTL{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeHistoryTTL{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeHistoryTTL{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeHistoryTTL{}
+)
 
 func (c *ChannelAdminLogEventActionChangeHistoryTTL) Zero() bool {
 	if c == nil {
@@ -4614,16 +4629,6 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) EncodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// GetPrevValue returns value of PrevValue field.
-func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetPrevValue() (value int) {
-	return c.PrevValue
-}
-
-// GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetNewValue() (value int) {
-	return c.NewValue
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionChangeHistoryTTL) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -4657,20 +4662,15 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) DecodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionChangeHistoryTTL) construct() ChannelAdminLogEventActionClass {
-	return &c
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetPrevValue() (value int) {
+	return c.PrevValue
 }
 
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeHistoryTTL.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionChangeHistoryTTL{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionChangeHistoryTTL{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeHistoryTTL{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeHistoryTTL{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeHistoryTTL{}
-)
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetNewValue() (value int) {
+	return c.NewValue
+}
 
 // ChannelAdminLogEventActionClass represents ChannelAdminLogEventAction generic type.
 //

@@ -49,6 +49,19 @@ type WebDocument struct {
 // WebDocumentTypeID is TL type id of WebDocument.
 const WebDocumentTypeID = 0x1c570ed1
 
+// construct implements constructor of WebDocumentClass.
+func (w WebDocument) construct() WebDocumentClass { return &w }
+
+// Ensuring interfaces in compile-time for WebDocument.
+var (
+	_ bin.Encoder     = &WebDocument{}
+	_ bin.Decoder     = &WebDocument{}
+	_ bin.BareEncoder = &WebDocument{}
+	_ bin.BareDecoder = &WebDocument{}
+
+	_ WebDocumentClass = &WebDocument{}
+)
+
 func (w *WebDocument) Zero() bool {
 	if w == nil {
 		return true
@@ -173,36 +186,6 @@ func (w *WebDocument) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (w *WebDocument) GetURL() (value string) {
-	return w.URL
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (w *WebDocument) GetAccessHash() (value int64) {
-	return w.AccessHash
-}
-
-// GetSize returns value of Size field.
-func (w *WebDocument) GetSize() (value int) {
-	return w.Size
-}
-
-// GetMimeType returns value of MimeType field.
-func (w *WebDocument) GetMimeType() (value string) {
-	return w.MimeType
-}
-
-// GetAttributes returns value of Attributes field.
-func (w *WebDocument) GetAttributes() (value []DocumentAttributeClass) {
-	return w.Attributes
-}
-
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
-func (w *WebDocument) MapAttributes() (value DocumentAttributeClassArray) {
-	return DocumentAttributeClassArray(w.Attributes)
-}
-
 // Decode implements bin.Decoder.
 func (w *WebDocument) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -267,18 +250,35 @@ func (w *WebDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of WebDocumentClass.
-func (w WebDocument) construct() WebDocumentClass { return &w }
+// GetURL returns value of URL field.
+func (w *WebDocument) GetURL() (value string) {
+	return w.URL
+}
 
-// Ensuring interfaces in compile-time for WebDocument.
-var (
-	_ bin.Encoder     = &WebDocument{}
-	_ bin.Decoder     = &WebDocument{}
-	_ bin.BareEncoder = &WebDocument{}
-	_ bin.BareDecoder = &WebDocument{}
+// GetAccessHash returns value of AccessHash field.
+func (w *WebDocument) GetAccessHash() (value int64) {
+	return w.AccessHash
+}
 
-	_ WebDocumentClass = &WebDocument{}
-)
+// GetSize returns value of Size field.
+func (w *WebDocument) GetSize() (value int) {
+	return w.Size
+}
+
+// GetMimeType returns value of MimeType field.
+func (w *WebDocument) GetMimeType() (value string) {
+	return w.MimeType
+}
+
+// GetAttributes returns value of Attributes field.
+func (w *WebDocument) GetAttributes() (value []DocumentAttributeClass) {
+	return w.Attributes
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (w *WebDocument) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(w.Attributes)
+}
 
 // WebDocumentNoProxy represents TL type `webDocumentNoProxy#f9c8bcc6`.
 // Remote document that can be downloaded without proxying through telegram¹
@@ -300,6 +300,19 @@ type WebDocumentNoProxy struct {
 
 // WebDocumentNoProxyTypeID is TL type id of WebDocumentNoProxy.
 const WebDocumentNoProxyTypeID = 0xf9c8bcc6
+
+// construct implements constructor of WebDocumentClass.
+func (w WebDocumentNoProxy) construct() WebDocumentClass { return &w }
+
+// Ensuring interfaces in compile-time for WebDocumentNoProxy.
+var (
+	_ bin.Encoder     = &WebDocumentNoProxy{}
+	_ bin.Decoder     = &WebDocumentNoProxy{}
+	_ bin.BareEncoder = &WebDocumentNoProxy{}
+	_ bin.BareDecoder = &WebDocumentNoProxy{}
+
+	_ WebDocumentClass = &WebDocumentNoProxy{}
+)
 
 func (w *WebDocumentNoProxy) Zero() bool {
 	if w == nil {
@@ -415,31 +428,6 @@ func (w *WebDocumentNoProxy) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (w *WebDocumentNoProxy) GetURL() (value string) {
-	return w.URL
-}
-
-// GetSize returns value of Size field.
-func (w *WebDocumentNoProxy) GetSize() (value int) {
-	return w.Size
-}
-
-// GetMimeType returns value of MimeType field.
-func (w *WebDocumentNoProxy) GetMimeType() (value string) {
-	return w.MimeType
-}
-
-// GetAttributes returns value of Attributes field.
-func (w *WebDocumentNoProxy) GetAttributes() (value []DocumentAttributeClass) {
-	return w.Attributes
-}
-
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
-func (w *WebDocumentNoProxy) MapAttributes() (value DocumentAttributeClassArray) {
-	return DocumentAttributeClassArray(w.Attributes)
-}
-
 // Decode implements bin.Decoder.
 func (w *WebDocumentNoProxy) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -497,18 +485,30 @@ func (w *WebDocumentNoProxy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of WebDocumentClass.
-func (w WebDocumentNoProxy) construct() WebDocumentClass { return &w }
+// GetURL returns value of URL field.
+func (w *WebDocumentNoProxy) GetURL() (value string) {
+	return w.URL
+}
 
-// Ensuring interfaces in compile-time for WebDocumentNoProxy.
-var (
-	_ bin.Encoder     = &WebDocumentNoProxy{}
-	_ bin.Decoder     = &WebDocumentNoProxy{}
-	_ bin.BareEncoder = &WebDocumentNoProxy{}
-	_ bin.BareDecoder = &WebDocumentNoProxy{}
+// GetSize returns value of Size field.
+func (w *WebDocumentNoProxy) GetSize() (value int) {
+	return w.Size
+}
 
-	_ WebDocumentClass = &WebDocumentNoProxy{}
-)
+// GetMimeType returns value of MimeType field.
+func (w *WebDocumentNoProxy) GetMimeType() (value string) {
+	return w.MimeType
+}
+
+// GetAttributes returns value of Attributes field.
+func (w *WebDocumentNoProxy) GetAttributes() (value []DocumentAttributeClass) {
+	return w.Attributes
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (w *WebDocumentNoProxy) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(w.Attributes)
+}
 
 // WebDocumentClass represents WebDocument generic type.
 //

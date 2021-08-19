@@ -40,6 +40,14 @@ type MessagesCheckHistoryImportRequest struct {
 // MessagesCheckHistoryImportRequestTypeID is TL type id of MessagesCheckHistoryImportRequest.
 const MessagesCheckHistoryImportRequestTypeID = 0x43fe19f3
 
+// Ensuring interfaces in compile-time for MessagesCheckHistoryImportRequest.
+var (
+	_ bin.Encoder     = &MessagesCheckHistoryImportRequest{}
+	_ bin.Decoder     = &MessagesCheckHistoryImportRequest{}
+	_ bin.BareEncoder = &MessagesCheckHistoryImportRequest{}
+	_ bin.BareDecoder = &MessagesCheckHistoryImportRequest{}
+)
+
 func (c *MessagesCheckHistoryImportRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -116,11 +124,6 @@ func (c *MessagesCheckHistoryImportRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetImportHead returns value of ImportHead field.
-func (c *MessagesCheckHistoryImportRequest) GetImportHead() (value string) {
-	return c.ImportHead
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesCheckHistoryImportRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -147,13 +150,10 @@ func (c *MessagesCheckHistoryImportRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesCheckHistoryImportRequest.
-var (
-	_ bin.Encoder     = &MessagesCheckHistoryImportRequest{}
-	_ bin.Decoder     = &MessagesCheckHistoryImportRequest{}
-	_ bin.BareEncoder = &MessagesCheckHistoryImportRequest{}
-	_ bin.BareDecoder = &MessagesCheckHistoryImportRequest{}
-)
+// GetImportHead returns value of ImportHead field.
+func (c *MessagesCheckHistoryImportRequest) GetImportHead() (value string) {
+	return c.ImportHead
+}
 
 // MessagesCheckHistoryImport invokes method messages.checkHistoryImport#43fe19f3 returning error if any.
 //

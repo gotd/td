@@ -39,6 +39,19 @@ type MessagesSavedGifsNotModified struct {
 // MessagesSavedGifsNotModifiedTypeID is TL type id of MessagesSavedGifsNotModified.
 const MessagesSavedGifsNotModifiedTypeID = 0xe8025ca2
 
+// construct implements constructor of MessagesSavedGifsClass.
+func (s MessagesSavedGifsNotModified) construct() MessagesSavedGifsClass { return &s }
+
+// Ensuring interfaces in compile-time for MessagesSavedGifsNotModified.
+var (
+	_ bin.Encoder     = &MessagesSavedGifsNotModified{}
+	_ bin.Decoder     = &MessagesSavedGifsNotModified{}
+	_ bin.BareEncoder = &MessagesSavedGifsNotModified{}
+	_ bin.BareDecoder = &MessagesSavedGifsNotModified{}
+
+	_ MessagesSavedGifsClass = &MessagesSavedGifsNotModified{}
+)
+
 func (s *MessagesSavedGifsNotModified) Zero() bool {
 	if s == nil {
 		return true
@@ -118,19 +131,6 @@ func (s *MessagesSavedGifsNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesSavedGifsClass.
-func (s MessagesSavedGifsNotModified) construct() MessagesSavedGifsClass { return &s }
-
-// Ensuring interfaces in compile-time for MessagesSavedGifsNotModified.
-var (
-	_ bin.Encoder     = &MessagesSavedGifsNotModified{}
-	_ bin.Decoder     = &MessagesSavedGifsNotModified{}
-	_ bin.BareEncoder = &MessagesSavedGifsNotModified{}
-	_ bin.BareDecoder = &MessagesSavedGifsNotModified{}
-
-	_ MessagesSavedGifsClass = &MessagesSavedGifsNotModified{}
-)
-
 // MessagesSavedGifs represents TL type `messages.savedGifs#2e0709a5`.
 // Saved gifs
 //
@@ -147,6 +147,19 @@ type MessagesSavedGifs struct {
 
 // MessagesSavedGifsTypeID is TL type id of MessagesSavedGifs.
 const MessagesSavedGifsTypeID = 0x2e0709a5
+
+// construct implements constructor of MessagesSavedGifsClass.
+func (s MessagesSavedGifs) construct() MessagesSavedGifsClass { return &s }
+
+// Ensuring interfaces in compile-time for MessagesSavedGifs.
+var (
+	_ bin.Encoder     = &MessagesSavedGifs{}
+	_ bin.Decoder     = &MessagesSavedGifs{}
+	_ bin.BareEncoder = &MessagesSavedGifs{}
+	_ bin.BareDecoder = &MessagesSavedGifs{}
+
+	_ MessagesSavedGifsClass = &MessagesSavedGifs{}
+)
 
 func (s *MessagesSavedGifs) Zero() bool {
 	if s == nil {
@@ -242,21 +255,6 @@ func (s *MessagesSavedGifs) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (s *MessagesSavedGifs) GetHash() (value int) {
-	return s.Hash
-}
-
-// GetGifs returns value of Gifs field.
-func (s *MessagesSavedGifs) GetGifs() (value []DocumentClass) {
-	return s.Gifs
-}
-
-// MapGifs returns field Gifs wrapped in DocumentClassArray helper.
-func (s *MessagesSavedGifs) MapGifs() (value DocumentClassArray) {
-	return DocumentClassArray(s.Gifs)
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSavedGifs) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -300,18 +298,20 @@ func (s *MessagesSavedGifs) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesSavedGifsClass.
-func (s MessagesSavedGifs) construct() MessagesSavedGifsClass { return &s }
+// GetHash returns value of Hash field.
+func (s *MessagesSavedGifs) GetHash() (value int) {
+	return s.Hash
+}
 
-// Ensuring interfaces in compile-time for MessagesSavedGifs.
-var (
-	_ bin.Encoder     = &MessagesSavedGifs{}
-	_ bin.Decoder     = &MessagesSavedGifs{}
-	_ bin.BareEncoder = &MessagesSavedGifs{}
-	_ bin.BareDecoder = &MessagesSavedGifs{}
+// GetGifs returns value of Gifs field.
+func (s *MessagesSavedGifs) GetGifs() (value []DocumentClass) {
+	return s.Gifs
+}
 
-	_ MessagesSavedGifsClass = &MessagesSavedGifs{}
-)
+// MapGifs returns field Gifs wrapped in DocumentClassArray helper.
+func (s *MessagesSavedGifs) MapGifs() (value DocumentClassArray) {
+	return DocumentClassArray(s.Gifs)
+}
 
 // MessagesSavedGifsClass represents messages.SavedGifs generic type.
 //

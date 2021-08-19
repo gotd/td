@@ -49,6 +49,14 @@ type MessagesUploadMediaRequest struct {
 // MessagesUploadMediaRequestTypeID is TL type id of MessagesUploadMediaRequest.
 const MessagesUploadMediaRequestTypeID = 0x519bc2b1
 
+// Ensuring interfaces in compile-time for MessagesUploadMediaRequest.
+var (
+	_ bin.Encoder     = &MessagesUploadMediaRequest{}
+	_ bin.Decoder     = &MessagesUploadMediaRequest{}
+	_ bin.BareEncoder = &MessagesUploadMediaRequest{}
+	_ bin.BareDecoder = &MessagesUploadMediaRequest{}
+)
+
 func (u *MessagesUploadMediaRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -145,16 +153,6 @@ func (u *MessagesUploadMediaRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *MessagesUploadMediaRequest) GetPeer() (value InputPeerClass) {
-	return u.Peer
-}
-
-// GetMedia returns value of Media field.
-func (u *MessagesUploadMediaRequest) GetMedia() (value InputMediaClass) {
-	return u.Media
-}
-
 // Decode implements bin.Decoder.
 func (u *MessagesUploadMediaRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -188,13 +186,15 @@ func (u *MessagesUploadMediaRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesUploadMediaRequest.
-var (
-	_ bin.Encoder     = &MessagesUploadMediaRequest{}
-	_ bin.Decoder     = &MessagesUploadMediaRequest{}
-	_ bin.BareEncoder = &MessagesUploadMediaRequest{}
-	_ bin.BareDecoder = &MessagesUploadMediaRequest{}
-)
+// GetPeer returns value of Peer field.
+func (u *MessagesUploadMediaRequest) GetPeer() (value InputPeerClass) {
+	return u.Peer
+}
+
+// GetMedia returns value of Media field.
+func (u *MessagesUploadMediaRequest) GetMedia() (value InputMediaClass) {
+	return u.Media
+}
 
 // MessagesUploadMedia invokes method messages.uploadMedia#519bc2b1 returning error if any.
 // Upload a file and associate it to a chat (without actually sending it to the chat)

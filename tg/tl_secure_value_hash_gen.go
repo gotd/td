@@ -43,6 +43,14 @@ type SecureValueHash struct {
 // SecureValueHashTypeID is TL type id of SecureValueHash.
 const SecureValueHashTypeID = 0xed1ecdb0
 
+// Ensuring interfaces in compile-time for SecureValueHash.
+var (
+	_ bin.Encoder     = &SecureValueHash{}
+	_ bin.Decoder     = &SecureValueHash{}
+	_ bin.BareEncoder = &SecureValueHash{}
+	_ bin.BareDecoder = &SecureValueHash{}
+)
+
 func (s *SecureValueHash) Zero() bool {
 	if s == nil {
 		return true
@@ -134,16 +142,6 @@ func (s *SecureValueHash) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueHash) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetHash returns value of Hash field.
-func (s *SecureValueHash) GetHash() (value []byte) {
-	return s.Hash
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueHash) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -177,10 +175,12 @@ func (s *SecureValueHash) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SecureValueHash.
-var (
-	_ bin.Encoder     = &SecureValueHash{}
-	_ bin.Decoder     = &SecureValueHash{}
-	_ bin.BareEncoder = &SecureValueHash{}
-	_ bin.BareDecoder = &SecureValueHash{}
-)
+// GetType returns value of Type field.
+func (s *SecureValueHash) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
+
+// GetHash returns value of Hash field.
+func (s *SecureValueHash) GetHash() (value []byte) {
+	return s.Hash
+}

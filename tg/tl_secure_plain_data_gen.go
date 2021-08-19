@@ -45,6 +45,19 @@ type SecurePlainPhone struct {
 // SecurePlainPhoneTypeID is TL type id of SecurePlainPhone.
 const SecurePlainPhoneTypeID = 0x7d6099dd
 
+// construct implements constructor of SecurePlainDataClass.
+func (s SecurePlainPhone) construct() SecurePlainDataClass { return &s }
+
+// Ensuring interfaces in compile-time for SecurePlainPhone.
+var (
+	_ bin.Encoder     = &SecurePlainPhone{}
+	_ bin.Decoder     = &SecurePlainPhone{}
+	_ bin.BareEncoder = &SecurePlainPhone{}
+	_ bin.BareDecoder = &SecurePlainPhone{}
+
+	_ SecurePlainDataClass = &SecurePlainPhone{}
+)
+
 func (s *SecurePlainPhone) Zero() bool {
 	if s == nil {
 		return true
@@ -121,11 +134,6 @@ func (s *SecurePlainPhone) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhone returns value of Phone field.
-func (s *SecurePlainPhone) GetPhone() (value string) {
-	return s.Phone
-}
-
 // Decode implements bin.Decoder.
 func (s *SecurePlainPhone) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -152,18 +160,10 @@ func (s *SecurePlainPhone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecurePlainDataClass.
-func (s SecurePlainPhone) construct() SecurePlainDataClass { return &s }
-
-// Ensuring interfaces in compile-time for SecurePlainPhone.
-var (
-	_ bin.Encoder     = &SecurePlainPhone{}
-	_ bin.Decoder     = &SecurePlainPhone{}
-	_ bin.BareEncoder = &SecurePlainPhone{}
-	_ bin.BareDecoder = &SecurePlainPhone{}
-
-	_ SecurePlainDataClass = &SecurePlainPhone{}
-)
+// GetPhone returns value of Phone field.
+func (s *SecurePlainPhone) GetPhone() (value string) {
+	return s.Phone
+}
 
 // SecurePlainEmail represents TL type `securePlainEmail#21ec5a5f`.
 // Email address to use in telegram passport¹: it must be verified, first »².
@@ -180,6 +180,19 @@ type SecurePlainEmail struct {
 
 // SecurePlainEmailTypeID is TL type id of SecurePlainEmail.
 const SecurePlainEmailTypeID = 0x21ec5a5f
+
+// construct implements constructor of SecurePlainDataClass.
+func (s SecurePlainEmail) construct() SecurePlainDataClass { return &s }
+
+// Ensuring interfaces in compile-time for SecurePlainEmail.
+var (
+	_ bin.Encoder     = &SecurePlainEmail{}
+	_ bin.Decoder     = &SecurePlainEmail{}
+	_ bin.BareEncoder = &SecurePlainEmail{}
+	_ bin.BareDecoder = &SecurePlainEmail{}
+
+	_ SecurePlainDataClass = &SecurePlainEmail{}
+)
 
 func (s *SecurePlainEmail) Zero() bool {
 	if s == nil {
@@ -257,11 +270,6 @@ func (s *SecurePlainEmail) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEmail returns value of Email field.
-func (s *SecurePlainEmail) GetEmail() (value string) {
-	return s.Email
-}
-
 // Decode implements bin.Decoder.
 func (s *SecurePlainEmail) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -288,18 +296,10 @@ func (s *SecurePlainEmail) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecurePlainDataClass.
-func (s SecurePlainEmail) construct() SecurePlainDataClass { return &s }
-
-// Ensuring interfaces in compile-time for SecurePlainEmail.
-var (
-	_ bin.Encoder     = &SecurePlainEmail{}
-	_ bin.Decoder     = &SecurePlainEmail{}
-	_ bin.BareEncoder = &SecurePlainEmail{}
-	_ bin.BareDecoder = &SecurePlainEmail{}
-
-	_ SecurePlainDataClass = &SecurePlainEmail{}
-)
+// GetEmail returns value of Email field.
+func (s *SecurePlainEmail) GetEmail() (value string) {
+	return s.Email
+}
 
 // SecurePlainDataClass represents SecurePlainData generic type.
 //

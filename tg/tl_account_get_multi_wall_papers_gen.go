@@ -41,6 +41,14 @@ type AccountGetMultiWallPapersRequest struct {
 // AccountGetMultiWallPapersRequestTypeID is TL type id of AccountGetMultiWallPapersRequest.
 const AccountGetMultiWallPapersRequestTypeID = 0x65ad71dc
 
+// Ensuring interfaces in compile-time for AccountGetMultiWallPapersRequest.
+var (
+	_ bin.Encoder     = &AccountGetMultiWallPapersRequest{}
+	_ bin.Decoder     = &AccountGetMultiWallPapersRequest{}
+	_ bin.BareEncoder = &AccountGetMultiWallPapersRequest{}
+	_ bin.BareDecoder = &AccountGetMultiWallPapersRequest{}
+)
+
 func (g *AccountGetMultiWallPapersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -125,16 +133,6 @@ func (g *AccountGetMultiWallPapersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetWallpapers returns value of Wallpapers field.
-func (g *AccountGetMultiWallPapersRequest) GetWallpapers() (value []InputWallPaperClass) {
-	return g.Wallpapers
-}
-
-// MapWallpapers returns field Wallpapers wrapped in InputWallPaperClassArray helper.
-func (g *AccountGetMultiWallPapersRequest) MapWallpapers() (value InputWallPaperClassArray) {
-	return InputWallPaperClassArray(g.Wallpapers)
-}
-
 // Decode implements bin.Decoder.
 func (g *AccountGetMultiWallPapersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -171,13 +169,15 @@ func (g *AccountGetMultiWallPapersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountGetMultiWallPapersRequest.
-var (
-	_ bin.Encoder     = &AccountGetMultiWallPapersRequest{}
-	_ bin.Decoder     = &AccountGetMultiWallPapersRequest{}
-	_ bin.BareEncoder = &AccountGetMultiWallPapersRequest{}
-	_ bin.BareDecoder = &AccountGetMultiWallPapersRequest{}
-)
+// GetWallpapers returns value of Wallpapers field.
+func (g *AccountGetMultiWallPapersRequest) GetWallpapers() (value []InputWallPaperClass) {
+	return g.Wallpapers
+}
+
+// MapWallpapers returns field Wallpapers wrapped in InputWallPaperClassArray helper.
+func (g *AccountGetMultiWallPapersRequest) MapWallpapers() (value InputWallPaperClassArray) {
+	return InputWallPaperClassArray(g.Wallpapers)
+}
 
 // AccountGetMultiWallPapers invokes method account.getMultiWallPapers#65ad71dc returning error if any.
 // Get info about multiple wallpapers

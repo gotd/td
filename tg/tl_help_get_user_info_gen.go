@@ -41,6 +41,14 @@ type HelpGetUserInfoRequest struct {
 // HelpGetUserInfoRequestTypeID is TL type id of HelpGetUserInfoRequest.
 const HelpGetUserInfoRequestTypeID = 0x38a08d3
 
+// Ensuring interfaces in compile-time for HelpGetUserInfoRequest.
+var (
+	_ bin.Encoder     = &HelpGetUserInfoRequest{}
+	_ bin.Decoder     = &HelpGetUserInfoRequest{}
+	_ bin.BareEncoder = &HelpGetUserInfoRequest{}
+	_ bin.BareDecoder = &HelpGetUserInfoRequest{}
+)
+
 func (g *HelpGetUserInfoRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -122,11 +130,6 @@ func (g *HelpGetUserInfoRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (g *HelpGetUserInfoRequest) GetUserID() (value InputUserClass) {
-	return g.UserID
-}
-
 // Decode implements bin.Decoder.
 func (g *HelpGetUserInfoRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -153,13 +156,10 @@ func (g *HelpGetUserInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpGetUserInfoRequest.
-var (
-	_ bin.Encoder     = &HelpGetUserInfoRequest{}
-	_ bin.Decoder     = &HelpGetUserInfoRequest{}
-	_ bin.BareEncoder = &HelpGetUserInfoRequest{}
-	_ bin.BareDecoder = &HelpGetUserInfoRequest{}
-)
+// GetUserID returns value of UserID field.
+func (g *HelpGetUserInfoRequest) GetUserID() (value InputUserClass) {
+	return g.UserID
+}
 
 // HelpGetUserInfo invokes method help.getUserInfo#38a08d3 returning error if any.
 // Internal use

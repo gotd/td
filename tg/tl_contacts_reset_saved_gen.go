@@ -39,6 +39,14 @@ type ContactsResetSavedRequest struct {
 // ContactsResetSavedRequestTypeID is TL type id of ContactsResetSavedRequest.
 const ContactsResetSavedRequestTypeID = 0x879537f1
 
+// Ensuring interfaces in compile-time for ContactsResetSavedRequest.
+var (
+	_ bin.Encoder     = &ContactsResetSavedRequest{}
+	_ bin.Decoder     = &ContactsResetSavedRequest{}
+	_ bin.BareEncoder = &ContactsResetSavedRequest{}
+	_ bin.BareDecoder = &ContactsResetSavedRequest{}
+)
+
 func (r *ContactsResetSavedRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -117,14 +125,6 @@ func (r *ContactsResetSavedRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for ContactsResetSavedRequest.
-var (
-	_ bin.Encoder     = &ContactsResetSavedRequest{}
-	_ bin.Decoder     = &ContactsResetSavedRequest{}
-	_ bin.BareEncoder = &ContactsResetSavedRequest{}
-	_ bin.BareDecoder = &ContactsResetSavedRequest{}
-)
 
 // ContactsResetSaved invokes method contacts.resetSaved#879537f1 returning error if any.
 // Delete saved contacts

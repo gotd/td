@@ -45,6 +45,14 @@ type AccountPrivacyRules struct {
 // AccountPrivacyRulesTypeID is TL type id of AccountPrivacyRules.
 const AccountPrivacyRulesTypeID = 0x50a04e45
 
+// Ensuring interfaces in compile-time for AccountPrivacyRules.
+var (
+	_ bin.Encoder     = &AccountPrivacyRules{}
+	_ bin.Decoder     = &AccountPrivacyRules{}
+	_ bin.BareEncoder = &AccountPrivacyRules{}
+	_ bin.BareDecoder = &AccountPrivacyRules{}
+)
+
 func (p *AccountPrivacyRules) Zero() bool {
 	if p == nil {
 		return true
@@ -165,36 +173,6 @@ func (p *AccountPrivacyRules) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRules returns value of Rules field.
-func (p *AccountPrivacyRules) GetRules() (value []PrivacyRuleClass) {
-	return p.Rules
-}
-
-// MapRules returns field Rules wrapped in PrivacyRuleClassArray helper.
-func (p *AccountPrivacyRules) MapRules() (value PrivacyRuleClassArray) {
-	return PrivacyRuleClassArray(p.Rules)
-}
-
-// GetChats returns value of Chats field.
-func (p *AccountPrivacyRules) GetChats() (value []ChatClass) {
-	return p.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (p *AccountPrivacyRules) MapChats() (value ChatClassArray) {
-	return ChatClassArray(p.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (p *AccountPrivacyRules) GetUsers() (value []UserClass) {
-	return p.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (p *AccountPrivacyRules) MapUsers() (value UserClassArray) {
-	return UserClassArray(p.Users)
-}
-
 // Decode implements bin.Decoder.
 func (p *AccountPrivacyRules) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -265,10 +243,32 @@ func (p *AccountPrivacyRules) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountPrivacyRules.
-var (
-	_ bin.Encoder     = &AccountPrivacyRules{}
-	_ bin.Decoder     = &AccountPrivacyRules{}
-	_ bin.BareEncoder = &AccountPrivacyRules{}
-	_ bin.BareDecoder = &AccountPrivacyRules{}
-)
+// GetRules returns value of Rules field.
+func (p *AccountPrivacyRules) GetRules() (value []PrivacyRuleClass) {
+	return p.Rules
+}
+
+// GetChats returns value of Chats field.
+func (p *AccountPrivacyRules) GetChats() (value []ChatClass) {
+	return p.Chats
+}
+
+// GetUsers returns value of Users field.
+func (p *AccountPrivacyRules) GetUsers() (value []UserClass) {
+	return p.Users
+}
+
+// MapRules returns field Rules wrapped in PrivacyRuleClassArray helper.
+func (p *AccountPrivacyRules) MapRules() (value PrivacyRuleClassArray) {
+	return PrivacyRuleClassArray(p.Rules)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (p *AccountPrivacyRules) MapChats() (value ChatClassArray) {
+	return ChatClassArray(p.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *AccountPrivacyRules) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
+}

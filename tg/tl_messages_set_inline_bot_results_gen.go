@@ -67,6 +67,14 @@ type MessagesSetInlineBotResultsRequest struct {
 // MessagesSetInlineBotResultsRequestTypeID is TL type id of MessagesSetInlineBotResultsRequest.
 const MessagesSetInlineBotResultsRequestTypeID = 0xeb5ea206
 
+// Ensuring interfaces in compile-time for MessagesSetInlineBotResultsRequest.
+var (
+	_ bin.Encoder     = &MessagesSetInlineBotResultsRequest{}
+	_ bin.Decoder     = &MessagesSetInlineBotResultsRequest{}
+	_ bin.BareEncoder = &MessagesSetInlineBotResultsRequest{}
+	_ bin.BareDecoder = &MessagesSetInlineBotResultsRequest{}
+)
+
 func (s *MessagesSetInlineBotResultsRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -243,88 +251,6 @@ func (s *MessagesSetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetGallery sets value of Gallery conditional field.
-func (s *MessagesSetInlineBotResultsRequest) SetGallery(value bool) {
-	if value {
-		s.Flags.Set(0)
-		s.Gallery = true
-	} else {
-		s.Flags.Unset(0)
-		s.Gallery = false
-	}
-}
-
-// GetGallery returns value of Gallery conditional field.
-func (s *MessagesSetInlineBotResultsRequest) GetGallery() (value bool) {
-	return s.Flags.Has(0)
-}
-
-// SetPrivate sets value of Private conditional field.
-func (s *MessagesSetInlineBotResultsRequest) SetPrivate(value bool) {
-	if value {
-		s.Flags.Set(1)
-		s.Private = true
-	} else {
-		s.Flags.Unset(1)
-		s.Private = false
-	}
-}
-
-// GetPrivate returns value of Private conditional field.
-func (s *MessagesSetInlineBotResultsRequest) GetPrivate() (value bool) {
-	return s.Flags.Has(1)
-}
-
-// GetQueryID returns value of QueryID field.
-func (s *MessagesSetInlineBotResultsRequest) GetQueryID() (value int64) {
-	return s.QueryID
-}
-
-// GetResults returns value of Results field.
-func (s *MessagesSetInlineBotResultsRequest) GetResults() (value []InputBotInlineResultClass) {
-	return s.Results
-}
-
-// MapResults returns field Results wrapped in InputBotInlineResultClassArray helper.
-func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineResultClassArray) {
-	return InputBotInlineResultClassArray(s.Results)
-}
-
-// GetCacheTime returns value of CacheTime field.
-func (s *MessagesSetInlineBotResultsRequest) GetCacheTime() (value int) {
-	return s.CacheTime
-}
-
-// SetNextOffset sets value of NextOffset conditional field.
-func (s *MessagesSetInlineBotResultsRequest) SetNextOffset(value string) {
-	s.Flags.Set(2)
-	s.NextOffset = value
-}
-
-// GetNextOffset returns value of NextOffset conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSetInlineBotResultsRequest) GetNextOffset() (value string, ok bool) {
-	if !s.Flags.Has(2) {
-		return value, false
-	}
-	return s.NextOffset, true
-}
-
-// SetSwitchPm sets value of SwitchPm conditional field.
-func (s *MessagesSetInlineBotResultsRequest) SetSwitchPm(value InlineBotSwitchPM) {
-	s.Flags.Set(3)
-	s.SwitchPm = value
-}
-
-// GetSwitchPm returns value of SwitchPm conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSetInlineBotResultsRequest) GetSwitchPm() (value InlineBotSwitchPM, ok bool) {
-	if !s.Flags.Has(3) {
-		return value, false
-	}
-	return s.SwitchPm, true
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -394,13 +320,87 @@ func (s *MessagesSetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSetInlineBotResultsRequest.
-var (
-	_ bin.Encoder     = &MessagesSetInlineBotResultsRequest{}
-	_ bin.Decoder     = &MessagesSetInlineBotResultsRequest{}
-	_ bin.BareEncoder = &MessagesSetInlineBotResultsRequest{}
-	_ bin.BareDecoder = &MessagesSetInlineBotResultsRequest{}
-)
+// SetGallery sets value of Gallery conditional field.
+func (s *MessagesSetInlineBotResultsRequest) SetGallery(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.Gallery = true
+	} else {
+		s.Flags.Unset(0)
+		s.Gallery = false
+	}
+}
+
+// GetGallery returns value of Gallery conditional field.
+func (s *MessagesSetInlineBotResultsRequest) GetGallery() (value bool) {
+	return s.Flags.Has(0)
+}
+
+// SetPrivate sets value of Private conditional field.
+func (s *MessagesSetInlineBotResultsRequest) SetPrivate(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.Private = true
+	} else {
+		s.Flags.Unset(1)
+		s.Private = false
+	}
+}
+
+// GetPrivate returns value of Private conditional field.
+func (s *MessagesSetInlineBotResultsRequest) GetPrivate() (value bool) {
+	return s.Flags.Has(1)
+}
+
+// GetQueryID returns value of QueryID field.
+func (s *MessagesSetInlineBotResultsRequest) GetQueryID() (value int64) {
+	return s.QueryID
+}
+
+// GetResults returns value of Results field.
+func (s *MessagesSetInlineBotResultsRequest) GetResults() (value []InputBotInlineResultClass) {
+	return s.Results
+}
+
+// GetCacheTime returns value of CacheTime field.
+func (s *MessagesSetInlineBotResultsRequest) GetCacheTime() (value int) {
+	return s.CacheTime
+}
+
+// SetNextOffset sets value of NextOffset conditional field.
+func (s *MessagesSetInlineBotResultsRequest) SetNextOffset(value string) {
+	s.Flags.Set(2)
+	s.NextOffset = value
+}
+
+// GetNextOffset returns value of NextOffset conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSetInlineBotResultsRequest) GetNextOffset() (value string, ok bool) {
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.NextOffset, true
+}
+
+// SetSwitchPm sets value of SwitchPm conditional field.
+func (s *MessagesSetInlineBotResultsRequest) SetSwitchPm(value InlineBotSwitchPM) {
+	s.Flags.Set(3)
+	s.SwitchPm = value
+}
+
+// GetSwitchPm returns value of SwitchPm conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSetInlineBotResultsRequest) GetSwitchPm() (value InlineBotSwitchPM, ok bool) {
+	if !s.Flags.Has(3) {
+		return value, false
+	}
+	return s.SwitchPm, true
+}
+
+// MapResults returns field Results wrapped in InputBotInlineResultClassArray helper.
+func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineResultClassArray) {
+	return InputBotInlineResultClassArray(s.Results)
+}
 
 // MessagesSetInlineBotResults invokes method messages.setInlineBotResults#eb5ea206 returning error if any.
 // Answer an inline query, for bots only

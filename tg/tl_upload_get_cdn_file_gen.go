@@ -48,6 +48,14 @@ type UploadGetCDNFileRequest struct {
 // UploadGetCDNFileRequestTypeID is TL type id of UploadGetCDNFileRequest.
 const UploadGetCDNFileRequestTypeID = 0x2000bcc3
 
+// Ensuring interfaces in compile-time for UploadGetCDNFileRequest.
+var (
+	_ bin.Encoder     = &UploadGetCDNFileRequest{}
+	_ bin.Decoder     = &UploadGetCDNFileRequest{}
+	_ bin.BareEncoder = &UploadGetCDNFileRequest{}
+	_ bin.BareDecoder = &UploadGetCDNFileRequest{}
+)
+
 func (g *UploadGetCDNFileRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -144,21 +152,6 @@ func (g *UploadGetCDNFileRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFileToken returns value of FileToken field.
-func (g *UploadGetCDNFileRequest) GetFileToken() (value []byte) {
-	return g.FileToken
-}
-
-// GetOffset returns value of Offset field.
-func (g *UploadGetCDNFileRequest) GetOffset() (value int) {
-	return g.Offset
-}
-
-// GetLimit returns value of Limit field.
-func (g *UploadGetCDNFileRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *UploadGetCDNFileRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -199,13 +192,20 @@ func (g *UploadGetCDNFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UploadGetCDNFileRequest.
-var (
-	_ bin.Encoder     = &UploadGetCDNFileRequest{}
-	_ bin.Decoder     = &UploadGetCDNFileRequest{}
-	_ bin.BareEncoder = &UploadGetCDNFileRequest{}
-	_ bin.BareDecoder = &UploadGetCDNFileRequest{}
-)
+// GetFileToken returns value of FileToken field.
+func (g *UploadGetCDNFileRequest) GetFileToken() (value []byte) {
+	return g.FileToken
+}
+
+// GetOffset returns value of Offset field.
+func (g *UploadGetCDNFileRequest) GetOffset() (value int) {
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *UploadGetCDNFileRequest) GetLimit() (value int) {
+	return g.Limit
+}
 
 // UploadGetCDNFile invokes method upload.getCdnFile#2000bcc3 returning error if any.
 // Download a CDN¹ file.

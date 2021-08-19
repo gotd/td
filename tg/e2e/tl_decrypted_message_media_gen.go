@@ -38,6 +38,19 @@ type DecryptedMessageMediaEmpty struct {
 // DecryptedMessageMediaEmptyTypeID is TL type id of DecryptedMessageMediaEmpty.
 const DecryptedMessageMediaEmptyTypeID = 0x89f5c4a
 
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaEmpty) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaEmpty.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaEmpty{}
+	_ bin.Decoder     = &DecryptedMessageMediaEmpty{}
+	_ bin.BareEncoder = &DecryptedMessageMediaEmpty{}
+	_ bin.BareDecoder = &DecryptedMessageMediaEmpty{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaEmpty{}
+)
+
 func (d *DecryptedMessageMediaEmpty) Zero() bool {
 	if d == nil {
 		return true
@@ -117,19 +130,6 @@ func (d *DecryptedMessageMediaEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaEmpty) construct() DecryptedMessageMediaClass { return &d }
-
-// Ensuring interfaces in compile-time for DecryptedMessageMediaEmpty.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaEmpty{}
-	_ bin.Decoder     = &DecryptedMessageMediaEmpty{}
-	_ bin.BareEncoder = &DecryptedMessageMediaEmpty{}
-	_ bin.BareDecoder = &DecryptedMessageMediaEmpty{}
-
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaEmpty{}
-)
-
 // DecryptedMessageMediaPhoto23 represents TL type `decryptedMessageMediaPhoto23#32798a8c`.
 //
 // See https://core.telegram.org/constructor/decryptedMessageMediaPhoto23 for reference.
@@ -154,6 +154,19 @@ type DecryptedMessageMediaPhoto23 struct {
 
 // DecryptedMessageMediaPhoto23TypeID is TL type id of DecryptedMessageMediaPhoto23.
 const DecryptedMessageMediaPhoto23TypeID = 0x32798a8c
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaPhoto23) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaPhoto23.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaPhoto23{}
+	_ bin.Decoder     = &DecryptedMessageMediaPhoto23{}
+	_ bin.BareEncoder = &DecryptedMessageMediaPhoto23{}
+	_ bin.BareDecoder = &DecryptedMessageMediaPhoto23{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaPhoto23{}
+)
 
 func (d *DecryptedMessageMediaPhoto23) Zero() bool {
 	if d == nil {
@@ -194,27 +207,6 @@ func (d *DecryptedMessageMediaPhoto23) String() string {
 	}
 	type Alias DecryptedMessageMediaPhoto23
 	return fmt.Sprintf("DecryptedMessageMediaPhoto23%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaPhoto23 from given interface.
-func (d *DecryptedMessageMediaPhoto23) FillFrom(from interface {
-	GetThumb() (value []byte)
-	GetThumbW() (value int)
-	GetThumbH() (value int)
-	GetW() (value int)
-	GetH() (value int)
-	GetSize() (value int)
-	GetKey() (value []byte)
-	GetIv() (value []byte)
-}) {
-	d.Thumb = from.GetThumb()
-	d.ThumbW = from.GetThumbW()
-	d.ThumbH = from.GetThumbH()
-	d.W = from.GetW()
-	d.H = from.GetH()
-	d.Size = from.GetSize()
-	d.Key = from.GetKey()
-	d.Iv = from.GetIv()
 }
 
 // TypeID returns type id in TL schema.
@@ -301,46 +293,6 @@ func (d *DecryptedMessageMediaPhoto23) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetThumb returns value of Thumb field.
-func (d *DecryptedMessageMediaPhoto23) GetThumb() (value []byte) {
-	return d.Thumb
-}
-
-// GetThumbW returns value of ThumbW field.
-func (d *DecryptedMessageMediaPhoto23) GetThumbW() (value int) {
-	return d.ThumbW
-}
-
-// GetThumbH returns value of ThumbH field.
-func (d *DecryptedMessageMediaPhoto23) GetThumbH() (value int) {
-	return d.ThumbH
-}
-
-// GetW returns value of W field.
-func (d *DecryptedMessageMediaPhoto23) GetW() (value int) {
-	return d.W
-}
-
-// GetH returns value of H field.
-func (d *DecryptedMessageMediaPhoto23) GetH() (value int) {
-	return d.H
-}
-
-// GetSize returns value of Size field.
-func (d *DecryptedMessageMediaPhoto23) GetSize() (value int) {
-	return d.Size
-}
-
-// GetKey returns value of Key field.
-func (d *DecryptedMessageMediaPhoto23) GetKey() (value []byte) {
-	return d.Key
-}
-
-// GetIv returns value of Iv field.
-func (d *DecryptedMessageMediaPhoto23) GetIv() (value []byte) {
-	return d.Iv
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaPhoto23) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -416,18 +368,45 @@ func (d *DecryptedMessageMediaPhoto23) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaPhoto23) construct() DecryptedMessageMediaClass { return &d }
+// GetThumb returns value of Thumb field.
+func (d *DecryptedMessageMediaPhoto23) GetThumb() (value []byte) {
+	return d.Thumb
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaPhoto23.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaPhoto23{}
-	_ bin.Decoder     = &DecryptedMessageMediaPhoto23{}
-	_ bin.BareEncoder = &DecryptedMessageMediaPhoto23{}
-	_ bin.BareDecoder = &DecryptedMessageMediaPhoto23{}
+// GetThumbW returns value of ThumbW field.
+func (d *DecryptedMessageMediaPhoto23) GetThumbW() (value int) {
+	return d.ThumbW
+}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaPhoto23{}
-)
+// GetThumbH returns value of ThumbH field.
+func (d *DecryptedMessageMediaPhoto23) GetThumbH() (value int) {
+	return d.ThumbH
+}
+
+// GetW returns value of W field.
+func (d *DecryptedMessageMediaPhoto23) GetW() (value int) {
+	return d.W
+}
+
+// GetH returns value of H field.
+func (d *DecryptedMessageMediaPhoto23) GetH() (value int) {
+	return d.H
+}
+
+// GetSize returns value of Size field.
+func (d *DecryptedMessageMediaPhoto23) GetSize() (value int) {
+	return d.Size
+}
+
+// GetKey returns value of Key field.
+func (d *DecryptedMessageMediaPhoto23) GetKey() (value []byte) {
+	return d.Key
+}
+
+// GetIv returns value of Iv field.
+func (d *DecryptedMessageMediaPhoto23) GetIv() (value []byte) {
+	return d.Iv
+}
 
 // DecryptedMessageMediaVideo8 represents TL type `decryptedMessageMediaVideo8#4cee6ef3`.
 //
@@ -455,6 +434,19 @@ type DecryptedMessageMediaVideo8 struct {
 
 // DecryptedMessageMediaVideo8TypeID is TL type id of DecryptedMessageMediaVideo8.
 const DecryptedMessageMediaVideo8TypeID = 0x4cee6ef3
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaVideo8) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaVideo8.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaVideo8{}
+	_ bin.Decoder     = &DecryptedMessageMediaVideo8{}
+	_ bin.BareEncoder = &DecryptedMessageMediaVideo8{}
+	_ bin.BareDecoder = &DecryptedMessageMediaVideo8{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaVideo8{}
+)
 
 func (d *DecryptedMessageMediaVideo8) Zero() bool {
 	if d == nil {
@@ -498,29 +490,6 @@ func (d *DecryptedMessageMediaVideo8) String() string {
 	}
 	type Alias DecryptedMessageMediaVideo8
 	return fmt.Sprintf("DecryptedMessageMediaVideo8%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaVideo8 from given interface.
-func (d *DecryptedMessageMediaVideo8) FillFrom(from interface {
-	GetThumb() (value []byte)
-	GetThumbW() (value int)
-	GetThumbH() (value int)
-	GetDuration() (value int)
-	GetW() (value int)
-	GetH() (value int)
-	GetSize() (value int)
-	GetKey() (value []byte)
-	GetIv() (value []byte)
-}) {
-	d.Thumb = from.GetThumb()
-	d.ThumbW = from.GetThumbW()
-	d.ThumbH = from.GetThumbH()
-	d.Duration = from.GetDuration()
-	d.W = from.GetW()
-	d.H = from.GetH()
-	d.Size = from.GetSize()
-	d.Key = from.GetKey()
-	d.Iv = from.GetIv()
 }
 
 // TypeID returns type id in TL schema.
@@ -612,51 +581,6 @@ func (d *DecryptedMessageMediaVideo8) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetThumb returns value of Thumb field.
-func (d *DecryptedMessageMediaVideo8) GetThumb() (value []byte) {
-	return d.Thumb
-}
-
-// GetThumbW returns value of ThumbW field.
-func (d *DecryptedMessageMediaVideo8) GetThumbW() (value int) {
-	return d.ThumbW
-}
-
-// GetThumbH returns value of ThumbH field.
-func (d *DecryptedMessageMediaVideo8) GetThumbH() (value int) {
-	return d.ThumbH
-}
-
-// GetDuration returns value of Duration field.
-func (d *DecryptedMessageMediaVideo8) GetDuration() (value int) {
-	return d.Duration
-}
-
-// GetW returns value of W field.
-func (d *DecryptedMessageMediaVideo8) GetW() (value int) {
-	return d.W
-}
-
-// GetH returns value of H field.
-func (d *DecryptedMessageMediaVideo8) GetH() (value int) {
-	return d.H
-}
-
-// GetSize returns value of Size field.
-func (d *DecryptedMessageMediaVideo8) GetSize() (value int) {
-	return d.Size
-}
-
-// GetKey returns value of Key field.
-func (d *DecryptedMessageMediaVideo8) GetKey() (value []byte) {
-	return d.Key
-}
-
-// GetIv returns value of Iv field.
-func (d *DecryptedMessageMediaVideo8) GetIv() (value []byte) {
-	return d.Iv
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaVideo8) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -739,18 +663,50 @@ func (d *DecryptedMessageMediaVideo8) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaVideo8) construct() DecryptedMessageMediaClass { return &d }
+// GetThumb returns value of Thumb field.
+func (d *DecryptedMessageMediaVideo8) GetThumb() (value []byte) {
+	return d.Thumb
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaVideo8.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaVideo8{}
-	_ bin.Decoder     = &DecryptedMessageMediaVideo8{}
-	_ bin.BareEncoder = &DecryptedMessageMediaVideo8{}
-	_ bin.BareDecoder = &DecryptedMessageMediaVideo8{}
+// GetThumbW returns value of ThumbW field.
+func (d *DecryptedMessageMediaVideo8) GetThumbW() (value int) {
+	return d.ThumbW
+}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaVideo8{}
-)
+// GetThumbH returns value of ThumbH field.
+func (d *DecryptedMessageMediaVideo8) GetThumbH() (value int) {
+	return d.ThumbH
+}
+
+// GetDuration returns value of Duration field.
+func (d *DecryptedMessageMediaVideo8) GetDuration() (value int) {
+	return d.Duration
+}
+
+// GetW returns value of W field.
+func (d *DecryptedMessageMediaVideo8) GetW() (value int) {
+	return d.W
+}
+
+// GetH returns value of H field.
+func (d *DecryptedMessageMediaVideo8) GetH() (value int) {
+	return d.H
+}
+
+// GetSize returns value of Size field.
+func (d *DecryptedMessageMediaVideo8) GetSize() (value int) {
+	return d.Size
+}
+
+// GetKey returns value of Key field.
+func (d *DecryptedMessageMediaVideo8) GetKey() (value []byte) {
+	return d.Key
+}
+
+// GetIv returns value of Iv field.
+func (d *DecryptedMessageMediaVideo8) GetIv() (value []byte) {
+	return d.Iv
+}
 
 // DecryptedMessageMediaGeoPoint represents TL type `decryptedMessageMediaGeoPoint#35480a59`.
 //
@@ -764,6 +720,19 @@ type DecryptedMessageMediaGeoPoint struct {
 
 // DecryptedMessageMediaGeoPointTypeID is TL type id of DecryptedMessageMediaGeoPoint.
 const DecryptedMessageMediaGeoPointTypeID = 0x35480a59
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaGeoPoint) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaGeoPoint.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaGeoPoint{}
+	_ bin.Decoder     = &DecryptedMessageMediaGeoPoint{}
+	_ bin.BareEncoder = &DecryptedMessageMediaGeoPoint{}
+	_ bin.BareDecoder = &DecryptedMessageMediaGeoPoint{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaGeoPoint{}
+)
 
 func (d *DecryptedMessageMediaGeoPoint) Zero() bool {
 	if d == nil {
@@ -786,15 +755,6 @@ func (d *DecryptedMessageMediaGeoPoint) String() string {
 	}
 	type Alias DecryptedMessageMediaGeoPoint
 	return fmt.Sprintf("DecryptedMessageMediaGeoPoint%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaGeoPoint from given interface.
-func (d *DecryptedMessageMediaGeoPoint) FillFrom(from interface {
-	GetLat() (value float64)
-	GetLong() (value float64)
-}) {
-	d.Lat = from.GetLat()
-	d.Long = from.GetLong()
 }
 
 // TypeID returns type id in TL schema.
@@ -851,16 +811,6 @@ func (d *DecryptedMessageMediaGeoPoint) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLat returns value of Lat field.
-func (d *DecryptedMessageMediaGeoPoint) GetLat() (value float64) {
-	return d.Lat
-}
-
-// GetLong returns value of Long field.
-func (d *DecryptedMessageMediaGeoPoint) GetLong() (value float64) {
-	return d.Long
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaGeoPoint) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -894,18 +844,15 @@ func (d *DecryptedMessageMediaGeoPoint) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaGeoPoint) construct() DecryptedMessageMediaClass { return &d }
+// GetLat returns value of Lat field.
+func (d *DecryptedMessageMediaGeoPoint) GetLat() (value float64) {
+	return d.Lat
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaGeoPoint.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaGeoPoint{}
-	_ bin.Decoder     = &DecryptedMessageMediaGeoPoint{}
-	_ bin.BareEncoder = &DecryptedMessageMediaGeoPoint{}
-	_ bin.BareDecoder = &DecryptedMessageMediaGeoPoint{}
-
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaGeoPoint{}
-)
+// GetLong returns value of Long field.
+func (d *DecryptedMessageMediaGeoPoint) GetLong() (value float64) {
+	return d.Long
+}
 
 // DecryptedMessageMediaContact represents TL type `decryptedMessageMediaContact#588a0a97`.
 //
@@ -923,6 +870,19 @@ type DecryptedMessageMediaContact struct {
 
 // DecryptedMessageMediaContactTypeID is TL type id of DecryptedMessageMediaContact.
 const DecryptedMessageMediaContactTypeID = 0x588a0a97
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaContact) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaContact.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaContact{}
+	_ bin.Decoder     = &DecryptedMessageMediaContact{}
+	_ bin.BareEncoder = &DecryptedMessageMediaContact{}
+	_ bin.BareDecoder = &DecryptedMessageMediaContact{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaContact{}
+)
 
 func (d *DecryptedMessageMediaContact) Zero() bool {
 	if d == nil {
@@ -951,19 +911,6 @@ func (d *DecryptedMessageMediaContact) String() string {
 	}
 	type Alias DecryptedMessageMediaContact
 	return fmt.Sprintf("DecryptedMessageMediaContact%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaContact from given interface.
-func (d *DecryptedMessageMediaContact) FillFrom(from interface {
-	GetPhoneNumber() (value string)
-	GetFirstName() (value string)
-	GetLastName() (value string)
-	GetUserID() (value int)
-}) {
-	d.PhoneNumber = from.GetPhoneNumber()
-	d.FirstName = from.GetFirstName()
-	d.LastName = from.GetLastName()
-	d.UserID = from.GetUserID()
 }
 
 // TypeID returns type id in TL schema.
@@ -1030,26 +977,6 @@ func (d *DecryptedMessageMediaContact) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (d *DecryptedMessageMediaContact) GetPhoneNumber() (value string) {
-	return d.PhoneNumber
-}
-
-// GetFirstName returns value of FirstName field.
-func (d *DecryptedMessageMediaContact) GetFirstName() (value string) {
-	return d.FirstName
-}
-
-// GetLastName returns value of LastName field.
-func (d *DecryptedMessageMediaContact) GetLastName() (value string) {
-	return d.LastName
-}
-
-// GetUserID returns value of UserID field.
-func (d *DecryptedMessageMediaContact) GetUserID() (value int) {
-	return d.UserID
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaContact) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1097,18 +1024,25 @@ func (d *DecryptedMessageMediaContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaContact) construct() DecryptedMessageMediaClass { return &d }
+// GetPhoneNumber returns value of PhoneNumber field.
+func (d *DecryptedMessageMediaContact) GetPhoneNumber() (value string) {
+	return d.PhoneNumber
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaContact.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaContact{}
-	_ bin.Decoder     = &DecryptedMessageMediaContact{}
-	_ bin.BareEncoder = &DecryptedMessageMediaContact{}
-	_ bin.BareDecoder = &DecryptedMessageMediaContact{}
+// GetFirstName returns value of FirstName field.
+func (d *DecryptedMessageMediaContact) GetFirstName() (value string) {
+	return d.FirstName
+}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaContact{}
-)
+// GetLastName returns value of LastName field.
+func (d *DecryptedMessageMediaContact) GetLastName() (value string) {
+	return d.LastName
+}
+
+// GetUserID returns value of UserID field.
+func (d *DecryptedMessageMediaContact) GetUserID() (value int) {
+	return d.UserID
+}
 
 // DecryptedMessageMediaDocument23 represents TL type `decryptedMessageMediaDocument23#b095434b`.
 //
@@ -1134,6 +1068,19 @@ type DecryptedMessageMediaDocument23 struct {
 
 // DecryptedMessageMediaDocument23TypeID is TL type id of DecryptedMessageMediaDocument23.
 const DecryptedMessageMediaDocument23TypeID = 0xb095434b
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaDocument23) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaDocument23.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaDocument23{}
+	_ bin.Decoder     = &DecryptedMessageMediaDocument23{}
+	_ bin.BareEncoder = &DecryptedMessageMediaDocument23{}
+	_ bin.BareDecoder = &DecryptedMessageMediaDocument23{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaDocument23{}
+)
 
 func (d *DecryptedMessageMediaDocument23) Zero() bool {
 	if d == nil {
@@ -1174,27 +1121,6 @@ func (d *DecryptedMessageMediaDocument23) String() string {
 	}
 	type Alias DecryptedMessageMediaDocument23
 	return fmt.Sprintf("DecryptedMessageMediaDocument23%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaDocument23 from given interface.
-func (d *DecryptedMessageMediaDocument23) FillFrom(from interface {
-	GetThumb() (value []byte)
-	GetThumbW() (value int)
-	GetThumbH() (value int)
-	GetFileName() (value string)
-	GetMimeType() (value string)
-	GetSize() (value int)
-	GetKey() (value []byte)
-	GetIv() (value []byte)
-}) {
-	d.Thumb = from.GetThumb()
-	d.ThumbW = from.GetThumbW()
-	d.ThumbH = from.GetThumbH()
-	d.FileName = from.GetFileName()
-	d.MimeType = from.GetMimeType()
-	d.Size = from.GetSize()
-	d.Key = from.GetKey()
-	d.Iv = from.GetIv()
 }
 
 // TypeID returns type id in TL schema.
@@ -1281,46 +1207,6 @@ func (d *DecryptedMessageMediaDocument23) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetThumb returns value of Thumb field.
-func (d *DecryptedMessageMediaDocument23) GetThumb() (value []byte) {
-	return d.Thumb
-}
-
-// GetThumbW returns value of ThumbW field.
-func (d *DecryptedMessageMediaDocument23) GetThumbW() (value int) {
-	return d.ThumbW
-}
-
-// GetThumbH returns value of ThumbH field.
-func (d *DecryptedMessageMediaDocument23) GetThumbH() (value int) {
-	return d.ThumbH
-}
-
-// GetFileName returns value of FileName field.
-func (d *DecryptedMessageMediaDocument23) GetFileName() (value string) {
-	return d.FileName
-}
-
-// GetMimeType returns value of MimeType field.
-func (d *DecryptedMessageMediaDocument23) GetMimeType() (value string) {
-	return d.MimeType
-}
-
-// GetSize returns value of Size field.
-func (d *DecryptedMessageMediaDocument23) GetSize() (value int) {
-	return d.Size
-}
-
-// GetKey returns value of Key field.
-func (d *DecryptedMessageMediaDocument23) GetKey() (value []byte) {
-	return d.Key
-}
-
-// GetIv returns value of Iv field.
-func (d *DecryptedMessageMediaDocument23) GetIv() (value []byte) {
-	return d.Iv
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaDocument23) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1396,18 +1282,45 @@ func (d *DecryptedMessageMediaDocument23) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaDocument23) construct() DecryptedMessageMediaClass { return &d }
+// GetThumb returns value of Thumb field.
+func (d *DecryptedMessageMediaDocument23) GetThumb() (value []byte) {
+	return d.Thumb
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaDocument23.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaDocument23{}
-	_ bin.Decoder     = &DecryptedMessageMediaDocument23{}
-	_ bin.BareEncoder = &DecryptedMessageMediaDocument23{}
-	_ bin.BareDecoder = &DecryptedMessageMediaDocument23{}
+// GetThumbW returns value of ThumbW field.
+func (d *DecryptedMessageMediaDocument23) GetThumbW() (value int) {
+	return d.ThumbW
+}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaDocument23{}
-)
+// GetThumbH returns value of ThumbH field.
+func (d *DecryptedMessageMediaDocument23) GetThumbH() (value int) {
+	return d.ThumbH
+}
+
+// GetFileName returns value of FileName field.
+func (d *DecryptedMessageMediaDocument23) GetFileName() (value string) {
+	return d.FileName
+}
+
+// GetMimeType returns value of MimeType field.
+func (d *DecryptedMessageMediaDocument23) GetMimeType() (value string) {
+	return d.MimeType
+}
+
+// GetSize returns value of Size field.
+func (d *DecryptedMessageMediaDocument23) GetSize() (value int) {
+	return d.Size
+}
+
+// GetKey returns value of Key field.
+func (d *DecryptedMessageMediaDocument23) GetKey() (value []byte) {
+	return d.Key
+}
+
+// GetIv returns value of Iv field.
+func (d *DecryptedMessageMediaDocument23) GetIv() (value []byte) {
+	return d.Iv
+}
 
 // DecryptedMessageMediaAudio8 represents TL type `decryptedMessageMediaAudio8#6080758f`.
 //
@@ -1425,6 +1338,19 @@ type DecryptedMessageMediaAudio8 struct {
 
 // DecryptedMessageMediaAudio8TypeID is TL type id of DecryptedMessageMediaAudio8.
 const DecryptedMessageMediaAudio8TypeID = 0x6080758f
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaAudio8) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaAudio8.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaAudio8{}
+	_ bin.Decoder     = &DecryptedMessageMediaAudio8{}
+	_ bin.BareEncoder = &DecryptedMessageMediaAudio8{}
+	_ bin.BareDecoder = &DecryptedMessageMediaAudio8{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaAudio8{}
+)
 
 func (d *DecryptedMessageMediaAudio8) Zero() bool {
 	if d == nil {
@@ -1453,19 +1379,6 @@ func (d *DecryptedMessageMediaAudio8) String() string {
 	}
 	type Alias DecryptedMessageMediaAudio8
 	return fmt.Sprintf("DecryptedMessageMediaAudio8%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaAudio8 from given interface.
-func (d *DecryptedMessageMediaAudio8) FillFrom(from interface {
-	GetDuration() (value int)
-	GetSize() (value int)
-	GetKey() (value []byte)
-	GetIv() (value []byte)
-}) {
-	d.Duration = from.GetDuration()
-	d.Size = from.GetSize()
-	d.Key = from.GetKey()
-	d.Iv = from.GetIv()
 }
 
 // TypeID returns type id in TL schema.
@@ -1532,26 +1445,6 @@ func (d *DecryptedMessageMediaAudio8) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDuration returns value of Duration field.
-func (d *DecryptedMessageMediaAudio8) GetDuration() (value int) {
-	return d.Duration
-}
-
-// GetSize returns value of Size field.
-func (d *DecryptedMessageMediaAudio8) GetSize() (value int) {
-	return d.Size
-}
-
-// GetKey returns value of Key field.
-func (d *DecryptedMessageMediaAudio8) GetKey() (value []byte) {
-	return d.Key
-}
-
-// GetIv returns value of Iv field.
-func (d *DecryptedMessageMediaAudio8) GetIv() (value []byte) {
-	return d.Iv
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaAudio8) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1599,18 +1492,25 @@ func (d *DecryptedMessageMediaAudio8) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaAudio8) construct() DecryptedMessageMediaClass { return &d }
+// GetDuration returns value of Duration field.
+func (d *DecryptedMessageMediaAudio8) GetDuration() (value int) {
+	return d.Duration
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaAudio8.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaAudio8{}
-	_ bin.Decoder     = &DecryptedMessageMediaAudio8{}
-	_ bin.BareEncoder = &DecryptedMessageMediaAudio8{}
-	_ bin.BareDecoder = &DecryptedMessageMediaAudio8{}
+// GetSize returns value of Size field.
+func (d *DecryptedMessageMediaAudio8) GetSize() (value int) {
+	return d.Size
+}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaAudio8{}
-)
+// GetKey returns value of Key field.
+func (d *DecryptedMessageMediaAudio8) GetKey() (value []byte) {
+	return d.Key
+}
+
+// GetIv returns value of Iv field.
+func (d *DecryptedMessageMediaAudio8) GetIv() (value []byte) {
+	return d.Iv
+}
 
 // DecryptedMessageMediaVideo23 represents TL type `decryptedMessageMediaVideo23#524a415d`.
 //
@@ -1640,6 +1540,19 @@ type DecryptedMessageMediaVideo23 struct {
 
 // DecryptedMessageMediaVideo23TypeID is TL type id of DecryptedMessageMediaVideo23.
 const DecryptedMessageMediaVideo23TypeID = 0x524a415d
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaVideo23) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaVideo23.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaVideo23{}
+	_ bin.Decoder     = &DecryptedMessageMediaVideo23{}
+	_ bin.BareEncoder = &DecryptedMessageMediaVideo23{}
+	_ bin.BareDecoder = &DecryptedMessageMediaVideo23{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaVideo23{}
+)
 
 func (d *DecryptedMessageMediaVideo23) Zero() bool {
 	if d == nil {
@@ -1686,31 +1599,6 @@ func (d *DecryptedMessageMediaVideo23) String() string {
 	}
 	type Alias DecryptedMessageMediaVideo23
 	return fmt.Sprintf("DecryptedMessageMediaVideo23%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaVideo23 from given interface.
-func (d *DecryptedMessageMediaVideo23) FillFrom(from interface {
-	GetThumb() (value []byte)
-	GetThumbW() (value int)
-	GetThumbH() (value int)
-	GetDuration() (value int)
-	GetMimeType() (value string)
-	GetW() (value int)
-	GetH() (value int)
-	GetSize() (value int)
-	GetKey() (value []byte)
-	GetIv() (value []byte)
-}) {
-	d.Thumb = from.GetThumb()
-	d.ThumbW = from.GetThumbW()
-	d.ThumbH = from.GetThumbH()
-	d.Duration = from.GetDuration()
-	d.MimeType = from.GetMimeType()
-	d.W = from.GetW()
-	d.H = from.GetH()
-	d.Size = from.GetSize()
-	d.Key = from.GetKey()
-	d.Iv = from.GetIv()
 }
 
 // TypeID returns type id in TL schema.
@@ -1807,56 +1695,6 @@ func (d *DecryptedMessageMediaVideo23) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetThumb returns value of Thumb field.
-func (d *DecryptedMessageMediaVideo23) GetThumb() (value []byte) {
-	return d.Thumb
-}
-
-// GetThumbW returns value of ThumbW field.
-func (d *DecryptedMessageMediaVideo23) GetThumbW() (value int) {
-	return d.ThumbW
-}
-
-// GetThumbH returns value of ThumbH field.
-func (d *DecryptedMessageMediaVideo23) GetThumbH() (value int) {
-	return d.ThumbH
-}
-
-// GetDuration returns value of Duration field.
-func (d *DecryptedMessageMediaVideo23) GetDuration() (value int) {
-	return d.Duration
-}
-
-// GetMimeType returns value of MimeType field.
-func (d *DecryptedMessageMediaVideo23) GetMimeType() (value string) {
-	return d.MimeType
-}
-
-// GetW returns value of W field.
-func (d *DecryptedMessageMediaVideo23) GetW() (value int) {
-	return d.W
-}
-
-// GetH returns value of H field.
-func (d *DecryptedMessageMediaVideo23) GetH() (value int) {
-	return d.H
-}
-
-// GetSize returns value of Size field.
-func (d *DecryptedMessageMediaVideo23) GetSize() (value int) {
-	return d.Size
-}
-
-// GetKey returns value of Key field.
-func (d *DecryptedMessageMediaVideo23) GetKey() (value []byte) {
-	return d.Key
-}
-
-// GetIv returns value of Iv field.
-func (d *DecryptedMessageMediaVideo23) GetIv() (value []byte) {
-	return d.Iv
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaVideo23) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1946,18 +1784,55 @@ func (d *DecryptedMessageMediaVideo23) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaVideo23) construct() DecryptedMessageMediaClass { return &d }
+// GetThumb returns value of Thumb field.
+func (d *DecryptedMessageMediaVideo23) GetThumb() (value []byte) {
+	return d.Thumb
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaVideo23.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaVideo23{}
-	_ bin.Decoder     = &DecryptedMessageMediaVideo23{}
-	_ bin.BareEncoder = &DecryptedMessageMediaVideo23{}
-	_ bin.BareDecoder = &DecryptedMessageMediaVideo23{}
+// GetThumbW returns value of ThumbW field.
+func (d *DecryptedMessageMediaVideo23) GetThumbW() (value int) {
+	return d.ThumbW
+}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaVideo23{}
-)
+// GetThumbH returns value of ThumbH field.
+func (d *DecryptedMessageMediaVideo23) GetThumbH() (value int) {
+	return d.ThumbH
+}
+
+// GetDuration returns value of Duration field.
+func (d *DecryptedMessageMediaVideo23) GetDuration() (value int) {
+	return d.Duration
+}
+
+// GetMimeType returns value of MimeType field.
+func (d *DecryptedMessageMediaVideo23) GetMimeType() (value string) {
+	return d.MimeType
+}
+
+// GetW returns value of W field.
+func (d *DecryptedMessageMediaVideo23) GetW() (value int) {
+	return d.W
+}
+
+// GetH returns value of H field.
+func (d *DecryptedMessageMediaVideo23) GetH() (value int) {
+	return d.H
+}
+
+// GetSize returns value of Size field.
+func (d *DecryptedMessageMediaVideo23) GetSize() (value int) {
+	return d.Size
+}
+
+// GetKey returns value of Key field.
+func (d *DecryptedMessageMediaVideo23) GetKey() (value []byte) {
+	return d.Key
+}
+
+// GetIv returns value of Iv field.
+func (d *DecryptedMessageMediaVideo23) GetIv() (value []byte) {
+	return d.Iv
+}
 
 // DecryptedMessageMediaAudio represents TL type `decryptedMessageMediaAudio#57e0a9cb`.
 //
@@ -1977,6 +1852,19 @@ type DecryptedMessageMediaAudio struct {
 
 // DecryptedMessageMediaAudioTypeID is TL type id of DecryptedMessageMediaAudio.
 const DecryptedMessageMediaAudioTypeID = 0x57e0a9cb
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaAudio) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaAudio.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaAudio{}
+	_ bin.Decoder     = &DecryptedMessageMediaAudio{}
+	_ bin.BareEncoder = &DecryptedMessageMediaAudio{}
+	_ bin.BareDecoder = &DecryptedMessageMediaAudio{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaAudio{}
+)
 
 func (d *DecryptedMessageMediaAudio) Zero() bool {
 	if d == nil {
@@ -2008,21 +1896,6 @@ func (d *DecryptedMessageMediaAudio) String() string {
 	}
 	type Alias DecryptedMessageMediaAudio
 	return fmt.Sprintf("DecryptedMessageMediaAudio%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaAudio from given interface.
-func (d *DecryptedMessageMediaAudio) FillFrom(from interface {
-	GetDuration() (value int)
-	GetMimeType() (value string)
-	GetSize() (value int)
-	GetKey() (value []byte)
-	GetIv() (value []byte)
-}) {
-	d.Duration = from.GetDuration()
-	d.MimeType = from.GetMimeType()
-	d.Size = from.GetSize()
-	d.Key = from.GetKey()
-	d.Iv = from.GetIv()
 }
 
 // TypeID returns type id in TL schema.
@@ -2094,31 +1967,6 @@ func (d *DecryptedMessageMediaAudio) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDuration returns value of Duration field.
-func (d *DecryptedMessageMediaAudio) GetDuration() (value int) {
-	return d.Duration
-}
-
-// GetMimeType returns value of MimeType field.
-func (d *DecryptedMessageMediaAudio) GetMimeType() (value string) {
-	return d.MimeType
-}
-
-// GetSize returns value of Size field.
-func (d *DecryptedMessageMediaAudio) GetSize() (value int) {
-	return d.Size
-}
-
-// GetKey returns value of Key field.
-func (d *DecryptedMessageMediaAudio) GetKey() (value []byte) {
-	return d.Key
-}
-
-// GetIv returns value of Iv field.
-func (d *DecryptedMessageMediaAudio) GetIv() (value []byte) {
-	return d.Iv
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaAudio) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -2173,18 +2021,30 @@ func (d *DecryptedMessageMediaAudio) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaAudio) construct() DecryptedMessageMediaClass { return &d }
+// GetDuration returns value of Duration field.
+func (d *DecryptedMessageMediaAudio) GetDuration() (value int) {
+	return d.Duration
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaAudio.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaAudio{}
-	_ bin.Decoder     = &DecryptedMessageMediaAudio{}
-	_ bin.BareEncoder = &DecryptedMessageMediaAudio{}
-	_ bin.BareDecoder = &DecryptedMessageMediaAudio{}
+// GetMimeType returns value of MimeType field.
+func (d *DecryptedMessageMediaAudio) GetMimeType() (value string) {
+	return d.MimeType
+}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaAudio{}
-)
+// GetSize returns value of Size field.
+func (d *DecryptedMessageMediaAudio) GetSize() (value int) {
+	return d.Size
+}
+
+// GetKey returns value of Key field.
+func (d *DecryptedMessageMediaAudio) GetKey() (value []byte) {
+	return d.Key
+}
+
+// GetIv returns value of Iv field.
+func (d *DecryptedMessageMediaAudio) GetIv() (value []byte) {
+	return d.Iv
+}
 
 // DecryptedMessageMediaExternalDocument represents TL type `decryptedMessageMediaExternalDocument#fa95b0dd`.
 //
@@ -2210,6 +2070,19 @@ type DecryptedMessageMediaExternalDocument struct {
 
 // DecryptedMessageMediaExternalDocumentTypeID is TL type id of DecryptedMessageMediaExternalDocument.
 const DecryptedMessageMediaExternalDocumentTypeID = 0xfa95b0dd
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaExternalDocument) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaExternalDocument.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaExternalDocument{}
+	_ bin.Decoder     = &DecryptedMessageMediaExternalDocument{}
+	_ bin.BareEncoder = &DecryptedMessageMediaExternalDocument{}
+	_ bin.BareDecoder = &DecryptedMessageMediaExternalDocument{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaExternalDocument{}
+)
 
 func (d *DecryptedMessageMediaExternalDocument) Zero() bool {
 	if d == nil {
@@ -2250,27 +2123,6 @@ func (d *DecryptedMessageMediaExternalDocument) String() string {
 	}
 	type Alias DecryptedMessageMediaExternalDocument
 	return fmt.Sprintf("DecryptedMessageMediaExternalDocument%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaExternalDocument from given interface.
-func (d *DecryptedMessageMediaExternalDocument) FillFrom(from interface {
-	GetID() (value int64)
-	GetAccessHash() (value int64)
-	GetDate() (value int)
-	GetMimeType() (value string)
-	GetSize() (value int)
-	GetThumb() (value PhotoSizeClass)
-	GetDCID() (value int)
-	GetAttributes() (value []DocumentAttributeClass)
-}) {
-	d.ID = from.GetID()
-	d.AccessHash = from.GetAccessHash()
-	d.Date = from.GetDate()
-	d.MimeType = from.GetMimeType()
-	d.Size = from.GetSize()
-	d.Thumb = from.GetThumb()
-	d.DCID = from.GetDCID()
-	d.Attributes = from.GetAttributes()
 }
 
 // TypeID returns type id in TL schema.
@@ -2370,51 +2222,6 @@ func (d *DecryptedMessageMediaExternalDocument) EncodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// GetID returns value of ID field.
-func (d *DecryptedMessageMediaExternalDocument) GetID() (value int64) {
-	return d.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (d *DecryptedMessageMediaExternalDocument) GetAccessHash() (value int64) {
-	return d.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (d *DecryptedMessageMediaExternalDocument) GetDate() (value int) {
-	return d.Date
-}
-
-// GetMimeType returns value of MimeType field.
-func (d *DecryptedMessageMediaExternalDocument) GetMimeType() (value string) {
-	return d.MimeType
-}
-
-// GetSize returns value of Size field.
-func (d *DecryptedMessageMediaExternalDocument) GetSize() (value int) {
-	return d.Size
-}
-
-// GetThumb returns value of Thumb field.
-func (d *DecryptedMessageMediaExternalDocument) GetThumb() (value PhotoSizeClass) {
-	return d.Thumb
-}
-
-// GetDCID returns value of DCID field.
-func (d *DecryptedMessageMediaExternalDocument) GetDCID() (value int) {
-	return d.DCID
-}
-
-// GetAttributes returns value of Attributes field.
-func (d *DecryptedMessageMediaExternalDocument) GetAttributes() (value []DocumentAttributeClass) {
-	return d.Attributes
-}
-
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
-func (d *DecryptedMessageMediaExternalDocument) MapAttributes() (value DocumentAttributeClassArray) {
-	return DocumentAttributeClassArray(d.Attributes)
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaExternalDocument) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -2500,18 +2307,45 @@ func (d *DecryptedMessageMediaExternalDocument) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaExternalDocument) construct() DecryptedMessageMediaClass { return &d }
+// GetID returns value of ID field.
+func (d *DecryptedMessageMediaExternalDocument) GetID() (value int64) {
+	return d.ID
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaExternalDocument.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaExternalDocument{}
-	_ bin.Decoder     = &DecryptedMessageMediaExternalDocument{}
-	_ bin.BareEncoder = &DecryptedMessageMediaExternalDocument{}
-	_ bin.BareDecoder = &DecryptedMessageMediaExternalDocument{}
+// GetAccessHash returns value of AccessHash field.
+func (d *DecryptedMessageMediaExternalDocument) GetAccessHash() (value int64) {
+	return d.AccessHash
+}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaExternalDocument{}
-)
+// GetDate returns value of Date field.
+func (d *DecryptedMessageMediaExternalDocument) GetDate() (value int) {
+	return d.Date
+}
+
+// GetMimeType returns value of MimeType field.
+func (d *DecryptedMessageMediaExternalDocument) GetMimeType() (value string) {
+	return d.MimeType
+}
+
+// GetSize returns value of Size field.
+func (d *DecryptedMessageMediaExternalDocument) GetSize() (value int) {
+	return d.Size
+}
+
+// GetThumb returns value of Thumb field.
+func (d *DecryptedMessageMediaExternalDocument) GetThumb() (value PhotoSizeClass) {
+	return d.Thumb
+}
+
+// GetDCID returns value of DCID field.
+func (d *DecryptedMessageMediaExternalDocument) GetDCID() (value int) {
+	return d.DCID
+}
+
+// GetAttributes returns value of Attributes field.
+func (d *DecryptedMessageMediaExternalDocument) GetAttributes() (value []DocumentAttributeClass) {
+	return d.Attributes
+}
 
 // DecryptedMessageMediaPhoto represents TL type `decryptedMessageMediaPhoto#f1fa8d78`.
 //
@@ -2539,6 +2373,19 @@ type DecryptedMessageMediaPhoto struct {
 
 // DecryptedMessageMediaPhotoTypeID is TL type id of DecryptedMessageMediaPhoto.
 const DecryptedMessageMediaPhotoTypeID = 0xf1fa8d78
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaPhoto) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaPhoto.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaPhoto{}
+	_ bin.Decoder     = &DecryptedMessageMediaPhoto{}
+	_ bin.BareEncoder = &DecryptedMessageMediaPhoto{}
+	_ bin.BareDecoder = &DecryptedMessageMediaPhoto{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaPhoto{}
+)
 
 func (d *DecryptedMessageMediaPhoto) Zero() bool {
 	if d == nil {
@@ -2582,29 +2429,6 @@ func (d *DecryptedMessageMediaPhoto) String() string {
 	}
 	type Alias DecryptedMessageMediaPhoto
 	return fmt.Sprintf("DecryptedMessageMediaPhoto%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaPhoto from given interface.
-func (d *DecryptedMessageMediaPhoto) FillFrom(from interface {
-	GetThumb() (value []byte)
-	GetThumbW() (value int)
-	GetThumbH() (value int)
-	GetW() (value int)
-	GetH() (value int)
-	GetSize() (value int)
-	GetKey() (value []byte)
-	GetIv() (value []byte)
-	GetCaption() (value string)
-}) {
-	d.Thumb = from.GetThumb()
-	d.ThumbW = from.GetThumbW()
-	d.ThumbH = from.GetThumbH()
-	d.W = from.GetW()
-	d.H = from.GetH()
-	d.Size = from.GetSize()
-	d.Key = from.GetKey()
-	d.Iv = from.GetIv()
-	d.Caption = from.GetCaption()
 }
 
 // TypeID returns type id in TL schema.
@@ -2696,51 +2520,6 @@ func (d *DecryptedMessageMediaPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetThumb returns value of Thumb field.
-func (d *DecryptedMessageMediaPhoto) GetThumb() (value []byte) {
-	return d.Thumb
-}
-
-// GetThumbW returns value of ThumbW field.
-func (d *DecryptedMessageMediaPhoto) GetThumbW() (value int) {
-	return d.ThumbW
-}
-
-// GetThumbH returns value of ThumbH field.
-func (d *DecryptedMessageMediaPhoto) GetThumbH() (value int) {
-	return d.ThumbH
-}
-
-// GetW returns value of W field.
-func (d *DecryptedMessageMediaPhoto) GetW() (value int) {
-	return d.W
-}
-
-// GetH returns value of H field.
-func (d *DecryptedMessageMediaPhoto) GetH() (value int) {
-	return d.H
-}
-
-// GetSize returns value of Size field.
-func (d *DecryptedMessageMediaPhoto) GetSize() (value int) {
-	return d.Size
-}
-
-// GetKey returns value of Key field.
-func (d *DecryptedMessageMediaPhoto) GetKey() (value []byte) {
-	return d.Key
-}
-
-// GetIv returns value of Iv field.
-func (d *DecryptedMessageMediaPhoto) GetIv() (value []byte) {
-	return d.Iv
-}
-
-// GetCaption returns value of Caption field.
-func (d *DecryptedMessageMediaPhoto) GetCaption() (value string) {
-	return d.Caption
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaPhoto) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -2823,18 +2602,50 @@ func (d *DecryptedMessageMediaPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaPhoto) construct() DecryptedMessageMediaClass { return &d }
+// GetThumb returns value of Thumb field.
+func (d *DecryptedMessageMediaPhoto) GetThumb() (value []byte) {
+	return d.Thumb
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaPhoto.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaPhoto{}
-	_ bin.Decoder     = &DecryptedMessageMediaPhoto{}
-	_ bin.BareEncoder = &DecryptedMessageMediaPhoto{}
-	_ bin.BareDecoder = &DecryptedMessageMediaPhoto{}
+// GetThumbW returns value of ThumbW field.
+func (d *DecryptedMessageMediaPhoto) GetThumbW() (value int) {
+	return d.ThumbW
+}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaPhoto{}
-)
+// GetThumbH returns value of ThumbH field.
+func (d *DecryptedMessageMediaPhoto) GetThumbH() (value int) {
+	return d.ThumbH
+}
+
+// GetW returns value of W field.
+func (d *DecryptedMessageMediaPhoto) GetW() (value int) {
+	return d.W
+}
+
+// GetH returns value of H field.
+func (d *DecryptedMessageMediaPhoto) GetH() (value int) {
+	return d.H
+}
+
+// GetSize returns value of Size field.
+func (d *DecryptedMessageMediaPhoto) GetSize() (value int) {
+	return d.Size
+}
+
+// GetKey returns value of Key field.
+func (d *DecryptedMessageMediaPhoto) GetKey() (value []byte) {
+	return d.Key
+}
+
+// GetIv returns value of Iv field.
+func (d *DecryptedMessageMediaPhoto) GetIv() (value []byte) {
+	return d.Iv
+}
+
+// GetCaption returns value of Caption field.
+func (d *DecryptedMessageMediaPhoto) GetCaption() (value string) {
+	return d.Caption
+}
 
 // DecryptedMessageMediaVideo represents TL type `decryptedMessageMediaVideo#970c8c0e`.
 //
@@ -2866,6 +2677,19 @@ type DecryptedMessageMediaVideo struct {
 
 // DecryptedMessageMediaVideoTypeID is TL type id of DecryptedMessageMediaVideo.
 const DecryptedMessageMediaVideoTypeID = 0x970c8c0e
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaVideo) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaVideo.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaVideo{}
+	_ bin.Decoder     = &DecryptedMessageMediaVideo{}
+	_ bin.BareEncoder = &DecryptedMessageMediaVideo{}
+	_ bin.BareDecoder = &DecryptedMessageMediaVideo{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaVideo{}
+)
 
 func (d *DecryptedMessageMediaVideo) Zero() bool {
 	if d == nil {
@@ -2915,33 +2739,6 @@ func (d *DecryptedMessageMediaVideo) String() string {
 	}
 	type Alias DecryptedMessageMediaVideo
 	return fmt.Sprintf("DecryptedMessageMediaVideo%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaVideo from given interface.
-func (d *DecryptedMessageMediaVideo) FillFrom(from interface {
-	GetThumb() (value []byte)
-	GetThumbW() (value int)
-	GetThumbH() (value int)
-	GetDuration() (value int)
-	GetMimeType() (value string)
-	GetW() (value int)
-	GetH() (value int)
-	GetSize() (value int)
-	GetKey() (value []byte)
-	GetIv() (value []byte)
-	GetCaption() (value string)
-}) {
-	d.Thumb = from.GetThumb()
-	d.ThumbW = from.GetThumbW()
-	d.ThumbH = from.GetThumbH()
-	d.Duration = from.GetDuration()
-	d.MimeType = from.GetMimeType()
-	d.W = from.GetW()
-	d.H = from.GetH()
-	d.Size = from.GetSize()
-	d.Key = from.GetKey()
-	d.Iv = from.GetIv()
-	d.Caption = from.GetCaption()
 }
 
 // TypeID returns type id in TL schema.
@@ -3043,61 +2840,6 @@ func (d *DecryptedMessageMediaVideo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetThumb returns value of Thumb field.
-func (d *DecryptedMessageMediaVideo) GetThumb() (value []byte) {
-	return d.Thumb
-}
-
-// GetThumbW returns value of ThumbW field.
-func (d *DecryptedMessageMediaVideo) GetThumbW() (value int) {
-	return d.ThumbW
-}
-
-// GetThumbH returns value of ThumbH field.
-func (d *DecryptedMessageMediaVideo) GetThumbH() (value int) {
-	return d.ThumbH
-}
-
-// GetDuration returns value of Duration field.
-func (d *DecryptedMessageMediaVideo) GetDuration() (value int) {
-	return d.Duration
-}
-
-// GetMimeType returns value of MimeType field.
-func (d *DecryptedMessageMediaVideo) GetMimeType() (value string) {
-	return d.MimeType
-}
-
-// GetW returns value of W field.
-func (d *DecryptedMessageMediaVideo) GetW() (value int) {
-	return d.W
-}
-
-// GetH returns value of H field.
-func (d *DecryptedMessageMediaVideo) GetH() (value int) {
-	return d.H
-}
-
-// GetSize returns value of Size field.
-func (d *DecryptedMessageMediaVideo) GetSize() (value int) {
-	return d.Size
-}
-
-// GetKey returns value of Key field.
-func (d *DecryptedMessageMediaVideo) GetKey() (value []byte) {
-	return d.Key
-}
-
-// GetIv returns value of Iv field.
-func (d *DecryptedMessageMediaVideo) GetIv() (value []byte) {
-	return d.Iv
-}
-
-// GetCaption returns value of Caption field.
-func (d *DecryptedMessageMediaVideo) GetCaption() (value string) {
-	return d.Caption
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaVideo) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -3194,18 +2936,60 @@ func (d *DecryptedMessageMediaVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaVideo) construct() DecryptedMessageMediaClass { return &d }
+// GetThumb returns value of Thumb field.
+func (d *DecryptedMessageMediaVideo) GetThumb() (value []byte) {
+	return d.Thumb
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaVideo.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaVideo{}
-	_ bin.Decoder     = &DecryptedMessageMediaVideo{}
-	_ bin.BareEncoder = &DecryptedMessageMediaVideo{}
-	_ bin.BareDecoder = &DecryptedMessageMediaVideo{}
+// GetThumbW returns value of ThumbW field.
+func (d *DecryptedMessageMediaVideo) GetThumbW() (value int) {
+	return d.ThumbW
+}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaVideo{}
-)
+// GetThumbH returns value of ThumbH field.
+func (d *DecryptedMessageMediaVideo) GetThumbH() (value int) {
+	return d.ThumbH
+}
+
+// GetDuration returns value of Duration field.
+func (d *DecryptedMessageMediaVideo) GetDuration() (value int) {
+	return d.Duration
+}
+
+// GetMimeType returns value of MimeType field.
+func (d *DecryptedMessageMediaVideo) GetMimeType() (value string) {
+	return d.MimeType
+}
+
+// GetW returns value of W field.
+func (d *DecryptedMessageMediaVideo) GetW() (value int) {
+	return d.W
+}
+
+// GetH returns value of H field.
+func (d *DecryptedMessageMediaVideo) GetH() (value int) {
+	return d.H
+}
+
+// GetSize returns value of Size field.
+func (d *DecryptedMessageMediaVideo) GetSize() (value int) {
+	return d.Size
+}
+
+// GetKey returns value of Key field.
+func (d *DecryptedMessageMediaVideo) GetKey() (value []byte) {
+	return d.Key
+}
+
+// GetIv returns value of Iv field.
+func (d *DecryptedMessageMediaVideo) GetIv() (value []byte) {
+	return d.Iv
+}
+
+// GetCaption returns value of Caption field.
+func (d *DecryptedMessageMediaVideo) GetCaption() (value string) {
+	return d.Caption
+}
 
 // DecryptedMessageMediaDocument represents TL type `decryptedMessageMediaDocument#7afe8ae2`.
 //
@@ -3233,6 +3017,19 @@ type DecryptedMessageMediaDocument struct {
 
 // DecryptedMessageMediaDocumentTypeID is TL type id of DecryptedMessageMediaDocument.
 const DecryptedMessageMediaDocumentTypeID = 0x7afe8ae2
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaDocument) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaDocument.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaDocument{}
+	_ bin.Decoder     = &DecryptedMessageMediaDocument{}
+	_ bin.BareEncoder = &DecryptedMessageMediaDocument{}
+	_ bin.BareDecoder = &DecryptedMessageMediaDocument{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaDocument{}
+)
 
 func (d *DecryptedMessageMediaDocument) Zero() bool {
 	if d == nil {
@@ -3276,29 +3073,6 @@ func (d *DecryptedMessageMediaDocument) String() string {
 	}
 	type Alias DecryptedMessageMediaDocument
 	return fmt.Sprintf("DecryptedMessageMediaDocument%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaDocument from given interface.
-func (d *DecryptedMessageMediaDocument) FillFrom(from interface {
-	GetThumb() (value []byte)
-	GetThumbW() (value int)
-	GetThumbH() (value int)
-	GetMimeType() (value string)
-	GetSize() (value int)
-	GetKey() (value []byte)
-	GetIv() (value []byte)
-	GetAttributes() (value []DocumentAttributeClass)
-	GetCaption() (value string)
-}) {
-	d.Thumb = from.GetThumb()
-	d.ThumbW = from.GetThumbW()
-	d.ThumbH = from.GetThumbH()
-	d.MimeType = from.GetMimeType()
-	d.Size = from.GetSize()
-	d.Key = from.GetKey()
-	d.Iv = from.GetIv()
-	d.Attributes = from.GetAttributes()
-	d.Caption = from.GetCaption()
 }
 
 // TypeID returns type id in TL schema.
@@ -3398,56 +3172,6 @@ func (d *DecryptedMessageMediaDocument) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetThumb returns value of Thumb field.
-func (d *DecryptedMessageMediaDocument) GetThumb() (value []byte) {
-	return d.Thumb
-}
-
-// GetThumbW returns value of ThumbW field.
-func (d *DecryptedMessageMediaDocument) GetThumbW() (value int) {
-	return d.ThumbW
-}
-
-// GetThumbH returns value of ThumbH field.
-func (d *DecryptedMessageMediaDocument) GetThumbH() (value int) {
-	return d.ThumbH
-}
-
-// GetMimeType returns value of MimeType field.
-func (d *DecryptedMessageMediaDocument) GetMimeType() (value string) {
-	return d.MimeType
-}
-
-// GetSize returns value of Size field.
-func (d *DecryptedMessageMediaDocument) GetSize() (value int) {
-	return d.Size
-}
-
-// GetKey returns value of Key field.
-func (d *DecryptedMessageMediaDocument) GetKey() (value []byte) {
-	return d.Key
-}
-
-// GetIv returns value of Iv field.
-func (d *DecryptedMessageMediaDocument) GetIv() (value []byte) {
-	return d.Iv
-}
-
-// GetAttributes returns value of Attributes field.
-func (d *DecryptedMessageMediaDocument) GetAttributes() (value []DocumentAttributeClass) {
-	return d.Attributes
-}
-
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
-func (d *DecryptedMessageMediaDocument) MapAttributes() (value DocumentAttributeClassArray) {
-	return DocumentAttributeClassArray(d.Attributes)
-}
-
-// GetCaption returns value of Caption field.
-func (d *DecryptedMessageMediaDocument) GetCaption() (value string) {
-	return d.Caption
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaDocument) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -3540,18 +3264,50 @@ func (d *DecryptedMessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaDocument) construct() DecryptedMessageMediaClass { return &d }
+// GetThumb returns value of Thumb field.
+func (d *DecryptedMessageMediaDocument) GetThumb() (value []byte) {
+	return d.Thumb
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaDocument.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaDocument{}
-	_ bin.Decoder     = &DecryptedMessageMediaDocument{}
-	_ bin.BareEncoder = &DecryptedMessageMediaDocument{}
-	_ bin.BareDecoder = &DecryptedMessageMediaDocument{}
+// GetThumbW returns value of ThumbW field.
+func (d *DecryptedMessageMediaDocument) GetThumbW() (value int) {
+	return d.ThumbW
+}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaDocument{}
-)
+// GetThumbH returns value of ThumbH field.
+func (d *DecryptedMessageMediaDocument) GetThumbH() (value int) {
+	return d.ThumbH
+}
+
+// GetMimeType returns value of MimeType field.
+func (d *DecryptedMessageMediaDocument) GetMimeType() (value string) {
+	return d.MimeType
+}
+
+// GetSize returns value of Size field.
+func (d *DecryptedMessageMediaDocument) GetSize() (value int) {
+	return d.Size
+}
+
+// GetKey returns value of Key field.
+func (d *DecryptedMessageMediaDocument) GetKey() (value []byte) {
+	return d.Key
+}
+
+// GetIv returns value of Iv field.
+func (d *DecryptedMessageMediaDocument) GetIv() (value []byte) {
+	return d.Iv
+}
+
+// GetAttributes returns value of Attributes field.
+func (d *DecryptedMessageMediaDocument) GetAttributes() (value []DocumentAttributeClass) {
+	return d.Attributes
+}
+
+// GetCaption returns value of Caption field.
+func (d *DecryptedMessageMediaDocument) GetCaption() (value string) {
+	return d.Caption
+}
 
 // DecryptedMessageMediaVenue represents TL type `decryptedMessageMediaVenue#8a0df56f`.
 //
@@ -3573,6 +3329,19 @@ type DecryptedMessageMediaVenue struct {
 
 // DecryptedMessageMediaVenueTypeID is TL type id of DecryptedMessageMediaVenue.
 const DecryptedMessageMediaVenueTypeID = 0x8a0df56f
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaVenue) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaVenue.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaVenue{}
+	_ bin.Decoder     = &DecryptedMessageMediaVenue{}
+	_ bin.BareEncoder = &DecryptedMessageMediaVenue{}
+	_ bin.BareDecoder = &DecryptedMessageMediaVenue{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaVenue{}
+)
 
 func (d *DecryptedMessageMediaVenue) Zero() bool {
 	if d == nil {
@@ -3607,23 +3376,6 @@ func (d *DecryptedMessageMediaVenue) String() string {
 	}
 	type Alias DecryptedMessageMediaVenue
 	return fmt.Sprintf("DecryptedMessageMediaVenue%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaVenue from given interface.
-func (d *DecryptedMessageMediaVenue) FillFrom(from interface {
-	GetLat() (value float64)
-	GetLong() (value float64)
-	GetTitle() (value string)
-	GetAddress() (value string)
-	GetProvider() (value string)
-	GetVenueID() (value string)
-}) {
-	d.Lat = from.GetLat()
-	d.Long = from.GetLong()
-	d.Title = from.GetTitle()
-	d.Address = from.GetAddress()
-	d.Provider = from.GetProvider()
-	d.VenueID = from.GetVenueID()
 }
 
 // TypeID returns type id in TL schema.
@@ -3700,36 +3452,6 @@ func (d *DecryptedMessageMediaVenue) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLat returns value of Lat field.
-func (d *DecryptedMessageMediaVenue) GetLat() (value float64) {
-	return d.Lat
-}
-
-// GetLong returns value of Long field.
-func (d *DecryptedMessageMediaVenue) GetLong() (value float64) {
-	return d.Long
-}
-
-// GetTitle returns value of Title field.
-func (d *DecryptedMessageMediaVenue) GetTitle() (value string) {
-	return d.Title
-}
-
-// GetAddress returns value of Address field.
-func (d *DecryptedMessageMediaVenue) GetAddress() (value string) {
-	return d.Address
-}
-
-// GetProvider returns value of Provider field.
-func (d *DecryptedMessageMediaVenue) GetProvider() (value string) {
-	return d.Provider
-}
-
-// GetVenueID returns value of VenueID field.
-func (d *DecryptedMessageMediaVenue) GetVenueID() (value string) {
-	return d.VenueID
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaVenue) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -3791,18 +3513,35 @@ func (d *DecryptedMessageMediaVenue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaVenue) construct() DecryptedMessageMediaClass { return &d }
+// GetLat returns value of Lat field.
+func (d *DecryptedMessageMediaVenue) GetLat() (value float64) {
+	return d.Lat
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaVenue.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaVenue{}
-	_ bin.Decoder     = &DecryptedMessageMediaVenue{}
-	_ bin.BareEncoder = &DecryptedMessageMediaVenue{}
-	_ bin.BareDecoder = &DecryptedMessageMediaVenue{}
+// GetLong returns value of Long field.
+func (d *DecryptedMessageMediaVenue) GetLong() (value float64) {
+	return d.Long
+}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaVenue{}
-)
+// GetTitle returns value of Title field.
+func (d *DecryptedMessageMediaVenue) GetTitle() (value string) {
+	return d.Title
+}
+
+// GetAddress returns value of Address field.
+func (d *DecryptedMessageMediaVenue) GetAddress() (value string) {
+	return d.Address
+}
+
+// GetProvider returns value of Provider field.
+func (d *DecryptedMessageMediaVenue) GetProvider() (value string) {
+	return d.Provider
+}
+
+// GetVenueID returns value of VenueID field.
+func (d *DecryptedMessageMediaVenue) GetVenueID() (value string) {
+	return d.VenueID
+}
 
 // DecryptedMessageMediaWebPage represents TL type `decryptedMessageMediaWebPage#e50511d8`.
 //
@@ -3814,6 +3553,19 @@ type DecryptedMessageMediaWebPage struct {
 
 // DecryptedMessageMediaWebPageTypeID is TL type id of DecryptedMessageMediaWebPage.
 const DecryptedMessageMediaWebPageTypeID = 0xe50511d8
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaWebPage) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaWebPage.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaWebPage{}
+	_ bin.Decoder     = &DecryptedMessageMediaWebPage{}
+	_ bin.BareEncoder = &DecryptedMessageMediaWebPage{}
+	_ bin.BareDecoder = &DecryptedMessageMediaWebPage{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaWebPage{}
+)
 
 func (d *DecryptedMessageMediaWebPage) Zero() bool {
 	if d == nil {
@@ -3833,13 +3585,6 @@ func (d *DecryptedMessageMediaWebPage) String() string {
 	}
 	type Alias DecryptedMessageMediaWebPage
 	return fmt.Sprintf("DecryptedMessageMediaWebPage%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageMediaWebPage from given interface.
-func (d *DecryptedMessageMediaWebPage) FillFrom(from interface {
-	GetURL() (value string)
-}) {
-	d.URL = from.GetURL()
 }
 
 // TypeID returns type id in TL schema.
@@ -3891,11 +3636,6 @@ func (d *DecryptedMessageMediaWebPage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (d *DecryptedMessageMediaWebPage) GetURL() (value string) {
-	return d.URL
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageMediaWebPage) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -3922,18 +3662,10 @@ func (d *DecryptedMessageMediaWebPage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaWebPage) construct() DecryptedMessageMediaClass { return &d }
-
-// Ensuring interfaces in compile-time for DecryptedMessageMediaWebPage.
-var (
-	_ bin.Encoder     = &DecryptedMessageMediaWebPage{}
-	_ bin.Decoder     = &DecryptedMessageMediaWebPage{}
-	_ bin.BareEncoder = &DecryptedMessageMediaWebPage{}
-	_ bin.BareDecoder = &DecryptedMessageMediaWebPage{}
-
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaWebPage{}
-)
+// GetURL returns value of URL field.
+func (d *DecryptedMessageMediaWebPage) GetURL() (value string) {
+	return d.URL
+}
 
 // DecryptedMessageMediaClass represents DecryptedMessageMedia generic type.
 //
@@ -4122,1430 +3854,4 @@ func (b *DecryptedMessageMediaBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DecryptedMessageMediaClass as nil")
 	}
 	return b.DecryptedMessageMedia.Encode(buf)
-}
-
-// DecryptedMessageMediaClassArray is adapter for slice of DecryptedMessageMediaClass.
-type DecryptedMessageMediaClassArray []DecryptedMessageMediaClass
-
-// Sort sorts slice of DecryptedMessageMediaClass.
-func (s DecryptedMessageMediaClassArray) Sort(less func(a, b DecryptedMessageMediaClass) bool) DecryptedMessageMediaClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaClass.
-func (s DecryptedMessageMediaClassArray) SortStable(less func(a, b DecryptedMessageMediaClass) bool) DecryptedMessageMediaClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaClass.
-func (s DecryptedMessageMediaClassArray) Retain(keep func(x DecryptedMessageMediaClass) bool) DecryptedMessageMediaClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaClassArray) First() (v DecryptedMessageMediaClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaClassArray) Last() (v DecryptedMessageMediaClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaClassArray) PopFirst() (v DecryptedMessageMediaClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaClassArray) Pop() (v DecryptedMessageMediaClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsDecryptedMessageMediaPhoto23 returns copy with only DecryptedMessageMediaPhoto23 constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaPhoto23() (to DecryptedMessageMediaPhoto23Array) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaPhoto23)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaVideo8 returns copy with only DecryptedMessageMediaVideo8 constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaVideo8() (to DecryptedMessageMediaVideo8Array) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaVideo8)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaGeoPoint returns copy with only DecryptedMessageMediaGeoPoint constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaGeoPoint() (to DecryptedMessageMediaGeoPointArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaGeoPoint)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaContact returns copy with only DecryptedMessageMediaContact constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaContact() (to DecryptedMessageMediaContactArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaContact)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaDocument23 returns copy with only DecryptedMessageMediaDocument23 constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaDocument23() (to DecryptedMessageMediaDocument23Array) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaDocument23)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaAudio8 returns copy with only DecryptedMessageMediaAudio8 constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaAudio8() (to DecryptedMessageMediaAudio8Array) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaAudio8)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaVideo23 returns copy with only DecryptedMessageMediaVideo23 constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaVideo23() (to DecryptedMessageMediaVideo23Array) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaVideo23)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaAudio returns copy with only DecryptedMessageMediaAudio constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaAudio() (to DecryptedMessageMediaAudioArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaAudio)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaExternalDocument returns copy with only DecryptedMessageMediaExternalDocument constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaExternalDocument() (to DecryptedMessageMediaExternalDocumentArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaExternalDocument)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaPhoto returns copy with only DecryptedMessageMediaPhoto constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaPhoto() (to DecryptedMessageMediaPhotoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaPhoto)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaVideo returns copy with only DecryptedMessageMediaVideo constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaVideo() (to DecryptedMessageMediaVideoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaVideo)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaDocument returns copy with only DecryptedMessageMediaDocument constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaDocument() (to DecryptedMessageMediaDocumentArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaDocument)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaVenue returns copy with only DecryptedMessageMediaVenue constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaVenue() (to DecryptedMessageMediaVenueArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaVenue)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageMediaWebPage returns copy with only DecryptedMessageMediaWebPage constructors.
-func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaWebPage() (to DecryptedMessageMediaWebPageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageMediaWebPage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// DecryptedMessageMediaPhoto23Array is adapter for slice of DecryptedMessageMediaPhoto23.
-type DecryptedMessageMediaPhoto23Array []DecryptedMessageMediaPhoto23
-
-// Sort sorts slice of DecryptedMessageMediaPhoto23.
-func (s DecryptedMessageMediaPhoto23Array) Sort(less func(a, b DecryptedMessageMediaPhoto23) bool) DecryptedMessageMediaPhoto23Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaPhoto23.
-func (s DecryptedMessageMediaPhoto23Array) SortStable(less func(a, b DecryptedMessageMediaPhoto23) bool) DecryptedMessageMediaPhoto23Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaPhoto23.
-func (s DecryptedMessageMediaPhoto23Array) Retain(keep func(x DecryptedMessageMediaPhoto23) bool) DecryptedMessageMediaPhoto23Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaPhoto23Array) First() (v DecryptedMessageMediaPhoto23, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaPhoto23Array) Last() (v DecryptedMessageMediaPhoto23, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaPhoto23Array) PopFirst() (v DecryptedMessageMediaPhoto23, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaPhoto23
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaPhoto23Array) Pop() (v DecryptedMessageMediaPhoto23, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageMediaVideo8Array is adapter for slice of DecryptedMessageMediaVideo8.
-type DecryptedMessageMediaVideo8Array []DecryptedMessageMediaVideo8
-
-// Sort sorts slice of DecryptedMessageMediaVideo8.
-func (s DecryptedMessageMediaVideo8Array) Sort(less func(a, b DecryptedMessageMediaVideo8) bool) DecryptedMessageMediaVideo8Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaVideo8.
-func (s DecryptedMessageMediaVideo8Array) SortStable(less func(a, b DecryptedMessageMediaVideo8) bool) DecryptedMessageMediaVideo8Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaVideo8.
-func (s DecryptedMessageMediaVideo8Array) Retain(keep func(x DecryptedMessageMediaVideo8) bool) DecryptedMessageMediaVideo8Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaVideo8Array) First() (v DecryptedMessageMediaVideo8, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaVideo8Array) Last() (v DecryptedMessageMediaVideo8, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaVideo8Array) PopFirst() (v DecryptedMessageMediaVideo8, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaVideo8
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaVideo8Array) Pop() (v DecryptedMessageMediaVideo8, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageMediaGeoPointArray is adapter for slice of DecryptedMessageMediaGeoPoint.
-type DecryptedMessageMediaGeoPointArray []DecryptedMessageMediaGeoPoint
-
-// Sort sorts slice of DecryptedMessageMediaGeoPoint.
-func (s DecryptedMessageMediaGeoPointArray) Sort(less func(a, b DecryptedMessageMediaGeoPoint) bool) DecryptedMessageMediaGeoPointArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaGeoPoint.
-func (s DecryptedMessageMediaGeoPointArray) SortStable(less func(a, b DecryptedMessageMediaGeoPoint) bool) DecryptedMessageMediaGeoPointArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaGeoPoint.
-func (s DecryptedMessageMediaGeoPointArray) Retain(keep func(x DecryptedMessageMediaGeoPoint) bool) DecryptedMessageMediaGeoPointArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaGeoPointArray) First() (v DecryptedMessageMediaGeoPoint, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaGeoPointArray) Last() (v DecryptedMessageMediaGeoPoint, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaGeoPointArray) PopFirst() (v DecryptedMessageMediaGeoPoint, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaGeoPoint
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaGeoPointArray) Pop() (v DecryptedMessageMediaGeoPoint, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageMediaContactArray is adapter for slice of DecryptedMessageMediaContact.
-type DecryptedMessageMediaContactArray []DecryptedMessageMediaContact
-
-// Sort sorts slice of DecryptedMessageMediaContact.
-func (s DecryptedMessageMediaContactArray) Sort(less func(a, b DecryptedMessageMediaContact) bool) DecryptedMessageMediaContactArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaContact.
-func (s DecryptedMessageMediaContactArray) SortStable(less func(a, b DecryptedMessageMediaContact) bool) DecryptedMessageMediaContactArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaContact.
-func (s DecryptedMessageMediaContactArray) Retain(keep func(x DecryptedMessageMediaContact) bool) DecryptedMessageMediaContactArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaContactArray) First() (v DecryptedMessageMediaContact, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaContactArray) Last() (v DecryptedMessageMediaContact, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaContactArray) PopFirst() (v DecryptedMessageMediaContact, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaContact
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaContactArray) Pop() (v DecryptedMessageMediaContact, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageMediaDocument23Array is adapter for slice of DecryptedMessageMediaDocument23.
-type DecryptedMessageMediaDocument23Array []DecryptedMessageMediaDocument23
-
-// Sort sorts slice of DecryptedMessageMediaDocument23.
-func (s DecryptedMessageMediaDocument23Array) Sort(less func(a, b DecryptedMessageMediaDocument23) bool) DecryptedMessageMediaDocument23Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaDocument23.
-func (s DecryptedMessageMediaDocument23Array) SortStable(less func(a, b DecryptedMessageMediaDocument23) bool) DecryptedMessageMediaDocument23Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaDocument23.
-func (s DecryptedMessageMediaDocument23Array) Retain(keep func(x DecryptedMessageMediaDocument23) bool) DecryptedMessageMediaDocument23Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaDocument23Array) First() (v DecryptedMessageMediaDocument23, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaDocument23Array) Last() (v DecryptedMessageMediaDocument23, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaDocument23Array) PopFirst() (v DecryptedMessageMediaDocument23, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaDocument23
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaDocument23Array) Pop() (v DecryptedMessageMediaDocument23, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageMediaAudio8Array is adapter for slice of DecryptedMessageMediaAudio8.
-type DecryptedMessageMediaAudio8Array []DecryptedMessageMediaAudio8
-
-// Sort sorts slice of DecryptedMessageMediaAudio8.
-func (s DecryptedMessageMediaAudio8Array) Sort(less func(a, b DecryptedMessageMediaAudio8) bool) DecryptedMessageMediaAudio8Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaAudio8.
-func (s DecryptedMessageMediaAudio8Array) SortStable(less func(a, b DecryptedMessageMediaAudio8) bool) DecryptedMessageMediaAudio8Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaAudio8.
-func (s DecryptedMessageMediaAudio8Array) Retain(keep func(x DecryptedMessageMediaAudio8) bool) DecryptedMessageMediaAudio8Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaAudio8Array) First() (v DecryptedMessageMediaAudio8, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaAudio8Array) Last() (v DecryptedMessageMediaAudio8, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaAudio8Array) PopFirst() (v DecryptedMessageMediaAudio8, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaAudio8
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaAudio8Array) Pop() (v DecryptedMessageMediaAudio8, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageMediaVideo23Array is adapter for slice of DecryptedMessageMediaVideo23.
-type DecryptedMessageMediaVideo23Array []DecryptedMessageMediaVideo23
-
-// Sort sorts slice of DecryptedMessageMediaVideo23.
-func (s DecryptedMessageMediaVideo23Array) Sort(less func(a, b DecryptedMessageMediaVideo23) bool) DecryptedMessageMediaVideo23Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaVideo23.
-func (s DecryptedMessageMediaVideo23Array) SortStable(less func(a, b DecryptedMessageMediaVideo23) bool) DecryptedMessageMediaVideo23Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaVideo23.
-func (s DecryptedMessageMediaVideo23Array) Retain(keep func(x DecryptedMessageMediaVideo23) bool) DecryptedMessageMediaVideo23Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaVideo23Array) First() (v DecryptedMessageMediaVideo23, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaVideo23Array) Last() (v DecryptedMessageMediaVideo23, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaVideo23Array) PopFirst() (v DecryptedMessageMediaVideo23, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaVideo23
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaVideo23Array) Pop() (v DecryptedMessageMediaVideo23, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageMediaAudioArray is adapter for slice of DecryptedMessageMediaAudio.
-type DecryptedMessageMediaAudioArray []DecryptedMessageMediaAudio
-
-// Sort sorts slice of DecryptedMessageMediaAudio.
-func (s DecryptedMessageMediaAudioArray) Sort(less func(a, b DecryptedMessageMediaAudio) bool) DecryptedMessageMediaAudioArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaAudio.
-func (s DecryptedMessageMediaAudioArray) SortStable(less func(a, b DecryptedMessageMediaAudio) bool) DecryptedMessageMediaAudioArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaAudio.
-func (s DecryptedMessageMediaAudioArray) Retain(keep func(x DecryptedMessageMediaAudio) bool) DecryptedMessageMediaAudioArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaAudioArray) First() (v DecryptedMessageMediaAudio, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaAudioArray) Last() (v DecryptedMessageMediaAudio, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaAudioArray) PopFirst() (v DecryptedMessageMediaAudio, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaAudio
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaAudioArray) Pop() (v DecryptedMessageMediaAudio, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageMediaExternalDocumentArray is adapter for slice of DecryptedMessageMediaExternalDocument.
-type DecryptedMessageMediaExternalDocumentArray []DecryptedMessageMediaExternalDocument
-
-// Sort sorts slice of DecryptedMessageMediaExternalDocument.
-func (s DecryptedMessageMediaExternalDocumentArray) Sort(less func(a, b DecryptedMessageMediaExternalDocument) bool) DecryptedMessageMediaExternalDocumentArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaExternalDocument.
-func (s DecryptedMessageMediaExternalDocumentArray) SortStable(less func(a, b DecryptedMessageMediaExternalDocument) bool) DecryptedMessageMediaExternalDocumentArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaExternalDocument.
-func (s DecryptedMessageMediaExternalDocumentArray) Retain(keep func(x DecryptedMessageMediaExternalDocument) bool) DecryptedMessageMediaExternalDocumentArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaExternalDocumentArray) First() (v DecryptedMessageMediaExternalDocument, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaExternalDocumentArray) Last() (v DecryptedMessageMediaExternalDocument, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaExternalDocumentArray) PopFirst() (v DecryptedMessageMediaExternalDocument, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaExternalDocument
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaExternalDocumentArray) Pop() (v DecryptedMessageMediaExternalDocument, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of DecryptedMessageMediaExternalDocument by Date.
-func (s DecryptedMessageMediaExternalDocumentArray) SortByDate() DecryptedMessageMediaExternalDocumentArray {
-	return s.Sort(func(a, b DecryptedMessageMediaExternalDocument) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of DecryptedMessageMediaExternalDocument by Date.
-func (s DecryptedMessageMediaExternalDocumentArray) SortStableByDate() DecryptedMessageMediaExternalDocumentArray {
-	return s.SortStable(func(a, b DecryptedMessageMediaExternalDocument) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// DecryptedMessageMediaPhotoArray is adapter for slice of DecryptedMessageMediaPhoto.
-type DecryptedMessageMediaPhotoArray []DecryptedMessageMediaPhoto
-
-// Sort sorts slice of DecryptedMessageMediaPhoto.
-func (s DecryptedMessageMediaPhotoArray) Sort(less func(a, b DecryptedMessageMediaPhoto) bool) DecryptedMessageMediaPhotoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaPhoto.
-func (s DecryptedMessageMediaPhotoArray) SortStable(less func(a, b DecryptedMessageMediaPhoto) bool) DecryptedMessageMediaPhotoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaPhoto.
-func (s DecryptedMessageMediaPhotoArray) Retain(keep func(x DecryptedMessageMediaPhoto) bool) DecryptedMessageMediaPhotoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaPhotoArray) First() (v DecryptedMessageMediaPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaPhotoArray) Last() (v DecryptedMessageMediaPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaPhotoArray) PopFirst() (v DecryptedMessageMediaPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaPhoto
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaPhotoArray) Pop() (v DecryptedMessageMediaPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageMediaVideoArray is adapter for slice of DecryptedMessageMediaVideo.
-type DecryptedMessageMediaVideoArray []DecryptedMessageMediaVideo
-
-// Sort sorts slice of DecryptedMessageMediaVideo.
-func (s DecryptedMessageMediaVideoArray) Sort(less func(a, b DecryptedMessageMediaVideo) bool) DecryptedMessageMediaVideoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaVideo.
-func (s DecryptedMessageMediaVideoArray) SortStable(less func(a, b DecryptedMessageMediaVideo) bool) DecryptedMessageMediaVideoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaVideo.
-func (s DecryptedMessageMediaVideoArray) Retain(keep func(x DecryptedMessageMediaVideo) bool) DecryptedMessageMediaVideoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaVideoArray) First() (v DecryptedMessageMediaVideo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaVideoArray) Last() (v DecryptedMessageMediaVideo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaVideoArray) PopFirst() (v DecryptedMessageMediaVideo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaVideo
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaVideoArray) Pop() (v DecryptedMessageMediaVideo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageMediaDocumentArray is adapter for slice of DecryptedMessageMediaDocument.
-type DecryptedMessageMediaDocumentArray []DecryptedMessageMediaDocument
-
-// Sort sorts slice of DecryptedMessageMediaDocument.
-func (s DecryptedMessageMediaDocumentArray) Sort(less func(a, b DecryptedMessageMediaDocument) bool) DecryptedMessageMediaDocumentArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaDocument.
-func (s DecryptedMessageMediaDocumentArray) SortStable(less func(a, b DecryptedMessageMediaDocument) bool) DecryptedMessageMediaDocumentArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaDocument.
-func (s DecryptedMessageMediaDocumentArray) Retain(keep func(x DecryptedMessageMediaDocument) bool) DecryptedMessageMediaDocumentArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaDocumentArray) First() (v DecryptedMessageMediaDocument, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaDocumentArray) Last() (v DecryptedMessageMediaDocument, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaDocumentArray) PopFirst() (v DecryptedMessageMediaDocument, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaDocument
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaDocumentArray) Pop() (v DecryptedMessageMediaDocument, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageMediaVenueArray is adapter for slice of DecryptedMessageMediaVenue.
-type DecryptedMessageMediaVenueArray []DecryptedMessageMediaVenue
-
-// Sort sorts slice of DecryptedMessageMediaVenue.
-func (s DecryptedMessageMediaVenueArray) Sort(less func(a, b DecryptedMessageMediaVenue) bool) DecryptedMessageMediaVenueArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaVenue.
-func (s DecryptedMessageMediaVenueArray) SortStable(less func(a, b DecryptedMessageMediaVenue) bool) DecryptedMessageMediaVenueArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaVenue.
-func (s DecryptedMessageMediaVenueArray) Retain(keep func(x DecryptedMessageMediaVenue) bool) DecryptedMessageMediaVenueArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaVenueArray) First() (v DecryptedMessageMediaVenue, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaVenueArray) Last() (v DecryptedMessageMediaVenue, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaVenueArray) PopFirst() (v DecryptedMessageMediaVenue, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaVenue
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaVenueArray) Pop() (v DecryptedMessageMediaVenue, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageMediaWebPageArray is adapter for slice of DecryptedMessageMediaWebPage.
-type DecryptedMessageMediaWebPageArray []DecryptedMessageMediaWebPage
-
-// Sort sorts slice of DecryptedMessageMediaWebPage.
-func (s DecryptedMessageMediaWebPageArray) Sort(less func(a, b DecryptedMessageMediaWebPage) bool) DecryptedMessageMediaWebPageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageMediaWebPage.
-func (s DecryptedMessageMediaWebPageArray) SortStable(less func(a, b DecryptedMessageMediaWebPage) bool) DecryptedMessageMediaWebPageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageMediaWebPage.
-func (s DecryptedMessageMediaWebPageArray) Retain(keep func(x DecryptedMessageMediaWebPage) bool) DecryptedMessageMediaWebPageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageMediaWebPageArray) First() (v DecryptedMessageMediaWebPage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaWebPageArray) Last() (v DecryptedMessageMediaWebPage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaWebPageArray) PopFirst() (v DecryptedMessageMediaWebPage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageMediaWebPage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaWebPageArray) Pop() (v DecryptedMessageMediaWebPage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

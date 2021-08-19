@@ -39,6 +39,19 @@ type ChatPhotoEmpty struct {
 // ChatPhotoEmptyTypeID is TL type id of ChatPhotoEmpty.
 const ChatPhotoEmptyTypeID = 0x37c1011c
 
+// construct implements constructor of ChatPhotoClass.
+func (c ChatPhotoEmpty) construct() ChatPhotoClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatPhotoEmpty.
+var (
+	_ bin.Encoder     = &ChatPhotoEmpty{}
+	_ bin.Decoder     = &ChatPhotoEmpty{}
+	_ bin.BareEncoder = &ChatPhotoEmpty{}
+	_ bin.BareDecoder = &ChatPhotoEmpty{}
+
+	_ ChatPhotoClass = &ChatPhotoEmpty{}
+)
+
 func (c *ChatPhotoEmpty) Zero() bool {
 	if c == nil {
 		return true
@@ -118,19 +131,6 @@ func (c *ChatPhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatPhotoClass.
-func (c ChatPhotoEmpty) construct() ChatPhotoClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatPhotoEmpty.
-var (
-	_ bin.Encoder     = &ChatPhotoEmpty{}
-	_ bin.Decoder     = &ChatPhotoEmpty{}
-	_ bin.BareEncoder = &ChatPhotoEmpty{}
-	_ bin.BareDecoder = &ChatPhotoEmpty{}
-
-	_ ChatPhotoClass = &ChatPhotoEmpty{}
-)
-
 // ChatPhoto represents TL type `chatPhoto#1c6e1c11`.
 // Group profile photo.
 //
@@ -155,6 +155,19 @@ type ChatPhoto struct {
 
 // ChatPhotoTypeID is TL type id of ChatPhoto.
 const ChatPhotoTypeID = 0x1c6e1c11
+
+// construct implements constructor of ChatPhotoClass.
+func (c ChatPhoto) construct() ChatPhotoClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatPhoto.
+var (
+	_ bin.Encoder     = &ChatPhoto{}
+	_ bin.Decoder     = &ChatPhoto{}
+	_ bin.BareEncoder = &ChatPhoto{}
+	_ bin.BareDecoder = &ChatPhoto{}
+
+	_ ChatPhotoClass = &ChatPhoto{}
+)
 
 func (c *ChatPhoto) Zero() bool {
 	if c == nil {
@@ -280,47 +293,6 @@ func (c *ChatPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetHasVideo sets value of HasVideo conditional field.
-func (c *ChatPhoto) SetHasVideo(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.HasVideo = true
-	} else {
-		c.Flags.Unset(0)
-		c.HasVideo = false
-	}
-}
-
-// GetHasVideo returns value of HasVideo conditional field.
-func (c *ChatPhoto) GetHasVideo() (value bool) {
-	return c.Flags.Has(0)
-}
-
-// GetPhotoID returns value of PhotoID field.
-func (c *ChatPhoto) GetPhotoID() (value int64) {
-	return c.PhotoID
-}
-
-// SetStrippedThumb sets value of StrippedThumb conditional field.
-func (c *ChatPhoto) SetStrippedThumb(value []byte) {
-	c.Flags.Set(1)
-	c.StrippedThumb = value
-}
-
-// GetStrippedThumb returns value of StrippedThumb conditional field and
-// boolean which is true if field was set.
-func (c *ChatPhoto) GetStrippedThumb() (value []byte, ok bool) {
-	if !c.Flags.Has(1) {
-		return value, false
-	}
-	return c.StrippedThumb, true
-}
-
-// GetDCID returns value of DCID field.
-func (c *ChatPhoto) GetDCID() (value int) {
-	return c.DCID
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatPhoto) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -367,18 +339,46 @@ func (c *ChatPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatPhotoClass.
-func (c ChatPhoto) construct() ChatPhotoClass { return &c }
+// SetHasVideo sets value of HasVideo conditional field.
+func (c *ChatPhoto) SetHasVideo(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.HasVideo = true
+	} else {
+		c.Flags.Unset(0)
+		c.HasVideo = false
+	}
+}
 
-// Ensuring interfaces in compile-time for ChatPhoto.
-var (
-	_ bin.Encoder     = &ChatPhoto{}
-	_ bin.Decoder     = &ChatPhoto{}
-	_ bin.BareEncoder = &ChatPhoto{}
-	_ bin.BareDecoder = &ChatPhoto{}
+// GetHasVideo returns value of HasVideo conditional field.
+func (c *ChatPhoto) GetHasVideo() (value bool) {
+	return c.Flags.Has(0)
+}
 
-	_ ChatPhotoClass = &ChatPhoto{}
-)
+// GetPhotoID returns value of PhotoID field.
+func (c *ChatPhoto) GetPhotoID() (value int64) {
+	return c.PhotoID
+}
+
+// SetStrippedThumb sets value of StrippedThumb conditional field.
+func (c *ChatPhoto) SetStrippedThumb(value []byte) {
+	c.Flags.Set(1)
+	c.StrippedThumb = value
+}
+
+// GetStrippedThumb returns value of StrippedThumb conditional field and
+// boolean which is true if field was set.
+func (c *ChatPhoto) GetStrippedThumb() (value []byte, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.StrippedThumb, true
+}
+
+// GetDCID returns value of DCID field.
+func (c *ChatPhoto) GetDCID() (value int) {
+	return c.DCID
+}
 
 // ChatPhotoClass represents ChatPhoto generic type.
 //

@@ -52,6 +52,14 @@ type MessagesPeerDialogs struct {
 // MessagesPeerDialogsTypeID is TL type id of MessagesPeerDialogs.
 const MessagesPeerDialogsTypeID = 0x3371c354
 
+// Ensuring interfaces in compile-time for MessagesPeerDialogs.
+var (
+	_ bin.Encoder     = &MessagesPeerDialogs{}
+	_ bin.Decoder     = &MessagesPeerDialogs{}
+	_ bin.BareEncoder = &MessagesPeerDialogs{}
+	_ bin.BareDecoder = &MessagesPeerDialogs{}
+)
+
 func (p *MessagesPeerDialogs) Zero() bool {
 	if p == nil {
 		return true
@@ -202,51 +210,6 @@ func (p *MessagesPeerDialogs) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDialogs returns value of Dialogs field.
-func (p *MessagesPeerDialogs) GetDialogs() (value []DialogClass) {
-	return p.Dialogs
-}
-
-// MapDialogs returns field Dialogs wrapped in DialogClassArray helper.
-func (p *MessagesPeerDialogs) MapDialogs() (value DialogClassArray) {
-	return DialogClassArray(p.Dialogs)
-}
-
-// GetMessages returns value of Messages field.
-func (p *MessagesPeerDialogs) GetMessages() (value []MessageClass) {
-	return p.Messages
-}
-
-// MapMessages returns field Messages wrapped in MessageClassArray helper.
-func (p *MessagesPeerDialogs) MapMessages() (value MessageClassArray) {
-	return MessageClassArray(p.Messages)
-}
-
-// GetChats returns value of Chats field.
-func (p *MessagesPeerDialogs) GetChats() (value []ChatClass) {
-	return p.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (p *MessagesPeerDialogs) MapChats() (value ChatClassArray) {
-	return ChatClassArray(p.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (p *MessagesPeerDialogs) GetUsers() (value []UserClass) {
-	return p.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (p *MessagesPeerDialogs) MapUsers() (value UserClassArray) {
-	return UserClassArray(p.Users)
-}
-
-// GetState returns value of State field.
-func (p *MessagesPeerDialogs) GetState() (value UpdatesState) {
-	return p.State
-}
-
 // Decode implements bin.Decoder.
 func (p *MessagesPeerDialogs) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -339,10 +302,47 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesPeerDialogs.
-var (
-	_ bin.Encoder     = &MessagesPeerDialogs{}
-	_ bin.Decoder     = &MessagesPeerDialogs{}
-	_ bin.BareEncoder = &MessagesPeerDialogs{}
-	_ bin.BareDecoder = &MessagesPeerDialogs{}
-)
+// GetDialogs returns value of Dialogs field.
+func (p *MessagesPeerDialogs) GetDialogs() (value []DialogClass) {
+	return p.Dialogs
+}
+
+// GetMessages returns value of Messages field.
+func (p *MessagesPeerDialogs) GetMessages() (value []MessageClass) {
+	return p.Messages
+}
+
+// GetChats returns value of Chats field.
+func (p *MessagesPeerDialogs) GetChats() (value []ChatClass) {
+	return p.Chats
+}
+
+// GetUsers returns value of Users field.
+func (p *MessagesPeerDialogs) GetUsers() (value []UserClass) {
+	return p.Users
+}
+
+// GetState returns value of State field.
+func (p *MessagesPeerDialogs) GetState() (value UpdatesState) {
+	return p.State
+}
+
+// MapDialogs returns field Dialogs wrapped in DialogClassArray helper.
+func (p *MessagesPeerDialogs) MapDialogs() (value DialogClassArray) {
+	return DialogClassArray(p.Dialogs)
+}
+
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (p *MessagesPeerDialogs) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(p.Messages)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (p *MessagesPeerDialogs) MapChats() (value ChatClassArray) {
+	return ChatClassArray(p.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *MessagesPeerDialogs) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
+}

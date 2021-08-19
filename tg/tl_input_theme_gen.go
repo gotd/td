@@ -43,6 +43,19 @@ type InputTheme struct {
 // InputThemeTypeID is TL type id of InputTheme.
 const InputThemeTypeID = 0x3c5693e9
 
+// construct implements constructor of InputThemeClass.
+func (i InputTheme) construct() InputThemeClass { return &i }
+
+// Ensuring interfaces in compile-time for InputTheme.
+var (
+	_ bin.Encoder     = &InputTheme{}
+	_ bin.Decoder     = &InputTheme{}
+	_ bin.BareEncoder = &InputTheme{}
+	_ bin.BareDecoder = &InputTheme{}
+
+	_ InputThemeClass = &InputTheme{}
+)
+
 func (i *InputTheme) Zero() bool {
 	if i == nil {
 		return true
@@ -129,16 +142,6 @@ func (i *InputTheme) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputTheme) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputTheme) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputTheme) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -172,18 +175,15 @@ func (i *InputTheme) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputThemeClass.
-func (i InputTheme) construct() InputThemeClass { return &i }
+// GetID returns value of ID field.
+func (i *InputTheme) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputTheme.
-var (
-	_ bin.Encoder     = &InputTheme{}
-	_ bin.Decoder     = &InputTheme{}
-	_ bin.BareEncoder = &InputTheme{}
-	_ bin.BareDecoder = &InputTheme{}
-
-	_ InputThemeClass = &InputTheme{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputTheme) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputThemeSlug represents TL type `inputThemeSlug#f5890df1`.
 // Theme by theme ID
@@ -196,6 +196,19 @@ type InputThemeSlug struct {
 
 // InputThemeSlugTypeID is TL type id of InputThemeSlug.
 const InputThemeSlugTypeID = 0xf5890df1
+
+// construct implements constructor of InputThemeClass.
+func (i InputThemeSlug) construct() InputThemeClass { return &i }
+
+// Ensuring interfaces in compile-time for InputThemeSlug.
+var (
+	_ bin.Encoder     = &InputThemeSlug{}
+	_ bin.Decoder     = &InputThemeSlug{}
+	_ bin.BareEncoder = &InputThemeSlug{}
+	_ bin.BareDecoder = &InputThemeSlug{}
+
+	_ InputThemeClass = &InputThemeSlug{}
+)
 
 func (i *InputThemeSlug) Zero() bool {
 	if i == nil {
@@ -273,11 +286,6 @@ func (i *InputThemeSlug) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSlug returns value of Slug field.
-func (i *InputThemeSlug) GetSlug() (value string) {
-	return i.Slug
-}
-
 // Decode implements bin.Decoder.
 func (i *InputThemeSlug) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -304,18 +312,10 @@ func (i *InputThemeSlug) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputThemeClass.
-func (i InputThemeSlug) construct() InputThemeClass { return &i }
-
-// Ensuring interfaces in compile-time for InputThemeSlug.
-var (
-	_ bin.Encoder     = &InputThemeSlug{}
-	_ bin.Decoder     = &InputThemeSlug{}
-	_ bin.BareEncoder = &InputThemeSlug{}
-	_ bin.BareDecoder = &InputThemeSlug{}
-
-	_ InputThemeClass = &InputThemeSlug{}
-)
+// GetSlug returns value of Slug field.
+func (i *InputThemeSlug) GetSlug() (value string) {
+	return i.Slug
+}
 
 // InputThemeClass represents InputTheme generic type.
 //

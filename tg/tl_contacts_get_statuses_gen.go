@@ -39,6 +39,14 @@ type ContactsGetStatusesRequest struct {
 // ContactsGetStatusesRequestTypeID is TL type id of ContactsGetStatusesRequest.
 const ContactsGetStatusesRequestTypeID = 0xc4a353ee
 
+// Ensuring interfaces in compile-time for ContactsGetStatusesRequest.
+var (
+	_ bin.Encoder     = &ContactsGetStatusesRequest{}
+	_ bin.Decoder     = &ContactsGetStatusesRequest{}
+	_ bin.BareEncoder = &ContactsGetStatusesRequest{}
+	_ bin.BareDecoder = &ContactsGetStatusesRequest{}
+)
+
 func (g *ContactsGetStatusesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *ContactsGetStatusesRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for ContactsGetStatusesRequest.
-var (
-	_ bin.Encoder     = &ContactsGetStatusesRequest{}
-	_ bin.Decoder     = &ContactsGetStatusesRequest{}
-	_ bin.BareEncoder = &ContactsGetStatusesRequest{}
-	_ bin.BareDecoder = &ContactsGetStatusesRequest{}
-)
 
 // ContactsGetStatuses invokes method contacts.getStatuses#c4a353ee returning error if any.
 // Returns the list of contact statuses.

@@ -38,6 +38,14 @@ type SecureValueVector struct {
 // SecureValueVectorTypeID is TL type id of SecureValueVector.
 const SecureValueVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for SecureValueVector.
+var (
+	_ bin.Encoder     = &SecureValueVector{}
+	_ bin.Decoder     = &SecureValueVector{}
+	_ bin.BareEncoder = &SecureValueVector{}
+	_ bin.BareDecoder = &SecureValueVector{}
+)
+
 func (vec *SecureValueVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -119,11 +127,6 @@ func (vec *SecureValueVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *SecureValueVector) GetElems() (value []SecureValue) {
-	return vec.Elems
-}
-
 // Decode implements bin.Decoder.
 func (vec *SecureValueVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -158,10 +161,7 @@ func (vec *SecureValueVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SecureValueVector.
-var (
-	_ bin.Encoder     = &SecureValueVector{}
-	_ bin.Decoder     = &SecureValueVector{}
-	_ bin.BareEncoder = &SecureValueVector{}
-	_ bin.BareDecoder = &SecureValueVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *SecureValueVector) GetElems() (value []SecureValue) {
+	return vec.Elems
+}

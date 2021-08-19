@@ -74,6 +74,14 @@ type LangPackLanguage struct {
 // LangPackLanguageTypeID is TL type id of LangPackLanguage.
 const LangPackLanguageTypeID = 0xeeca5ce3
 
+// Ensuring interfaces in compile-time for LangPackLanguage.
+var (
+	_ bin.Encoder     = &LangPackLanguage{}
+	_ bin.Decoder     = &LangPackLanguage{}
+	_ bin.BareEncoder = &LangPackLanguage{}
+	_ bin.BareDecoder = &LangPackLanguage{}
+)
+
 func (l *LangPackLanguage) Zero() bool {
 	if l == nil {
 		return true
@@ -274,6 +282,89 @@ func (l *LangPackLanguage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (l *LangPackLanguage) Decode(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode langPackLanguage#eeca5ce3 to nil")
+	}
+	if err := b.ConsumeID(LangPackLanguageTypeID); err != nil {
+		return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: %w", err)
+	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *LangPackLanguage) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode langPackLanguage#eeca5ce3 to nil")
+	}
+	{
+		if err := l.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field flags: %w", err)
+		}
+	}
+	l.Official = l.Flags.Has(0)
+	l.Rtl = l.Flags.Has(2)
+	l.Beta = l.Flags.Has(3)
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field name: %w", err)
+		}
+		l.Name = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field native_name: %w", err)
+		}
+		l.NativeName = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field lang_code: %w", err)
+		}
+		l.LangCode = value
+	}
+	if l.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field base_lang_code: %w", err)
+		}
+		l.BaseLangCode = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field plural_code: %w", err)
+		}
+		l.PluralCode = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field strings_count: %w", err)
+		}
+		l.StringsCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field translated_count: %w", err)
+		}
+		l.TranslatedCount = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field translations_url: %w", err)
+		}
+		l.TranslationsURL = value
+	}
+	return nil
+}
+
 // SetOfficial sets value of Official conditional field.
 func (l *LangPackLanguage) SetOfficial(value bool) {
 	if value {
@@ -371,94 +462,3 @@ func (l *LangPackLanguage) GetTranslatedCount() (value int) {
 func (l *LangPackLanguage) GetTranslationsURL() (value string) {
 	return l.TranslationsURL
 }
-
-// Decode implements bin.Decoder.
-func (l *LangPackLanguage) Decode(b *bin.Buffer) error {
-	if l == nil {
-		return fmt.Errorf("can't decode langPackLanguage#eeca5ce3 to nil")
-	}
-	if err := b.ConsumeID(LangPackLanguageTypeID); err != nil {
-		return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: %w", err)
-	}
-	return l.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (l *LangPackLanguage) DecodeBare(b *bin.Buffer) error {
-	if l == nil {
-		return fmt.Errorf("can't decode langPackLanguage#eeca5ce3 to nil")
-	}
-	{
-		if err := l.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field flags: %w", err)
-		}
-	}
-	l.Official = l.Flags.Has(0)
-	l.Rtl = l.Flags.Has(2)
-	l.Beta = l.Flags.Has(3)
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field name: %w", err)
-		}
-		l.Name = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field native_name: %w", err)
-		}
-		l.NativeName = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field lang_code: %w", err)
-		}
-		l.LangCode = value
-	}
-	if l.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field base_lang_code: %w", err)
-		}
-		l.BaseLangCode = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field plural_code: %w", err)
-		}
-		l.PluralCode = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field strings_count: %w", err)
-		}
-		l.StringsCount = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field translated_count: %w", err)
-		}
-		l.TranslatedCount = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field translations_url: %w", err)
-		}
-		l.TranslationsURL = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for LangPackLanguage.
-var (
-	_ bin.Encoder     = &LangPackLanguage{}
-	_ bin.Decoder     = &LangPackLanguage{}
-	_ bin.BareEncoder = &LangPackLanguage{}
-	_ bin.BareDecoder = &LangPackLanguage{}
-)

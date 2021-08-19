@@ -43,6 +43,14 @@ type PhonePhoneCall struct {
 // PhonePhoneCallTypeID is TL type id of PhonePhoneCall.
 const PhonePhoneCallTypeID = 0xec82e140
 
+// Ensuring interfaces in compile-time for PhonePhoneCall.
+var (
+	_ bin.Encoder     = &PhonePhoneCall{}
+	_ bin.Decoder     = &PhonePhoneCall{}
+	_ bin.BareEncoder = &PhonePhoneCall{}
+	_ bin.BareDecoder = &PhonePhoneCall{}
+)
+
 func (p *PhonePhoneCall) Zero() bool {
 	if p == nil {
 		return true
@@ -142,26 +150,6 @@ func (p *PhonePhoneCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneCall returns value of PhoneCall field.
-func (p *PhonePhoneCall) GetPhoneCall() (value PhoneCallClass) {
-	return p.PhoneCall
-}
-
-// GetPhoneCallAsNotEmpty returns mapped value of PhoneCall field.
-func (p *PhonePhoneCall) GetPhoneCallAsNotEmpty() (NotEmptyPhoneCall, bool) {
-	return p.PhoneCall.AsNotEmpty()
-}
-
-// GetUsers returns value of Users field.
-func (p *PhonePhoneCall) GetUsers() (value []UserClass) {
-	return p.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (p *PhonePhoneCall) MapUsers() (value UserClassArray) {
-	return UserClassArray(p.Users)
-}
-
 // Decode implements bin.Decoder.
 func (p *PhonePhoneCall) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -205,10 +193,22 @@ func (p *PhonePhoneCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhonePhoneCall.
-var (
-	_ bin.Encoder     = &PhonePhoneCall{}
-	_ bin.Decoder     = &PhonePhoneCall{}
-	_ bin.BareEncoder = &PhonePhoneCall{}
-	_ bin.BareDecoder = &PhonePhoneCall{}
-)
+// GetPhoneCall returns value of PhoneCall field.
+func (p *PhonePhoneCall) GetPhoneCall() (value PhoneCallClass) {
+	return p.PhoneCall
+}
+
+// GetUsers returns value of Users field.
+func (p *PhonePhoneCall) GetUsers() (value []UserClass) {
+	return p.Users
+}
+
+// GetPhoneCallAsNotEmpty returns mapped value of PhoneCall field.
+func (p *PhonePhoneCall) GetPhoneCallAsNotEmpty() (NotEmptyPhoneCall, bool) {
+	return p.PhoneCall.AsNotEmpty()
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *PhonePhoneCall) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
+}

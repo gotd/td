@@ -45,6 +45,14 @@ type NearestDC struct {
 // NearestDCTypeID is TL type id of NearestDC.
 const NearestDCTypeID = 0x8e1a1775
 
+// Ensuring interfaces in compile-time for NearestDC.
+var (
+	_ bin.Encoder     = &NearestDC{}
+	_ bin.Decoder     = &NearestDC{}
+	_ bin.BareEncoder = &NearestDC{}
+	_ bin.BareDecoder = &NearestDC{}
+)
+
 func (n *NearestDC) Zero() bool {
 	if n == nil {
 		return true
@@ -141,21 +149,6 @@ func (n *NearestDC) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCountry returns value of Country field.
-func (n *NearestDC) GetCountry() (value string) {
-	return n.Country
-}
-
-// GetThisDC returns value of ThisDC field.
-func (n *NearestDC) GetThisDC() (value int) {
-	return n.ThisDC
-}
-
-// GetNearestDC returns value of NearestDC field.
-func (n *NearestDC) GetNearestDC() (value int) {
-	return n.NearestDC
-}
-
 // Decode implements bin.Decoder.
 func (n *NearestDC) Decode(b *bin.Buffer) error {
 	if n == nil {
@@ -196,10 +189,17 @@ func (n *NearestDC) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for NearestDC.
-var (
-	_ bin.Encoder     = &NearestDC{}
-	_ bin.Decoder     = &NearestDC{}
-	_ bin.BareEncoder = &NearestDC{}
-	_ bin.BareDecoder = &NearestDC{}
-)
+// GetCountry returns value of Country field.
+func (n *NearestDC) GetCountry() (value string) {
+	return n.Country
+}
+
+// GetThisDC returns value of ThisDC field.
+func (n *NearestDC) GetThisDC() (value int) {
+	return n.ThisDC
+}
+
+// GetNearestDC returns value of NearestDC field.
+func (n *NearestDC) GetNearestDC() (value int) {
+	return n.NearestDC
+}

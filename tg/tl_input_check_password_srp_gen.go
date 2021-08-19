@@ -39,6 +39,19 @@ type InputCheckPasswordEmpty struct {
 // InputCheckPasswordEmptyTypeID is TL type id of InputCheckPasswordEmpty.
 const InputCheckPasswordEmptyTypeID = 0x9880f658
 
+// construct implements constructor of InputCheckPasswordSRPClass.
+func (i InputCheckPasswordEmpty) construct() InputCheckPasswordSRPClass { return &i }
+
+// Ensuring interfaces in compile-time for InputCheckPasswordEmpty.
+var (
+	_ bin.Encoder     = &InputCheckPasswordEmpty{}
+	_ bin.Decoder     = &InputCheckPasswordEmpty{}
+	_ bin.BareEncoder = &InputCheckPasswordEmpty{}
+	_ bin.BareDecoder = &InputCheckPasswordEmpty{}
+
+	_ InputCheckPasswordSRPClass = &InputCheckPasswordEmpty{}
+)
+
 func (i *InputCheckPasswordEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputCheckPasswordEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputCheckPasswordSRPClass.
-func (i InputCheckPasswordEmpty) construct() InputCheckPasswordSRPClass { return &i }
-
-// Ensuring interfaces in compile-time for InputCheckPasswordEmpty.
-var (
-	_ bin.Encoder     = &InputCheckPasswordEmpty{}
-	_ bin.Decoder     = &InputCheckPasswordEmpty{}
-	_ bin.BareEncoder = &InputCheckPasswordEmpty{}
-	_ bin.BareDecoder = &InputCheckPasswordEmpty{}
-
-	_ InputCheckPasswordSRPClass = &InputCheckPasswordEmpty{}
-)
-
 // InputCheckPasswordSRP represents TL type `inputCheckPasswordSRP#d27ff082`.
 // Constructor for checking the validity of a 2FA SRP password (see SRP¹)
 //
@@ -158,6 +158,19 @@ type InputCheckPasswordSRP struct {
 
 // InputCheckPasswordSRPTypeID is TL type id of InputCheckPasswordSRP.
 const InputCheckPasswordSRPTypeID = 0xd27ff082
+
+// construct implements constructor of InputCheckPasswordSRPClass.
+func (i InputCheckPasswordSRP) construct() InputCheckPasswordSRPClass { return &i }
+
+// Ensuring interfaces in compile-time for InputCheckPasswordSRP.
+var (
+	_ bin.Encoder     = &InputCheckPasswordSRP{}
+	_ bin.Decoder     = &InputCheckPasswordSRP{}
+	_ bin.BareEncoder = &InputCheckPasswordSRP{}
+	_ bin.BareDecoder = &InputCheckPasswordSRP{}
+
+	_ InputCheckPasswordSRPClass = &InputCheckPasswordSRP{}
+)
 
 func (i *InputCheckPasswordSRP) Zero() bool {
 	if i == nil {
@@ -255,21 +268,6 @@ func (i *InputCheckPasswordSRP) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSRPID returns value of SRPID field.
-func (i *InputCheckPasswordSRP) GetSRPID() (value int64) {
-	return i.SRPID
-}
-
-// GetA returns value of A field.
-func (i *InputCheckPasswordSRP) GetA() (value []byte) {
-	return i.A
-}
-
-// GetM1 returns value of M1 field.
-func (i *InputCheckPasswordSRP) GetM1() (value []byte) {
-	return i.M1
-}
-
 // Decode implements bin.Decoder.
 func (i *InputCheckPasswordSRP) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -310,18 +308,20 @@ func (i *InputCheckPasswordSRP) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputCheckPasswordSRPClass.
-func (i InputCheckPasswordSRP) construct() InputCheckPasswordSRPClass { return &i }
+// GetSRPID returns value of SRPID field.
+func (i *InputCheckPasswordSRP) GetSRPID() (value int64) {
+	return i.SRPID
+}
 
-// Ensuring interfaces in compile-time for InputCheckPasswordSRP.
-var (
-	_ bin.Encoder     = &InputCheckPasswordSRP{}
-	_ bin.Decoder     = &InputCheckPasswordSRP{}
-	_ bin.BareEncoder = &InputCheckPasswordSRP{}
-	_ bin.BareDecoder = &InputCheckPasswordSRP{}
+// GetA returns value of A field.
+func (i *InputCheckPasswordSRP) GetA() (value []byte) {
+	return i.A
+}
 
-	_ InputCheckPasswordSRPClass = &InputCheckPasswordSRP{}
-)
+// GetM1 returns value of M1 field.
+func (i *InputCheckPasswordSRP) GetM1() (value []byte) {
+	return i.M1
+}
 
 // InputCheckPasswordSRPClass represents InputCheckPasswordSRP generic type.
 //

@@ -40,6 +40,19 @@ type PasswordKdfAlgoUnknown struct {
 // PasswordKdfAlgoUnknownTypeID is TL type id of PasswordKdfAlgoUnknown.
 const PasswordKdfAlgoUnknownTypeID = 0xd45ab096
 
+// construct implements constructor of PasswordKdfAlgoClass.
+func (p PasswordKdfAlgoUnknown) construct() PasswordKdfAlgoClass { return &p }
+
+// Ensuring interfaces in compile-time for PasswordKdfAlgoUnknown.
+var (
+	_ bin.Encoder     = &PasswordKdfAlgoUnknown{}
+	_ bin.Decoder     = &PasswordKdfAlgoUnknown{}
+	_ bin.BareEncoder = &PasswordKdfAlgoUnknown{}
+	_ bin.BareDecoder = &PasswordKdfAlgoUnknown{}
+
+	_ PasswordKdfAlgoClass = &PasswordKdfAlgoUnknown{}
+)
+
 func (p *PasswordKdfAlgoUnknown) Zero() bool {
 	if p == nil {
 		return true
@@ -119,19 +132,6 @@ func (p *PasswordKdfAlgoUnknown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PasswordKdfAlgoClass.
-func (p PasswordKdfAlgoUnknown) construct() PasswordKdfAlgoClass { return &p }
-
-// Ensuring interfaces in compile-time for PasswordKdfAlgoUnknown.
-var (
-	_ bin.Encoder     = &PasswordKdfAlgoUnknown{}
-	_ bin.Decoder     = &PasswordKdfAlgoUnknown{}
-	_ bin.BareEncoder = &PasswordKdfAlgoUnknown{}
-	_ bin.BareDecoder = &PasswordKdfAlgoUnknown{}
-
-	_ PasswordKdfAlgoClass = &PasswordKdfAlgoUnknown{}
-)
-
 // PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow represents TL type `passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a`.
 // This key derivation algorithm defines that SRP 2FA login¹ must be used
 //
@@ -164,6 +164,21 @@ type PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow struct {
 
 // PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID is TL type id of PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
 const PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID = 0x3a912d4a
+
+// construct implements constructor of PasswordKdfAlgoClass.
+func (p PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) construct() PasswordKdfAlgoClass {
+	return &p
+}
+
+// Ensuring interfaces in compile-time for PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
+var (
+	_ bin.Encoder     = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
+	_ bin.Decoder     = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
+	_ bin.BareEncoder = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
+	_ bin.BareDecoder = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
+
+	_ PasswordKdfAlgoClass = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
+)
 
 func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Zero() bool {
 	if p == nil {
@@ -271,26 +286,6 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Enco
 	return nil
 }
 
-// GetSalt1 returns value of Salt1 field.
-func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetSalt1() (value []byte) {
-	return p.Salt1
-}
-
-// GetSalt2 returns value of Salt2 field.
-func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetSalt2() (value []byte) {
-	return p.Salt2
-}
-
-// GetG returns value of G field.
-func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetG() (value int) {
-	return p.G
-}
-
-// GetP returns value of P field.
-func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetP() (value []byte) {
-	return p.P
-}
-
 // Decode implements bin.Decoder.
 func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -338,20 +333,25 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Deco
 	return nil
 }
 
-// construct implements constructor of PasswordKdfAlgoClass.
-func (p PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) construct() PasswordKdfAlgoClass {
-	return &p
+// GetSalt1 returns value of Salt1 field.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetSalt1() (value []byte) {
+	return p.Salt1
 }
 
-// Ensuring interfaces in compile-time for PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
-var (
-	_ bin.Encoder     = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
-	_ bin.Decoder     = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
-	_ bin.BareEncoder = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
-	_ bin.BareDecoder = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
+// GetSalt2 returns value of Salt2 field.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetSalt2() (value []byte) {
+	return p.Salt2
+}
 
-	_ PasswordKdfAlgoClass = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
-)
+// GetG returns value of G field.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetG() (value int) {
+	return p.G
+}
+
+// GetP returns value of P field.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetP() (value []byte) {
+	return p.P
+}
 
 // PasswordKdfAlgoClass represents PasswordKdfAlgo generic type.
 //

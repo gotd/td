@@ -41,6 +41,19 @@ type InputStickeredMediaPhoto struct {
 // InputStickeredMediaPhotoTypeID is TL type id of InputStickeredMediaPhoto.
 const InputStickeredMediaPhotoTypeID = 0x4a992157
 
+// construct implements constructor of InputStickeredMediaClass.
+func (i InputStickeredMediaPhoto) construct() InputStickeredMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickeredMediaPhoto.
+var (
+	_ bin.Encoder     = &InputStickeredMediaPhoto{}
+	_ bin.Decoder     = &InputStickeredMediaPhoto{}
+	_ bin.BareEncoder = &InputStickeredMediaPhoto{}
+	_ bin.BareDecoder = &InputStickeredMediaPhoto{}
+
+	_ InputStickeredMediaClass = &InputStickeredMediaPhoto{}
+)
+
 func (i *InputStickeredMediaPhoto) Zero() bool {
 	if i == nil {
 		return true
@@ -122,11 +135,6 @@ func (i *InputStickeredMediaPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputStickeredMediaPhoto) GetID() (value InputPhotoClass) {
-	return i.ID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputStickeredMediaPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -153,18 +161,10 @@ func (i *InputStickeredMediaPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputStickeredMediaClass.
-func (i InputStickeredMediaPhoto) construct() InputStickeredMediaClass { return &i }
-
-// Ensuring interfaces in compile-time for InputStickeredMediaPhoto.
-var (
-	_ bin.Encoder     = &InputStickeredMediaPhoto{}
-	_ bin.Decoder     = &InputStickeredMediaPhoto{}
-	_ bin.BareEncoder = &InputStickeredMediaPhoto{}
-	_ bin.BareDecoder = &InputStickeredMediaPhoto{}
-
-	_ InputStickeredMediaClass = &InputStickeredMediaPhoto{}
-)
+// GetID returns value of ID field.
+func (i *InputStickeredMediaPhoto) GetID() (value InputPhotoClass) {
+	return i.ID
+}
 
 // InputStickeredMediaDocument represents TL type `inputStickeredMediaDocument#438865b`.
 // A document with stickers attached
@@ -177,6 +177,19 @@ type InputStickeredMediaDocument struct {
 
 // InputStickeredMediaDocumentTypeID is TL type id of InputStickeredMediaDocument.
 const InputStickeredMediaDocumentTypeID = 0x438865b
+
+// construct implements constructor of InputStickeredMediaClass.
+func (i InputStickeredMediaDocument) construct() InputStickeredMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickeredMediaDocument.
+var (
+	_ bin.Encoder     = &InputStickeredMediaDocument{}
+	_ bin.Decoder     = &InputStickeredMediaDocument{}
+	_ bin.BareEncoder = &InputStickeredMediaDocument{}
+	_ bin.BareDecoder = &InputStickeredMediaDocument{}
+
+	_ InputStickeredMediaClass = &InputStickeredMediaDocument{}
+)
 
 func (i *InputStickeredMediaDocument) Zero() bool {
 	if i == nil {
@@ -259,11 +272,6 @@ func (i *InputStickeredMediaDocument) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputStickeredMediaDocument) GetID() (value InputDocumentClass) {
-	return i.ID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputStickeredMediaDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -290,18 +298,10 @@ func (i *InputStickeredMediaDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputStickeredMediaClass.
-func (i InputStickeredMediaDocument) construct() InputStickeredMediaClass { return &i }
-
-// Ensuring interfaces in compile-time for InputStickeredMediaDocument.
-var (
-	_ bin.Encoder     = &InputStickeredMediaDocument{}
-	_ bin.Decoder     = &InputStickeredMediaDocument{}
-	_ bin.BareEncoder = &InputStickeredMediaDocument{}
-	_ bin.BareDecoder = &InputStickeredMediaDocument{}
-
-	_ InputStickeredMediaClass = &InputStickeredMediaDocument{}
-)
+// GetID returns value of ID field.
+func (i *InputStickeredMediaDocument) GetID() (value InputDocumentClass) {
+	return i.ID
+}
 
 // InputStickeredMediaClass represents InputStickeredMedia generic type.
 //

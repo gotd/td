@@ -59,6 +59,14 @@ type MessageViews struct {
 // MessageViewsTypeID is TL type id of MessageViews.
 const MessageViewsTypeID = 0x455b853d
 
+// Ensuring interfaces in compile-time for MessageViews.
+var (
+	_ bin.Encoder     = &MessageViews{}
+	_ bin.Decoder     = &MessageViews{}
+	_ bin.BareEncoder = &MessageViews{}
+	_ bin.BareDecoder = &MessageViews{}
+)
+
 func (m *MessageViews) Zero() bool {
 	if m == nil {
 		return true
@@ -190,6 +198,49 @@ func (m *MessageViews) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (m *MessageViews) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageViews#455b853d to nil")
+	}
+	if err := b.ConsumeID(MessageViewsTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageViews#455b853d: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageViews) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageViews#455b853d to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageViews#455b853d: field flags: %w", err)
+		}
+	}
+	if m.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageViews#455b853d: field views: %w", err)
+		}
+		m.Views = value
+	}
+	if m.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageViews#455b853d: field forwards: %w", err)
+		}
+		m.Forwards = value
+	}
+	if m.Flags.Has(2) {
+		if err := m.Replies.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageViews#455b853d: field replies: %w", err)
+		}
+	}
+	return nil
+}
+
 // SetViews sets value of Views conditional field.
 func (m *MessageViews) SetViews(value int) {
 	m.Flags.Set(0)
@@ -234,54 +285,3 @@ func (m *MessageViews) GetReplies() (value MessageReplies, ok bool) {
 	}
 	return m.Replies, true
 }
-
-// Decode implements bin.Decoder.
-func (m *MessageViews) Decode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageViews#455b853d to nil")
-	}
-	if err := b.ConsumeID(MessageViewsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageViews#455b853d: %w", err)
-	}
-	return m.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (m *MessageViews) DecodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageViews#455b853d to nil")
-	}
-	{
-		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageViews#455b853d: field flags: %w", err)
-		}
-	}
-	if m.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageViews#455b853d: field views: %w", err)
-		}
-		m.Views = value
-	}
-	if m.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageViews#455b853d: field forwards: %w", err)
-		}
-		m.Forwards = value
-	}
-	if m.Flags.Has(2) {
-		if err := m.Replies.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageViews#455b853d: field replies: %w", err)
-		}
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessageViews.
-var (
-	_ bin.Encoder     = &MessageViews{}
-	_ bin.Decoder     = &MessageViews{}
-	_ bin.BareEncoder = &MessageViews{}
-	_ bin.BareDecoder = &MessageViews{}
-)

@@ -39,6 +39,19 @@ type ChannelLocationEmpty struct {
 // ChannelLocationEmptyTypeID is TL type id of ChannelLocationEmpty.
 const ChannelLocationEmptyTypeID = 0xbfb5ad8b
 
+// construct implements constructor of ChannelLocationClass.
+func (c ChannelLocationEmpty) construct() ChannelLocationClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelLocationEmpty.
+var (
+	_ bin.Encoder     = &ChannelLocationEmpty{}
+	_ bin.Decoder     = &ChannelLocationEmpty{}
+	_ bin.BareEncoder = &ChannelLocationEmpty{}
+	_ bin.BareDecoder = &ChannelLocationEmpty{}
+
+	_ ChannelLocationClass = &ChannelLocationEmpty{}
+)
+
 func (c *ChannelLocationEmpty) Zero() bool {
 	if c == nil {
 		return true
@@ -118,19 +131,6 @@ func (c *ChannelLocationEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelLocationClass.
-func (c ChannelLocationEmpty) construct() ChannelLocationClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelLocationEmpty.
-var (
-	_ bin.Encoder     = &ChannelLocationEmpty{}
-	_ bin.Decoder     = &ChannelLocationEmpty{}
-	_ bin.BareEncoder = &ChannelLocationEmpty{}
-	_ bin.BareDecoder = &ChannelLocationEmpty{}
-
-	_ ChannelLocationClass = &ChannelLocationEmpty{}
-)
-
 // ChannelLocation represents TL type `channelLocation#209b82db`.
 // Geographical location of supergroup (geogroups)
 //
@@ -144,6 +144,19 @@ type ChannelLocation struct {
 
 // ChannelLocationTypeID is TL type id of ChannelLocation.
 const ChannelLocationTypeID = 0x209b82db
+
+// construct implements constructor of ChannelLocationClass.
+func (c ChannelLocation) construct() ChannelLocationClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelLocation.
+var (
+	_ bin.Encoder     = &ChannelLocation{}
+	_ bin.Decoder     = &ChannelLocation{}
+	_ bin.BareEncoder = &ChannelLocation{}
+	_ bin.BareDecoder = &ChannelLocation{}
+
+	_ ChannelLocationClass = &ChannelLocation{}
+)
 
 func (c *ChannelLocation) Zero() bool {
 	if c == nil {
@@ -236,16 +249,6 @@ func (c *ChannelLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetGeoPoint returns value of GeoPoint field.
-func (c *ChannelLocation) GetGeoPoint() (value GeoPointClass) {
-	return c.GeoPoint
-}
-
-// GetAddress returns value of Address field.
-func (c *ChannelLocation) GetAddress() (value string) {
-	return c.Address
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelLocation) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -279,18 +282,15 @@ func (c *ChannelLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelLocationClass.
-func (c ChannelLocation) construct() ChannelLocationClass { return &c }
+// GetGeoPoint returns value of GeoPoint field.
+func (c *ChannelLocation) GetGeoPoint() (value GeoPointClass) {
+	return c.GeoPoint
+}
 
-// Ensuring interfaces in compile-time for ChannelLocation.
-var (
-	_ bin.Encoder     = &ChannelLocation{}
-	_ bin.Decoder     = &ChannelLocation{}
-	_ bin.BareEncoder = &ChannelLocation{}
-	_ bin.BareDecoder = &ChannelLocation{}
-
-	_ ChannelLocationClass = &ChannelLocation{}
-)
+// GetAddress returns value of Address field.
+func (c *ChannelLocation) GetAddress() (value string) {
+	return c.Address
+}
 
 // ChannelLocationClass represents ChannelLocation generic type.
 //

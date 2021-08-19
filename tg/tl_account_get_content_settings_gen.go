@@ -39,6 +39,14 @@ type AccountGetContentSettingsRequest struct {
 // AccountGetContentSettingsRequestTypeID is TL type id of AccountGetContentSettingsRequest.
 const AccountGetContentSettingsRequestTypeID = 0x8b9b4dae
 
+// Ensuring interfaces in compile-time for AccountGetContentSettingsRequest.
+var (
+	_ bin.Encoder     = &AccountGetContentSettingsRequest{}
+	_ bin.Decoder     = &AccountGetContentSettingsRequest{}
+	_ bin.BareEncoder = &AccountGetContentSettingsRequest{}
+	_ bin.BareDecoder = &AccountGetContentSettingsRequest{}
+)
+
 func (g *AccountGetContentSettingsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *AccountGetContentSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountGetContentSettingsRequest.
-var (
-	_ bin.Encoder     = &AccountGetContentSettingsRequest{}
-	_ bin.Decoder     = &AccountGetContentSettingsRequest{}
-	_ bin.BareEncoder = &AccountGetContentSettingsRequest{}
-	_ bin.BareDecoder = &AccountGetContentSettingsRequest{}
-)
 
 // AccountGetContentSettings invokes method account.getContentSettings#8b9b4dae returning error if any.
 // Get sensitive content settings

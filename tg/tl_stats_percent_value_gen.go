@@ -47,6 +47,14 @@ type StatsPercentValue struct {
 // StatsPercentValueTypeID is TL type id of StatsPercentValue.
 const StatsPercentValueTypeID = 0xcbce2fe0
 
+// Ensuring interfaces in compile-time for StatsPercentValue.
+var (
+	_ bin.Encoder     = &StatsPercentValue{}
+	_ bin.Decoder     = &StatsPercentValue{}
+	_ bin.BareEncoder = &StatsPercentValue{}
+	_ bin.BareDecoder = &StatsPercentValue{}
+)
+
 func (s *StatsPercentValue) Zero() bool {
 	if s == nil {
 		return true
@@ -133,16 +141,6 @@ func (s *StatsPercentValue) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPart returns value of Part field.
-func (s *StatsPercentValue) GetPart() (value float64) {
-	return s.Part
-}
-
-// GetTotal returns value of Total field.
-func (s *StatsPercentValue) GetTotal() (value float64) {
-	return s.Total
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsPercentValue) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -176,10 +174,12 @@ func (s *StatsPercentValue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsPercentValue.
-var (
-	_ bin.Encoder     = &StatsPercentValue{}
-	_ bin.Decoder     = &StatsPercentValue{}
-	_ bin.BareEncoder = &StatsPercentValue{}
-	_ bin.BareDecoder = &StatsPercentValue{}
-)
+// GetPart returns value of Part field.
+func (s *StatsPercentValue) GetPart() (value float64) {
+	return s.Part
+}
+
+// GetTotal returns value of Total field.
+func (s *StatsPercentValue) GetTotal() (value float64) {
+	return s.Total
+}

@@ -43,6 +43,14 @@ type MessagesGetEmojiKeywordsDifferenceRequest struct {
 // MessagesGetEmojiKeywordsDifferenceRequestTypeID is TL type id of MessagesGetEmojiKeywordsDifferenceRequest.
 const MessagesGetEmojiKeywordsDifferenceRequestTypeID = 0x1508b6af
 
+// Ensuring interfaces in compile-time for MessagesGetEmojiKeywordsDifferenceRequest.
+var (
+	_ bin.Encoder     = &MessagesGetEmojiKeywordsDifferenceRequest{}
+	_ bin.Decoder     = &MessagesGetEmojiKeywordsDifferenceRequest{}
+	_ bin.BareEncoder = &MessagesGetEmojiKeywordsDifferenceRequest{}
+	_ bin.BareDecoder = &MessagesGetEmojiKeywordsDifferenceRequest{}
+)
+
 func (g *MessagesGetEmojiKeywordsDifferenceRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -129,16 +137,6 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) EncodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// GetLangCode returns value of LangCode field.
-func (g *MessagesGetEmojiKeywordsDifferenceRequest) GetLangCode() (value string) {
-	return g.LangCode
-}
-
-// GetFromVersion returns value of FromVersion field.
-func (g *MessagesGetEmojiKeywordsDifferenceRequest) GetFromVersion() (value int) {
-	return g.FromVersion
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetEmojiKeywordsDifferenceRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -172,13 +170,15 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetEmojiKeywordsDifferenceRequest.
-var (
-	_ bin.Encoder     = &MessagesGetEmojiKeywordsDifferenceRequest{}
-	_ bin.Decoder     = &MessagesGetEmojiKeywordsDifferenceRequest{}
-	_ bin.BareEncoder = &MessagesGetEmojiKeywordsDifferenceRequest{}
-	_ bin.BareDecoder = &MessagesGetEmojiKeywordsDifferenceRequest{}
-)
+// GetLangCode returns value of LangCode field.
+func (g *MessagesGetEmojiKeywordsDifferenceRequest) GetLangCode() (value string) {
+	return g.LangCode
+}
+
+// GetFromVersion returns value of FromVersion field.
+func (g *MessagesGetEmojiKeywordsDifferenceRequest) GetFromVersion() (value int) {
+	return g.FromVersion
+}
 
 // MessagesGetEmojiKeywordsDifference invokes method messages.getEmojiKeywordsDifference#1508b6af returning error if any.
 // Get changed emoji keywords

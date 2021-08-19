@@ -45,6 +45,14 @@ type ContactsAcceptContactRequest struct {
 // ContactsAcceptContactRequestTypeID is TL type id of ContactsAcceptContactRequest.
 const ContactsAcceptContactRequestTypeID = 0xf831a20f
 
+// Ensuring interfaces in compile-time for ContactsAcceptContactRequest.
+var (
+	_ bin.Encoder     = &ContactsAcceptContactRequest{}
+	_ bin.Decoder     = &ContactsAcceptContactRequest{}
+	_ bin.BareEncoder = &ContactsAcceptContactRequest{}
+	_ bin.BareDecoder = &ContactsAcceptContactRequest{}
+)
+
 func (a *ContactsAcceptContactRequest) Zero() bool {
 	if a == nil {
 		return true
@@ -126,11 +134,6 @@ func (a *ContactsAcceptContactRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (a *ContactsAcceptContactRequest) GetID() (value InputUserClass) {
-	return a.ID
-}
-
 // Decode implements bin.Decoder.
 func (a *ContactsAcceptContactRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -157,13 +160,10 @@ func (a *ContactsAcceptContactRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsAcceptContactRequest.
-var (
-	_ bin.Encoder     = &ContactsAcceptContactRequest{}
-	_ bin.Decoder     = &ContactsAcceptContactRequest{}
-	_ bin.BareEncoder = &ContactsAcceptContactRequest{}
-	_ bin.BareDecoder = &ContactsAcceptContactRequest{}
-)
+// GetID returns value of ID field.
+func (a *ContactsAcceptContactRequest) GetID() (value InputUserClass) {
+	return a.ID
+}
 
 // ContactsAcceptContact invokes method contacts.acceptContact#f831a20f returning error if any.
 // If the peer settings¹ of a new user allow us to add him as contact, add that user as

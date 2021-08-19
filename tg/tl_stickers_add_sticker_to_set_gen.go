@@ -44,6 +44,14 @@ type StickersAddStickerToSetRequest struct {
 // StickersAddStickerToSetRequestTypeID is TL type id of StickersAddStickerToSetRequest.
 const StickersAddStickerToSetRequestTypeID = 0x8653febe
 
+// Ensuring interfaces in compile-time for StickersAddStickerToSetRequest.
+var (
+	_ bin.Encoder     = &StickersAddStickerToSetRequest{}
+	_ bin.Decoder     = &StickersAddStickerToSetRequest{}
+	_ bin.BareEncoder = &StickersAddStickerToSetRequest{}
+	_ bin.BareDecoder = &StickersAddStickerToSetRequest{}
+)
+
 func (a *StickersAddStickerToSetRequest) Zero() bool {
 	if a == nil {
 		return true
@@ -137,16 +145,6 @@ func (a *StickersAddStickerToSetRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetStickerset returns value of Stickerset field.
-func (a *StickersAddStickerToSetRequest) GetStickerset() (value InputStickerSetClass) {
-	return a.Stickerset
-}
-
-// GetSticker returns value of Sticker field.
-func (a *StickersAddStickerToSetRequest) GetSticker() (value InputStickerSetItem) {
-	return a.Sticker
-}
-
 // Decode implements bin.Decoder.
 func (a *StickersAddStickerToSetRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -178,13 +176,15 @@ func (a *StickersAddStickerToSetRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StickersAddStickerToSetRequest.
-var (
-	_ bin.Encoder     = &StickersAddStickerToSetRequest{}
-	_ bin.Decoder     = &StickersAddStickerToSetRequest{}
-	_ bin.BareEncoder = &StickersAddStickerToSetRequest{}
-	_ bin.BareDecoder = &StickersAddStickerToSetRequest{}
-)
+// GetStickerset returns value of Stickerset field.
+func (a *StickersAddStickerToSetRequest) GetStickerset() (value InputStickerSetClass) {
+	return a.Stickerset
+}
+
+// GetSticker returns value of Sticker field.
+func (a *StickersAddStickerToSetRequest) GetSticker() (value InputStickerSetItem) {
+	return a.Sticker
+}
 
 // StickersAddStickerToSet invokes method stickers.addStickerToSet#8653febe returning error if any.
 // Add a sticker to a stickerset, bots only. The sticker set must have been created by

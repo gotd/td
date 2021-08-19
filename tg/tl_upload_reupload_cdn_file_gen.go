@@ -46,6 +46,14 @@ type UploadReuploadCDNFileRequest struct {
 // UploadReuploadCDNFileRequestTypeID is TL type id of UploadReuploadCDNFileRequest.
 const UploadReuploadCDNFileRequestTypeID = 0x9b2754a8
 
+// Ensuring interfaces in compile-time for UploadReuploadCDNFileRequest.
+var (
+	_ bin.Encoder     = &UploadReuploadCDNFileRequest{}
+	_ bin.Decoder     = &UploadReuploadCDNFileRequest{}
+	_ bin.BareEncoder = &UploadReuploadCDNFileRequest{}
+	_ bin.BareDecoder = &UploadReuploadCDNFileRequest{}
+)
+
 func (r *UploadReuploadCDNFileRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -132,16 +140,6 @@ func (r *UploadReuploadCDNFileRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFileToken returns value of FileToken field.
-func (r *UploadReuploadCDNFileRequest) GetFileToken() (value []byte) {
-	return r.FileToken
-}
-
-// GetRequestToken returns value of RequestToken field.
-func (r *UploadReuploadCDNFileRequest) GetRequestToken() (value []byte) {
-	return r.RequestToken
-}
-
 // Decode implements bin.Decoder.
 func (r *UploadReuploadCDNFileRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -175,13 +173,15 @@ func (r *UploadReuploadCDNFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UploadReuploadCDNFileRequest.
-var (
-	_ bin.Encoder     = &UploadReuploadCDNFileRequest{}
-	_ bin.Decoder     = &UploadReuploadCDNFileRequest{}
-	_ bin.BareEncoder = &UploadReuploadCDNFileRequest{}
-	_ bin.BareDecoder = &UploadReuploadCDNFileRequest{}
-)
+// GetFileToken returns value of FileToken field.
+func (r *UploadReuploadCDNFileRequest) GetFileToken() (value []byte) {
+	return r.FileToken
+}
+
+// GetRequestToken returns value of RequestToken field.
+func (r *UploadReuploadCDNFileRequest) GetRequestToken() (value []byte) {
+	return r.RequestToken
+}
 
 // UploadReuploadCDNFile invokes method upload.reuploadCdnFile#9b2754a8 returning error if any.
 // Request a reupload of a certain file to a CDN DC¹.

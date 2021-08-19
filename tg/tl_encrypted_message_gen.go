@@ -53,6 +53,19 @@ type EncryptedMessage struct {
 // EncryptedMessageTypeID is TL type id of EncryptedMessage.
 const EncryptedMessageTypeID = 0xed18c118
 
+// construct implements constructor of EncryptedMessageClass.
+func (e EncryptedMessage) construct() EncryptedMessageClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedMessage.
+var (
+	_ bin.Encoder     = &EncryptedMessage{}
+	_ bin.Decoder     = &EncryptedMessage{}
+	_ bin.BareEncoder = &EncryptedMessage{}
+	_ bin.BareDecoder = &EncryptedMessage{}
+
+	_ EncryptedMessageClass = &EncryptedMessage{}
+)
+
 func (e *EncryptedMessage) Zero() bool {
 	if e == nil {
 		return true
@@ -174,31 +187,6 @@ func (e *EncryptedMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandomID returns value of RandomID field.
-func (e *EncryptedMessage) GetRandomID() (value int64) {
-	return e.RandomID
-}
-
-// GetChatID returns value of ChatID field.
-func (e *EncryptedMessage) GetChatID() (value int) {
-	return e.ChatID
-}
-
-// GetDate returns value of Date field.
-func (e *EncryptedMessage) GetDate() (value int) {
-	return e.Date
-}
-
-// GetBytes returns value of Bytes field.
-func (e *EncryptedMessage) GetBytes() (value []byte) {
-	return e.Bytes
-}
-
-// GetFile returns value of File field.
-func (e *EncryptedMessage) GetFile() (value EncryptedFileClass) {
-	return e.File
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedMessage) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -253,18 +241,30 @@ func (e *EncryptedMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedMessageClass.
-func (e EncryptedMessage) construct() EncryptedMessageClass { return &e }
+// GetRandomID returns value of RandomID field.
+func (e *EncryptedMessage) GetRandomID() (value int64) {
+	return e.RandomID
+}
 
-// Ensuring interfaces in compile-time for EncryptedMessage.
-var (
-	_ bin.Encoder     = &EncryptedMessage{}
-	_ bin.Decoder     = &EncryptedMessage{}
-	_ bin.BareEncoder = &EncryptedMessage{}
-	_ bin.BareDecoder = &EncryptedMessage{}
+// GetChatID returns value of ChatID field.
+func (e *EncryptedMessage) GetChatID() (value int) {
+	return e.ChatID
+}
 
-	_ EncryptedMessageClass = &EncryptedMessage{}
-)
+// GetDate returns value of Date field.
+func (e *EncryptedMessage) GetDate() (value int) {
+	return e.Date
+}
+
+// GetBytes returns value of Bytes field.
+func (e *EncryptedMessage) GetBytes() (value []byte) {
+	return e.Bytes
+}
+
+// GetFile returns value of File field.
+func (e *EncryptedMessage) GetFile() (value EncryptedFileClass) {
+	return e.File
+}
 
 // EncryptedMessageService represents TL type `encryptedMessageService#23734b06`.
 // Encrypted service message
@@ -287,6 +287,19 @@ type EncryptedMessageService struct {
 
 // EncryptedMessageServiceTypeID is TL type id of EncryptedMessageService.
 const EncryptedMessageServiceTypeID = 0x23734b06
+
+// construct implements constructor of EncryptedMessageClass.
+func (e EncryptedMessageService) construct() EncryptedMessageClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedMessageService.
+var (
+	_ bin.Encoder     = &EncryptedMessageService{}
+	_ bin.Decoder     = &EncryptedMessageService{}
+	_ bin.BareEncoder = &EncryptedMessageService{}
+	_ bin.BareDecoder = &EncryptedMessageService{}
+
+	_ EncryptedMessageClass = &EncryptedMessageService{}
+)
 
 func (e *EncryptedMessageService) Zero() bool {
 	if e == nil {
@@ -394,26 +407,6 @@ func (e *EncryptedMessageService) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandomID returns value of RandomID field.
-func (e *EncryptedMessageService) GetRandomID() (value int64) {
-	return e.RandomID
-}
-
-// GetChatID returns value of ChatID field.
-func (e *EncryptedMessageService) GetChatID() (value int) {
-	return e.ChatID
-}
-
-// GetDate returns value of Date field.
-func (e *EncryptedMessageService) GetDate() (value int) {
-	return e.Date
-}
-
-// GetBytes returns value of Bytes field.
-func (e *EncryptedMessageService) GetBytes() (value []byte) {
-	return e.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedMessageService) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -461,18 +454,25 @@ func (e *EncryptedMessageService) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedMessageClass.
-func (e EncryptedMessageService) construct() EncryptedMessageClass { return &e }
+// GetRandomID returns value of RandomID field.
+func (e *EncryptedMessageService) GetRandomID() (value int64) {
+	return e.RandomID
+}
 
-// Ensuring interfaces in compile-time for EncryptedMessageService.
-var (
-	_ bin.Encoder     = &EncryptedMessageService{}
-	_ bin.Decoder     = &EncryptedMessageService{}
-	_ bin.BareEncoder = &EncryptedMessageService{}
-	_ bin.BareDecoder = &EncryptedMessageService{}
+// GetChatID returns value of ChatID field.
+func (e *EncryptedMessageService) GetChatID() (value int) {
+	return e.ChatID
+}
 
-	_ EncryptedMessageClass = &EncryptedMessageService{}
-)
+// GetDate returns value of Date field.
+func (e *EncryptedMessageService) GetDate() (value int) {
+	return e.Date
+}
+
+// GetBytes returns value of Bytes field.
+func (e *EncryptedMessageService) GetBytes() (value []byte) {
+	return e.Bytes
+}
 
 // EncryptedMessageClass represents EncryptedMessage generic type.
 //

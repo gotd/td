@@ -42,6 +42,14 @@ type PhoneSaveDefaultGroupCallJoinAsRequest struct {
 // PhoneSaveDefaultGroupCallJoinAsRequestTypeID is TL type id of PhoneSaveDefaultGroupCallJoinAsRequest.
 const PhoneSaveDefaultGroupCallJoinAsRequestTypeID = 0x575e1f8c
 
+// Ensuring interfaces in compile-time for PhoneSaveDefaultGroupCallJoinAsRequest.
+var (
+	_ bin.Encoder     = &PhoneSaveDefaultGroupCallJoinAsRequest{}
+	_ bin.Decoder     = &PhoneSaveDefaultGroupCallJoinAsRequest{}
+	_ bin.BareEncoder = &PhoneSaveDefaultGroupCallJoinAsRequest{}
+	_ bin.BareDecoder = &PhoneSaveDefaultGroupCallJoinAsRequest{}
+)
+
 func (s *PhoneSaveDefaultGroupCallJoinAsRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -138,16 +146,6 @@ func (s *PhoneSaveDefaultGroupCallJoinAsRequest) EncodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (s *PhoneSaveDefaultGroupCallJoinAsRequest) GetPeer() (value InputPeerClass) {
-	return s.Peer
-}
-
-// GetJoinAs returns value of JoinAs field.
-func (s *PhoneSaveDefaultGroupCallJoinAsRequest) GetJoinAs() (value InputPeerClass) {
-	return s.JoinAs
-}
-
 // Decode implements bin.Decoder.
 func (s *PhoneSaveDefaultGroupCallJoinAsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -181,13 +179,15 @@ func (s *PhoneSaveDefaultGroupCallJoinAsRequest) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneSaveDefaultGroupCallJoinAsRequest.
-var (
-	_ bin.Encoder     = &PhoneSaveDefaultGroupCallJoinAsRequest{}
-	_ bin.Decoder     = &PhoneSaveDefaultGroupCallJoinAsRequest{}
-	_ bin.BareEncoder = &PhoneSaveDefaultGroupCallJoinAsRequest{}
-	_ bin.BareDecoder = &PhoneSaveDefaultGroupCallJoinAsRequest{}
-)
+// GetPeer returns value of Peer field.
+func (s *PhoneSaveDefaultGroupCallJoinAsRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetJoinAs returns value of JoinAs field.
+func (s *PhoneSaveDefaultGroupCallJoinAsRequest) GetJoinAs() (value InputPeerClass) {
+	return s.JoinAs
+}
 
 // PhoneSaveDefaultGroupCallJoinAs invokes method phone.saveDefaultGroupCallJoinAs#575e1f8c returning error if any.
 //

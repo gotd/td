@@ -83,6 +83,19 @@ type Dialog struct {
 // DialogTypeID is TL type id of Dialog.
 const DialogTypeID = 0x2c171f72
 
+// construct implements constructor of DialogClass.
+func (d Dialog) construct() DialogClass { return &d }
+
+// Ensuring interfaces in compile-time for Dialog.
+var (
+	_ bin.Encoder     = &Dialog{}
+	_ bin.Decoder     = &Dialog{}
+	_ bin.BareEncoder = &Dialog{}
+	_ bin.BareDecoder = &Dialog{}
+
+	_ DialogClass = &Dialog{}
+)
+
 func (d *Dialog) Zero() bool {
 	if d == nil {
 		return true
@@ -320,6 +333,100 @@ func (d *Dialog) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (d *Dialog) Decode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialog#2c171f72 to nil")
+	}
+	if err := b.ConsumeID(DialogTypeID); err != nil {
+		return fmt.Errorf("unable to decode dialog#2c171f72: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *Dialog) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialog#2c171f72 to nil")
+	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field flags: %w", err)
+		}
+	}
+	d.Pinned = d.Flags.Has(2)
+	d.UnreadMark = d.Flags.Has(3)
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field peer: %w", err)
+		}
+		d.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field top_message: %w", err)
+		}
+		d.TopMessage = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field read_inbox_max_id: %w", err)
+		}
+		d.ReadInboxMaxID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field read_outbox_max_id: %w", err)
+		}
+		d.ReadOutboxMaxID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field unread_count: %w", err)
+		}
+		d.UnreadCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field unread_mentions_count: %w", err)
+		}
+		d.UnreadMentionsCount = value
+	}
+	{
+		if err := d.NotifySettings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field notify_settings: %w", err)
+		}
+	}
+	if d.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field pts: %w", err)
+		}
+		d.Pts = value
+	}
+	if d.Flags.Has(1) {
+		value, err := DecodeDraftMessage(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field draft: %w", err)
+		}
+		d.Draft = value
+	}
+	if d.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field folder_id: %w", err)
+		}
+		d.FolderID = value
+	}
+	return nil
+}
+
 // SetPinned sets value of Pinned conditional field.
 func (d *Dialog) SetPinned(value bool) {
 	if value {
@@ -432,113 +539,6 @@ func (d *Dialog) GetFolderID() (value int, ok bool) {
 	return d.FolderID, true
 }
 
-// Decode implements bin.Decoder.
-func (d *Dialog) Decode(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't decode dialog#2c171f72 to nil")
-	}
-	if err := b.ConsumeID(DialogTypeID); err != nil {
-		return fmt.Errorf("unable to decode dialog#2c171f72: %w", err)
-	}
-	return d.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (d *Dialog) DecodeBare(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't decode dialog#2c171f72 to nil")
-	}
-	{
-		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field flags: %w", err)
-		}
-	}
-	d.Pinned = d.Flags.Has(2)
-	d.UnreadMark = d.Flags.Has(3)
-	{
-		value, err := DecodePeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field peer: %w", err)
-		}
-		d.Peer = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field top_message: %w", err)
-		}
-		d.TopMessage = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field read_inbox_max_id: %w", err)
-		}
-		d.ReadInboxMaxID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field read_outbox_max_id: %w", err)
-		}
-		d.ReadOutboxMaxID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field unread_count: %w", err)
-		}
-		d.UnreadCount = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field unread_mentions_count: %w", err)
-		}
-		d.UnreadMentionsCount = value
-	}
-	{
-		if err := d.NotifySettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field notify_settings: %w", err)
-		}
-	}
-	if d.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field pts: %w", err)
-		}
-		d.Pts = value
-	}
-	if d.Flags.Has(1) {
-		value, err := DecodeDraftMessage(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field draft: %w", err)
-		}
-		d.Draft = value
-	}
-	if d.Flags.Has(4) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field folder_id: %w", err)
-		}
-		d.FolderID = value
-	}
-	return nil
-}
-
-// construct implements constructor of DialogClass.
-func (d Dialog) construct() DialogClass { return &d }
-
-// Ensuring interfaces in compile-time for Dialog.
-var (
-	_ bin.Encoder     = &Dialog{}
-	_ bin.Decoder     = &Dialog{}
-	_ bin.BareEncoder = &Dialog{}
-	_ bin.BareDecoder = &Dialog{}
-
-	_ DialogClass = &Dialog{}
-)
-
 // DialogFolder represents TL type `dialogFolder#71bd134c`.
 // Dialog in folder
 //
@@ -569,6 +569,19 @@ type DialogFolder struct {
 
 // DialogFolderTypeID is TL type id of DialogFolder.
 const DialogFolderTypeID = 0x71bd134c
+
+// construct implements constructor of DialogClass.
+func (d DialogFolder) construct() DialogClass { return &d }
+
+// Ensuring interfaces in compile-time for DialogFolder.
+var (
+	_ bin.Encoder     = &DialogFolder{}
+	_ bin.Decoder     = &DialogFolder{}
+	_ bin.BareEncoder = &DialogFolder{}
+	_ bin.BareDecoder = &DialogFolder{}
+
+	_ DialogClass = &DialogFolder{}
+)
 
 func (d *DialogFolder) Zero() bool {
 	if d == nil {
@@ -732,57 +745,6 @@ func (d *DialogFolder) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPinned sets value of Pinned conditional field.
-func (d *DialogFolder) SetPinned(value bool) {
-	if value {
-		d.Flags.Set(2)
-		d.Pinned = true
-	} else {
-		d.Flags.Unset(2)
-		d.Pinned = false
-	}
-}
-
-// GetPinned returns value of Pinned conditional field.
-func (d *DialogFolder) GetPinned() (value bool) {
-	return d.Flags.Has(2)
-}
-
-// GetFolder returns value of Folder field.
-func (d *DialogFolder) GetFolder() (value Folder) {
-	return d.Folder
-}
-
-// GetPeer returns value of Peer field.
-func (d *DialogFolder) GetPeer() (value PeerClass) {
-	return d.Peer
-}
-
-// GetTopMessage returns value of TopMessage field.
-func (d *DialogFolder) GetTopMessage() (value int) {
-	return d.TopMessage
-}
-
-// GetUnreadMutedPeersCount returns value of UnreadMutedPeersCount field.
-func (d *DialogFolder) GetUnreadMutedPeersCount() (value int) {
-	return d.UnreadMutedPeersCount
-}
-
-// GetUnreadUnmutedPeersCount returns value of UnreadUnmutedPeersCount field.
-func (d *DialogFolder) GetUnreadUnmutedPeersCount() (value int) {
-	return d.UnreadUnmutedPeersCount
-}
-
-// GetUnreadMutedMessagesCount returns value of UnreadMutedMessagesCount field.
-func (d *DialogFolder) GetUnreadMutedMessagesCount() (value int) {
-	return d.UnreadMutedMessagesCount
-}
-
-// GetUnreadUnmutedMessagesCount returns value of UnreadUnmutedMessagesCount field.
-func (d *DialogFolder) GetUnreadUnmutedMessagesCount() (value int) {
-	return d.UnreadUnmutedMessagesCount
-}
-
 // Decode implements bin.Decoder.
 func (d *DialogFolder) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -855,18 +817,56 @@ func (d *DialogFolder) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DialogClass.
-func (d DialogFolder) construct() DialogClass { return &d }
+// SetPinned sets value of Pinned conditional field.
+func (d *DialogFolder) SetPinned(value bool) {
+	if value {
+		d.Flags.Set(2)
+		d.Pinned = true
+	} else {
+		d.Flags.Unset(2)
+		d.Pinned = false
+	}
+}
 
-// Ensuring interfaces in compile-time for DialogFolder.
-var (
-	_ bin.Encoder     = &DialogFolder{}
-	_ bin.Decoder     = &DialogFolder{}
-	_ bin.BareEncoder = &DialogFolder{}
-	_ bin.BareDecoder = &DialogFolder{}
+// GetPinned returns value of Pinned conditional field.
+func (d *DialogFolder) GetPinned() (value bool) {
+	return d.Flags.Has(2)
+}
 
-	_ DialogClass = &DialogFolder{}
-)
+// GetFolder returns value of Folder field.
+func (d *DialogFolder) GetFolder() (value Folder) {
+	return d.Folder
+}
+
+// GetPeer returns value of Peer field.
+func (d *DialogFolder) GetPeer() (value PeerClass) {
+	return d.Peer
+}
+
+// GetTopMessage returns value of TopMessage field.
+func (d *DialogFolder) GetTopMessage() (value int) {
+	return d.TopMessage
+}
+
+// GetUnreadMutedPeersCount returns value of UnreadMutedPeersCount field.
+func (d *DialogFolder) GetUnreadMutedPeersCount() (value int) {
+	return d.UnreadMutedPeersCount
+}
+
+// GetUnreadUnmutedPeersCount returns value of UnreadUnmutedPeersCount field.
+func (d *DialogFolder) GetUnreadUnmutedPeersCount() (value int) {
+	return d.UnreadUnmutedPeersCount
+}
+
+// GetUnreadMutedMessagesCount returns value of UnreadMutedMessagesCount field.
+func (d *DialogFolder) GetUnreadMutedMessagesCount() (value int) {
+	return d.UnreadMutedMessagesCount
+}
+
+// GetUnreadUnmutedMessagesCount returns value of UnreadUnmutedMessagesCount field.
+func (d *DialogFolder) GetUnreadUnmutedMessagesCount() (value int) {
+	return d.UnreadUnmutedMessagesCount
+}
 
 // DialogClass represents Dialog generic type.
 //

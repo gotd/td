@@ -41,6 +41,14 @@ type ChannelsJoinChannelRequest struct {
 // ChannelsJoinChannelRequestTypeID is TL type id of ChannelsJoinChannelRequest.
 const ChannelsJoinChannelRequestTypeID = 0x24b524c5
 
+// Ensuring interfaces in compile-time for ChannelsJoinChannelRequest.
+var (
+	_ bin.Encoder     = &ChannelsJoinChannelRequest{}
+	_ bin.Decoder     = &ChannelsJoinChannelRequest{}
+	_ bin.BareEncoder = &ChannelsJoinChannelRequest{}
+	_ bin.BareDecoder = &ChannelsJoinChannelRequest{}
+)
+
 func (j *ChannelsJoinChannelRequest) Zero() bool {
 	if j == nil {
 		return true
@@ -122,16 +130,6 @@ func (j *ChannelsJoinChannelRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (j *ChannelsJoinChannelRequest) GetChannel() (value InputChannelClass) {
-	return j.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (j *ChannelsJoinChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return j.Channel.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (j *ChannelsJoinChannelRequest) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -158,13 +156,15 @@ func (j *ChannelsJoinChannelRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsJoinChannelRequest.
-var (
-	_ bin.Encoder     = &ChannelsJoinChannelRequest{}
-	_ bin.Decoder     = &ChannelsJoinChannelRequest{}
-	_ bin.BareEncoder = &ChannelsJoinChannelRequest{}
-	_ bin.BareDecoder = &ChannelsJoinChannelRequest{}
-)
+// GetChannel returns value of Channel field.
+func (j *ChannelsJoinChannelRequest) GetChannel() (value InputChannelClass) {
+	return j.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (j *ChannelsJoinChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return j.Channel.AsNotEmpty()
+}
 
 // ChannelsJoinChannel invokes method channels.joinChannel#24b524c5 returning error if any.
 // Join a channel/supergroup

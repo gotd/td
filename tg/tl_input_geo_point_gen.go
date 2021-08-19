@@ -39,6 +39,19 @@ type InputGeoPointEmpty struct {
 // InputGeoPointEmptyTypeID is TL type id of InputGeoPointEmpty.
 const InputGeoPointEmptyTypeID = 0xe4c123d6
 
+// construct implements constructor of InputGeoPointClass.
+func (i InputGeoPointEmpty) construct() InputGeoPointClass { return &i }
+
+// Ensuring interfaces in compile-time for InputGeoPointEmpty.
+var (
+	_ bin.Encoder     = &InputGeoPointEmpty{}
+	_ bin.Decoder     = &InputGeoPointEmpty{}
+	_ bin.BareEncoder = &InputGeoPointEmpty{}
+	_ bin.BareDecoder = &InputGeoPointEmpty{}
+
+	_ InputGeoPointClass = &InputGeoPointEmpty{}
+)
+
 func (i *InputGeoPointEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputGeoPointEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputGeoPointClass.
-func (i InputGeoPointEmpty) construct() InputGeoPointClass { return &i }
-
-// Ensuring interfaces in compile-time for InputGeoPointEmpty.
-var (
-	_ bin.Encoder     = &InputGeoPointEmpty{}
-	_ bin.Decoder     = &InputGeoPointEmpty{}
-	_ bin.BareEncoder = &InputGeoPointEmpty{}
-	_ bin.BareDecoder = &InputGeoPointEmpty{}
-
-	_ InputGeoPointClass = &InputGeoPointEmpty{}
-)
-
 // InputGeoPoint represents TL type `inputGeoPoint#48222faf`.
 // Defines a GeoPoint by its coordinates.
 //
@@ -153,6 +153,19 @@ type InputGeoPoint struct {
 
 // InputGeoPointTypeID is TL type id of InputGeoPoint.
 const InputGeoPointTypeID = 0x48222faf
+
+// construct implements constructor of InputGeoPointClass.
+func (i InputGeoPoint) construct() InputGeoPointClass { return &i }
+
+// Ensuring interfaces in compile-time for InputGeoPoint.
+var (
+	_ bin.Encoder     = &InputGeoPoint{}
+	_ bin.Decoder     = &InputGeoPoint{}
+	_ bin.BareEncoder = &InputGeoPoint{}
+	_ bin.BareDecoder = &InputGeoPoint{}
+
+	_ InputGeoPointClass = &InputGeoPoint{}
+)
 
 func (i *InputGeoPoint) Zero() bool {
 	if i == nil {
@@ -265,31 +278,6 @@ func (i *InputGeoPoint) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLat returns value of Lat field.
-func (i *InputGeoPoint) GetLat() (value float64) {
-	return i.Lat
-}
-
-// GetLong returns value of Long field.
-func (i *InputGeoPoint) GetLong() (value float64) {
-	return i.Long
-}
-
-// SetAccuracyRadius sets value of AccuracyRadius conditional field.
-func (i *InputGeoPoint) SetAccuracyRadius(value int) {
-	i.Flags.Set(0)
-	i.AccuracyRadius = value
-}
-
-// GetAccuracyRadius returns value of AccuracyRadius conditional field and
-// boolean which is true if field was set.
-func (i *InputGeoPoint) GetAccuracyRadius() (value int, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.AccuracyRadius, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputGeoPoint) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -335,18 +323,30 @@ func (i *InputGeoPoint) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputGeoPointClass.
-func (i InputGeoPoint) construct() InputGeoPointClass { return &i }
+// GetLat returns value of Lat field.
+func (i *InputGeoPoint) GetLat() (value float64) {
+	return i.Lat
+}
 
-// Ensuring interfaces in compile-time for InputGeoPoint.
-var (
-	_ bin.Encoder     = &InputGeoPoint{}
-	_ bin.Decoder     = &InputGeoPoint{}
-	_ bin.BareEncoder = &InputGeoPoint{}
-	_ bin.BareDecoder = &InputGeoPoint{}
+// GetLong returns value of Long field.
+func (i *InputGeoPoint) GetLong() (value float64) {
+	return i.Long
+}
 
-	_ InputGeoPointClass = &InputGeoPoint{}
-)
+// SetAccuracyRadius sets value of AccuracyRadius conditional field.
+func (i *InputGeoPoint) SetAccuracyRadius(value int) {
+	i.Flags.Set(0)
+	i.AccuracyRadius = value
+}
+
+// GetAccuracyRadius returns value of AccuracyRadius conditional field and
+// boolean which is true if field was set.
+func (i *InputGeoPoint) GetAccuracyRadius() (value int, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.AccuracyRadius, true
+}
 
 // InputGeoPointClass represents InputGeoPoint generic type.
 //

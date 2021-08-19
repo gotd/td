@@ -48,6 +48,14 @@ type AccountGetPasswordSettingsRequest struct {
 // AccountGetPasswordSettingsRequestTypeID is TL type id of AccountGetPasswordSettingsRequest.
 const AccountGetPasswordSettingsRequestTypeID = 0x9cd4eaf9
 
+// Ensuring interfaces in compile-time for AccountGetPasswordSettingsRequest.
+var (
+	_ bin.Encoder     = &AccountGetPasswordSettingsRequest{}
+	_ bin.Decoder     = &AccountGetPasswordSettingsRequest{}
+	_ bin.BareEncoder = &AccountGetPasswordSettingsRequest{}
+	_ bin.BareDecoder = &AccountGetPasswordSettingsRequest{}
+)
+
 func (g *AccountGetPasswordSettingsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -129,16 +137,6 @@ func (g *AccountGetPasswordSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPassword returns value of Password field.
-func (g *AccountGetPasswordSettingsRequest) GetPassword() (value InputCheckPasswordSRPClass) {
-	return g.Password
-}
-
-// GetPasswordAsNotEmpty returns mapped value of Password field.
-func (g *AccountGetPasswordSettingsRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
-	return g.Password.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (g *AccountGetPasswordSettingsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -165,13 +163,15 @@ func (g *AccountGetPasswordSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountGetPasswordSettingsRequest.
-var (
-	_ bin.Encoder     = &AccountGetPasswordSettingsRequest{}
-	_ bin.Decoder     = &AccountGetPasswordSettingsRequest{}
-	_ bin.BareEncoder = &AccountGetPasswordSettingsRequest{}
-	_ bin.BareDecoder = &AccountGetPasswordSettingsRequest{}
-)
+// GetPassword returns value of Password field.
+func (g *AccountGetPasswordSettingsRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	return g.Password
+}
+
+// GetPasswordAsNotEmpty returns mapped value of Password field.
+func (g *AccountGetPasswordSettingsRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	return g.Password.AsNotEmpty()
+}
 
 // AccountGetPasswordSettings invokes method account.getPasswordSettings#9cd4eaf9 returning error if any.
 // Get private info associated to the password info (recovery email, telegram passport¹

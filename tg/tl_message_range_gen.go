@@ -43,6 +43,14 @@ type MessageRange struct {
 // MessageRangeTypeID is TL type id of MessageRange.
 const MessageRangeTypeID = 0xae30253
 
+// Ensuring interfaces in compile-time for MessageRange.
+var (
+	_ bin.Encoder     = &MessageRange{}
+	_ bin.Decoder     = &MessageRange{}
+	_ bin.BareEncoder = &MessageRange{}
+	_ bin.BareDecoder = &MessageRange{}
+)
+
 func (m *MessageRange) Zero() bool {
 	if m == nil {
 		return true
@@ -129,16 +137,6 @@ func (m *MessageRange) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMinID returns value of MinID field.
-func (m *MessageRange) GetMinID() (value int) {
-	return m.MinID
-}
-
-// GetMaxID returns value of MaxID field.
-func (m *MessageRange) GetMaxID() (value int) {
-	return m.MaxID
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageRange) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -172,10 +170,12 @@ func (m *MessageRange) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessageRange.
-var (
-	_ bin.Encoder     = &MessageRange{}
-	_ bin.Decoder     = &MessageRange{}
-	_ bin.BareEncoder = &MessageRange{}
-	_ bin.BareDecoder = &MessageRange{}
-)
+// GetMinID returns value of MinID field.
+func (m *MessageRange) GetMinID() (value int) {
+	return m.MinID
+}
+
+// GetMaxID returns value of MaxID field.
+func (m *MessageRange) GetMaxID() (value int) {
+	return m.MaxID
+}

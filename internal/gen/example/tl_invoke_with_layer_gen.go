@@ -42,6 +42,14 @@ type InvokeWithLayer struct {
 // InvokeWithLayerTypeID is TL type id of InvokeWithLayer.
 const InvokeWithLayerTypeID = 0xda9b0d0d
 
+// Ensuring interfaces in compile-time for InvokeWithLayer.
+var (
+	_ bin.Encoder     = &InvokeWithLayer{}
+	_ bin.Decoder     = &InvokeWithLayer{}
+	_ bin.BareEncoder = &InvokeWithLayer{}
+	_ bin.BareDecoder = &InvokeWithLayer{}
+)
+
 func (i *InvokeWithLayer) Zero() bool {
 	if i == nil {
 		return true
@@ -63,15 +71,6 @@ func (i *InvokeWithLayer) String() string {
 	}
 	type Alias InvokeWithLayer
 	return fmt.Sprintf("InvokeWithLayer%+v", Alias(*i))
-}
-
-// FillFrom fills InvokeWithLayer from given interface.
-func (i *InvokeWithLayer) FillFrom(from interface {
-	GetLayer() (value int)
-	GetQuery() (value bin.Object)
-}) {
-	i.Layer = from.GetLayer()
-	i.Query = from.GetQuery()
 }
 
 // TypeID returns type id in TL schema.
@@ -130,16 +129,6 @@ func (i *InvokeWithLayer) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLayer returns value of Layer field.
-func (i *InvokeWithLayer) GetLayer() (value int) {
-	return i.Layer
-}
-
-// GetQuery returns value of Query field.
-func (i *InvokeWithLayer) GetQuery() (value bin.Object) {
-	return i.Query
-}
-
 // Decode implements bin.Decoder.
 func (i *InvokeWithLayer) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -171,10 +160,12 @@ func (i *InvokeWithLayer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InvokeWithLayer.
-var (
-	_ bin.Encoder     = &InvokeWithLayer{}
-	_ bin.Decoder     = &InvokeWithLayer{}
-	_ bin.BareEncoder = &InvokeWithLayer{}
-	_ bin.BareDecoder = &InvokeWithLayer{}
-)
+// GetLayer returns value of Layer field.
+func (i *InvokeWithLayer) GetLayer() (value int) {
+	return i.Layer
+}
+
+// GetQuery returns value of Query field.
+func (i *InvokeWithLayer) GetQuery() (value bin.Object) {
+	return i.Query
+}

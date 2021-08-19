@@ -63,6 +63,14 @@ type CodeSettings struct {
 // CodeSettingsTypeID is TL type id of CodeSettings.
 const CodeSettingsTypeID = 0xdebebe83
 
+// Ensuring interfaces in compile-time for CodeSettings.
+var (
+	_ bin.Encoder     = &CodeSettings{}
+	_ bin.Decoder     = &CodeSettings{}
+	_ bin.BareEncoder = &CodeSettings{}
+	_ bin.BareDecoder = &CodeSettings{}
+)
+
 func (c *CodeSettings) Zero() bool {
 	if c == nil {
 		return true
@@ -174,6 +182,33 @@ func (c *CodeSettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *CodeSettings) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode codeSettings#debebe83 to nil")
+	}
+	if err := b.ConsumeID(CodeSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode codeSettings#debebe83: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *CodeSettings) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode codeSettings#debebe83 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode codeSettings#debebe83: field flags: %w", err)
+		}
+	}
+	c.AllowFlashcall = c.Flags.Has(0)
+	c.CurrentNumber = c.Flags.Has(1)
+	c.AllowAppHash = c.Flags.Has(4)
+	return nil
+}
+
 // SetAllowFlashcall sets value of AllowFlashcall conditional field.
 func (c *CodeSettings) SetAllowFlashcall(value bool) {
 	if value {
@@ -221,38 +256,3 @@ func (c *CodeSettings) SetAllowAppHash(value bool) {
 func (c *CodeSettings) GetAllowAppHash() (value bool) {
 	return c.Flags.Has(4)
 }
-
-// Decode implements bin.Decoder.
-func (c *CodeSettings) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode codeSettings#debebe83 to nil")
-	}
-	if err := b.ConsumeID(CodeSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode codeSettings#debebe83: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *CodeSettings) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode codeSettings#debebe83 to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode codeSettings#debebe83: field flags: %w", err)
-		}
-	}
-	c.AllowFlashcall = c.Flags.Has(0)
-	c.CurrentNumber = c.Flags.Has(1)
-	c.AllowAppHash = c.Flags.Has(4)
-	return nil
-}
-
-// Ensuring interfaces in compile-time for CodeSettings.
-var (
-	_ bin.Encoder     = &CodeSettings{}
-	_ bin.Decoder     = &CodeSettings{}
-	_ bin.BareEncoder = &CodeSettings{}
-	_ bin.BareDecoder = &CodeSettings{}
-)

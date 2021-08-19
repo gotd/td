@@ -42,6 +42,14 @@ type MessagesGetExportedChatInviteRequest struct {
 // MessagesGetExportedChatInviteRequestTypeID is TL type id of MessagesGetExportedChatInviteRequest.
 const MessagesGetExportedChatInviteRequestTypeID = 0x73746f5c
 
+// Ensuring interfaces in compile-time for MessagesGetExportedChatInviteRequest.
+var (
+	_ bin.Encoder     = &MessagesGetExportedChatInviteRequest{}
+	_ bin.Decoder     = &MessagesGetExportedChatInviteRequest{}
+	_ bin.BareEncoder = &MessagesGetExportedChatInviteRequest{}
+	_ bin.BareDecoder = &MessagesGetExportedChatInviteRequest{}
+)
+
 func (g *MessagesGetExportedChatInviteRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -133,16 +141,6 @@ func (g *MessagesGetExportedChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetExportedChatInviteRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetLink returns value of Link field.
-func (g *MessagesGetExportedChatInviteRequest) GetLink() (value string) {
-	return g.Link
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetExportedChatInviteRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -176,13 +174,15 @@ func (g *MessagesGetExportedChatInviteRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetExportedChatInviteRequest.
-var (
-	_ bin.Encoder     = &MessagesGetExportedChatInviteRequest{}
-	_ bin.Decoder     = &MessagesGetExportedChatInviteRequest{}
-	_ bin.BareEncoder = &MessagesGetExportedChatInviteRequest{}
-	_ bin.BareDecoder = &MessagesGetExportedChatInviteRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetExportedChatInviteRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetLink returns value of Link field.
+func (g *MessagesGetExportedChatInviteRequest) GetLink() (value string) {
+	return g.Link
+}
 
 // MessagesGetExportedChatInvite invokes method messages.getExportedChatInvite#73746f5c returning error if any.
 //

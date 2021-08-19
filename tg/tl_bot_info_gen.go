@@ -45,6 +45,14 @@ type BotInfo struct {
 // BotInfoTypeID is TL type id of BotInfo.
 const BotInfoTypeID = 0x98e81d3a
 
+// Ensuring interfaces in compile-time for BotInfo.
+var (
+	_ bin.Encoder     = &BotInfo{}
+	_ bin.Decoder     = &BotInfo{}
+	_ bin.BareEncoder = &BotInfo{}
+	_ bin.BareDecoder = &BotInfo{}
+)
+
 func (b *BotInfo) Zero() bool {
 	if b == nil {
 		return true
@@ -146,21 +154,6 @@ func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (b *BotInfo) GetUserID() (value int) {
-	return b.UserID
-}
-
-// GetDescription returns value of Description field.
-func (b *BotInfo) GetDescription() (value string) {
-	return b.Description
-}
-
-// GetCommands returns value of Commands field.
-func (b *BotInfo) GetCommands() (value []BotCommand) {
-	return b.Commands
-}
-
 // Decode implements bin.Decoder.
 func (b *BotInfo) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -211,10 +204,17 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for BotInfo.
-var (
-	_ bin.Encoder     = &BotInfo{}
-	_ bin.Decoder     = &BotInfo{}
-	_ bin.BareEncoder = &BotInfo{}
-	_ bin.BareDecoder = &BotInfo{}
-)
+// GetUserID returns value of UserID field.
+func (b *BotInfo) GetUserID() (value int) {
+	return b.UserID
+}
+
+// GetDescription returns value of Description field.
+func (b *BotInfo) GetDescription() (value string) {
+	return b.Description
+}
+
+// GetCommands returns value of Commands field.
+func (b *BotInfo) GetCommands() (value []BotCommand) {
+	return b.Commands
+}

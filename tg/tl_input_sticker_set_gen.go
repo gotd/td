@@ -39,6 +39,19 @@ type InputStickerSetEmpty struct {
 // InputStickerSetEmptyTypeID is TL type id of InputStickerSetEmpty.
 const InputStickerSetEmptyTypeID = 0xffb62b95
 
+// construct implements constructor of InputStickerSetClass.
+func (i InputStickerSetEmpty) construct() InputStickerSetClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickerSetEmpty.
+var (
+	_ bin.Encoder     = &InputStickerSetEmpty{}
+	_ bin.Decoder     = &InputStickerSetEmpty{}
+	_ bin.BareEncoder = &InputStickerSetEmpty{}
+	_ bin.BareDecoder = &InputStickerSetEmpty{}
+
+	_ InputStickerSetClass = &InputStickerSetEmpty{}
+)
+
 func (i *InputStickerSetEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputStickerSetEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputStickerSetClass.
-func (i InputStickerSetEmpty) construct() InputStickerSetClass { return &i }
-
-// Ensuring interfaces in compile-time for InputStickerSetEmpty.
-var (
-	_ bin.Encoder     = &InputStickerSetEmpty{}
-	_ bin.Decoder     = &InputStickerSetEmpty{}
-	_ bin.BareEncoder = &InputStickerSetEmpty{}
-	_ bin.BareDecoder = &InputStickerSetEmpty{}
-
-	_ InputStickerSetClass = &InputStickerSetEmpty{}
-)
-
 // InputStickerSetID represents TL type `inputStickerSetID#9de7a269`.
 // Stickerset by ID
 //
@@ -144,6 +144,19 @@ type InputStickerSetID struct {
 
 // InputStickerSetIDTypeID is TL type id of InputStickerSetID.
 const InputStickerSetIDTypeID = 0x9de7a269
+
+// construct implements constructor of InputStickerSetClass.
+func (i InputStickerSetID) construct() InputStickerSetClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickerSetID.
+var (
+	_ bin.Encoder     = &InputStickerSetID{}
+	_ bin.Decoder     = &InputStickerSetID{}
+	_ bin.BareEncoder = &InputStickerSetID{}
+	_ bin.BareDecoder = &InputStickerSetID{}
+
+	_ InputStickerSetClass = &InputStickerSetID{}
+)
 
 func (i *InputStickerSetID) Zero() bool {
 	if i == nil {
@@ -231,16 +244,6 @@ func (i *InputStickerSetID) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputStickerSetID) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputStickerSetID) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputStickerSetID) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -274,18 +277,15 @@ func (i *InputStickerSetID) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputStickerSetClass.
-func (i InputStickerSetID) construct() InputStickerSetClass { return &i }
+// GetID returns value of ID field.
+func (i *InputStickerSetID) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputStickerSetID.
-var (
-	_ bin.Encoder     = &InputStickerSetID{}
-	_ bin.Decoder     = &InputStickerSetID{}
-	_ bin.BareEncoder = &InputStickerSetID{}
-	_ bin.BareDecoder = &InputStickerSetID{}
-
-	_ InputStickerSetClass = &InputStickerSetID{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputStickerSetID) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputStickerSetShortName represents TL type `inputStickerSetShortName#861cc8a0`.
 // Stickerset by short name, from tg://addstickers?set=short_name
@@ -298,6 +298,19 @@ type InputStickerSetShortName struct {
 
 // InputStickerSetShortNameTypeID is TL type id of InputStickerSetShortName.
 const InputStickerSetShortNameTypeID = 0x861cc8a0
+
+// construct implements constructor of InputStickerSetClass.
+func (i InputStickerSetShortName) construct() InputStickerSetClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickerSetShortName.
+var (
+	_ bin.Encoder     = &InputStickerSetShortName{}
+	_ bin.Decoder     = &InputStickerSetShortName{}
+	_ bin.BareEncoder = &InputStickerSetShortName{}
+	_ bin.BareDecoder = &InputStickerSetShortName{}
+
+	_ InputStickerSetClass = &InputStickerSetShortName{}
+)
 
 func (i *InputStickerSetShortName) Zero() bool {
 	if i == nil {
@@ -375,11 +388,6 @@ func (i *InputStickerSetShortName) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetShortName returns value of ShortName field.
-func (i *InputStickerSetShortName) GetShortName() (value string) {
-	return i.ShortName
-}
-
 // Decode implements bin.Decoder.
 func (i *InputStickerSetShortName) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -406,18 +414,10 @@ func (i *InputStickerSetShortName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputStickerSetClass.
-func (i InputStickerSetShortName) construct() InputStickerSetClass { return &i }
-
-// Ensuring interfaces in compile-time for InputStickerSetShortName.
-var (
-	_ bin.Encoder     = &InputStickerSetShortName{}
-	_ bin.Decoder     = &InputStickerSetShortName{}
-	_ bin.BareEncoder = &InputStickerSetShortName{}
-	_ bin.BareDecoder = &InputStickerSetShortName{}
-
-	_ InputStickerSetClass = &InputStickerSetShortName{}
-)
+// GetShortName returns value of ShortName field.
+func (i *InputStickerSetShortName) GetShortName() (value string) {
+	return i.ShortName
+}
 
 // InputStickerSetAnimatedEmoji represents TL type `inputStickerSetAnimatedEmoji#28703c8`.
 // Animated emojis stickerset
@@ -428,6 +428,19 @@ type InputStickerSetAnimatedEmoji struct {
 
 // InputStickerSetAnimatedEmojiTypeID is TL type id of InputStickerSetAnimatedEmoji.
 const InputStickerSetAnimatedEmojiTypeID = 0x28703c8
+
+// construct implements constructor of InputStickerSetClass.
+func (i InputStickerSetAnimatedEmoji) construct() InputStickerSetClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickerSetAnimatedEmoji.
+var (
+	_ bin.Encoder     = &InputStickerSetAnimatedEmoji{}
+	_ bin.Decoder     = &InputStickerSetAnimatedEmoji{}
+	_ bin.BareEncoder = &InputStickerSetAnimatedEmoji{}
+	_ bin.BareDecoder = &InputStickerSetAnimatedEmoji{}
+
+	_ InputStickerSetClass = &InputStickerSetAnimatedEmoji{}
+)
 
 func (i *InputStickerSetAnimatedEmoji) Zero() bool {
 	if i == nil {
@@ -508,19 +521,6 @@ func (i *InputStickerSetAnimatedEmoji) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputStickerSetClass.
-func (i InputStickerSetAnimatedEmoji) construct() InputStickerSetClass { return &i }
-
-// Ensuring interfaces in compile-time for InputStickerSetAnimatedEmoji.
-var (
-	_ bin.Encoder     = &InputStickerSetAnimatedEmoji{}
-	_ bin.Decoder     = &InputStickerSetAnimatedEmoji{}
-	_ bin.BareEncoder = &InputStickerSetAnimatedEmoji{}
-	_ bin.BareDecoder = &InputStickerSetAnimatedEmoji{}
-
-	_ InputStickerSetClass = &InputStickerSetAnimatedEmoji{}
-)
-
 // InputStickerSetDice represents TL type `inputStickerSetDice#e67f520e`.
 // Used for fetching animated dice stickers¹
 //
@@ -535,6 +535,19 @@ type InputStickerSetDice struct {
 
 // InputStickerSetDiceTypeID is TL type id of InputStickerSetDice.
 const InputStickerSetDiceTypeID = 0xe67f520e
+
+// construct implements constructor of InputStickerSetClass.
+func (i InputStickerSetDice) construct() InputStickerSetClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickerSetDice.
+var (
+	_ bin.Encoder     = &InputStickerSetDice{}
+	_ bin.Decoder     = &InputStickerSetDice{}
+	_ bin.BareEncoder = &InputStickerSetDice{}
+	_ bin.BareDecoder = &InputStickerSetDice{}
+
+	_ InputStickerSetClass = &InputStickerSetDice{}
+)
 
 func (i *InputStickerSetDice) Zero() bool {
 	if i == nil {
@@ -612,11 +625,6 @@ func (i *InputStickerSetDice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEmoticon returns value of Emoticon field.
-func (i *InputStickerSetDice) GetEmoticon() (value string) {
-	return i.Emoticon
-}
-
 // Decode implements bin.Decoder.
 func (i *InputStickerSetDice) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -643,18 +651,10 @@ func (i *InputStickerSetDice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputStickerSetClass.
-func (i InputStickerSetDice) construct() InputStickerSetClass { return &i }
-
-// Ensuring interfaces in compile-time for InputStickerSetDice.
-var (
-	_ bin.Encoder     = &InputStickerSetDice{}
-	_ bin.Decoder     = &InputStickerSetDice{}
-	_ bin.BareEncoder = &InputStickerSetDice{}
-	_ bin.BareDecoder = &InputStickerSetDice{}
-
-	_ InputStickerSetClass = &InputStickerSetDice{}
-)
+// GetEmoticon returns value of Emoticon field.
+func (i *InputStickerSetDice) GetEmoticon() (value string) {
+	return i.Emoticon
+}
 
 // InputStickerSetClass represents InputStickerSet generic type.
 //

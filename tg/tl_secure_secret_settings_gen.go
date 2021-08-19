@@ -45,6 +45,14 @@ type SecureSecretSettings struct {
 // SecureSecretSettingsTypeID is TL type id of SecureSecretSettings.
 const SecureSecretSettingsTypeID = 0x1527bcac
 
+// Ensuring interfaces in compile-time for SecureSecretSettings.
+var (
+	_ bin.Encoder     = &SecureSecretSettings{}
+	_ bin.Decoder     = &SecureSecretSettings{}
+	_ bin.BareEncoder = &SecureSecretSettings{}
+	_ bin.BareDecoder = &SecureSecretSettings{}
+)
+
 func (s *SecureSecretSettings) Zero() bool {
 	if s == nil {
 		return true
@@ -146,21 +154,6 @@ func (s *SecureSecretSettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSecureAlgo returns value of SecureAlgo field.
-func (s *SecureSecretSettings) GetSecureAlgo() (value SecurePasswordKdfAlgoClass) {
-	return s.SecureAlgo
-}
-
-// GetSecureSecret returns value of SecureSecret field.
-func (s *SecureSecretSettings) GetSecureSecret() (value []byte) {
-	return s.SecureSecret
-}
-
-// GetSecureSecretID returns value of SecureSecretID field.
-func (s *SecureSecretSettings) GetSecureSecretID() (value int64) {
-	return s.SecureSecretID
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureSecretSettings) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -201,10 +194,17 @@ func (s *SecureSecretSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SecureSecretSettings.
-var (
-	_ bin.Encoder     = &SecureSecretSettings{}
-	_ bin.Decoder     = &SecureSecretSettings{}
-	_ bin.BareEncoder = &SecureSecretSettings{}
-	_ bin.BareDecoder = &SecureSecretSettings{}
-)
+// GetSecureAlgo returns value of SecureAlgo field.
+func (s *SecureSecretSettings) GetSecureAlgo() (value SecurePasswordKdfAlgoClass) {
+	return s.SecureAlgo
+}
+
+// GetSecureSecret returns value of SecureSecret field.
+func (s *SecureSecretSettings) GetSecureSecret() (value []byte) {
+	return s.SecureSecret
+}
+
+// GetSecureSecretID returns value of SecureSecretID field.
+func (s *SecureSecretSettings) GetSecureSecretID() (value int64) {
+	return s.SecureSecretID
+}

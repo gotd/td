@@ -44,6 +44,19 @@ type PhotoSizeEmpty struct {
 // PhotoSizeEmptyTypeID is TL type id of PhotoSizeEmpty.
 const PhotoSizeEmptyTypeID = 0xe17e23c
 
+// construct implements constructor of PhotoSizeClass.
+func (p PhotoSizeEmpty) construct() PhotoSizeClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotoSizeEmpty.
+var (
+	_ bin.Encoder     = &PhotoSizeEmpty{}
+	_ bin.Decoder     = &PhotoSizeEmpty{}
+	_ bin.BareEncoder = &PhotoSizeEmpty{}
+	_ bin.BareDecoder = &PhotoSizeEmpty{}
+
+	_ PhotoSizeClass = &PhotoSizeEmpty{}
+)
+
 func (p *PhotoSizeEmpty) Zero() bool {
 	if p == nil {
 		return true
@@ -62,13 +75,6 @@ func (p *PhotoSizeEmpty) String() string {
 	}
 	type Alias PhotoSizeEmpty
 	return fmt.Sprintf("PhotoSizeEmpty%+v", Alias(*p))
-}
-
-// FillFrom fills PhotoSizeEmpty from given interface.
-func (p *PhotoSizeEmpty) FillFrom(from interface {
-	GetType() (value string)
-}) {
-	p.Type = from.GetType()
 }
 
 // TypeID returns type id in TL schema.
@@ -120,11 +126,6 @@ func (p *PhotoSizeEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (p *PhotoSizeEmpty) GetType() (value string) {
-	return p.Type
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotoSizeEmpty) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -151,18 +152,10 @@ func (p *PhotoSizeEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoSizeClass.
-func (p PhotoSizeEmpty) construct() PhotoSizeClass { return &p }
-
-// Ensuring interfaces in compile-time for PhotoSizeEmpty.
-var (
-	_ bin.Encoder     = &PhotoSizeEmpty{}
-	_ bin.Decoder     = &PhotoSizeEmpty{}
-	_ bin.BareEncoder = &PhotoSizeEmpty{}
-	_ bin.BareDecoder = &PhotoSizeEmpty{}
-
-	_ PhotoSizeClass = &PhotoSizeEmpty{}
-)
+// GetType returns value of Type field.
+func (p *PhotoSizeEmpty) GetType() (value string) {
+	return p.Type
+}
 
 // PhotoSize represents TL type `photoSize#77bfb61b`.
 // Image description.
@@ -183,6 +176,19 @@ type PhotoSize struct {
 
 // PhotoSizeTypeID is TL type id of PhotoSize.
 const PhotoSizeTypeID = 0x77bfb61b
+
+// construct implements constructor of PhotoSizeClass.
+func (p PhotoSize) construct() PhotoSizeClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotoSize.
+var (
+	_ bin.Encoder     = &PhotoSize{}
+	_ bin.Decoder     = &PhotoSize{}
+	_ bin.BareEncoder = &PhotoSize{}
+	_ bin.BareDecoder = &PhotoSize{}
+
+	_ PhotoSizeClass = &PhotoSize{}
+)
 
 func (p *PhotoSize) Zero() bool {
 	if p == nil {
@@ -214,21 +220,6 @@ func (p *PhotoSize) String() string {
 	}
 	type Alias PhotoSize
 	return fmt.Sprintf("PhotoSize%+v", Alias(*p))
-}
-
-// FillFrom fills PhotoSize from given interface.
-func (p *PhotoSize) FillFrom(from interface {
-	GetType() (value string)
-	GetLocation() (value FileLocationClass)
-	GetW() (value int)
-	GetH() (value int)
-	GetSize() (value int)
-}) {
-	p.Type = from.GetType()
-	p.Location = from.GetLocation()
-	p.W = from.GetW()
-	p.H = from.GetH()
-	p.Size = from.GetSize()
 }
 
 // TypeID returns type id in TL schema.
@@ -305,31 +296,6 @@ func (p *PhotoSize) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (p *PhotoSize) GetType() (value string) {
-	return p.Type
-}
-
-// GetLocation returns value of Location field.
-func (p *PhotoSize) GetLocation() (value FileLocationClass) {
-	return p.Location
-}
-
-// GetW returns value of W field.
-func (p *PhotoSize) GetW() (value int) {
-	return p.W
-}
-
-// GetH returns value of H field.
-func (p *PhotoSize) GetH() (value int) {
-	return p.H
-}
-
-// GetSize returns value of Size field.
-func (p *PhotoSize) GetSize() (value int) {
-	return p.Size
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotoSize) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -384,18 +350,30 @@ func (p *PhotoSize) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoSizeClass.
-func (p PhotoSize) construct() PhotoSizeClass { return &p }
+// GetType returns value of Type field.
+func (p *PhotoSize) GetType() (value string) {
+	return p.Type
+}
 
-// Ensuring interfaces in compile-time for PhotoSize.
-var (
-	_ bin.Encoder     = &PhotoSize{}
-	_ bin.Decoder     = &PhotoSize{}
-	_ bin.BareEncoder = &PhotoSize{}
-	_ bin.BareDecoder = &PhotoSize{}
+// GetLocation returns value of Location field.
+func (p *PhotoSize) GetLocation() (value FileLocationClass) {
+	return p.Location
+}
 
-	_ PhotoSizeClass = &PhotoSize{}
-)
+// GetW returns value of W field.
+func (p *PhotoSize) GetW() (value int) {
+	return p.W
+}
+
+// GetH returns value of H field.
+func (p *PhotoSize) GetH() (value int) {
+	return p.H
+}
+
+// GetSize returns value of Size field.
+func (p *PhotoSize) GetSize() (value int) {
+	return p.Size
+}
 
 // PhotoCachedSize represents TL type `photoCachedSize#e9a734fa`.
 // Description of an image and its content.
@@ -416,6 +394,19 @@ type PhotoCachedSize struct {
 
 // PhotoCachedSizeTypeID is TL type id of PhotoCachedSize.
 const PhotoCachedSizeTypeID = 0xe9a734fa
+
+// construct implements constructor of PhotoSizeClass.
+func (p PhotoCachedSize) construct() PhotoSizeClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotoCachedSize.
+var (
+	_ bin.Encoder     = &PhotoCachedSize{}
+	_ bin.Decoder     = &PhotoCachedSize{}
+	_ bin.BareEncoder = &PhotoCachedSize{}
+	_ bin.BareDecoder = &PhotoCachedSize{}
+
+	_ PhotoSizeClass = &PhotoCachedSize{}
+)
 
 func (p *PhotoCachedSize) Zero() bool {
 	if p == nil {
@@ -447,21 +438,6 @@ func (p *PhotoCachedSize) String() string {
 	}
 	type Alias PhotoCachedSize
 	return fmt.Sprintf("PhotoCachedSize%+v", Alias(*p))
-}
-
-// FillFrom fills PhotoCachedSize from given interface.
-func (p *PhotoCachedSize) FillFrom(from interface {
-	GetType() (value string)
-	GetLocation() (value FileLocationClass)
-	GetW() (value int)
-	GetH() (value int)
-	GetBytes() (value []byte)
-}) {
-	p.Type = from.GetType()
-	p.Location = from.GetLocation()
-	p.W = from.GetW()
-	p.H = from.GetH()
-	p.Bytes = from.GetBytes()
 }
 
 // TypeID returns type id in TL schema.
@@ -538,31 +514,6 @@ func (p *PhotoCachedSize) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (p *PhotoCachedSize) GetType() (value string) {
-	return p.Type
-}
-
-// GetLocation returns value of Location field.
-func (p *PhotoCachedSize) GetLocation() (value FileLocationClass) {
-	return p.Location
-}
-
-// GetW returns value of W field.
-func (p *PhotoCachedSize) GetW() (value int) {
-	return p.W
-}
-
-// GetH returns value of H field.
-func (p *PhotoCachedSize) GetH() (value int) {
-	return p.H
-}
-
-// GetBytes returns value of Bytes field.
-func (p *PhotoCachedSize) GetBytes() (value []byte) {
-	return p.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotoCachedSize) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -617,18 +568,30 @@ func (p *PhotoCachedSize) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoSizeClass.
-func (p PhotoCachedSize) construct() PhotoSizeClass { return &p }
+// GetType returns value of Type field.
+func (p *PhotoCachedSize) GetType() (value string) {
+	return p.Type
+}
 
-// Ensuring interfaces in compile-time for PhotoCachedSize.
-var (
-	_ bin.Encoder     = &PhotoCachedSize{}
-	_ bin.Decoder     = &PhotoCachedSize{}
-	_ bin.BareEncoder = &PhotoCachedSize{}
-	_ bin.BareDecoder = &PhotoCachedSize{}
+// GetLocation returns value of Location field.
+func (p *PhotoCachedSize) GetLocation() (value FileLocationClass) {
+	return p.Location
+}
 
-	_ PhotoSizeClass = &PhotoCachedSize{}
-)
+// GetW returns value of W field.
+func (p *PhotoCachedSize) GetW() (value int) {
+	return p.W
+}
+
+// GetH returns value of H field.
+func (p *PhotoCachedSize) GetH() (value int) {
+	return p.H
+}
+
+// GetBytes returns value of Bytes field.
+func (p *PhotoCachedSize) GetBytes() (value []byte) {
+	return p.Bytes
+}
 
 // PhotoSizeClass represents PhotoSize generic type.
 //
@@ -668,59 +631,6 @@ type PhotoSizeClass interface {
 	// Links:
 	//  1) https://core.telegram.org/constructor/photoSize
 	GetType() (value string)
-
-	// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
-	AsNotEmpty() (NotEmptyPhotoSize, bool)
-}
-
-// NotEmptyPhotoSize represents NotEmpty subset of PhotoSizeClass.
-type NotEmptyPhotoSize interface {
-	bin.Encoder
-	bin.Decoder
-	bin.BareEncoder
-	bin.BareDecoder
-	construct() PhotoSizeClass
-
-	// TypeID returns type id in TL schema.
-	//
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// TypeName returns name of type in TL schema.
-	TypeName() string
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
-
-	// Thumbnail type
-	GetType() (value string)
-
-	// File location
-	GetLocation() (value FileLocationClass)
-
-	// Image width
-	GetW() (value int)
-
-	// Image height
-	GetH() (value int)
-}
-
-// AsNotEmpty tries to map PhotoSizeEmpty to NotEmptyPhotoSize.
-func (p *PhotoSizeEmpty) AsNotEmpty() (NotEmptyPhotoSize, bool) {
-	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
-	return value, ok
-}
-
-// AsNotEmpty tries to map PhotoSize to NotEmptyPhotoSize.
-func (p *PhotoSize) AsNotEmpty() (NotEmptyPhotoSize, bool) {
-	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
-	return value, ok
-}
-
-// AsNotEmpty tries to map PhotoCachedSize to NotEmptyPhotoSize.
-func (p *PhotoCachedSize) AsNotEmpty() (NotEmptyPhotoSize, bool) {
-	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
-	return value, ok
 }
 
 // DecodePhotoSize implements binary de-serialization for PhotoSizeClass.
@@ -780,426 +690,4 @@ func (b *PhotoSizeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PhotoSizeClass as nil")
 	}
 	return b.PhotoSize.Encode(buf)
-}
-
-// PhotoSizeClassArray is adapter for slice of PhotoSizeClass.
-type PhotoSizeClassArray []PhotoSizeClass
-
-// Sort sorts slice of PhotoSizeClass.
-func (s PhotoSizeClassArray) Sort(less func(a, b PhotoSizeClass) bool) PhotoSizeClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhotoSizeClass.
-func (s PhotoSizeClassArray) SortStable(less func(a, b PhotoSizeClass) bool) PhotoSizeClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhotoSizeClass.
-func (s PhotoSizeClassArray) Retain(keep func(x PhotoSizeClass) bool) PhotoSizeClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhotoSizeClassArray) First() (v PhotoSizeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhotoSizeClassArray) Last() (v PhotoSizeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhotoSizeClassArray) PopFirst() (v PhotoSizeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhotoSizeClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhotoSizeClassArray) Pop() (v PhotoSizeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsPhotoSizeEmpty returns copy with only PhotoSizeEmpty constructors.
-func (s PhotoSizeClassArray) AsPhotoSizeEmpty() (to PhotoSizeEmptyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PhotoSizeEmpty)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPhotoSize returns copy with only PhotoSize constructors.
-func (s PhotoSizeClassArray) AsPhotoSize() (to PhotoSizeArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PhotoSize)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPhotoCachedSize returns copy with only PhotoCachedSize constructors.
-func (s PhotoSizeClassArray) AsPhotoCachedSize() (to PhotoCachedSizeArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PhotoCachedSize)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s PhotoSizeClassArray) AppendOnlyNotEmpty(to []NotEmptyPhotoSize) []NotEmptyPhotoSize {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s PhotoSizeClassArray) AsNotEmpty() (to []NotEmptyPhotoSize) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s PhotoSizeClassArray) FirstAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s PhotoSizeClassArray) LastAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *PhotoSizeClassArray) PopFirstAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *PhotoSizeClassArray) PopAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PhotoSizeEmptyArray is adapter for slice of PhotoSizeEmpty.
-type PhotoSizeEmptyArray []PhotoSizeEmpty
-
-// Sort sorts slice of PhotoSizeEmpty.
-func (s PhotoSizeEmptyArray) Sort(less func(a, b PhotoSizeEmpty) bool) PhotoSizeEmptyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhotoSizeEmpty.
-func (s PhotoSizeEmptyArray) SortStable(less func(a, b PhotoSizeEmpty) bool) PhotoSizeEmptyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhotoSizeEmpty.
-func (s PhotoSizeEmptyArray) Retain(keep func(x PhotoSizeEmpty) bool) PhotoSizeEmptyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhotoSizeEmptyArray) First() (v PhotoSizeEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhotoSizeEmptyArray) Last() (v PhotoSizeEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhotoSizeEmptyArray) PopFirst() (v PhotoSizeEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhotoSizeEmpty
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhotoSizeEmptyArray) Pop() (v PhotoSizeEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PhotoSizeArray is adapter for slice of PhotoSize.
-type PhotoSizeArray []PhotoSize
-
-// Sort sorts slice of PhotoSize.
-func (s PhotoSizeArray) Sort(less func(a, b PhotoSize) bool) PhotoSizeArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhotoSize.
-func (s PhotoSizeArray) SortStable(less func(a, b PhotoSize) bool) PhotoSizeArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhotoSize.
-func (s PhotoSizeArray) Retain(keep func(x PhotoSize) bool) PhotoSizeArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhotoSizeArray) First() (v PhotoSize, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhotoSizeArray) Last() (v PhotoSize, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhotoSizeArray) PopFirst() (v PhotoSize, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhotoSize
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhotoSizeArray) Pop() (v PhotoSize, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PhotoCachedSizeArray is adapter for slice of PhotoCachedSize.
-type PhotoCachedSizeArray []PhotoCachedSize
-
-// Sort sorts slice of PhotoCachedSize.
-func (s PhotoCachedSizeArray) Sort(less func(a, b PhotoCachedSize) bool) PhotoCachedSizeArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhotoCachedSize.
-func (s PhotoCachedSizeArray) SortStable(less func(a, b PhotoCachedSize) bool) PhotoCachedSizeArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhotoCachedSize.
-func (s PhotoCachedSizeArray) Retain(keep func(x PhotoCachedSize) bool) PhotoCachedSizeArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhotoCachedSizeArray) First() (v PhotoCachedSize, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhotoCachedSizeArray) Last() (v PhotoCachedSize, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhotoCachedSizeArray) PopFirst() (v PhotoCachedSize, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhotoCachedSize
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhotoCachedSizeArray) Pop() (v PhotoCachedSize, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

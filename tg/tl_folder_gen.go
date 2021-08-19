@@ -58,6 +58,14 @@ type Folder struct {
 // FolderTypeID is TL type id of Folder.
 const FolderTypeID = 0xff544e65
 
+// Ensuring interfaces in compile-time for Folder.
+var (
+	_ bin.Encoder     = &Folder{}
+	_ bin.Decoder     = &Folder{}
+	_ bin.BareEncoder = &Folder{}
+	_ bin.BareDecoder = &Folder{}
+)
+
 func (f *Folder) Zero() bool {
 	if f == nil {
 		return true
@@ -213,6 +221,54 @@ func (f *Folder) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (f *Folder) Decode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode folder#ff544e65 to nil")
+	}
+	if err := b.ConsumeID(FolderTypeID); err != nil {
+		return fmt.Errorf("unable to decode folder#ff544e65: %w", err)
+	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *Folder) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode folder#ff544e65 to nil")
+	}
+	{
+		if err := f.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode folder#ff544e65: field flags: %w", err)
+		}
+	}
+	f.AutofillNewBroadcasts = f.Flags.Has(0)
+	f.AutofillPublicGroups = f.Flags.Has(1)
+	f.AutofillNewCorrespondents = f.Flags.Has(2)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode folder#ff544e65: field id: %w", err)
+		}
+		f.ID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode folder#ff544e65: field title: %w", err)
+		}
+		f.Title = value
+	}
+	if f.Flags.Has(3) {
+		value, err := DecodeChatPhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode folder#ff544e65: field photo: %w", err)
+		}
+		f.Photo = value
+	}
+	return nil
+}
+
 // SetAutofillNewBroadcasts sets value of AutofillNewBroadcasts conditional field.
 func (f *Folder) SetAutofillNewBroadcasts(value bool) {
 	if value {
@@ -294,59 +350,3 @@ func (f *Folder) GetPhotoAsNotEmpty() (*ChatPhoto, bool) {
 	}
 	return nil, false
 }
-
-// Decode implements bin.Decoder.
-func (f *Folder) Decode(b *bin.Buffer) error {
-	if f == nil {
-		return fmt.Errorf("can't decode folder#ff544e65 to nil")
-	}
-	if err := b.ConsumeID(FolderTypeID); err != nil {
-		return fmt.Errorf("unable to decode folder#ff544e65: %w", err)
-	}
-	return f.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (f *Folder) DecodeBare(b *bin.Buffer) error {
-	if f == nil {
-		return fmt.Errorf("can't decode folder#ff544e65 to nil")
-	}
-	{
-		if err := f.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode folder#ff544e65: field flags: %w", err)
-		}
-	}
-	f.AutofillNewBroadcasts = f.Flags.Has(0)
-	f.AutofillPublicGroups = f.Flags.Has(1)
-	f.AutofillNewCorrespondents = f.Flags.Has(2)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode folder#ff544e65: field id: %w", err)
-		}
-		f.ID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode folder#ff544e65: field title: %w", err)
-		}
-		f.Title = value
-	}
-	if f.Flags.Has(3) {
-		value, err := DecodeChatPhoto(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode folder#ff544e65: field photo: %w", err)
-		}
-		f.Photo = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for Folder.
-var (
-	_ bin.Encoder     = &Folder{}
-	_ bin.Decoder     = &Folder{}
-	_ bin.BareEncoder = &Folder{}
-	_ bin.BareDecoder = &Folder{}
-)

@@ -43,6 +43,14 @@ type InvokeWithTakeoutRequest struct {
 // InvokeWithTakeoutRequestTypeID is TL type id of InvokeWithTakeoutRequest.
 const InvokeWithTakeoutRequestTypeID = 0xaca9fd2e
 
+// Ensuring interfaces in compile-time for InvokeWithTakeoutRequest.
+var (
+	_ bin.Encoder     = &InvokeWithTakeoutRequest{}
+	_ bin.Decoder     = &InvokeWithTakeoutRequest{}
+	_ bin.BareEncoder = &InvokeWithTakeoutRequest{}
+	_ bin.BareDecoder = &InvokeWithTakeoutRequest{}
+)
+
 func (i *InvokeWithTakeoutRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -131,16 +139,6 @@ func (i *InvokeWithTakeoutRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTakeoutID returns value of TakeoutID field.
-func (i *InvokeWithTakeoutRequest) GetTakeoutID() (value int64) {
-	return i.TakeoutID
-}
-
-// GetQuery returns value of Query field.
-func (i *InvokeWithTakeoutRequest) GetQuery() (value bin.Object) {
-	return i.Query
-}
-
 // Decode implements bin.Decoder.
 func (i *InvokeWithTakeoutRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -172,10 +170,12 @@ func (i *InvokeWithTakeoutRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InvokeWithTakeoutRequest.
-var (
-	_ bin.Encoder     = &InvokeWithTakeoutRequest{}
-	_ bin.Decoder     = &InvokeWithTakeoutRequest{}
-	_ bin.BareEncoder = &InvokeWithTakeoutRequest{}
-	_ bin.BareDecoder = &InvokeWithTakeoutRequest{}
-)
+// GetTakeoutID returns value of TakeoutID field.
+func (i *InvokeWithTakeoutRequest) GetTakeoutID() (value int64) {
+	return i.TakeoutID
+}
+
+// GetQuery returns value of Query field.
+func (i *InvokeWithTakeoutRequest) GetQuery() (value bin.Object) {
+	return i.Query
+}

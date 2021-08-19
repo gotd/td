@@ -41,6 +41,14 @@ type ContactsDeleteContactsRequest struct {
 // ContactsDeleteContactsRequestTypeID is TL type id of ContactsDeleteContactsRequest.
 const ContactsDeleteContactsRequestTypeID = 0x96a0e00
 
+// Ensuring interfaces in compile-time for ContactsDeleteContactsRequest.
+var (
+	_ bin.Encoder     = &ContactsDeleteContactsRequest{}
+	_ bin.Decoder     = &ContactsDeleteContactsRequest{}
+	_ bin.BareEncoder = &ContactsDeleteContactsRequest{}
+	_ bin.BareDecoder = &ContactsDeleteContactsRequest{}
+)
+
 func (d *ContactsDeleteContactsRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -125,16 +133,6 @@ func (d *ContactsDeleteContactsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (d *ContactsDeleteContactsRequest) GetID() (value []InputUserClass) {
-	return d.ID
-}
-
-// MapID returns field ID wrapped in InputUserClassArray helper.
-func (d *ContactsDeleteContactsRequest) MapID() (value InputUserClassArray) {
-	return InputUserClassArray(d.ID)
-}
-
 // Decode implements bin.Decoder.
 func (d *ContactsDeleteContactsRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -171,13 +169,15 @@ func (d *ContactsDeleteContactsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsDeleteContactsRequest.
-var (
-	_ bin.Encoder     = &ContactsDeleteContactsRequest{}
-	_ bin.Decoder     = &ContactsDeleteContactsRequest{}
-	_ bin.BareEncoder = &ContactsDeleteContactsRequest{}
-	_ bin.BareDecoder = &ContactsDeleteContactsRequest{}
-)
+// GetID returns value of ID field.
+func (d *ContactsDeleteContactsRequest) GetID() (value []InputUserClass) {
+	return d.ID
+}
+
+// MapID returns field ID wrapped in InputUserClassArray helper.
+func (d *ContactsDeleteContactsRequest) MapID() (value InputUserClassArray) {
+	return InputUserClassArray(d.ID)
+}
 
 // ContactsDeleteContacts invokes method contacts.deleteContacts#96a0e00 returning error if any.
 // Deletes several contacts from the list.

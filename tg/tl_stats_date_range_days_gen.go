@@ -46,6 +46,14 @@ type StatsDateRangeDays struct {
 // StatsDateRangeDaysTypeID is TL type id of StatsDateRangeDays.
 const StatsDateRangeDaysTypeID = 0xb637edaf
 
+// Ensuring interfaces in compile-time for StatsDateRangeDays.
+var (
+	_ bin.Encoder     = &StatsDateRangeDays{}
+	_ bin.Decoder     = &StatsDateRangeDays{}
+	_ bin.BareEncoder = &StatsDateRangeDays{}
+	_ bin.BareDecoder = &StatsDateRangeDays{}
+)
+
 func (s *StatsDateRangeDays) Zero() bool {
 	if s == nil {
 		return true
@@ -132,16 +140,6 @@ func (s *StatsDateRangeDays) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMinDate returns value of MinDate field.
-func (s *StatsDateRangeDays) GetMinDate() (value int) {
-	return s.MinDate
-}
-
-// GetMaxDate returns value of MaxDate field.
-func (s *StatsDateRangeDays) GetMaxDate() (value int) {
-	return s.MaxDate
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsDateRangeDays) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -175,10 +173,12 @@ func (s *StatsDateRangeDays) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsDateRangeDays.
-var (
-	_ bin.Encoder     = &StatsDateRangeDays{}
-	_ bin.Decoder     = &StatsDateRangeDays{}
-	_ bin.BareEncoder = &StatsDateRangeDays{}
-	_ bin.BareDecoder = &StatsDateRangeDays{}
-)
+// GetMinDate returns value of MinDate field.
+func (s *StatsDateRangeDays) GetMinDate() (value int) {
+	return s.MinDate
+}
+
+// GetMaxDate returns value of MaxDate field.
+func (s *StatsDateRangeDays) GetMaxDate() (value int) {
+	return s.MaxDate
+}

@@ -43,6 +43,14 @@ type BankCardOpenURL struct {
 // BankCardOpenURLTypeID is TL type id of BankCardOpenURL.
 const BankCardOpenURLTypeID = 0xf568028a
 
+// Ensuring interfaces in compile-time for BankCardOpenURL.
+var (
+	_ bin.Encoder     = &BankCardOpenURL{}
+	_ bin.Decoder     = &BankCardOpenURL{}
+	_ bin.BareEncoder = &BankCardOpenURL{}
+	_ bin.BareDecoder = &BankCardOpenURL{}
+)
+
 func (b *BankCardOpenURL) Zero() bool {
 	if b == nil {
 		return true
@@ -129,16 +137,6 @@ func (b *BankCardOpenURL) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (b *BankCardOpenURL) GetURL() (value string) {
-	return b.URL
-}
-
-// GetName returns value of Name field.
-func (b *BankCardOpenURL) GetName() (value string) {
-	return b.Name
-}
-
 // Decode implements bin.Decoder.
 func (b *BankCardOpenURL) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -172,10 +170,12 @@ func (b *BankCardOpenURL) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for BankCardOpenURL.
-var (
-	_ bin.Encoder     = &BankCardOpenURL{}
-	_ bin.Decoder     = &BankCardOpenURL{}
-	_ bin.BareEncoder = &BankCardOpenURL{}
-	_ bin.BareDecoder = &BankCardOpenURL{}
-)
+// GetURL returns value of URL field.
+func (b *BankCardOpenURL) GetURL() (value string) {
+	return b.URL
+}
+
+// GetName returns value of Name field.
+func (b *BankCardOpenURL) GetName() (value string) {
+	return b.Name
+}

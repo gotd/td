@@ -39,6 +39,19 @@ type ContactsContactsNotModified struct {
 // ContactsContactsNotModifiedTypeID is TL type id of ContactsContactsNotModified.
 const ContactsContactsNotModifiedTypeID = 0xb74ba9d2
 
+// construct implements constructor of ContactsContactsClass.
+func (c ContactsContactsNotModified) construct() ContactsContactsClass { return &c }
+
+// Ensuring interfaces in compile-time for ContactsContactsNotModified.
+var (
+	_ bin.Encoder     = &ContactsContactsNotModified{}
+	_ bin.Decoder     = &ContactsContactsNotModified{}
+	_ bin.BareEncoder = &ContactsContactsNotModified{}
+	_ bin.BareDecoder = &ContactsContactsNotModified{}
+
+	_ ContactsContactsClass = &ContactsContactsNotModified{}
+)
+
 func (c *ContactsContactsNotModified) Zero() bool {
 	if c == nil {
 		return true
@@ -118,19 +131,6 @@ func (c *ContactsContactsNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ContactsContactsClass.
-func (c ContactsContactsNotModified) construct() ContactsContactsClass { return &c }
-
-// Ensuring interfaces in compile-time for ContactsContactsNotModified.
-var (
-	_ bin.Encoder     = &ContactsContactsNotModified{}
-	_ bin.Decoder     = &ContactsContactsNotModified{}
-	_ bin.BareEncoder = &ContactsContactsNotModified{}
-	_ bin.BareDecoder = &ContactsContactsNotModified{}
-
-	_ ContactsContactsClass = &ContactsContactsNotModified{}
-)
-
 // ContactsContacts represents TL type `contacts.contacts#eae87e42`.
 // The current user's contact list and info on users.
 //
@@ -146,6 +146,19 @@ type ContactsContacts struct {
 
 // ContactsContactsTypeID is TL type id of ContactsContacts.
 const ContactsContactsTypeID = 0xeae87e42
+
+// construct implements constructor of ContactsContactsClass.
+func (c ContactsContacts) construct() ContactsContactsClass { return &c }
+
+// Ensuring interfaces in compile-time for ContactsContacts.
+var (
+	_ bin.Encoder     = &ContactsContacts{}
+	_ bin.Decoder     = &ContactsContacts{}
+	_ bin.BareEncoder = &ContactsContacts{}
+	_ bin.BareDecoder = &ContactsContacts{}
+
+	_ ContactsContactsClass = &ContactsContacts{}
+)
 
 func (c *ContactsContacts) Zero() bool {
 	if c == nil {
@@ -256,26 +269,6 @@ func (c *ContactsContacts) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetContacts returns value of Contacts field.
-func (c *ContactsContacts) GetContacts() (value []Contact) {
-	return c.Contacts
-}
-
-// GetSavedCount returns value of SavedCount field.
-func (c *ContactsContacts) GetSavedCount() (value int) {
-	return c.SavedCount
-}
-
-// GetUsers returns value of Users field.
-func (c *ContactsContacts) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *ContactsContacts) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *ContactsContacts) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -336,18 +329,25 @@ func (c *ContactsContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ContactsContactsClass.
-func (c ContactsContacts) construct() ContactsContactsClass { return &c }
+// GetContacts returns value of Contacts field.
+func (c *ContactsContacts) GetContacts() (value []Contact) {
+	return c.Contacts
+}
 
-// Ensuring interfaces in compile-time for ContactsContacts.
-var (
-	_ bin.Encoder     = &ContactsContacts{}
-	_ bin.Decoder     = &ContactsContacts{}
-	_ bin.BareEncoder = &ContactsContacts{}
-	_ bin.BareDecoder = &ContactsContacts{}
+// GetSavedCount returns value of SavedCount field.
+func (c *ContactsContacts) GetSavedCount() (value int) {
+	return c.SavedCount
+}
 
-	_ ContactsContactsClass = &ContactsContacts{}
-)
+// GetUsers returns value of Users field.
+func (c *ContactsContacts) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *ContactsContacts) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}
 
 // ContactsContactsClass represents contacts.Contacts generic type.
 //

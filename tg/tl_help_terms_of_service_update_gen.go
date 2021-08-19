@@ -45,6 +45,19 @@ type HelpTermsOfServiceUpdateEmpty struct {
 // HelpTermsOfServiceUpdateEmptyTypeID is TL type id of HelpTermsOfServiceUpdateEmpty.
 const HelpTermsOfServiceUpdateEmptyTypeID = 0xe3309f7f
 
+// construct implements constructor of HelpTermsOfServiceUpdateClass.
+func (t HelpTermsOfServiceUpdateEmpty) construct() HelpTermsOfServiceUpdateClass { return &t }
+
+// Ensuring interfaces in compile-time for HelpTermsOfServiceUpdateEmpty.
+var (
+	_ bin.Encoder     = &HelpTermsOfServiceUpdateEmpty{}
+	_ bin.Decoder     = &HelpTermsOfServiceUpdateEmpty{}
+	_ bin.BareEncoder = &HelpTermsOfServiceUpdateEmpty{}
+	_ bin.BareDecoder = &HelpTermsOfServiceUpdateEmpty{}
+
+	_ HelpTermsOfServiceUpdateClass = &HelpTermsOfServiceUpdateEmpty{}
+)
+
 func (t *HelpTermsOfServiceUpdateEmpty) Zero() bool {
 	if t == nil {
 		return true
@@ -121,11 +134,6 @@ func (t *HelpTermsOfServiceUpdateEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExpires returns value of Expires field.
-func (t *HelpTermsOfServiceUpdateEmpty) GetExpires() (value int) {
-	return t.Expires
-}
-
 // Decode implements bin.Decoder.
 func (t *HelpTermsOfServiceUpdateEmpty) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -152,18 +160,10 @@ func (t *HelpTermsOfServiceUpdateEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpTermsOfServiceUpdateClass.
-func (t HelpTermsOfServiceUpdateEmpty) construct() HelpTermsOfServiceUpdateClass { return &t }
-
-// Ensuring interfaces in compile-time for HelpTermsOfServiceUpdateEmpty.
-var (
-	_ bin.Encoder     = &HelpTermsOfServiceUpdateEmpty{}
-	_ bin.Decoder     = &HelpTermsOfServiceUpdateEmpty{}
-	_ bin.BareEncoder = &HelpTermsOfServiceUpdateEmpty{}
-	_ bin.BareDecoder = &HelpTermsOfServiceUpdateEmpty{}
-
-	_ HelpTermsOfServiceUpdateClass = &HelpTermsOfServiceUpdateEmpty{}
-)
+// GetExpires returns value of Expires field.
+func (t *HelpTermsOfServiceUpdateEmpty) GetExpires() (value int) {
+	return t.Expires
+}
 
 // HelpTermsOfServiceUpdate represents TL type `help.termsOfServiceUpdate#28ecf961`.
 // Info about an update of telegram's terms of service. If the terms of service are
@@ -187,6 +187,19 @@ type HelpTermsOfServiceUpdate struct {
 
 // HelpTermsOfServiceUpdateTypeID is TL type id of HelpTermsOfServiceUpdate.
 const HelpTermsOfServiceUpdateTypeID = 0x28ecf961
+
+// construct implements constructor of HelpTermsOfServiceUpdateClass.
+func (t HelpTermsOfServiceUpdate) construct() HelpTermsOfServiceUpdateClass { return &t }
+
+// Ensuring interfaces in compile-time for HelpTermsOfServiceUpdate.
+var (
+	_ bin.Encoder     = &HelpTermsOfServiceUpdate{}
+	_ bin.Decoder     = &HelpTermsOfServiceUpdate{}
+	_ bin.BareEncoder = &HelpTermsOfServiceUpdate{}
+	_ bin.BareDecoder = &HelpTermsOfServiceUpdate{}
+
+	_ HelpTermsOfServiceUpdateClass = &HelpTermsOfServiceUpdate{}
+)
 
 func (t *HelpTermsOfServiceUpdate) Zero() bool {
 	if t == nil {
@@ -276,16 +289,6 @@ func (t *HelpTermsOfServiceUpdate) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExpires returns value of Expires field.
-func (t *HelpTermsOfServiceUpdate) GetExpires() (value int) {
-	return t.Expires
-}
-
-// GetTermsOfService returns value of TermsOfService field.
-func (t *HelpTermsOfServiceUpdate) GetTermsOfService() (value HelpTermsOfService) {
-	return t.TermsOfService
-}
-
 // Decode implements bin.Decoder.
 func (t *HelpTermsOfServiceUpdate) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -317,18 +320,15 @@ func (t *HelpTermsOfServiceUpdate) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpTermsOfServiceUpdateClass.
-func (t HelpTermsOfServiceUpdate) construct() HelpTermsOfServiceUpdateClass { return &t }
+// GetExpires returns value of Expires field.
+func (t *HelpTermsOfServiceUpdate) GetExpires() (value int) {
+	return t.Expires
+}
 
-// Ensuring interfaces in compile-time for HelpTermsOfServiceUpdate.
-var (
-	_ bin.Encoder     = &HelpTermsOfServiceUpdate{}
-	_ bin.Decoder     = &HelpTermsOfServiceUpdate{}
-	_ bin.BareEncoder = &HelpTermsOfServiceUpdate{}
-	_ bin.BareDecoder = &HelpTermsOfServiceUpdate{}
-
-	_ HelpTermsOfServiceUpdateClass = &HelpTermsOfServiceUpdate{}
-)
+// GetTermsOfService returns value of TermsOfService field.
+func (t *HelpTermsOfServiceUpdate) GetTermsOfService() (value HelpTermsOfService) {
+	return t.TermsOfService
+}
 
 // HelpTermsOfServiceUpdateClass represents help.TermsOfServiceUpdate generic type.
 //

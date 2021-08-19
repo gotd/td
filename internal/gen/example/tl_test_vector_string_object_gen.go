@@ -40,6 +40,14 @@ type TestVectorStringObject struct {
 // TestVectorStringObjectTypeID is TL type id of TestVectorStringObject.
 const TestVectorStringObjectTypeID = 0xe5ecc0d
 
+// Ensuring interfaces in compile-time for TestVectorStringObject.
+var (
+	_ bin.Encoder     = &TestVectorStringObject{}
+	_ bin.Decoder     = &TestVectorStringObject{}
+	_ bin.BareEncoder = &TestVectorStringObject{}
+	_ bin.BareDecoder = &TestVectorStringObject{}
+)
+
 func (t *TestVectorStringObject) Zero() bool {
 	if t == nil {
 		return true
@@ -58,13 +66,6 @@ func (t *TestVectorStringObject) String() string {
 	}
 	type Alias TestVectorStringObject
 	return fmt.Sprintf("TestVectorStringObject%+v", Alias(*t))
-}
-
-// FillFrom fills TestVectorStringObject from given interface.
-func (t *TestVectorStringObject) FillFrom(from interface {
-	GetValue() (value []TestString)
-}) {
-	t.Value = from.GetValue()
 }
 
 // TypeID returns type id in TL schema.
@@ -121,11 +122,6 @@ func (t *TestVectorStringObject) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (t *TestVectorStringObject) GetValue() (value []TestString) {
-	return t.Value
-}
-
 // Decode implements bin.Decoder.
 func (t *TestVectorStringObject) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -162,10 +158,7 @@ func (t *TestVectorStringObject) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for TestVectorStringObject.
-var (
-	_ bin.Encoder     = &TestVectorStringObject{}
-	_ bin.Decoder     = &TestVectorStringObject{}
-	_ bin.BareEncoder = &TestVectorStringObject{}
-	_ bin.BareDecoder = &TestVectorStringObject{}
-)
+// GetValue returns value of Value field.
+func (t *TestVectorStringObject) GetValue() (value []TestString) {
+	return t.Value
+}

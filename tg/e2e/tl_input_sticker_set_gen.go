@@ -41,6 +41,19 @@ type InputStickerSetShortName struct {
 // InputStickerSetShortNameTypeID is TL type id of InputStickerSetShortName.
 const InputStickerSetShortNameTypeID = 0x861cc8a0
 
+// construct implements constructor of InputStickerSetClass.
+func (i InputStickerSetShortName) construct() InputStickerSetClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickerSetShortName.
+var (
+	_ bin.Encoder     = &InputStickerSetShortName{}
+	_ bin.Decoder     = &InputStickerSetShortName{}
+	_ bin.BareEncoder = &InputStickerSetShortName{}
+	_ bin.BareDecoder = &InputStickerSetShortName{}
+
+	_ InputStickerSetClass = &InputStickerSetShortName{}
+)
+
 func (i *InputStickerSetShortName) Zero() bool {
 	if i == nil {
 		return true
@@ -59,13 +72,6 @@ func (i *InputStickerSetShortName) String() string {
 	}
 	type Alias InputStickerSetShortName
 	return fmt.Sprintf("InputStickerSetShortName%+v", Alias(*i))
-}
-
-// FillFrom fills InputStickerSetShortName from given interface.
-func (i *InputStickerSetShortName) FillFrom(from interface {
-	GetShortName() (value string)
-}) {
-	i.ShortName = from.GetShortName()
 }
 
 // TypeID returns type id in TL schema.
@@ -117,11 +123,6 @@ func (i *InputStickerSetShortName) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetShortName returns value of ShortName field.
-func (i *InputStickerSetShortName) GetShortName() (value string) {
-	return i.ShortName
-}
-
 // Decode implements bin.Decoder.
 func (i *InputStickerSetShortName) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -148,18 +149,10 @@ func (i *InputStickerSetShortName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputStickerSetClass.
-func (i InputStickerSetShortName) construct() InputStickerSetClass { return &i }
-
-// Ensuring interfaces in compile-time for InputStickerSetShortName.
-var (
-	_ bin.Encoder     = &InputStickerSetShortName{}
-	_ bin.Decoder     = &InputStickerSetShortName{}
-	_ bin.BareEncoder = &InputStickerSetShortName{}
-	_ bin.BareDecoder = &InputStickerSetShortName{}
-
-	_ InputStickerSetClass = &InputStickerSetShortName{}
-)
+// GetShortName returns value of ShortName field.
+func (i *InputStickerSetShortName) GetShortName() (value string) {
+	return i.ShortName
+}
 
 // InputStickerSetEmpty represents TL type `inputStickerSetEmpty#ffb62b95`.
 // Empty constructor
@@ -170,6 +163,19 @@ type InputStickerSetEmpty struct {
 
 // InputStickerSetEmptyTypeID is TL type id of InputStickerSetEmpty.
 const InputStickerSetEmptyTypeID = 0xffb62b95
+
+// construct implements constructor of InputStickerSetClass.
+func (i InputStickerSetEmpty) construct() InputStickerSetClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickerSetEmpty.
+var (
+	_ bin.Encoder     = &InputStickerSetEmpty{}
+	_ bin.Decoder     = &InputStickerSetEmpty{}
+	_ bin.BareEncoder = &InputStickerSetEmpty{}
+	_ bin.BareDecoder = &InputStickerSetEmpty{}
+
+	_ InputStickerSetClass = &InputStickerSetEmpty{}
+)
 
 func (i *InputStickerSetEmpty) Zero() bool {
 	if i == nil {
@@ -250,19 +256,6 @@ func (i *InputStickerSetEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputStickerSetClass.
-func (i InputStickerSetEmpty) construct() InputStickerSetClass { return &i }
-
-// Ensuring interfaces in compile-time for InputStickerSetEmpty.
-var (
-	_ bin.Encoder     = &InputStickerSetEmpty{}
-	_ bin.Decoder     = &InputStickerSetEmpty{}
-	_ bin.BareEncoder = &InputStickerSetEmpty{}
-	_ bin.BareDecoder = &InputStickerSetEmpty{}
-
-	_ InputStickerSetClass = &InputStickerSetEmpty{}
-)
-
 // InputStickerSetClass represents InputStickerSet generic type.
 //
 // See https://core.telegram.org/type/InputStickerSet for reference.
@@ -294,19 +287,6 @@ type InputStickerSetClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-
-	// AsNotEmpty tries to map InputStickerSetClass to InputStickerSetShortName.
-	AsNotEmpty() (*InputStickerSetShortName, bool)
-}
-
-// AsNotEmpty tries to map InputStickerSetShortName to InputStickerSetShortName.
-func (i *InputStickerSetShortName) AsNotEmpty() (*InputStickerSetShortName, bool) {
-	return i, true
-}
-
-// AsNotEmpty tries to map InputStickerSetEmpty to InputStickerSetShortName.
-func (i *InputStickerSetEmpty) AsNotEmpty() (*InputStickerSetShortName, bool) {
-	return nil, false
 }
 
 // DecodeInputStickerSet implements binary de-serialization for InputStickerSetClass.
@@ -359,236 +339,4 @@ func (b *InputStickerSetBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputStickerSetClass as nil")
 	}
 	return b.InputStickerSet.Encode(buf)
-}
-
-// InputStickerSetClassArray is adapter for slice of InputStickerSetClass.
-type InputStickerSetClassArray []InputStickerSetClass
-
-// Sort sorts slice of InputStickerSetClass.
-func (s InputStickerSetClassArray) Sort(less func(a, b InputStickerSetClass) bool) InputStickerSetClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputStickerSetClass.
-func (s InputStickerSetClassArray) SortStable(less func(a, b InputStickerSetClass) bool) InputStickerSetClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputStickerSetClass.
-func (s InputStickerSetClassArray) Retain(keep func(x InputStickerSetClass) bool) InputStickerSetClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputStickerSetClassArray) First() (v InputStickerSetClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputStickerSetClassArray) Last() (v InputStickerSetClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputStickerSetClassArray) PopFirst() (v InputStickerSetClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputStickerSetClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputStickerSetClassArray) Pop() (v InputStickerSetClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputStickerSetShortName returns copy with only InputStickerSetShortName constructors.
-func (s InputStickerSetClassArray) AsInputStickerSetShortName() (to InputStickerSetShortNameArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputStickerSetShortName)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s InputStickerSetClassArray) AppendOnlyNotEmpty(to []*InputStickerSetShortName) []*InputStickerSetShortName {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s InputStickerSetClassArray) AsNotEmpty() (to []*InputStickerSetShortName) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s InputStickerSetClassArray) FirstAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s InputStickerSetClassArray) LastAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *InputStickerSetClassArray) PopFirstAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *InputStickerSetClassArray) PopAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// InputStickerSetShortNameArray is adapter for slice of InputStickerSetShortName.
-type InputStickerSetShortNameArray []InputStickerSetShortName
-
-// Sort sorts slice of InputStickerSetShortName.
-func (s InputStickerSetShortNameArray) Sort(less func(a, b InputStickerSetShortName) bool) InputStickerSetShortNameArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputStickerSetShortName.
-func (s InputStickerSetShortNameArray) SortStable(less func(a, b InputStickerSetShortName) bool) InputStickerSetShortNameArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputStickerSetShortName.
-func (s InputStickerSetShortNameArray) Retain(keep func(x InputStickerSetShortName) bool) InputStickerSetShortNameArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputStickerSetShortNameArray) First() (v InputStickerSetShortName, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputStickerSetShortNameArray) Last() (v InputStickerSetShortName, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputStickerSetShortNameArray) PopFirst() (v InputStickerSetShortName, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputStickerSetShortName
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputStickerSetShortNameArray) Pop() (v InputStickerSetShortName, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

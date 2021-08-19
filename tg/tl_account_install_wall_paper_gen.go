@@ -43,6 +43,14 @@ type AccountInstallWallPaperRequest struct {
 // AccountInstallWallPaperRequestTypeID is TL type id of AccountInstallWallPaperRequest.
 const AccountInstallWallPaperRequestTypeID = 0xfeed5769
 
+// Ensuring interfaces in compile-time for AccountInstallWallPaperRequest.
+var (
+	_ bin.Encoder     = &AccountInstallWallPaperRequest{}
+	_ bin.Decoder     = &AccountInstallWallPaperRequest{}
+	_ bin.BareEncoder = &AccountInstallWallPaperRequest{}
+	_ bin.BareDecoder = &AccountInstallWallPaperRequest{}
+)
+
 func (i *AccountInstallWallPaperRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -136,16 +144,6 @@ func (i *AccountInstallWallPaperRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetWallpaper returns value of Wallpaper field.
-func (i *AccountInstallWallPaperRequest) GetWallpaper() (value InputWallPaperClass) {
-	return i.Wallpaper
-}
-
-// GetSettings returns value of Settings field.
-func (i *AccountInstallWallPaperRequest) GetSettings() (value WallPaperSettings) {
-	return i.Settings
-}
-
 // Decode implements bin.Decoder.
 func (i *AccountInstallWallPaperRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -177,13 +175,15 @@ func (i *AccountInstallWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountInstallWallPaperRequest.
-var (
-	_ bin.Encoder     = &AccountInstallWallPaperRequest{}
-	_ bin.Decoder     = &AccountInstallWallPaperRequest{}
-	_ bin.BareEncoder = &AccountInstallWallPaperRequest{}
-	_ bin.BareDecoder = &AccountInstallWallPaperRequest{}
-)
+// GetWallpaper returns value of Wallpaper field.
+func (i *AccountInstallWallPaperRequest) GetWallpaper() (value InputWallPaperClass) {
+	return i.Wallpaper
+}
+
+// GetSettings returns value of Settings field.
+func (i *AccountInstallWallPaperRequest) GetSettings() (value WallPaperSettings) {
+	return i.Settings
+}
 
 // AccountInstallWallPaper invokes method account.installWallPaper#feed5769 returning error if any.
 // Install wallpaper

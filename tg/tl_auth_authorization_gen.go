@@ -53,6 +53,19 @@ type AuthAuthorization struct {
 // AuthAuthorizationTypeID is TL type id of AuthAuthorization.
 const AuthAuthorizationTypeID = 0xcd050916
 
+// construct implements constructor of AuthAuthorizationClass.
+func (a AuthAuthorization) construct() AuthAuthorizationClass { return &a }
+
+// Ensuring interfaces in compile-time for AuthAuthorization.
+var (
+	_ bin.Encoder     = &AuthAuthorization{}
+	_ bin.Decoder     = &AuthAuthorization{}
+	_ bin.BareEncoder = &AuthAuthorization{}
+	_ bin.BareDecoder = &AuthAuthorization{}
+
+	_ AuthAuthorizationClass = &AuthAuthorization{}
+)
+
 func (a *AuthAuthorization) Zero() bool {
 	if a == nil {
 		return true
@@ -159,26 +172,6 @@ func (a *AuthAuthorization) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetTmpSessions sets value of TmpSessions conditional field.
-func (a *AuthAuthorization) SetTmpSessions(value int) {
-	a.Flags.Set(0)
-	a.TmpSessions = value
-}
-
-// GetTmpSessions returns value of TmpSessions conditional field and
-// boolean which is true if field was set.
-func (a *AuthAuthorization) GetTmpSessions() (value int, ok bool) {
-	if !a.Flags.Has(0) {
-		return value, false
-	}
-	return a.TmpSessions, true
-}
-
-// GetUser returns value of User field.
-func (a *AuthAuthorization) GetUser() (value UserClass) {
-	return a.User
-}
-
 // Decode implements bin.Decoder.
 func (a *AuthAuthorization) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -217,18 +210,25 @@ func (a *AuthAuthorization) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthAuthorizationClass.
-func (a AuthAuthorization) construct() AuthAuthorizationClass { return &a }
+// SetTmpSessions sets value of TmpSessions conditional field.
+func (a *AuthAuthorization) SetTmpSessions(value int) {
+	a.Flags.Set(0)
+	a.TmpSessions = value
+}
 
-// Ensuring interfaces in compile-time for AuthAuthorization.
-var (
-	_ bin.Encoder     = &AuthAuthorization{}
-	_ bin.Decoder     = &AuthAuthorization{}
-	_ bin.BareEncoder = &AuthAuthorization{}
-	_ bin.BareDecoder = &AuthAuthorization{}
+// GetTmpSessions returns value of TmpSessions conditional field and
+// boolean which is true if field was set.
+func (a *AuthAuthorization) GetTmpSessions() (value int, ok bool) {
+	if !a.Flags.Has(0) {
+		return value, false
+	}
+	return a.TmpSessions, true
+}
 
-	_ AuthAuthorizationClass = &AuthAuthorization{}
-)
+// GetUser returns value of User field.
+func (a *AuthAuthorization) GetUser() (value UserClass) {
+	return a.User
+}
 
 // AuthAuthorizationSignUpRequired represents TL type `auth.authorizationSignUpRequired#44747e9a`.
 // An account with this phone number doesn't exist on telegram: the user has to enter
@@ -253,6 +253,19 @@ type AuthAuthorizationSignUpRequired struct {
 
 // AuthAuthorizationSignUpRequiredTypeID is TL type id of AuthAuthorizationSignUpRequired.
 const AuthAuthorizationSignUpRequiredTypeID = 0x44747e9a
+
+// construct implements constructor of AuthAuthorizationClass.
+func (a AuthAuthorizationSignUpRequired) construct() AuthAuthorizationClass { return &a }
+
+// Ensuring interfaces in compile-time for AuthAuthorizationSignUpRequired.
+var (
+	_ bin.Encoder     = &AuthAuthorizationSignUpRequired{}
+	_ bin.Decoder     = &AuthAuthorizationSignUpRequired{}
+	_ bin.BareEncoder = &AuthAuthorizationSignUpRequired{}
+	_ bin.BareDecoder = &AuthAuthorizationSignUpRequired{}
+
+	_ AuthAuthorizationClass = &AuthAuthorizationSignUpRequired{}
+)
 
 func (a *AuthAuthorizationSignUpRequired) Zero() bool {
 	if a == nil {
@@ -347,21 +360,6 @@ func (a *AuthAuthorizationSignUpRequired) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetTermsOfService sets value of TermsOfService conditional field.
-func (a *AuthAuthorizationSignUpRequired) SetTermsOfService(value HelpTermsOfService) {
-	a.Flags.Set(0)
-	a.TermsOfService = value
-}
-
-// GetTermsOfService returns value of TermsOfService conditional field and
-// boolean which is true if field was set.
-func (a *AuthAuthorizationSignUpRequired) GetTermsOfService() (value HelpTermsOfService, ok bool) {
-	if !a.Flags.Has(0) {
-		return value, false
-	}
-	return a.TermsOfService, true
-}
-
 // Decode implements bin.Decoder.
 func (a *AuthAuthorizationSignUpRequired) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -391,18 +389,20 @@ func (a *AuthAuthorizationSignUpRequired) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthAuthorizationClass.
-func (a AuthAuthorizationSignUpRequired) construct() AuthAuthorizationClass { return &a }
+// SetTermsOfService sets value of TermsOfService conditional field.
+func (a *AuthAuthorizationSignUpRequired) SetTermsOfService(value HelpTermsOfService) {
+	a.Flags.Set(0)
+	a.TermsOfService = value
+}
 
-// Ensuring interfaces in compile-time for AuthAuthorizationSignUpRequired.
-var (
-	_ bin.Encoder     = &AuthAuthorizationSignUpRequired{}
-	_ bin.Decoder     = &AuthAuthorizationSignUpRequired{}
-	_ bin.BareEncoder = &AuthAuthorizationSignUpRequired{}
-	_ bin.BareDecoder = &AuthAuthorizationSignUpRequired{}
-
-	_ AuthAuthorizationClass = &AuthAuthorizationSignUpRequired{}
-)
+// GetTermsOfService returns value of TermsOfService conditional field and
+// boolean which is true if field was set.
+func (a *AuthAuthorizationSignUpRequired) GetTermsOfService() (value HelpTermsOfService, ok bool) {
+	if !a.Flags.Has(0) {
+		return value, false
+	}
+	return a.TermsOfService, true
+}
 
 // AuthAuthorizationClass represents auth.Authorization generic type.
 //

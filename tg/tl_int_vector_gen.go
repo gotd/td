@@ -38,6 +38,14 @@ type IntVector struct {
 // IntVectorTypeID is TL type id of IntVector.
 const IntVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for IntVector.
+var (
+	_ bin.Encoder     = &IntVector{}
+	_ bin.Decoder     = &IntVector{}
+	_ bin.BareEncoder = &IntVector{}
+	_ bin.BareDecoder = &IntVector{}
+)
+
 func (vec *IntVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -117,11 +125,6 @@ func (vec *IntVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *IntVector) GetElems() (value []int) {
-	return vec.Elems
-}
-
 // Decode implements bin.Decoder.
 func (vec *IntVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -156,10 +159,7 @@ func (vec *IntVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for IntVector.
-var (
-	_ bin.Encoder     = &IntVector{}
-	_ bin.Decoder     = &IntVector{}
-	_ bin.BareEncoder = &IntVector{}
-	_ bin.BareDecoder = &IntVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *IntVector) GetElems() (value []int) {
+	return vec.Elems
+}

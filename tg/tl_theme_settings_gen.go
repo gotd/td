@@ -60,6 +60,14 @@ type ThemeSettings struct {
 // ThemeSettingsTypeID is TL type id of ThemeSettings.
 const ThemeSettingsTypeID = 0x9c14984a
 
+// Ensuring interfaces in compile-time for ThemeSettings.
+var (
+	_ bin.Encoder     = &ThemeSettings{}
+	_ bin.Decoder     = &ThemeSettings{}
+	_ bin.BareEncoder = &ThemeSettings{}
+	_ bin.BareDecoder = &ThemeSettings{}
+)
+
 func (t *ThemeSettings) Zero() bool {
 	if t == nil {
 		return true
@@ -219,61 +227,6 @@ func (t *ThemeSettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetBaseTheme returns value of BaseTheme field.
-func (t *ThemeSettings) GetBaseTheme() (value BaseThemeClass) {
-	return t.BaseTheme
-}
-
-// GetAccentColor returns value of AccentColor field.
-func (t *ThemeSettings) GetAccentColor() (value int) {
-	return t.AccentColor
-}
-
-// SetMessageTopColor sets value of MessageTopColor conditional field.
-func (t *ThemeSettings) SetMessageTopColor(value int) {
-	t.Flags.Set(0)
-	t.MessageTopColor = value
-}
-
-// GetMessageTopColor returns value of MessageTopColor conditional field and
-// boolean which is true if field was set.
-func (t *ThemeSettings) GetMessageTopColor() (value int, ok bool) {
-	if !t.Flags.Has(0) {
-		return value, false
-	}
-	return t.MessageTopColor, true
-}
-
-// SetMessageBottomColor sets value of MessageBottomColor conditional field.
-func (t *ThemeSettings) SetMessageBottomColor(value int) {
-	t.Flags.Set(0)
-	t.MessageBottomColor = value
-}
-
-// GetMessageBottomColor returns value of MessageBottomColor conditional field and
-// boolean which is true if field was set.
-func (t *ThemeSettings) GetMessageBottomColor() (value int, ok bool) {
-	if !t.Flags.Has(0) {
-		return value, false
-	}
-	return t.MessageBottomColor, true
-}
-
-// SetWallpaper sets value of Wallpaper conditional field.
-func (t *ThemeSettings) SetWallpaper(value WallPaperClass) {
-	t.Flags.Set(1)
-	t.Wallpaper = value
-}
-
-// GetWallpaper returns value of Wallpaper conditional field and
-// boolean which is true if field was set.
-func (t *ThemeSettings) GetWallpaper() (value WallPaperClass, ok bool) {
-	if !t.Flags.Has(1) {
-		return value, false
-	}
-	return t.Wallpaper, true
-}
-
 // Decode implements bin.Decoder.
 func (t *ThemeSettings) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -333,10 +286,57 @@ func (t *ThemeSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ThemeSettings.
-var (
-	_ bin.Encoder     = &ThemeSettings{}
-	_ bin.Decoder     = &ThemeSettings{}
-	_ bin.BareEncoder = &ThemeSettings{}
-	_ bin.BareDecoder = &ThemeSettings{}
-)
+// GetBaseTheme returns value of BaseTheme field.
+func (t *ThemeSettings) GetBaseTheme() (value BaseThemeClass) {
+	return t.BaseTheme
+}
+
+// GetAccentColor returns value of AccentColor field.
+func (t *ThemeSettings) GetAccentColor() (value int) {
+	return t.AccentColor
+}
+
+// SetMessageTopColor sets value of MessageTopColor conditional field.
+func (t *ThemeSettings) SetMessageTopColor(value int) {
+	t.Flags.Set(0)
+	t.MessageTopColor = value
+}
+
+// GetMessageTopColor returns value of MessageTopColor conditional field and
+// boolean which is true if field was set.
+func (t *ThemeSettings) GetMessageTopColor() (value int, ok bool) {
+	if !t.Flags.Has(0) {
+		return value, false
+	}
+	return t.MessageTopColor, true
+}
+
+// SetMessageBottomColor sets value of MessageBottomColor conditional field.
+func (t *ThemeSettings) SetMessageBottomColor(value int) {
+	t.Flags.Set(0)
+	t.MessageBottomColor = value
+}
+
+// GetMessageBottomColor returns value of MessageBottomColor conditional field and
+// boolean which is true if field was set.
+func (t *ThemeSettings) GetMessageBottomColor() (value int, ok bool) {
+	if !t.Flags.Has(0) {
+		return value, false
+	}
+	return t.MessageBottomColor, true
+}
+
+// SetWallpaper sets value of Wallpaper conditional field.
+func (t *ThemeSettings) SetWallpaper(value WallPaperClass) {
+	t.Flags.Set(1)
+	t.Wallpaper = value
+}
+
+// GetWallpaper returns value of Wallpaper conditional field and
+// boolean which is true if field was set.
+func (t *ThemeSettings) GetWallpaper() (value WallPaperClass, ok bool) {
+	if !t.Flags.Has(1) {
+		return value, false
+	}
+	return t.Wallpaper, true
+}

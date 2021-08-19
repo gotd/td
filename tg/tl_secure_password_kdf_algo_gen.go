@@ -39,6 +39,19 @@ type SecurePasswordKdfAlgoUnknown struct {
 // SecurePasswordKdfAlgoUnknownTypeID is TL type id of SecurePasswordKdfAlgoUnknown.
 const SecurePasswordKdfAlgoUnknownTypeID = 0x4a8537
 
+// construct implements constructor of SecurePasswordKdfAlgoClass.
+func (s SecurePasswordKdfAlgoUnknown) construct() SecurePasswordKdfAlgoClass { return &s }
+
+// Ensuring interfaces in compile-time for SecurePasswordKdfAlgoUnknown.
+var (
+	_ bin.Encoder     = &SecurePasswordKdfAlgoUnknown{}
+	_ bin.Decoder     = &SecurePasswordKdfAlgoUnknown{}
+	_ bin.BareEncoder = &SecurePasswordKdfAlgoUnknown{}
+	_ bin.BareDecoder = &SecurePasswordKdfAlgoUnknown{}
+
+	_ SecurePasswordKdfAlgoClass = &SecurePasswordKdfAlgoUnknown{}
+)
+
 func (s *SecurePasswordKdfAlgoUnknown) Zero() bool {
 	if s == nil {
 		return true
@@ -118,19 +131,6 @@ func (s *SecurePasswordKdfAlgoUnknown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecurePasswordKdfAlgoClass.
-func (s SecurePasswordKdfAlgoUnknown) construct() SecurePasswordKdfAlgoClass { return &s }
-
-// Ensuring interfaces in compile-time for SecurePasswordKdfAlgoUnknown.
-var (
-	_ bin.Encoder     = &SecurePasswordKdfAlgoUnknown{}
-	_ bin.Decoder     = &SecurePasswordKdfAlgoUnknown{}
-	_ bin.BareEncoder = &SecurePasswordKdfAlgoUnknown{}
-	_ bin.BareDecoder = &SecurePasswordKdfAlgoUnknown{}
-
-	_ SecurePasswordKdfAlgoClass = &SecurePasswordKdfAlgoUnknown{}
-)
-
 // SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 represents TL type `securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0`.
 // PBKDF2 with SHA512 and 100000 iterations KDF algo
 //
@@ -142,6 +142,21 @@ type SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 struct {
 
 // SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID is TL type id of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
 const SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID = 0xbbf2dda0
+
+// construct implements constructor of SecurePasswordKdfAlgoClass.
+func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) construct() SecurePasswordKdfAlgoClass {
+	return &s
+}
+
+// Ensuring interfaces in compile-time for SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
+var (
+	_ bin.Encoder     = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
+	_ bin.Decoder     = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
+	_ bin.BareEncoder = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
+	_ bin.BareDecoder = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
+
+	_ SecurePasswordKdfAlgoClass = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
+)
 
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) Zero() bool {
 	if s == nil {
@@ -219,11 +234,6 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) EncodeBare(b *bin.Buff
 	return nil
 }
 
-// GetSalt returns value of Salt field.
-func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) GetSalt() (value []byte) {
-	return s.Salt
-}
-
 // Decode implements bin.Decoder.
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -250,20 +260,10 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) DecodeBare(b *bin.Buff
 	return nil
 }
 
-// construct implements constructor of SecurePasswordKdfAlgoClass.
-func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) construct() SecurePasswordKdfAlgoClass {
-	return &s
+// GetSalt returns value of Salt field.
+func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) GetSalt() (value []byte) {
+	return s.Salt
 }
-
-// Ensuring interfaces in compile-time for SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
-var (
-	_ bin.Encoder     = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
-	_ bin.Decoder     = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
-	_ bin.BareEncoder = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
-	_ bin.BareDecoder = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
-
-	_ SecurePasswordKdfAlgoClass = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
-)
 
 // SecurePasswordKdfAlgoSHA512 represents TL type `securePasswordKdfAlgoSHA512#86471d92`.
 // SHA512 KDF algo
@@ -276,6 +276,19 @@ type SecurePasswordKdfAlgoSHA512 struct {
 
 // SecurePasswordKdfAlgoSHA512TypeID is TL type id of SecurePasswordKdfAlgoSHA512.
 const SecurePasswordKdfAlgoSHA512TypeID = 0x86471d92
+
+// construct implements constructor of SecurePasswordKdfAlgoClass.
+func (s SecurePasswordKdfAlgoSHA512) construct() SecurePasswordKdfAlgoClass { return &s }
+
+// Ensuring interfaces in compile-time for SecurePasswordKdfAlgoSHA512.
+var (
+	_ bin.Encoder     = &SecurePasswordKdfAlgoSHA512{}
+	_ bin.Decoder     = &SecurePasswordKdfAlgoSHA512{}
+	_ bin.BareEncoder = &SecurePasswordKdfAlgoSHA512{}
+	_ bin.BareDecoder = &SecurePasswordKdfAlgoSHA512{}
+
+	_ SecurePasswordKdfAlgoClass = &SecurePasswordKdfAlgoSHA512{}
+)
 
 func (s *SecurePasswordKdfAlgoSHA512) Zero() bool {
 	if s == nil {
@@ -353,11 +366,6 @@ func (s *SecurePasswordKdfAlgoSHA512) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSalt returns value of Salt field.
-func (s *SecurePasswordKdfAlgoSHA512) GetSalt() (value []byte) {
-	return s.Salt
-}
-
 // Decode implements bin.Decoder.
 func (s *SecurePasswordKdfAlgoSHA512) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -384,18 +392,10 @@ func (s *SecurePasswordKdfAlgoSHA512) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecurePasswordKdfAlgoClass.
-func (s SecurePasswordKdfAlgoSHA512) construct() SecurePasswordKdfAlgoClass { return &s }
-
-// Ensuring interfaces in compile-time for SecurePasswordKdfAlgoSHA512.
-var (
-	_ bin.Encoder     = &SecurePasswordKdfAlgoSHA512{}
-	_ bin.Decoder     = &SecurePasswordKdfAlgoSHA512{}
-	_ bin.BareEncoder = &SecurePasswordKdfAlgoSHA512{}
-	_ bin.BareDecoder = &SecurePasswordKdfAlgoSHA512{}
-
-	_ SecurePasswordKdfAlgoClass = &SecurePasswordKdfAlgoSHA512{}
-)
+// GetSalt returns value of Salt field.
+func (s *SecurePasswordKdfAlgoSHA512) GetSalt() (value []byte) {
+	return s.Salt
+}
 
 // SecurePasswordKdfAlgoClass represents SecurePasswordKdfAlgo generic type.
 //

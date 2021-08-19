@@ -39,6 +39,19 @@ type MessagesRecentStickersNotModified struct {
 // MessagesRecentStickersNotModifiedTypeID is TL type id of MessagesRecentStickersNotModified.
 const MessagesRecentStickersNotModifiedTypeID = 0xb17f890
 
+// construct implements constructor of MessagesRecentStickersClass.
+func (r MessagesRecentStickersNotModified) construct() MessagesRecentStickersClass { return &r }
+
+// Ensuring interfaces in compile-time for MessagesRecentStickersNotModified.
+var (
+	_ bin.Encoder     = &MessagesRecentStickersNotModified{}
+	_ bin.Decoder     = &MessagesRecentStickersNotModified{}
+	_ bin.BareEncoder = &MessagesRecentStickersNotModified{}
+	_ bin.BareDecoder = &MessagesRecentStickersNotModified{}
+
+	_ MessagesRecentStickersClass = &MessagesRecentStickersNotModified{}
+)
+
 func (r *MessagesRecentStickersNotModified) Zero() bool {
 	if r == nil {
 		return true
@@ -118,19 +131,6 @@ func (r *MessagesRecentStickersNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesRecentStickersClass.
-func (r MessagesRecentStickersNotModified) construct() MessagesRecentStickersClass { return &r }
-
-// Ensuring interfaces in compile-time for MessagesRecentStickersNotModified.
-var (
-	_ bin.Encoder     = &MessagesRecentStickersNotModified{}
-	_ bin.Decoder     = &MessagesRecentStickersNotModified{}
-	_ bin.BareEncoder = &MessagesRecentStickersNotModified{}
-	_ bin.BareDecoder = &MessagesRecentStickersNotModified{}
-
-	_ MessagesRecentStickersClass = &MessagesRecentStickersNotModified{}
-)
-
 // MessagesRecentStickers represents TL type `messages.recentStickers#22f3afb3`.
 // Recently used stickers
 //
@@ -151,6 +151,19 @@ type MessagesRecentStickers struct {
 
 // MessagesRecentStickersTypeID is TL type id of MessagesRecentStickers.
 const MessagesRecentStickersTypeID = 0x22f3afb3
+
+// construct implements constructor of MessagesRecentStickersClass.
+func (r MessagesRecentStickers) construct() MessagesRecentStickersClass { return &r }
+
+// Ensuring interfaces in compile-time for MessagesRecentStickers.
+var (
+	_ bin.Encoder     = &MessagesRecentStickers{}
+	_ bin.Decoder     = &MessagesRecentStickers{}
+	_ bin.BareEncoder = &MessagesRecentStickers{}
+	_ bin.BareDecoder = &MessagesRecentStickers{}
+
+	_ MessagesRecentStickersClass = &MessagesRecentStickers{}
+)
 
 func (r *MessagesRecentStickers) Zero() bool {
 	if r == nil {
@@ -274,31 +287,6 @@ func (r *MessagesRecentStickers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (r *MessagesRecentStickers) GetHash() (value int) {
-	return r.Hash
-}
-
-// GetPacks returns value of Packs field.
-func (r *MessagesRecentStickers) GetPacks() (value []StickerPack) {
-	return r.Packs
-}
-
-// GetStickers returns value of Stickers field.
-func (r *MessagesRecentStickers) GetStickers() (value []DocumentClass) {
-	return r.Stickers
-}
-
-// MapStickers returns field Stickers wrapped in DocumentClassArray helper.
-func (r *MessagesRecentStickers) MapStickers() (value DocumentClassArray) {
-	return DocumentClassArray(r.Stickers)
-}
-
-// GetDates returns value of Dates field.
-func (r *MessagesRecentStickers) GetDates() (value []int) {
-	return r.Dates
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesRecentStickers) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -376,18 +364,30 @@ func (r *MessagesRecentStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesRecentStickersClass.
-func (r MessagesRecentStickers) construct() MessagesRecentStickersClass { return &r }
+// GetHash returns value of Hash field.
+func (r *MessagesRecentStickers) GetHash() (value int) {
+	return r.Hash
+}
 
-// Ensuring interfaces in compile-time for MessagesRecentStickers.
-var (
-	_ bin.Encoder     = &MessagesRecentStickers{}
-	_ bin.Decoder     = &MessagesRecentStickers{}
-	_ bin.BareEncoder = &MessagesRecentStickers{}
-	_ bin.BareDecoder = &MessagesRecentStickers{}
+// GetPacks returns value of Packs field.
+func (r *MessagesRecentStickers) GetPacks() (value []StickerPack) {
+	return r.Packs
+}
 
-	_ MessagesRecentStickersClass = &MessagesRecentStickers{}
-)
+// GetStickers returns value of Stickers field.
+func (r *MessagesRecentStickers) GetStickers() (value []DocumentClass) {
+	return r.Stickers
+}
+
+// GetDates returns value of Dates field.
+func (r *MessagesRecentStickers) GetDates() (value []int) {
+	return r.Dates
+}
+
+// MapStickers returns field Stickers wrapped in DocumentClassArray helper.
+func (r *MessagesRecentStickers) MapStickers() (value DocumentClassArray) {
+	return DocumentClassArray(r.Stickers)
+}
 
 // MessagesRecentStickersClass represents messages.RecentStickers generic type.
 //

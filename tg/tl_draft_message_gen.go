@@ -48,6 +48,19 @@ type DraftMessageEmpty struct {
 // DraftMessageEmptyTypeID is TL type id of DraftMessageEmpty.
 const DraftMessageEmptyTypeID = 0x1b0c841a
 
+// construct implements constructor of DraftMessageClass.
+func (d DraftMessageEmpty) construct() DraftMessageClass { return &d }
+
+// Ensuring interfaces in compile-time for DraftMessageEmpty.
+var (
+	_ bin.Encoder     = &DraftMessageEmpty{}
+	_ bin.Decoder     = &DraftMessageEmpty{}
+	_ bin.BareEncoder = &DraftMessageEmpty{}
+	_ bin.BareDecoder = &DraftMessageEmpty{}
+
+	_ DraftMessageClass = &DraftMessageEmpty{}
+)
+
 func (d *DraftMessageEmpty) Zero() bool {
 	if d == nil {
 		return true
@@ -139,21 +152,6 @@ func (d *DraftMessageEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetDate sets value of Date conditional field.
-func (d *DraftMessageEmpty) SetDate(value int) {
-	d.Flags.Set(0)
-	d.Date = value
-}
-
-// GetDate returns value of Date conditional field and
-// boolean which is true if field was set.
-func (d *DraftMessageEmpty) GetDate() (value int, ok bool) {
-	if !d.Flags.Has(0) {
-		return value, false
-	}
-	return d.Date, true
-}
-
 // Decode implements bin.Decoder.
 func (d *DraftMessageEmpty) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -185,18 +183,20 @@ func (d *DraftMessageEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DraftMessageClass.
-func (d DraftMessageEmpty) construct() DraftMessageClass { return &d }
+// SetDate sets value of Date conditional field.
+func (d *DraftMessageEmpty) SetDate(value int) {
+	d.Flags.Set(0)
+	d.Date = value
+}
 
-// Ensuring interfaces in compile-time for DraftMessageEmpty.
-var (
-	_ bin.Encoder     = &DraftMessageEmpty{}
-	_ bin.Decoder     = &DraftMessageEmpty{}
-	_ bin.BareEncoder = &DraftMessageEmpty{}
-	_ bin.BareDecoder = &DraftMessageEmpty{}
-
-	_ DraftMessageClass = &DraftMessageEmpty{}
-)
+// GetDate returns value of Date conditional field and
+// boolean which is true if field was set.
+func (d *DraftMessageEmpty) GetDate() (value int, ok bool) {
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return d.Date, true
+}
 
 // DraftMessage represents TL type `draftMessage#fd8e711f`.
 // Represents a message draft¹.
@@ -232,6 +232,19 @@ type DraftMessage struct {
 
 // DraftMessageTypeID is TL type id of DraftMessage.
 const DraftMessageTypeID = 0xfd8e711f
+
+// construct implements constructor of DraftMessageClass.
+func (d DraftMessage) construct() DraftMessageClass { return &d }
+
+// Ensuring interfaces in compile-time for DraftMessage.
+var (
+	_ bin.Encoder     = &DraftMessage{}
+	_ bin.Decoder     = &DraftMessage{}
+	_ bin.BareEncoder = &DraftMessage{}
+	_ bin.BareDecoder = &DraftMessage{}
+
+	_ DraftMessageClass = &DraftMessage{}
+)
 
 func (d *DraftMessage) Zero() bool {
 	if d == nil {
@@ -384,70 +397,6 @@ func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetNoWebpage sets value of NoWebpage conditional field.
-func (d *DraftMessage) SetNoWebpage(value bool) {
-	if value {
-		d.Flags.Set(1)
-		d.NoWebpage = true
-	} else {
-		d.Flags.Unset(1)
-		d.NoWebpage = false
-	}
-}
-
-// GetNoWebpage returns value of NoWebpage conditional field.
-func (d *DraftMessage) GetNoWebpage() (value bool) {
-	return d.Flags.Has(1)
-}
-
-// SetReplyToMsgID sets value of ReplyToMsgID conditional field.
-func (d *DraftMessage) SetReplyToMsgID(value int) {
-	d.Flags.Set(0)
-	d.ReplyToMsgID = value
-}
-
-// GetReplyToMsgID returns value of ReplyToMsgID conditional field and
-// boolean which is true if field was set.
-func (d *DraftMessage) GetReplyToMsgID() (value int, ok bool) {
-	if !d.Flags.Has(0) {
-		return value, false
-	}
-	return d.ReplyToMsgID, true
-}
-
-// GetMessage returns value of Message field.
-func (d *DraftMessage) GetMessage() (value string) {
-	return d.Message
-}
-
-// SetEntities sets value of Entities conditional field.
-func (d *DraftMessage) SetEntities(value []MessageEntityClass) {
-	d.Flags.Set(3)
-	d.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (d *DraftMessage) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !d.Flags.Has(3) {
-		return value, false
-	}
-	return d.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (d *DraftMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !d.Flags.Has(3) {
-		return value, false
-	}
-	return MessageEntityClassArray(d.Entities), true
-}
-
-// GetDate returns value of Date field.
-func (d *DraftMessage) GetDate() (value int) {
-	return d.Date
-}
-
 // Decode implements bin.Decoder.
 func (d *DraftMessage) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -511,18 +460,69 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DraftMessageClass.
-func (d DraftMessage) construct() DraftMessageClass { return &d }
+// SetNoWebpage sets value of NoWebpage conditional field.
+func (d *DraftMessage) SetNoWebpage(value bool) {
+	if value {
+		d.Flags.Set(1)
+		d.NoWebpage = true
+	} else {
+		d.Flags.Unset(1)
+		d.NoWebpage = false
+	}
+}
 
-// Ensuring interfaces in compile-time for DraftMessage.
-var (
-	_ bin.Encoder     = &DraftMessage{}
-	_ bin.Decoder     = &DraftMessage{}
-	_ bin.BareEncoder = &DraftMessage{}
-	_ bin.BareDecoder = &DraftMessage{}
+// GetNoWebpage returns value of NoWebpage conditional field.
+func (d *DraftMessage) GetNoWebpage() (value bool) {
+	return d.Flags.Has(1)
+}
 
-	_ DraftMessageClass = &DraftMessage{}
-)
+// SetReplyToMsgID sets value of ReplyToMsgID conditional field.
+func (d *DraftMessage) SetReplyToMsgID(value int) {
+	d.Flags.Set(0)
+	d.ReplyToMsgID = value
+}
+
+// GetReplyToMsgID returns value of ReplyToMsgID conditional field and
+// boolean which is true if field was set.
+func (d *DraftMessage) GetReplyToMsgID() (value int, ok bool) {
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return d.ReplyToMsgID, true
+}
+
+// GetMessage returns value of Message field.
+func (d *DraftMessage) GetMessage() (value string) {
+	return d.Message
+}
+
+// SetEntities sets value of Entities conditional field.
+func (d *DraftMessage) SetEntities(value []MessageEntityClass) {
+	d.Flags.Set(3)
+	d.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (d *DraftMessage) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !d.Flags.Has(3) {
+		return value, false
+	}
+	return d.Entities, true
+}
+
+// GetDate returns value of Date field.
+func (d *DraftMessage) GetDate() (value int) {
+	return d.Date
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (d *DraftMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !d.Flags.Has(3) {
+		return value, false
+	}
+	return MessageEntityClassArray(d.Entities), true
+}
 
 // DraftMessageClass represents DraftMessage generic type.
 //

@@ -98,6 +98,14 @@ type UserFull struct {
 // UserFullTypeID is TL type id of UserFull.
 const UserFullTypeID = 0x139a9a77
 
+// Ensuring interfaces in compile-time for UserFull.
+var (
+	_ bin.Encoder     = &UserFull{}
+	_ bin.Decoder     = &UserFull{}
+	_ bin.BareEncoder = &UserFull{}
+	_ bin.BareDecoder = &UserFull{}
+)
+
 func (u *UserFull) Zero() bool {
 	if u == nil {
 		return true
@@ -418,6 +426,100 @@ func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (u *UserFull) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userFull#139a9a77 to nil")
+	}
+	if err := b.ConsumeID(UserFullTypeID); err != nil {
+		return fmt.Errorf("unable to decode userFull#139a9a77: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserFull) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userFull#139a9a77 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode userFull#139a9a77: field flags: %w", err)
+		}
+	}
+	u.Blocked = u.Flags.Has(0)
+	u.PhoneCallsAvailable = u.Flags.Has(4)
+	u.PhoneCallsPrivate = u.Flags.Has(5)
+	u.CanPinMessage = u.Flags.Has(7)
+	u.HasScheduled = u.Flags.Has(12)
+	u.VideoCallsAvailable = u.Flags.Has(13)
+	{
+		value, err := DecodeUser(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode userFull#139a9a77: field user: %w", err)
+		}
+		u.User = value
+	}
+	if u.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode userFull#139a9a77: field about: %w", err)
+		}
+		u.About = value
+	}
+	{
+		if err := u.Settings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode userFull#139a9a77: field settings: %w", err)
+		}
+	}
+	if u.Flags.Has(2) {
+		value, err := DecodePhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode userFull#139a9a77: field profile_photo: %w", err)
+		}
+		u.ProfilePhoto = value
+	}
+	{
+		if err := u.NotifySettings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode userFull#139a9a77: field notify_settings: %w", err)
+		}
+	}
+	if u.Flags.Has(3) {
+		if err := u.BotInfo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode userFull#139a9a77: field bot_info: %w", err)
+		}
+	}
+	if u.Flags.Has(6) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode userFull#139a9a77: field pinned_msg_id: %w", err)
+		}
+		u.PinnedMsgID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode userFull#139a9a77: field common_chats_count: %w", err)
+		}
+		u.CommonChatsCount = value
+	}
+	if u.Flags.Has(11) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode userFull#139a9a77: field folder_id: %w", err)
+		}
+		u.FolderID = value
+	}
+	if u.Flags.Has(14) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode userFull#139a9a77: field ttl_period: %w", err)
+		}
+		u.TTLPeriod = value
+	}
+	return nil
+}
+
 // SetBlocked sets value of Blocked conditional field.
 func (u *UserFull) SetBlocked(value bool) {
 	if value {
@@ -519,11 +621,6 @@ func (u *UserFull) GetUser() (value UserClass) {
 	return u.User
 }
 
-// GetUserAsNotEmpty returns mapped value of User field.
-func (u *UserFull) GetUserAsNotEmpty() (*User, bool) {
-	return u.User.AsNotEmpty()
-}
-
 // SetAbout sets value of About conditional field.
 func (u *UserFull) SetAbout(value string) {
 	u.Flags.Set(1)
@@ -557,15 +654,6 @@ func (u *UserFull) GetProfilePhoto() (value PhotoClass, ok bool) {
 		return value, false
 	}
 	return u.ProfilePhoto, true
-}
-
-// GetProfilePhotoAsNotEmpty returns mapped value of ProfilePhoto conditional field and
-// boolean which is true if field was set.
-func (u *UserFull) GetProfilePhotoAsNotEmpty() (*Photo, bool) {
-	if value, ok := u.GetProfilePhoto(); ok {
-		return value.AsNotEmpty()
-	}
-	return nil, false
 }
 
 // GetNotifySettings returns value of NotifySettings field.
@@ -638,104 +726,16 @@ func (u *UserFull) GetTTLPeriod() (value int, ok bool) {
 	return u.TTLPeriod, true
 }
 
-// Decode implements bin.Decoder.
-func (u *UserFull) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode userFull#139a9a77 to nil")
-	}
-	if err := b.ConsumeID(UserFullTypeID); err != nil {
-		return fmt.Errorf("unable to decode userFull#139a9a77: %w", err)
-	}
-	return u.DecodeBare(b)
+// GetUserAsNotEmpty returns mapped value of User field.
+func (u *UserFull) GetUserAsNotEmpty() (*User, bool) {
+	return u.User.AsNotEmpty()
 }
 
-// DecodeBare implements bin.BareDecoder.
-func (u *UserFull) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode userFull#139a9a77 to nil")
+// GetProfilePhotoAsNotEmpty returns mapped value of ProfilePhoto conditional field and
+// boolean which is true if field was set.
+func (u *UserFull) GetProfilePhotoAsNotEmpty() (*Photo, bool) {
+	if value, ok := u.GetProfilePhoto(); ok {
+		return value.AsNotEmpty()
 	}
-	{
-		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field flags: %w", err)
-		}
-	}
-	u.Blocked = u.Flags.Has(0)
-	u.PhoneCallsAvailable = u.Flags.Has(4)
-	u.PhoneCallsPrivate = u.Flags.Has(5)
-	u.CanPinMessage = u.Flags.Has(7)
-	u.HasScheduled = u.Flags.Has(12)
-	u.VideoCallsAvailable = u.Flags.Has(13)
-	{
-		value, err := DecodeUser(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field user: %w", err)
-		}
-		u.User = value
-	}
-	if u.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field about: %w", err)
-		}
-		u.About = value
-	}
-	{
-		if err := u.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field settings: %w", err)
-		}
-	}
-	if u.Flags.Has(2) {
-		value, err := DecodePhoto(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field profile_photo: %w", err)
-		}
-		u.ProfilePhoto = value
-	}
-	{
-		if err := u.NotifySettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field notify_settings: %w", err)
-		}
-	}
-	if u.Flags.Has(3) {
-		if err := u.BotInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field bot_info: %w", err)
-		}
-	}
-	if u.Flags.Has(6) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field pinned_msg_id: %w", err)
-		}
-		u.PinnedMsgID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field common_chats_count: %w", err)
-		}
-		u.CommonChatsCount = value
-	}
-	if u.Flags.Has(11) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field folder_id: %w", err)
-		}
-		u.FolderID = value
-	}
-	if u.Flags.Has(14) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field ttl_period: %w", err)
-		}
-		u.TTLPeriod = value
-	}
-	return nil
+	return nil, false
 }
-
-// Ensuring interfaces in compile-time for UserFull.
-var (
-	_ bin.Encoder     = &UserFull{}
-	_ bin.Decoder     = &UserFull{}
-	_ bin.BareEncoder = &UserFull{}
-	_ bin.BareDecoder = &UserFull{}
-)

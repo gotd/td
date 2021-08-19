@@ -39,6 +39,19 @@ type InputPeerEmpty struct {
 // InputPeerEmptyTypeID is TL type id of InputPeerEmpty.
 const InputPeerEmptyTypeID = 0x7f3b18ea
 
+// construct implements constructor of InputPeerClass.
+func (i InputPeerEmpty) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerEmpty.
+var (
+	_ bin.Encoder     = &InputPeerEmpty{}
+	_ bin.Decoder     = &InputPeerEmpty{}
+	_ bin.BareEncoder = &InputPeerEmpty{}
+	_ bin.BareDecoder = &InputPeerEmpty{}
+
+	_ InputPeerClass = &InputPeerEmpty{}
+)
+
 func (i *InputPeerEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputPeerEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerEmpty) construct() InputPeerClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPeerEmpty.
-var (
-	_ bin.Encoder     = &InputPeerEmpty{}
-	_ bin.Decoder     = &InputPeerEmpty{}
-	_ bin.BareEncoder = &InputPeerEmpty{}
-	_ bin.BareDecoder = &InputPeerEmpty{}
-
-	_ InputPeerClass = &InputPeerEmpty{}
-)
-
 // InputPeerSelf represents TL type `inputPeerSelf#7da07ec9`.
 // Defines the current user.
 //
@@ -140,6 +140,19 @@ type InputPeerSelf struct {
 
 // InputPeerSelfTypeID is TL type id of InputPeerSelf.
 const InputPeerSelfTypeID = 0x7da07ec9
+
+// construct implements constructor of InputPeerClass.
+func (i InputPeerSelf) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerSelf.
+var (
+	_ bin.Encoder     = &InputPeerSelf{}
+	_ bin.Decoder     = &InputPeerSelf{}
+	_ bin.BareEncoder = &InputPeerSelf{}
+	_ bin.BareDecoder = &InputPeerSelf{}
+
+	_ InputPeerClass = &InputPeerSelf{}
+)
 
 func (i *InputPeerSelf) Zero() bool {
 	if i == nil {
@@ -220,19 +233,6 @@ func (i *InputPeerSelf) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerSelf) construct() InputPeerClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPeerSelf.
-var (
-	_ bin.Encoder     = &InputPeerSelf{}
-	_ bin.Decoder     = &InputPeerSelf{}
-	_ bin.BareEncoder = &InputPeerSelf{}
-	_ bin.BareDecoder = &InputPeerSelf{}
-
-	_ InputPeerClass = &InputPeerSelf{}
-)
-
 // InputPeerChat represents TL type `inputPeerChat#179be863`.
 // Defines a chat for further interaction.
 //
@@ -244,6 +244,19 @@ type InputPeerChat struct {
 
 // InputPeerChatTypeID is TL type id of InputPeerChat.
 const InputPeerChatTypeID = 0x179be863
+
+// construct implements constructor of InputPeerClass.
+func (i InputPeerChat) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerChat.
+var (
+	_ bin.Encoder     = &InputPeerChat{}
+	_ bin.Decoder     = &InputPeerChat{}
+	_ bin.BareEncoder = &InputPeerChat{}
+	_ bin.BareDecoder = &InputPeerChat{}
+
+	_ InputPeerClass = &InputPeerChat{}
+)
 
 func (i *InputPeerChat) Zero() bool {
 	if i == nil {
@@ -321,11 +334,6 @@ func (i *InputPeerChat) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (i *InputPeerChat) GetChatID() (value int) {
-	return i.ChatID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPeerChat) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -352,18 +360,10 @@ func (i *InputPeerChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerChat) construct() InputPeerClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPeerChat.
-var (
-	_ bin.Encoder     = &InputPeerChat{}
-	_ bin.Decoder     = &InputPeerChat{}
-	_ bin.BareEncoder = &InputPeerChat{}
-	_ bin.BareDecoder = &InputPeerChat{}
-
-	_ InputPeerClass = &InputPeerChat{}
-)
+// GetChatID returns value of ChatID field.
+func (i *InputPeerChat) GetChatID() (value int) {
+	return i.ChatID
+}
 
 // InputPeerUser represents TL type `inputPeerUser#7b8e7de6`.
 // Defines a user for further interaction.
@@ -381,6 +381,19 @@ type InputPeerUser struct {
 
 // InputPeerUserTypeID is TL type id of InputPeerUser.
 const InputPeerUserTypeID = 0x7b8e7de6
+
+// construct implements constructor of InputPeerClass.
+func (i InputPeerUser) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerUser.
+var (
+	_ bin.Encoder     = &InputPeerUser{}
+	_ bin.Decoder     = &InputPeerUser{}
+	_ bin.BareEncoder = &InputPeerUser{}
+	_ bin.BareDecoder = &InputPeerUser{}
+
+	_ InputPeerClass = &InputPeerUser{}
+)
 
 func (i *InputPeerUser) Zero() bool {
 	if i == nil {
@@ -468,16 +481,6 @@ func (i *InputPeerUser) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (i *InputPeerUser) GetUserID() (value int) {
-	return i.UserID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputPeerUser) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPeerUser) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -511,18 +514,15 @@ func (i *InputPeerUser) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerUser) construct() InputPeerClass { return &i }
+// GetUserID returns value of UserID field.
+func (i *InputPeerUser) GetUserID() (value int) {
+	return i.UserID
+}
 
-// Ensuring interfaces in compile-time for InputPeerUser.
-var (
-	_ bin.Encoder     = &InputPeerUser{}
-	_ bin.Decoder     = &InputPeerUser{}
-	_ bin.BareEncoder = &InputPeerUser{}
-	_ bin.BareDecoder = &InputPeerUser{}
-
-	_ InputPeerClass = &InputPeerUser{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPeerUser) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputPeerChannel represents TL type `inputPeerChannel#20adaef8`.
 // Defines a channel for further interaction.
@@ -540,6 +540,19 @@ type InputPeerChannel struct {
 
 // InputPeerChannelTypeID is TL type id of InputPeerChannel.
 const InputPeerChannelTypeID = 0x20adaef8
+
+// construct implements constructor of InputPeerClass.
+func (i InputPeerChannel) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerChannel.
+var (
+	_ bin.Encoder     = &InputPeerChannel{}
+	_ bin.Decoder     = &InputPeerChannel{}
+	_ bin.BareEncoder = &InputPeerChannel{}
+	_ bin.BareDecoder = &InputPeerChannel{}
+
+	_ InputPeerClass = &InputPeerChannel{}
+)
 
 func (i *InputPeerChannel) Zero() bool {
 	if i == nil {
@@ -627,16 +640,6 @@ func (i *InputPeerChannel) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (i *InputPeerChannel) GetChannelID() (value int) {
-	return i.ChannelID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputPeerChannel) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPeerChannel) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -670,18 +673,15 @@ func (i *InputPeerChannel) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerChannel) construct() InputPeerClass { return &i }
+// GetChannelID returns value of ChannelID field.
+func (i *InputPeerChannel) GetChannelID() (value int) {
+	return i.ChannelID
+}
 
-// Ensuring interfaces in compile-time for InputPeerChannel.
-var (
-	_ bin.Encoder     = &InputPeerChannel{}
-	_ bin.Decoder     = &InputPeerChannel{}
-	_ bin.BareEncoder = &InputPeerChannel{}
-	_ bin.BareDecoder = &InputPeerChannel{}
-
-	_ InputPeerClass = &InputPeerChannel{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPeerChannel) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputPeerUserFromMessage represents TL type `inputPeerUserFromMessage#17bae2e6`.
 // Defines a min¹ user that was seen in a certain message of a certain chat.
@@ -701,6 +701,19 @@ type InputPeerUserFromMessage struct {
 
 // InputPeerUserFromMessageTypeID is TL type id of InputPeerUserFromMessage.
 const InputPeerUserFromMessageTypeID = 0x17bae2e6
+
+// construct implements constructor of InputPeerClass.
+func (i InputPeerUserFromMessage) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerUserFromMessage.
+var (
+	_ bin.Encoder     = &InputPeerUserFromMessage{}
+	_ bin.Decoder     = &InputPeerUserFromMessage{}
+	_ bin.BareEncoder = &InputPeerUserFromMessage{}
+	_ bin.BareDecoder = &InputPeerUserFromMessage{}
+
+	_ InputPeerClass = &InputPeerUserFromMessage{}
+)
 
 func (i *InputPeerUserFromMessage) Zero() bool {
 	if i == nil {
@@ -803,21 +816,6 @@ func (i *InputPeerUserFromMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (i *InputPeerUserFromMessage) GetPeer() (value InputPeerClass) {
-	return i.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (i *InputPeerUserFromMessage) GetMsgID() (value int) {
-	return i.MsgID
-}
-
-// GetUserID returns value of UserID field.
-func (i *InputPeerUserFromMessage) GetUserID() (value int) {
-	return i.UserID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPeerUserFromMessage) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -858,18 +856,20 @@ func (i *InputPeerUserFromMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerUserFromMessage) construct() InputPeerClass { return &i }
+// GetPeer returns value of Peer field.
+func (i *InputPeerUserFromMessage) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
 
-// Ensuring interfaces in compile-time for InputPeerUserFromMessage.
-var (
-	_ bin.Encoder     = &InputPeerUserFromMessage{}
-	_ bin.Decoder     = &InputPeerUserFromMessage{}
-	_ bin.BareEncoder = &InputPeerUserFromMessage{}
-	_ bin.BareDecoder = &InputPeerUserFromMessage{}
+// GetMsgID returns value of MsgID field.
+func (i *InputPeerUserFromMessage) GetMsgID() (value int) {
+	return i.MsgID
+}
 
-	_ InputPeerClass = &InputPeerUserFromMessage{}
-)
+// GetUserID returns value of UserID field.
+func (i *InputPeerUserFromMessage) GetUserID() (value int) {
+	return i.UserID
+}
 
 // InputPeerChannelFromMessage represents TL type `inputPeerChannelFromMessage#9c95f7bb`.
 // Defines a min¹ channel that was seen in a certain message of a certain chat.
@@ -889,6 +889,19 @@ type InputPeerChannelFromMessage struct {
 
 // InputPeerChannelFromMessageTypeID is TL type id of InputPeerChannelFromMessage.
 const InputPeerChannelFromMessageTypeID = 0x9c95f7bb
+
+// construct implements constructor of InputPeerClass.
+func (i InputPeerChannelFromMessage) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerChannelFromMessage.
+var (
+	_ bin.Encoder     = &InputPeerChannelFromMessage{}
+	_ bin.Decoder     = &InputPeerChannelFromMessage{}
+	_ bin.BareEncoder = &InputPeerChannelFromMessage{}
+	_ bin.BareDecoder = &InputPeerChannelFromMessage{}
+
+	_ InputPeerClass = &InputPeerChannelFromMessage{}
+)
 
 func (i *InputPeerChannelFromMessage) Zero() bool {
 	if i == nil {
@@ -991,21 +1004,6 @@ func (i *InputPeerChannelFromMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (i *InputPeerChannelFromMessage) GetPeer() (value InputPeerClass) {
-	return i.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (i *InputPeerChannelFromMessage) GetMsgID() (value int) {
-	return i.MsgID
-}
-
-// GetChannelID returns value of ChannelID field.
-func (i *InputPeerChannelFromMessage) GetChannelID() (value int) {
-	return i.ChannelID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPeerChannelFromMessage) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1046,18 +1044,20 @@ func (i *InputPeerChannelFromMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerChannelFromMessage) construct() InputPeerClass { return &i }
+// GetPeer returns value of Peer field.
+func (i *InputPeerChannelFromMessage) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
 
-// Ensuring interfaces in compile-time for InputPeerChannelFromMessage.
-var (
-	_ bin.Encoder     = &InputPeerChannelFromMessage{}
-	_ bin.Decoder     = &InputPeerChannelFromMessage{}
-	_ bin.BareEncoder = &InputPeerChannelFromMessage{}
-	_ bin.BareDecoder = &InputPeerChannelFromMessage{}
+// GetMsgID returns value of MsgID field.
+func (i *InputPeerChannelFromMessage) GetMsgID() (value int) {
+	return i.MsgID
+}
 
-	_ InputPeerClass = &InputPeerChannelFromMessage{}
-)
+// GetChannelID returns value of ChannelID field.
+func (i *InputPeerChannelFromMessage) GetChannelID() (value int) {
+	return i.ChannelID
+}
 
 // InputPeerClass represents InputPeer generic type.
 //

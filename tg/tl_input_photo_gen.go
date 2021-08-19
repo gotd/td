@@ -39,6 +39,19 @@ type InputPhotoEmpty struct {
 // InputPhotoEmptyTypeID is TL type id of InputPhotoEmpty.
 const InputPhotoEmptyTypeID = 0x1cd7bf0d
 
+// construct implements constructor of InputPhotoClass.
+func (i InputPhotoEmpty) construct() InputPhotoClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPhotoEmpty.
+var (
+	_ bin.Encoder     = &InputPhotoEmpty{}
+	_ bin.Decoder     = &InputPhotoEmpty{}
+	_ bin.BareEncoder = &InputPhotoEmpty{}
+	_ bin.BareDecoder = &InputPhotoEmpty{}
+
+	_ InputPhotoClass = &InputPhotoEmpty{}
+)
+
 func (i *InputPhotoEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputPhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPhotoClass.
-func (i InputPhotoEmpty) construct() InputPhotoClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPhotoEmpty.
-var (
-	_ bin.Encoder     = &InputPhotoEmpty{}
-	_ bin.Decoder     = &InputPhotoEmpty{}
-	_ bin.BareEncoder = &InputPhotoEmpty{}
-	_ bin.BareDecoder = &InputPhotoEmpty{}
-
-	_ InputPhotoClass = &InputPhotoEmpty{}
-)
-
 // InputPhoto represents TL type `inputPhoto#3bb3b94a`.
 // Defines a photo for further interaction.
 //
@@ -152,6 +152,19 @@ type InputPhoto struct {
 
 // InputPhotoTypeID is TL type id of InputPhoto.
 const InputPhotoTypeID = 0x3bb3b94a
+
+// construct implements constructor of InputPhotoClass.
+func (i InputPhoto) construct() InputPhotoClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPhoto.
+var (
+	_ bin.Encoder     = &InputPhoto{}
+	_ bin.Decoder     = &InputPhoto{}
+	_ bin.BareEncoder = &InputPhoto{}
+	_ bin.BareDecoder = &InputPhoto{}
+
+	_ InputPhotoClass = &InputPhoto{}
+)
 
 func (i *InputPhoto) Zero() bool {
 	if i == nil {
@@ -249,21 +262,6 @@ func (i *InputPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputPhoto) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputPhoto) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
-// GetFileReference returns value of FileReference field.
-func (i *InputPhoto) GetFileReference() (value []byte) {
-	return i.FileReference
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -304,18 +302,20 @@ func (i *InputPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPhotoClass.
-func (i InputPhoto) construct() InputPhotoClass { return &i }
+// GetID returns value of ID field.
+func (i *InputPhoto) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputPhoto.
-var (
-	_ bin.Encoder     = &InputPhoto{}
-	_ bin.Decoder     = &InputPhoto{}
-	_ bin.BareEncoder = &InputPhoto{}
-	_ bin.BareDecoder = &InputPhoto{}
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPhoto) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
-	_ InputPhotoClass = &InputPhoto{}
-)
+// GetFileReference returns value of FileReference field.
+func (i *InputPhoto) GetFileReference() (value []byte) {
+	return i.FileReference
+}
 
 // InputPhotoClass represents InputPhoto generic type.
 //

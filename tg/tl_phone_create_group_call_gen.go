@@ -52,6 +52,14 @@ type PhoneCreateGroupCallRequest struct {
 // PhoneCreateGroupCallRequestTypeID is TL type id of PhoneCreateGroupCallRequest.
 const PhoneCreateGroupCallRequestTypeID = 0x48cdc6d8
 
+// Ensuring interfaces in compile-time for PhoneCreateGroupCallRequest.
+var (
+	_ bin.Encoder     = &PhoneCreateGroupCallRequest{}
+	_ bin.Decoder     = &PhoneCreateGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneCreateGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneCreateGroupCallRequest{}
+)
+
 func (c *PhoneCreateGroupCallRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -187,46 +195,6 @@ func (c *PhoneCreateGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (c *PhoneCreateGroupCallRequest) GetPeer() (value InputPeerClass) {
-	return c.Peer
-}
-
-// GetRandomID returns value of RandomID field.
-func (c *PhoneCreateGroupCallRequest) GetRandomID() (value int) {
-	return c.RandomID
-}
-
-// SetTitle sets value of Title conditional field.
-func (c *PhoneCreateGroupCallRequest) SetTitle(value string) {
-	c.Flags.Set(0)
-	c.Title = value
-}
-
-// GetTitle returns value of Title conditional field and
-// boolean which is true if field was set.
-func (c *PhoneCreateGroupCallRequest) GetTitle() (value string, ok bool) {
-	if !c.Flags.Has(0) {
-		return value, false
-	}
-	return c.Title, true
-}
-
-// SetScheduleDate sets value of ScheduleDate conditional field.
-func (c *PhoneCreateGroupCallRequest) SetScheduleDate(value int) {
-	c.Flags.Set(1)
-	c.ScheduleDate = value
-}
-
-// GetScheduleDate returns value of ScheduleDate conditional field and
-// boolean which is true if field was set.
-func (c *PhoneCreateGroupCallRequest) GetScheduleDate() (value int, ok bool) {
-	if !c.Flags.Has(1) {
-		return value, false
-	}
-	return c.ScheduleDate, true
-}
-
 // Decode implements bin.Decoder.
 func (c *PhoneCreateGroupCallRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -279,13 +247,45 @@ func (c *PhoneCreateGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneCreateGroupCallRequest.
-var (
-	_ bin.Encoder     = &PhoneCreateGroupCallRequest{}
-	_ bin.Decoder     = &PhoneCreateGroupCallRequest{}
-	_ bin.BareEncoder = &PhoneCreateGroupCallRequest{}
-	_ bin.BareDecoder = &PhoneCreateGroupCallRequest{}
-)
+// GetPeer returns value of Peer field.
+func (c *PhoneCreateGroupCallRequest) GetPeer() (value InputPeerClass) {
+	return c.Peer
+}
+
+// GetRandomID returns value of RandomID field.
+func (c *PhoneCreateGroupCallRequest) GetRandomID() (value int) {
+	return c.RandomID
+}
+
+// SetTitle sets value of Title conditional field.
+func (c *PhoneCreateGroupCallRequest) SetTitle(value string) {
+	c.Flags.Set(0)
+	c.Title = value
+}
+
+// GetTitle returns value of Title conditional field and
+// boolean which is true if field was set.
+func (c *PhoneCreateGroupCallRequest) GetTitle() (value string, ok bool) {
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.Title, true
+}
+
+// SetScheduleDate sets value of ScheduleDate conditional field.
+func (c *PhoneCreateGroupCallRequest) SetScheduleDate(value int) {
+	c.Flags.Set(1)
+	c.ScheduleDate = value
+}
+
+// GetScheduleDate returns value of ScheduleDate conditional field and
+// boolean which is true if field was set.
+func (c *PhoneCreateGroupCallRequest) GetScheduleDate() (value int, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.ScheduleDate, true
+}
 
 // PhoneCreateGroupCall invokes method phone.createGroupCall#48cdc6d8 returning error if any.
 //

@@ -41,6 +41,14 @@ type HelpGetDeepLinkInfoRequest struct {
 // HelpGetDeepLinkInfoRequestTypeID is TL type id of HelpGetDeepLinkInfoRequest.
 const HelpGetDeepLinkInfoRequestTypeID = 0x3fedc75f
 
+// Ensuring interfaces in compile-time for HelpGetDeepLinkInfoRequest.
+var (
+	_ bin.Encoder     = &HelpGetDeepLinkInfoRequest{}
+	_ bin.Decoder     = &HelpGetDeepLinkInfoRequest{}
+	_ bin.BareEncoder = &HelpGetDeepLinkInfoRequest{}
+	_ bin.BareDecoder = &HelpGetDeepLinkInfoRequest{}
+)
+
 func (g *HelpGetDeepLinkInfoRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,11 +125,6 @@ func (g *HelpGetDeepLinkInfoRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPath returns value of Path field.
-func (g *HelpGetDeepLinkInfoRequest) GetPath() (value string) {
-	return g.Path
-}
-
 // Decode implements bin.Decoder.
 func (g *HelpGetDeepLinkInfoRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -148,13 +151,10 @@ func (g *HelpGetDeepLinkInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpGetDeepLinkInfoRequest.
-var (
-	_ bin.Encoder     = &HelpGetDeepLinkInfoRequest{}
-	_ bin.Decoder     = &HelpGetDeepLinkInfoRequest{}
-	_ bin.BareEncoder = &HelpGetDeepLinkInfoRequest{}
-	_ bin.BareDecoder = &HelpGetDeepLinkInfoRequest{}
-)
+// GetPath returns value of Path field.
+func (g *HelpGetDeepLinkInfoRequest) GetPath() (value string) {
+	return g.Path
+}
 
 // HelpGetDeepLinkInfo invokes method help.getDeepLinkInfo#3fedc75f returning error if any.
 // Get info about a t.me link

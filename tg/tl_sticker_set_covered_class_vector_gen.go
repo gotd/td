@@ -38,6 +38,14 @@ type StickerSetCoveredClassVector struct {
 // StickerSetCoveredClassVectorTypeID is TL type id of StickerSetCoveredClassVector.
 const StickerSetCoveredClassVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for StickerSetCoveredClassVector.
+var (
+	_ bin.Encoder     = &StickerSetCoveredClassVector{}
+	_ bin.Decoder     = &StickerSetCoveredClassVector{}
+	_ bin.BareEncoder = &StickerSetCoveredClassVector{}
+	_ bin.BareDecoder = &StickerSetCoveredClassVector{}
+)
+
 func (vec *StickerSetCoveredClassVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -122,16 +130,6 @@ func (vec *StickerSetCoveredClassVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *StickerSetCoveredClassVector) GetElems() (value []StickerSetCoveredClass) {
-	return vec.Elems
-}
-
-// MapElems returns field Elems wrapped in StickerSetCoveredClassArray helper.
-func (vec *StickerSetCoveredClassVector) MapElems() (value StickerSetCoveredClassArray) {
-	return StickerSetCoveredClassArray(vec.Elems)
-}
-
 // Decode implements bin.Decoder.
 func (vec *StickerSetCoveredClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -166,10 +164,12 @@ func (vec *StickerSetCoveredClassVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StickerSetCoveredClassVector.
-var (
-	_ bin.Encoder     = &StickerSetCoveredClassVector{}
-	_ bin.Decoder     = &StickerSetCoveredClassVector{}
-	_ bin.BareEncoder = &StickerSetCoveredClassVector{}
-	_ bin.BareDecoder = &StickerSetCoveredClassVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *StickerSetCoveredClassVector) GetElems() (value []StickerSetCoveredClass) {
+	return vec.Elems
+}
+
+// MapElems returns field Elems wrapped in StickerSetCoveredClassArray helper.
+func (vec *StickerSetCoveredClassVector) MapElems() (value StickerSetCoveredClassArray) {
+	return StickerSetCoveredClassArray(vec.Elems)
+}

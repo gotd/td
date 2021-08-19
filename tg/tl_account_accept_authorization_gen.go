@@ -50,6 +50,14 @@ type AccountAcceptAuthorizationRequest struct {
 // AccountAcceptAuthorizationRequestTypeID is TL type id of AccountAcceptAuthorizationRequest.
 const AccountAcceptAuthorizationRequestTypeID = 0xe7027c94
 
+// Ensuring interfaces in compile-time for AccountAcceptAuthorizationRequest.
+var (
+	_ bin.Encoder     = &AccountAcceptAuthorizationRequest{}
+	_ bin.Decoder     = &AccountAcceptAuthorizationRequest{}
+	_ bin.BareEncoder = &AccountAcceptAuthorizationRequest{}
+	_ bin.BareDecoder = &AccountAcceptAuthorizationRequest{}
+)
+
 func (a *AccountAcceptAuthorizationRequest) Zero() bool {
 	if a == nil {
 		return true
@@ -173,31 +181,6 @@ func (a *AccountAcceptAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetBotID returns value of BotID field.
-func (a *AccountAcceptAuthorizationRequest) GetBotID() (value int) {
-	return a.BotID
-}
-
-// GetScope returns value of Scope field.
-func (a *AccountAcceptAuthorizationRequest) GetScope() (value string) {
-	return a.Scope
-}
-
-// GetPublicKey returns value of PublicKey field.
-func (a *AccountAcceptAuthorizationRequest) GetPublicKey() (value string) {
-	return a.PublicKey
-}
-
-// GetValueHashes returns value of ValueHashes field.
-func (a *AccountAcceptAuthorizationRequest) GetValueHashes() (value []SecureValueHash) {
-	return a.ValueHashes
-}
-
-// GetCredentials returns value of Credentials field.
-func (a *AccountAcceptAuthorizationRequest) GetCredentials() (value SecureCredentialsEncrypted) {
-	return a.Credentials
-}
-
 // Decode implements bin.Decoder.
 func (a *AccountAcceptAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -260,13 +243,30 @@ func (a *AccountAcceptAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountAcceptAuthorizationRequest.
-var (
-	_ bin.Encoder     = &AccountAcceptAuthorizationRequest{}
-	_ bin.Decoder     = &AccountAcceptAuthorizationRequest{}
-	_ bin.BareEncoder = &AccountAcceptAuthorizationRequest{}
-	_ bin.BareDecoder = &AccountAcceptAuthorizationRequest{}
-)
+// GetBotID returns value of BotID field.
+func (a *AccountAcceptAuthorizationRequest) GetBotID() (value int) {
+	return a.BotID
+}
+
+// GetScope returns value of Scope field.
+func (a *AccountAcceptAuthorizationRequest) GetScope() (value string) {
+	return a.Scope
+}
+
+// GetPublicKey returns value of PublicKey field.
+func (a *AccountAcceptAuthorizationRequest) GetPublicKey() (value string) {
+	return a.PublicKey
+}
+
+// GetValueHashes returns value of ValueHashes field.
+func (a *AccountAcceptAuthorizationRequest) GetValueHashes() (value []SecureValueHash) {
+	return a.ValueHashes
+}
+
+// GetCredentials returns value of Credentials field.
+func (a *AccountAcceptAuthorizationRequest) GetCredentials() (value SecureCredentialsEncrypted) {
+	return a.Credentials
+}
 
 // AccountAcceptAuthorization invokes method account.acceptAuthorization#e7027c94 returning error if any.
 // Sends a Telegram Passport authorization form, effectively sharing data with the

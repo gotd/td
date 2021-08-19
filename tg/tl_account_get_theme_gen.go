@@ -45,6 +45,14 @@ type AccountGetThemeRequest struct {
 // AccountGetThemeRequestTypeID is TL type id of AccountGetThemeRequest.
 const AccountGetThemeRequestTypeID = 0x8d9d742b
 
+// Ensuring interfaces in compile-time for AccountGetThemeRequest.
+var (
+	_ bin.Encoder     = &AccountGetThemeRequest{}
+	_ bin.Decoder     = &AccountGetThemeRequest{}
+	_ bin.BareEncoder = &AccountGetThemeRequest{}
+	_ bin.BareDecoder = &AccountGetThemeRequest{}
+)
+
 func (g *AccountGetThemeRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -146,21 +154,6 @@ func (g *AccountGetThemeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFormat returns value of Format field.
-func (g *AccountGetThemeRequest) GetFormat() (value string) {
-	return g.Format
-}
-
-// GetTheme returns value of Theme field.
-func (g *AccountGetThemeRequest) GetTheme() (value InputThemeClass) {
-	return g.Theme
-}
-
-// GetDocumentID returns value of DocumentID field.
-func (g *AccountGetThemeRequest) GetDocumentID() (value int64) {
-	return g.DocumentID
-}
-
 // Decode implements bin.Decoder.
 func (g *AccountGetThemeRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -201,13 +194,20 @@ func (g *AccountGetThemeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountGetThemeRequest.
-var (
-	_ bin.Encoder     = &AccountGetThemeRequest{}
-	_ bin.Decoder     = &AccountGetThemeRequest{}
-	_ bin.BareEncoder = &AccountGetThemeRequest{}
-	_ bin.BareDecoder = &AccountGetThemeRequest{}
-)
+// GetFormat returns value of Format field.
+func (g *AccountGetThemeRequest) GetFormat() (value string) {
+	return g.Format
+}
+
+// GetTheme returns value of Theme field.
+func (g *AccountGetThemeRequest) GetTheme() (value InputThemeClass) {
+	return g.Theme
+}
+
+// GetDocumentID returns value of DocumentID field.
+func (g *AccountGetThemeRequest) GetDocumentID() (value int64) {
+	return g.DocumentID
+}
 
 // AccountGetTheme invokes method account.getTheme#8d9d742b returning error if any.
 // Get theme information

@@ -39,6 +39,19 @@ type ChannelMessagesFilterEmpty struct {
 // ChannelMessagesFilterEmptyTypeID is TL type id of ChannelMessagesFilterEmpty.
 const ChannelMessagesFilterEmptyTypeID = 0x94d42ee7
 
+// construct implements constructor of ChannelMessagesFilterClass.
+func (c ChannelMessagesFilterEmpty) construct() ChannelMessagesFilterClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelMessagesFilterEmpty.
+var (
+	_ bin.Encoder     = &ChannelMessagesFilterEmpty{}
+	_ bin.Decoder     = &ChannelMessagesFilterEmpty{}
+	_ bin.BareEncoder = &ChannelMessagesFilterEmpty{}
+	_ bin.BareDecoder = &ChannelMessagesFilterEmpty{}
+
+	_ ChannelMessagesFilterClass = &ChannelMessagesFilterEmpty{}
+)
+
 func (c *ChannelMessagesFilterEmpty) Zero() bool {
 	if c == nil {
 		return true
@@ -118,19 +131,6 @@ func (c *ChannelMessagesFilterEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelMessagesFilterClass.
-func (c ChannelMessagesFilterEmpty) construct() ChannelMessagesFilterClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelMessagesFilterEmpty.
-var (
-	_ bin.Encoder     = &ChannelMessagesFilterEmpty{}
-	_ bin.Decoder     = &ChannelMessagesFilterEmpty{}
-	_ bin.BareEncoder = &ChannelMessagesFilterEmpty{}
-	_ bin.BareDecoder = &ChannelMessagesFilterEmpty{}
-
-	_ ChannelMessagesFilterClass = &ChannelMessagesFilterEmpty{}
-)
-
 // ChannelMessagesFilter represents TL type `channelMessagesFilter#cd77d957`.
 // Filter for getting only certain types of channel messages
 //
@@ -149,6 +149,19 @@ type ChannelMessagesFilter struct {
 
 // ChannelMessagesFilterTypeID is TL type id of ChannelMessagesFilter.
 const ChannelMessagesFilterTypeID = 0xcd77d957
+
+// construct implements constructor of ChannelMessagesFilterClass.
+func (c ChannelMessagesFilter) construct() ChannelMessagesFilterClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelMessagesFilter.
+var (
+	_ bin.Encoder     = &ChannelMessagesFilter{}
+	_ bin.Decoder     = &ChannelMessagesFilter{}
+	_ bin.BareEncoder = &ChannelMessagesFilter{}
+	_ bin.BareDecoder = &ChannelMessagesFilter{}
+
+	_ ChannelMessagesFilterClass = &ChannelMessagesFilter{}
+)
 
 func (c *ChannelMessagesFilter) Zero() bool {
 	if c == nil {
@@ -250,27 +263,6 @@ func (c *ChannelMessagesFilter) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetExcludeNewMessages sets value of ExcludeNewMessages conditional field.
-func (c *ChannelMessagesFilter) SetExcludeNewMessages(value bool) {
-	if value {
-		c.Flags.Set(1)
-		c.ExcludeNewMessages = true
-	} else {
-		c.Flags.Unset(1)
-		c.ExcludeNewMessages = false
-	}
-}
-
-// GetExcludeNewMessages returns value of ExcludeNewMessages conditional field.
-func (c *ChannelMessagesFilter) GetExcludeNewMessages() (value bool) {
-	return c.Flags.Has(1)
-}
-
-// GetRanges returns value of Ranges field.
-func (c *ChannelMessagesFilter) GetRanges() (value []MessageRange) {
-	return c.Ranges
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelMessagesFilter) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -313,18 +305,26 @@ func (c *ChannelMessagesFilter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelMessagesFilterClass.
-func (c ChannelMessagesFilter) construct() ChannelMessagesFilterClass { return &c }
+// SetExcludeNewMessages sets value of ExcludeNewMessages conditional field.
+func (c *ChannelMessagesFilter) SetExcludeNewMessages(value bool) {
+	if value {
+		c.Flags.Set(1)
+		c.ExcludeNewMessages = true
+	} else {
+		c.Flags.Unset(1)
+		c.ExcludeNewMessages = false
+	}
+}
 
-// Ensuring interfaces in compile-time for ChannelMessagesFilter.
-var (
-	_ bin.Encoder     = &ChannelMessagesFilter{}
-	_ bin.Decoder     = &ChannelMessagesFilter{}
-	_ bin.BareEncoder = &ChannelMessagesFilter{}
-	_ bin.BareDecoder = &ChannelMessagesFilter{}
+// GetExcludeNewMessages returns value of ExcludeNewMessages conditional field.
+func (c *ChannelMessagesFilter) GetExcludeNewMessages() (value bool) {
+	return c.Flags.Has(1)
+}
 
-	_ ChannelMessagesFilterClass = &ChannelMessagesFilter{}
-)
+// GetRanges returns value of Ranges field.
+func (c *ChannelMessagesFilter) GetRanges() (value []MessageRange) {
+	return c.Ranges
+}
 
 // ChannelMessagesFilterClass represents ChannelMessagesFilter generic type.
 //

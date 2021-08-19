@@ -42,6 +42,14 @@ type AccountUpdateUsernameRequest struct {
 // AccountUpdateUsernameRequestTypeID is TL type id of AccountUpdateUsernameRequest.
 const AccountUpdateUsernameRequestTypeID = 0x3e0bdd7c
 
+// Ensuring interfaces in compile-time for AccountUpdateUsernameRequest.
+var (
+	_ bin.Encoder     = &AccountUpdateUsernameRequest{}
+	_ bin.Decoder     = &AccountUpdateUsernameRequest{}
+	_ bin.BareEncoder = &AccountUpdateUsernameRequest{}
+	_ bin.BareDecoder = &AccountUpdateUsernameRequest{}
+)
+
 func (u *AccountUpdateUsernameRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -118,11 +126,6 @@ func (u *AccountUpdateUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUsername returns value of Username field.
-func (u *AccountUpdateUsernameRequest) GetUsername() (value string) {
-	return u.Username
-}
-
 // Decode implements bin.Decoder.
 func (u *AccountUpdateUsernameRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -149,13 +152,10 @@ func (u *AccountUpdateUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountUpdateUsernameRequest.
-var (
-	_ bin.Encoder     = &AccountUpdateUsernameRequest{}
-	_ bin.Decoder     = &AccountUpdateUsernameRequest{}
-	_ bin.BareEncoder = &AccountUpdateUsernameRequest{}
-	_ bin.BareDecoder = &AccountUpdateUsernameRequest{}
-)
+// GetUsername returns value of Username field.
+func (u *AccountUpdateUsernameRequest) GetUsername() (value string) {
+	return u.Username
+}
 
 // AccountUpdateUsername invokes method account.updateUsername#3e0bdd7c returning error if any.
 // Changes username for the current user.

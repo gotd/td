@@ -38,6 +38,14 @@ type DialogPeerClassVector struct {
 // DialogPeerClassVectorTypeID is TL type id of DialogPeerClassVector.
 const DialogPeerClassVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for DialogPeerClassVector.
+var (
+	_ bin.Encoder     = &DialogPeerClassVector{}
+	_ bin.Decoder     = &DialogPeerClassVector{}
+	_ bin.BareEncoder = &DialogPeerClassVector{}
+	_ bin.BareDecoder = &DialogPeerClassVector{}
+)
+
 func (vec *DialogPeerClassVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -122,16 +130,6 @@ func (vec *DialogPeerClassVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *DialogPeerClassVector) GetElems() (value []DialogPeerClass) {
-	return vec.Elems
-}
-
-// MapElems returns field Elems wrapped in DialogPeerClassArray helper.
-func (vec *DialogPeerClassVector) MapElems() (value DialogPeerClassArray) {
-	return DialogPeerClassArray(vec.Elems)
-}
-
 // Decode implements bin.Decoder.
 func (vec *DialogPeerClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -166,10 +164,12 @@ func (vec *DialogPeerClassVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for DialogPeerClassVector.
-var (
-	_ bin.Encoder     = &DialogPeerClassVector{}
-	_ bin.Decoder     = &DialogPeerClassVector{}
-	_ bin.BareEncoder = &DialogPeerClassVector{}
-	_ bin.BareDecoder = &DialogPeerClassVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *DialogPeerClassVector) GetElems() (value []DialogPeerClass) {
+	return vec.Elems
+}
+
+// MapElems returns field Elems wrapped in DialogPeerClassArray helper.
+func (vec *DialogPeerClassVector) MapElems() (value DialogPeerClassArray) {
+	return DialogPeerClassArray(vec.Elems)
+}

@@ -44,6 +44,14 @@ type TextEntity struct {
 // TextEntityTypeID is TL type id of TextEntity.
 const TextEntityTypeID = 0x8bab99a8
 
+// Ensuring interfaces in compile-time for TextEntity.
+var (
+	_ bin.Encoder     = &TextEntity{}
+	_ bin.Decoder     = &TextEntity{}
+	_ bin.BareEncoder = &TextEntity{}
+	_ bin.BareDecoder = &TextEntity{}
+)
+
 func (t *TextEntity) Zero() bool {
 	if t == nil {
 		return true
@@ -68,17 +76,6 @@ func (t *TextEntity) String() string {
 	}
 	type Alias TextEntity
 	return fmt.Sprintf("TextEntity%+v", Alias(*t))
-}
-
-// FillFrom fills TextEntity from given interface.
-func (t *TextEntity) FillFrom(from interface {
-	GetOffset() (value int32)
-	GetLength() (value int32)
-	GetType() (value TextEntityTypeClass)
-}) {
-	t.Offset = from.GetOffset()
-	t.Length = from.GetLength()
-	t.Type = from.GetType()
 }
 
 // TypeID returns type id in TL schema.
@@ -145,21 +142,6 @@ func (t *TextEntity) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (t *TextEntity) GetOffset() (value int32) {
-	return t.Offset
-}
-
-// GetLength returns value of Length field.
-func (t *TextEntity) GetLength() (value int32) {
-	return t.Length
-}
-
-// GetType returns value of Type field.
-func (t *TextEntity) GetType() (value TextEntityTypeClass) {
-	return t.Type
-}
-
 // Decode implements bin.Decoder.
 func (t *TextEntity) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -200,10 +182,17 @@ func (t *TextEntity) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for TextEntity.
-var (
-	_ bin.Encoder     = &TextEntity{}
-	_ bin.Decoder     = &TextEntity{}
-	_ bin.BareEncoder = &TextEntity{}
-	_ bin.BareDecoder = &TextEntity{}
-)
+// GetOffset returns value of Offset field.
+func (t *TextEntity) GetOffset() (value int32) {
+	return t.Offset
+}
+
+// GetLength returns value of Length field.
+func (t *TextEntity) GetLength() (value int32) {
+	return t.Length
+}
+
+// GetType returns value of Type field.
+func (t *TextEntity) GetType() (value TextEntityTypeClass) {
+	return t.Type
+}

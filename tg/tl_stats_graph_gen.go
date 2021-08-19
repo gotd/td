@@ -46,6 +46,19 @@ type StatsGraphAsync struct {
 // StatsGraphAsyncTypeID is TL type id of StatsGraphAsync.
 const StatsGraphAsyncTypeID = 0x4a27eb2d
 
+// construct implements constructor of StatsGraphClass.
+func (s StatsGraphAsync) construct() StatsGraphClass { return &s }
+
+// Ensuring interfaces in compile-time for StatsGraphAsync.
+var (
+	_ bin.Encoder     = &StatsGraphAsync{}
+	_ bin.Decoder     = &StatsGraphAsync{}
+	_ bin.BareEncoder = &StatsGraphAsync{}
+	_ bin.BareDecoder = &StatsGraphAsync{}
+
+	_ StatsGraphClass = &StatsGraphAsync{}
+)
+
 func (s *StatsGraphAsync) Zero() bool {
 	if s == nil {
 		return true
@@ -122,11 +135,6 @@ func (s *StatsGraphAsync) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetToken returns value of Token field.
-func (s *StatsGraphAsync) GetToken() (value string) {
-	return s.Token
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsGraphAsync) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -153,18 +161,10 @@ func (s *StatsGraphAsync) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StatsGraphClass.
-func (s StatsGraphAsync) construct() StatsGraphClass { return &s }
-
-// Ensuring interfaces in compile-time for StatsGraphAsync.
-var (
-	_ bin.Encoder     = &StatsGraphAsync{}
-	_ bin.Decoder     = &StatsGraphAsync{}
-	_ bin.BareEncoder = &StatsGraphAsync{}
-	_ bin.BareDecoder = &StatsGraphAsync{}
-
-	_ StatsGraphClass = &StatsGraphAsync{}
-)
+// GetToken returns value of Token field.
+func (s *StatsGraphAsync) GetToken() (value string) {
+	return s.Token
+}
 
 // StatsGraphError represents TL type `statsGraphError#bedc9822`.
 // An error occurred while generating the statistics graph¹
@@ -180,6 +180,19 @@ type StatsGraphError struct {
 
 // StatsGraphErrorTypeID is TL type id of StatsGraphError.
 const StatsGraphErrorTypeID = 0xbedc9822
+
+// construct implements constructor of StatsGraphClass.
+func (s StatsGraphError) construct() StatsGraphClass { return &s }
+
+// Ensuring interfaces in compile-time for StatsGraphError.
+var (
+	_ bin.Encoder     = &StatsGraphError{}
+	_ bin.Decoder     = &StatsGraphError{}
+	_ bin.BareEncoder = &StatsGraphError{}
+	_ bin.BareDecoder = &StatsGraphError{}
+
+	_ StatsGraphClass = &StatsGraphError{}
+)
 
 func (s *StatsGraphError) Zero() bool {
 	if s == nil {
@@ -257,11 +270,6 @@ func (s *StatsGraphError) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetError returns value of Error field.
-func (s *StatsGraphError) GetError() (value string) {
-	return s.Error
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsGraphError) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -288,18 +296,10 @@ func (s *StatsGraphError) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StatsGraphClass.
-func (s StatsGraphError) construct() StatsGraphClass { return &s }
-
-// Ensuring interfaces in compile-time for StatsGraphError.
-var (
-	_ bin.Encoder     = &StatsGraphError{}
-	_ bin.Decoder     = &StatsGraphError{}
-	_ bin.BareEncoder = &StatsGraphError{}
-	_ bin.BareDecoder = &StatsGraphError{}
-
-	_ StatsGraphClass = &StatsGraphError{}
-)
+// GetError returns value of Error field.
+func (s *StatsGraphError) GetError() (value string) {
+	return s.Error
+}
 
 // StatsGraph represents TL type `statsGraph#8ea464b6`.
 // Channel statistics graph¹
@@ -324,6 +324,19 @@ type StatsGraph struct {
 
 // StatsGraphTypeID is TL type id of StatsGraph.
 const StatsGraphTypeID = 0x8ea464b6
+
+// construct implements constructor of StatsGraphClass.
+func (s StatsGraph) construct() StatsGraphClass { return &s }
+
+// Ensuring interfaces in compile-time for StatsGraph.
+var (
+	_ bin.Encoder     = &StatsGraph{}
+	_ bin.Decoder     = &StatsGraph{}
+	_ bin.BareEncoder = &StatsGraph{}
+	_ bin.BareDecoder = &StatsGraph{}
+
+	_ StatsGraphClass = &StatsGraph{}
+)
 
 func (s *StatsGraph) Zero() bool {
 	if s == nil {
@@ -428,26 +441,6 @@ func (s *StatsGraph) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetJSON returns value of JSON field.
-func (s *StatsGraph) GetJSON() (value DataJSON) {
-	return s.JSON
-}
-
-// SetZoomToken sets value of ZoomToken conditional field.
-func (s *StatsGraph) SetZoomToken(value string) {
-	s.Flags.Set(0)
-	s.ZoomToken = value
-}
-
-// GetZoomToken returns value of ZoomToken conditional field and
-// boolean which is true if field was set.
-func (s *StatsGraph) GetZoomToken() (value string, ok bool) {
-	if !s.Flags.Has(0) {
-		return value, false
-	}
-	return s.ZoomToken, true
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsGraph) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -484,18 +477,25 @@ func (s *StatsGraph) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StatsGraphClass.
-func (s StatsGraph) construct() StatsGraphClass { return &s }
+// GetJSON returns value of JSON field.
+func (s *StatsGraph) GetJSON() (value DataJSON) {
+	return s.JSON
+}
 
-// Ensuring interfaces in compile-time for StatsGraph.
-var (
-	_ bin.Encoder     = &StatsGraph{}
-	_ bin.Decoder     = &StatsGraph{}
-	_ bin.BareEncoder = &StatsGraph{}
-	_ bin.BareDecoder = &StatsGraph{}
+// SetZoomToken sets value of ZoomToken conditional field.
+func (s *StatsGraph) SetZoomToken(value string) {
+	s.Flags.Set(0)
+	s.ZoomToken = value
+}
 
-	_ StatsGraphClass = &StatsGraph{}
-)
+// GetZoomToken returns value of ZoomToken conditional field and
+// boolean which is true if field was set.
+func (s *StatsGraph) GetZoomToken() (value string, ok bool) {
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.ZoomToken, true
+}
 
 // StatsGraphClass represents StatsGraph generic type.
 //

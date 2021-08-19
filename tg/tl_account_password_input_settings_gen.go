@@ -73,6 +73,14 @@ type AccountPasswordInputSettings struct {
 // AccountPasswordInputSettingsTypeID is TL type id of AccountPasswordInputSettings.
 const AccountPasswordInputSettingsTypeID = 0xc23727c9
 
+// Ensuring interfaces in compile-time for AccountPasswordInputSettings.
+var (
+	_ bin.Encoder     = &AccountPasswordInputSettings{}
+	_ bin.Decoder     = &AccountPasswordInputSettings{}
+	_ bin.BareEncoder = &AccountPasswordInputSettings{}
+	_ bin.BareDecoder = &AccountPasswordInputSettings{}
+)
+
 func (p *AccountPasswordInputSettings) Zero() bool {
 	if p == nil {
 		return true
@@ -247,6 +255,63 @@ func (p *AccountPasswordInputSettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *AccountPasswordInputSettings) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode account.passwordInputSettings#c23727c9 to nil")
+	}
+	if err := b.ConsumeID(AccountPasswordInputSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *AccountPasswordInputSettings) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode account.passwordInputSettings#c23727c9 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field flags: %w", err)
+		}
+	}
+	if p.Flags.Has(0) {
+		value, err := DecodePasswordKdfAlgo(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field new_algo: %w", err)
+		}
+		p.NewAlgo = value
+	}
+	if p.Flags.Has(0) {
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field new_password_hash: %w", err)
+		}
+		p.NewPasswordHash = value
+	}
+	if p.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field hint: %w", err)
+		}
+		p.Hint = value
+	}
+	if p.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field email: %w", err)
+		}
+		p.Email = value
+	}
+	if p.Flags.Has(2) {
+		if err := p.NewSecureSettings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field new_secure_settings: %w", err)
+		}
+	}
+	return nil
+}
+
 // SetNewAlgo sets value of NewAlgo conditional field.
 func (p *AccountPasswordInputSettings) SetNewAlgo(value PasswordKdfAlgoClass) {
 	p.Flags.Set(0)
@@ -321,68 +386,3 @@ func (p *AccountPasswordInputSettings) GetNewSecureSettings() (value SecureSecre
 	}
 	return p.NewSecureSettings, true
 }
-
-// Decode implements bin.Decoder.
-func (p *AccountPasswordInputSettings) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode account.passwordInputSettings#c23727c9 to nil")
-	}
-	if err := b.ConsumeID(AccountPasswordInputSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *AccountPasswordInputSettings) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode account.passwordInputSettings#c23727c9 to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field flags: %w", err)
-		}
-	}
-	if p.Flags.Has(0) {
-		value, err := DecodePasswordKdfAlgo(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field new_algo: %w", err)
-		}
-		p.NewAlgo = value
-	}
-	if p.Flags.Has(0) {
-		value, err := b.Bytes()
-		if err != nil {
-			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field new_password_hash: %w", err)
-		}
-		p.NewPasswordHash = value
-	}
-	if p.Flags.Has(0) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field hint: %w", err)
-		}
-		p.Hint = value
-	}
-	if p.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field email: %w", err)
-		}
-		p.Email = value
-	}
-	if p.Flags.Has(2) {
-		if err := p.NewSecureSettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field new_secure_settings: %w", err)
-		}
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for AccountPasswordInputSettings.
-var (
-	_ bin.Encoder     = &AccountPasswordInputSettings{}
-	_ bin.Decoder     = &AccountPasswordInputSettings{}
-	_ bin.BareEncoder = &AccountPasswordInputSettings{}
-	_ bin.BareDecoder = &AccountPasswordInputSettings{}
-)

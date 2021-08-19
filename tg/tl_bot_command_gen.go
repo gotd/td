@@ -43,6 +43,14 @@ type BotCommand struct {
 // BotCommandTypeID is TL type id of BotCommand.
 const BotCommandTypeID = 0xc27ac8c7
 
+// Ensuring interfaces in compile-time for BotCommand.
+var (
+	_ bin.Encoder     = &BotCommand{}
+	_ bin.Decoder     = &BotCommand{}
+	_ bin.BareEncoder = &BotCommand{}
+	_ bin.BareDecoder = &BotCommand{}
+)
+
 func (b *BotCommand) Zero() bool {
 	if b == nil {
 		return true
@@ -129,16 +137,6 @@ func (b *BotCommand) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetCommand returns value of Command field.
-func (b *BotCommand) GetCommand() (value string) {
-	return b.Command
-}
-
-// GetDescription returns value of Description field.
-func (b *BotCommand) GetDescription() (value string) {
-	return b.Description
-}
-
 // Decode implements bin.Decoder.
 func (b *BotCommand) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -172,10 +170,12 @@ func (b *BotCommand) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for BotCommand.
-var (
-	_ bin.Encoder     = &BotCommand{}
-	_ bin.Decoder     = &BotCommand{}
-	_ bin.BareEncoder = &BotCommand{}
-	_ bin.BareDecoder = &BotCommand{}
-)
+// GetCommand returns value of Command field.
+func (b *BotCommand) GetCommand() (value string) {
+	return b.Command
+}
+
+// GetDescription returns value of Description field.
+func (b *BotCommand) GetDescription() (value string) {
+	return b.Description
+}

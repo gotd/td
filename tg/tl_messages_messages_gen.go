@@ -45,6 +45,19 @@ type MessagesMessages struct {
 // MessagesMessagesTypeID is TL type id of MessagesMessages.
 const MessagesMessagesTypeID = 0x8c718e87
 
+// construct implements constructor of MessagesMessagesClass.
+func (m MessagesMessages) construct() MessagesMessagesClass { return &m }
+
+// Ensuring interfaces in compile-time for MessagesMessages.
+var (
+	_ bin.Encoder     = &MessagesMessages{}
+	_ bin.Decoder     = &MessagesMessages{}
+	_ bin.BareEncoder = &MessagesMessages{}
+	_ bin.BareDecoder = &MessagesMessages{}
+
+	_ MessagesMessagesClass = &MessagesMessages{}
+)
+
 func (m *MessagesMessages) Zero() bool {
 	if m == nil {
 		return true
@@ -165,36 +178,6 @@ func (m *MessagesMessages) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessages returns value of Messages field.
-func (m *MessagesMessages) GetMessages() (value []MessageClass) {
-	return m.Messages
-}
-
-// MapMessages returns field Messages wrapped in MessageClassArray helper.
-func (m *MessagesMessages) MapMessages() (value MessageClassArray) {
-	return MessageClassArray(m.Messages)
-}
-
-// GetChats returns value of Chats field.
-func (m *MessagesMessages) GetChats() (value []ChatClass) {
-	return m.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (m *MessagesMessages) MapChats() (value ChatClassArray) {
-	return ChatClassArray(m.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (m *MessagesMessages) GetUsers() (value []UserClass) {
-	return m.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (m *MessagesMessages) MapUsers() (value UserClassArray) {
-	return UserClassArray(m.Users)
-}
-
 // Decode implements bin.Decoder.
 func (m *MessagesMessages) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -265,18 +248,35 @@ func (m *MessagesMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesMessagesClass.
-func (m MessagesMessages) construct() MessagesMessagesClass { return &m }
+// GetMessages returns value of Messages field.
+func (m *MessagesMessages) GetMessages() (value []MessageClass) {
+	return m.Messages
+}
 
-// Ensuring interfaces in compile-time for MessagesMessages.
-var (
-	_ bin.Encoder     = &MessagesMessages{}
-	_ bin.Decoder     = &MessagesMessages{}
-	_ bin.BareEncoder = &MessagesMessages{}
-	_ bin.BareDecoder = &MessagesMessages{}
+// GetChats returns value of Chats field.
+func (m *MessagesMessages) GetChats() (value []ChatClass) {
+	return m.Chats
+}
 
-	_ MessagesMessagesClass = &MessagesMessages{}
-)
+// GetUsers returns value of Users field.
+func (m *MessagesMessages) GetUsers() (value []UserClass) {
+	return m.Users
+}
+
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (m *MessagesMessages) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(m.Messages)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (m *MessagesMessages) MapChats() (value ChatClassArray) {
+	return ChatClassArray(m.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (m *MessagesMessages) MapUsers() (value UserClassArray) {
+	return UserClassArray(m.Users)
+}
 
 // MessagesMessagesSlice represents TL type `messages.messagesSlice#3a54685e`.
 // Incomplete list of messages and auxiliary data.
@@ -316,6 +316,19 @@ type MessagesMessagesSlice struct {
 
 // MessagesMessagesSliceTypeID is TL type id of MessagesMessagesSlice.
 const MessagesMessagesSliceTypeID = 0x3a54685e
+
+// construct implements constructor of MessagesMessagesClass.
+func (m MessagesMessagesSlice) construct() MessagesMessagesClass { return &m }
+
+// Ensuring interfaces in compile-time for MessagesMessagesSlice.
+var (
+	_ bin.Encoder     = &MessagesMessagesSlice{}
+	_ bin.Decoder     = &MessagesMessagesSlice{}
+	_ bin.BareEncoder = &MessagesMessagesSlice{}
+	_ bin.BareDecoder = &MessagesMessagesSlice{}
+
+	_ MessagesMessagesClass = &MessagesMessagesSlice{}
+)
 
 func (m *MessagesMessagesSlice) Zero() bool {
 	if m == nil {
@@ -504,87 +517,6 @@ func (m *MessagesMessagesSlice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetInexact sets value of Inexact conditional field.
-func (m *MessagesMessagesSlice) SetInexact(value bool) {
-	if value {
-		m.Flags.Set(1)
-		m.Inexact = true
-	} else {
-		m.Flags.Unset(1)
-		m.Inexact = false
-	}
-}
-
-// GetInexact returns value of Inexact conditional field.
-func (m *MessagesMessagesSlice) GetInexact() (value bool) {
-	return m.Flags.Has(1)
-}
-
-// GetCount returns value of Count field.
-func (m *MessagesMessagesSlice) GetCount() (value int) {
-	return m.Count
-}
-
-// SetNextRate sets value of NextRate conditional field.
-func (m *MessagesMessagesSlice) SetNextRate(value int) {
-	m.Flags.Set(0)
-	m.NextRate = value
-}
-
-// GetNextRate returns value of NextRate conditional field and
-// boolean which is true if field was set.
-func (m *MessagesMessagesSlice) GetNextRate() (value int, ok bool) {
-	if !m.Flags.Has(0) {
-		return value, false
-	}
-	return m.NextRate, true
-}
-
-// SetOffsetIDOffset sets value of OffsetIDOffset conditional field.
-func (m *MessagesMessagesSlice) SetOffsetIDOffset(value int) {
-	m.Flags.Set(2)
-	m.OffsetIDOffset = value
-}
-
-// GetOffsetIDOffset returns value of OffsetIDOffset conditional field and
-// boolean which is true if field was set.
-func (m *MessagesMessagesSlice) GetOffsetIDOffset() (value int, ok bool) {
-	if !m.Flags.Has(2) {
-		return value, false
-	}
-	return m.OffsetIDOffset, true
-}
-
-// GetMessages returns value of Messages field.
-func (m *MessagesMessagesSlice) GetMessages() (value []MessageClass) {
-	return m.Messages
-}
-
-// MapMessages returns field Messages wrapped in MessageClassArray helper.
-func (m *MessagesMessagesSlice) MapMessages() (value MessageClassArray) {
-	return MessageClassArray(m.Messages)
-}
-
-// GetChats returns value of Chats field.
-func (m *MessagesMessagesSlice) GetChats() (value []ChatClass) {
-	return m.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (m *MessagesMessagesSlice) MapChats() (value ChatClassArray) {
-	return ChatClassArray(m.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (m *MessagesMessagesSlice) GetUsers() (value []UserClass) {
-	return m.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (m *MessagesMessagesSlice) MapUsers() (value UserClassArray) {
-	return UserClassArray(m.Users)
-}
-
 // Decode implements bin.Decoder.
 func (m *MessagesMessagesSlice) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -682,18 +614,86 @@ func (m *MessagesMessagesSlice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesMessagesClass.
-func (m MessagesMessagesSlice) construct() MessagesMessagesClass { return &m }
+// SetInexact sets value of Inexact conditional field.
+func (m *MessagesMessagesSlice) SetInexact(value bool) {
+	if value {
+		m.Flags.Set(1)
+		m.Inexact = true
+	} else {
+		m.Flags.Unset(1)
+		m.Inexact = false
+	}
+}
 
-// Ensuring interfaces in compile-time for MessagesMessagesSlice.
-var (
-	_ bin.Encoder     = &MessagesMessagesSlice{}
-	_ bin.Decoder     = &MessagesMessagesSlice{}
-	_ bin.BareEncoder = &MessagesMessagesSlice{}
-	_ bin.BareDecoder = &MessagesMessagesSlice{}
+// GetInexact returns value of Inexact conditional field.
+func (m *MessagesMessagesSlice) GetInexact() (value bool) {
+	return m.Flags.Has(1)
+}
 
-	_ MessagesMessagesClass = &MessagesMessagesSlice{}
-)
+// GetCount returns value of Count field.
+func (m *MessagesMessagesSlice) GetCount() (value int) {
+	return m.Count
+}
+
+// SetNextRate sets value of NextRate conditional field.
+func (m *MessagesMessagesSlice) SetNextRate(value int) {
+	m.Flags.Set(0)
+	m.NextRate = value
+}
+
+// GetNextRate returns value of NextRate conditional field and
+// boolean which is true if field was set.
+func (m *MessagesMessagesSlice) GetNextRate() (value int, ok bool) {
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.NextRate, true
+}
+
+// SetOffsetIDOffset sets value of OffsetIDOffset conditional field.
+func (m *MessagesMessagesSlice) SetOffsetIDOffset(value int) {
+	m.Flags.Set(2)
+	m.OffsetIDOffset = value
+}
+
+// GetOffsetIDOffset returns value of OffsetIDOffset conditional field and
+// boolean which is true if field was set.
+func (m *MessagesMessagesSlice) GetOffsetIDOffset() (value int, ok bool) {
+	if !m.Flags.Has(2) {
+		return value, false
+	}
+	return m.OffsetIDOffset, true
+}
+
+// GetMessages returns value of Messages field.
+func (m *MessagesMessagesSlice) GetMessages() (value []MessageClass) {
+	return m.Messages
+}
+
+// GetChats returns value of Chats field.
+func (m *MessagesMessagesSlice) GetChats() (value []ChatClass) {
+	return m.Chats
+}
+
+// GetUsers returns value of Users field.
+func (m *MessagesMessagesSlice) GetUsers() (value []UserClass) {
+	return m.Users
+}
+
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (m *MessagesMessagesSlice) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(m.Messages)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (m *MessagesMessagesSlice) MapChats() (value ChatClassArray) {
+	return ChatClassArray(m.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (m *MessagesMessagesSlice) MapUsers() (value UserClassArray) {
+	return UserClassArray(m.Users)
+}
 
 // MessagesChannelMessages represents TL type `messages.channelMessages#64479808`.
 // Channel messages
@@ -731,6 +731,19 @@ type MessagesChannelMessages struct {
 
 // MessagesChannelMessagesTypeID is TL type id of MessagesChannelMessages.
 const MessagesChannelMessagesTypeID = 0x64479808
+
+// construct implements constructor of MessagesMessagesClass.
+func (c MessagesChannelMessages) construct() MessagesMessagesClass { return &c }
+
+// Ensuring interfaces in compile-time for MessagesChannelMessages.
+var (
+	_ bin.Encoder     = &MessagesChannelMessages{}
+	_ bin.Decoder     = &MessagesChannelMessages{}
+	_ bin.BareEncoder = &MessagesChannelMessages{}
+	_ bin.BareDecoder = &MessagesChannelMessages{}
+
+	_ MessagesMessagesClass = &MessagesChannelMessages{}
+)
 
 func (c *MessagesChannelMessages) Zero() bool {
 	if c == nil {
@@ -910,77 +923,6 @@ func (c *MessagesChannelMessages) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetInexact sets value of Inexact conditional field.
-func (c *MessagesChannelMessages) SetInexact(value bool) {
-	if value {
-		c.Flags.Set(1)
-		c.Inexact = true
-	} else {
-		c.Flags.Unset(1)
-		c.Inexact = false
-	}
-}
-
-// GetInexact returns value of Inexact conditional field.
-func (c *MessagesChannelMessages) GetInexact() (value bool) {
-	return c.Flags.Has(1)
-}
-
-// GetPts returns value of Pts field.
-func (c *MessagesChannelMessages) GetPts() (value int) {
-	return c.Pts
-}
-
-// GetCount returns value of Count field.
-func (c *MessagesChannelMessages) GetCount() (value int) {
-	return c.Count
-}
-
-// SetOffsetIDOffset sets value of OffsetIDOffset conditional field.
-func (c *MessagesChannelMessages) SetOffsetIDOffset(value int) {
-	c.Flags.Set(2)
-	c.OffsetIDOffset = value
-}
-
-// GetOffsetIDOffset returns value of OffsetIDOffset conditional field and
-// boolean which is true if field was set.
-func (c *MessagesChannelMessages) GetOffsetIDOffset() (value int, ok bool) {
-	if !c.Flags.Has(2) {
-		return value, false
-	}
-	return c.OffsetIDOffset, true
-}
-
-// GetMessages returns value of Messages field.
-func (c *MessagesChannelMessages) GetMessages() (value []MessageClass) {
-	return c.Messages
-}
-
-// MapMessages returns field Messages wrapped in MessageClassArray helper.
-func (c *MessagesChannelMessages) MapMessages() (value MessageClassArray) {
-	return MessageClassArray(c.Messages)
-}
-
-// GetChats returns value of Chats field.
-func (c *MessagesChannelMessages) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *MessagesChannelMessages) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (c *MessagesChannelMessages) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *MessagesChannelMessages) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesChannelMessages) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -1078,18 +1020,76 @@ func (c *MessagesChannelMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesMessagesClass.
-func (c MessagesChannelMessages) construct() MessagesMessagesClass { return &c }
+// SetInexact sets value of Inexact conditional field.
+func (c *MessagesChannelMessages) SetInexact(value bool) {
+	if value {
+		c.Flags.Set(1)
+		c.Inexact = true
+	} else {
+		c.Flags.Unset(1)
+		c.Inexact = false
+	}
+}
 
-// Ensuring interfaces in compile-time for MessagesChannelMessages.
-var (
-	_ bin.Encoder     = &MessagesChannelMessages{}
-	_ bin.Decoder     = &MessagesChannelMessages{}
-	_ bin.BareEncoder = &MessagesChannelMessages{}
-	_ bin.BareDecoder = &MessagesChannelMessages{}
+// GetInexact returns value of Inexact conditional field.
+func (c *MessagesChannelMessages) GetInexact() (value bool) {
+	return c.Flags.Has(1)
+}
 
-	_ MessagesMessagesClass = &MessagesChannelMessages{}
-)
+// GetPts returns value of Pts field.
+func (c *MessagesChannelMessages) GetPts() (value int) {
+	return c.Pts
+}
+
+// GetCount returns value of Count field.
+func (c *MessagesChannelMessages) GetCount() (value int) {
+	return c.Count
+}
+
+// SetOffsetIDOffset sets value of OffsetIDOffset conditional field.
+func (c *MessagesChannelMessages) SetOffsetIDOffset(value int) {
+	c.Flags.Set(2)
+	c.OffsetIDOffset = value
+}
+
+// GetOffsetIDOffset returns value of OffsetIDOffset conditional field and
+// boolean which is true if field was set.
+func (c *MessagesChannelMessages) GetOffsetIDOffset() (value int, ok bool) {
+	if !c.Flags.Has(2) {
+		return value, false
+	}
+	return c.OffsetIDOffset, true
+}
+
+// GetMessages returns value of Messages field.
+func (c *MessagesChannelMessages) GetMessages() (value []MessageClass) {
+	return c.Messages
+}
+
+// GetChats returns value of Chats field.
+func (c *MessagesChannelMessages) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *MessagesChannelMessages) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (c *MessagesChannelMessages) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(c.Messages)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *MessagesChannelMessages) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *MessagesChannelMessages) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}
 
 // MessagesMessagesNotModified represents TL type `messages.messagesNotModified#74535f21`.
 // No new messages matching the query were found
@@ -1102,6 +1102,19 @@ type MessagesMessagesNotModified struct {
 
 // MessagesMessagesNotModifiedTypeID is TL type id of MessagesMessagesNotModified.
 const MessagesMessagesNotModifiedTypeID = 0x74535f21
+
+// construct implements constructor of MessagesMessagesClass.
+func (m MessagesMessagesNotModified) construct() MessagesMessagesClass { return &m }
+
+// Ensuring interfaces in compile-time for MessagesMessagesNotModified.
+var (
+	_ bin.Encoder     = &MessagesMessagesNotModified{}
+	_ bin.Decoder     = &MessagesMessagesNotModified{}
+	_ bin.BareEncoder = &MessagesMessagesNotModified{}
+	_ bin.BareDecoder = &MessagesMessagesNotModified{}
+
+	_ MessagesMessagesClass = &MessagesMessagesNotModified{}
+)
 
 func (m *MessagesMessagesNotModified) Zero() bool {
 	if m == nil {
@@ -1179,11 +1192,6 @@ func (m *MessagesMessagesNotModified) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (m *MessagesMessagesNotModified) GetCount() (value int) {
-	return m.Count
-}
-
 // Decode implements bin.Decoder.
 func (m *MessagesMessagesNotModified) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1210,18 +1218,10 @@ func (m *MessagesMessagesNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesMessagesClass.
-func (m MessagesMessagesNotModified) construct() MessagesMessagesClass { return &m }
-
-// Ensuring interfaces in compile-time for MessagesMessagesNotModified.
-var (
-	_ bin.Encoder     = &MessagesMessagesNotModified{}
-	_ bin.Decoder     = &MessagesMessagesNotModified{}
-	_ bin.BareEncoder = &MessagesMessagesNotModified{}
-	_ bin.BareDecoder = &MessagesMessagesNotModified{}
-
-	_ MessagesMessagesClass = &MessagesMessagesNotModified{}
-)
+// GetCount returns value of Count field.
+func (m *MessagesMessagesNotModified) GetCount() (value int) {
+	return m.Count
+}
 
 // MessagesMessagesClass represents messages.Messages generic type.
 //

@@ -43,6 +43,19 @@ type LangPackString struct {
 // LangPackStringTypeID is TL type id of LangPackString.
 const LangPackStringTypeID = 0xcad181f6
 
+// construct implements constructor of LangPackStringClass.
+func (l LangPackString) construct() LangPackStringClass { return &l }
+
+// Ensuring interfaces in compile-time for LangPackString.
+var (
+	_ bin.Encoder     = &LangPackString{}
+	_ bin.Decoder     = &LangPackString{}
+	_ bin.BareEncoder = &LangPackString{}
+	_ bin.BareDecoder = &LangPackString{}
+
+	_ LangPackStringClass = &LangPackString{}
+)
+
 func (l *LangPackString) Zero() bool {
 	if l == nil {
 		return true
@@ -129,16 +142,6 @@ func (l *LangPackString) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetKey returns value of Key field.
-func (l *LangPackString) GetKey() (value string) {
-	return l.Key
-}
-
-// GetValue returns value of Value field.
-func (l *LangPackString) GetValue() (value string) {
-	return l.Value
-}
-
 // Decode implements bin.Decoder.
 func (l *LangPackString) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -172,18 +175,15 @@ func (l *LangPackString) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of LangPackStringClass.
-func (l LangPackString) construct() LangPackStringClass { return &l }
+// GetKey returns value of Key field.
+func (l *LangPackString) GetKey() (value string) {
+	return l.Key
+}
 
-// Ensuring interfaces in compile-time for LangPackString.
-var (
-	_ bin.Encoder     = &LangPackString{}
-	_ bin.Decoder     = &LangPackString{}
-	_ bin.BareEncoder = &LangPackString{}
-	_ bin.BareDecoder = &LangPackString{}
-
-	_ LangPackStringClass = &LangPackString{}
-)
+// GetValue returns value of Value field.
+func (l *LangPackString) GetValue() (value string) {
+	return l.Value
+}
 
 // LangPackStringPluralized represents TL type `langPackStringPluralized#6c47ac9f`.
 // A language pack string which has different forms based on the number of some object it
@@ -228,6 +228,19 @@ type LangPackStringPluralized struct {
 
 // LangPackStringPluralizedTypeID is TL type id of LangPackStringPluralized.
 const LangPackStringPluralizedTypeID = 0x6c47ac9f
+
+// construct implements constructor of LangPackStringClass.
+func (l LangPackStringPluralized) construct() LangPackStringClass { return &l }
+
+// Ensuring interfaces in compile-time for LangPackStringPluralized.
+var (
+	_ bin.Encoder     = &LangPackStringPluralized{}
+	_ bin.Decoder     = &LangPackStringPluralized{}
+	_ bin.BareEncoder = &LangPackStringPluralized{}
+	_ bin.BareDecoder = &LangPackStringPluralized{}
+
+	_ LangPackStringClass = &LangPackStringPluralized{}
+)
 
 func (l *LangPackStringPluralized) Zero() bool {
 	if l == nil {
@@ -416,6 +429,79 @@ func (l *LangPackStringPluralized) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (l *LangPackStringPluralized) Decode(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode langPackStringPluralized#6c47ac9f to nil")
+	}
+	if err := b.ConsumeID(LangPackStringPluralizedTypeID); err != nil {
+		return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: %w", err)
+	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *LangPackStringPluralized) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode langPackStringPluralized#6c47ac9f to nil")
+	}
+	{
+		if err := l.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field key: %w", err)
+		}
+		l.Key = value
+	}
+	if l.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field zero_value: %w", err)
+		}
+		l.ZeroValue = value
+	}
+	if l.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field one_value: %w", err)
+		}
+		l.OneValue = value
+	}
+	if l.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field two_value: %w", err)
+		}
+		l.TwoValue = value
+	}
+	if l.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field few_value: %w", err)
+		}
+		l.FewValue = value
+	}
+	if l.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field many_value: %w", err)
+		}
+		l.ManyValue = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field other_value: %w", err)
+		}
+		l.OtherValue = value
+	}
+	return nil
+}
+
 // GetKey returns value of Key field.
 func (l *LangPackStringPluralized) GetKey() (value string) {
 	return l.Key
@@ -501,92 +587,6 @@ func (l *LangPackStringPluralized) GetOtherValue() (value string) {
 	return l.OtherValue
 }
 
-// Decode implements bin.Decoder.
-func (l *LangPackStringPluralized) Decode(b *bin.Buffer) error {
-	if l == nil {
-		return fmt.Errorf("can't decode langPackStringPluralized#6c47ac9f to nil")
-	}
-	if err := b.ConsumeID(LangPackStringPluralizedTypeID); err != nil {
-		return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: %w", err)
-	}
-	return l.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (l *LangPackStringPluralized) DecodeBare(b *bin.Buffer) error {
-	if l == nil {
-		return fmt.Errorf("can't decode langPackStringPluralized#6c47ac9f to nil")
-	}
-	{
-		if err := l.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field flags: %w", err)
-		}
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field key: %w", err)
-		}
-		l.Key = value
-	}
-	if l.Flags.Has(0) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field zero_value: %w", err)
-		}
-		l.ZeroValue = value
-	}
-	if l.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field one_value: %w", err)
-		}
-		l.OneValue = value
-	}
-	if l.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field two_value: %w", err)
-		}
-		l.TwoValue = value
-	}
-	if l.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field few_value: %w", err)
-		}
-		l.FewValue = value
-	}
-	if l.Flags.Has(4) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field many_value: %w", err)
-		}
-		l.ManyValue = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field other_value: %w", err)
-		}
-		l.OtherValue = value
-	}
-	return nil
-}
-
-// construct implements constructor of LangPackStringClass.
-func (l LangPackStringPluralized) construct() LangPackStringClass { return &l }
-
-// Ensuring interfaces in compile-time for LangPackStringPluralized.
-var (
-	_ bin.Encoder     = &LangPackStringPluralized{}
-	_ bin.Decoder     = &LangPackStringPluralized{}
-	_ bin.BareEncoder = &LangPackStringPluralized{}
-	_ bin.BareDecoder = &LangPackStringPluralized{}
-
-	_ LangPackStringClass = &LangPackStringPluralized{}
-)
-
 // LangPackStringDeleted represents TL type `langPackStringDeleted#2979eeb2`.
 // Deleted localization string
 //
@@ -598,6 +598,19 @@ type LangPackStringDeleted struct {
 
 // LangPackStringDeletedTypeID is TL type id of LangPackStringDeleted.
 const LangPackStringDeletedTypeID = 0x2979eeb2
+
+// construct implements constructor of LangPackStringClass.
+func (l LangPackStringDeleted) construct() LangPackStringClass { return &l }
+
+// Ensuring interfaces in compile-time for LangPackStringDeleted.
+var (
+	_ bin.Encoder     = &LangPackStringDeleted{}
+	_ bin.Decoder     = &LangPackStringDeleted{}
+	_ bin.BareEncoder = &LangPackStringDeleted{}
+	_ bin.BareDecoder = &LangPackStringDeleted{}
+
+	_ LangPackStringClass = &LangPackStringDeleted{}
+)
 
 func (l *LangPackStringDeleted) Zero() bool {
 	if l == nil {
@@ -675,11 +688,6 @@ func (l *LangPackStringDeleted) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetKey returns value of Key field.
-func (l *LangPackStringDeleted) GetKey() (value string) {
-	return l.Key
-}
-
 // Decode implements bin.Decoder.
 func (l *LangPackStringDeleted) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -706,18 +714,10 @@ func (l *LangPackStringDeleted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of LangPackStringClass.
-func (l LangPackStringDeleted) construct() LangPackStringClass { return &l }
-
-// Ensuring interfaces in compile-time for LangPackStringDeleted.
-var (
-	_ bin.Encoder     = &LangPackStringDeleted{}
-	_ bin.Decoder     = &LangPackStringDeleted{}
-	_ bin.BareEncoder = &LangPackStringDeleted{}
-	_ bin.BareDecoder = &LangPackStringDeleted{}
-
-	_ LangPackStringClass = &LangPackStringDeleted{}
-)
+// GetKey returns value of Key field.
+func (l *LangPackStringDeleted) GetKey() (value string) {
+	return l.Key
+}
 
 // LangPackStringClass represents LangPackString generic type.
 //

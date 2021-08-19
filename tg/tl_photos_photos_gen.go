@@ -43,6 +43,19 @@ type PhotosPhotos struct {
 // PhotosPhotosTypeID is TL type id of PhotosPhotos.
 const PhotosPhotosTypeID = 0x8dca6aa5
 
+// construct implements constructor of PhotosPhotosClass.
+func (p PhotosPhotos) construct() PhotosPhotosClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotosPhotos.
+var (
+	_ bin.Encoder     = &PhotosPhotos{}
+	_ bin.Decoder     = &PhotosPhotos{}
+	_ bin.BareEncoder = &PhotosPhotos{}
+	_ bin.BareDecoder = &PhotosPhotos{}
+
+	_ PhotosPhotosClass = &PhotosPhotos{}
+)
+
 func (p *PhotosPhotos) Zero() bool {
 	if p == nil {
 		return true
@@ -145,26 +158,6 @@ func (p *PhotosPhotos) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhotos returns value of Photos field.
-func (p *PhotosPhotos) GetPhotos() (value []PhotoClass) {
-	return p.Photos
-}
-
-// MapPhotos returns field Photos wrapped in PhotoClassArray helper.
-func (p *PhotosPhotos) MapPhotos() (value PhotoClassArray) {
-	return PhotoClassArray(p.Photos)
-}
-
-// GetUsers returns value of Users field.
-func (p *PhotosPhotos) GetUsers() (value []UserClass) {
-	return p.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (p *PhotosPhotos) MapUsers() (value UserClassArray) {
-	return UserClassArray(p.Users)
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotosPhotos) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -218,18 +211,25 @@ func (p *PhotosPhotos) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotosPhotosClass.
-func (p PhotosPhotos) construct() PhotosPhotosClass { return &p }
+// GetPhotos returns value of Photos field.
+func (p *PhotosPhotos) GetPhotos() (value []PhotoClass) {
+	return p.Photos
+}
 
-// Ensuring interfaces in compile-time for PhotosPhotos.
-var (
-	_ bin.Encoder     = &PhotosPhotos{}
-	_ bin.Decoder     = &PhotosPhotos{}
-	_ bin.BareEncoder = &PhotosPhotos{}
-	_ bin.BareDecoder = &PhotosPhotos{}
+// GetUsers returns value of Users field.
+func (p *PhotosPhotos) GetUsers() (value []UserClass) {
+	return p.Users
+}
 
-	_ PhotosPhotosClass = &PhotosPhotos{}
-)
+// MapPhotos returns field Photos wrapped in PhotoClassArray helper.
+func (p *PhotosPhotos) MapPhotos() (value PhotoClassArray) {
+	return PhotoClassArray(p.Photos)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *PhotosPhotos) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
+}
 
 // PhotosPhotosSlice represents TL type `photos.photosSlice#15051f54`.
 // Incomplete list of photos with auxiliary data.
@@ -246,6 +246,19 @@ type PhotosPhotosSlice struct {
 
 // PhotosPhotosSliceTypeID is TL type id of PhotosPhotosSlice.
 const PhotosPhotosSliceTypeID = 0x15051f54
+
+// construct implements constructor of PhotosPhotosClass.
+func (p PhotosPhotosSlice) construct() PhotosPhotosClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotosPhotosSlice.
+var (
+	_ bin.Encoder     = &PhotosPhotosSlice{}
+	_ bin.Decoder     = &PhotosPhotosSlice{}
+	_ bin.BareEncoder = &PhotosPhotosSlice{}
+	_ bin.BareDecoder = &PhotosPhotosSlice{}
+
+	_ PhotosPhotosClass = &PhotosPhotosSlice{}
+)
 
 func (p *PhotosPhotosSlice) Zero() bool {
 	if p == nil {
@@ -359,31 +372,6 @@ func (p *PhotosPhotosSlice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (p *PhotosPhotosSlice) GetCount() (value int) {
-	return p.Count
-}
-
-// GetPhotos returns value of Photos field.
-func (p *PhotosPhotosSlice) GetPhotos() (value []PhotoClass) {
-	return p.Photos
-}
-
-// MapPhotos returns field Photos wrapped in PhotoClassArray helper.
-func (p *PhotosPhotosSlice) MapPhotos() (value PhotoClassArray) {
-	return PhotoClassArray(p.Photos)
-}
-
-// GetUsers returns value of Users field.
-func (p *PhotosPhotosSlice) GetUsers() (value []UserClass) {
-	return p.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (p *PhotosPhotosSlice) MapUsers() (value UserClassArray) {
-	return UserClassArray(p.Users)
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotosPhotosSlice) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -444,18 +432,30 @@ func (p *PhotosPhotosSlice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotosPhotosClass.
-func (p PhotosPhotosSlice) construct() PhotosPhotosClass { return &p }
+// GetCount returns value of Count field.
+func (p *PhotosPhotosSlice) GetCount() (value int) {
+	return p.Count
+}
 
-// Ensuring interfaces in compile-time for PhotosPhotosSlice.
-var (
-	_ bin.Encoder     = &PhotosPhotosSlice{}
-	_ bin.Decoder     = &PhotosPhotosSlice{}
-	_ bin.BareEncoder = &PhotosPhotosSlice{}
-	_ bin.BareDecoder = &PhotosPhotosSlice{}
+// GetPhotos returns value of Photos field.
+func (p *PhotosPhotosSlice) GetPhotos() (value []PhotoClass) {
+	return p.Photos
+}
 
-	_ PhotosPhotosClass = &PhotosPhotosSlice{}
-)
+// GetUsers returns value of Users field.
+func (p *PhotosPhotosSlice) GetUsers() (value []UserClass) {
+	return p.Users
+}
+
+// MapPhotos returns field Photos wrapped in PhotoClassArray helper.
+func (p *PhotosPhotosSlice) MapPhotos() (value PhotoClassArray) {
+	return PhotoClassArray(p.Photos)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *PhotosPhotosSlice) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
+}
 
 // PhotosPhotosClass represents photos.Photos generic type.
 //

@@ -49,6 +49,14 @@ type LabeledPrice struct {
 // LabeledPriceTypeID is TL type id of LabeledPrice.
 const LabeledPriceTypeID = 0xcb296bf8
 
+// Ensuring interfaces in compile-time for LabeledPrice.
+var (
+	_ bin.Encoder     = &LabeledPrice{}
+	_ bin.Decoder     = &LabeledPrice{}
+	_ bin.BareEncoder = &LabeledPrice{}
+	_ bin.BareDecoder = &LabeledPrice{}
+)
+
 func (l *LabeledPrice) Zero() bool {
 	if l == nil {
 		return true
@@ -135,16 +143,6 @@ func (l *LabeledPrice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLabel returns value of Label field.
-func (l *LabeledPrice) GetLabel() (value string) {
-	return l.Label
-}
-
-// GetAmount returns value of Amount field.
-func (l *LabeledPrice) GetAmount() (value int64) {
-	return l.Amount
-}
-
 // Decode implements bin.Decoder.
 func (l *LabeledPrice) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -178,10 +176,12 @@ func (l *LabeledPrice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for LabeledPrice.
-var (
-	_ bin.Encoder     = &LabeledPrice{}
-	_ bin.Decoder     = &LabeledPrice{}
-	_ bin.BareEncoder = &LabeledPrice{}
-	_ bin.BareDecoder = &LabeledPrice{}
-)
+// GetLabel returns value of Label field.
+func (l *LabeledPrice) GetLabel() (value string) {
+	return l.Label
+}
+
+// GetAmount returns value of Amount field.
+func (l *LabeledPrice) GetAmount() (value int64) {
+	return l.Amount
+}

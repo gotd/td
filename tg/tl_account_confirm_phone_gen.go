@@ -52,6 +52,14 @@ type AccountConfirmPhoneRequest struct {
 // AccountConfirmPhoneRequestTypeID is TL type id of AccountConfirmPhoneRequest.
 const AccountConfirmPhoneRequestTypeID = 0x5f2178c3
 
+// Ensuring interfaces in compile-time for AccountConfirmPhoneRequest.
+var (
+	_ bin.Encoder     = &AccountConfirmPhoneRequest{}
+	_ bin.Decoder     = &AccountConfirmPhoneRequest{}
+	_ bin.BareEncoder = &AccountConfirmPhoneRequest{}
+	_ bin.BareDecoder = &AccountConfirmPhoneRequest{}
+)
+
 func (c *AccountConfirmPhoneRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -138,16 +146,6 @@ func (c *AccountConfirmPhoneRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneCodeHash returns value of PhoneCodeHash field.
-func (c *AccountConfirmPhoneRequest) GetPhoneCodeHash() (value string) {
-	return c.PhoneCodeHash
-}
-
-// GetPhoneCode returns value of PhoneCode field.
-func (c *AccountConfirmPhoneRequest) GetPhoneCode() (value string) {
-	return c.PhoneCode
-}
-
 // Decode implements bin.Decoder.
 func (c *AccountConfirmPhoneRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -181,13 +179,15 @@ func (c *AccountConfirmPhoneRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountConfirmPhoneRequest.
-var (
-	_ bin.Encoder     = &AccountConfirmPhoneRequest{}
-	_ bin.Decoder     = &AccountConfirmPhoneRequest{}
-	_ bin.BareEncoder = &AccountConfirmPhoneRequest{}
-	_ bin.BareDecoder = &AccountConfirmPhoneRequest{}
-)
+// GetPhoneCodeHash returns value of PhoneCodeHash field.
+func (c *AccountConfirmPhoneRequest) GetPhoneCodeHash() (value string) {
+	return c.PhoneCodeHash
+}
+
+// GetPhoneCode returns value of PhoneCode field.
+func (c *AccountConfirmPhoneRequest) GetPhoneCode() (value string) {
+	return c.PhoneCode
+}
 
 // AccountConfirmPhone invokes method account.confirmPhone#5f2178c3 returning error if any.
 // Confirm a phone number to cancel account deletion, for more info click here »¹

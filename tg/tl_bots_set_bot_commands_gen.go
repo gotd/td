@@ -45,6 +45,14 @@ type BotsSetBotCommandsRequest struct {
 // BotsSetBotCommandsRequestTypeID is TL type id of BotsSetBotCommandsRequest.
 const BotsSetBotCommandsRequestTypeID = 0x517165a
 
+// Ensuring interfaces in compile-time for BotsSetBotCommandsRequest.
+var (
+	_ bin.Encoder     = &BotsSetBotCommandsRequest{}
+	_ bin.Decoder     = &BotsSetBotCommandsRequest{}
+	_ bin.BareEncoder = &BotsSetBotCommandsRequest{}
+	_ bin.BareDecoder = &BotsSetBotCommandsRequest{}
+)
+
 func (s *BotsSetBotCommandsRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -151,21 +159,6 @@ func (s *BotsSetBotCommandsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetScope returns value of Scope field.
-func (s *BotsSetBotCommandsRequest) GetScope() (value BotCommandScopeClass) {
-	return s.Scope
-}
-
-// GetLangCode returns value of LangCode field.
-func (s *BotsSetBotCommandsRequest) GetLangCode() (value string) {
-	return s.LangCode
-}
-
-// GetCommands returns value of Commands field.
-func (s *BotsSetBotCommandsRequest) GetCommands() (value []BotCommand) {
-	return s.Commands
-}
-
 // Decode implements bin.Decoder.
 func (s *BotsSetBotCommandsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -216,13 +209,20 @@ func (s *BotsSetBotCommandsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for BotsSetBotCommandsRequest.
-var (
-	_ bin.Encoder     = &BotsSetBotCommandsRequest{}
-	_ bin.Decoder     = &BotsSetBotCommandsRequest{}
-	_ bin.BareEncoder = &BotsSetBotCommandsRequest{}
-	_ bin.BareDecoder = &BotsSetBotCommandsRequest{}
-)
+// GetScope returns value of Scope field.
+func (s *BotsSetBotCommandsRequest) GetScope() (value BotCommandScopeClass) {
+	return s.Scope
+}
+
+// GetLangCode returns value of LangCode field.
+func (s *BotsSetBotCommandsRequest) GetLangCode() (value string) {
+	return s.LangCode
+}
+
+// GetCommands returns value of Commands field.
+func (s *BotsSetBotCommandsRequest) GetCommands() (value []BotCommand) {
+	return s.Commands
+}
 
 // BotsSetBotCommands invokes method bots.setBotCommands#517165a returning error if any.
 // Set bot command list

@@ -45,6 +45,14 @@ type AccountGetSecureValueRequest struct {
 // AccountGetSecureValueRequestTypeID is TL type id of AccountGetSecureValueRequest.
 const AccountGetSecureValueRequestTypeID = 0x73665bc2
 
+// Ensuring interfaces in compile-time for AccountGetSecureValueRequest.
+var (
+	_ bin.Encoder     = &AccountGetSecureValueRequest{}
+	_ bin.Decoder     = &AccountGetSecureValueRequest{}
+	_ bin.BareEncoder = &AccountGetSecureValueRequest{}
+	_ bin.BareDecoder = &AccountGetSecureValueRequest{}
+)
+
 func (g *AccountGetSecureValueRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -129,16 +137,6 @@ func (g *AccountGetSecureValueRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTypes returns value of Types field.
-func (g *AccountGetSecureValueRequest) GetTypes() (value []SecureValueTypeClass) {
-	return g.Types
-}
-
-// MapTypes returns field Types wrapped in SecureValueTypeClassArray helper.
-func (g *AccountGetSecureValueRequest) MapTypes() (value SecureValueTypeClassArray) {
-	return SecureValueTypeClassArray(g.Types)
-}
-
 // Decode implements bin.Decoder.
 func (g *AccountGetSecureValueRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -175,13 +173,15 @@ func (g *AccountGetSecureValueRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountGetSecureValueRequest.
-var (
-	_ bin.Encoder     = &AccountGetSecureValueRequest{}
-	_ bin.Decoder     = &AccountGetSecureValueRequest{}
-	_ bin.BareEncoder = &AccountGetSecureValueRequest{}
-	_ bin.BareDecoder = &AccountGetSecureValueRequest{}
-)
+// GetTypes returns value of Types field.
+func (g *AccountGetSecureValueRequest) GetTypes() (value []SecureValueTypeClass) {
+	return g.Types
+}
+
+// MapTypes returns field Types wrapped in SecureValueTypeClassArray helper.
+func (g *AccountGetSecureValueRequest) MapTypes() (value SecureValueTypeClassArray) {
+	return SecureValueTypeClassArray(g.Types)
+}
 
 // AccountGetSecureValue invokes method account.getSecureValue#73665bc2 returning error if any.
 // Get saved Telegram Passport¹ document, for more info see the passport docs »²

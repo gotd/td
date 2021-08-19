@@ -46,6 +46,14 @@ type ChannelsEditPhotoRequest struct {
 // ChannelsEditPhotoRequestTypeID is TL type id of ChannelsEditPhotoRequest.
 const ChannelsEditPhotoRequestTypeID = 0xf12e57c9
 
+// Ensuring interfaces in compile-time for ChannelsEditPhotoRequest.
+var (
+	_ bin.Encoder     = &ChannelsEditPhotoRequest{}
+	_ bin.Decoder     = &ChannelsEditPhotoRequest{}
+	_ bin.BareEncoder = &ChannelsEditPhotoRequest{}
+	_ bin.BareDecoder = &ChannelsEditPhotoRequest{}
+)
+
 func (e *ChannelsEditPhotoRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -142,21 +150,6 @@ func (e *ChannelsEditPhotoRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (e *ChannelsEditPhotoRequest) GetChannel() (value InputChannelClass) {
-	return e.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (e *ChannelsEditPhotoRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return e.Channel.AsNotEmpty()
-}
-
-// GetPhoto returns value of Photo field.
-func (e *ChannelsEditPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
-	return e.Photo
-}
-
 // Decode implements bin.Decoder.
 func (e *ChannelsEditPhotoRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -190,13 +183,20 @@ func (e *ChannelsEditPhotoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsEditPhotoRequest.
-var (
-	_ bin.Encoder     = &ChannelsEditPhotoRequest{}
-	_ bin.Decoder     = &ChannelsEditPhotoRequest{}
-	_ bin.BareEncoder = &ChannelsEditPhotoRequest{}
-	_ bin.BareDecoder = &ChannelsEditPhotoRequest{}
-)
+// GetChannel returns value of Channel field.
+func (e *ChannelsEditPhotoRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetPhoto returns value of Photo field.
+func (e *ChannelsEditPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
+	return e.Photo
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsEditPhotoRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
+}
 
 // ChannelsEditPhoto invokes method channels.editPhoto#f12e57c9 returning error if any.
 // Change the photo of a channel/supergroup¹

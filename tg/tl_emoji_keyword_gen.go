@@ -43,6 +43,19 @@ type EmojiKeyword struct {
 // EmojiKeywordTypeID is TL type id of EmojiKeyword.
 const EmojiKeywordTypeID = 0xd5b3b9f9
 
+// construct implements constructor of EmojiKeywordClass.
+func (e EmojiKeyword) construct() EmojiKeywordClass { return &e }
+
+// Ensuring interfaces in compile-time for EmojiKeyword.
+var (
+	_ bin.Encoder     = &EmojiKeyword{}
+	_ bin.Decoder     = &EmojiKeyword{}
+	_ bin.BareEncoder = &EmojiKeyword{}
+	_ bin.BareDecoder = &EmojiKeyword{}
+
+	_ EmojiKeywordClass = &EmojiKeyword{}
+)
+
 func (e *EmojiKeyword) Zero() bool {
 	if e == nil {
 		return true
@@ -132,16 +145,6 @@ func (e *EmojiKeyword) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetKeyword returns value of Keyword field.
-func (e *EmojiKeyword) GetKeyword() (value string) {
-	return e.Keyword
-}
-
-// GetEmoticons returns value of Emoticons field.
-func (e *EmojiKeyword) GetEmoticons() (value []string) {
-	return e.Emoticons
-}
-
 // Decode implements bin.Decoder.
 func (e *EmojiKeyword) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -185,18 +188,15 @@ func (e *EmojiKeyword) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EmojiKeywordClass.
-func (e EmojiKeyword) construct() EmojiKeywordClass { return &e }
+// GetKeyword returns value of Keyword field.
+func (e *EmojiKeyword) GetKeyword() (value string) {
+	return e.Keyword
+}
 
-// Ensuring interfaces in compile-time for EmojiKeyword.
-var (
-	_ bin.Encoder     = &EmojiKeyword{}
-	_ bin.Decoder     = &EmojiKeyword{}
-	_ bin.BareEncoder = &EmojiKeyword{}
-	_ bin.BareDecoder = &EmojiKeyword{}
-
-	_ EmojiKeywordClass = &EmojiKeyword{}
-)
+// GetEmoticons returns value of Emoticons field.
+func (e *EmojiKeyword) GetEmoticons() (value []string) {
+	return e.Emoticons
+}
 
 // EmojiKeywordDeleted represents TL type `emojiKeywordDeleted#236df622`.
 // Deleted emoji keyword
@@ -211,6 +211,19 @@ type EmojiKeywordDeleted struct {
 
 // EmojiKeywordDeletedTypeID is TL type id of EmojiKeywordDeleted.
 const EmojiKeywordDeletedTypeID = 0x236df622
+
+// construct implements constructor of EmojiKeywordClass.
+func (e EmojiKeywordDeleted) construct() EmojiKeywordClass { return &e }
+
+// Ensuring interfaces in compile-time for EmojiKeywordDeleted.
+var (
+	_ bin.Encoder     = &EmojiKeywordDeleted{}
+	_ bin.Decoder     = &EmojiKeywordDeleted{}
+	_ bin.BareEncoder = &EmojiKeywordDeleted{}
+	_ bin.BareDecoder = &EmojiKeywordDeleted{}
+
+	_ EmojiKeywordClass = &EmojiKeywordDeleted{}
+)
 
 func (e *EmojiKeywordDeleted) Zero() bool {
 	if e == nil {
@@ -301,16 +314,6 @@ func (e *EmojiKeywordDeleted) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetKeyword returns value of Keyword field.
-func (e *EmojiKeywordDeleted) GetKeyword() (value string) {
-	return e.Keyword
-}
-
-// GetEmoticons returns value of Emoticons field.
-func (e *EmojiKeywordDeleted) GetEmoticons() (value []string) {
-	return e.Emoticons
-}
-
 // Decode implements bin.Decoder.
 func (e *EmojiKeywordDeleted) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -354,18 +357,15 @@ func (e *EmojiKeywordDeleted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EmojiKeywordClass.
-func (e EmojiKeywordDeleted) construct() EmojiKeywordClass { return &e }
+// GetKeyword returns value of Keyword field.
+func (e *EmojiKeywordDeleted) GetKeyword() (value string) {
+	return e.Keyword
+}
 
-// Ensuring interfaces in compile-time for EmojiKeywordDeleted.
-var (
-	_ bin.Encoder     = &EmojiKeywordDeleted{}
-	_ bin.Decoder     = &EmojiKeywordDeleted{}
-	_ bin.BareEncoder = &EmojiKeywordDeleted{}
-	_ bin.BareDecoder = &EmojiKeywordDeleted{}
-
-	_ EmojiKeywordClass = &EmojiKeywordDeleted{}
-)
+// GetEmoticons returns value of Emoticons field.
+func (e *EmojiKeywordDeleted) GetEmoticons() (value []string) {
+	return e.Emoticons
+}
 
 // EmojiKeywordClass represents EmojiKeyword generic type.
 //

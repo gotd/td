@@ -49,6 +49,14 @@ type ChannelsDeleteHistoryRequest struct {
 // ChannelsDeleteHistoryRequestTypeID is TL type id of ChannelsDeleteHistoryRequest.
 const ChannelsDeleteHistoryRequestTypeID = 0xaf369d42
 
+// Ensuring interfaces in compile-time for ChannelsDeleteHistoryRequest.
+var (
+	_ bin.Encoder     = &ChannelsDeleteHistoryRequest{}
+	_ bin.Decoder     = &ChannelsDeleteHistoryRequest{}
+	_ bin.BareEncoder = &ChannelsDeleteHistoryRequest{}
+	_ bin.BareDecoder = &ChannelsDeleteHistoryRequest{}
+)
+
 func (d *ChannelsDeleteHistoryRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -140,21 +148,6 @@ func (d *ChannelsDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (d *ChannelsDeleteHistoryRequest) GetChannel() (value InputChannelClass) {
-	return d.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (d *ChannelsDeleteHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return d.Channel.AsNotEmpty()
-}
-
-// GetMaxID returns value of MaxID field.
-func (d *ChannelsDeleteHistoryRequest) GetMaxID() (value int) {
-	return d.MaxID
-}
-
 // Decode implements bin.Decoder.
 func (d *ChannelsDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -188,13 +181,20 @@ func (d *ChannelsDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsDeleteHistoryRequest.
-var (
-	_ bin.Encoder     = &ChannelsDeleteHistoryRequest{}
-	_ bin.Decoder     = &ChannelsDeleteHistoryRequest{}
-	_ bin.BareEncoder = &ChannelsDeleteHistoryRequest{}
-	_ bin.BareDecoder = &ChannelsDeleteHistoryRequest{}
-)
+// GetChannel returns value of Channel field.
+func (d *ChannelsDeleteHistoryRequest) GetChannel() (value InputChannelClass) {
+	return d.Channel
+}
+
+// GetMaxID returns value of MaxID field.
+func (d *ChannelsDeleteHistoryRequest) GetMaxID() (value int) {
+	return d.MaxID
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (d *ChannelsDeleteHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return d.Channel.AsNotEmpty()
+}
 
 // ChannelsDeleteHistory invokes method channels.deleteHistory#af369d42 returning error if any.
 // Delete the history of a supergroup¹

@@ -45,6 +45,14 @@ type AccountGetAuthorizationFormRequest struct {
 // AccountGetAuthorizationFormRequestTypeID is TL type id of AccountGetAuthorizationFormRequest.
 const AccountGetAuthorizationFormRequestTypeID = 0xb86ba8e1
 
+// Ensuring interfaces in compile-time for AccountGetAuthorizationFormRequest.
+var (
+	_ bin.Encoder     = &AccountGetAuthorizationFormRequest{}
+	_ bin.Decoder     = &AccountGetAuthorizationFormRequest{}
+	_ bin.BareEncoder = &AccountGetAuthorizationFormRequest{}
+	_ bin.BareDecoder = &AccountGetAuthorizationFormRequest{}
+)
+
 func (g *AccountGetAuthorizationFormRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -141,21 +149,6 @@ func (g *AccountGetAuthorizationFormRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetBotID returns value of BotID field.
-func (g *AccountGetAuthorizationFormRequest) GetBotID() (value int) {
-	return g.BotID
-}
-
-// GetScope returns value of Scope field.
-func (g *AccountGetAuthorizationFormRequest) GetScope() (value string) {
-	return g.Scope
-}
-
-// GetPublicKey returns value of PublicKey field.
-func (g *AccountGetAuthorizationFormRequest) GetPublicKey() (value string) {
-	return g.PublicKey
-}
-
 // Decode implements bin.Decoder.
 func (g *AccountGetAuthorizationFormRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -196,13 +189,20 @@ func (g *AccountGetAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountGetAuthorizationFormRequest.
-var (
-	_ bin.Encoder     = &AccountGetAuthorizationFormRequest{}
-	_ bin.Decoder     = &AccountGetAuthorizationFormRequest{}
-	_ bin.BareEncoder = &AccountGetAuthorizationFormRequest{}
-	_ bin.BareDecoder = &AccountGetAuthorizationFormRequest{}
-)
+// GetBotID returns value of BotID field.
+func (g *AccountGetAuthorizationFormRequest) GetBotID() (value int) {
+	return g.BotID
+}
+
+// GetScope returns value of Scope field.
+func (g *AccountGetAuthorizationFormRequest) GetScope() (value string) {
+	return g.Scope
+}
+
+// GetPublicKey returns value of PublicKey field.
+func (g *AccountGetAuthorizationFormRequest) GetPublicKey() (value string) {
+	return g.PublicKey
+}
 
 // AccountGetAuthorizationForm invokes method account.getAuthorizationForm#b86ba8e1 returning error if any.
 // Returns a Telegram Passport authorization form for sharing data with a service

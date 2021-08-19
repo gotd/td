@@ -73,6 +73,19 @@ type InputBotInlineResult struct {
 // InputBotInlineResultTypeID is TL type id of InputBotInlineResult.
 const InputBotInlineResultTypeID = 0x88bf9319
 
+// construct implements constructor of InputBotInlineResultClass.
+func (i InputBotInlineResult) construct() InputBotInlineResultClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineResult.
+var (
+	_ bin.Encoder     = &InputBotInlineResult{}
+	_ bin.Decoder     = &InputBotInlineResult{}
+	_ bin.BareEncoder = &InputBotInlineResult{}
+	_ bin.BareDecoder = &InputBotInlineResult{}
+
+	_ InputBotInlineResultClass = &InputBotInlineResult{}
+)
+
 func (i *InputBotInlineResult) Zero() bool {
 	if i == nil {
 		return true
@@ -279,6 +292,82 @@ func (i *InputBotInlineResult) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (i *InputBotInlineResult) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineResult#88bf9319 to nil")
+	}
+	if err := b.ConsumeID(InputBotInlineResultTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputBotInlineResult) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineResult#88bf9319 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field id: %w", err)
+		}
+		i.ID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field type: %w", err)
+		}
+		i.Type = value
+	}
+	if i.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field title: %w", err)
+		}
+		i.Title = value
+	}
+	if i.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field description: %w", err)
+		}
+		i.Description = value
+	}
+	if i.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field url: %w", err)
+		}
+		i.URL = value
+	}
+	if i.Flags.Has(4) {
+		if err := i.Thumb.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field thumb: %w", err)
+		}
+	}
+	if i.Flags.Has(5) {
+		if err := i.Content.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field content: %w", err)
+		}
+	}
+	{
+		value, err := DecodeInputBotInlineMessage(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field send_message: %w", err)
+		}
+		i.SendMessage = value
+	}
+	return nil
+}
+
 // GetID returns value of ID field.
 func (i *InputBotInlineResult) GetID() (value string) {
 	return i.ID
@@ -369,95 +458,6 @@ func (i *InputBotInlineResult) GetSendMessage() (value InputBotInlineMessageClas
 	return i.SendMessage
 }
 
-// Decode implements bin.Decoder.
-func (i *InputBotInlineResult) Decode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineResult#88bf9319 to nil")
-	}
-	if err := b.ConsumeID(InputBotInlineResultTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: %w", err)
-	}
-	return i.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (i *InputBotInlineResult) DecodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineResult#88bf9319 to nil")
-	}
-	{
-		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field flags: %w", err)
-		}
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field id: %w", err)
-		}
-		i.ID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field type: %w", err)
-		}
-		i.Type = value
-	}
-	if i.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field title: %w", err)
-		}
-		i.Title = value
-	}
-	if i.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field description: %w", err)
-		}
-		i.Description = value
-	}
-	if i.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field url: %w", err)
-		}
-		i.URL = value
-	}
-	if i.Flags.Has(4) {
-		if err := i.Thumb.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field thumb: %w", err)
-		}
-	}
-	if i.Flags.Has(5) {
-		if err := i.Content.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field content: %w", err)
-		}
-	}
-	{
-		value, err := DecodeInputBotInlineMessage(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field send_message: %w", err)
-		}
-		i.SendMessage = value
-	}
-	return nil
-}
-
-// construct implements constructor of InputBotInlineResultClass.
-func (i InputBotInlineResult) construct() InputBotInlineResultClass { return &i }
-
-// Ensuring interfaces in compile-time for InputBotInlineResult.
-var (
-	_ bin.Encoder     = &InputBotInlineResult{}
-	_ bin.Decoder     = &InputBotInlineResult{}
-	_ bin.BareEncoder = &InputBotInlineResult{}
-	_ bin.BareDecoder = &InputBotInlineResult{}
-
-	_ InputBotInlineResultClass = &InputBotInlineResult{}
-)
-
 // InputBotInlineResultPhoto represents TL type `inputBotInlineResultPhoto#a8d864a7`.
 // Photo
 //
@@ -478,6 +478,19 @@ type InputBotInlineResultPhoto struct {
 
 // InputBotInlineResultPhotoTypeID is TL type id of InputBotInlineResultPhoto.
 const InputBotInlineResultPhotoTypeID = 0xa8d864a7
+
+// construct implements constructor of InputBotInlineResultClass.
+func (i InputBotInlineResultPhoto) construct() InputBotInlineResultClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineResultPhoto.
+var (
+	_ bin.Encoder     = &InputBotInlineResultPhoto{}
+	_ bin.Decoder     = &InputBotInlineResultPhoto{}
+	_ bin.BareEncoder = &InputBotInlineResultPhoto{}
+	_ bin.BareDecoder = &InputBotInlineResultPhoto{}
+
+	_ InputBotInlineResultClass = &InputBotInlineResultPhoto{}
+)
 
 func (i *InputBotInlineResultPhoto) Zero() bool {
 	if i == nil {
@@ -595,26 +608,6 @@ func (i *InputBotInlineResultPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputBotInlineResultPhoto) GetID() (value string) {
-	return i.ID
-}
-
-// GetType returns value of Type field.
-func (i *InputBotInlineResultPhoto) GetType() (value string) {
-	return i.Type
-}
-
-// GetPhoto returns value of Photo field.
-func (i *InputBotInlineResultPhoto) GetPhoto() (value InputPhotoClass) {
-	return i.Photo
-}
-
-// GetSendMessage returns value of SendMessage field.
-func (i *InputBotInlineResultPhoto) GetSendMessage() (value InputBotInlineMessageClass) {
-	return i.SendMessage
-}
-
 // Decode implements bin.Decoder.
 func (i *InputBotInlineResultPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -662,18 +655,25 @@ func (i *InputBotInlineResultPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputBotInlineResultClass.
-func (i InputBotInlineResultPhoto) construct() InputBotInlineResultClass { return &i }
+// GetID returns value of ID field.
+func (i *InputBotInlineResultPhoto) GetID() (value string) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputBotInlineResultPhoto.
-var (
-	_ bin.Encoder     = &InputBotInlineResultPhoto{}
-	_ bin.Decoder     = &InputBotInlineResultPhoto{}
-	_ bin.BareEncoder = &InputBotInlineResultPhoto{}
-	_ bin.BareDecoder = &InputBotInlineResultPhoto{}
+// GetType returns value of Type field.
+func (i *InputBotInlineResultPhoto) GetType() (value string) {
+	return i.Type
+}
 
-	_ InputBotInlineResultClass = &InputBotInlineResultPhoto{}
-)
+// GetPhoto returns value of Photo field.
+func (i *InputBotInlineResultPhoto) GetPhoto() (value InputPhotoClass) {
+	return i.Photo
+}
+
+// GetSendMessage returns value of SendMessage field.
+func (i *InputBotInlineResultPhoto) GetSendMessage() (value InputBotInlineMessageClass) {
+	return i.SendMessage
+}
 
 // InputBotInlineResultDocument represents TL type `inputBotInlineResultDocument#fff8fdc4`.
 // Document (media of any type except for photos)
@@ -708,6 +708,19 @@ type InputBotInlineResultDocument struct {
 
 // InputBotInlineResultDocumentTypeID is TL type id of InputBotInlineResultDocument.
 const InputBotInlineResultDocumentTypeID = 0xfff8fdc4
+
+// construct implements constructor of InputBotInlineResultClass.
+func (i InputBotInlineResultDocument) construct() InputBotInlineResultClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineResultDocument.
+var (
+	_ bin.Encoder     = &InputBotInlineResultDocument{}
+	_ bin.Decoder     = &InputBotInlineResultDocument{}
+	_ bin.BareEncoder = &InputBotInlineResultDocument{}
+	_ bin.BareDecoder = &InputBotInlineResultDocument{}
+
+	_ InputBotInlineResultClass = &InputBotInlineResultDocument{}
+)
 
 func (i *InputBotInlineResultDocument) Zero() bool {
 	if i == nil {
@@ -869,56 +882,6 @@ func (i *InputBotInlineResultDocument) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputBotInlineResultDocument) GetID() (value string) {
-	return i.ID
-}
-
-// GetType returns value of Type field.
-func (i *InputBotInlineResultDocument) GetType() (value string) {
-	return i.Type
-}
-
-// SetTitle sets value of Title conditional field.
-func (i *InputBotInlineResultDocument) SetTitle(value string) {
-	i.Flags.Set(1)
-	i.Title = value
-}
-
-// GetTitle returns value of Title conditional field and
-// boolean which is true if field was set.
-func (i *InputBotInlineResultDocument) GetTitle() (value string, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.Title, true
-}
-
-// SetDescription sets value of Description conditional field.
-func (i *InputBotInlineResultDocument) SetDescription(value string) {
-	i.Flags.Set(2)
-	i.Description = value
-}
-
-// GetDescription returns value of Description conditional field and
-// boolean which is true if field was set.
-func (i *InputBotInlineResultDocument) GetDescription() (value string, ok bool) {
-	if !i.Flags.Has(2) {
-		return value, false
-	}
-	return i.Description, true
-}
-
-// GetDocument returns value of Document field.
-func (i *InputBotInlineResultDocument) GetDocument() (value InputDocumentClass) {
-	return i.Document
-}
-
-// GetSendMessage returns value of SendMessage field.
-func (i *InputBotInlineResultDocument) GetSendMessage() (value InputBotInlineMessageClass) {
-	return i.SendMessage
-}
-
 // Decode implements bin.Decoder.
 func (i *InputBotInlineResultDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -985,18 +948,55 @@ func (i *InputBotInlineResultDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputBotInlineResultClass.
-func (i InputBotInlineResultDocument) construct() InputBotInlineResultClass { return &i }
+// GetID returns value of ID field.
+func (i *InputBotInlineResultDocument) GetID() (value string) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputBotInlineResultDocument.
-var (
-	_ bin.Encoder     = &InputBotInlineResultDocument{}
-	_ bin.Decoder     = &InputBotInlineResultDocument{}
-	_ bin.BareEncoder = &InputBotInlineResultDocument{}
-	_ bin.BareDecoder = &InputBotInlineResultDocument{}
+// GetType returns value of Type field.
+func (i *InputBotInlineResultDocument) GetType() (value string) {
+	return i.Type
+}
 
-	_ InputBotInlineResultClass = &InputBotInlineResultDocument{}
-)
+// SetTitle sets value of Title conditional field.
+func (i *InputBotInlineResultDocument) SetTitle(value string) {
+	i.Flags.Set(1)
+	i.Title = value
+}
+
+// GetTitle returns value of Title conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineResultDocument) GetTitle() (value string, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Title, true
+}
+
+// SetDescription sets value of Description conditional field.
+func (i *InputBotInlineResultDocument) SetDescription(value string) {
+	i.Flags.Set(2)
+	i.Description = value
+}
+
+// GetDescription returns value of Description conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineResultDocument) GetDescription() (value string, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.Description, true
+}
+
+// GetDocument returns value of Document field.
+func (i *InputBotInlineResultDocument) GetDocument() (value InputDocumentClass) {
+	return i.Document
+}
+
+// GetSendMessage returns value of SendMessage field.
+func (i *InputBotInlineResultDocument) GetSendMessage() (value InputBotInlineMessageClass) {
+	return i.SendMessage
+}
 
 // InputBotInlineResultGame represents TL type `inputBotInlineResultGame#4fa417f2`.
 // Game
@@ -1013,6 +1013,19 @@ type InputBotInlineResultGame struct {
 
 // InputBotInlineResultGameTypeID is TL type id of InputBotInlineResultGame.
 const InputBotInlineResultGameTypeID = 0x4fa417f2
+
+// construct implements constructor of InputBotInlineResultClass.
+func (i InputBotInlineResultGame) construct() InputBotInlineResultClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineResultGame.
+var (
+	_ bin.Encoder     = &InputBotInlineResultGame{}
+	_ bin.Decoder     = &InputBotInlineResultGame{}
+	_ bin.BareEncoder = &InputBotInlineResultGame{}
+	_ bin.BareDecoder = &InputBotInlineResultGame{}
+
+	_ InputBotInlineResultClass = &InputBotInlineResultGame{}
+)
 
 func (i *InputBotInlineResultGame) Zero() bool {
 	if i == nil {
@@ -1115,21 +1128,6 @@ func (i *InputBotInlineResultGame) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputBotInlineResultGame) GetID() (value string) {
-	return i.ID
-}
-
-// GetShortName returns value of ShortName field.
-func (i *InputBotInlineResultGame) GetShortName() (value string) {
-	return i.ShortName
-}
-
-// GetSendMessage returns value of SendMessage field.
-func (i *InputBotInlineResultGame) GetSendMessage() (value InputBotInlineMessageClass) {
-	return i.SendMessage
-}
-
 // Decode implements bin.Decoder.
 func (i *InputBotInlineResultGame) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1170,18 +1168,20 @@ func (i *InputBotInlineResultGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputBotInlineResultClass.
-func (i InputBotInlineResultGame) construct() InputBotInlineResultClass { return &i }
+// GetID returns value of ID field.
+func (i *InputBotInlineResultGame) GetID() (value string) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputBotInlineResultGame.
-var (
-	_ bin.Encoder     = &InputBotInlineResultGame{}
-	_ bin.Decoder     = &InputBotInlineResultGame{}
-	_ bin.BareEncoder = &InputBotInlineResultGame{}
-	_ bin.BareDecoder = &InputBotInlineResultGame{}
+// GetShortName returns value of ShortName field.
+func (i *InputBotInlineResultGame) GetShortName() (value string) {
+	return i.ShortName
+}
 
-	_ InputBotInlineResultClass = &InputBotInlineResultGame{}
-)
+// GetSendMessage returns value of SendMessage field.
+func (i *InputBotInlineResultGame) GetSendMessage() (value InputBotInlineMessageClass) {
+	return i.SendMessage
+}
 
 // InputBotInlineResultClass represents InputBotInlineResult generic type.
 //

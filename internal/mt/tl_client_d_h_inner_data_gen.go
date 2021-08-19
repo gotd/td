@@ -44,6 +44,14 @@ type ClientDHInnerData struct {
 // ClientDHInnerDataTypeID is TL type id of ClientDHInnerData.
 const ClientDHInnerDataTypeID = 0x6643b654
 
+// Ensuring interfaces in compile-time for ClientDHInnerData.
+var (
+	_ bin.Encoder     = &ClientDHInnerData{}
+	_ bin.Decoder     = &ClientDHInnerData{}
+	_ bin.BareEncoder = &ClientDHInnerData{}
+	_ bin.BareDecoder = &ClientDHInnerData{}
+)
+
 func (c *ClientDHInnerData) Zero() bool {
 	if c == nil {
 		return true
@@ -71,19 +79,6 @@ func (c *ClientDHInnerData) String() string {
 	}
 	type Alias ClientDHInnerData
 	return fmt.Sprintf("ClientDHInnerData%+v", Alias(*c))
-}
-
-// FillFrom fills ClientDHInnerData from given interface.
-func (c *ClientDHInnerData) FillFrom(from interface {
-	GetNonce() (value bin.Int128)
-	GetServerNonce() (value bin.Int128)
-	GetRetryID() (value int64)
-	GetGB() (value []byte)
-}) {
-	c.Nonce = from.GetNonce()
-	c.ServerNonce = from.GetServerNonce()
-	c.RetryID = from.GetRetryID()
-	c.GB = from.GetGB()
 }
 
 // TypeID returns type id in TL schema.
@@ -150,26 +145,6 @@ func (c *ClientDHInnerData) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNonce returns value of Nonce field.
-func (c *ClientDHInnerData) GetNonce() (value bin.Int128) {
-	return c.Nonce
-}
-
-// GetServerNonce returns value of ServerNonce field.
-func (c *ClientDHInnerData) GetServerNonce() (value bin.Int128) {
-	return c.ServerNonce
-}
-
-// GetRetryID returns value of RetryID field.
-func (c *ClientDHInnerData) GetRetryID() (value int64) {
-	return c.RetryID
-}
-
-// GetGB returns value of GB field.
-func (c *ClientDHInnerData) GetGB() (value []byte) {
-	return c.GB
-}
-
 // Decode implements bin.Decoder.
 func (c *ClientDHInnerData) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -217,10 +192,22 @@ func (c *ClientDHInnerData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ClientDHInnerData.
-var (
-	_ bin.Encoder     = &ClientDHInnerData{}
-	_ bin.Decoder     = &ClientDHInnerData{}
-	_ bin.BareEncoder = &ClientDHInnerData{}
-	_ bin.BareDecoder = &ClientDHInnerData{}
-)
+// GetNonce returns value of Nonce field.
+func (c *ClientDHInnerData) GetNonce() (value bin.Int128) {
+	return c.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (c *ClientDHInnerData) GetServerNonce() (value bin.Int128) {
+	return c.ServerNonce
+}
+
+// GetRetryID returns value of RetryID field.
+func (c *ClientDHInnerData) GetRetryID() (value int64) {
+	return c.RetryID
+}
+
+// GetGB returns value of GB field.
+func (c *ClientDHInnerData) GetGB() (value []byte) {
+	return c.GB
+}

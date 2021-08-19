@@ -45,6 +45,14 @@ type Error struct {
 // ErrorTypeID is TL type id of Error.
 const ErrorTypeID = 0x14feebbc
 
+// Ensuring interfaces in compile-time for Error.
+var (
+	_ bin.Encoder     = &Error{}
+	_ bin.Decoder     = &Error{}
+	_ bin.BareEncoder = &Error{}
+	_ bin.BareDecoder = &Error{}
+)
+
 func (e *Error) Zero() bool {
 	if e == nil {
 		return true
@@ -69,17 +77,6 @@ func (e *Error) String() string {
 	}
 	type Alias Error
 	return fmt.Sprintf("Error%+v", Alias(*e))
-}
-
-// FillFrom fills Error from given interface.
-func (e *Error) FillFrom(from interface {
-	GetCode() (value int32)
-	GetMessage() (value string)
-	GetTemporary() (value bool)
-}) {
-	e.Code = from.GetCode()
-	e.Message = from.GetMessage()
-	e.Temporary = from.GetTemporary()
 }
 
 // TypeID returns type id in TL schema.
@@ -141,21 +138,6 @@ func (e *Error) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCode returns value of Code field.
-func (e *Error) GetCode() (value int32) {
-	return e.Code
-}
-
-// GetMessage returns value of Message field.
-func (e *Error) GetMessage() (value string) {
-	return e.Message
-}
-
-// GetTemporary returns value of Temporary field.
-func (e *Error) GetTemporary() (value bool) {
-	return e.Temporary
-}
-
 // Decode implements bin.Decoder.
 func (e *Error) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -196,10 +178,17 @@ func (e *Error) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for Error.
-var (
-	_ bin.Encoder     = &Error{}
-	_ bin.Decoder     = &Error{}
-	_ bin.BareEncoder = &Error{}
-	_ bin.BareDecoder = &Error{}
-)
+// GetCode returns value of Code field.
+func (e *Error) GetCode() (value int32) {
+	return e.Code
+}
+
+// GetMessage returns value of Message field.
+func (e *Error) GetMessage() (value string) {
+	return e.Message
+}
+
+// GetTemporary returns value of Temporary field.
+func (e *Error) GetTemporary() (value bool) {
+	return e.Temporary
+}

@@ -58,6 +58,14 @@ type MessagesSetBotCallbackAnswerRequest struct {
 // MessagesSetBotCallbackAnswerRequestTypeID is TL type id of MessagesSetBotCallbackAnswerRequest.
 const MessagesSetBotCallbackAnswerRequestTypeID = 0xd58f130a
 
+// Ensuring interfaces in compile-time for MessagesSetBotCallbackAnswerRequest.
+var (
+	_ bin.Encoder     = &MessagesSetBotCallbackAnswerRequest{}
+	_ bin.Decoder     = &MessagesSetBotCallbackAnswerRequest{}
+	_ bin.BareEncoder = &MessagesSetBotCallbackAnswerRequest{}
+	_ bin.BareDecoder = &MessagesSetBotCallbackAnswerRequest{}
+)
+
 func (s *MessagesSetBotCallbackAnswerRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -201,6 +209,59 @@ func (s *MessagesSetBotCallbackAnswerRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (s *MessagesSetBotCallbackAnswerRequest) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.setBotCallbackAnswer#d58f130a to nil")
+	}
+	if err := b.ConsumeID(MessagesSetBotCallbackAnswerRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.setBotCallbackAnswer#d58f130a: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSetBotCallbackAnswerRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.setBotCallbackAnswer#d58f130a to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.setBotCallbackAnswer#d58f130a: field flags: %w", err)
+		}
+	}
+	s.Alert = s.Flags.Has(1)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.setBotCallbackAnswer#d58f130a: field query_id: %w", err)
+		}
+		s.QueryID = value
+	}
+	if s.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.setBotCallbackAnswer#d58f130a: field message: %w", err)
+		}
+		s.Message = value
+	}
+	if s.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.setBotCallbackAnswer#d58f130a: field url: %w", err)
+		}
+		s.URL = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.setBotCallbackAnswer#d58f130a: field cache_time: %w", err)
+		}
+		s.CacheTime = value
+	}
+	return nil
+}
+
 // SetAlert sets value of Alert conditional field.
 func (s *MessagesSetBotCallbackAnswerRequest) SetAlert(value bool) {
 	if value {
@@ -256,67 +317,6 @@ func (s *MessagesSetBotCallbackAnswerRequest) GetURL() (value string, ok bool) {
 func (s *MessagesSetBotCallbackAnswerRequest) GetCacheTime() (value int) {
 	return s.CacheTime
 }
-
-// Decode implements bin.Decoder.
-func (s *MessagesSetBotCallbackAnswerRequest) Decode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode messages.setBotCallbackAnswer#d58f130a to nil")
-	}
-	if err := b.ConsumeID(MessagesSetBotCallbackAnswerRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setBotCallbackAnswer#d58f130a: %w", err)
-	}
-	return s.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (s *MessagesSetBotCallbackAnswerRequest) DecodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode messages.setBotCallbackAnswer#d58f130a to nil")
-	}
-	{
-		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setBotCallbackAnswer#d58f130a: field flags: %w", err)
-		}
-	}
-	s.Alert = s.Flags.Has(1)
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.setBotCallbackAnswer#d58f130a: field query_id: %w", err)
-		}
-		s.QueryID = value
-	}
-	if s.Flags.Has(0) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.setBotCallbackAnswer#d58f130a: field message: %w", err)
-		}
-		s.Message = value
-	}
-	if s.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.setBotCallbackAnswer#d58f130a: field url: %w", err)
-		}
-		s.URL = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.setBotCallbackAnswer#d58f130a: field cache_time: %w", err)
-		}
-		s.CacheTime = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesSetBotCallbackAnswerRequest.
-var (
-	_ bin.Encoder     = &MessagesSetBotCallbackAnswerRequest{}
-	_ bin.Decoder     = &MessagesSetBotCallbackAnswerRequest{}
-	_ bin.BareEncoder = &MessagesSetBotCallbackAnswerRequest{}
-	_ bin.BareDecoder = &MessagesSetBotCallbackAnswerRequest{}
-)
 
 // MessagesSetBotCallbackAnswer invokes method messages.setBotCallbackAnswer#d58f130a returning error if any.
 // Set the callback answer to a user button press (bots only)

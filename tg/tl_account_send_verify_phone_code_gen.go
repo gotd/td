@@ -46,6 +46,14 @@ type AccountSendVerifyPhoneCodeRequest struct {
 // AccountSendVerifyPhoneCodeRequestTypeID is TL type id of AccountSendVerifyPhoneCodeRequest.
 const AccountSendVerifyPhoneCodeRequestTypeID = 0xa5a356f9
 
+// Ensuring interfaces in compile-time for AccountSendVerifyPhoneCodeRequest.
+var (
+	_ bin.Encoder     = &AccountSendVerifyPhoneCodeRequest{}
+	_ bin.Decoder     = &AccountSendVerifyPhoneCodeRequest{}
+	_ bin.BareEncoder = &AccountSendVerifyPhoneCodeRequest{}
+	_ bin.BareDecoder = &AccountSendVerifyPhoneCodeRequest{}
+)
+
 func (s *AccountSendVerifyPhoneCodeRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -134,16 +142,6 @@ func (s *AccountSendVerifyPhoneCodeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (s *AccountSendVerifyPhoneCodeRequest) GetPhoneNumber() (value string) {
-	return s.PhoneNumber
-}
-
-// GetSettings returns value of Settings field.
-func (s *AccountSendVerifyPhoneCodeRequest) GetSettings() (value CodeSettings) {
-	return s.Settings
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSendVerifyPhoneCodeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -175,13 +173,15 @@ func (s *AccountSendVerifyPhoneCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSendVerifyPhoneCodeRequest.
-var (
-	_ bin.Encoder     = &AccountSendVerifyPhoneCodeRequest{}
-	_ bin.Decoder     = &AccountSendVerifyPhoneCodeRequest{}
-	_ bin.BareEncoder = &AccountSendVerifyPhoneCodeRequest{}
-	_ bin.BareDecoder = &AccountSendVerifyPhoneCodeRequest{}
-)
+// GetPhoneNumber returns value of PhoneNumber field.
+func (s *AccountSendVerifyPhoneCodeRequest) GetPhoneNumber() (value string) {
+	return s.PhoneNumber
+}
+
+// GetSettings returns value of Settings field.
+func (s *AccountSendVerifyPhoneCodeRequest) GetSettings() (value CodeSettings) {
+	return s.Settings
+}
 
 // AccountSendVerifyPhoneCode invokes method account.sendVerifyPhoneCode#a5a356f9 returning error if any.
 // Send the verification phone code for telegram passport¹.

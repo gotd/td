@@ -43,6 +43,14 @@ type InvokeWithMessagesRangeRequest struct {
 // InvokeWithMessagesRangeRequestTypeID is TL type id of InvokeWithMessagesRangeRequest.
 const InvokeWithMessagesRangeRequestTypeID = 0x365275f2
 
+// Ensuring interfaces in compile-time for InvokeWithMessagesRangeRequest.
+var (
+	_ bin.Encoder     = &InvokeWithMessagesRangeRequest{}
+	_ bin.Decoder     = &InvokeWithMessagesRangeRequest{}
+	_ bin.BareEncoder = &InvokeWithMessagesRangeRequest{}
+	_ bin.BareDecoder = &InvokeWithMessagesRangeRequest{}
+)
+
 func (i *InvokeWithMessagesRangeRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -133,16 +141,6 @@ func (i *InvokeWithMessagesRangeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRange returns value of Range field.
-func (i *InvokeWithMessagesRangeRequest) GetRange() (value MessageRange) {
-	return i.Range
-}
-
-// GetQuery returns value of Query field.
-func (i *InvokeWithMessagesRangeRequest) GetQuery() (value bin.Object) {
-	return i.Query
-}
-
 // Decode implements bin.Decoder.
 func (i *InvokeWithMessagesRangeRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -172,10 +170,12 @@ func (i *InvokeWithMessagesRangeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InvokeWithMessagesRangeRequest.
-var (
-	_ bin.Encoder     = &InvokeWithMessagesRangeRequest{}
-	_ bin.Decoder     = &InvokeWithMessagesRangeRequest{}
-	_ bin.BareEncoder = &InvokeWithMessagesRangeRequest{}
-	_ bin.BareDecoder = &InvokeWithMessagesRangeRequest{}
-)
+// GetRange returns value of Range field.
+func (i *InvokeWithMessagesRangeRequest) GetRange() (value MessageRange) {
+	return i.Range
+}
+
+// GetQuery returns value of Query field.
+func (i *InvokeWithMessagesRangeRequest) GetQuery() (value bin.Object) {
+	return i.Query
+}

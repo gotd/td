@@ -97,6 +97,19 @@ type ChatFull struct {
 // ChatFullTypeID is TL type id of ChatFull.
 const ChatFullTypeID = 0x8a1e2983
 
+// construct implements constructor of ChatFullClass.
+func (c ChatFull) construct() ChatFullClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatFull.
+var (
+	_ bin.Encoder     = &ChatFull{}
+	_ bin.Decoder     = &ChatFull{}
+	_ bin.BareEncoder = &ChatFull{}
+	_ bin.BareDecoder = &ChatFull{}
+
+	_ ChatFullClass = &ChatFull{}
+)
+
 func (c *ChatFull) Zero() bool {
 	if c == nil {
 		return true
@@ -413,6 +426,120 @@ func (c *ChatFull) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *ChatFull) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatFull#8a1e2983 to nil")
+	}
+	if err := b.ConsumeID(ChatFullTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatFull#8a1e2983: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatFull) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatFull#8a1e2983 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field flags: %w", err)
+		}
+	}
+	c.CanSetUsername = c.Flags.Has(7)
+	c.HasScheduled = c.Flags.Has(8)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field id: %w", err)
+		}
+		c.ID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field about: %w", err)
+		}
+		c.About = value
+	}
+	{
+		value, err := DecodeChatParticipants(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field participants: %w", err)
+		}
+		c.Participants = value
+	}
+	if c.Flags.Has(2) {
+		value, err := DecodePhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field chat_photo: %w", err)
+		}
+		c.ChatPhoto = value
+	}
+	{
+		if err := c.NotifySettings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field notify_settings: %w", err)
+		}
+	}
+	if c.Flags.Has(13) {
+		if err := c.ExportedInvite.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field exported_invite: %w", err)
+		}
+	}
+	if c.Flags.Has(3) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field bot_info: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.BotInfo = make([]BotInfo, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value BotInfo
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode chatFull#8a1e2983: field bot_info: %w", err)
+			}
+			c.BotInfo = append(c.BotInfo, value)
+		}
+	}
+	if c.Flags.Has(6) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field pinned_msg_id: %w", err)
+		}
+		c.PinnedMsgID = value
+	}
+	if c.Flags.Has(11) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field folder_id: %w", err)
+		}
+		c.FolderID = value
+	}
+	if c.Flags.Has(12) {
+		if err := c.Call.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field call: %w", err)
+		}
+	}
+	if c.Flags.Has(14) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field ttl_period: %w", err)
+		}
+		c.TTLPeriod = value
+	}
+	if c.Flags.Has(15) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chatFull#8a1e2983: field groupcall_default_join_as: %w", err)
+		}
+		c.GroupcallDefaultJoinAs = value
+	}
+	return nil
+}
+
 // SetCanSetUsername sets value of CanSetUsername conditional field.
 func (c *ChatFull) SetCanSetUsername(value bool) {
 	if value {
@@ -585,133 +712,6 @@ func (c *ChatFull) GetGroupcallDefaultJoinAs() (value PeerClass, ok bool) {
 	return c.GroupcallDefaultJoinAs, true
 }
 
-// Decode implements bin.Decoder.
-func (c *ChatFull) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatFull#8a1e2983 to nil")
-	}
-	if err := b.ConsumeID(ChatFullTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatFull#8a1e2983: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatFull) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatFull#8a1e2983 to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field flags: %w", err)
-		}
-	}
-	c.CanSetUsername = c.Flags.Has(7)
-	c.HasScheduled = c.Flags.Has(8)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field id: %w", err)
-		}
-		c.ID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field about: %w", err)
-		}
-		c.About = value
-	}
-	{
-		value, err := DecodeChatParticipants(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field participants: %w", err)
-		}
-		c.Participants = value
-	}
-	if c.Flags.Has(2) {
-		value, err := DecodePhoto(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field chat_photo: %w", err)
-		}
-		c.ChatPhoto = value
-	}
-	{
-		if err := c.NotifySettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field notify_settings: %w", err)
-		}
-	}
-	if c.Flags.Has(13) {
-		if err := c.ExportedInvite.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field exported_invite: %w", err)
-		}
-	}
-	if c.Flags.Has(3) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field bot_info: %w", err)
-		}
-
-		if headerLen > 0 {
-			c.BotInfo = make([]BotInfo, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value BotInfo
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode chatFull#8a1e2983: field bot_info: %w", err)
-			}
-			c.BotInfo = append(c.BotInfo, value)
-		}
-	}
-	if c.Flags.Has(6) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field pinned_msg_id: %w", err)
-		}
-		c.PinnedMsgID = value
-	}
-	if c.Flags.Has(11) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field folder_id: %w", err)
-		}
-		c.FolderID = value
-	}
-	if c.Flags.Has(12) {
-		if err := c.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field call: %w", err)
-		}
-	}
-	if c.Flags.Has(14) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field ttl_period: %w", err)
-		}
-		c.TTLPeriod = value
-	}
-	if c.Flags.Has(15) {
-		value, err := DecodePeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode chatFull#8a1e2983: field groupcall_default_join_as: %w", err)
-		}
-		c.GroupcallDefaultJoinAs = value
-	}
-	return nil
-}
-
-// construct implements constructor of ChatFullClass.
-func (c ChatFull) construct() ChatFullClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatFull.
-var (
-	_ bin.Encoder     = &ChatFull{}
-	_ bin.Decoder     = &ChatFull{}
-	_ bin.BareEncoder = &ChatFull{}
-	_ bin.BareDecoder = &ChatFull{}
-
-	_ ChatFullClass = &ChatFull{}
-)
-
 // ChannelFull represents TL type `channelFull#548c3f93`.
 // Full info about a channel/supergroup¹
 //
@@ -883,6 +883,19 @@ type ChannelFull struct {
 
 // ChannelFullTypeID is TL type id of ChannelFull.
 const ChannelFullTypeID = 0x548c3f93
+
+// construct implements constructor of ChatFullClass.
+func (c ChannelFull) construct() ChatFullClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelFull.
+var (
+	_ bin.Encoder     = &ChannelFull{}
+	_ bin.Decoder     = &ChannelFull{}
+	_ bin.BareEncoder = &ChannelFull{}
+	_ bin.BareDecoder = &ChannelFull{}
+
+	_ ChatFullClass = &ChannelFull{}
+)
 
 func (c *ChannelFull) Zero() bool {
 	if c == nil {
@@ -1580,6 +1593,260 @@ func (c *ChannelFull) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *ChannelFull) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelFull#548c3f93 to nil")
+	}
+	if err := b.ConsumeID(ChannelFullTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelFull#548c3f93: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelFull#548c3f93 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field flags: %w", err)
+		}
+	}
+	c.CanViewParticipants = c.Flags.Has(3)
+	c.CanSetUsername = c.Flags.Has(6)
+	c.CanSetStickers = c.Flags.Has(7)
+	c.HiddenPrehistory = c.Flags.Has(10)
+	c.CanSetLocation = c.Flags.Has(16)
+	c.HasScheduled = c.Flags.Has(19)
+	c.CanViewStats = c.Flags.Has(20)
+	c.Blocked = c.Flags.Has(22)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field id: %w", err)
+		}
+		c.ID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field about: %w", err)
+		}
+		c.About = value
+	}
+	if c.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field participants_count: %w", err)
+		}
+		c.ParticipantsCount = value
+	}
+	if c.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field admins_count: %w", err)
+		}
+		c.AdminsCount = value
+	}
+	if c.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field kicked_count: %w", err)
+		}
+		c.KickedCount = value
+	}
+	if c.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field banned_count: %w", err)
+		}
+		c.BannedCount = value
+	}
+	if c.Flags.Has(13) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field online_count: %w", err)
+		}
+		c.OnlineCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field read_inbox_max_id: %w", err)
+		}
+		c.ReadInboxMaxID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field read_outbox_max_id: %w", err)
+		}
+		c.ReadOutboxMaxID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field unread_count: %w", err)
+		}
+		c.UnreadCount = value
+	}
+	{
+		value, err := DecodePhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field chat_photo: %w", err)
+		}
+		c.ChatPhoto = value
+	}
+	{
+		if err := c.NotifySettings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field notify_settings: %w", err)
+		}
+	}
+	if c.Flags.Has(23) {
+		if err := c.ExportedInvite.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field exported_invite: %w", err)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field bot_info: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.BotInfo = make([]BotInfo, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value BotInfo
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode channelFull#548c3f93: field bot_info: %w", err)
+			}
+			c.BotInfo = append(c.BotInfo, value)
+		}
+	}
+	if c.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field migrated_from_chat_id: %w", err)
+		}
+		c.MigratedFromChatID = value
+	}
+	if c.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field migrated_from_max_id: %w", err)
+		}
+		c.MigratedFromMaxID = value
+	}
+	if c.Flags.Has(5) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field pinned_msg_id: %w", err)
+		}
+		c.PinnedMsgID = value
+	}
+	if c.Flags.Has(8) {
+		if err := c.Stickerset.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field stickerset: %w", err)
+		}
+	}
+	if c.Flags.Has(9) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field available_min_id: %w", err)
+		}
+		c.AvailableMinID = value
+	}
+	if c.Flags.Has(11) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field folder_id: %w", err)
+		}
+		c.FolderID = value
+	}
+	if c.Flags.Has(14) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field linked_chat_id: %w", err)
+		}
+		c.LinkedChatID = value
+	}
+	if c.Flags.Has(15) {
+		value, err := DecodeChannelLocation(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field location: %w", err)
+		}
+		c.Location = value
+	}
+	if c.Flags.Has(17) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field slowmode_seconds: %w", err)
+		}
+		c.SlowmodeSeconds = value
+	}
+	if c.Flags.Has(18) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field slowmode_next_send_date: %w", err)
+		}
+		c.SlowmodeNextSendDate = value
+	}
+	if c.Flags.Has(12) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field stats_dc: %w", err)
+		}
+		c.StatsDC = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field pts: %w", err)
+		}
+		c.Pts = value
+	}
+	if c.Flags.Has(21) {
+		if err := c.Call.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field call: %w", err)
+		}
+	}
+	if c.Flags.Has(24) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field ttl_period: %w", err)
+		}
+		c.TTLPeriod = value
+	}
+	if c.Flags.Has(25) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field pending_suggestions: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.PendingSuggestions = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode channelFull#548c3f93: field pending_suggestions: %w", err)
+			}
+			c.PendingSuggestions = append(c.PendingSuggestions, value)
+		}
+	}
+	if c.Flags.Has(26) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channelFull#548c3f93: field groupcall_default_join_as: %w", err)
+		}
+		c.GroupcallDefaultJoinAs = value
+	}
+	return nil
+}
+
 // SetCanViewParticipants sets value of CanViewParticipants conditional field.
 func (c *ChannelFull) SetCanViewParticipants(value bool) {
 	if value {
@@ -2067,273 +2334,6 @@ func (c *ChannelFull) GetGroupcallDefaultJoinAs() (value PeerClass, ok bool) {
 	}
 	return c.GroupcallDefaultJoinAs, true
 }
-
-// Decode implements bin.Decoder.
-func (c *ChannelFull) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode channelFull#548c3f93 to nil")
-	}
-	if err := b.ConsumeID(ChannelFullTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelFull#548c3f93: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode channelFull#548c3f93 to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field flags: %w", err)
-		}
-	}
-	c.CanViewParticipants = c.Flags.Has(3)
-	c.CanSetUsername = c.Flags.Has(6)
-	c.CanSetStickers = c.Flags.Has(7)
-	c.HiddenPrehistory = c.Flags.Has(10)
-	c.CanSetLocation = c.Flags.Has(16)
-	c.HasScheduled = c.Flags.Has(19)
-	c.CanViewStats = c.Flags.Has(20)
-	c.Blocked = c.Flags.Has(22)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field id: %w", err)
-		}
-		c.ID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field about: %w", err)
-		}
-		c.About = value
-	}
-	if c.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field participants_count: %w", err)
-		}
-		c.ParticipantsCount = value
-	}
-	if c.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field admins_count: %w", err)
-		}
-		c.AdminsCount = value
-	}
-	if c.Flags.Has(2) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field kicked_count: %w", err)
-		}
-		c.KickedCount = value
-	}
-	if c.Flags.Has(2) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field banned_count: %w", err)
-		}
-		c.BannedCount = value
-	}
-	if c.Flags.Has(13) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field online_count: %w", err)
-		}
-		c.OnlineCount = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field read_inbox_max_id: %w", err)
-		}
-		c.ReadInboxMaxID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field read_outbox_max_id: %w", err)
-		}
-		c.ReadOutboxMaxID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field unread_count: %w", err)
-		}
-		c.UnreadCount = value
-	}
-	{
-		value, err := DecodePhoto(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field chat_photo: %w", err)
-		}
-		c.ChatPhoto = value
-	}
-	{
-		if err := c.NotifySettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field notify_settings: %w", err)
-		}
-	}
-	if c.Flags.Has(23) {
-		if err := c.ExportedInvite.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field exported_invite: %w", err)
-		}
-	}
-	{
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field bot_info: %w", err)
-		}
-
-		if headerLen > 0 {
-			c.BotInfo = make([]BotInfo, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value BotInfo
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode channelFull#548c3f93: field bot_info: %w", err)
-			}
-			c.BotInfo = append(c.BotInfo, value)
-		}
-	}
-	if c.Flags.Has(4) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field migrated_from_chat_id: %w", err)
-		}
-		c.MigratedFromChatID = value
-	}
-	if c.Flags.Has(4) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field migrated_from_max_id: %w", err)
-		}
-		c.MigratedFromMaxID = value
-	}
-	if c.Flags.Has(5) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field pinned_msg_id: %w", err)
-		}
-		c.PinnedMsgID = value
-	}
-	if c.Flags.Has(8) {
-		if err := c.Stickerset.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field stickerset: %w", err)
-		}
-	}
-	if c.Flags.Has(9) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field available_min_id: %w", err)
-		}
-		c.AvailableMinID = value
-	}
-	if c.Flags.Has(11) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field folder_id: %w", err)
-		}
-		c.FolderID = value
-	}
-	if c.Flags.Has(14) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field linked_chat_id: %w", err)
-		}
-		c.LinkedChatID = value
-	}
-	if c.Flags.Has(15) {
-		value, err := DecodeChannelLocation(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field location: %w", err)
-		}
-		c.Location = value
-	}
-	if c.Flags.Has(17) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field slowmode_seconds: %w", err)
-		}
-		c.SlowmodeSeconds = value
-	}
-	if c.Flags.Has(18) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field slowmode_next_send_date: %w", err)
-		}
-		c.SlowmodeNextSendDate = value
-	}
-	if c.Flags.Has(12) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field stats_dc: %w", err)
-		}
-		c.StatsDC = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field pts: %w", err)
-		}
-		c.Pts = value
-	}
-	if c.Flags.Has(21) {
-		if err := c.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field call: %w", err)
-		}
-	}
-	if c.Flags.Has(24) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field ttl_period: %w", err)
-		}
-		c.TTLPeriod = value
-	}
-	if c.Flags.Has(25) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field pending_suggestions: %w", err)
-		}
-
-		if headerLen > 0 {
-			c.PendingSuggestions = make([]string, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode channelFull#548c3f93: field pending_suggestions: %w", err)
-			}
-			c.PendingSuggestions = append(c.PendingSuggestions, value)
-		}
-	}
-	if c.Flags.Has(26) {
-		value, err := DecodePeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode channelFull#548c3f93: field groupcall_default_join_as: %w", err)
-		}
-		c.GroupcallDefaultJoinAs = value
-	}
-	return nil
-}
-
-// construct implements constructor of ChatFullClass.
-func (c ChannelFull) construct() ChatFullClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelFull.
-var (
-	_ bin.Encoder     = &ChannelFull{}
-	_ bin.Decoder     = &ChannelFull{}
-	_ bin.BareEncoder = &ChannelFull{}
-	_ bin.BareDecoder = &ChannelFull{}
-
-	_ ChatFullClass = &ChannelFull{}
-)
 
 // ChatFullClass represents ChatFull generic type.
 //

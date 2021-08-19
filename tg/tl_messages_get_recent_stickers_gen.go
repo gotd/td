@@ -51,6 +51,14 @@ type MessagesGetRecentStickersRequest struct {
 // MessagesGetRecentStickersRequestTypeID is TL type id of MessagesGetRecentStickersRequest.
 const MessagesGetRecentStickersRequestTypeID = 0x5ea192c9
 
+// Ensuring interfaces in compile-time for MessagesGetRecentStickersRequest.
+var (
+	_ bin.Encoder     = &MessagesGetRecentStickersRequest{}
+	_ bin.Decoder     = &MessagesGetRecentStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetRecentStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetRecentStickersRequest{}
+)
+
 func (g *MessagesGetRecentStickersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -146,27 +154,6 @@ func (g *MessagesGetRecentStickersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetAttached sets value of Attached conditional field.
-func (g *MessagesGetRecentStickersRequest) SetAttached(value bool) {
-	if value {
-		g.Flags.Set(0)
-		g.Attached = true
-	} else {
-		g.Flags.Unset(0)
-		g.Attached = false
-	}
-}
-
-// GetAttached returns value of Attached conditional field.
-func (g *MessagesGetRecentStickersRequest) GetAttached() (value bool) {
-	return g.Flags.Has(0)
-}
-
-// GetHash returns value of Hash field.
-func (g *MessagesGetRecentStickersRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetRecentStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -199,13 +186,26 @@ func (g *MessagesGetRecentStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetRecentStickersRequest.
-var (
-	_ bin.Encoder     = &MessagesGetRecentStickersRequest{}
-	_ bin.Decoder     = &MessagesGetRecentStickersRequest{}
-	_ bin.BareEncoder = &MessagesGetRecentStickersRequest{}
-	_ bin.BareDecoder = &MessagesGetRecentStickersRequest{}
-)
+// SetAttached sets value of Attached conditional field.
+func (g *MessagesGetRecentStickersRequest) SetAttached(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Attached = true
+	} else {
+		g.Flags.Unset(0)
+		g.Attached = false
+	}
+}
+
+// GetAttached returns value of Attached conditional field.
+func (g *MessagesGetRecentStickersRequest) GetAttached() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetRecentStickersRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // MessagesGetRecentStickers invokes method messages.getRecentStickers#5ea192c9 returning error if any.
 // Get recent stickers

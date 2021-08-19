@@ -41,6 +41,14 @@ type MessagesGetAllChatsRequest struct {
 // MessagesGetAllChatsRequestTypeID is TL type id of MessagesGetAllChatsRequest.
 const MessagesGetAllChatsRequestTypeID = 0xeba80ff0
 
+// Ensuring interfaces in compile-time for MessagesGetAllChatsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetAllChatsRequest{}
+	_ bin.Decoder     = &MessagesGetAllChatsRequest{}
+	_ bin.BareEncoder = &MessagesGetAllChatsRequest{}
+	_ bin.BareDecoder = &MessagesGetAllChatsRequest{}
+)
+
 func (g *MessagesGetAllChatsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,11 +128,6 @@ func (g *MessagesGetAllChatsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExceptIDs returns value of ExceptIDs field.
-func (g *MessagesGetAllChatsRequest) GetExceptIDs() (value []int) {
-	return g.ExceptIDs
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetAllChatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -161,13 +164,10 @@ func (g *MessagesGetAllChatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetAllChatsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetAllChatsRequest{}
-	_ bin.Decoder     = &MessagesGetAllChatsRequest{}
-	_ bin.BareEncoder = &MessagesGetAllChatsRequest{}
-	_ bin.BareDecoder = &MessagesGetAllChatsRequest{}
-)
+// GetExceptIDs returns value of ExceptIDs field.
+func (g *MessagesGetAllChatsRequest) GetExceptIDs() (value []int) {
+	return g.ExceptIDs
+}
 
 // MessagesGetAllChats invokes method messages.getAllChats#eba80ff0 returning error if any.
 // Get all chats, channels and supergroups

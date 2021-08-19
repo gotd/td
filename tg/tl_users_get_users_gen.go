@@ -41,6 +41,14 @@ type UsersGetUsersRequest struct {
 // UsersGetUsersRequestTypeID is TL type id of UsersGetUsersRequest.
 const UsersGetUsersRequestTypeID = 0xd91a548
 
+// Ensuring interfaces in compile-time for UsersGetUsersRequest.
+var (
+	_ bin.Encoder     = &UsersGetUsersRequest{}
+	_ bin.Decoder     = &UsersGetUsersRequest{}
+	_ bin.BareEncoder = &UsersGetUsersRequest{}
+	_ bin.BareDecoder = &UsersGetUsersRequest{}
+)
+
 func (g *UsersGetUsersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -125,16 +133,6 @@ func (g *UsersGetUsersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (g *UsersGetUsersRequest) GetID() (value []InputUserClass) {
-	return g.ID
-}
-
-// MapID returns field ID wrapped in InputUserClassArray helper.
-func (g *UsersGetUsersRequest) MapID() (value InputUserClassArray) {
-	return InputUserClassArray(g.ID)
-}
-
 // Decode implements bin.Decoder.
 func (g *UsersGetUsersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -171,13 +169,15 @@ func (g *UsersGetUsersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UsersGetUsersRequest.
-var (
-	_ bin.Encoder     = &UsersGetUsersRequest{}
-	_ bin.Decoder     = &UsersGetUsersRequest{}
-	_ bin.BareEncoder = &UsersGetUsersRequest{}
-	_ bin.BareDecoder = &UsersGetUsersRequest{}
-)
+// GetID returns value of ID field.
+func (g *UsersGetUsersRequest) GetID() (value []InputUserClass) {
+	return g.ID
+}
+
+// MapID returns field ID wrapped in InputUserClassArray helper.
+func (g *UsersGetUsersRequest) MapID() (value InputUserClassArray) {
+	return InputUserClassArray(g.ID)
+}
 
 // UsersGetUsers invokes method users.getUsers#d91a548 returning error if any.
 // Returns basic user info according to their identifiers.

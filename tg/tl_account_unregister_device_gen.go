@@ -54,6 +54,14 @@ type AccountUnregisterDeviceRequest struct {
 // AccountUnregisterDeviceRequestTypeID is TL type id of AccountUnregisterDeviceRequest.
 const AccountUnregisterDeviceRequestTypeID = 0x3076c4bf
 
+// Ensuring interfaces in compile-time for AccountUnregisterDeviceRequest.
+var (
+	_ bin.Encoder     = &AccountUnregisterDeviceRequest{}
+	_ bin.Decoder     = &AccountUnregisterDeviceRequest{}
+	_ bin.BareEncoder = &AccountUnregisterDeviceRequest{}
+	_ bin.BareDecoder = &AccountUnregisterDeviceRequest{}
+)
+
 func (u *AccountUnregisterDeviceRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -153,21 +161,6 @@ func (u *AccountUnregisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTokenType returns value of TokenType field.
-func (u *AccountUnregisterDeviceRequest) GetTokenType() (value int) {
-	return u.TokenType
-}
-
-// GetToken returns value of Token field.
-func (u *AccountUnregisterDeviceRequest) GetToken() (value string) {
-	return u.Token
-}
-
-// GetOtherUIDs returns value of OtherUIDs field.
-func (u *AccountUnregisterDeviceRequest) GetOtherUIDs() (value []int) {
-	return u.OtherUIDs
-}
-
 // Decode implements bin.Decoder.
 func (u *AccountUnregisterDeviceRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -218,13 +211,20 @@ func (u *AccountUnregisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountUnregisterDeviceRequest.
-var (
-	_ bin.Encoder     = &AccountUnregisterDeviceRequest{}
-	_ bin.Decoder     = &AccountUnregisterDeviceRequest{}
-	_ bin.BareEncoder = &AccountUnregisterDeviceRequest{}
-	_ bin.BareDecoder = &AccountUnregisterDeviceRequest{}
-)
+// GetTokenType returns value of TokenType field.
+func (u *AccountUnregisterDeviceRequest) GetTokenType() (value int) {
+	return u.TokenType
+}
+
+// GetToken returns value of Token field.
+func (u *AccountUnregisterDeviceRequest) GetToken() (value string) {
+	return u.Token
+}
+
+// GetOtherUIDs returns value of OtherUIDs field.
+func (u *AccountUnregisterDeviceRequest) GetOtherUIDs() (value []int) {
+	return u.OtherUIDs
+}
 
 // AccountUnregisterDevice invokes method account.unregisterDevice#3076c4bf returning error if any.
 // Deletes a device by its token, stops sending PUSH-notifications to it.

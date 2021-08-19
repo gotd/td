@@ -43,6 +43,14 @@ type InvokeAfterMsgsRequest struct {
 // InvokeAfterMsgsRequestTypeID is TL type id of InvokeAfterMsgsRequest.
 const InvokeAfterMsgsRequestTypeID = 0x3dc4b4f0
 
+// Ensuring interfaces in compile-time for InvokeAfterMsgsRequest.
+var (
+	_ bin.Encoder     = &InvokeAfterMsgsRequest{}
+	_ bin.Decoder     = &InvokeAfterMsgsRequest{}
+	_ bin.BareEncoder = &InvokeAfterMsgsRequest{}
+	_ bin.BareDecoder = &InvokeAfterMsgsRequest{}
+)
+
 func (i *InvokeAfterMsgsRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -134,16 +142,6 @@ func (i *InvokeAfterMsgsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMsgIDs returns value of MsgIDs field.
-func (i *InvokeAfterMsgsRequest) GetMsgIDs() (value []int64) {
-	return i.MsgIDs
-}
-
-// GetQuery returns value of Query field.
-func (i *InvokeAfterMsgsRequest) GetQuery() (value bin.Object) {
-	return i.Query
-}
-
 // Decode implements bin.Decoder.
 func (i *InvokeAfterMsgsRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -185,10 +183,12 @@ func (i *InvokeAfterMsgsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InvokeAfterMsgsRequest.
-var (
-	_ bin.Encoder     = &InvokeAfterMsgsRequest{}
-	_ bin.Decoder     = &InvokeAfterMsgsRequest{}
-	_ bin.BareEncoder = &InvokeAfterMsgsRequest{}
-	_ bin.BareDecoder = &InvokeAfterMsgsRequest{}
-)
+// GetMsgIDs returns value of MsgIDs field.
+func (i *InvokeAfterMsgsRequest) GetMsgIDs() (value []int64) {
+	return i.MsgIDs
+}
+
+// GetQuery returns value of Query field.
+func (i *InvokeAfterMsgsRequest) GetQuery() (value bin.Object) {
+	return i.Query
+}

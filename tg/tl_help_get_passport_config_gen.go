@@ -47,6 +47,14 @@ type HelpGetPassportConfigRequest struct {
 // HelpGetPassportConfigRequestTypeID is TL type id of HelpGetPassportConfigRequest.
 const HelpGetPassportConfigRequestTypeID = 0xc661ad08
 
+// Ensuring interfaces in compile-time for HelpGetPassportConfigRequest.
+var (
+	_ bin.Encoder     = &HelpGetPassportConfigRequest{}
+	_ bin.Decoder     = &HelpGetPassportConfigRequest{}
+	_ bin.BareEncoder = &HelpGetPassportConfigRequest{}
+	_ bin.BareDecoder = &HelpGetPassportConfigRequest{}
+)
+
 func (g *HelpGetPassportConfigRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -123,11 +131,6 @@ func (g *HelpGetPassportConfigRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (g *HelpGetPassportConfigRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *HelpGetPassportConfigRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -154,13 +157,10 @@ func (g *HelpGetPassportConfigRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpGetPassportConfigRequest.
-var (
-	_ bin.Encoder     = &HelpGetPassportConfigRequest{}
-	_ bin.Decoder     = &HelpGetPassportConfigRequest{}
-	_ bin.BareEncoder = &HelpGetPassportConfigRequest{}
-	_ bin.BareDecoder = &HelpGetPassportConfigRequest{}
-)
+// GetHash returns value of Hash field.
+func (g *HelpGetPassportConfigRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // HelpGetPassportConfig invokes method help.getPassportConfig#c661ad08 returning error if any.
 // Get passport¹ configuration

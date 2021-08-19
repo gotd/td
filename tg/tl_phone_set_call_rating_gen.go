@@ -52,6 +52,14 @@ type PhoneSetCallRatingRequest struct {
 // PhoneSetCallRatingRequestTypeID is TL type id of PhoneSetCallRatingRequest.
 const PhoneSetCallRatingRequestTypeID = 0x59ead627
 
+// Ensuring interfaces in compile-time for PhoneSetCallRatingRequest.
+var (
+	_ bin.Encoder     = &PhoneSetCallRatingRequest{}
+	_ bin.Decoder     = &PhoneSetCallRatingRequest{}
+	_ bin.BareEncoder = &PhoneSetCallRatingRequest{}
+	_ bin.BareDecoder = &PhoneSetCallRatingRequest{}
+)
+
 func (s *PhoneSetCallRatingRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -169,37 +177,6 @@ func (s *PhoneSetCallRatingRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetUserInitiative sets value of UserInitiative conditional field.
-func (s *PhoneSetCallRatingRequest) SetUserInitiative(value bool) {
-	if value {
-		s.Flags.Set(0)
-		s.UserInitiative = true
-	} else {
-		s.Flags.Unset(0)
-		s.UserInitiative = false
-	}
-}
-
-// GetUserInitiative returns value of UserInitiative conditional field.
-func (s *PhoneSetCallRatingRequest) GetUserInitiative() (value bool) {
-	return s.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (s *PhoneSetCallRatingRequest) GetPeer() (value InputPhoneCall) {
-	return s.Peer
-}
-
-// GetRating returns value of Rating field.
-func (s *PhoneSetCallRatingRequest) GetRating() (value int) {
-	return s.Rating
-}
-
-// GetComment returns value of Comment field.
-func (s *PhoneSetCallRatingRequest) GetComment() (value string) {
-	return s.Comment
-}
-
 // Decode implements bin.Decoder.
 func (s *PhoneSetCallRatingRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -244,13 +221,36 @@ func (s *PhoneSetCallRatingRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneSetCallRatingRequest.
-var (
-	_ bin.Encoder     = &PhoneSetCallRatingRequest{}
-	_ bin.Decoder     = &PhoneSetCallRatingRequest{}
-	_ bin.BareEncoder = &PhoneSetCallRatingRequest{}
-	_ bin.BareDecoder = &PhoneSetCallRatingRequest{}
-)
+// SetUserInitiative sets value of UserInitiative conditional field.
+func (s *PhoneSetCallRatingRequest) SetUserInitiative(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.UserInitiative = true
+	} else {
+		s.Flags.Unset(0)
+		s.UserInitiative = false
+	}
+}
+
+// GetUserInitiative returns value of UserInitiative conditional field.
+func (s *PhoneSetCallRatingRequest) GetUserInitiative() (value bool) {
+	return s.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (s *PhoneSetCallRatingRequest) GetPeer() (value InputPhoneCall) {
+	return s.Peer
+}
+
+// GetRating returns value of Rating field.
+func (s *PhoneSetCallRatingRequest) GetRating() (value int) {
+	return s.Rating
+}
+
+// GetComment returns value of Comment field.
+func (s *PhoneSetCallRatingRequest) GetComment() (value string) {
+	return s.Comment
+}
 
 // PhoneSetCallRating invokes method phone.setCallRating#59ead627 returning error if any.
 // Rate a call

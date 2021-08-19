@@ -39,6 +39,19 @@ type TextEmpty struct {
 // TextEmptyTypeID is TL type id of TextEmpty.
 const TextEmptyTypeID = 0xdc3d824f
 
+// construct implements constructor of RichTextClass.
+func (t TextEmpty) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEmpty.
+var (
+	_ bin.Encoder     = &TextEmpty{}
+	_ bin.Decoder     = &TextEmpty{}
+	_ bin.BareEncoder = &TextEmpty{}
+	_ bin.BareDecoder = &TextEmpty{}
+
+	_ RichTextClass = &TextEmpty{}
+)
+
 func (t *TextEmpty) Zero() bool {
 	if t == nil {
 		return true
@@ -118,19 +131,6 @@ func (t *TextEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextEmpty) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEmpty.
-var (
-	_ bin.Encoder     = &TextEmpty{}
-	_ bin.Decoder     = &TextEmpty{}
-	_ bin.BareEncoder = &TextEmpty{}
-	_ bin.BareDecoder = &TextEmpty{}
-
-	_ RichTextClass = &TextEmpty{}
-)
-
 // TextPlain represents TL type `textPlain#744694e0`.
 // Plain text
 //
@@ -142,6 +142,19 @@ type TextPlain struct {
 
 // TextPlainTypeID is TL type id of TextPlain.
 const TextPlainTypeID = 0x744694e0
+
+// construct implements constructor of RichTextClass.
+func (t TextPlain) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextPlain.
+var (
+	_ bin.Encoder     = &TextPlain{}
+	_ bin.Decoder     = &TextPlain{}
+	_ bin.BareEncoder = &TextPlain{}
+	_ bin.BareDecoder = &TextPlain{}
+
+	_ RichTextClass = &TextPlain{}
+)
 
 func (t *TextPlain) Zero() bool {
 	if t == nil {
@@ -219,11 +232,6 @@ func (t *TextPlain) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextPlain) GetText() (value string) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextPlain) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -250,18 +258,10 @@ func (t *TextPlain) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextPlain) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextPlain.
-var (
-	_ bin.Encoder     = &TextPlain{}
-	_ bin.Decoder     = &TextPlain{}
-	_ bin.BareEncoder = &TextPlain{}
-	_ bin.BareDecoder = &TextPlain{}
-
-	_ RichTextClass = &TextPlain{}
-)
+// GetText returns value of Text field.
+func (t *TextPlain) GetText() (value string) {
+	return t.Text
+}
 
 // TextBold represents TL type `textBold#6724abc4`.
 // Bold text
@@ -274,6 +274,19 @@ type TextBold struct {
 
 // TextBoldTypeID is TL type id of TextBold.
 const TextBoldTypeID = 0x6724abc4
+
+// construct implements constructor of RichTextClass.
+func (t TextBold) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextBold.
+var (
+	_ bin.Encoder     = &TextBold{}
+	_ bin.Decoder     = &TextBold{}
+	_ bin.BareEncoder = &TextBold{}
+	_ bin.BareDecoder = &TextBold{}
+
+	_ RichTextClass = &TextBold{}
+)
 
 func (t *TextBold) Zero() bool {
 	if t == nil {
@@ -356,11 +369,6 @@ func (t *TextBold) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextBold) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextBold) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -387,18 +395,10 @@ func (t *TextBold) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextBold) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextBold.
-var (
-	_ bin.Encoder     = &TextBold{}
-	_ bin.Decoder     = &TextBold{}
-	_ bin.BareEncoder = &TextBold{}
-	_ bin.BareDecoder = &TextBold{}
-
-	_ RichTextClass = &TextBold{}
-)
+// GetText returns value of Text field.
+func (t *TextBold) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextItalic represents TL type `textItalic#d912a59c`.
 // Italic text
@@ -411,6 +411,19 @@ type TextItalic struct {
 
 // TextItalicTypeID is TL type id of TextItalic.
 const TextItalicTypeID = 0xd912a59c
+
+// construct implements constructor of RichTextClass.
+func (t TextItalic) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextItalic.
+var (
+	_ bin.Encoder     = &TextItalic{}
+	_ bin.Decoder     = &TextItalic{}
+	_ bin.BareEncoder = &TextItalic{}
+	_ bin.BareDecoder = &TextItalic{}
+
+	_ RichTextClass = &TextItalic{}
+)
 
 func (t *TextItalic) Zero() bool {
 	if t == nil {
@@ -493,11 +506,6 @@ func (t *TextItalic) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextItalic) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextItalic) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -524,18 +532,10 @@ func (t *TextItalic) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextItalic) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextItalic.
-var (
-	_ bin.Encoder     = &TextItalic{}
-	_ bin.Decoder     = &TextItalic{}
-	_ bin.BareEncoder = &TextItalic{}
-	_ bin.BareDecoder = &TextItalic{}
-
-	_ RichTextClass = &TextItalic{}
-)
+// GetText returns value of Text field.
+func (t *TextItalic) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextUnderline represents TL type `textUnderline#c12622c4`.
 // Underlined text
@@ -548,6 +548,19 @@ type TextUnderline struct {
 
 // TextUnderlineTypeID is TL type id of TextUnderline.
 const TextUnderlineTypeID = 0xc12622c4
+
+// construct implements constructor of RichTextClass.
+func (t TextUnderline) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextUnderline.
+var (
+	_ bin.Encoder     = &TextUnderline{}
+	_ bin.Decoder     = &TextUnderline{}
+	_ bin.BareEncoder = &TextUnderline{}
+	_ bin.BareDecoder = &TextUnderline{}
+
+	_ RichTextClass = &TextUnderline{}
+)
 
 func (t *TextUnderline) Zero() bool {
 	if t == nil {
@@ -630,11 +643,6 @@ func (t *TextUnderline) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextUnderline) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextUnderline) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -661,18 +669,10 @@ func (t *TextUnderline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextUnderline) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextUnderline.
-var (
-	_ bin.Encoder     = &TextUnderline{}
-	_ bin.Decoder     = &TextUnderline{}
-	_ bin.BareEncoder = &TextUnderline{}
-	_ bin.BareDecoder = &TextUnderline{}
-
-	_ RichTextClass = &TextUnderline{}
-)
+// GetText returns value of Text field.
+func (t *TextUnderline) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextStrike represents TL type `textStrike#9bf8bb95`.
 // Strikethrough text
@@ -685,6 +685,19 @@ type TextStrike struct {
 
 // TextStrikeTypeID is TL type id of TextStrike.
 const TextStrikeTypeID = 0x9bf8bb95
+
+// construct implements constructor of RichTextClass.
+func (t TextStrike) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextStrike.
+var (
+	_ bin.Encoder     = &TextStrike{}
+	_ bin.Decoder     = &TextStrike{}
+	_ bin.BareEncoder = &TextStrike{}
+	_ bin.BareDecoder = &TextStrike{}
+
+	_ RichTextClass = &TextStrike{}
+)
 
 func (t *TextStrike) Zero() bool {
 	if t == nil {
@@ -767,11 +780,6 @@ func (t *TextStrike) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextStrike) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextStrike) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -798,18 +806,10 @@ func (t *TextStrike) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextStrike) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextStrike.
-var (
-	_ bin.Encoder     = &TextStrike{}
-	_ bin.Decoder     = &TextStrike{}
-	_ bin.BareEncoder = &TextStrike{}
-	_ bin.BareDecoder = &TextStrike{}
-
-	_ RichTextClass = &TextStrike{}
-)
+// GetText returns value of Text field.
+func (t *TextStrike) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextFixed represents TL type `textFixed#6c3f19b9`.
 // fixed-width rich text
@@ -822,6 +822,19 @@ type TextFixed struct {
 
 // TextFixedTypeID is TL type id of TextFixed.
 const TextFixedTypeID = 0x6c3f19b9
+
+// construct implements constructor of RichTextClass.
+func (t TextFixed) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextFixed.
+var (
+	_ bin.Encoder     = &TextFixed{}
+	_ bin.Decoder     = &TextFixed{}
+	_ bin.BareEncoder = &TextFixed{}
+	_ bin.BareDecoder = &TextFixed{}
+
+	_ RichTextClass = &TextFixed{}
+)
 
 func (t *TextFixed) Zero() bool {
 	if t == nil {
@@ -904,11 +917,6 @@ func (t *TextFixed) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextFixed) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextFixed) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -935,18 +943,10 @@ func (t *TextFixed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextFixed) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextFixed.
-var (
-	_ bin.Encoder     = &TextFixed{}
-	_ bin.Decoder     = &TextFixed{}
-	_ bin.BareEncoder = &TextFixed{}
-	_ bin.BareDecoder = &TextFixed{}
-
-	_ RichTextClass = &TextFixed{}
-)
+// GetText returns value of Text field.
+func (t *TextFixed) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextURL represents TL type `textUrl#3c2884c1`.
 // Link
@@ -963,6 +963,19 @@ type TextURL struct {
 
 // TextURLTypeID is TL type id of TextURL.
 const TextURLTypeID = 0x3c2884c1
+
+// construct implements constructor of RichTextClass.
+func (t TextURL) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextURL.
+var (
+	_ bin.Encoder     = &TextURL{}
+	_ bin.Decoder     = &TextURL{}
+	_ bin.BareEncoder = &TextURL{}
+	_ bin.BareDecoder = &TextURL{}
+
+	_ RichTextClass = &TextURL{}
+)
 
 func (t *TextURL) Zero() bool {
 	if t == nil {
@@ -1065,21 +1078,6 @@ func (t *TextURL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextURL) GetText() (value RichTextClass) {
-	return t.Text
-}
-
-// GetURL returns value of URL field.
-func (t *TextURL) GetURL() (value string) {
-	return t.URL
-}
-
-// GetWebpageID returns value of WebpageID field.
-func (t *TextURL) GetWebpageID() (value int64) {
-	return t.WebpageID
-}
-
 // Decode implements bin.Decoder.
 func (t *TextURL) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1120,18 +1118,20 @@ func (t *TextURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextURL) construct() RichTextClass { return &t }
+// GetText returns value of Text field.
+func (t *TextURL) GetText() (value RichTextClass) {
+	return t.Text
+}
 
-// Ensuring interfaces in compile-time for TextURL.
-var (
-	_ bin.Encoder     = &TextURL{}
-	_ bin.Decoder     = &TextURL{}
-	_ bin.BareEncoder = &TextURL{}
-	_ bin.BareDecoder = &TextURL{}
+// GetURL returns value of URL field.
+func (t *TextURL) GetURL() (value string) {
+	return t.URL
+}
 
-	_ RichTextClass = &TextURL{}
-)
+// GetWebpageID returns value of WebpageID field.
+func (t *TextURL) GetWebpageID() (value int64) {
+	return t.WebpageID
+}
 
 // TextEmail represents TL type `textEmail#de5a0dd6`.
 // Rich text email link
@@ -1146,6 +1146,19 @@ type TextEmail struct {
 
 // TextEmailTypeID is TL type id of TextEmail.
 const TextEmailTypeID = 0xde5a0dd6
+
+// construct implements constructor of RichTextClass.
+func (t TextEmail) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEmail.
+var (
+	_ bin.Encoder     = &TextEmail{}
+	_ bin.Decoder     = &TextEmail{}
+	_ bin.BareEncoder = &TextEmail{}
+	_ bin.BareDecoder = &TextEmail{}
+
+	_ RichTextClass = &TextEmail{}
+)
 
 func (t *TextEmail) Zero() bool {
 	if t == nil {
@@ -1238,16 +1251,6 @@ func (t *TextEmail) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextEmail) GetText() (value RichTextClass) {
-	return t.Text
-}
-
-// GetEmail returns value of Email field.
-func (t *TextEmail) GetEmail() (value string) {
-	return t.Email
-}
-
 // Decode implements bin.Decoder.
 func (t *TextEmail) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1281,18 +1284,15 @@ func (t *TextEmail) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextEmail) construct() RichTextClass { return &t }
+// GetText returns value of Text field.
+func (t *TextEmail) GetText() (value RichTextClass) {
+	return t.Text
+}
 
-// Ensuring interfaces in compile-time for TextEmail.
-var (
-	_ bin.Encoder     = &TextEmail{}
-	_ bin.Decoder     = &TextEmail{}
-	_ bin.BareEncoder = &TextEmail{}
-	_ bin.BareDecoder = &TextEmail{}
-
-	_ RichTextClass = &TextEmail{}
-)
+// GetEmail returns value of Email field.
+func (t *TextEmail) GetEmail() (value string) {
+	return t.Email
+}
 
 // TextConcat represents TL type `textConcat#7e6260d7`.
 // Concatenation of rich texts
@@ -1305,6 +1305,19 @@ type TextConcat struct {
 
 // TextConcatTypeID is TL type id of TextConcat.
 const TextConcatTypeID = 0x7e6260d7
+
+// construct implements constructor of RichTextClass.
+func (t TextConcat) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextConcat.
+var (
+	_ bin.Encoder     = &TextConcat{}
+	_ bin.Decoder     = &TextConcat{}
+	_ bin.BareEncoder = &TextConcat{}
+	_ bin.BareDecoder = &TextConcat{}
+
+	_ RichTextClass = &TextConcat{}
+)
 
 func (t *TextConcat) Zero() bool {
 	if t == nil {
@@ -1390,16 +1403,6 @@ func (t *TextConcat) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTexts returns value of Texts field.
-func (t *TextConcat) GetTexts() (value []RichTextClass) {
-	return t.Texts
-}
-
-// MapTexts returns field Texts wrapped in RichTextClassArray helper.
-func (t *TextConcat) MapTexts() (value RichTextClassArray) {
-	return RichTextClassArray(t.Texts)
-}
-
 // Decode implements bin.Decoder.
 func (t *TextConcat) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1436,18 +1439,15 @@ func (t *TextConcat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextConcat) construct() RichTextClass { return &t }
+// GetTexts returns value of Texts field.
+func (t *TextConcat) GetTexts() (value []RichTextClass) {
+	return t.Texts
+}
 
-// Ensuring interfaces in compile-time for TextConcat.
-var (
-	_ bin.Encoder     = &TextConcat{}
-	_ bin.Decoder     = &TextConcat{}
-	_ bin.BareEncoder = &TextConcat{}
-	_ bin.BareDecoder = &TextConcat{}
-
-	_ RichTextClass = &TextConcat{}
-)
+// MapTexts returns field Texts wrapped in RichTextClassArray helper.
+func (t *TextConcat) MapTexts() (value RichTextClassArray) {
+	return RichTextClassArray(t.Texts)
+}
 
 // TextSubscript represents TL type `textSubscript#ed6a8504`.
 // Subscript text
@@ -1460,6 +1460,19 @@ type TextSubscript struct {
 
 // TextSubscriptTypeID is TL type id of TextSubscript.
 const TextSubscriptTypeID = 0xed6a8504
+
+// construct implements constructor of RichTextClass.
+func (t TextSubscript) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextSubscript.
+var (
+	_ bin.Encoder     = &TextSubscript{}
+	_ bin.Decoder     = &TextSubscript{}
+	_ bin.BareEncoder = &TextSubscript{}
+	_ bin.BareDecoder = &TextSubscript{}
+
+	_ RichTextClass = &TextSubscript{}
+)
 
 func (t *TextSubscript) Zero() bool {
 	if t == nil {
@@ -1542,11 +1555,6 @@ func (t *TextSubscript) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextSubscript) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextSubscript) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1573,18 +1581,10 @@ func (t *TextSubscript) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextSubscript) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextSubscript.
-var (
-	_ bin.Encoder     = &TextSubscript{}
-	_ bin.Decoder     = &TextSubscript{}
-	_ bin.BareEncoder = &TextSubscript{}
-	_ bin.BareDecoder = &TextSubscript{}
-
-	_ RichTextClass = &TextSubscript{}
-)
+// GetText returns value of Text field.
+func (t *TextSubscript) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextSuperscript represents TL type `textSuperscript#c7fb5e01`.
 // Superscript text
@@ -1597,6 +1597,19 @@ type TextSuperscript struct {
 
 // TextSuperscriptTypeID is TL type id of TextSuperscript.
 const TextSuperscriptTypeID = 0xc7fb5e01
+
+// construct implements constructor of RichTextClass.
+func (t TextSuperscript) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextSuperscript.
+var (
+	_ bin.Encoder     = &TextSuperscript{}
+	_ bin.Decoder     = &TextSuperscript{}
+	_ bin.BareEncoder = &TextSuperscript{}
+	_ bin.BareDecoder = &TextSuperscript{}
+
+	_ RichTextClass = &TextSuperscript{}
+)
 
 func (t *TextSuperscript) Zero() bool {
 	if t == nil {
@@ -1679,11 +1692,6 @@ func (t *TextSuperscript) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextSuperscript) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextSuperscript) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1710,18 +1718,10 @@ func (t *TextSuperscript) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextSuperscript) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextSuperscript.
-var (
-	_ bin.Encoder     = &TextSuperscript{}
-	_ bin.Decoder     = &TextSuperscript{}
-	_ bin.BareEncoder = &TextSuperscript{}
-	_ bin.BareDecoder = &TextSuperscript{}
-
-	_ RichTextClass = &TextSuperscript{}
-)
+// GetText returns value of Text field.
+func (t *TextSuperscript) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextMarked represents TL type `textMarked#34b8621`.
 // Highlighted text
@@ -1734,6 +1734,19 @@ type TextMarked struct {
 
 // TextMarkedTypeID is TL type id of TextMarked.
 const TextMarkedTypeID = 0x34b8621
+
+// construct implements constructor of RichTextClass.
+func (t TextMarked) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextMarked.
+var (
+	_ bin.Encoder     = &TextMarked{}
+	_ bin.Decoder     = &TextMarked{}
+	_ bin.BareEncoder = &TextMarked{}
+	_ bin.BareDecoder = &TextMarked{}
+
+	_ RichTextClass = &TextMarked{}
+)
 
 func (t *TextMarked) Zero() bool {
 	if t == nil {
@@ -1816,11 +1829,6 @@ func (t *TextMarked) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextMarked) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextMarked) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1847,18 +1855,10 @@ func (t *TextMarked) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextMarked) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextMarked.
-var (
-	_ bin.Encoder     = &TextMarked{}
-	_ bin.Decoder     = &TextMarked{}
-	_ bin.BareEncoder = &TextMarked{}
-	_ bin.BareDecoder = &TextMarked{}
-
-	_ RichTextClass = &TextMarked{}
-)
+// GetText returns value of Text field.
+func (t *TextMarked) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextPhone represents TL type `textPhone#1ccb966a`.
 // Rich text linked to a phone number
@@ -1873,6 +1873,19 @@ type TextPhone struct {
 
 // TextPhoneTypeID is TL type id of TextPhone.
 const TextPhoneTypeID = 0x1ccb966a
+
+// construct implements constructor of RichTextClass.
+func (t TextPhone) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextPhone.
+var (
+	_ bin.Encoder     = &TextPhone{}
+	_ bin.Decoder     = &TextPhone{}
+	_ bin.BareEncoder = &TextPhone{}
+	_ bin.BareDecoder = &TextPhone{}
+
+	_ RichTextClass = &TextPhone{}
+)
 
 func (t *TextPhone) Zero() bool {
 	if t == nil {
@@ -1965,16 +1978,6 @@ func (t *TextPhone) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextPhone) GetText() (value RichTextClass) {
-	return t.Text
-}
-
-// GetPhone returns value of Phone field.
-func (t *TextPhone) GetPhone() (value string) {
-	return t.Phone
-}
-
 // Decode implements bin.Decoder.
 func (t *TextPhone) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -2008,18 +2011,15 @@ func (t *TextPhone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextPhone) construct() RichTextClass { return &t }
+// GetText returns value of Text field.
+func (t *TextPhone) GetText() (value RichTextClass) {
+	return t.Text
+}
 
-// Ensuring interfaces in compile-time for TextPhone.
-var (
-	_ bin.Encoder     = &TextPhone{}
-	_ bin.Decoder     = &TextPhone{}
-	_ bin.BareEncoder = &TextPhone{}
-	_ bin.BareDecoder = &TextPhone{}
-
-	_ RichTextClass = &TextPhone{}
-)
+// GetPhone returns value of Phone field.
+func (t *TextPhone) GetPhone() (value string) {
+	return t.Phone
+}
 
 // TextImage represents TL type `textImage#81ccf4f`.
 // Inline image
@@ -2036,6 +2036,19 @@ type TextImage struct {
 
 // TextImageTypeID is TL type id of TextImage.
 const TextImageTypeID = 0x81ccf4f
+
+// construct implements constructor of RichTextClass.
+func (t TextImage) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextImage.
+var (
+	_ bin.Encoder     = &TextImage{}
+	_ bin.Decoder     = &TextImage{}
+	_ bin.BareEncoder = &TextImage{}
+	_ bin.BareDecoder = &TextImage{}
+
+	_ RichTextClass = &TextImage{}
+)
 
 func (t *TextImage) Zero() bool {
 	if t == nil {
@@ -2133,21 +2146,6 @@ func (t *TextImage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDocumentID returns value of DocumentID field.
-func (t *TextImage) GetDocumentID() (value int64) {
-	return t.DocumentID
-}
-
-// GetW returns value of W field.
-func (t *TextImage) GetW() (value int) {
-	return t.W
-}
-
-// GetH returns value of H field.
-func (t *TextImage) GetH() (value int) {
-	return t.H
-}
-
 // Decode implements bin.Decoder.
 func (t *TextImage) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -2188,18 +2186,20 @@ func (t *TextImage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextImage) construct() RichTextClass { return &t }
+// GetDocumentID returns value of DocumentID field.
+func (t *TextImage) GetDocumentID() (value int64) {
+	return t.DocumentID
+}
 
-// Ensuring interfaces in compile-time for TextImage.
-var (
-	_ bin.Encoder     = &TextImage{}
-	_ bin.Decoder     = &TextImage{}
-	_ bin.BareEncoder = &TextImage{}
-	_ bin.BareDecoder = &TextImage{}
+// GetW returns value of W field.
+func (t *TextImage) GetW() (value int) {
+	return t.W
+}
 
-	_ RichTextClass = &TextImage{}
-)
+// GetH returns value of H field.
+func (t *TextImage) GetH() (value int) {
+	return t.H
+}
 
 // TextAnchor represents TL type `textAnchor#35553762`.
 // Text linking to another section of the page
@@ -2214,6 +2214,19 @@ type TextAnchor struct {
 
 // TextAnchorTypeID is TL type id of TextAnchor.
 const TextAnchorTypeID = 0x35553762
+
+// construct implements constructor of RichTextClass.
+func (t TextAnchor) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextAnchor.
+var (
+	_ bin.Encoder     = &TextAnchor{}
+	_ bin.Decoder     = &TextAnchor{}
+	_ bin.BareEncoder = &TextAnchor{}
+	_ bin.BareDecoder = &TextAnchor{}
+
+	_ RichTextClass = &TextAnchor{}
+)
 
 func (t *TextAnchor) Zero() bool {
 	if t == nil {
@@ -2306,16 +2319,6 @@ func (t *TextAnchor) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextAnchor) GetText() (value RichTextClass) {
-	return t.Text
-}
-
-// GetName returns value of Name field.
-func (t *TextAnchor) GetName() (value string) {
-	return t.Name
-}
-
 // Decode implements bin.Decoder.
 func (t *TextAnchor) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -2349,18 +2352,15 @@ func (t *TextAnchor) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextAnchor) construct() RichTextClass { return &t }
+// GetText returns value of Text field.
+func (t *TextAnchor) GetText() (value RichTextClass) {
+	return t.Text
+}
 
-// Ensuring interfaces in compile-time for TextAnchor.
-var (
-	_ bin.Encoder     = &TextAnchor{}
-	_ bin.Decoder     = &TextAnchor{}
-	_ bin.BareEncoder = &TextAnchor{}
-	_ bin.BareDecoder = &TextAnchor{}
-
-	_ RichTextClass = &TextAnchor{}
-)
+// GetName returns value of Name field.
+func (t *TextAnchor) GetName() (value string) {
+	return t.Name
+}
 
 // RichTextClass represents RichText generic type.
 //

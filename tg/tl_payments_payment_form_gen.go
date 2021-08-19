@@ -88,6 +88,14 @@ type PaymentsPaymentForm struct {
 // PaymentsPaymentFormTypeID is TL type id of PaymentsPaymentForm.
 const PaymentsPaymentFormTypeID = 0x8d0b2415
 
+// Ensuring interfaces in compile-time for PaymentsPaymentForm.
+var (
+	_ bin.Encoder     = &PaymentsPaymentForm{}
+	_ bin.Decoder     = &PaymentsPaymentForm{}
+	_ bin.BareEncoder = &PaymentsPaymentForm{}
+	_ bin.BareDecoder = &PaymentsPaymentForm{}
+)
+
 func (p *PaymentsPaymentForm) Zero() bool {
 	if p == nil {
 		return true
@@ -338,6 +346,104 @@ func (p *PaymentsPaymentForm) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *PaymentsPaymentForm) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode payments.paymentForm#8d0b2415 to nil")
+	}
+	if err := b.ConsumeID(PaymentsPaymentFormTypeID); err != nil {
+		return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PaymentsPaymentForm) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode payments.paymentForm#8d0b2415 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field flags: %w", err)
+		}
+	}
+	p.CanSaveCredentials = p.Flags.Has(2)
+	p.PasswordMissing = p.Flags.Has(3)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field form_id: %w", err)
+		}
+		p.FormID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field bot_id: %w", err)
+		}
+		p.BotID = value
+	}
+	{
+		if err := p.Invoice.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field invoice: %w", err)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field provider_id: %w", err)
+		}
+		p.ProviderID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field url: %w", err)
+		}
+		p.URL = value
+	}
+	if p.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field native_provider: %w", err)
+		}
+		p.NativeProvider = value
+	}
+	if p.Flags.Has(4) {
+		if err := p.NativeParams.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field native_params: %w", err)
+		}
+	}
+	if p.Flags.Has(0) {
+		if err := p.SavedInfo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field saved_info: %w", err)
+		}
+	}
+	if p.Flags.Has(1) {
+		if err := p.SavedCredentials.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field saved_credentials: %w", err)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeUser(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field users: %w", err)
+			}
+			p.Users = append(p.Users, value)
+		}
+	}
+	return nil
+}
+
 // SetCanSaveCredentials sets value of CanSaveCredentials conditional field.
 func (p *PaymentsPaymentForm) SetCanSaveCredentials(value bool) {
 	if value {
@@ -464,109 +570,3 @@ func (p *PaymentsPaymentForm) GetUsers() (value []UserClass) {
 func (p *PaymentsPaymentForm) MapUsers() (value UserClassArray) {
 	return UserClassArray(p.Users)
 }
-
-// Decode implements bin.Decoder.
-func (p *PaymentsPaymentForm) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode payments.paymentForm#8d0b2415 to nil")
-	}
-	if err := b.ConsumeID(PaymentsPaymentFormTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *PaymentsPaymentForm) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode payments.paymentForm#8d0b2415 to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field flags: %w", err)
-		}
-	}
-	p.CanSaveCredentials = p.Flags.Has(2)
-	p.PasswordMissing = p.Flags.Has(3)
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field form_id: %w", err)
-		}
-		p.FormID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field bot_id: %w", err)
-		}
-		p.BotID = value
-	}
-	{
-		if err := p.Invoice.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field invoice: %w", err)
-		}
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field provider_id: %w", err)
-		}
-		p.ProviderID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field url: %w", err)
-		}
-		p.URL = value
-	}
-	if p.Flags.Has(4) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field native_provider: %w", err)
-		}
-		p.NativeProvider = value
-	}
-	if p.Flags.Has(4) {
-		if err := p.NativeParams.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field native_params: %w", err)
-		}
-	}
-	if p.Flags.Has(0) {
-		if err := p.SavedInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field saved_info: %w", err)
-		}
-	}
-	if p.Flags.Has(1) {
-		if err := p.SavedCredentials.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field saved_credentials: %w", err)
-		}
-	}
-	{
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field users: %w", err)
-		}
-
-		if headerLen > 0 {
-			p.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeUser(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode payments.paymentForm#8d0b2415: field users: %w", err)
-			}
-			p.Users = append(p.Users, value)
-		}
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for PaymentsPaymentForm.
-var (
-	_ bin.Encoder     = &PaymentsPaymentForm{}
-	_ bin.Decoder     = &PaymentsPaymentForm{}
-	_ bin.BareEncoder = &PaymentsPaymentForm{}
-	_ bin.BareDecoder = &PaymentsPaymentForm{}
-)

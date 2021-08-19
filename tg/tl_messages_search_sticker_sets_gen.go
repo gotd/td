@@ -53,6 +53,14 @@ type MessagesSearchStickerSetsRequest struct {
 // MessagesSearchStickerSetsRequestTypeID is TL type id of MessagesSearchStickerSetsRequest.
 const MessagesSearchStickerSetsRequestTypeID = 0xc2b7d08b
 
+// Ensuring interfaces in compile-time for MessagesSearchStickerSetsRequest.
+var (
+	_ bin.Encoder     = &MessagesSearchStickerSetsRequest{}
+	_ bin.Decoder     = &MessagesSearchStickerSetsRequest{}
+	_ bin.BareEncoder = &MessagesSearchStickerSetsRequest{}
+	_ bin.BareDecoder = &MessagesSearchStickerSetsRequest{}
+)
+
 func (s *MessagesSearchStickerSetsRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -158,32 +166,6 @@ func (s *MessagesSearchStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetExcludeFeatured sets value of ExcludeFeatured conditional field.
-func (s *MessagesSearchStickerSetsRequest) SetExcludeFeatured(value bool) {
-	if value {
-		s.Flags.Set(0)
-		s.ExcludeFeatured = true
-	} else {
-		s.Flags.Unset(0)
-		s.ExcludeFeatured = false
-	}
-}
-
-// GetExcludeFeatured returns value of ExcludeFeatured conditional field.
-func (s *MessagesSearchStickerSetsRequest) GetExcludeFeatured() (value bool) {
-	return s.Flags.Has(0)
-}
-
-// GetQ returns value of Q field.
-func (s *MessagesSearchStickerSetsRequest) GetQ() (value string) {
-	return s.Q
-}
-
-// GetHash returns value of Hash field.
-func (s *MessagesSearchStickerSetsRequest) GetHash() (value int) {
-	return s.Hash
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSearchStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -223,13 +205,31 @@ func (s *MessagesSearchStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSearchStickerSetsRequest.
-var (
-	_ bin.Encoder     = &MessagesSearchStickerSetsRequest{}
-	_ bin.Decoder     = &MessagesSearchStickerSetsRequest{}
-	_ bin.BareEncoder = &MessagesSearchStickerSetsRequest{}
-	_ bin.BareDecoder = &MessagesSearchStickerSetsRequest{}
-)
+// SetExcludeFeatured sets value of ExcludeFeatured conditional field.
+func (s *MessagesSearchStickerSetsRequest) SetExcludeFeatured(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.ExcludeFeatured = true
+	} else {
+		s.Flags.Unset(0)
+		s.ExcludeFeatured = false
+	}
+}
+
+// GetExcludeFeatured returns value of ExcludeFeatured conditional field.
+func (s *MessagesSearchStickerSetsRequest) GetExcludeFeatured() (value bool) {
+	return s.Flags.Has(0)
+}
+
+// GetQ returns value of Q field.
+func (s *MessagesSearchStickerSetsRequest) GetQ() (value string) {
+	return s.Q
+}
+
+// GetHash returns value of Hash field.
+func (s *MessagesSearchStickerSetsRequest) GetHash() (value int) {
+	return s.Hash
+}
 
 // MessagesSearchStickerSets invokes method messages.searchStickerSets#c2b7d08b returning error if any.
 // Search for stickersets

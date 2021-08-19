@@ -39,6 +39,19 @@ type GeoPointEmpty struct {
 // GeoPointEmptyTypeID is TL type id of GeoPointEmpty.
 const GeoPointEmptyTypeID = 0x1117dd5f
 
+// construct implements constructor of GeoPointClass.
+func (g GeoPointEmpty) construct() GeoPointClass { return &g }
+
+// Ensuring interfaces in compile-time for GeoPointEmpty.
+var (
+	_ bin.Encoder     = &GeoPointEmpty{}
+	_ bin.Decoder     = &GeoPointEmpty{}
+	_ bin.BareEncoder = &GeoPointEmpty{}
+	_ bin.BareDecoder = &GeoPointEmpty{}
+
+	_ GeoPointClass = &GeoPointEmpty{}
+)
+
 func (g *GeoPointEmpty) Zero() bool {
 	if g == nil {
 		return true
@@ -118,19 +131,6 @@ func (g *GeoPointEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of GeoPointClass.
-func (g GeoPointEmpty) construct() GeoPointClass { return &g }
-
-// Ensuring interfaces in compile-time for GeoPointEmpty.
-var (
-	_ bin.Encoder     = &GeoPointEmpty{}
-	_ bin.Decoder     = &GeoPointEmpty{}
-	_ bin.BareEncoder = &GeoPointEmpty{}
-	_ bin.BareDecoder = &GeoPointEmpty{}
-
-	_ GeoPointClass = &GeoPointEmpty{}
-)
-
 // GeoPoint represents TL type `geoPoint#b2a2f663`.
 // GeoPoint.
 //
@@ -155,6 +155,19 @@ type GeoPoint struct {
 
 // GeoPointTypeID is TL type id of GeoPoint.
 const GeoPointTypeID = 0xb2a2f663
+
+// construct implements constructor of GeoPointClass.
+func (g GeoPoint) construct() GeoPointClass { return &g }
+
+// Ensuring interfaces in compile-time for GeoPoint.
+var (
+	_ bin.Encoder     = &GeoPoint{}
+	_ bin.Decoder     = &GeoPoint{}
+	_ bin.BareEncoder = &GeoPoint{}
+	_ bin.BareDecoder = &GeoPoint{}
+
+	_ GeoPointClass = &GeoPoint{}
+)
 
 func (g *GeoPoint) Zero() bool {
 	if g == nil {
@@ -277,36 +290,6 @@ func (g *GeoPoint) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLong returns value of Long field.
-func (g *GeoPoint) GetLong() (value float64) {
-	return g.Long
-}
-
-// GetLat returns value of Lat field.
-func (g *GeoPoint) GetLat() (value float64) {
-	return g.Lat
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (g *GeoPoint) GetAccessHash() (value int64) {
-	return g.AccessHash
-}
-
-// SetAccuracyRadius sets value of AccuracyRadius conditional field.
-func (g *GeoPoint) SetAccuracyRadius(value int) {
-	g.Flags.Set(0)
-	g.AccuracyRadius = value
-}
-
-// GetAccuracyRadius returns value of AccuracyRadius conditional field and
-// boolean which is true if field was set.
-func (g *GeoPoint) GetAccuracyRadius() (value int, ok bool) {
-	if !g.Flags.Has(0) {
-		return value, false
-	}
-	return g.AccuracyRadius, true
-}
-
 // Decode implements bin.Decoder.
 func (g *GeoPoint) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -359,18 +342,35 @@ func (g *GeoPoint) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of GeoPointClass.
-func (g GeoPoint) construct() GeoPointClass { return &g }
+// GetLong returns value of Long field.
+func (g *GeoPoint) GetLong() (value float64) {
+	return g.Long
+}
 
-// Ensuring interfaces in compile-time for GeoPoint.
-var (
-	_ bin.Encoder     = &GeoPoint{}
-	_ bin.Decoder     = &GeoPoint{}
-	_ bin.BareEncoder = &GeoPoint{}
-	_ bin.BareDecoder = &GeoPoint{}
+// GetLat returns value of Lat field.
+func (g *GeoPoint) GetLat() (value float64) {
+	return g.Lat
+}
 
-	_ GeoPointClass = &GeoPoint{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (g *GeoPoint) GetAccessHash() (value int64) {
+	return g.AccessHash
+}
+
+// SetAccuracyRadius sets value of AccuracyRadius conditional field.
+func (g *GeoPoint) SetAccuracyRadius(value int) {
+	g.Flags.Set(0)
+	g.AccuracyRadius = value
+}
+
+// GetAccuracyRadius returns value of AccuracyRadius conditional field and
+// boolean which is true if field was set.
+func (g *GeoPoint) GetAccuracyRadius() (value int, ok bool) {
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.AccuracyRadius, true
+}
 
 // GeoPointClass represents GeoPoint generic type.
 //

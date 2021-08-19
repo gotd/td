@@ -48,6 +48,14 @@ type ChannelsEditLocationRequest struct {
 // ChannelsEditLocationRequestTypeID is TL type id of ChannelsEditLocationRequest.
 const ChannelsEditLocationRequestTypeID = 0x58e63f6d
 
+// Ensuring interfaces in compile-time for ChannelsEditLocationRequest.
+var (
+	_ bin.Encoder     = &ChannelsEditLocationRequest{}
+	_ bin.Decoder     = &ChannelsEditLocationRequest{}
+	_ bin.BareEncoder = &ChannelsEditLocationRequest{}
+	_ bin.BareDecoder = &ChannelsEditLocationRequest{}
+)
+
 func (e *ChannelsEditLocationRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -154,31 +162,6 @@ func (e *ChannelsEditLocationRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (e *ChannelsEditLocationRequest) GetChannel() (value InputChannelClass) {
-	return e.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (e *ChannelsEditLocationRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return e.Channel.AsNotEmpty()
-}
-
-// GetGeoPoint returns value of GeoPoint field.
-func (e *ChannelsEditLocationRequest) GetGeoPoint() (value InputGeoPointClass) {
-	return e.GeoPoint
-}
-
-// GetGeoPointAsNotEmpty returns mapped value of GeoPoint field.
-func (e *ChannelsEditLocationRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, bool) {
-	return e.GeoPoint.AsNotEmpty()
-}
-
-// GetAddress returns value of Address field.
-func (e *ChannelsEditLocationRequest) GetAddress() (value string) {
-	return e.Address
-}
-
 // Decode implements bin.Decoder.
 func (e *ChannelsEditLocationRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -219,13 +202,30 @@ func (e *ChannelsEditLocationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsEditLocationRequest.
-var (
-	_ bin.Encoder     = &ChannelsEditLocationRequest{}
-	_ bin.Decoder     = &ChannelsEditLocationRequest{}
-	_ bin.BareEncoder = &ChannelsEditLocationRequest{}
-	_ bin.BareDecoder = &ChannelsEditLocationRequest{}
-)
+// GetChannel returns value of Channel field.
+func (e *ChannelsEditLocationRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetGeoPoint returns value of GeoPoint field.
+func (e *ChannelsEditLocationRequest) GetGeoPoint() (value InputGeoPointClass) {
+	return e.GeoPoint
+}
+
+// GetAddress returns value of Address field.
+func (e *ChannelsEditLocationRequest) GetAddress() (value string) {
+	return e.Address
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsEditLocationRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
+}
+
+// GetGeoPointAsNotEmpty returns mapped value of GeoPoint field.
+func (e *ChannelsEditLocationRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, bool) {
+	return e.GeoPoint.AsNotEmpty()
+}
 
 // ChannelsEditLocation invokes method channels.editLocation#58e63f6d returning error if any.
 // Edit location of geogroup

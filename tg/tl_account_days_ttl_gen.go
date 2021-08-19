@@ -41,6 +41,14 @@ type AccountDaysTTL struct {
 // AccountDaysTTLTypeID is TL type id of AccountDaysTTL.
 const AccountDaysTTLTypeID = 0xb8d0afdf
 
+// Ensuring interfaces in compile-time for AccountDaysTTL.
+var (
+	_ bin.Encoder     = &AccountDaysTTL{}
+	_ bin.Decoder     = &AccountDaysTTL{}
+	_ bin.BareEncoder = &AccountDaysTTL{}
+	_ bin.BareDecoder = &AccountDaysTTL{}
+)
+
 func (a *AccountDaysTTL) Zero() bool {
 	if a == nil {
 		return true
@@ -117,11 +125,6 @@ func (a *AccountDaysTTL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDays returns value of Days field.
-func (a *AccountDaysTTL) GetDays() (value int) {
-	return a.Days
-}
-
 // Decode implements bin.Decoder.
 func (a *AccountDaysTTL) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -148,10 +151,7 @@ func (a *AccountDaysTTL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountDaysTTL.
-var (
-	_ bin.Encoder     = &AccountDaysTTL{}
-	_ bin.Decoder     = &AccountDaysTTL{}
-	_ bin.BareEncoder = &AccountDaysTTL{}
-	_ bin.BareDecoder = &AccountDaysTTL{}
-)
+// GetDays returns value of Days field.
+func (a *AccountDaysTTL) GetDays() (value int) {
+	return a.Days
+}

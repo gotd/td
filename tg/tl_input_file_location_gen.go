@@ -48,6 +48,19 @@ type InputPeerPhotoFileLocationLegacy struct {
 // InputPeerPhotoFileLocationLegacyTypeID is TL type id of InputPeerPhotoFileLocationLegacy.
 const InputPeerPhotoFileLocationLegacyTypeID = 0x27d69997
 
+// construct implements constructor of InputFileLocationClass.
+func (i InputPeerPhotoFileLocationLegacy) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerPhotoFileLocationLegacy.
+var (
+	_ bin.Encoder     = &InputPeerPhotoFileLocationLegacy{}
+	_ bin.Decoder     = &InputPeerPhotoFileLocationLegacy{}
+	_ bin.BareEncoder = &InputPeerPhotoFileLocationLegacy{}
+	_ bin.BareDecoder = &InputPeerPhotoFileLocationLegacy{}
+
+	_ InputFileLocationClass = &InputPeerPhotoFileLocationLegacy{}
+)
+
 func (i *InputPeerPhotoFileLocationLegacy) Zero() bool {
 	if i == nil {
 		return true
@@ -168,37 +181,6 @@ func (i *InputPeerPhotoFileLocationLegacy) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetBig sets value of Big conditional field.
-func (i *InputPeerPhotoFileLocationLegacy) SetBig(value bool) {
-	if value {
-		i.Flags.Set(0)
-		i.Big = true
-	} else {
-		i.Flags.Unset(0)
-		i.Big = false
-	}
-}
-
-// GetBig returns value of Big conditional field.
-func (i *InputPeerPhotoFileLocationLegacy) GetBig() (value bool) {
-	return i.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (i *InputPeerPhotoFileLocationLegacy) GetPeer() (value InputPeerClass) {
-	return i.Peer
-}
-
-// GetVolumeID returns value of VolumeID field.
-func (i *InputPeerPhotoFileLocationLegacy) GetVolumeID() (value int64) {
-	return i.VolumeID
-}
-
-// GetLocalID returns value of LocalID field.
-func (i *InputPeerPhotoFileLocationLegacy) GetLocalID() (value int) {
-	return i.LocalID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPeerPhotoFileLocationLegacy) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -245,18 +227,36 @@ func (i *InputPeerPhotoFileLocationLegacy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileLocationClass.
-func (i InputPeerPhotoFileLocationLegacy) construct() InputFileLocationClass { return &i }
+// SetBig sets value of Big conditional field.
+func (i *InputPeerPhotoFileLocationLegacy) SetBig(value bool) {
+	if value {
+		i.Flags.Set(0)
+		i.Big = true
+	} else {
+		i.Flags.Unset(0)
+		i.Big = false
+	}
+}
 
-// Ensuring interfaces in compile-time for InputPeerPhotoFileLocationLegacy.
-var (
-	_ bin.Encoder     = &InputPeerPhotoFileLocationLegacy{}
-	_ bin.Decoder     = &InputPeerPhotoFileLocationLegacy{}
-	_ bin.BareEncoder = &InputPeerPhotoFileLocationLegacy{}
-	_ bin.BareDecoder = &InputPeerPhotoFileLocationLegacy{}
+// GetBig returns value of Big conditional field.
+func (i *InputPeerPhotoFileLocationLegacy) GetBig() (value bool) {
+	return i.Flags.Has(0)
+}
 
-	_ InputFileLocationClass = &InputPeerPhotoFileLocationLegacy{}
-)
+// GetPeer returns value of Peer field.
+func (i *InputPeerPhotoFileLocationLegacy) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
+
+// GetVolumeID returns value of VolumeID field.
+func (i *InputPeerPhotoFileLocationLegacy) GetVolumeID() (value int64) {
+	return i.VolumeID
+}
+
+// GetLocalID returns value of LocalID field.
+func (i *InputPeerPhotoFileLocationLegacy) GetLocalID() (value int) {
+	return i.LocalID
+}
 
 // InputStickerSetThumbLegacy represents TL type `inputStickerSetThumbLegacy#dbaeae9`.
 //
@@ -272,6 +272,19 @@ type InputStickerSetThumbLegacy struct {
 
 // InputStickerSetThumbLegacyTypeID is TL type id of InputStickerSetThumbLegacy.
 const InputStickerSetThumbLegacyTypeID = 0xdbaeae9
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputStickerSetThumbLegacy) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickerSetThumbLegacy.
+var (
+	_ bin.Encoder     = &InputStickerSetThumbLegacy{}
+	_ bin.Decoder     = &InputStickerSetThumbLegacy{}
+	_ bin.BareEncoder = &InputStickerSetThumbLegacy{}
+	_ bin.BareDecoder = &InputStickerSetThumbLegacy{}
+
+	_ InputFileLocationClass = &InputStickerSetThumbLegacy{}
+)
 
 func (i *InputStickerSetThumbLegacy) Zero() bool {
 	if i == nil {
@@ -374,21 +387,6 @@ func (i *InputStickerSetThumbLegacy) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetStickerset returns value of Stickerset field.
-func (i *InputStickerSetThumbLegacy) GetStickerset() (value InputStickerSetClass) {
-	return i.Stickerset
-}
-
-// GetVolumeID returns value of VolumeID field.
-func (i *InputStickerSetThumbLegacy) GetVolumeID() (value int64) {
-	return i.VolumeID
-}
-
-// GetLocalID returns value of LocalID field.
-func (i *InputStickerSetThumbLegacy) GetLocalID() (value int) {
-	return i.LocalID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputStickerSetThumbLegacy) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -429,18 +427,20 @@ func (i *InputStickerSetThumbLegacy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileLocationClass.
-func (i InputStickerSetThumbLegacy) construct() InputFileLocationClass { return &i }
+// GetStickerset returns value of Stickerset field.
+func (i *InputStickerSetThumbLegacy) GetStickerset() (value InputStickerSetClass) {
+	return i.Stickerset
+}
 
-// Ensuring interfaces in compile-time for InputStickerSetThumbLegacy.
-var (
-	_ bin.Encoder     = &InputStickerSetThumbLegacy{}
-	_ bin.Decoder     = &InputStickerSetThumbLegacy{}
-	_ bin.BareEncoder = &InputStickerSetThumbLegacy{}
-	_ bin.BareDecoder = &InputStickerSetThumbLegacy{}
+// GetVolumeID returns value of VolumeID field.
+func (i *InputStickerSetThumbLegacy) GetVolumeID() (value int64) {
+	return i.VolumeID
+}
 
-	_ InputFileLocationClass = &InputStickerSetThumbLegacy{}
-)
+// GetLocalID returns value of LocalID field.
+func (i *InputStickerSetThumbLegacy) GetLocalID() (value int) {
+	return i.LocalID
+}
 
 // InputFileLocation represents TL type `inputFileLocation#dfdaabe1`.
 // DEPRECATED location of a photo
@@ -462,6 +462,19 @@ type InputFileLocation struct {
 
 // InputFileLocationTypeID is TL type id of InputFileLocation.
 const InputFileLocationTypeID = 0xdfdaabe1
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputFileLocation) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputFileLocation.
+var (
+	_ bin.Encoder     = &InputFileLocation{}
+	_ bin.Decoder     = &InputFileLocation{}
+	_ bin.BareEncoder = &InputFileLocation{}
+	_ bin.BareDecoder = &InputFileLocation{}
+
+	_ InputFileLocationClass = &InputFileLocation{}
+)
 
 func (i *InputFileLocation) Zero() bool {
 	if i == nil {
@@ -569,26 +582,6 @@ func (i *InputFileLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetVolumeID returns value of VolumeID field.
-func (i *InputFileLocation) GetVolumeID() (value int64) {
-	return i.VolumeID
-}
-
-// GetLocalID returns value of LocalID field.
-func (i *InputFileLocation) GetLocalID() (value int) {
-	return i.LocalID
-}
-
-// GetSecret returns value of Secret field.
-func (i *InputFileLocation) GetSecret() (value int64) {
-	return i.Secret
-}
-
-// GetFileReference returns value of FileReference field.
-func (i *InputFileLocation) GetFileReference() (value []byte) {
-	return i.FileReference
-}
-
 // Decode implements bin.Decoder.
 func (i *InputFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -636,18 +629,25 @@ func (i *InputFileLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileLocationClass.
-func (i InputFileLocation) construct() InputFileLocationClass { return &i }
+// GetVolumeID returns value of VolumeID field.
+func (i *InputFileLocation) GetVolumeID() (value int64) {
+	return i.VolumeID
+}
 
-// Ensuring interfaces in compile-time for InputFileLocation.
-var (
-	_ bin.Encoder     = &InputFileLocation{}
-	_ bin.Decoder     = &InputFileLocation{}
-	_ bin.BareEncoder = &InputFileLocation{}
-	_ bin.BareDecoder = &InputFileLocation{}
+// GetLocalID returns value of LocalID field.
+func (i *InputFileLocation) GetLocalID() (value int) {
+	return i.LocalID
+}
 
-	_ InputFileLocationClass = &InputFileLocation{}
-)
+// GetSecret returns value of Secret field.
+func (i *InputFileLocation) GetSecret() (value int64) {
+	return i.Secret
+}
+
+// GetFileReference returns value of FileReference field.
+func (i *InputFileLocation) GetFileReference() (value []byte) {
+	return i.FileReference
+}
 
 // InputEncryptedFileLocation represents TL type `inputEncryptedFileLocation#f5235d55`.
 // Location of encrypted secret chat file.
@@ -668,6 +668,19 @@ type InputEncryptedFileLocation struct {
 
 // InputEncryptedFileLocationTypeID is TL type id of InputEncryptedFileLocation.
 const InputEncryptedFileLocationTypeID = 0xf5235d55
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputEncryptedFileLocation) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputEncryptedFileLocation.
+var (
+	_ bin.Encoder     = &InputEncryptedFileLocation{}
+	_ bin.Decoder     = &InputEncryptedFileLocation{}
+	_ bin.BareEncoder = &InputEncryptedFileLocation{}
+	_ bin.BareDecoder = &InputEncryptedFileLocation{}
+
+	_ InputFileLocationClass = &InputEncryptedFileLocation{}
+)
 
 func (i *InputEncryptedFileLocation) Zero() bool {
 	if i == nil {
@@ -755,16 +768,6 @@ func (i *InputEncryptedFileLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputEncryptedFileLocation) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputEncryptedFileLocation) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputEncryptedFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -798,18 +801,15 @@ func (i *InputEncryptedFileLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileLocationClass.
-func (i InputEncryptedFileLocation) construct() InputFileLocationClass { return &i }
+// GetID returns value of ID field.
+func (i *InputEncryptedFileLocation) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputEncryptedFileLocation.
-var (
-	_ bin.Encoder     = &InputEncryptedFileLocation{}
-	_ bin.Decoder     = &InputEncryptedFileLocation{}
-	_ bin.BareEncoder = &InputEncryptedFileLocation{}
-	_ bin.BareDecoder = &InputEncryptedFileLocation{}
-
-	_ InputFileLocationClass = &InputEncryptedFileLocation{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputEncryptedFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputDocumentFileLocation represents TL type `inputDocumentFileLocation#bad07584`.
 // Document location (video, voice, audio, basically every type except photo)
@@ -834,6 +834,19 @@ type InputDocumentFileLocation struct {
 
 // InputDocumentFileLocationTypeID is TL type id of InputDocumentFileLocation.
 const InputDocumentFileLocationTypeID = 0xbad07584
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputDocumentFileLocation) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputDocumentFileLocation.
+var (
+	_ bin.Encoder     = &InputDocumentFileLocation{}
+	_ bin.Decoder     = &InputDocumentFileLocation{}
+	_ bin.BareEncoder = &InputDocumentFileLocation{}
+	_ bin.BareDecoder = &InputDocumentFileLocation{}
+
+	_ InputFileLocationClass = &InputDocumentFileLocation{}
+)
 
 func (i *InputDocumentFileLocation) Zero() bool {
 	if i == nil {
@@ -941,26 +954,6 @@ func (i *InputDocumentFileLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputDocumentFileLocation) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputDocumentFileLocation) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
-// GetFileReference returns value of FileReference field.
-func (i *InputDocumentFileLocation) GetFileReference() (value []byte) {
-	return i.FileReference
-}
-
-// GetThumbSize returns value of ThumbSize field.
-func (i *InputDocumentFileLocation) GetThumbSize() (value string) {
-	return i.ThumbSize
-}
-
 // Decode implements bin.Decoder.
 func (i *InputDocumentFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1008,18 +1001,25 @@ func (i *InputDocumentFileLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileLocationClass.
-func (i InputDocumentFileLocation) construct() InputFileLocationClass { return &i }
+// GetID returns value of ID field.
+func (i *InputDocumentFileLocation) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputDocumentFileLocation.
-var (
-	_ bin.Encoder     = &InputDocumentFileLocation{}
-	_ bin.Decoder     = &InputDocumentFileLocation{}
-	_ bin.BareEncoder = &InputDocumentFileLocation{}
-	_ bin.BareDecoder = &InputDocumentFileLocation{}
+// GetAccessHash returns value of AccessHash field.
+func (i *InputDocumentFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
-	_ InputFileLocationClass = &InputDocumentFileLocation{}
-)
+// GetFileReference returns value of FileReference field.
+func (i *InputDocumentFileLocation) GetFileReference() (value []byte) {
+	return i.FileReference
+}
+
+// GetThumbSize returns value of ThumbSize field.
+func (i *InputDocumentFileLocation) GetThumbSize() (value string) {
+	return i.ThumbSize
+}
 
 // InputSecureFileLocation represents TL type `inputSecureFileLocation#cbc7ee28`.
 // Location of encrypted telegram passport¹ file.
@@ -1043,6 +1043,19 @@ type InputSecureFileLocation struct {
 
 // InputSecureFileLocationTypeID is TL type id of InputSecureFileLocation.
 const InputSecureFileLocationTypeID = 0xcbc7ee28
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputSecureFileLocation) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputSecureFileLocation.
+var (
+	_ bin.Encoder     = &InputSecureFileLocation{}
+	_ bin.Decoder     = &InputSecureFileLocation{}
+	_ bin.BareEncoder = &InputSecureFileLocation{}
+	_ bin.BareDecoder = &InputSecureFileLocation{}
+
+	_ InputFileLocationClass = &InputSecureFileLocation{}
+)
 
 func (i *InputSecureFileLocation) Zero() bool {
 	if i == nil {
@@ -1130,16 +1143,6 @@ func (i *InputSecureFileLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputSecureFileLocation) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputSecureFileLocation) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputSecureFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1173,18 +1176,15 @@ func (i *InputSecureFileLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileLocationClass.
-func (i InputSecureFileLocation) construct() InputFileLocationClass { return &i }
+// GetID returns value of ID field.
+func (i *InputSecureFileLocation) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputSecureFileLocation.
-var (
-	_ bin.Encoder     = &InputSecureFileLocation{}
-	_ bin.Decoder     = &InputSecureFileLocation{}
-	_ bin.BareEncoder = &InputSecureFileLocation{}
-	_ bin.BareDecoder = &InputSecureFileLocation{}
-
-	_ InputFileLocationClass = &InputSecureFileLocation{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputSecureFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputTakeoutFileLocation represents TL type `inputTakeoutFileLocation#29be5899`.
 // Empty constructor for takeout
@@ -1195,6 +1195,19 @@ type InputTakeoutFileLocation struct {
 
 // InputTakeoutFileLocationTypeID is TL type id of InputTakeoutFileLocation.
 const InputTakeoutFileLocationTypeID = 0x29be5899
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputTakeoutFileLocation) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputTakeoutFileLocation.
+var (
+	_ bin.Encoder     = &InputTakeoutFileLocation{}
+	_ bin.Decoder     = &InputTakeoutFileLocation{}
+	_ bin.BareEncoder = &InputTakeoutFileLocation{}
+	_ bin.BareDecoder = &InputTakeoutFileLocation{}
+
+	_ InputFileLocationClass = &InputTakeoutFileLocation{}
+)
 
 func (i *InputTakeoutFileLocation) Zero() bool {
 	if i == nil {
@@ -1275,19 +1288,6 @@ func (i *InputTakeoutFileLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileLocationClass.
-func (i InputTakeoutFileLocation) construct() InputFileLocationClass { return &i }
-
-// Ensuring interfaces in compile-time for InputTakeoutFileLocation.
-var (
-	_ bin.Encoder     = &InputTakeoutFileLocation{}
-	_ bin.Decoder     = &InputTakeoutFileLocation{}
-	_ bin.BareEncoder = &InputTakeoutFileLocation{}
-	_ bin.BareDecoder = &InputTakeoutFileLocation{}
-
-	_ InputFileLocationClass = &InputTakeoutFileLocation{}
-)
-
 // InputPhotoFileLocation represents TL type `inputPhotoFileLocation#40181ffe`.
 // Use this object to download a photo with upload.getFile¹ method
 //
@@ -1322,6 +1322,19 @@ type InputPhotoFileLocation struct {
 
 // InputPhotoFileLocationTypeID is TL type id of InputPhotoFileLocation.
 const InputPhotoFileLocationTypeID = 0x40181ffe
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputPhotoFileLocation) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPhotoFileLocation.
+var (
+	_ bin.Encoder     = &InputPhotoFileLocation{}
+	_ bin.Decoder     = &InputPhotoFileLocation{}
+	_ bin.BareEncoder = &InputPhotoFileLocation{}
+	_ bin.BareDecoder = &InputPhotoFileLocation{}
+
+	_ InputFileLocationClass = &InputPhotoFileLocation{}
+)
 
 func (i *InputPhotoFileLocation) Zero() bool {
 	if i == nil {
@@ -1429,26 +1442,6 @@ func (i *InputPhotoFileLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputPhotoFileLocation) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputPhotoFileLocation) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
-// GetFileReference returns value of FileReference field.
-func (i *InputPhotoFileLocation) GetFileReference() (value []byte) {
-	return i.FileReference
-}
-
-// GetThumbSize returns value of ThumbSize field.
-func (i *InputPhotoFileLocation) GetThumbSize() (value string) {
-	return i.ThumbSize
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPhotoFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1496,18 +1489,25 @@ func (i *InputPhotoFileLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileLocationClass.
-func (i InputPhotoFileLocation) construct() InputFileLocationClass { return &i }
+// GetID returns value of ID field.
+func (i *InputPhotoFileLocation) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputPhotoFileLocation.
-var (
-	_ bin.Encoder     = &InputPhotoFileLocation{}
-	_ bin.Decoder     = &InputPhotoFileLocation{}
-	_ bin.BareEncoder = &InputPhotoFileLocation{}
-	_ bin.BareDecoder = &InputPhotoFileLocation{}
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPhotoFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
-	_ InputFileLocationClass = &InputPhotoFileLocation{}
-)
+// GetFileReference returns value of FileReference field.
+func (i *InputPhotoFileLocation) GetFileReference() (value []byte) {
+	return i.FileReference
+}
+
+// GetThumbSize returns value of ThumbSize field.
+func (i *InputPhotoFileLocation) GetThumbSize() (value string) {
+	return i.ThumbSize
+}
 
 // InputPhotoLegacyFileLocation represents TL type `inputPhotoLegacyFileLocation#d83466f3`.
 // Legacy photo file location
@@ -1530,6 +1530,19 @@ type InputPhotoLegacyFileLocation struct {
 
 // InputPhotoLegacyFileLocationTypeID is TL type id of InputPhotoLegacyFileLocation.
 const InputPhotoLegacyFileLocationTypeID = 0xd83466f3
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputPhotoLegacyFileLocation) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPhotoLegacyFileLocation.
+var (
+	_ bin.Encoder     = &InputPhotoLegacyFileLocation{}
+	_ bin.Decoder     = &InputPhotoLegacyFileLocation{}
+	_ bin.BareEncoder = &InputPhotoLegacyFileLocation{}
+	_ bin.BareDecoder = &InputPhotoLegacyFileLocation{}
+
+	_ InputFileLocationClass = &InputPhotoLegacyFileLocation{}
+)
 
 func (i *InputPhotoLegacyFileLocation) Zero() bool {
 	if i == nil {
@@ -1657,36 +1670,6 @@ func (i *InputPhotoLegacyFileLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputPhotoLegacyFileLocation) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputPhotoLegacyFileLocation) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
-// GetFileReference returns value of FileReference field.
-func (i *InputPhotoLegacyFileLocation) GetFileReference() (value []byte) {
-	return i.FileReference
-}
-
-// GetVolumeID returns value of VolumeID field.
-func (i *InputPhotoLegacyFileLocation) GetVolumeID() (value int64) {
-	return i.VolumeID
-}
-
-// GetLocalID returns value of LocalID field.
-func (i *InputPhotoLegacyFileLocation) GetLocalID() (value int) {
-	return i.LocalID
-}
-
-// GetSecret returns value of Secret field.
-func (i *InputPhotoLegacyFileLocation) GetSecret() (value int64) {
-	return i.Secret
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPhotoLegacyFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1748,18 +1731,35 @@ func (i *InputPhotoLegacyFileLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileLocationClass.
-func (i InputPhotoLegacyFileLocation) construct() InputFileLocationClass { return &i }
+// GetID returns value of ID field.
+func (i *InputPhotoLegacyFileLocation) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputPhotoLegacyFileLocation.
-var (
-	_ bin.Encoder     = &InputPhotoLegacyFileLocation{}
-	_ bin.Decoder     = &InputPhotoLegacyFileLocation{}
-	_ bin.BareEncoder = &InputPhotoLegacyFileLocation{}
-	_ bin.BareDecoder = &InputPhotoLegacyFileLocation{}
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPhotoLegacyFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
-	_ InputFileLocationClass = &InputPhotoLegacyFileLocation{}
-)
+// GetFileReference returns value of FileReference field.
+func (i *InputPhotoLegacyFileLocation) GetFileReference() (value []byte) {
+	return i.FileReference
+}
+
+// GetVolumeID returns value of VolumeID field.
+func (i *InputPhotoLegacyFileLocation) GetVolumeID() (value int64) {
+	return i.VolumeID
+}
+
+// GetLocalID returns value of LocalID field.
+func (i *InputPhotoLegacyFileLocation) GetLocalID() (value int) {
+	return i.LocalID
+}
+
+// GetSecret returns value of Secret field.
+func (i *InputPhotoLegacyFileLocation) GetSecret() (value int64) {
+	return i.Secret
+}
 
 // InputPeerPhotoFileLocation represents TL type `inputPeerPhotoFileLocation#37257e99`.
 // Location of profile photo of channel/group/supergroup/user
@@ -1781,6 +1781,19 @@ type InputPeerPhotoFileLocation struct {
 
 // InputPeerPhotoFileLocationTypeID is TL type id of InputPeerPhotoFileLocation.
 const InputPeerPhotoFileLocationTypeID = 0x37257e99
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputPeerPhotoFileLocation) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerPhotoFileLocation.
+var (
+	_ bin.Encoder     = &InputPeerPhotoFileLocation{}
+	_ bin.Decoder     = &InputPeerPhotoFileLocation{}
+	_ bin.BareEncoder = &InputPeerPhotoFileLocation{}
+	_ bin.BareDecoder = &InputPeerPhotoFileLocation{}
+
+	_ InputFileLocationClass = &InputPeerPhotoFileLocation{}
+)
 
 func (i *InputPeerPhotoFileLocation) Zero() bool {
 	if i == nil {
@@ -1892,32 +1905,6 @@ func (i *InputPeerPhotoFileLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetBig sets value of Big conditional field.
-func (i *InputPeerPhotoFileLocation) SetBig(value bool) {
-	if value {
-		i.Flags.Set(0)
-		i.Big = true
-	} else {
-		i.Flags.Unset(0)
-		i.Big = false
-	}
-}
-
-// GetBig returns value of Big conditional field.
-func (i *InputPeerPhotoFileLocation) GetBig() (value bool) {
-	return i.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (i *InputPeerPhotoFileLocation) GetPeer() (value InputPeerClass) {
-	return i.Peer
-}
-
-// GetPhotoID returns value of PhotoID field.
-func (i *InputPeerPhotoFileLocation) GetPhotoID() (value int64) {
-	return i.PhotoID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPeerPhotoFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1957,18 +1944,31 @@ func (i *InputPeerPhotoFileLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileLocationClass.
-func (i InputPeerPhotoFileLocation) construct() InputFileLocationClass { return &i }
+// SetBig sets value of Big conditional field.
+func (i *InputPeerPhotoFileLocation) SetBig(value bool) {
+	if value {
+		i.Flags.Set(0)
+		i.Big = true
+	} else {
+		i.Flags.Unset(0)
+		i.Big = false
+	}
+}
 
-// Ensuring interfaces in compile-time for InputPeerPhotoFileLocation.
-var (
-	_ bin.Encoder     = &InputPeerPhotoFileLocation{}
-	_ bin.Decoder     = &InputPeerPhotoFileLocation{}
-	_ bin.BareEncoder = &InputPeerPhotoFileLocation{}
-	_ bin.BareDecoder = &InputPeerPhotoFileLocation{}
+// GetBig returns value of Big conditional field.
+func (i *InputPeerPhotoFileLocation) GetBig() (value bool) {
+	return i.Flags.Has(0)
+}
 
-	_ InputFileLocationClass = &InputPeerPhotoFileLocation{}
-)
+// GetPeer returns value of Peer field.
+func (i *InputPeerPhotoFileLocation) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
+
+// GetPhotoID returns value of PhotoID field.
+func (i *InputPeerPhotoFileLocation) GetPhotoID() (value int64) {
+	return i.PhotoID
+}
 
 // InputStickerSetThumb represents TL type `inputStickerSetThumb#9d84f3db`.
 // Location of stickerset thumbnail (see files¹)
@@ -1986,6 +1986,19 @@ type InputStickerSetThumb struct {
 
 // InputStickerSetThumbTypeID is TL type id of InputStickerSetThumb.
 const InputStickerSetThumbTypeID = 0x9d84f3db
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputStickerSetThumb) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickerSetThumb.
+var (
+	_ bin.Encoder     = &InputStickerSetThumb{}
+	_ bin.Decoder     = &InputStickerSetThumb{}
+	_ bin.BareEncoder = &InputStickerSetThumb{}
+	_ bin.BareDecoder = &InputStickerSetThumb{}
+
+	_ InputFileLocationClass = &InputStickerSetThumb{}
+)
 
 func (i *InputStickerSetThumb) Zero() bool {
 	if i == nil {
@@ -2078,16 +2091,6 @@ func (i *InputStickerSetThumb) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetStickerset returns value of Stickerset field.
-func (i *InputStickerSetThumb) GetStickerset() (value InputStickerSetClass) {
-	return i.Stickerset
-}
-
-// GetThumbVersion returns value of ThumbVersion field.
-func (i *InputStickerSetThumb) GetThumbVersion() (value int) {
-	return i.ThumbVersion
-}
-
 // Decode implements bin.Decoder.
 func (i *InputStickerSetThumb) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -2121,18 +2124,15 @@ func (i *InputStickerSetThumb) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileLocationClass.
-func (i InputStickerSetThumb) construct() InputFileLocationClass { return &i }
+// GetStickerset returns value of Stickerset field.
+func (i *InputStickerSetThumb) GetStickerset() (value InputStickerSetClass) {
+	return i.Stickerset
+}
 
-// Ensuring interfaces in compile-time for InputStickerSetThumb.
-var (
-	_ bin.Encoder     = &InputStickerSetThumb{}
-	_ bin.Decoder     = &InputStickerSetThumb{}
-	_ bin.BareEncoder = &InputStickerSetThumb{}
-	_ bin.BareDecoder = &InputStickerSetThumb{}
-
-	_ InputFileLocationClass = &InputStickerSetThumb{}
-)
+// GetThumbVersion returns value of ThumbVersion field.
+func (i *InputStickerSetThumb) GetThumbVersion() (value int) {
+	return i.ThumbVersion
+}
 
 // InputGroupCallStream represents TL type `inputGroupCallStream#bba51639`.
 //
@@ -2148,6 +2148,19 @@ type InputGroupCallStream struct {
 
 // InputGroupCallStreamTypeID is TL type id of InputGroupCallStream.
 const InputGroupCallStreamTypeID = 0xbba51639
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputGroupCallStream) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputGroupCallStream.
+var (
+	_ bin.Encoder     = &InputGroupCallStream{}
+	_ bin.Decoder     = &InputGroupCallStream{}
+	_ bin.BareEncoder = &InputGroupCallStream{}
+	_ bin.BareDecoder = &InputGroupCallStream{}
+
+	_ InputFileLocationClass = &InputGroupCallStream{}
+)
 
 func (i *InputGroupCallStream) Zero() bool {
 	if i == nil {
@@ -2247,21 +2260,6 @@ func (i *InputGroupCallStream) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (i *InputGroupCallStream) GetCall() (value InputGroupCall) {
-	return i.Call
-}
-
-// GetTimeMs returns value of TimeMs field.
-func (i *InputGroupCallStream) GetTimeMs() (value int64) {
-	return i.TimeMs
-}
-
-// GetScale returns value of Scale field.
-func (i *InputGroupCallStream) GetScale() (value int) {
-	return i.Scale
-}
-
 // Decode implements bin.Decoder.
 func (i *InputGroupCallStream) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -2300,18 +2298,20 @@ func (i *InputGroupCallStream) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileLocationClass.
-func (i InputGroupCallStream) construct() InputFileLocationClass { return &i }
+// GetCall returns value of Call field.
+func (i *InputGroupCallStream) GetCall() (value InputGroupCall) {
+	return i.Call
+}
 
-// Ensuring interfaces in compile-time for InputGroupCallStream.
-var (
-	_ bin.Encoder     = &InputGroupCallStream{}
-	_ bin.Decoder     = &InputGroupCallStream{}
-	_ bin.BareEncoder = &InputGroupCallStream{}
-	_ bin.BareDecoder = &InputGroupCallStream{}
+// GetTimeMs returns value of TimeMs field.
+func (i *InputGroupCallStream) GetTimeMs() (value int64) {
+	return i.TimeMs
+}
 
-	_ InputFileLocationClass = &InputGroupCallStream{}
-)
+// GetScale returns value of Scale field.
+func (i *InputGroupCallStream) GetScale() (value int) {
+	return i.Scale
+}
 
 // InputFileLocationClass represents InputFileLocation generic type.
 //

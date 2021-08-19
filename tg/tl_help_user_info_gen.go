@@ -39,6 +39,19 @@ type HelpUserInfoEmpty struct {
 // HelpUserInfoEmptyTypeID is TL type id of HelpUserInfoEmpty.
 const HelpUserInfoEmptyTypeID = 0xf3ae2eed
 
+// construct implements constructor of HelpUserInfoClass.
+func (u HelpUserInfoEmpty) construct() HelpUserInfoClass { return &u }
+
+// Ensuring interfaces in compile-time for HelpUserInfoEmpty.
+var (
+	_ bin.Encoder     = &HelpUserInfoEmpty{}
+	_ bin.Decoder     = &HelpUserInfoEmpty{}
+	_ bin.BareEncoder = &HelpUserInfoEmpty{}
+	_ bin.BareDecoder = &HelpUserInfoEmpty{}
+
+	_ HelpUserInfoClass = &HelpUserInfoEmpty{}
+)
+
 func (u *HelpUserInfoEmpty) Zero() bool {
 	if u == nil {
 		return true
@@ -118,19 +131,6 @@ func (u *HelpUserInfoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpUserInfoClass.
-func (u HelpUserInfoEmpty) construct() HelpUserInfoClass { return &u }
-
-// Ensuring interfaces in compile-time for HelpUserInfoEmpty.
-var (
-	_ bin.Encoder     = &HelpUserInfoEmpty{}
-	_ bin.Decoder     = &HelpUserInfoEmpty{}
-	_ bin.BareEncoder = &HelpUserInfoEmpty{}
-	_ bin.BareDecoder = &HelpUserInfoEmpty{}
-
-	_ HelpUserInfoClass = &HelpUserInfoEmpty{}
-)
-
 // HelpUserInfo represents TL type `help.userInfo#1eb3758`.
 // Internal use
 //
@@ -151,6 +151,19 @@ type HelpUserInfo struct {
 
 // HelpUserInfoTypeID is TL type id of HelpUserInfo.
 const HelpUserInfoTypeID = 0x1eb3758
+
+// construct implements constructor of HelpUserInfoClass.
+func (u HelpUserInfo) construct() HelpUserInfoClass { return &u }
+
+// Ensuring interfaces in compile-time for HelpUserInfo.
+var (
+	_ bin.Encoder     = &HelpUserInfo{}
+	_ bin.Decoder     = &HelpUserInfo{}
+	_ bin.BareEncoder = &HelpUserInfo{}
+	_ bin.BareDecoder = &HelpUserInfo{}
+
+	_ HelpUserInfoClass = &HelpUserInfo{}
+)
 
 func (u *HelpUserInfo) Zero() bool {
 	if u == nil {
@@ -266,31 +279,6 @@ func (u *HelpUserInfo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (u *HelpUserInfo) GetMessage() (value string) {
-	return u.Message
-}
-
-// GetEntities returns value of Entities field.
-func (u *HelpUserInfo) GetEntities() (value []MessageEntityClass) {
-	return u.Entities
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (u *HelpUserInfo) MapEntities() (value MessageEntityClassArray) {
-	return MessageEntityClassArray(u.Entities)
-}
-
-// GetAuthor returns value of Author field.
-func (u *HelpUserInfo) GetAuthor() (value string) {
-	return u.Author
-}
-
-// GetDate returns value of Date field.
-func (u *HelpUserInfo) GetDate() (value int) {
-	return u.Date
-}
-
 // Decode implements bin.Decoder.
 func (u *HelpUserInfo) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -348,18 +336,30 @@ func (u *HelpUserInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpUserInfoClass.
-func (u HelpUserInfo) construct() HelpUserInfoClass { return &u }
+// GetMessage returns value of Message field.
+func (u *HelpUserInfo) GetMessage() (value string) {
+	return u.Message
+}
 
-// Ensuring interfaces in compile-time for HelpUserInfo.
-var (
-	_ bin.Encoder     = &HelpUserInfo{}
-	_ bin.Decoder     = &HelpUserInfo{}
-	_ bin.BareEncoder = &HelpUserInfo{}
-	_ bin.BareDecoder = &HelpUserInfo{}
+// GetEntities returns value of Entities field.
+func (u *HelpUserInfo) GetEntities() (value []MessageEntityClass) {
+	return u.Entities
+}
 
-	_ HelpUserInfoClass = &HelpUserInfo{}
-)
+// GetAuthor returns value of Author field.
+func (u *HelpUserInfo) GetAuthor() (value string) {
+	return u.Author
+}
+
+// GetDate returns value of Date field.
+func (u *HelpUserInfo) GetDate() (value int) {
+	return u.Date
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (u *HelpUserInfo) MapEntities() (value MessageEntityClassArray) {
+	return MessageEntityClassArray(u.Entities)
+}
 
 // HelpUserInfoClass represents help.UserInfo generic type.
 //

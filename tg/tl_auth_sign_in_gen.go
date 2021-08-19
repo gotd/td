@@ -48,6 +48,14 @@ type AuthSignInRequest struct {
 // AuthSignInRequestTypeID is TL type id of AuthSignInRequest.
 const AuthSignInRequestTypeID = 0xbcd51581
 
+// Ensuring interfaces in compile-time for AuthSignInRequest.
+var (
+	_ bin.Encoder     = &AuthSignInRequest{}
+	_ bin.Decoder     = &AuthSignInRequest{}
+	_ bin.BareEncoder = &AuthSignInRequest{}
+	_ bin.BareDecoder = &AuthSignInRequest{}
+)
+
 func (s *AuthSignInRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -144,21 +152,6 @@ func (s *AuthSignInRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (s *AuthSignInRequest) GetPhoneNumber() (value string) {
-	return s.PhoneNumber
-}
-
-// GetPhoneCodeHash returns value of PhoneCodeHash field.
-func (s *AuthSignInRequest) GetPhoneCodeHash() (value string) {
-	return s.PhoneCodeHash
-}
-
-// GetPhoneCode returns value of PhoneCode field.
-func (s *AuthSignInRequest) GetPhoneCode() (value string) {
-	return s.PhoneCode
-}
-
 // Decode implements bin.Decoder.
 func (s *AuthSignInRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -199,13 +192,20 @@ func (s *AuthSignInRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthSignInRequest.
-var (
-	_ bin.Encoder     = &AuthSignInRequest{}
-	_ bin.Decoder     = &AuthSignInRequest{}
-	_ bin.BareEncoder = &AuthSignInRequest{}
-	_ bin.BareDecoder = &AuthSignInRequest{}
-)
+// GetPhoneNumber returns value of PhoneNumber field.
+func (s *AuthSignInRequest) GetPhoneNumber() (value string) {
+	return s.PhoneNumber
+}
+
+// GetPhoneCodeHash returns value of PhoneCodeHash field.
+func (s *AuthSignInRequest) GetPhoneCodeHash() (value string) {
+	return s.PhoneCodeHash
+}
+
+// GetPhoneCode returns value of PhoneCode field.
+func (s *AuthSignInRequest) GetPhoneCode() (value string) {
+	return s.PhoneCode
+}
 
 // AuthSignIn invokes method auth.signIn#bcd51581 returning error if any.
 // Signs in a user with a validated phone number.

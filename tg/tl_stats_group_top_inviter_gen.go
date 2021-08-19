@@ -46,6 +46,14 @@ type StatsGroupTopInviter struct {
 // StatsGroupTopInviterTypeID is TL type id of StatsGroupTopInviter.
 const StatsGroupTopInviterTypeID = 0x31962a4c
 
+// Ensuring interfaces in compile-time for StatsGroupTopInviter.
+var (
+	_ bin.Encoder     = &StatsGroupTopInviter{}
+	_ bin.Decoder     = &StatsGroupTopInviter{}
+	_ bin.BareEncoder = &StatsGroupTopInviter{}
+	_ bin.BareDecoder = &StatsGroupTopInviter{}
+)
+
 func (s *StatsGroupTopInviter) Zero() bool {
 	if s == nil {
 		return true
@@ -132,16 +140,6 @@ func (s *StatsGroupTopInviter) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (s *StatsGroupTopInviter) GetUserID() (value int) {
-	return s.UserID
-}
-
-// GetInvitations returns value of Invitations field.
-func (s *StatsGroupTopInviter) GetInvitations() (value int) {
-	return s.Invitations
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsGroupTopInviter) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -175,10 +173,12 @@ func (s *StatsGroupTopInviter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsGroupTopInviter.
-var (
-	_ bin.Encoder     = &StatsGroupTopInviter{}
-	_ bin.Decoder     = &StatsGroupTopInviter{}
-	_ bin.BareEncoder = &StatsGroupTopInviter{}
-	_ bin.BareDecoder = &StatsGroupTopInviter{}
-)
+// GetUserID returns value of UserID field.
+func (s *StatsGroupTopInviter) GetUserID() (value int) {
+	return s.UserID
+}
+
+// GetInvitations returns value of Invitations field.
+func (s *StatsGroupTopInviter) GetInvitations() (value int) {
+	return s.Invitations
+}

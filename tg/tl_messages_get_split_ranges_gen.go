@@ -39,6 +39,14 @@ type MessagesGetSplitRangesRequest struct {
 // MessagesGetSplitRangesRequestTypeID is TL type id of MessagesGetSplitRangesRequest.
 const MessagesGetSplitRangesRequestTypeID = 0x1cff7e08
 
+// Ensuring interfaces in compile-time for MessagesGetSplitRangesRequest.
+var (
+	_ bin.Encoder     = &MessagesGetSplitRangesRequest{}
+	_ bin.Decoder     = &MessagesGetSplitRangesRequest{}
+	_ bin.BareEncoder = &MessagesGetSplitRangesRequest{}
+	_ bin.BareDecoder = &MessagesGetSplitRangesRequest{}
+)
+
 func (g *MessagesGetSplitRangesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *MessagesGetSplitRangesRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for MessagesGetSplitRangesRequest.
-var (
-	_ bin.Encoder     = &MessagesGetSplitRangesRequest{}
-	_ bin.Decoder     = &MessagesGetSplitRangesRequest{}
-	_ bin.BareEncoder = &MessagesGetSplitRangesRequest{}
-	_ bin.BareDecoder = &MessagesGetSplitRangesRequest{}
-)
 
 // MessagesGetSplitRanges invokes method messages.getSplitRanges#1cff7e08 returning error if any.
 // Get message ranges for saving the user's chat history

@@ -41,6 +41,14 @@ type MessagesGetChatsRequest struct {
 // MessagesGetChatsRequestTypeID is TL type id of MessagesGetChatsRequest.
 const MessagesGetChatsRequestTypeID = 0x3c6aa187
 
+// Ensuring interfaces in compile-time for MessagesGetChatsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetChatsRequest{}
+	_ bin.Decoder     = &MessagesGetChatsRequest{}
+	_ bin.BareEncoder = &MessagesGetChatsRequest{}
+	_ bin.BareDecoder = &MessagesGetChatsRequest{}
+)
+
 func (g *MessagesGetChatsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,11 +128,6 @@ func (g *MessagesGetChatsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (g *MessagesGetChatsRequest) GetID() (value []int) {
-	return g.ID
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetChatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -161,13 +164,10 @@ func (g *MessagesGetChatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetChatsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetChatsRequest{}
-	_ bin.Decoder     = &MessagesGetChatsRequest{}
-	_ bin.BareEncoder = &MessagesGetChatsRequest{}
-	_ bin.BareDecoder = &MessagesGetChatsRequest{}
-)
+// GetID returns value of ID field.
+func (g *MessagesGetChatsRequest) GetID() (value []int) {
+	return g.ID
+}
 
 // MessagesGetChats invokes method messages.getChats#3c6aa187 returning error if any.
 // Returns chat basic info on their IDs.

@@ -44,6 +44,14 @@ type AccountGetWallPapersRequest struct {
 // AccountGetWallPapersRequestTypeID is TL type id of AccountGetWallPapersRequest.
 const AccountGetWallPapersRequestTypeID = 0xaabb1763
 
+// Ensuring interfaces in compile-time for AccountGetWallPapersRequest.
+var (
+	_ bin.Encoder     = &AccountGetWallPapersRequest{}
+	_ bin.Decoder     = &AccountGetWallPapersRequest{}
+	_ bin.BareEncoder = &AccountGetWallPapersRequest{}
+	_ bin.BareDecoder = &AccountGetWallPapersRequest{}
+)
+
 func (g *AccountGetWallPapersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,11 +128,6 @@ func (g *AccountGetWallPapersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (g *AccountGetWallPapersRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *AccountGetWallPapersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -151,13 +154,10 @@ func (g *AccountGetWallPapersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountGetWallPapersRequest.
-var (
-	_ bin.Encoder     = &AccountGetWallPapersRequest{}
-	_ bin.Decoder     = &AccountGetWallPapersRequest{}
-	_ bin.BareEncoder = &AccountGetWallPapersRequest{}
-	_ bin.BareDecoder = &AccountGetWallPapersRequest{}
-)
+// GetHash returns value of Hash field.
+func (g *AccountGetWallPapersRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // AccountGetWallPapers invokes method account.getWallPapers#aabb1763 returning error if any.
 // Returns a list of available wallpapers.

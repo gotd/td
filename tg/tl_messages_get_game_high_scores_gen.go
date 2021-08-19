@@ -45,6 +45,14 @@ type MessagesGetGameHighScoresRequest struct {
 // MessagesGetGameHighScoresRequestTypeID is TL type id of MessagesGetGameHighScoresRequest.
 const MessagesGetGameHighScoresRequestTypeID = 0xe822649d
 
+// Ensuring interfaces in compile-time for MessagesGetGameHighScoresRequest.
+var (
+	_ bin.Encoder     = &MessagesGetGameHighScoresRequest{}
+	_ bin.Decoder     = &MessagesGetGameHighScoresRequest{}
+	_ bin.BareEncoder = &MessagesGetGameHighScoresRequest{}
+	_ bin.BareDecoder = &MessagesGetGameHighScoresRequest{}
+)
+
 func (g *MessagesGetGameHighScoresRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -151,21 +159,6 @@ func (g *MessagesGetGameHighScoresRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetGameHighScoresRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetID returns value of ID field.
-func (g *MessagesGetGameHighScoresRequest) GetID() (value int) {
-	return g.ID
-}
-
-// GetUserID returns value of UserID field.
-func (g *MessagesGetGameHighScoresRequest) GetUserID() (value InputUserClass) {
-	return g.UserID
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetGameHighScoresRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -206,13 +199,20 @@ func (g *MessagesGetGameHighScoresRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetGameHighScoresRequest.
-var (
-	_ bin.Encoder     = &MessagesGetGameHighScoresRequest{}
-	_ bin.Decoder     = &MessagesGetGameHighScoresRequest{}
-	_ bin.BareEncoder = &MessagesGetGameHighScoresRequest{}
-	_ bin.BareDecoder = &MessagesGetGameHighScoresRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetGameHighScoresRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetID returns value of ID field.
+func (g *MessagesGetGameHighScoresRequest) GetID() (value int) {
+	return g.ID
+}
+
+// GetUserID returns value of UserID field.
+func (g *MessagesGetGameHighScoresRequest) GetUserID() (value InputUserClass) {
+	return g.UserID
+}
 
 // MessagesGetGameHighScores invokes method messages.getGameHighScores#e822649d returning error if any.
 // Get highscores of a game

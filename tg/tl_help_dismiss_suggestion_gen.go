@@ -43,6 +43,14 @@ type HelpDismissSuggestionRequest struct {
 // HelpDismissSuggestionRequestTypeID is TL type id of HelpDismissSuggestionRequest.
 const HelpDismissSuggestionRequestTypeID = 0xf50dbaa1
 
+// Ensuring interfaces in compile-time for HelpDismissSuggestionRequest.
+var (
+	_ bin.Encoder     = &HelpDismissSuggestionRequest{}
+	_ bin.Decoder     = &HelpDismissSuggestionRequest{}
+	_ bin.BareEncoder = &HelpDismissSuggestionRequest{}
+	_ bin.BareDecoder = &HelpDismissSuggestionRequest{}
+)
+
 func (d *HelpDismissSuggestionRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -134,16 +142,6 @@ func (d *HelpDismissSuggestionRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (d *HelpDismissSuggestionRequest) GetPeer() (value InputPeerClass) {
-	return d.Peer
-}
-
-// GetSuggestion returns value of Suggestion field.
-func (d *HelpDismissSuggestionRequest) GetSuggestion() (value string) {
-	return d.Suggestion
-}
-
 // Decode implements bin.Decoder.
 func (d *HelpDismissSuggestionRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -177,13 +175,15 @@ func (d *HelpDismissSuggestionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpDismissSuggestionRequest.
-var (
-	_ bin.Encoder     = &HelpDismissSuggestionRequest{}
-	_ bin.Decoder     = &HelpDismissSuggestionRequest{}
-	_ bin.BareEncoder = &HelpDismissSuggestionRequest{}
-	_ bin.BareDecoder = &HelpDismissSuggestionRequest{}
-)
+// GetPeer returns value of Peer field.
+func (d *HelpDismissSuggestionRequest) GetPeer() (value InputPeerClass) {
+	return d.Peer
+}
+
+// GetSuggestion returns value of Suggestion field.
+func (d *HelpDismissSuggestionRequest) GetSuggestion() (value string) {
+	return d.Suggestion
+}
 
 // HelpDismissSuggestion invokes method help.dismissSuggestion#f50dbaa1 returning error if any.
 // Dismiss a suggestion

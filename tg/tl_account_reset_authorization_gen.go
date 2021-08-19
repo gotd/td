@@ -44,6 +44,14 @@ type AccountResetAuthorizationRequest struct {
 // AccountResetAuthorizationRequestTypeID is TL type id of AccountResetAuthorizationRequest.
 const AccountResetAuthorizationRequestTypeID = 0xdf77f3bc
 
+// Ensuring interfaces in compile-time for AccountResetAuthorizationRequest.
+var (
+	_ bin.Encoder     = &AccountResetAuthorizationRequest{}
+	_ bin.Decoder     = &AccountResetAuthorizationRequest{}
+	_ bin.BareEncoder = &AccountResetAuthorizationRequest{}
+	_ bin.BareDecoder = &AccountResetAuthorizationRequest{}
+)
+
 func (r *AccountResetAuthorizationRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -120,11 +128,6 @@ func (r *AccountResetAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (r *AccountResetAuthorizationRequest) GetHash() (value int64) {
-	return r.Hash
-}
-
 // Decode implements bin.Decoder.
 func (r *AccountResetAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -151,13 +154,10 @@ func (r *AccountResetAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountResetAuthorizationRequest.
-var (
-	_ bin.Encoder     = &AccountResetAuthorizationRequest{}
-	_ bin.Decoder     = &AccountResetAuthorizationRequest{}
-	_ bin.BareEncoder = &AccountResetAuthorizationRequest{}
-	_ bin.BareDecoder = &AccountResetAuthorizationRequest{}
-)
+// GetHash returns value of Hash field.
+func (r *AccountResetAuthorizationRequest) GetHash() (value int64) {
+	return r.Hash
+}
 
 // AccountResetAuthorization invokes method account.resetAuthorization#df77f3bc returning error if any.
 // Log out an active authorized session¹ by its hash

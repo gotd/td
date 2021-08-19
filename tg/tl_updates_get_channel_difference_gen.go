@@ -59,6 +59,14 @@ type UpdatesGetChannelDifferenceRequest struct {
 // UpdatesGetChannelDifferenceRequestTypeID is TL type id of UpdatesGetChannelDifferenceRequest.
 const UpdatesGetChannelDifferenceRequestTypeID = 0x3173d78
 
+// Ensuring interfaces in compile-time for UpdatesGetChannelDifferenceRequest.
+var (
+	_ bin.Encoder     = &UpdatesGetChannelDifferenceRequest{}
+	_ bin.Decoder     = &UpdatesGetChannelDifferenceRequest{}
+	_ bin.BareEncoder = &UpdatesGetChannelDifferenceRequest{}
+	_ bin.BareDecoder = &UpdatesGetChannelDifferenceRequest{}
+)
+
 func (g *UpdatesGetChannelDifferenceRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -194,52 +202,6 @@ func (g *UpdatesGetChannelDifferenceRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetForce sets value of Force conditional field.
-func (g *UpdatesGetChannelDifferenceRequest) SetForce(value bool) {
-	if value {
-		g.Flags.Set(0)
-		g.Force = true
-	} else {
-		g.Flags.Unset(0)
-		g.Force = false
-	}
-}
-
-// GetForce returns value of Force conditional field.
-func (g *UpdatesGetChannelDifferenceRequest) GetForce() (value bool) {
-	return g.Flags.Has(0)
-}
-
-// GetChannel returns value of Channel field.
-func (g *UpdatesGetChannelDifferenceRequest) GetChannel() (value InputChannelClass) {
-	return g.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *UpdatesGetChannelDifferenceRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
-// GetFilter returns value of Filter field.
-func (g *UpdatesGetChannelDifferenceRequest) GetFilter() (value ChannelMessagesFilterClass) {
-	return g.Filter
-}
-
-// GetFilterAsNotEmpty returns mapped value of Filter field.
-func (g *UpdatesGetChannelDifferenceRequest) GetFilterAsNotEmpty() (*ChannelMessagesFilter, bool) {
-	return g.Filter.AsNotEmpty()
-}
-
-// GetPts returns value of Pts field.
-func (g *UpdatesGetChannelDifferenceRequest) GetPts() (value int) {
-	return g.Pts
-}
-
-// GetLimit returns value of Limit field.
-func (g *UpdatesGetChannelDifferenceRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *UpdatesGetChannelDifferenceRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -293,13 +255,51 @@ func (g *UpdatesGetChannelDifferenceRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UpdatesGetChannelDifferenceRequest.
-var (
-	_ bin.Encoder     = &UpdatesGetChannelDifferenceRequest{}
-	_ bin.Decoder     = &UpdatesGetChannelDifferenceRequest{}
-	_ bin.BareEncoder = &UpdatesGetChannelDifferenceRequest{}
-	_ bin.BareDecoder = &UpdatesGetChannelDifferenceRequest{}
-)
+// SetForce sets value of Force conditional field.
+func (g *UpdatesGetChannelDifferenceRequest) SetForce(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Force = true
+	} else {
+		g.Flags.Unset(0)
+		g.Force = false
+	}
+}
+
+// GetForce returns value of Force conditional field.
+func (g *UpdatesGetChannelDifferenceRequest) GetForce() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// GetChannel returns value of Channel field.
+func (g *UpdatesGetChannelDifferenceRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetFilter returns value of Filter field.
+func (g *UpdatesGetChannelDifferenceRequest) GetFilter() (value ChannelMessagesFilterClass) {
+	return g.Filter
+}
+
+// GetPts returns value of Pts field.
+func (g *UpdatesGetChannelDifferenceRequest) GetPts() (value int) {
+	return g.Pts
+}
+
+// GetLimit returns value of Limit field.
+func (g *UpdatesGetChannelDifferenceRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *UpdatesGetChannelDifferenceRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
+
+// GetFilterAsNotEmpty returns mapped value of Filter field.
+func (g *UpdatesGetChannelDifferenceRequest) GetFilterAsNotEmpty() (*ChannelMessagesFilter, bool) {
+	return g.Filter.AsNotEmpty()
+}
 
 // UpdatesGetChannelDifference invokes method updates.getChannelDifference#3173d78 returning error if any.
 // Returns the difference between the current state of updates of a certain channel and

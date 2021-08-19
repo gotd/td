@@ -58,6 +58,14 @@ type AuthExportLoginTokenRequest struct {
 // AuthExportLoginTokenRequestTypeID is TL type id of AuthExportLoginTokenRequest.
 const AuthExportLoginTokenRequestTypeID = 0xb1b41517
 
+// Ensuring interfaces in compile-time for AuthExportLoginTokenRequest.
+var (
+	_ bin.Encoder     = &AuthExportLoginTokenRequest{}
+	_ bin.Decoder     = &AuthExportLoginTokenRequest{}
+	_ bin.BareEncoder = &AuthExportLoginTokenRequest{}
+	_ bin.BareDecoder = &AuthExportLoginTokenRequest{}
+)
+
 func (e *AuthExportLoginTokenRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -157,21 +165,6 @@ func (e *AuthExportLoginTokenRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAPIID returns value of APIID field.
-func (e *AuthExportLoginTokenRequest) GetAPIID() (value int) {
-	return e.APIID
-}
-
-// GetAPIHash returns value of APIHash field.
-func (e *AuthExportLoginTokenRequest) GetAPIHash() (value string) {
-	return e.APIHash
-}
-
-// GetExceptIDs returns value of ExceptIDs field.
-func (e *AuthExportLoginTokenRequest) GetExceptIDs() (value []int) {
-	return e.ExceptIDs
-}
-
 // Decode implements bin.Decoder.
 func (e *AuthExportLoginTokenRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -222,13 +215,20 @@ func (e *AuthExportLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthExportLoginTokenRequest.
-var (
-	_ bin.Encoder     = &AuthExportLoginTokenRequest{}
-	_ bin.Decoder     = &AuthExportLoginTokenRequest{}
-	_ bin.BareEncoder = &AuthExportLoginTokenRequest{}
-	_ bin.BareDecoder = &AuthExportLoginTokenRequest{}
-)
+// GetAPIID returns value of APIID field.
+func (e *AuthExportLoginTokenRequest) GetAPIID() (value int) {
+	return e.APIID
+}
+
+// GetAPIHash returns value of APIHash field.
+func (e *AuthExportLoginTokenRequest) GetAPIHash() (value string) {
+	return e.APIHash
+}
+
+// GetExceptIDs returns value of ExceptIDs field.
+func (e *AuthExportLoginTokenRequest) GetExceptIDs() (value []int) {
+	return e.ExceptIDs
+}
 
 // AuthExportLoginToken invokes method auth.exportLoginToken#b1b41517 returning error if any.
 // Generate a login token, for login via QR code¹.

@@ -41,6 +41,19 @@ type PaymentsPaymentResult struct {
 // PaymentsPaymentResultTypeID is TL type id of PaymentsPaymentResult.
 const PaymentsPaymentResultTypeID = 0x4e5f810d
 
+// construct implements constructor of PaymentsPaymentResultClass.
+func (p PaymentsPaymentResult) construct() PaymentsPaymentResultClass { return &p }
+
+// Ensuring interfaces in compile-time for PaymentsPaymentResult.
+var (
+	_ bin.Encoder     = &PaymentsPaymentResult{}
+	_ bin.Decoder     = &PaymentsPaymentResult{}
+	_ bin.BareEncoder = &PaymentsPaymentResult{}
+	_ bin.BareDecoder = &PaymentsPaymentResult{}
+
+	_ PaymentsPaymentResultClass = &PaymentsPaymentResult{}
+)
+
 func (p *PaymentsPaymentResult) Zero() bool {
 	if p == nil {
 		return true
@@ -122,11 +135,6 @@ func (p *PaymentsPaymentResult) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUpdates returns value of Updates field.
-func (p *PaymentsPaymentResult) GetUpdates() (value UpdatesClass) {
-	return p.Updates
-}
-
 // Decode implements bin.Decoder.
 func (p *PaymentsPaymentResult) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -153,18 +161,10 @@ func (p *PaymentsPaymentResult) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PaymentsPaymentResultClass.
-func (p PaymentsPaymentResult) construct() PaymentsPaymentResultClass { return &p }
-
-// Ensuring interfaces in compile-time for PaymentsPaymentResult.
-var (
-	_ bin.Encoder     = &PaymentsPaymentResult{}
-	_ bin.Decoder     = &PaymentsPaymentResult{}
-	_ bin.BareEncoder = &PaymentsPaymentResult{}
-	_ bin.BareDecoder = &PaymentsPaymentResult{}
-
-	_ PaymentsPaymentResultClass = &PaymentsPaymentResult{}
-)
+// GetUpdates returns value of Updates field.
+func (p *PaymentsPaymentResult) GetUpdates() (value UpdatesClass) {
+	return p.Updates
+}
 
 // PaymentsPaymentVerificationNeeded represents TL type `payments.paymentVerificationNeeded#d8411139`.
 // Payment was not successful, additional verification is needed
@@ -177,6 +177,19 @@ type PaymentsPaymentVerificationNeeded struct {
 
 // PaymentsPaymentVerificationNeededTypeID is TL type id of PaymentsPaymentVerificationNeeded.
 const PaymentsPaymentVerificationNeededTypeID = 0xd8411139
+
+// construct implements constructor of PaymentsPaymentResultClass.
+func (p PaymentsPaymentVerificationNeeded) construct() PaymentsPaymentResultClass { return &p }
+
+// Ensuring interfaces in compile-time for PaymentsPaymentVerificationNeeded.
+var (
+	_ bin.Encoder     = &PaymentsPaymentVerificationNeeded{}
+	_ bin.Decoder     = &PaymentsPaymentVerificationNeeded{}
+	_ bin.BareEncoder = &PaymentsPaymentVerificationNeeded{}
+	_ bin.BareDecoder = &PaymentsPaymentVerificationNeeded{}
+
+	_ PaymentsPaymentResultClass = &PaymentsPaymentVerificationNeeded{}
+)
 
 func (p *PaymentsPaymentVerificationNeeded) Zero() bool {
 	if p == nil {
@@ -254,11 +267,6 @@ func (p *PaymentsPaymentVerificationNeeded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (p *PaymentsPaymentVerificationNeeded) GetURL() (value string) {
-	return p.URL
-}
-
 // Decode implements bin.Decoder.
 func (p *PaymentsPaymentVerificationNeeded) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -285,18 +293,10 @@ func (p *PaymentsPaymentVerificationNeeded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PaymentsPaymentResultClass.
-func (p PaymentsPaymentVerificationNeeded) construct() PaymentsPaymentResultClass { return &p }
-
-// Ensuring interfaces in compile-time for PaymentsPaymentVerificationNeeded.
-var (
-	_ bin.Encoder     = &PaymentsPaymentVerificationNeeded{}
-	_ bin.Decoder     = &PaymentsPaymentVerificationNeeded{}
-	_ bin.BareEncoder = &PaymentsPaymentVerificationNeeded{}
-	_ bin.BareDecoder = &PaymentsPaymentVerificationNeeded{}
-
-	_ PaymentsPaymentResultClass = &PaymentsPaymentVerificationNeeded{}
-)
+// GetURL returns value of URL field.
+func (p *PaymentsPaymentVerificationNeeded) GetURL() (value string) {
+	return p.URL
+}
 
 // PaymentsPaymentResultClass represents payments.PaymentResult generic type.
 //

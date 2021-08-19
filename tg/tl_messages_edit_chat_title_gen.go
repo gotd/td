@@ -43,6 +43,14 @@ type MessagesEditChatTitleRequest struct {
 // MessagesEditChatTitleRequestTypeID is TL type id of MessagesEditChatTitleRequest.
 const MessagesEditChatTitleRequestTypeID = 0xdc452855
 
+// Ensuring interfaces in compile-time for MessagesEditChatTitleRequest.
+var (
+	_ bin.Encoder     = &MessagesEditChatTitleRequest{}
+	_ bin.Decoder     = &MessagesEditChatTitleRequest{}
+	_ bin.BareEncoder = &MessagesEditChatTitleRequest{}
+	_ bin.BareDecoder = &MessagesEditChatTitleRequest{}
+)
+
 func (e *MessagesEditChatTitleRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -129,16 +137,6 @@ func (e *MessagesEditChatTitleRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (e *MessagesEditChatTitleRequest) GetChatID() (value int) {
-	return e.ChatID
-}
-
-// GetTitle returns value of Title field.
-func (e *MessagesEditChatTitleRequest) GetTitle() (value string) {
-	return e.Title
-}
-
 // Decode implements bin.Decoder.
 func (e *MessagesEditChatTitleRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -172,13 +170,15 @@ func (e *MessagesEditChatTitleRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesEditChatTitleRequest.
-var (
-	_ bin.Encoder     = &MessagesEditChatTitleRequest{}
-	_ bin.Decoder     = &MessagesEditChatTitleRequest{}
-	_ bin.BareEncoder = &MessagesEditChatTitleRequest{}
-	_ bin.BareDecoder = &MessagesEditChatTitleRequest{}
-)
+// GetChatID returns value of ChatID field.
+func (e *MessagesEditChatTitleRequest) GetChatID() (value int) {
+	return e.ChatID
+}
+
+// GetTitle returns value of Title field.
+func (e *MessagesEditChatTitleRequest) GetTitle() (value string) {
+	return e.Title
+}
 
 // MessagesEditChatTitle invokes method messages.editChatTitle#dc452855 returning error if any.
 // Chanages chat name and sends a service message on it.

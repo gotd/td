@@ -46,6 +46,14 @@ type ImportedContact struct {
 // ImportedContactTypeID is TL type id of ImportedContact.
 const ImportedContactTypeID = 0xd0028438
 
+// Ensuring interfaces in compile-time for ImportedContact.
+var (
+	_ bin.Encoder     = &ImportedContact{}
+	_ bin.Decoder     = &ImportedContact{}
+	_ bin.BareEncoder = &ImportedContact{}
+	_ bin.BareDecoder = &ImportedContact{}
+)
+
 func (i *ImportedContact) Zero() bool {
 	if i == nil {
 		return true
@@ -132,16 +140,6 @@ func (i *ImportedContact) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (i *ImportedContact) GetUserID() (value int) {
-	return i.UserID
-}
-
-// GetClientID returns value of ClientID field.
-func (i *ImportedContact) GetClientID() (value int64) {
-	return i.ClientID
-}
-
 // Decode implements bin.Decoder.
 func (i *ImportedContact) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -175,10 +173,12 @@ func (i *ImportedContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ImportedContact.
-var (
-	_ bin.Encoder     = &ImportedContact{}
-	_ bin.Decoder     = &ImportedContact{}
-	_ bin.BareEncoder = &ImportedContact{}
-	_ bin.BareDecoder = &ImportedContact{}
-)
+// GetUserID returns value of UserID field.
+func (i *ImportedContact) GetUserID() (value int) {
+	return i.UserID
+}
+
+// GetClientID returns value of ClientID field.
+func (i *ImportedContact) GetClientID() (value int64) {
+	return i.ClientID
+}

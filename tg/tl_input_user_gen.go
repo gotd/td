@@ -39,6 +39,19 @@ type InputUserEmpty struct {
 // InputUserEmptyTypeID is TL type id of InputUserEmpty.
 const InputUserEmptyTypeID = 0xb98886cf
 
+// construct implements constructor of InputUserClass.
+func (i InputUserEmpty) construct() InputUserClass { return &i }
+
+// Ensuring interfaces in compile-time for InputUserEmpty.
+var (
+	_ bin.Encoder     = &InputUserEmpty{}
+	_ bin.Decoder     = &InputUserEmpty{}
+	_ bin.BareEncoder = &InputUserEmpty{}
+	_ bin.BareDecoder = &InputUserEmpty{}
+
+	_ InputUserClass = &InputUserEmpty{}
+)
+
 func (i *InputUserEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputUserEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputUserClass.
-func (i InputUserEmpty) construct() InputUserClass { return &i }
-
-// Ensuring interfaces in compile-time for InputUserEmpty.
-var (
-	_ bin.Encoder     = &InputUserEmpty{}
-	_ bin.Decoder     = &InputUserEmpty{}
-	_ bin.BareEncoder = &InputUserEmpty{}
-	_ bin.BareDecoder = &InputUserEmpty{}
-
-	_ InputUserClass = &InputUserEmpty{}
-)
-
 // InputUserSelf represents TL type `inputUserSelf#f7c1b13f`.
 // Defines the current user.
 //
@@ -140,6 +140,19 @@ type InputUserSelf struct {
 
 // InputUserSelfTypeID is TL type id of InputUserSelf.
 const InputUserSelfTypeID = 0xf7c1b13f
+
+// construct implements constructor of InputUserClass.
+func (i InputUserSelf) construct() InputUserClass { return &i }
+
+// Ensuring interfaces in compile-time for InputUserSelf.
+var (
+	_ bin.Encoder     = &InputUserSelf{}
+	_ bin.Decoder     = &InputUserSelf{}
+	_ bin.BareEncoder = &InputUserSelf{}
+	_ bin.BareDecoder = &InputUserSelf{}
+
+	_ InputUserClass = &InputUserSelf{}
+)
 
 func (i *InputUserSelf) Zero() bool {
 	if i == nil {
@@ -220,19 +233,6 @@ func (i *InputUserSelf) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputUserClass.
-func (i InputUserSelf) construct() InputUserClass { return &i }
-
-// Ensuring interfaces in compile-time for InputUserSelf.
-var (
-	_ bin.Encoder     = &InputUserSelf{}
-	_ bin.Decoder     = &InputUserSelf{}
-	_ bin.BareEncoder = &InputUserSelf{}
-	_ bin.BareDecoder = &InputUserSelf{}
-
-	_ InputUserClass = &InputUserSelf{}
-)
-
 // InputUser represents TL type `inputUser#d8292816`.
 // Defines a user for further interaction.
 //
@@ -249,6 +249,19 @@ type InputUser struct {
 
 // InputUserTypeID is TL type id of InputUser.
 const InputUserTypeID = 0xd8292816
+
+// construct implements constructor of InputUserClass.
+func (i InputUser) construct() InputUserClass { return &i }
+
+// Ensuring interfaces in compile-time for InputUser.
+var (
+	_ bin.Encoder     = &InputUser{}
+	_ bin.Decoder     = &InputUser{}
+	_ bin.BareEncoder = &InputUser{}
+	_ bin.BareDecoder = &InputUser{}
+
+	_ InputUserClass = &InputUser{}
+)
 
 func (i *InputUser) Zero() bool {
 	if i == nil {
@@ -336,16 +349,6 @@ func (i *InputUser) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (i *InputUser) GetUserID() (value int) {
-	return i.UserID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputUser) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputUser) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -379,18 +382,15 @@ func (i *InputUser) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputUserClass.
-func (i InputUser) construct() InputUserClass { return &i }
+// GetUserID returns value of UserID field.
+func (i *InputUser) GetUserID() (value int) {
+	return i.UserID
+}
 
-// Ensuring interfaces in compile-time for InputUser.
-var (
-	_ bin.Encoder     = &InputUser{}
-	_ bin.Decoder     = &InputUser{}
-	_ bin.BareEncoder = &InputUser{}
-	_ bin.BareDecoder = &InputUser{}
-
-	_ InputUserClass = &InputUser{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputUser) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputUserFromMessage represents TL type `inputUserFromMessage#2d117597`.
 // Defines a min¹ user that was seen in a certain message of a certain chat.
@@ -410,6 +410,19 @@ type InputUserFromMessage struct {
 
 // InputUserFromMessageTypeID is TL type id of InputUserFromMessage.
 const InputUserFromMessageTypeID = 0x2d117597
+
+// construct implements constructor of InputUserClass.
+func (i InputUserFromMessage) construct() InputUserClass { return &i }
+
+// Ensuring interfaces in compile-time for InputUserFromMessage.
+var (
+	_ bin.Encoder     = &InputUserFromMessage{}
+	_ bin.Decoder     = &InputUserFromMessage{}
+	_ bin.BareEncoder = &InputUserFromMessage{}
+	_ bin.BareDecoder = &InputUserFromMessage{}
+
+	_ InputUserClass = &InputUserFromMessage{}
+)
 
 func (i *InputUserFromMessage) Zero() bool {
 	if i == nil {
@@ -512,21 +525,6 @@ func (i *InputUserFromMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (i *InputUserFromMessage) GetPeer() (value InputPeerClass) {
-	return i.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (i *InputUserFromMessage) GetMsgID() (value int) {
-	return i.MsgID
-}
-
-// GetUserID returns value of UserID field.
-func (i *InputUserFromMessage) GetUserID() (value int) {
-	return i.UserID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputUserFromMessage) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -567,18 +565,20 @@ func (i *InputUserFromMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputUserClass.
-func (i InputUserFromMessage) construct() InputUserClass { return &i }
+// GetPeer returns value of Peer field.
+func (i *InputUserFromMessage) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
 
-// Ensuring interfaces in compile-time for InputUserFromMessage.
-var (
-	_ bin.Encoder     = &InputUserFromMessage{}
-	_ bin.Decoder     = &InputUserFromMessage{}
-	_ bin.BareEncoder = &InputUserFromMessage{}
-	_ bin.BareDecoder = &InputUserFromMessage{}
+// GetMsgID returns value of MsgID field.
+func (i *InputUserFromMessage) GetMsgID() (value int) {
+	return i.MsgID
+}
 
-	_ InputUserClass = &InputUserFromMessage{}
-)
+// GetUserID returns value of UserID field.
+func (i *InputUserFromMessage) GetUserID() (value int) {
+	return i.UserID
+}
 
 // InputUserClass represents InputUser generic type.
 //

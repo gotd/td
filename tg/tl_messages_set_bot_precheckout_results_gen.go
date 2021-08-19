@@ -65,6 +65,14 @@ type MessagesSetBotPrecheckoutResultsRequest struct {
 // MessagesSetBotPrecheckoutResultsRequestTypeID is TL type id of MessagesSetBotPrecheckoutResultsRequest.
 const MessagesSetBotPrecheckoutResultsRequestTypeID = 0x9c2dd95
 
+// Ensuring interfaces in compile-time for MessagesSetBotPrecheckoutResultsRequest.
+var (
+	_ bin.Encoder     = &MessagesSetBotPrecheckoutResultsRequest{}
+	_ bin.Decoder     = &MessagesSetBotPrecheckoutResultsRequest{}
+	_ bin.BareEncoder = &MessagesSetBotPrecheckoutResultsRequest{}
+	_ bin.BareDecoder = &MessagesSetBotPrecheckoutResultsRequest{}
+)
+
 func (s *MessagesSetBotPrecheckoutResultsRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -179,42 +187,6 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) EncodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// SetSuccess sets value of Success conditional field.
-func (s *MessagesSetBotPrecheckoutResultsRequest) SetSuccess(value bool) {
-	if value {
-		s.Flags.Set(1)
-		s.Success = true
-	} else {
-		s.Flags.Unset(1)
-		s.Success = false
-	}
-}
-
-// GetSuccess returns value of Success conditional field.
-func (s *MessagesSetBotPrecheckoutResultsRequest) GetSuccess() (value bool) {
-	return s.Flags.Has(1)
-}
-
-// GetQueryID returns value of QueryID field.
-func (s *MessagesSetBotPrecheckoutResultsRequest) GetQueryID() (value int64) {
-	return s.QueryID
-}
-
-// SetError sets value of Error conditional field.
-func (s *MessagesSetBotPrecheckoutResultsRequest) SetError(value string) {
-	s.Flags.Set(0)
-	s.Error = value
-}
-
-// GetError returns value of Error conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSetBotPrecheckoutResultsRequest) GetError() (value string, ok bool) {
-	if !s.Flags.Has(0) {
-		return value, false
-	}
-	return s.Error, true
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSetBotPrecheckoutResultsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -254,13 +226,41 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSetBotPrecheckoutResultsRequest.
-var (
-	_ bin.Encoder     = &MessagesSetBotPrecheckoutResultsRequest{}
-	_ bin.Decoder     = &MessagesSetBotPrecheckoutResultsRequest{}
-	_ bin.BareEncoder = &MessagesSetBotPrecheckoutResultsRequest{}
-	_ bin.BareDecoder = &MessagesSetBotPrecheckoutResultsRequest{}
-)
+// SetSuccess sets value of Success conditional field.
+func (s *MessagesSetBotPrecheckoutResultsRequest) SetSuccess(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.Success = true
+	} else {
+		s.Flags.Unset(1)
+		s.Success = false
+	}
+}
+
+// GetSuccess returns value of Success conditional field.
+func (s *MessagesSetBotPrecheckoutResultsRequest) GetSuccess() (value bool) {
+	return s.Flags.Has(1)
+}
+
+// GetQueryID returns value of QueryID field.
+func (s *MessagesSetBotPrecheckoutResultsRequest) GetQueryID() (value int64) {
+	return s.QueryID
+}
+
+// SetError sets value of Error conditional field.
+func (s *MessagesSetBotPrecheckoutResultsRequest) SetError(value string) {
+	s.Flags.Set(0)
+	s.Error = value
+}
+
+// GetError returns value of Error conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSetBotPrecheckoutResultsRequest) GetError() (value string, ok bool) {
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.Error, true
+}
 
 // MessagesSetBotPrecheckoutResults invokes method messages.setBotPrecheckoutResults#9c2dd95 returning error if any.
 // Once the user has confirmed their payment and shipping details, the bot receives an

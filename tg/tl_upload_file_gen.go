@@ -45,6 +45,19 @@ type UploadFile struct {
 // UploadFileTypeID is TL type id of UploadFile.
 const UploadFileTypeID = 0x96a18d5
 
+// construct implements constructor of UploadFileClass.
+func (f UploadFile) construct() UploadFileClass { return &f }
+
+// Ensuring interfaces in compile-time for UploadFile.
+var (
+	_ bin.Encoder     = &UploadFile{}
+	_ bin.Decoder     = &UploadFile{}
+	_ bin.BareEncoder = &UploadFile{}
+	_ bin.BareDecoder = &UploadFile{}
+
+	_ UploadFileClass = &UploadFile{}
+)
+
 func (f *UploadFile) Zero() bool {
 	if f == nil {
 		return true
@@ -146,21 +159,6 @@ func (f *UploadFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (f *UploadFile) GetType() (value StorageFileTypeClass) {
-	return f.Type
-}
-
-// GetMtime returns value of Mtime field.
-func (f *UploadFile) GetMtime() (value int) {
-	return f.Mtime
-}
-
-// GetBytes returns value of Bytes field.
-func (f *UploadFile) GetBytes() (value []byte) {
-	return f.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (f *UploadFile) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -201,18 +199,20 @@ func (f *UploadFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UploadFileClass.
-func (f UploadFile) construct() UploadFileClass { return &f }
+// GetType returns value of Type field.
+func (f *UploadFile) GetType() (value StorageFileTypeClass) {
+	return f.Type
+}
 
-// Ensuring interfaces in compile-time for UploadFile.
-var (
-	_ bin.Encoder     = &UploadFile{}
-	_ bin.Decoder     = &UploadFile{}
-	_ bin.BareEncoder = &UploadFile{}
-	_ bin.BareDecoder = &UploadFile{}
+// GetMtime returns value of Mtime field.
+func (f *UploadFile) GetMtime() (value int) {
+	return f.Mtime
+}
 
-	_ UploadFileClass = &UploadFile{}
-)
+// GetBytes returns value of Bytes field.
+func (f *UploadFile) GetBytes() (value []byte) {
+	return f.Bytes
+}
 
 // UploadFileCDNRedirect represents TL type `upload.fileCdnRedirect#f18cda44`.
 // The file must be downloaded from a CDN DC¹.
@@ -251,6 +251,19 @@ type UploadFileCDNRedirect struct {
 
 // UploadFileCDNRedirectTypeID is TL type id of UploadFileCDNRedirect.
 const UploadFileCDNRedirectTypeID = 0xf18cda44
+
+// construct implements constructor of UploadFileClass.
+func (f UploadFileCDNRedirect) construct() UploadFileClass { return &f }
+
+// Ensuring interfaces in compile-time for UploadFileCDNRedirect.
+var (
+	_ bin.Encoder     = &UploadFileCDNRedirect{}
+	_ bin.Decoder     = &UploadFileCDNRedirect{}
+	_ bin.BareEncoder = &UploadFileCDNRedirect{}
+	_ bin.BareDecoder = &UploadFileCDNRedirect{}
+
+	_ UploadFileClass = &UploadFileCDNRedirect{}
+)
 
 func (f *UploadFileCDNRedirect) Zero() bool {
 	if f == nil {
@@ -373,31 +386,6 @@ func (f *UploadFileCDNRedirect) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDCID returns value of DCID field.
-func (f *UploadFileCDNRedirect) GetDCID() (value int) {
-	return f.DCID
-}
-
-// GetFileToken returns value of FileToken field.
-func (f *UploadFileCDNRedirect) GetFileToken() (value []byte) {
-	return f.FileToken
-}
-
-// GetEncryptionKey returns value of EncryptionKey field.
-func (f *UploadFileCDNRedirect) GetEncryptionKey() (value []byte) {
-	return f.EncryptionKey
-}
-
-// GetEncryptionIv returns value of EncryptionIv field.
-func (f *UploadFileCDNRedirect) GetEncryptionIv() (value []byte) {
-	return f.EncryptionIv
-}
-
-// GetFileHashes returns value of FileHashes field.
-func (f *UploadFileCDNRedirect) GetFileHashes() (value []FileHash) {
-	return f.FileHashes
-}
-
 // Decode implements bin.Decoder.
 func (f *UploadFileCDNRedirect) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -462,18 +450,30 @@ func (f *UploadFileCDNRedirect) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UploadFileClass.
-func (f UploadFileCDNRedirect) construct() UploadFileClass { return &f }
+// GetDCID returns value of DCID field.
+func (f *UploadFileCDNRedirect) GetDCID() (value int) {
+	return f.DCID
+}
 
-// Ensuring interfaces in compile-time for UploadFileCDNRedirect.
-var (
-	_ bin.Encoder     = &UploadFileCDNRedirect{}
-	_ bin.Decoder     = &UploadFileCDNRedirect{}
-	_ bin.BareEncoder = &UploadFileCDNRedirect{}
-	_ bin.BareDecoder = &UploadFileCDNRedirect{}
+// GetFileToken returns value of FileToken field.
+func (f *UploadFileCDNRedirect) GetFileToken() (value []byte) {
+	return f.FileToken
+}
 
-	_ UploadFileClass = &UploadFileCDNRedirect{}
-)
+// GetEncryptionKey returns value of EncryptionKey field.
+func (f *UploadFileCDNRedirect) GetEncryptionKey() (value []byte) {
+	return f.EncryptionKey
+}
+
+// GetEncryptionIv returns value of EncryptionIv field.
+func (f *UploadFileCDNRedirect) GetEncryptionIv() (value []byte) {
+	return f.EncryptionIv
+}
+
+// GetFileHashes returns value of FileHashes field.
+func (f *UploadFileCDNRedirect) GetFileHashes() (value []FileHash) {
+	return f.FileHashes
+}
 
 // UploadFileClass represents upload.File generic type.
 //

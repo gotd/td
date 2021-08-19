@@ -47,6 +47,14 @@ type ChannelsDeleteChannelRequest struct {
 // ChannelsDeleteChannelRequestTypeID is TL type id of ChannelsDeleteChannelRequest.
 const ChannelsDeleteChannelRequestTypeID = 0xc0111fe3
 
+// Ensuring interfaces in compile-time for ChannelsDeleteChannelRequest.
+var (
+	_ bin.Encoder     = &ChannelsDeleteChannelRequest{}
+	_ bin.Decoder     = &ChannelsDeleteChannelRequest{}
+	_ bin.BareEncoder = &ChannelsDeleteChannelRequest{}
+	_ bin.BareDecoder = &ChannelsDeleteChannelRequest{}
+)
+
 func (d *ChannelsDeleteChannelRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -128,16 +136,6 @@ func (d *ChannelsDeleteChannelRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (d *ChannelsDeleteChannelRequest) GetChannel() (value InputChannelClass) {
-	return d.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (d *ChannelsDeleteChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return d.Channel.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (d *ChannelsDeleteChannelRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -164,13 +162,15 @@ func (d *ChannelsDeleteChannelRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsDeleteChannelRequest.
-var (
-	_ bin.Encoder     = &ChannelsDeleteChannelRequest{}
-	_ bin.Decoder     = &ChannelsDeleteChannelRequest{}
-	_ bin.BareEncoder = &ChannelsDeleteChannelRequest{}
-	_ bin.BareDecoder = &ChannelsDeleteChannelRequest{}
-)
+// GetChannel returns value of Channel field.
+func (d *ChannelsDeleteChannelRequest) GetChannel() (value InputChannelClass) {
+	return d.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (d *ChannelsDeleteChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return d.Channel.AsNotEmpty()
+}
 
 // ChannelsDeleteChannel invokes method channels.deleteChannel#c0111fe3 returning error if any.
 // Delete a channel/supergroup¹

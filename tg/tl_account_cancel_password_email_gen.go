@@ -42,6 +42,14 @@ type AccountCancelPasswordEmailRequest struct {
 // AccountCancelPasswordEmailRequestTypeID is TL type id of AccountCancelPasswordEmailRequest.
 const AccountCancelPasswordEmailRequestTypeID = 0xc1cbd5b6
 
+// Ensuring interfaces in compile-time for AccountCancelPasswordEmailRequest.
+var (
+	_ bin.Encoder     = &AccountCancelPasswordEmailRequest{}
+	_ bin.Decoder     = &AccountCancelPasswordEmailRequest{}
+	_ bin.BareEncoder = &AccountCancelPasswordEmailRequest{}
+	_ bin.BareDecoder = &AccountCancelPasswordEmailRequest{}
+)
+
 func (c *AccountCancelPasswordEmailRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -120,14 +128,6 @@ func (c *AccountCancelPasswordEmailRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountCancelPasswordEmailRequest.
-var (
-	_ bin.Encoder     = &AccountCancelPasswordEmailRequest{}
-	_ bin.Decoder     = &AccountCancelPasswordEmailRequest{}
-	_ bin.BareEncoder = &AccountCancelPasswordEmailRequest{}
-	_ bin.BareDecoder = &AccountCancelPasswordEmailRequest{}
-)
 
 // AccountCancelPasswordEmail invokes method account.cancelPasswordEmail#c1cbd5b6 returning error if any.
 // Cancel the code that was sent to verify an email to use as 2FA recovery method¹.

@@ -43,6 +43,19 @@ type DocumentAttributeImageSize struct {
 // DocumentAttributeImageSizeTypeID is TL type id of DocumentAttributeImageSize.
 const DocumentAttributeImageSizeTypeID = 0x6c37c15c
 
+// construct implements constructor of DocumentAttributeClass.
+func (d DocumentAttributeImageSize) construct() DocumentAttributeClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentAttributeImageSize.
+var (
+	_ bin.Encoder     = &DocumentAttributeImageSize{}
+	_ bin.Decoder     = &DocumentAttributeImageSize{}
+	_ bin.BareEncoder = &DocumentAttributeImageSize{}
+	_ bin.BareDecoder = &DocumentAttributeImageSize{}
+
+	_ DocumentAttributeClass = &DocumentAttributeImageSize{}
+)
+
 func (d *DocumentAttributeImageSize) Zero() bool {
 	if d == nil {
 		return true
@@ -64,15 +77,6 @@ func (d *DocumentAttributeImageSize) String() string {
 	}
 	type Alias DocumentAttributeImageSize
 	return fmt.Sprintf("DocumentAttributeImageSize%+v", Alias(*d))
-}
-
-// FillFrom fills DocumentAttributeImageSize from given interface.
-func (d *DocumentAttributeImageSize) FillFrom(from interface {
-	GetW() (value int)
-	GetH() (value int)
-}) {
-	d.W = from.GetW()
-	d.H = from.GetH()
 }
 
 // TypeID returns type id in TL schema.
@@ -129,16 +133,6 @@ func (d *DocumentAttributeImageSize) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetW returns value of W field.
-func (d *DocumentAttributeImageSize) GetW() (value int) {
-	return d.W
-}
-
-// GetH returns value of H field.
-func (d *DocumentAttributeImageSize) GetH() (value int) {
-	return d.H
-}
-
 // Decode implements bin.Decoder.
 func (d *DocumentAttributeImageSize) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -172,18 +166,15 @@ func (d *DocumentAttributeImageSize) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentAttributeClass.
-func (d DocumentAttributeImageSize) construct() DocumentAttributeClass { return &d }
+// GetW returns value of W field.
+func (d *DocumentAttributeImageSize) GetW() (value int) {
+	return d.W
+}
 
-// Ensuring interfaces in compile-time for DocumentAttributeImageSize.
-var (
-	_ bin.Encoder     = &DocumentAttributeImageSize{}
-	_ bin.Decoder     = &DocumentAttributeImageSize{}
-	_ bin.BareEncoder = &DocumentAttributeImageSize{}
-	_ bin.BareDecoder = &DocumentAttributeImageSize{}
-
-	_ DocumentAttributeClass = &DocumentAttributeImageSize{}
-)
+// GetH returns value of H field.
+func (d *DocumentAttributeImageSize) GetH() (value int) {
+	return d.H
+}
 
 // DocumentAttributeAnimated represents TL type `documentAttributeAnimated#11b58939`.
 // Defines an animated GIF
@@ -194,6 +185,19 @@ type DocumentAttributeAnimated struct {
 
 // DocumentAttributeAnimatedTypeID is TL type id of DocumentAttributeAnimated.
 const DocumentAttributeAnimatedTypeID = 0x11b58939
+
+// construct implements constructor of DocumentAttributeClass.
+func (d DocumentAttributeAnimated) construct() DocumentAttributeClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentAttributeAnimated.
+var (
+	_ bin.Encoder     = &DocumentAttributeAnimated{}
+	_ bin.Decoder     = &DocumentAttributeAnimated{}
+	_ bin.BareEncoder = &DocumentAttributeAnimated{}
+	_ bin.BareDecoder = &DocumentAttributeAnimated{}
+
+	_ DocumentAttributeClass = &DocumentAttributeAnimated{}
+)
 
 func (d *DocumentAttributeAnimated) Zero() bool {
 	if d == nil {
@@ -274,19 +278,6 @@ func (d *DocumentAttributeAnimated) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentAttributeClass.
-func (d DocumentAttributeAnimated) construct() DocumentAttributeClass { return &d }
-
-// Ensuring interfaces in compile-time for DocumentAttributeAnimated.
-var (
-	_ bin.Encoder     = &DocumentAttributeAnimated{}
-	_ bin.Decoder     = &DocumentAttributeAnimated{}
-	_ bin.BareEncoder = &DocumentAttributeAnimated{}
-	_ bin.BareDecoder = &DocumentAttributeAnimated{}
-
-	_ DocumentAttributeClass = &DocumentAttributeAnimated{}
-)
-
 // DocumentAttributeSticker23 represents TL type `documentAttributeSticker23#fb0a5727`.
 //
 // See https://core.telegram.org/constructor/documentAttributeSticker23 for reference.
@@ -295,6 +286,19 @@ type DocumentAttributeSticker23 struct {
 
 // DocumentAttributeSticker23TypeID is TL type id of DocumentAttributeSticker23.
 const DocumentAttributeSticker23TypeID = 0xfb0a5727
+
+// construct implements constructor of DocumentAttributeClass.
+func (d DocumentAttributeSticker23) construct() DocumentAttributeClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentAttributeSticker23.
+var (
+	_ bin.Encoder     = &DocumentAttributeSticker23{}
+	_ bin.Decoder     = &DocumentAttributeSticker23{}
+	_ bin.BareEncoder = &DocumentAttributeSticker23{}
+	_ bin.BareDecoder = &DocumentAttributeSticker23{}
+
+	_ DocumentAttributeClass = &DocumentAttributeSticker23{}
+)
 
 func (d *DocumentAttributeSticker23) Zero() bool {
 	if d == nil {
@@ -375,19 +379,6 @@ func (d *DocumentAttributeSticker23) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentAttributeClass.
-func (d DocumentAttributeSticker23) construct() DocumentAttributeClass { return &d }
-
-// Ensuring interfaces in compile-time for DocumentAttributeSticker23.
-var (
-	_ bin.Encoder     = &DocumentAttributeSticker23{}
-	_ bin.Decoder     = &DocumentAttributeSticker23{}
-	_ bin.BareEncoder = &DocumentAttributeSticker23{}
-	_ bin.BareDecoder = &DocumentAttributeSticker23{}
-
-	_ DocumentAttributeClass = &DocumentAttributeSticker23{}
-)
-
 // DocumentAttributeVideo represents TL type `documentAttributeVideo#5910cccb`.
 // Defines a video
 //
@@ -403,6 +394,19 @@ type DocumentAttributeVideo struct {
 
 // DocumentAttributeVideoTypeID is TL type id of DocumentAttributeVideo.
 const DocumentAttributeVideoTypeID = 0x5910cccb
+
+// construct implements constructor of DocumentAttributeClass.
+func (d DocumentAttributeVideo) construct() DocumentAttributeClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentAttributeVideo.
+var (
+	_ bin.Encoder     = &DocumentAttributeVideo{}
+	_ bin.Decoder     = &DocumentAttributeVideo{}
+	_ bin.BareEncoder = &DocumentAttributeVideo{}
+	_ bin.BareDecoder = &DocumentAttributeVideo{}
+
+	_ DocumentAttributeClass = &DocumentAttributeVideo{}
+)
 
 func (d *DocumentAttributeVideo) Zero() bool {
 	if d == nil {
@@ -428,17 +432,6 @@ func (d *DocumentAttributeVideo) String() string {
 	}
 	type Alias DocumentAttributeVideo
 	return fmt.Sprintf("DocumentAttributeVideo%+v", Alias(*d))
-}
-
-// FillFrom fills DocumentAttributeVideo from given interface.
-func (d *DocumentAttributeVideo) FillFrom(from interface {
-	GetDuration() (value int)
-	GetW() (value int)
-	GetH() (value int)
-}) {
-	d.Duration = from.GetDuration()
-	d.W = from.GetW()
-	d.H = from.GetH()
 }
 
 // TypeID returns type id in TL schema.
@@ -500,21 +493,6 @@ func (d *DocumentAttributeVideo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDuration returns value of Duration field.
-func (d *DocumentAttributeVideo) GetDuration() (value int) {
-	return d.Duration
-}
-
-// GetW returns value of W field.
-func (d *DocumentAttributeVideo) GetW() (value int) {
-	return d.W
-}
-
-// GetH returns value of H field.
-func (d *DocumentAttributeVideo) GetH() (value int) {
-	return d.H
-}
-
 // Decode implements bin.Decoder.
 func (d *DocumentAttributeVideo) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -555,18 +533,20 @@ func (d *DocumentAttributeVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentAttributeClass.
-func (d DocumentAttributeVideo) construct() DocumentAttributeClass { return &d }
+// GetDuration returns value of Duration field.
+func (d *DocumentAttributeVideo) GetDuration() (value int) {
+	return d.Duration
+}
 
-// Ensuring interfaces in compile-time for DocumentAttributeVideo.
-var (
-	_ bin.Encoder     = &DocumentAttributeVideo{}
-	_ bin.Decoder     = &DocumentAttributeVideo{}
-	_ bin.BareEncoder = &DocumentAttributeVideo{}
-	_ bin.BareDecoder = &DocumentAttributeVideo{}
+// GetW returns value of W field.
+func (d *DocumentAttributeVideo) GetW() (value int) {
+	return d.W
+}
 
-	_ DocumentAttributeClass = &DocumentAttributeVideo{}
-)
+// GetH returns value of H field.
+func (d *DocumentAttributeVideo) GetH() (value int) {
+	return d.H
+}
 
 // DocumentAttributeAudio23 represents TL type `documentAttributeAudio23#51448e5`.
 //
@@ -578,6 +558,19 @@ type DocumentAttributeAudio23 struct {
 
 // DocumentAttributeAudio23TypeID is TL type id of DocumentAttributeAudio23.
 const DocumentAttributeAudio23TypeID = 0x51448e5
+
+// construct implements constructor of DocumentAttributeClass.
+func (d DocumentAttributeAudio23) construct() DocumentAttributeClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentAttributeAudio23.
+var (
+	_ bin.Encoder     = &DocumentAttributeAudio23{}
+	_ bin.Decoder     = &DocumentAttributeAudio23{}
+	_ bin.BareEncoder = &DocumentAttributeAudio23{}
+	_ bin.BareDecoder = &DocumentAttributeAudio23{}
+
+	_ DocumentAttributeClass = &DocumentAttributeAudio23{}
+)
 
 func (d *DocumentAttributeAudio23) Zero() bool {
 	if d == nil {
@@ -597,13 +590,6 @@ func (d *DocumentAttributeAudio23) String() string {
 	}
 	type Alias DocumentAttributeAudio23
 	return fmt.Sprintf("DocumentAttributeAudio23%+v", Alias(*d))
-}
-
-// FillFrom fills DocumentAttributeAudio23 from given interface.
-func (d *DocumentAttributeAudio23) FillFrom(from interface {
-	GetDuration() (value int)
-}) {
-	d.Duration = from.GetDuration()
 }
 
 // TypeID returns type id in TL schema.
@@ -655,11 +641,6 @@ func (d *DocumentAttributeAudio23) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDuration returns value of Duration field.
-func (d *DocumentAttributeAudio23) GetDuration() (value int) {
-	return d.Duration
-}
-
 // Decode implements bin.Decoder.
 func (d *DocumentAttributeAudio23) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -686,18 +667,10 @@ func (d *DocumentAttributeAudio23) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentAttributeClass.
-func (d DocumentAttributeAudio23) construct() DocumentAttributeClass { return &d }
-
-// Ensuring interfaces in compile-time for DocumentAttributeAudio23.
-var (
-	_ bin.Encoder     = &DocumentAttributeAudio23{}
-	_ bin.Decoder     = &DocumentAttributeAudio23{}
-	_ bin.BareEncoder = &DocumentAttributeAudio23{}
-	_ bin.BareDecoder = &DocumentAttributeAudio23{}
-
-	_ DocumentAttributeClass = &DocumentAttributeAudio23{}
-)
+// GetDuration returns value of Duration field.
+func (d *DocumentAttributeAudio23) GetDuration() (value int) {
+	return d.Duration
+}
 
 // DocumentAttributeFilename represents TL type `documentAttributeFilename#15590068`.
 // A simple document with a file name
@@ -710,6 +683,19 @@ type DocumentAttributeFilename struct {
 
 // DocumentAttributeFilenameTypeID is TL type id of DocumentAttributeFilename.
 const DocumentAttributeFilenameTypeID = 0x15590068
+
+// construct implements constructor of DocumentAttributeClass.
+func (d DocumentAttributeFilename) construct() DocumentAttributeClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentAttributeFilename.
+var (
+	_ bin.Encoder     = &DocumentAttributeFilename{}
+	_ bin.Decoder     = &DocumentAttributeFilename{}
+	_ bin.BareEncoder = &DocumentAttributeFilename{}
+	_ bin.BareDecoder = &DocumentAttributeFilename{}
+
+	_ DocumentAttributeClass = &DocumentAttributeFilename{}
+)
 
 func (d *DocumentAttributeFilename) Zero() bool {
 	if d == nil {
@@ -729,13 +715,6 @@ func (d *DocumentAttributeFilename) String() string {
 	}
 	type Alias DocumentAttributeFilename
 	return fmt.Sprintf("DocumentAttributeFilename%+v", Alias(*d))
-}
-
-// FillFrom fills DocumentAttributeFilename from given interface.
-func (d *DocumentAttributeFilename) FillFrom(from interface {
-	GetFileName() (value string)
-}) {
-	d.FileName = from.GetFileName()
 }
 
 // TypeID returns type id in TL schema.
@@ -787,11 +766,6 @@ func (d *DocumentAttributeFilename) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFileName returns value of FileName field.
-func (d *DocumentAttributeFilename) GetFileName() (value string) {
-	return d.FileName
-}
-
 // Decode implements bin.Decoder.
 func (d *DocumentAttributeFilename) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -818,18 +792,10 @@ func (d *DocumentAttributeFilename) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentAttributeClass.
-func (d DocumentAttributeFilename) construct() DocumentAttributeClass { return &d }
-
-// Ensuring interfaces in compile-time for DocumentAttributeFilename.
-var (
-	_ bin.Encoder     = &DocumentAttributeFilename{}
-	_ bin.Decoder     = &DocumentAttributeFilename{}
-	_ bin.BareEncoder = &DocumentAttributeFilename{}
-	_ bin.BareDecoder = &DocumentAttributeFilename{}
-
-	_ DocumentAttributeClass = &DocumentAttributeFilename{}
-)
+// GetFileName returns value of FileName field.
+func (d *DocumentAttributeFilename) GetFileName() (value string) {
+	return d.FileName
+}
 
 // DocumentAttributeAudio45 represents TL type `documentAttributeAudio45#ded218e0`.
 //
@@ -845,6 +811,19 @@ type DocumentAttributeAudio45 struct {
 
 // DocumentAttributeAudio45TypeID is TL type id of DocumentAttributeAudio45.
 const DocumentAttributeAudio45TypeID = 0xded218e0
+
+// construct implements constructor of DocumentAttributeClass.
+func (d DocumentAttributeAudio45) construct() DocumentAttributeClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentAttributeAudio45.
+var (
+	_ bin.Encoder     = &DocumentAttributeAudio45{}
+	_ bin.Decoder     = &DocumentAttributeAudio45{}
+	_ bin.BareEncoder = &DocumentAttributeAudio45{}
+	_ bin.BareDecoder = &DocumentAttributeAudio45{}
+
+	_ DocumentAttributeClass = &DocumentAttributeAudio45{}
+)
 
 func (d *DocumentAttributeAudio45) Zero() bool {
 	if d == nil {
@@ -870,17 +849,6 @@ func (d *DocumentAttributeAudio45) String() string {
 	}
 	type Alias DocumentAttributeAudio45
 	return fmt.Sprintf("DocumentAttributeAudio45%+v", Alias(*d))
-}
-
-// FillFrom fills DocumentAttributeAudio45 from given interface.
-func (d *DocumentAttributeAudio45) FillFrom(from interface {
-	GetDuration() (value int)
-	GetTitle() (value string)
-	GetPerformer() (value string)
-}) {
-	d.Duration = from.GetDuration()
-	d.Title = from.GetTitle()
-	d.Performer = from.GetPerformer()
 }
 
 // TypeID returns type id in TL schema.
@@ -942,21 +910,6 @@ func (d *DocumentAttributeAudio45) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDuration returns value of Duration field.
-func (d *DocumentAttributeAudio45) GetDuration() (value int) {
-	return d.Duration
-}
-
-// GetTitle returns value of Title field.
-func (d *DocumentAttributeAudio45) GetTitle() (value string) {
-	return d.Title
-}
-
-// GetPerformer returns value of Performer field.
-func (d *DocumentAttributeAudio45) GetPerformer() (value string) {
-	return d.Performer
-}
-
 // Decode implements bin.Decoder.
 func (d *DocumentAttributeAudio45) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -997,18 +950,20 @@ func (d *DocumentAttributeAudio45) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentAttributeClass.
-func (d DocumentAttributeAudio45) construct() DocumentAttributeClass { return &d }
+// GetDuration returns value of Duration field.
+func (d *DocumentAttributeAudio45) GetDuration() (value int) {
+	return d.Duration
+}
 
-// Ensuring interfaces in compile-time for DocumentAttributeAudio45.
-var (
-	_ bin.Encoder     = &DocumentAttributeAudio45{}
-	_ bin.Decoder     = &DocumentAttributeAudio45{}
-	_ bin.BareEncoder = &DocumentAttributeAudio45{}
-	_ bin.BareDecoder = &DocumentAttributeAudio45{}
+// GetTitle returns value of Title field.
+func (d *DocumentAttributeAudio45) GetTitle() (value string) {
+	return d.Title
+}
 
-	_ DocumentAttributeClass = &DocumentAttributeAudio45{}
-)
+// GetPerformer returns value of Performer field.
+func (d *DocumentAttributeAudio45) GetPerformer() (value string) {
+	return d.Performer
+}
 
 // DocumentAttributeSticker represents TL type `documentAttributeSticker#3a556302`.
 // Defines a sticker
@@ -1023,6 +978,19 @@ type DocumentAttributeSticker struct {
 
 // DocumentAttributeStickerTypeID is TL type id of DocumentAttributeSticker.
 const DocumentAttributeStickerTypeID = 0x3a556302
+
+// construct implements constructor of DocumentAttributeClass.
+func (d DocumentAttributeSticker) construct() DocumentAttributeClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentAttributeSticker.
+var (
+	_ bin.Encoder     = &DocumentAttributeSticker{}
+	_ bin.Decoder     = &DocumentAttributeSticker{}
+	_ bin.BareEncoder = &DocumentAttributeSticker{}
+	_ bin.BareDecoder = &DocumentAttributeSticker{}
+
+	_ DocumentAttributeClass = &DocumentAttributeSticker{}
+)
 
 func (d *DocumentAttributeSticker) Zero() bool {
 	if d == nil {
@@ -1045,15 +1013,6 @@ func (d *DocumentAttributeSticker) String() string {
 	}
 	type Alias DocumentAttributeSticker
 	return fmt.Sprintf("DocumentAttributeSticker%+v", Alias(*d))
-}
-
-// FillFrom fills DocumentAttributeSticker from given interface.
-func (d *DocumentAttributeSticker) FillFrom(from interface {
-	GetAlt() (value string)
-	GetStickerset() (value InputStickerSetClass)
-}) {
-	d.Alt = from.GetAlt()
-	d.Stickerset = from.GetStickerset()
 }
 
 // TypeID returns type id in TL schema.
@@ -1115,16 +1074,6 @@ func (d *DocumentAttributeSticker) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAlt returns value of Alt field.
-func (d *DocumentAttributeSticker) GetAlt() (value string) {
-	return d.Alt
-}
-
-// GetStickerset returns value of Stickerset field.
-func (d *DocumentAttributeSticker) GetStickerset() (value InputStickerSetClass) {
-	return d.Stickerset
-}
-
 // Decode implements bin.Decoder.
 func (d *DocumentAttributeSticker) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1158,18 +1107,15 @@ func (d *DocumentAttributeSticker) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentAttributeClass.
-func (d DocumentAttributeSticker) construct() DocumentAttributeClass { return &d }
+// GetAlt returns value of Alt field.
+func (d *DocumentAttributeSticker) GetAlt() (value string) {
+	return d.Alt
+}
 
-// Ensuring interfaces in compile-time for DocumentAttributeSticker.
-var (
-	_ bin.Encoder     = &DocumentAttributeSticker{}
-	_ bin.Decoder     = &DocumentAttributeSticker{}
-	_ bin.BareEncoder = &DocumentAttributeSticker{}
-	_ bin.BareDecoder = &DocumentAttributeSticker{}
-
-	_ DocumentAttributeClass = &DocumentAttributeSticker{}
-)
+// GetStickerset returns value of Stickerset field.
+func (d *DocumentAttributeSticker) GetStickerset() (value InputStickerSetClass) {
+	return d.Stickerset
+}
 
 // DocumentAttributeAudio represents TL type `documentAttributeAudio#9852f9c6`.
 // Represents an audio file
@@ -1201,6 +1147,19 @@ type DocumentAttributeAudio struct {
 
 // DocumentAttributeAudioTypeID is TL type id of DocumentAttributeAudio.
 const DocumentAttributeAudioTypeID = 0x9852f9c6
+
+// construct implements constructor of DocumentAttributeClass.
+func (d DocumentAttributeAudio) construct() DocumentAttributeClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentAttributeAudio.
+var (
+	_ bin.Encoder     = &DocumentAttributeAudio{}
+	_ bin.Decoder     = &DocumentAttributeAudio{}
+	_ bin.BareEncoder = &DocumentAttributeAudio{}
+	_ bin.BareDecoder = &DocumentAttributeAudio{}
+
+	_ DocumentAttributeClass = &DocumentAttributeAudio{}
+)
 
 func (d *DocumentAttributeAudio) Zero() bool {
 	if d == nil {
@@ -1235,30 +1194,6 @@ func (d *DocumentAttributeAudio) String() string {
 	}
 	type Alias DocumentAttributeAudio
 	return fmt.Sprintf("DocumentAttributeAudio%+v", Alias(*d))
-}
-
-// FillFrom fills DocumentAttributeAudio from given interface.
-func (d *DocumentAttributeAudio) FillFrom(from interface {
-	GetVoice() (value bool)
-	GetDuration() (value int)
-	GetTitle() (value string, ok bool)
-	GetPerformer() (value string, ok bool)
-	GetWaveform() (value []byte, ok bool)
-}) {
-	d.Voice = from.GetVoice()
-	d.Duration = from.GetDuration()
-	if val, ok := from.GetTitle(); ok {
-		d.Title = val
-	}
-
-	if val, ok := from.GetPerformer(); ok {
-		d.Performer = val
-	}
-
-	if val, ok := from.GetWaveform(); ok {
-		d.Waveform = val
-	}
-
 }
 
 // TypeID returns type id in TL schema.
@@ -1354,6 +1289,59 @@ func (d *DocumentAttributeAudio) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (d *DocumentAttributeAudio) Decode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode documentAttributeAudio#9852f9c6 to nil")
+	}
+	if err := b.ConsumeID(DocumentAttributeAudioTypeID); err != nil {
+		return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DocumentAttributeAudio) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode documentAttributeAudio#9852f9c6 to nil")
+	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: field flags: %w", err)
+		}
+	}
+	d.Voice = d.Flags.Has(10)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: field duration: %w", err)
+		}
+		d.Duration = value
+	}
+	if d.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: field title: %w", err)
+		}
+		d.Title = value
+	}
+	if d.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: field performer: %w", err)
+		}
+		d.Performer = value
+	}
+	if d.Flags.Has(2) {
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: field waveform: %w", err)
+		}
+		d.Waveform = value
+	}
+	return nil
+}
+
 // SetVoice sets value of Voice conditional field.
 func (d *DocumentAttributeAudio) SetVoice(value bool) {
 	if value {
@@ -1420,72 +1408,6 @@ func (d *DocumentAttributeAudio) GetWaveform() (value []byte, ok bool) {
 	return d.Waveform, true
 }
 
-// Decode implements bin.Decoder.
-func (d *DocumentAttributeAudio) Decode(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't decode documentAttributeAudio#9852f9c6 to nil")
-	}
-	if err := b.ConsumeID(DocumentAttributeAudioTypeID); err != nil {
-		return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: %w", err)
-	}
-	return d.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (d *DocumentAttributeAudio) DecodeBare(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't decode documentAttributeAudio#9852f9c6 to nil")
-	}
-	{
-		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: field flags: %w", err)
-		}
-	}
-	d.Voice = d.Flags.Has(10)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: field duration: %w", err)
-		}
-		d.Duration = value
-	}
-	if d.Flags.Has(0) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: field title: %w", err)
-		}
-		d.Title = value
-	}
-	if d.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: field performer: %w", err)
-		}
-		d.Performer = value
-	}
-	if d.Flags.Has(2) {
-		value, err := b.Bytes()
-		if err != nil {
-			return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: field waveform: %w", err)
-		}
-		d.Waveform = value
-	}
-	return nil
-}
-
-// construct implements constructor of DocumentAttributeClass.
-func (d DocumentAttributeAudio) construct() DocumentAttributeClass { return &d }
-
-// Ensuring interfaces in compile-time for DocumentAttributeAudio.
-var (
-	_ bin.Encoder     = &DocumentAttributeAudio{}
-	_ bin.Decoder     = &DocumentAttributeAudio{}
-	_ bin.BareEncoder = &DocumentAttributeAudio{}
-	_ bin.BareDecoder = &DocumentAttributeAudio{}
-
-	_ DocumentAttributeClass = &DocumentAttributeAudio{}
-)
-
 // DocumentAttributeVideo66 represents TL type `documentAttributeVideo66#ef02ce6`.
 //
 // See https://core.telegram.org/constructor/documentAttributeVideo66 for reference.
@@ -1504,6 +1426,19 @@ type DocumentAttributeVideo66 struct {
 
 // DocumentAttributeVideo66TypeID is TL type id of DocumentAttributeVideo66.
 const DocumentAttributeVideo66TypeID = 0xef02ce6
+
+// construct implements constructor of DocumentAttributeClass.
+func (d DocumentAttributeVideo66) construct() DocumentAttributeClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentAttributeVideo66.
+var (
+	_ bin.Encoder     = &DocumentAttributeVideo66{}
+	_ bin.Decoder     = &DocumentAttributeVideo66{}
+	_ bin.BareEncoder = &DocumentAttributeVideo66{}
+	_ bin.BareDecoder = &DocumentAttributeVideo66{}
+
+	_ DocumentAttributeClass = &DocumentAttributeVideo66{}
+)
 
 func (d *DocumentAttributeVideo66) Zero() bool {
 	if d == nil {
@@ -1535,19 +1470,6 @@ func (d *DocumentAttributeVideo66) String() string {
 	}
 	type Alias DocumentAttributeVideo66
 	return fmt.Sprintf("DocumentAttributeVideo66%+v", Alias(*d))
-}
-
-// FillFrom fills DocumentAttributeVideo66 from given interface.
-func (d *DocumentAttributeVideo66) FillFrom(from interface {
-	GetRoundMessage() (value bool)
-	GetDuration() (value int)
-	GetW() (value int)
-	GetH() (value int)
-}) {
-	d.RoundMessage = from.GetRoundMessage()
-	d.Duration = from.GetDuration()
-	d.W = from.GetW()
-	d.H = from.GetH()
 }
 
 // TypeID returns type id in TL schema.
@@ -1620,37 +1542,6 @@ func (d *DocumentAttributeVideo66) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetRoundMessage sets value of RoundMessage conditional field.
-func (d *DocumentAttributeVideo66) SetRoundMessage(value bool) {
-	if value {
-		d.Flags.Set(0)
-		d.RoundMessage = true
-	} else {
-		d.Flags.Unset(0)
-		d.RoundMessage = false
-	}
-}
-
-// GetRoundMessage returns value of RoundMessage conditional field.
-func (d *DocumentAttributeVideo66) GetRoundMessage() (value bool) {
-	return d.Flags.Has(0)
-}
-
-// GetDuration returns value of Duration field.
-func (d *DocumentAttributeVideo66) GetDuration() (value int) {
-	return d.Duration
-}
-
-// GetW returns value of W field.
-func (d *DocumentAttributeVideo66) GetW() (value int) {
-	return d.W
-}
-
-// GetH returns value of H field.
-func (d *DocumentAttributeVideo66) GetH() (value int) {
-	return d.H
-}
-
 // Decode implements bin.Decoder.
 func (d *DocumentAttributeVideo66) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1697,18 +1588,36 @@ func (d *DocumentAttributeVideo66) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentAttributeClass.
-func (d DocumentAttributeVideo66) construct() DocumentAttributeClass { return &d }
+// SetRoundMessage sets value of RoundMessage conditional field.
+func (d *DocumentAttributeVideo66) SetRoundMessage(value bool) {
+	if value {
+		d.Flags.Set(0)
+		d.RoundMessage = true
+	} else {
+		d.Flags.Unset(0)
+		d.RoundMessage = false
+	}
+}
 
-// Ensuring interfaces in compile-time for DocumentAttributeVideo66.
-var (
-	_ bin.Encoder     = &DocumentAttributeVideo66{}
-	_ bin.Decoder     = &DocumentAttributeVideo66{}
-	_ bin.BareEncoder = &DocumentAttributeVideo66{}
-	_ bin.BareDecoder = &DocumentAttributeVideo66{}
+// GetRoundMessage returns value of RoundMessage conditional field.
+func (d *DocumentAttributeVideo66) GetRoundMessage() (value bool) {
+	return d.Flags.Has(0)
+}
 
-	_ DocumentAttributeClass = &DocumentAttributeVideo66{}
-)
+// GetDuration returns value of Duration field.
+func (d *DocumentAttributeVideo66) GetDuration() (value int) {
+	return d.Duration
+}
+
+// GetW returns value of W field.
+func (d *DocumentAttributeVideo66) GetW() (value int) {
+	return d.W
+}
+
+// GetH returns value of H field.
+func (d *DocumentAttributeVideo66) GetH() (value int) {
+	return d.H
+}
 
 // DocumentAttributeClass represents DocumentAttribute generic type.
 //
@@ -1857,846 +1766,4 @@ func (b *DocumentAttributeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DocumentAttributeClass as nil")
 	}
 	return b.DocumentAttribute.Encode(buf)
-}
-
-// DocumentAttributeClassArray is adapter for slice of DocumentAttributeClass.
-type DocumentAttributeClassArray []DocumentAttributeClass
-
-// Sort sorts slice of DocumentAttributeClass.
-func (s DocumentAttributeClassArray) Sort(less func(a, b DocumentAttributeClass) bool) DocumentAttributeClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DocumentAttributeClass.
-func (s DocumentAttributeClassArray) SortStable(less func(a, b DocumentAttributeClass) bool) DocumentAttributeClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DocumentAttributeClass.
-func (s DocumentAttributeClassArray) Retain(keep func(x DocumentAttributeClass) bool) DocumentAttributeClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DocumentAttributeClassArray) First() (v DocumentAttributeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DocumentAttributeClassArray) Last() (v DocumentAttributeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentAttributeClassArray) PopFirst() (v DocumentAttributeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DocumentAttributeClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentAttributeClassArray) Pop() (v DocumentAttributeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsDocumentAttributeImageSize returns copy with only DocumentAttributeImageSize constructors.
-func (s DocumentAttributeClassArray) AsDocumentAttributeImageSize() (to DocumentAttributeImageSizeArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DocumentAttributeImageSize)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDocumentAttributeVideo returns copy with only DocumentAttributeVideo constructors.
-func (s DocumentAttributeClassArray) AsDocumentAttributeVideo() (to DocumentAttributeVideoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DocumentAttributeVideo)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDocumentAttributeAudio23 returns copy with only DocumentAttributeAudio23 constructors.
-func (s DocumentAttributeClassArray) AsDocumentAttributeAudio23() (to DocumentAttributeAudio23Array) {
-	for _, elem := range s {
-		value, ok := elem.(*DocumentAttributeAudio23)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDocumentAttributeFilename returns copy with only DocumentAttributeFilename constructors.
-func (s DocumentAttributeClassArray) AsDocumentAttributeFilename() (to DocumentAttributeFilenameArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DocumentAttributeFilename)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDocumentAttributeAudio45 returns copy with only DocumentAttributeAudio45 constructors.
-func (s DocumentAttributeClassArray) AsDocumentAttributeAudio45() (to DocumentAttributeAudio45Array) {
-	for _, elem := range s {
-		value, ok := elem.(*DocumentAttributeAudio45)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDocumentAttributeSticker returns copy with only DocumentAttributeSticker constructors.
-func (s DocumentAttributeClassArray) AsDocumentAttributeSticker() (to DocumentAttributeStickerArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DocumentAttributeSticker)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDocumentAttributeAudio returns copy with only DocumentAttributeAudio constructors.
-func (s DocumentAttributeClassArray) AsDocumentAttributeAudio() (to DocumentAttributeAudioArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DocumentAttributeAudio)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDocumentAttributeVideo66 returns copy with only DocumentAttributeVideo66 constructors.
-func (s DocumentAttributeClassArray) AsDocumentAttributeVideo66() (to DocumentAttributeVideo66Array) {
-	for _, elem := range s {
-		value, ok := elem.(*DocumentAttributeVideo66)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// DocumentAttributeImageSizeArray is adapter for slice of DocumentAttributeImageSize.
-type DocumentAttributeImageSizeArray []DocumentAttributeImageSize
-
-// Sort sorts slice of DocumentAttributeImageSize.
-func (s DocumentAttributeImageSizeArray) Sort(less func(a, b DocumentAttributeImageSize) bool) DocumentAttributeImageSizeArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DocumentAttributeImageSize.
-func (s DocumentAttributeImageSizeArray) SortStable(less func(a, b DocumentAttributeImageSize) bool) DocumentAttributeImageSizeArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DocumentAttributeImageSize.
-func (s DocumentAttributeImageSizeArray) Retain(keep func(x DocumentAttributeImageSize) bool) DocumentAttributeImageSizeArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DocumentAttributeImageSizeArray) First() (v DocumentAttributeImageSize, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DocumentAttributeImageSizeArray) Last() (v DocumentAttributeImageSize, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentAttributeImageSizeArray) PopFirst() (v DocumentAttributeImageSize, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DocumentAttributeImageSize
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentAttributeImageSizeArray) Pop() (v DocumentAttributeImageSize, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DocumentAttributeVideoArray is adapter for slice of DocumentAttributeVideo.
-type DocumentAttributeVideoArray []DocumentAttributeVideo
-
-// Sort sorts slice of DocumentAttributeVideo.
-func (s DocumentAttributeVideoArray) Sort(less func(a, b DocumentAttributeVideo) bool) DocumentAttributeVideoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DocumentAttributeVideo.
-func (s DocumentAttributeVideoArray) SortStable(less func(a, b DocumentAttributeVideo) bool) DocumentAttributeVideoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DocumentAttributeVideo.
-func (s DocumentAttributeVideoArray) Retain(keep func(x DocumentAttributeVideo) bool) DocumentAttributeVideoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DocumentAttributeVideoArray) First() (v DocumentAttributeVideo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DocumentAttributeVideoArray) Last() (v DocumentAttributeVideo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentAttributeVideoArray) PopFirst() (v DocumentAttributeVideo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DocumentAttributeVideo
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentAttributeVideoArray) Pop() (v DocumentAttributeVideo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DocumentAttributeAudio23Array is adapter for slice of DocumentAttributeAudio23.
-type DocumentAttributeAudio23Array []DocumentAttributeAudio23
-
-// Sort sorts slice of DocumentAttributeAudio23.
-func (s DocumentAttributeAudio23Array) Sort(less func(a, b DocumentAttributeAudio23) bool) DocumentAttributeAudio23Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DocumentAttributeAudio23.
-func (s DocumentAttributeAudio23Array) SortStable(less func(a, b DocumentAttributeAudio23) bool) DocumentAttributeAudio23Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DocumentAttributeAudio23.
-func (s DocumentAttributeAudio23Array) Retain(keep func(x DocumentAttributeAudio23) bool) DocumentAttributeAudio23Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DocumentAttributeAudio23Array) First() (v DocumentAttributeAudio23, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DocumentAttributeAudio23Array) Last() (v DocumentAttributeAudio23, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentAttributeAudio23Array) PopFirst() (v DocumentAttributeAudio23, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DocumentAttributeAudio23
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentAttributeAudio23Array) Pop() (v DocumentAttributeAudio23, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DocumentAttributeFilenameArray is adapter for slice of DocumentAttributeFilename.
-type DocumentAttributeFilenameArray []DocumentAttributeFilename
-
-// Sort sorts slice of DocumentAttributeFilename.
-func (s DocumentAttributeFilenameArray) Sort(less func(a, b DocumentAttributeFilename) bool) DocumentAttributeFilenameArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DocumentAttributeFilename.
-func (s DocumentAttributeFilenameArray) SortStable(less func(a, b DocumentAttributeFilename) bool) DocumentAttributeFilenameArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DocumentAttributeFilename.
-func (s DocumentAttributeFilenameArray) Retain(keep func(x DocumentAttributeFilename) bool) DocumentAttributeFilenameArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DocumentAttributeFilenameArray) First() (v DocumentAttributeFilename, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DocumentAttributeFilenameArray) Last() (v DocumentAttributeFilename, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentAttributeFilenameArray) PopFirst() (v DocumentAttributeFilename, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DocumentAttributeFilename
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentAttributeFilenameArray) Pop() (v DocumentAttributeFilename, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DocumentAttributeAudio45Array is adapter for slice of DocumentAttributeAudio45.
-type DocumentAttributeAudio45Array []DocumentAttributeAudio45
-
-// Sort sorts slice of DocumentAttributeAudio45.
-func (s DocumentAttributeAudio45Array) Sort(less func(a, b DocumentAttributeAudio45) bool) DocumentAttributeAudio45Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DocumentAttributeAudio45.
-func (s DocumentAttributeAudio45Array) SortStable(less func(a, b DocumentAttributeAudio45) bool) DocumentAttributeAudio45Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DocumentAttributeAudio45.
-func (s DocumentAttributeAudio45Array) Retain(keep func(x DocumentAttributeAudio45) bool) DocumentAttributeAudio45Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DocumentAttributeAudio45Array) First() (v DocumentAttributeAudio45, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DocumentAttributeAudio45Array) Last() (v DocumentAttributeAudio45, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentAttributeAudio45Array) PopFirst() (v DocumentAttributeAudio45, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DocumentAttributeAudio45
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentAttributeAudio45Array) Pop() (v DocumentAttributeAudio45, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DocumentAttributeStickerArray is adapter for slice of DocumentAttributeSticker.
-type DocumentAttributeStickerArray []DocumentAttributeSticker
-
-// Sort sorts slice of DocumentAttributeSticker.
-func (s DocumentAttributeStickerArray) Sort(less func(a, b DocumentAttributeSticker) bool) DocumentAttributeStickerArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DocumentAttributeSticker.
-func (s DocumentAttributeStickerArray) SortStable(less func(a, b DocumentAttributeSticker) bool) DocumentAttributeStickerArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DocumentAttributeSticker.
-func (s DocumentAttributeStickerArray) Retain(keep func(x DocumentAttributeSticker) bool) DocumentAttributeStickerArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DocumentAttributeStickerArray) First() (v DocumentAttributeSticker, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DocumentAttributeStickerArray) Last() (v DocumentAttributeSticker, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentAttributeStickerArray) PopFirst() (v DocumentAttributeSticker, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DocumentAttributeSticker
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentAttributeStickerArray) Pop() (v DocumentAttributeSticker, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DocumentAttributeAudioArray is adapter for slice of DocumentAttributeAudio.
-type DocumentAttributeAudioArray []DocumentAttributeAudio
-
-// Sort sorts slice of DocumentAttributeAudio.
-func (s DocumentAttributeAudioArray) Sort(less func(a, b DocumentAttributeAudio) bool) DocumentAttributeAudioArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DocumentAttributeAudio.
-func (s DocumentAttributeAudioArray) SortStable(less func(a, b DocumentAttributeAudio) bool) DocumentAttributeAudioArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DocumentAttributeAudio.
-func (s DocumentAttributeAudioArray) Retain(keep func(x DocumentAttributeAudio) bool) DocumentAttributeAudioArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DocumentAttributeAudioArray) First() (v DocumentAttributeAudio, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DocumentAttributeAudioArray) Last() (v DocumentAttributeAudio, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentAttributeAudioArray) PopFirst() (v DocumentAttributeAudio, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DocumentAttributeAudio
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentAttributeAudioArray) Pop() (v DocumentAttributeAudio, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DocumentAttributeVideo66Array is adapter for slice of DocumentAttributeVideo66.
-type DocumentAttributeVideo66Array []DocumentAttributeVideo66
-
-// Sort sorts slice of DocumentAttributeVideo66.
-func (s DocumentAttributeVideo66Array) Sort(less func(a, b DocumentAttributeVideo66) bool) DocumentAttributeVideo66Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DocumentAttributeVideo66.
-func (s DocumentAttributeVideo66Array) SortStable(less func(a, b DocumentAttributeVideo66) bool) DocumentAttributeVideo66Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DocumentAttributeVideo66.
-func (s DocumentAttributeVideo66Array) Retain(keep func(x DocumentAttributeVideo66) bool) DocumentAttributeVideo66Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DocumentAttributeVideo66Array) First() (v DocumentAttributeVideo66, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DocumentAttributeVideo66Array) Last() (v DocumentAttributeVideo66, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentAttributeVideo66Array) PopFirst() (v DocumentAttributeVideo66, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DocumentAttributeVideo66
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentAttributeVideo66Array) Pop() (v DocumentAttributeVideo66, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

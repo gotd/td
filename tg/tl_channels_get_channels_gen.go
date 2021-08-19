@@ -44,6 +44,14 @@ type ChannelsGetChannelsRequest struct {
 // ChannelsGetChannelsRequestTypeID is TL type id of ChannelsGetChannelsRequest.
 const ChannelsGetChannelsRequestTypeID = 0xa7f6bbb
 
+// Ensuring interfaces in compile-time for ChannelsGetChannelsRequest.
+var (
+	_ bin.Encoder     = &ChannelsGetChannelsRequest{}
+	_ bin.Decoder     = &ChannelsGetChannelsRequest{}
+	_ bin.BareEncoder = &ChannelsGetChannelsRequest{}
+	_ bin.BareDecoder = &ChannelsGetChannelsRequest{}
+)
+
 func (g *ChannelsGetChannelsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -128,16 +136,6 @@ func (g *ChannelsGetChannelsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (g *ChannelsGetChannelsRequest) GetID() (value []InputChannelClass) {
-	return g.ID
-}
-
-// MapID returns field ID wrapped in InputChannelClassArray helper.
-func (g *ChannelsGetChannelsRequest) MapID() (value InputChannelClassArray) {
-	return InputChannelClassArray(g.ID)
-}
-
 // Decode implements bin.Decoder.
 func (g *ChannelsGetChannelsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -174,13 +172,15 @@ func (g *ChannelsGetChannelsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsGetChannelsRequest.
-var (
-	_ bin.Encoder     = &ChannelsGetChannelsRequest{}
-	_ bin.Decoder     = &ChannelsGetChannelsRequest{}
-	_ bin.BareEncoder = &ChannelsGetChannelsRequest{}
-	_ bin.BareDecoder = &ChannelsGetChannelsRequest{}
-)
+// GetID returns value of ID field.
+func (g *ChannelsGetChannelsRequest) GetID() (value []InputChannelClass) {
+	return g.ID
+}
+
+// MapID returns field ID wrapped in InputChannelClassArray helper.
+func (g *ChannelsGetChannelsRequest) MapID() (value InputChannelClassArray) {
+	return InputChannelClassArray(g.ID)
+}
 
 // ChannelsGetChannels invokes method channels.getChannels#a7f6bbb returning error if any.
 // Get info about channels/supergroups¹

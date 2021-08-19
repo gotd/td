@@ -76,6 +76,14 @@ type Invoice struct {
 // InvoiceTypeID is TL type id of Invoice.
 const InvoiceTypeID = 0xcd886e0
 
+// Ensuring interfaces in compile-time for Invoice.
+var (
+	_ bin.Encoder     = &Invoice{}
+	_ bin.Decoder     = &Invoice{}
+	_ bin.BareEncoder = &Invoice{}
+	_ bin.BareDecoder = &Invoice{}
+)
+
 func (i *Invoice) Zero() bool {
 	if i == nil {
 		return true
@@ -318,6 +326,86 @@ func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (i *Invoice) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode invoice#cd886e0 to nil")
+	}
+	if err := b.ConsumeID(InvoiceTypeID); err != nil {
+		return fmt.Errorf("unable to decode invoice#cd886e0: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *Invoice) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode invoice#cd886e0 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode invoice#cd886e0: field flags: %w", err)
+		}
+	}
+	i.Test = i.Flags.Has(0)
+	i.NameRequested = i.Flags.Has(1)
+	i.PhoneRequested = i.Flags.Has(2)
+	i.EmailRequested = i.Flags.Has(3)
+	i.ShippingAddressRequested = i.Flags.Has(4)
+	i.Flexible = i.Flags.Has(5)
+	i.PhoneToProvider = i.Flags.Has(6)
+	i.EmailToProvider = i.Flags.Has(7)
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode invoice#cd886e0: field currency: %w", err)
+		}
+		i.Currency = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode invoice#cd886e0: field prices: %w", err)
+		}
+
+		if headerLen > 0 {
+			i.Prices = make([]LabeledPrice, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value LabeledPrice
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode invoice#cd886e0: field prices: %w", err)
+			}
+			i.Prices = append(i.Prices, value)
+		}
+	}
+	if i.Flags.Has(8) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode invoice#cd886e0: field max_tip_amount: %w", err)
+		}
+		i.MaxTipAmount = value
+	}
+	if i.Flags.Has(8) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode invoice#cd886e0: field suggested_tip_amounts: %w", err)
+		}
+
+		if headerLen > 0 {
+			i.SuggestedTipAmounts = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode invoice#cd886e0: field suggested_tip_amounts: %w", err)
+			}
+			i.SuggestedTipAmounts = append(i.SuggestedTipAmounts, value)
+		}
+	}
+	return nil
+}
+
 // SetTest sets value of Test conditional field.
 func (i *Invoice) SetTest(value bool) {
 	if value {
@@ -485,91 +573,3 @@ func (i *Invoice) GetSuggestedTipAmounts() (value []int64, ok bool) {
 	}
 	return i.SuggestedTipAmounts, true
 }
-
-// Decode implements bin.Decoder.
-func (i *Invoice) Decode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode invoice#cd886e0 to nil")
-	}
-	if err := b.ConsumeID(InvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode invoice#cd886e0: %w", err)
-	}
-	return i.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (i *Invoice) DecodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode invoice#cd886e0 to nil")
-	}
-	{
-		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field flags: %w", err)
-		}
-	}
-	i.Test = i.Flags.Has(0)
-	i.NameRequested = i.Flags.Has(1)
-	i.PhoneRequested = i.Flags.Has(2)
-	i.EmailRequested = i.Flags.Has(3)
-	i.ShippingAddressRequested = i.Flags.Has(4)
-	i.Flexible = i.Flags.Has(5)
-	i.PhoneToProvider = i.Flags.Has(6)
-	i.EmailToProvider = i.Flags.Has(7)
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field currency: %w", err)
-		}
-		i.Currency = value
-	}
-	{
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field prices: %w", err)
-		}
-
-		if headerLen > 0 {
-			i.Prices = make([]LabeledPrice, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value LabeledPrice
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode invoice#cd886e0: field prices: %w", err)
-			}
-			i.Prices = append(i.Prices, value)
-		}
-	}
-	if i.Flags.Has(8) {
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field max_tip_amount: %w", err)
-		}
-		i.MaxTipAmount = value
-	}
-	if i.Flags.Has(8) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field suggested_tip_amounts: %w", err)
-		}
-
-		if headerLen > 0 {
-			i.SuggestedTipAmounts = make([]int64, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
-			if err != nil {
-				return fmt.Errorf("unable to decode invoice#cd886e0: field suggested_tip_amounts: %w", err)
-			}
-			i.SuggestedTipAmounts = append(i.SuggestedTipAmounts, value)
-		}
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for Invoice.
-var (
-	_ bin.Encoder     = &Invoice{}
-	_ bin.Decoder     = &Invoice{}
-	_ bin.BareEncoder = &Invoice{}
-	_ bin.BareDecoder = &Invoice{}
-)

@@ -47,6 +47,14 @@ type MessagesReportRequest struct {
 // MessagesReportRequestTypeID is TL type id of MessagesReportRequest.
 const MessagesReportRequestTypeID = 0x8953ab4e
 
+// Ensuring interfaces in compile-time for MessagesReportRequest.
+var (
+	_ bin.Encoder     = &MessagesReportRequest{}
+	_ bin.Decoder     = &MessagesReportRequest{}
+	_ bin.BareEncoder = &MessagesReportRequest{}
+	_ bin.BareDecoder = &MessagesReportRequest{}
+)
+
 func (r *MessagesReportRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -166,26 +174,6 @@ func (r *MessagesReportRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (r *MessagesReportRequest) GetPeer() (value InputPeerClass) {
-	return r.Peer
-}
-
-// GetID returns value of ID field.
-func (r *MessagesReportRequest) GetID() (value []int) {
-	return r.ID
-}
-
-// GetReason returns value of Reason field.
-func (r *MessagesReportRequest) GetReason() (value ReportReasonClass) {
-	return r.Reason
-}
-
-// GetMessage returns value of Message field.
-func (r *MessagesReportRequest) GetMessage() (value string) {
-	return r.Message
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesReportRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -243,13 +231,25 @@ func (r *MessagesReportRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesReportRequest.
-var (
-	_ bin.Encoder     = &MessagesReportRequest{}
-	_ bin.Decoder     = &MessagesReportRequest{}
-	_ bin.BareEncoder = &MessagesReportRequest{}
-	_ bin.BareDecoder = &MessagesReportRequest{}
-)
+// GetPeer returns value of Peer field.
+func (r *MessagesReportRequest) GetPeer() (value InputPeerClass) {
+	return r.Peer
+}
+
+// GetID returns value of ID field.
+func (r *MessagesReportRequest) GetID() (value []int) {
+	return r.ID
+}
+
+// GetReason returns value of Reason field.
+func (r *MessagesReportRequest) GetReason() (value ReportReasonClass) {
+	return r.Reason
+}
+
+// GetMessage returns value of Message field.
+func (r *MessagesReportRequest) GetMessage() (value string) {
+	return r.Message
+}
 
 // MessagesReport invokes method messages.report#8953ab4e returning error if any.
 // Report a message in a chat for violation of telegram's Terms of Service

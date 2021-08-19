@@ -44,6 +44,19 @@ type FileLocationUnavailable struct {
 // FileLocationUnavailableTypeID is TL type id of FileLocationUnavailable.
 const FileLocationUnavailableTypeID = 0x7c596b46
 
+// construct implements constructor of FileLocationClass.
+func (f FileLocationUnavailable) construct() FileLocationClass { return &f }
+
+// Ensuring interfaces in compile-time for FileLocationUnavailable.
+var (
+	_ bin.Encoder     = &FileLocationUnavailable{}
+	_ bin.Decoder     = &FileLocationUnavailable{}
+	_ bin.BareEncoder = &FileLocationUnavailable{}
+	_ bin.BareDecoder = &FileLocationUnavailable{}
+
+	_ FileLocationClass = &FileLocationUnavailable{}
+)
+
 func (f *FileLocationUnavailable) Zero() bool {
 	if f == nil {
 		return true
@@ -68,17 +81,6 @@ func (f *FileLocationUnavailable) String() string {
 	}
 	type Alias FileLocationUnavailable
 	return fmt.Sprintf("FileLocationUnavailable%+v", Alias(*f))
-}
-
-// FillFrom fills FileLocationUnavailable from given interface.
-func (f *FileLocationUnavailable) FillFrom(from interface {
-	GetVolumeID() (value int64)
-	GetLocalID() (value int)
-	GetSecret() (value int64)
-}) {
-	f.VolumeID = from.GetVolumeID()
-	f.LocalID = from.GetLocalID()
-	f.Secret = from.GetSecret()
 }
 
 // TypeID returns type id in TL schema.
@@ -140,21 +142,6 @@ func (f *FileLocationUnavailable) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetVolumeID returns value of VolumeID field.
-func (f *FileLocationUnavailable) GetVolumeID() (value int64) {
-	return f.VolumeID
-}
-
-// GetLocalID returns value of LocalID field.
-func (f *FileLocationUnavailable) GetLocalID() (value int) {
-	return f.LocalID
-}
-
-// GetSecret returns value of Secret field.
-func (f *FileLocationUnavailable) GetSecret() (value int64) {
-	return f.Secret
-}
-
 // Decode implements bin.Decoder.
 func (f *FileLocationUnavailable) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -195,18 +182,20 @@ func (f *FileLocationUnavailable) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of FileLocationClass.
-func (f FileLocationUnavailable) construct() FileLocationClass { return &f }
+// GetVolumeID returns value of VolumeID field.
+func (f *FileLocationUnavailable) GetVolumeID() (value int64) {
+	return f.VolumeID
+}
 
-// Ensuring interfaces in compile-time for FileLocationUnavailable.
-var (
-	_ bin.Encoder     = &FileLocationUnavailable{}
-	_ bin.Decoder     = &FileLocationUnavailable{}
-	_ bin.BareEncoder = &FileLocationUnavailable{}
-	_ bin.BareDecoder = &FileLocationUnavailable{}
+// GetLocalID returns value of LocalID field.
+func (f *FileLocationUnavailable) GetLocalID() (value int) {
+	return f.LocalID
+}
 
-	_ FileLocationClass = &FileLocationUnavailable{}
-)
+// GetSecret returns value of Secret field.
+func (f *FileLocationUnavailable) GetSecret() (value int64) {
+	return f.Secret
+}
 
 // FileLocation represents TL type `fileLocation#53d69076`.
 //
@@ -224,6 +213,19 @@ type FileLocation struct {
 
 // FileLocationTypeID is TL type id of FileLocation.
 const FileLocationTypeID = 0x53d69076
+
+// construct implements constructor of FileLocationClass.
+func (f FileLocation) construct() FileLocationClass { return &f }
+
+// Ensuring interfaces in compile-time for FileLocation.
+var (
+	_ bin.Encoder     = &FileLocation{}
+	_ bin.Decoder     = &FileLocation{}
+	_ bin.BareEncoder = &FileLocation{}
+	_ bin.BareDecoder = &FileLocation{}
+
+	_ FileLocationClass = &FileLocation{}
+)
 
 func (f *FileLocation) Zero() bool {
 	if f == nil {
@@ -252,19 +254,6 @@ func (f *FileLocation) String() string {
 	}
 	type Alias FileLocation
 	return fmt.Sprintf("FileLocation%+v", Alias(*f))
-}
-
-// FillFrom fills FileLocation from given interface.
-func (f *FileLocation) FillFrom(from interface {
-	GetDCID() (value int)
-	GetVolumeID() (value int64)
-	GetLocalID() (value int)
-	GetSecret() (value int64)
-}) {
-	f.DCID = from.GetDCID()
-	f.VolumeID = from.GetVolumeID()
-	f.LocalID = from.GetLocalID()
-	f.Secret = from.GetSecret()
 }
 
 // TypeID returns type id in TL schema.
@@ -331,26 +320,6 @@ func (f *FileLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDCID returns value of DCID field.
-func (f *FileLocation) GetDCID() (value int) {
-	return f.DCID
-}
-
-// GetVolumeID returns value of VolumeID field.
-func (f *FileLocation) GetVolumeID() (value int64) {
-	return f.VolumeID
-}
-
-// GetLocalID returns value of LocalID field.
-func (f *FileLocation) GetLocalID() (value int) {
-	return f.LocalID
-}
-
-// GetSecret returns value of Secret field.
-func (f *FileLocation) GetSecret() (value int64) {
-	return f.Secret
-}
-
 // Decode implements bin.Decoder.
 func (f *FileLocation) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -398,18 +367,25 @@ func (f *FileLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of FileLocationClass.
-func (f FileLocation) construct() FileLocationClass { return &f }
+// GetDCID returns value of DCID field.
+func (f *FileLocation) GetDCID() (value int) {
+	return f.DCID
+}
 
-// Ensuring interfaces in compile-time for FileLocation.
-var (
-	_ bin.Encoder     = &FileLocation{}
-	_ bin.Decoder     = &FileLocation{}
-	_ bin.BareEncoder = &FileLocation{}
-	_ bin.BareDecoder = &FileLocation{}
+// GetVolumeID returns value of VolumeID field.
+func (f *FileLocation) GetVolumeID() (value int64) {
+	return f.VolumeID
+}
 
-	_ FileLocationClass = &FileLocation{}
-)
+// GetLocalID returns value of LocalID field.
+func (f *FileLocation) GetLocalID() (value int) {
+	return f.LocalID
+}
+
+// GetSecret returns value of Secret field.
+func (f *FileLocation) GetSecret() (value int64) {
+	return f.Secret
+}
 
 // FileLocationClass represents FileLocation generic type.
 //
@@ -445,25 +421,10 @@ type FileLocationClass interface {
 
 	// VolumeID field of FileLocationUnavailable.
 	GetVolumeID() (value int64)
-
 	// LocalID field of FileLocationUnavailable.
 	GetLocalID() (value int)
-
 	// Secret field of FileLocationUnavailable.
 	GetSecret() (value int64)
-
-	// AsAvailable tries to map FileLocationClass to FileLocation.
-	AsAvailable() (*FileLocation, bool)
-}
-
-// AsAvailable tries to map FileLocationUnavailable to FileLocation.
-func (f *FileLocationUnavailable) AsAvailable() (*FileLocation, bool) {
-	return nil, false
-}
-
-// AsAvailable tries to map FileLocation to FileLocation.
-func (f *FileLocation) AsAvailable() (*FileLocation, bool) {
-	return f, true
 }
 
 // DecodeFileLocation implements binary de-serialization for FileLocationClass.
@@ -516,331 +477,4 @@ func (b *FileLocationBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode FileLocationClass as nil")
 	}
 	return b.FileLocation.Encode(buf)
-}
-
-// FileLocationClassArray is adapter for slice of FileLocationClass.
-type FileLocationClassArray []FileLocationClass
-
-// Sort sorts slice of FileLocationClass.
-func (s FileLocationClassArray) Sort(less func(a, b FileLocationClass) bool) FileLocationClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of FileLocationClass.
-func (s FileLocationClassArray) SortStable(less func(a, b FileLocationClass) bool) FileLocationClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of FileLocationClass.
-func (s FileLocationClassArray) Retain(keep func(x FileLocationClass) bool) FileLocationClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s FileLocationClassArray) First() (v FileLocationClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s FileLocationClassArray) Last() (v FileLocationClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *FileLocationClassArray) PopFirst() (v FileLocationClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero FileLocationClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *FileLocationClassArray) Pop() (v FileLocationClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsFileLocationUnavailable returns copy with only FileLocationUnavailable constructors.
-func (s FileLocationClassArray) AsFileLocationUnavailable() (to FileLocationUnavailableArray) {
-	for _, elem := range s {
-		value, ok := elem.(*FileLocationUnavailable)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsFileLocation returns copy with only FileLocation constructors.
-func (s FileLocationClassArray) AsFileLocation() (to FileLocationArray) {
-	for _, elem := range s {
-		value, ok := elem.(*FileLocation)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyAvailable appends only Available constructors to
-// given slice.
-func (s FileLocationClassArray) AppendOnlyAvailable(to []*FileLocation) []*FileLocation {
-	for _, elem := range s {
-		value, ok := elem.AsAvailable()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsAvailable returns copy with only Available constructors.
-func (s FileLocationClassArray) AsAvailable() (to []*FileLocation) {
-	return s.AppendOnlyAvailable(to)
-}
-
-// FirstAsAvailable returns first element of slice (if exists).
-func (s FileLocationClassArray) FirstAsAvailable() (v *FileLocation, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsAvailable()
-}
-
-// LastAsAvailable returns last element of slice (if exists).
-func (s FileLocationClassArray) LastAsAvailable() (v *FileLocation, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsAvailable()
-}
-
-// PopFirstAsAvailable returns element of slice (if exists).
-func (s *FileLocationClassArray) PopFirstAsAvailable() (v *FileLocation, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsAvailable()
-}
-
-// PopAsAvailable returns element of slice (if exists).
-func (s *FileLocationClassArray) PopAsAvailable() (v *FileLocation, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsAvailable()
-}
-
-// FileLocationUnavailableArray is adapter for slice of FileLocationUnavailable.
-type FileLocationUnavailableArray []FileLocationUnavailable
-
-// Sort sorts slice of FileLocationUnavailable.
-func (s FileLocationUnavailableArray) Sort(less func(a, b FileLocationUnavailable) bool) FileLocationUnavailableArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of FileLocationUnavailable.
-func (s FileLocationUnavailableArray) SortStable(less func(a, b FileLocationUnavailable) bool) FileLocationUnavailableArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of FileLocationUnavailable.
-func (s FileLocationUnavailableArray) Retain(keep func(x FileLocationUnavailable) bool) FileLocationUnavailableArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s FileLocationUnavailableArray) First() (v FileLocationUnavailable, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s FileLocationUnavailableArray) Last() (v FileLocationUnavailable, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *FileLocationUnavailableArray) PopFirst() (v FileLocationUnavailable, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero FileLocationUnavailable
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *FileLocationUnavailableArray) Pop() (v FileLocationUnavailable, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// FileLocationArray is adapter for slice of FileLocation.
-type FileLocationArray []FileLocation
-
-// Sort sorts slice of FileLocation.
-func (s FileLocationArray) Sort(less func(a, b FileLocation) bool) FileLocationArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of FileLocation.
-func (s FileLocationArray) SortStable(less func(a, b FileLocation) bool) FileLocationArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of FileLocation.
-func (s FileLocationArray) Retain(keep func(x FileLocation) bool) FileLocationArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s FileLocationArray) First() (v FileLocation, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s FileLocationArray) Last() (v FileLocation, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *FileLocationArray) PopFirst() (v FileLocation, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero FileLocation
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *FileLocationArray) Pop() (v FileLocation, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

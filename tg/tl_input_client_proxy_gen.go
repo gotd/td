@@ -46,6 +46,14 @@ type InputClientProxy struct {
 // InputClientProxyTypeID is TL type id of InputClientProxy.
 const InputClientProxyTypeID = 0x75588b3f
 
+// Ensuring interfaces in compile-time for InputClientProxy.
+var (
+	_ bin.Encoder     = &InputClientProxy{}
+	_ bin.Decoder     = &InputClientProxy{}
+	_ bin.BareEncoder = &InputClientProxy{}
+	_ bin.BareDecoder = &InputClientProxy{}
+)
+
 func (i *InputClientProxy) Zero() bool {
 	if i == nil {
 		return true
@@ -132,16 +140,6 @@ func (i *InputClientProxy) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAddress returns value of Address field.
-func (i *InputClientProxy) GetAddress() (value string) {
-	return i.Address
-}
-
-// GetPort returns value of Port field.
-func (i *InputClientProxy) GetPort() (value int) {
-	return i.Port
-}
-
 // Decode implements bin.Decoder.
 func (i *InputClientProxy) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -175,10 +173,12 @@ func (i *InputClientProxy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InputClientProxy.
-var (
-	_ bin.Encoder     = &InputClientProxy{}
-	_ bin.Decoder     = &InputClientProxy{}
-	_ bin.BareEncoder = &InputClientProxy{}
-	_ bin.BareDecoder = &InputClientProxy{}
-)
+// GetAddress returns value of Address field.
+func (i *InputClientProxy) GetAddress() (value string) {
+	return i.Address
+}
+
+// GetPort returns value of Port field.
+func (i *InputClientProxy) GetPort() (value int) {
+	return i.Port
+}

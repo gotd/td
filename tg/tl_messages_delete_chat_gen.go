@@ -40,6 +40,14 @@ type MessagesDeleteChatRequest struct {
 // MessagesDeleteChatRequestTypeID is TL type id of MessagesDeleteChatRequest.
 const MessagesDeleteChatRequestTypeID = 0x83247d11
 
+// Ensuring interfaces in compile-time for MessagesDeleteChatRequest.
+var (
+	_ bin.Encoder     = &MessagesDeleteChatRequest{}
+	_ bin.Decoder     = &MessagesDeleteChatRequest{}
+	_ bin.BareEncoder = &MessagesDeleteChatRequest{}
+	_ bin.BareDecoder = &MessagesDeleteChatRequest{}
+)
+
 func (d *MessagesDeleteChatRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -116,11 +124,6 @@ func (d *MessagesDeleteChatRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (d *MessagesDeleteChatRequest) GetChatID() (value int) {
-	return d.ChatID
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteChatRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -147,13 +150,10 @@ func (d *MessagesDeleteChatRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesDeleteChatRequest.
-var (
-	_ bin.Encoder     = &MessagesDeleteChatRequest{}
-	_ bin.Decoder     = &MessagesDeleteChatRequest{}
-	_ bin.BareEncoder = &MessagesDeleteChatRequest{}
-	_ bin.BareDecoder = &MessagesDeleteChatRequest{}
-)
+// GetChatID returns value of ChatID field.
+func (d *MessagesDeleteChatRequest) GetChatID() (value int) {
+	return d.ChatID
+}
 
 // MessagesDeleteChat invokes method messages.deleteChat#83247d11 returning error if any.
 //

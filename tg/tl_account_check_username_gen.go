@@ -42,6 +42,14 @@ type AccountCheckUsernameRequest struct {
 // AccountCheckUsernameRequestTypeID is TL type id of AccountCheckUsernameRequest.
 const AccountCheckUsernameRequestTypeID = 0x2714d86c
 
+// Ensuring interfaces in compile-time for AccountCheckUsernameRequest.
+var (
+	_ bin.Encoder     = &AccountCheckUsernameRequest{}
+	_ bin.Decoder     = &AccountCheckUsernameRequest{}
+	_ bin.BareEncoder = &AccountCheckUsernameRequest{}
+	_ bin.BareDecoder = &AccountCheckUsernameRequest{}
+)
+
 func (c *AccountCheckUsernameRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -118,11 +126,6 @@ func (c *AccountCheckUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUsername returns value of Username field.
-func (c *AccountCheckUsernameRequest) GetUsername() (value string) {
-	return c.Username
-}
-
 // Decode implements bin.Decoder.
 func (c *AccountCheckUsernameRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -149,13 +152,10 @@ func (c *AccountCheckUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountCheckUsernameRequest.
-var (
-	_ bin.Encoder     = &AccountCheckUsernameRequest{}
-	_ bin.Decoder     = &AccountCheckUsernameRequest{}
-	_ bin.BareEncoder = &AccountCheckUsernameRequest{}
-	_ bin.BareDecoder = &AccountCheckUsernameRequest{}
-)
+// GetUsername returns value of Username field.
+func (c *AccountCheckUsernameRequest) GetUsername() (value string) {
+	return c.Username
+}
 
 // AccountCheckUsername invokes method account.checkUsername#2714d86c returning error if any.
 // Validates a username and checks availability.

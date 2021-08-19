@@ -66,6 +66,14 @@ type Theme struct {
 // ThemeTypeID is TL type id of Theme.
 const ThemeTypeID = 0x28f1114
 
+// Ensuring interfaces in compile-time for Theme.
+var (
+	_ bin.Encoder     = &Theme{}
+	_ bin.Decoder     = &Theme{}
+	_ bin.BareEncoder = &Theme{}
+	_ bin.BareDecoder = &Theme{}
+)
+
 func (t *Theme) Zero() bool {
 	if t == nil {
 		return true
@@ -259,102 +267,6 @@ func (t *Theme) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetCreator sets value of Creator conditional field.
-func (t *Theme) SetCreator(value bool) {
-	if value {
-		t.Flags.Set(0)
-		t.Creator = true
-	} else {
-		t.Flags.Unset(0)
-		t.Creator = false
-	}
-}
-
-// GetCreator returns value of Creator conditional field.
-func (t *Theme) GetCreator() (value bool) {
-	return t.Flags.Has(0)
-}
-
-// SetDefault sets value of Default conditional field.
-func (t *Theme) SetDefault(value bool) {
-	if value {
-		t.Flags.Set(1)
-		t.Default = true
-	} else {
-		t.Flags.Unset(1)
-		t.Default = false
-	}
-}
-
-// GetDefault returns value of Default conditional field.
-func (t *Theme) GetDefault() (value bool) {
-	return t.Flags.Has(1)
-}
-
-// GetID returns value of ID field.
-func (t *Theme) GetID() (value int64) {
-	return t.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (t *Theme) GetAccessHash() (value int64) {
-	return t.AccessHash
-}
-
-// GetSlug returns value of Slug field.
-func (t *Theme) GetSlug() (value string) {
-	return t.Slug
-}
-
-// GetTitle returns value of Title field.
-func (t *Theme) GetTitle() (value string) {
-	return t.Title
-}
-
-// SetDocument sets value of Document conditional field.
-func (t *Theme) SetDocument(value DocumentClass) {
-	t.Flags.Set(2)
-	t.Document = value
-}
-
-// GetDocument returns value of Document conditional field and
-// boolean which is true if field was set.
-func (t *Theme) GetDocument() (value DocumentClass, ok bool) {
-	if !t.Flags.Has(2) {
-		return value, false
-	}
-	return t.Document, true
-}
-
-// GetDocumentAsNotEmpty returns mapped value of Document conditional field and
-// boolean which is true if field was set.
-func (t *Theme) GetDocumentAsNotEmpty() (*Document, bool) {
-	if value, ok := t.GetDocument(); ok {
-		return value.AsNotEmpty()
-	}
-	return nil, false
-}
-
-// SetSettings sets value of Settings conditional field.
-func (t *Theme) SetSettings(value ThemeSettings) {
-	t.Flags.Set(3)
-	t.Settings = value
-}
-
-// GetSettings returns value of Settings conditional field and
-// boolean which is true if field was set.
-func (t *Theme) GetSettings() (value ThemeSettings, ok bool) {
-	if !t.Flags.Has(3) {
-		return value, false
-	}
-	return t.Settings, true
-}
-
-// GetInstallsCount returns value of InstallsCount field.
-func (t *Theme) GetInstallsCount() (value int) {
-	return t.InstallsCount
-}
-
 // Decode implements bin.Decoder.
 func (t *Theme) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -428,10 +340,98 @@ func (t *Theme) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for Theme.
-var (
-	_ bin.Encoder     = &Theme{}
-	_ bin.Decoder     = &Theme{}
-	_ bin.BareEncoder = &Theme{}
-	_ bin.BareDecoder = &Theme{}
-)
+// SetCreator sets value of Creator conditional field.
+func (t *Theme) SetCreator(value bool) {
+	if value {
+		t.Flags.Set(0)
+		t.Creator = true
+	} else {
+		t.Flags.Unset(0)
+		t.Creator = false
+	}
+}
+
+// GetCreator returns value of Creator conditional field.
+func (t *Theme) GetCreator() (value bool) {
+	return t.Flags.Has(0)
+}
+
+// SetDefault sets value of Default conditional field.
+func (t *Theme) SetDefault(value bool) {
+	if value {
+		t.Flags.Set(1)
+		t.Default = true
+	} else {
+		t.Flags.Unset(1)
+		t.Default = false
+	}
+}
+
+// GetDefault returns value of Default conditional field.
+func (t *Theme) GetDefault() (value bool) {
+	return t.Flags.Has(1)
+}
+
+// GetID returns value of ID field.
+func (t *Theme) GetID() (value int64) {
+	return t.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (t *Theme) GetAccessHash() (value int64) {
+	return t.AccessHash
+}
+
+// GetSlug returns value of Slug field.
+func (t *Theme) GetSlug() (value string) {
+	return t.Slug
+}
+
+// GetTitle returns value of Title field.
+func (t *Theme) GetTitle() (value string) {
+	return t.Title
+}
+
+// SetDocument sets value of Document conditional field.
+func (t *Theme) SetDocument(value DocumentClass) {
+	t.Flags.Set(2)
+	t.Document = value
+}
+
+// GetDocument returns value of Document conditional field and
+// boolean which is true if field was set.
+func (t *Theme) GetDocument() (value DocumentClass, ok bool) {
+	if !t.Flags.Has(2) {
+		return value, false
+	}
+	return t.Document, true
+}
+
+// SetSettings sets value of Settings conditional field.
+func (t *Theme) SetSettings(value ThemeSettings) {
+	t.Flags.Set(3)
+	t.Settings = value
+}
+
+// GetSettings returns value of Settings conditional field and
+// boolean which is true if field was set.
+func (t *Theme) GetSettings() (value ThemeSettings, ok bool) {
+	if !t.Flags.Has(3) {
+		return value, false
+	}
+	return t.Settings, true
+}
+
+// GetInstallsCount returns value of InstallsCount field.
+func (t *Theme) GetInstallsCount() (value int) {
+	return t.InstallsCount
+}
+
+// GetDocumentAsNotEmpty returns mapped value of Document conditional field and
+// boolean which is true if field was set.
+func (t *Theme) GetDocumentAsNotEmpty() (*Document, bool) {
+	if value, ok := t.GetDocument(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}

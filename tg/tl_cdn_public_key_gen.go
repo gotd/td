@@ -49,6 +49,14 @@ type CDNPublicKey struct {
 // CDNPublicKeyTypeID is TL type id of CDNPublicKey.
 const CDNPublicKeyTypeID = 0xc982eaba
 
+// Ensuring interfaces in compile-time for CDNPublicKey.
+var (
+	_ bin.Encoder     = &CDNPublicKey{}
+	_ bin.Decoder     = &CDNPublicKey{}
+	_ bin.BareEncoder = &CDNPublicKey{}
+	_ bin.BareDecoder = &CDNPublicKey{}
+)
+
 func (c *CDNPublicKey) Zero() bool {
 	if c == nil {
 		return true
@@ -135,16 +143,6 @@ func (c *CDNPublicKey) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDCID returns value of DCID field.
-func (c *CDNPublicKey) GetDCID() (value int) {
-	return c.DCID
-}
-
-// GetPublicKey returns value of PublicKey field.
-func (c *CDNPublicKey) GetPublicKey() (value string) {
-	return c.PublicKey
-}
-
 // Decode implements bin.Decoder.
 func (c *CDNPublicKey) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -178,10 +176,12 @@ func (c *CDNPublicKey) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for CDNPublicKey.
-var (
-	_ bin.Encoder     = &CDNPublicKey{}
-	_ bin.Decoder     = &CDNPublicKey{}
-	_ bin.BareEncoder = &CDNPublicKey{}
-	_ bin.BareDecoder = &CDNPublicKey{}
-)
+// GetDCID returns value of DCID field.
+func (c *CDNPublicKey) GetDCID() (value int) {
+	return c.DCID
+}
+
+// GetPublicKey returns value of PublicKey field.
+func (c *CDNPublicKey) GetPublicKey() (value string) {
+	return c.PublicKey
+}

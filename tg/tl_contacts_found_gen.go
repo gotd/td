@@ -47,6 +47,14 @@ type ContactsFound struct {
 // ContactsFoundTypeID is TL type id of ContactsFound.
 const ContactsFoundTypeID = 0xb3134d9d
 
+// Ensuring interfaces in compile-time for ContactsFound.
+var (
+	_ bin.Encoder     = &ContactsFound{}
+	_ bin.Decoder     = &ContactsFound{}
+	_ bin.BareEncoder = &ContactsFound{}
+	_ bin.BareDecoder = &ContactsFound{}
+)
+
 func (f *ContactsFound) Zero() bool {
 	if f == nil {
 		return true
@@ -185,46 +193,6 @@ func (f *ContactsFound) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMyResults returns value of MyResults field.
-func (f *ContactsFound) GetMyResults() (value []PeerClass) {
-	return f.MyResults
-}
-
-// MapMyResults returns field MyResults wrapped in PeerClassArray helper.
-func (f *ContactsFound) MapMyResults() (value PeerClassArray) {
-	return PeerClassArray(f.MyResults)
-}
-
-// GetResults returns value of Results field.
-func (f *ContactsFound) GetResults() (value []PeerClass) {
-	return f.Results
-}
-
-// MapResults returns field Results wrapped in PeerClassArray helper.
-func (f *ContactsFound) MapResults() (value PeerClassArray) {
-	return PeerClassArray(f.Results)
-}
-
-// GetChats returns value of Chats field.
-func (f *ContactsFound) GetChats() (value []ChatClass) {
-	return f.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (f *ContactsFound) MapChats() (value ChatClassArray) {
-	return ChatClassArray(f.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (f *ContactsFound) GetUsers() (value []UserClass) {
-	return f.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (f *ContactsFound) MapUsers() (value UserClassArray) {
-	return UserClassArray(f.Users)
-}
-
 // Decode implements bin.Decoder.
 func (f *ContactsFound) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -312,10 +280,42 @@ func (f *ContactsFound) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsFound.
-var (
-	_ bin.Encoder     = &ContactsFound{}
-	_ bin.Decoder     = &ContactsFound{}
-	_ bin.BareEncoder = &ContactsFound{}
-	_ bin.BareDecoder = &ContactsFound{}
-)
+// GetMyResults returns value of MyResults field.
+func (f *ContactsFound) GetMyResults() (value []PeerClass) {
+	return f.MyResults
+}
+
+// GetResults returns value of Results field.
+func (f *ContactsFound) GetResults() (value []PeerClass) {
+	return f.Results
+}
+
+// GetChats returns value of Chats field.
+func (f *ContactsFound) GetChats() (value []ChatClass) {
+	return f.Chats
+}
+
+// GetUsers returns value of Users field.
+func (f *ContactsFound) GetUsers() (value []UserClass) {
+	return f.Users
+}
+
+// MapMyResults returns field MyResults wrapped in PeerClassArray helper.
+func (f *ContactsFound) MapMyResults() (value PeerClassArray) {
+	return PeerClassArray(f.MyResults)
+}
+
+// MapResults returns field Results wrapped in PeerClassArray helper.
+func (f *ContactsFound) MapResults() (value PeerClassArray) {
+	return PeerClassArray(f.Results)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (f *ContactsFound) MapChats() (value ChatClassArray) {
+	return ChatClassArray(f.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (f *ContactsFound) MapUsers() (value UserClassArray) {
+	return UserClassArray(f.Users)
+}

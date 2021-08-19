@@ -39,6 +39,19 @@ type AccountWallPapersNotModified struct {
 // AccountWallPapersNotModifiedTypeID is TL type id of AccountWallPapersNotModified.
 const AccountWallPapersNotModifiedTypeID = 0x1c199183
 
+// construct implements constructor of AccountWallPapersClass.
+func (w AccountWallPapersNotModified) construct() AccountWallPapersClass { return &w }
+
+// Ensuring interfaces in compile-time for AccountWallPapersNotModified.
+var (
+	_ bin.Encoder     = &AccountWallPapersNotModified{}
+	_ bin.Decoder     = &AccountWallPapersNotModified{}
+	_ bin.BareEncoder = &AccountWallPapersNotModified{}
+	_ bin.BareDecoder = &AccountWallPapersNotModified{}
+
+	_ AccountWallPapersClass = &AccountWallPapersNotModified{}
+)
+
 func (w *AccountWallPapersNotModified) Zero() bool {
 	if w == nil {
 		return true
@@ -118,19 +131,6 @@ func (w *AccountWallPapersNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AccountWallPapersClass.
-func (w AccountWallPapersNotModified) construct() AccountWallPapersClass { return &w }
-
-// Ensuring interfaces in compile-time for AccountWallPapersNotModified.
-var (
-	_ bin.Encoder     = &AccountWallPapersNotModified{}
-	_ bin.Decoder     = &AccountWallPapersNotModified{}
-	_ bin.BareEncoder = &AccountWallPapersNotModified{}
-	_ bin.BareDecoder = &AccountWallPapersNotModified{}
-
-	_ AccountWallPapersClass = &AccountWallPapersNotModified{}
-)
-
 // AccountWallPapers represents TL type `account.wallPapers#702b65a9`.
 // Installed wallpapers
 //
@@ -147,6 +147,19 @@ type AccountWallPapers struct {
 
 // AccountWallPapersTypeID is TL type id of AccountWallPapers.
 const AccountWallPapersTypeID = 0x702b65a9
+
+// construct implements constructor of AccountWallPapersClass.
+func (w AccountWallPapers) construct() AccountWallPapersClass { return &w }
+
+// Ensuring interfaces in compile-time for AccountWallPapers.
+var (
+	_ bin.Encoder     = &AccountWallPapers{}
+	_ bin.Decoder     = &AccountWallPapers{}
+	_ bin.BareEncoder = &AccountWallPapers{}
+	_ bin.BareDecoder = &AccountWallPapers{}
+
+	_ AccountWallPapersClass = &AccountWallPapers{}
+)
 
 func (w *AccountWallPapers) Zero() bool {
 	if w == nil {
@@ -242,21 +255,6 @@ func (w *AccountWallPapers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (w *AccountWallPapers) GetHash() (value int) {
-	return w.Hash
-}
-
-// GetWallpapers returns value of Wallpapers field.
-func (w *AccountWallPapers) GetWallpapers() (value []WallPaperClass) {
-	return w.Wallpapers
-}
-
-// MapWallpapers returns field Wallpapers wrapped in WallPaperClassArray helper.
-func (w *AccountWallPapers) MapWallpapers() (value WallPaperClassArray) {
-	return WallPaperClassArray(w.Wallpapers)
-}
-
 // Decode implements bin.Decoder.
 func (w *AccountWallPapers) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -300,18 +298,20 @@ func (w *AccountWallPapers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AccountWallPapersClass.
-func (w AccountWallPapers) construct() AccountWallPapersClass { return &w }
+// GetHash returns value of Hash field.
+func (w *AccountWallPapers) GetHash() (value int) {
+	return w.Hash
+}
 
-// Ensuring interfaces in compile-time for AccountWallPapers.
-var (
-	_ bin.Encoder     = &AccountWallPapers{}
-	_ bin.Decoder     = &AccountWallPapers{}
-	_ bin.BareEncoder = &AccountWallPapers{}
-	_ bin.BareDecoder = &AccountWallPapers{}
+// GetWallpapers returns value of Wallpapers field.
+func (w *AccountWallPapers) GetWallpapers() (value []WallPaperClass) {
+	return w.Wallpapers
+}
 
-	_ AccountWallPapersClass = &AccountWallPapers{}
-)
+// MapWallpapers returns field Wallpapers wrapped in WallPaperClassArray helper.
+func (w *AccountWallPapers) MapWallpapers() (value WallPaperClassArray) {
+	return WallPaperClassArray(w.Wallpapers)
+}
 
 // AccountWallPapersClass represents account.WallPapers generic type.
 //

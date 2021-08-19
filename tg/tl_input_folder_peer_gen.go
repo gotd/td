@@ -46,6 +46,14 @@ type InputFolderPeer struct {
 // InputFolderPeerTypeID is TL type id of InputFolderPeer.
 const InputFolderPeerTypeID = 0xfbd2c296
 
+// Ensuring interfaces in compile-time for InputFolderPeer.
+var (
+	_ bin.Encoder     = &InputFolderPeer{}
+	_ bin.Decoder     = &InputFolderPeer{}
+	_ bin.BareEncoder = &InputFolderPeer{}
+	_ bin.BareDecoder = &InputFolderPeer{}
+)
+
 func (i *InputFolderPeer) Zero() bool {
 	if i == nil {
 		return true
@@ -137,16 +145,6 @@ func (i *InputFolderPeer) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (i *InputFolderPeer) GetPeer() (value InputPeerClass) {
-	return i.Peer
-}
-
-// GetFolderID returns value of FolderID field.
-func (i *InputFolderPeer) GetFolderID() (value int) {
-	return i.FolderID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputFolderPeer) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -180,10 +178,12 @@ func (i *InputFolderPeer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InputFolderPeer.
-var (
-	_ bin.Encoder     = &InputFolderPeer{}
-	_ bin.Decoder     = &InputFolderPeer{}
-	_ bin.BareEncoder = &InputFolderPeer{}
-	_ bin.BareDecoder = &InputFolderPeer{}
-)
+// GetPeer returns value of Peer field.
+func (i *InputFolderPeer) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
+
+// GetFolderID returns value of FolderID field.
+func (i *InputFolderPeer) GetFolderID() (value int) {
+	return i.FolderID
+}

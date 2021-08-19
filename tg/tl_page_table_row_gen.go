@@ -41,6 +41,14 @@ type PageTableRow struct {
 // PageTableRowTypeID is TL type id of PageTableRow.
 const PageTableRowTypeID = 0xe0c0c5e5
 
+// Ensuring interfaces in compile-time for PageTableRow.
+var (
+	_ bin.Encoder     = &PageTableRow{}
+	_ bin.Decoder     = &PageTableRow{}
+	_ bin.BareEncoder = &PageTableRow{}
+	_ bin.BareDecoder = &PageTableRow{}
+)
+
 func (p *PageTableRow) Zero() bool {
 	if p == nil {
 		return true
@@ -122,11 +130,6 @@ func (p *PageTableRow) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCells returns value of Cells field.
-func (p *PageTableRow) GetCells() (value []PageTableCell) {
-	return p.Cells
-}
-
 // Decode implements bin.Decoder.
 func (p *PageTableRow) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -163,10 +166,7 @@ func (p *PageTableRow) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PageTableRow.
-var (
-	_ bin.Encoder     = &PageTableRow{}
-	_ bin.Decoder     = &PageTableRow{}
-	_ bin.BareEncoder = &PageTableRow{}
-	_ bin.BareDecoder = &PageTableRow{}
-)
+// GetCells returns value of Cells field.
+func (p *PageTableRow) GetCells() (value []PageTableCell) {
+	return p.Cells
+}

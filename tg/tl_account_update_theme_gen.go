@@ -64,6 +64,14 @@ type AccountUpdateThemeRequest struct {
 // AccountUpdateThemeRequestTypeID is TL type id of AccountUpdateThemeRequest.
 const AccountUpdateThemeRequestTypeID = 0x5cb367d5
 
+// Ensuring interfaces in compile-time for AccountUpdateThemeRequest.
+var (
+	_ bin.Encoder     = &AccountUpdateThemeRequest{}
+	_ bin.Decoder     = &AccountUpdateThemeRequest{}
+	_ bin.BareEncoder = &AccountUpdateThemeRequest{}
+	_ bin.BareDecoder = &AccountUpdateThemeRequest{}
+)
+
 func (u *AccountUpdateThemeRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -244,85 +252,6 @@ func (u *AccountUpdateThemeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFormat returns value of Format field.
-func (u *AccountUpdateThemeRequest) GetFormat() (value string) {
-	return u.Format
-}
-
-// GetTheme returns value of Theme field.
-func (u *AccountUpdateThemeRequest) GetTheme() (value InputThemeClass) {
-	return u.Theme
-}
-
-// SetSlug sets value of Slug conditional field.
-func (u *AccountUpdateThemeRequest) SetSlug(value string) {
-	u.Flags.Set(0)
-	u.Slug = value
-}
-
-// GetSlug returns value of Slug conditional field and
-// boolean which is true if field was set.
-func (u *AccountUpdateThemeRequest) GetSlug() (value string, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.Slug, true
-}
-
-// SetTitle sets value of Title conditional field.
-func (u *AccountUpdateThemeRequest) SetTitle(value string) {
-	u.Flags.Set(1)
-	u.Title = value
-}
-
-// GetTitle returns value of Title conditional field and
-// boolean which is true if field was set.
-func (u *AccountUpdateThemeRequest) GetTitle() (value string, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.Title, true
-}
-
-// SetDocument sets value of Document conditional field.
-func (u *AccountUpdateThemeRequest) SetDocument(value InputDocumentClass) {
-	u.Flags.Set(2)
-	u.Document = value
-}
-
-// GetDocument returns value of Document conditional field and
-// boolean which is true if field was set.
-func (u *AccountUpdateThemeRequest) GetDocument() (value InputDocumentClass, ok bool) {
-	if !u.Flags.Has(2) {
-		return value, false
-	}
-	return u.Document, true
-}
-
-// GetDocumentAsNotEmpty returns mapped value of Document conditional field and
-// boolean which is true if field was set.
-func (u *AccountUpdateThemeRequest) GetDocumentAsNotEmpty() (*InputDocument, bool) {
-	if value, ok := u.GetDocument(); ok {
-		return value.AsNotEmpty()
-	}
-	return nil, false
-}
-
-// SetSettings sets value of Settings conditional field.
-func (u *AccountUpdateThemeRequest) SetSettings(value InputThemeSettings) {
-	u.Flags.Set(3)
-	u.Settings = value
-}
-
-// GetSettings returns value of Settings conditional field and
-// boolean which is true if field was set.
-func (u *AccountUpdateThemeRequest) GetSettings() (value InputThemeSettings, ok bool) {
-	if !u.Flags.Has(3) {
-		return value, false
-	}
-	return u.Settings, true
-}
-
 // Decode implements bin.Decoder.
 func (u *AccountUpdateThemeRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -387,13 +316,84 @@ func (u *AccountUpdateThemeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountUpdateThemeRequest.
-var (
-	_ bin.Encoder     = &AccountUpdateThemeRequest{}
-	_ bin.Decoder     = &AccountUpdateThemeRequest{}
-	_ bin.BareEncoder = &AccountUpdateThemeRequest{}
-	_ bin.BareDecoder = &AccountUpdateThemeRequest{}
-)
+// GetFormat returns value of Format field.
+func (u *AccountUpdateThemeRequest) GetFormat() (value string) {
+	return u.Format
+}
+
+// GetTheme returns value of Theme field.
+func (u *AccountUpdateThemeRequest) GetTheme() (value InputThemeClass) {
+	return u.Theme
+}
+
+// SetSlug sets value of Slug conditional field.
+func (u *AccountUpdateThemeRequest) SetSlug(value string) {
+	u.Flags.Set(0)
+	u.Slug = value
+}
+
+// GetSlug returns value of Slug conditional field and
+// boolean which is true if field was set.
+func (u *AccountUpdateThemeRequest) GetSlug() (value string, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Slug, true
+}
+
+// SetTitle sets value of Title conditional field.
+func (u *AccountUpdateThemeRequest) SetTitle(value string) {
+	u.Flags.Set(1)
+	u.Title = value
+}
+
+// GetTitle returns value of Title conditional field and
+// boolean which is true if field was set.
+func (u *AccountUpdateThemeRequest) GetTitle() (value string, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.Title, true
+}
+
+// SetDocument sets value of Document conditional field.
+func (u *AccountUpdateThemeRequest) SetDocument(value InputDocumentClass) {
+	u.Flags.Set(2)
+	u.Document = value
+}
+
+// GetDocument returns value of Document conditional field and
+// boolean which is true if field was set.
+func (u *AccountUpdateThemeRequest) GetDocument() (value InputDocumentClass, ok bool) {
+	if !u.Flags.Has(2) {
+		return value, false
+	}
+	return u.Document, true
+}
+
+// SetSettings sets value of Settings conditional field.
+func (u *AccountUpdateThemeRequest) SetSettings(value InputThemeSettings) {
+	u.Flags.Set(3)
+	u.Settings = value
+}
+
+// GetSettings returns value of Settings conditional field and
+// boolean which is true if field was set.
+func (u *AccountUpdateThemeRequest) GetSettings() (value InputThemeSettings, ok bool) {
+	if !u.Flags.Has(3) {
+		return value, false
+	}
+	return u.Settings, true
+}
+
+// GetDocumentAsNotEmpty returns mapped value of Document conditional field and
+// boolean which is true if field was set.
+func (u *AccountUpdateThemeRequest) GetDocumentAsNotEmpty() (*InputDocument, bool) {
+	if value, ok := u.GetDocument(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
 
 // AccountUpdateTheme invokes method account.updateTheme#5cb367d5 returning error if any.
 // Update theme

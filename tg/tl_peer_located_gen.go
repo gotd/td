@@ -45,6 +45,19 @@ type PeerLocated struct {
 // PeerLocatedTypeID is TL type id of PeerLocated.
 const PeerLocatedTypeID = 0xca461b5d
 
+// construct implements constructor of PeerLocatedClass.
+func (p PeerLocated) construct() PeerLocatedClass { return &p }
+
+// Ensuring interfaces in compile-time for PeerLocated.
+var (
+	_ bin.Encoder     = &PeerLocated{}
+	_ bin.Decoder     = &PeerLocated{}
+	_ bin.BareEncoder = &PeerLocated{}
+	_ bin.BareDecoder = &PeerLocated{}
+
+	_ PeerLocatedClass = &PeerLocated{}
+)
+
 func (p *PeerLocated) Zero() bool {
 	if p == nil {
 		return true
@@ -146,21 +159,6 @@ func (p *PeerLocated) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (p *PeerLocated) GetPeer() (value PeerClass) {
-	return p.Peer
-}
-
-// GetExpires returns value of Expires field.
-func (p *PeerLocated) GetExpires() (value int) {
-	return p.Expires
-}
-
-// GetDistance returns value of Distance field.
-func (p *PeerLocated) GetDistance() (value int) {
-	return p.Distance
-}
-
 // Decode implements bin.Decoder.
 func (p *PeerLocated) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -201,18 +199,20 @@ func (p *PeerLocated) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PeerLocatedClass.
-func (p PeerLocated) construct() PeerLocatedClass { return &p }
+// GetPeer returns value of Peer field.
+func (p *PeerLocated) GetPeer() (value PeerClass) {
+	return p.Peer
+}
 
-// Ensuring interfaces in compile-time for PeerLocated.
-var (
-	_ bin.Encoder     = &PeerLocated{}
-	_ bin.Decoder     = &PeerLocated{}
-	_ bin.BareEncoder = &PeerLocated{}
-	_ bin.BareDecoder = &PeerLocated{}
+// GetExpires returns value of Expires field.
+func (p *PeerLocated) GetExpires() (value int) {
+	return p.Expires
+}
 
-	_ PeerLocatedClass = &PeerLocated{}
-)
+// GetDistance returns value of Distance field.
+func (p *PeerLocated) GetDistance() (value int) {
+	return p.Distance
+}
 
 // PeerSelfLocated represents TL type `peerSelfLocated#f8ec284b`.
 // Current peer
@@ -225,6 +225,19 @@ type PeerSelfLocated struct {
 
 // PeerSelfLocatedTypeID is TL type id of PeerSelfLocated.
 const PeerSelfLocatedTypeID = 0xf8ec284b
+
+// construct implements constructor of PeerLocatedClass.
+func (p PeerSelfLocated) construct() PeerLocatedClass { return &p }
+
+// Ensuring interfaces in compile-time for PeerSelfLocated.
+var (
+	_ bin.Encoder     = &PeerSelfLocated{}
+	_ bin.Decoder     = &PeerSelfLocated{}
+	_ bin.BareEncoder = &PeerSelfLocated{}
+	_ bin.BareDecoder = &PeerSelfLocated{}
+
+	_ PeerLocatedClass = &PeerSelfLocated{}
+)
 
 func (p *PeerSelfLocated) Zero() bool {
 	if p == nil {
@@ -302,11 +315,6 @@ func (p *PeerSelfLocated) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExpires returns value of Expires field.
-func (p *PeerSelfLocated) GetExpires() (value int) {
-	return p.Expires
-}
-
 // Decode implements bin.Decoder.
 func (p *PeerSelfLocated) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -333,18 +341,10 @@ func (p *PeerSelfLocated) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PeerLocatedClass.
-func (p PeerSelfLocated) construct() PeerLocatedClass { return &p }
-
-// Ensuring interfaces in compile-time for PeerSelfLocated.
-var (
-	_ bin.Encoder     = &PeerSelfLocated{}
-	_ bin.Decoder     = &PeerSelfLocated{}
-	_ bin.BareEncoder = &PeerSelfLocated{}
-	_ bin.BareDecoder = &PeerSelfLocated{}
-
-	_ PeerLocatedClass = &PeerSelfLocated{}
-)
+// GetExpires returns value of Expires field.
+func (p *PeerSelfLocated) GetExpires() (value int) {
+	return p.Expires
+}
 
 // PeerLocatedClass represents PeerLocated generic type.
 //
