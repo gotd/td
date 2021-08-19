@@ -135,7 +135,10 @@ func (d *MessagesDialogs) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDialogs) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.dialogs#15ba6c40 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.dialogs#15ba6c40",
+		}
 	}
 	b.PutID(MessagesDialogsTypeID)
 	return d.EncodeBare(b)
@@ -144,42 +147,125 @@ func (d *MessagesDialogs) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDialogs) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.dialogs#15ba6c40 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.dialogs#15ba6c40",
+		}
 	}
 	b.PutVectorHeader(len(d.Dialogs))
 	for idx, v := range d.Dialogs {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.dialogs#15ba6c40: field dialogs element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogs#15ba6c40",
+				FieldName: "dialogs",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Dialog>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.dialogs#15ba6c40: field dialogs element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogs#15ba6c40",
+				FieldName: "dialogs",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.Messages))
 	for idx, v := range d.Messages {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.dialogs#15ba6c40: field messages element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogs#15ba6c40",
+				FieldName: "messages",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Message>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.dialogs#15ba6c40: field messages element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogs#15ba6c40",
+				FieldName: "messages",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.Chats))
 	for idx, v := range d.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.dialogs#15ba6c40: field chats element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogs#15ba6c40",
+				FieldName: "chats",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Chat>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.dialogs#15ba6c40: field chats element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogs#15ba6c40",
+				FieldName: "chats",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.Users))
 	for idx, v := range d.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.dialogs#15ba6c40: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogs#15ba6c40",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.dialogs#15ba6c40: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogs#15ba6c40",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -228,10 +314,16 @@ func (d *MessagesDialogs) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (d *MessagesDialogs) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.dialogs#15ba6c40 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.dialogs#15ba6c40",
+		}
 	}
 	if err := b.ConsumeID(MessagesDialogsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.dialogs#15ba6c40",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -239,12 +331,20 @@ func (d *MessagesDialogs) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.dialogs#15ba6c40 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.dialogs#15ba6c40",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: field dialogs: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dialogs#15ba6c40",
+				FieldName:  "dialogs",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -253,7 +353,12 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDialog(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: field dialogs: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.dialogs#15ba6c40",
+					FieldName:  "dialogs",
+					Underlying: err,
+				}
 			}
 			d.Dialogs = append(d.Dialogs, value)
 		}
@@ -261,7 +366,12 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: field messages: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dialogs#15ba6c40",
+				FieldName:  "messages",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -270,7 +380,12 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: field messages: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.dialogs#15ba6c40",
+					FieldName:  "messages",
+					Underlying: err,
+				}
 			}
 			d.Messages = append(d.Messages, value)
 		}
@@ -278,7 +393,12 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: field chats: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dialogs#15ba6c40",
+				FieldName:  "chats",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -287,7 +407,12 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: field chats: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.dialogs#15ba6c40",
+					FieldName:  "chats",
+					Underlying: err,
+				}
 			}
 			d.Chats = append(d.Chats, value)
 		}
@@ -295,7 +420,12 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dialogs#15ba6c40",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -304,7 +434,12 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.dialogs#15ba6c40",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			d.Users = append(d.Users, value)
 		}
@@ -442,7 +577,10 @@ func (d *MessagesDialogsSlice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDialogsSlice) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.dialogsSlice#71e094f3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.dialogsSlice#71e094f3",
+		}
 	}
 	b.PutID(MessagesDialogsSliceTypeID)
 	return d.EncodeBare(b)
@@ -451,43 +589,126 @@ func (d *MessagesDialogsSlice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDialogsSlice) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.dialogsSlice#71e094f3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.dialogsSlice#71e094f3",
+		}
 	}
 	b.PutInt(d.Count)
 	b.PutVectorHeader(len(d.Dialogs))
 	for idx, v := range d.Dialogs {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.dialogsSlice#71e094f3: field dialogs element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogsSlice#71e094f3",
+				FieldName: "dialogs",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Dialog>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.dialogsSlice#71e094f3: field dialogs element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogsSlice#71e094f3",
+				FieldName: "dialogs",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.Messages))
 	for idx, v := range d.Messages {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.dialogsSlice#71e094f3: field messages element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogsSlice#71e094f3",
+				FieldName: "messages",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Message>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.dialogsSlice#71e094f3: field messages element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogsSlice#71e094f3",
+				FieldName: "messages",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.Chats))
 	for idx, v := range d.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.dialogsSlice#71e094f3: field chats element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogsSlice#71e094f3",
+				FieldName: "chats",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Chat>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.dialogsSlice#71e094f3: field chats element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogsSlice#71e094f3",
+				FieldName: "chats",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.Users))
 	for idx, v := range d.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.dialogsSlice#71e094f3: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogsSlice#71e094f3",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.dialogsSlice#71e094f3: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.dialogsSlice#71e094f3",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -541,10 +762,16 @@ func (d *MessagesDialogsSlice) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (d *MessagesDialogsSlice) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.dialogsSlice#71e094f3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.dialogsSlice#71e094f3",
+		}
 	}
 	if err := b.ConsumeID(MessagesDialogsSliceTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.dialogsSlice#71e094f3",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -552,19 +779,32 @@ func (d *MessagesDialogsSlice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.dialogsSlice#71e094f3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.dialogsSlice#71e094f3",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dialogsSlice#71e094f3",
+				FieldName:  "count",
+				Underlying: err,
+			}
 		}
 		d.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field dialogs: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dialogsSlice#71e094f3",
+				FieldName:  "dialogs",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -573,7 +813,12 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDialog(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field dialogs: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.dialogsSlice#71e094f3",
+					FieldName:  "dialogs",
+					Underlying: err,
+				}
 			}
 			d.Dialogs = append(d.Dialogs, value)
 		}
@@ -581,7 +826,12 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field messages: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dialogsSlice#71e094f3",
+				FieldName:  "messages",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -590,7 +840,12 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field messages: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.dialogsSlice#71e094f3",
+					FieldName:  "messages",
+					Underlying: err,
+				}
 			}
 			d.Messages = append(d.Messages, value)
 		}
@@ -598,7 +853,12 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field chats: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dialogsSlice#71e094f3",
+				FieldName:  "chats",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -607,7 +867,12 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field chats: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.dialogsSlice#71e094f3",
+					FieldName:  "chats",
+					Underlying: err,
+				}
 			}
 			d.Chats = append(d.Chats, value)
 		}
@@ -615,7 +880,12 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dialogsSlice#71e094f3",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -624,7 +894,12 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.dialogsSlice#71e094f3",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			d.Users = append(d.Users, value)
 		}
@@ -718,7 +993,10 @@ func (d *MessagesDialogsNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDialogsNotModified) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.dialogsNotModified#f0e3e596 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.dialogsNotModified#f0e3e596",
+		}
 	}
 	b.PutID(MessagesDialogsNotModifiedTypeID)
 	return d.EncodeBare(b)
@@ -727,7 +1005,10 @@ func (d *MessagesDialogsNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDialogsNotModified) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.dialogsNotModified#f0e3e596 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.dialogsNotModified#f0e3e596",
+		}
 	}
 	b.PutInt(d.Count)
 	return nil
@@ -741,10 +1022,16 @@ func (d *MessagesDialogsNotModified) GetCount() (value int) {
 // Decode implements bin.Decoder.
 func (d *MessagesDialogsNotModified) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.dialogsNotModified#f0e3e596 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.dialogsNotModified#f0e3e596",
+		}
 	}
 	if err := b.ConsumeID(MessagesDialogsNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.dialogsNotModified#f0e3e596: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.dialogsNotModified#f0e3e596",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -752,12 +1039,20 @@ func (d *MessagesDialogsNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDialogsNotModified) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.dialogsNotModified#f0e3e596 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.dialogsNotModified#f0e3e596",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dialogsNotModified#f0e3e596: field count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dialogsNotModified#f0e3e596",
+				FieldName:  "count",
+				Underlying: err,
+			}
 		}
 		d.Count = value
 	}
@@ -875,25 +1170,37 @@ func DecodeMessagesDialogs(buf *bin.Buffer) (MessagesDialogsClass, error) {
 		// Decoding messages.dialogs#15ba6c40.
 		v := MessagesDialogs{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesDialogsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessagesDialogsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessagesDialogsSliceTypeID:
 		// Decoding messages.dialogsSlice#71e094f3.
 		v := MessagesDialogsSlice{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesDialogsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessagesDialogsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessagesDialogsNotModifiedTypeID:
 		// Decoding messages.dialogsNotModified#f0e3e596.
 		v := MessagesDialogsNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesDialogsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessagesDialogsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessagesDialogsClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "MessagesDialogsClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -905,7 +1212,10 @@ type MessagesDialogsBox struct {
 // Decode implements bin.Decoder for MessagesDialogsBox.
 func (b *MessagesDialogsBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode MessagesDialogsBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "MessagesDialogsBox",
+		}
 	}
 	v, err := DecodeMessagesDialogs(buf)
 	if err != nil {
@@ -918,7 +1228,10 @@ func (b *MessagesDialogsBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for MessagesDialogsBox.
 func (b *MessagesDialogsBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Dialogs == nil {
-		return fmt.Errorf("unable to encode MessagesDialogsClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "MessagesDialogsBox",
+		}
 	}
 	return b.Dialogs.Encode(buf)
 }

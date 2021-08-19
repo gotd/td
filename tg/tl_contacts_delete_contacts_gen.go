@@ -102,7 +102,10 @@ func (d *ContactsDeleteContactsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *ContactsDeleteContactsRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode contacts.deleteContacts#96a0e00 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.deleteContacts#96a0e00",
+		}
 	}
 	b.PutID(ContactsDeleteContactsRequestTypeID)
 	return d.EncodeBare(b)
@@ -111,15 +114,38 @@ func (d *ContactsDeleteContactsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *ContactsDeleteContactsRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode contacts.deleteContacts#96a0e00 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.deleteContacts#96a0e00",
+		}
 	}
 	b.PutVectorHeader(len(d.ID))
 	for idx, v := range d.ID {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.deleteContacts#96a0e00: field id element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.deleteContacts#96a0e00",
+				FieldName: "id",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<InputUser>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.deleteContacts#96a0e00: field id element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.deleteContacts#96a0e00",
+				FieldName: "id",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -138,10 +164,16 @@ func (d *ContactsDeleteContactsRequest) MapID() (value InputUserClassArray) {
 // Decode implements bin.Decoder.
 func (d *ContactsDeleteContactsRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode contacts.deleteContacts#96a0e00 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.deleteContacts#96a0e00",
+		}
 	}
 	if err := b.ConsumeID(ContactsDeleteContactsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.deleteContacts#96a0e00: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "contacts.deleteContacts#96a0e00",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -149,12 +181,20 @@ func (d *ContactsDeleteContactsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *ContactsDeleteContactsRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode contacts.deleteContacts#96a0e00 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.deleteContacts#96a0e00",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.deleteContacts#96a0e00: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.deleteContacts#96a0e00",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -163,7 +203,12 @@ func (d *ContactsDeleteContactsRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.deleteContacts#96a0e00: field id: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "contacts.deleteContacts#96a0e00",
+					FieldName:  "id",
+					Underlying: err,
+				}
 			}
 			d.ID = append(d.ID, value)
 		}

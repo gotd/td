@@ -155,7 +155,10 @@ func (c *AccountCreateThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AccountCreateThemeRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.createTheme#8432c21f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.createTheme#8432c21f",
+		}
 	}
 	b.PutID(AccountCreateThemeRequestTypeID)
 	return c.EncodeBare(b)
@@ -164,7 +167,10 @@ func (c *AccountCreateThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AccountCreateThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.createTheme#8432c21f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.createTheme#8432c21f",
+		}
 	}
 	if !(c.Document == nil) {
 		c.Flags.Set(2)
@@ -173,21 +179,44 @@ func (c *AccountCreateThemeRequest) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(3)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.createTheme#8432c21f: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.createTheme#8432c21f",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(c.Slug)
 	b.PutString(c.Title)
 	if c.Flags.Has(2) {
 		if c.Document == nil {
-			return fmt.Errorf("unable to encode account.createTheme#8432c21f: field document is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.createTheme#8432c21f",
+				FieldName: "document",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputDocument",
+				},
+			}
 		}
 		if err := c.Document.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.createTheme#8432c21f: field document: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "account.createTheme#8432c21f",
+				FieldName:  "document",
+				Underlying: err,
+			}
 		}
 	}
 	if c.Flags.Has(3) {
 		if err := c.Settings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.createTheme#8432c21f: field settings: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "account.createTheme#8432c21f",
+				FieldName:  "settings",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -245,10 +274,16 @@ func (c *AccountCreateThemeRequest) GetSettings() (value InputThemeSettings, ok 
 // Decode implements bin.Decoder.
 func (c *AccountCreateThemeRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.createTheme#8432c21f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.createTheme#8432c21f",
+		}
 	}
 	if err := b.ConsumeID(AccountCreateThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.createTheme#8432c21f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.createTheme#8432c21f",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -256,37 +291,65 @@ func (c *AccountCreateThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AccountCreateThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.createTheme#8432c21f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.createTheme#8432c21f",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.createTheme#8432c21f: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.createTheme#8432c21f",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.createTheme#8432c21f: field slug: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.createTheme#8432c21f",
+				FieldName:  "slug",
+				Underlying: err,
+			}
 		}
 		c.Slug = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.createTheme#8432c21f: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.createTheme#8432c21f",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		c.Title = value
 	}
 	if c.Flags.Has(2) {
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.createTheme#8432c21f: field document: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.createTheme#8432c21f",
+				FieldName:  "document",
+				Underlying: err,
+			}
 		}
 		c.Document = value
 	}
 	if c.Flags.Has(3) {
 		if err := c.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.createTheme#8432c21f: field settings: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.createTheme#8432c21f",
+				FieldName:  "settings",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

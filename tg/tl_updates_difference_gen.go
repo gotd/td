@@ -113,7 +113,10 @@ func (d *UpdatesDifferenceEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *UpdatesDifferenceEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode updates.differenceEmpty#5d75a138 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "updates.differenceEmpty#5d75a138",
+		}
 	}
 	b.PutID(UpdatesDifferenceEmptyTypeID)
 	return d.EncodeBare(b)
@@ -122,7 +125,10 @@ func (d *UpdatesDifferenceEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *UpdatesDifferenceEmpty) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode updates.differenceEmpty#5d75a138 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "updates.differenceEmpty#5d75a138",
+		}
 	}
 	b.PutInt(d.Date)
 	b.PutInt(d.Seq)
@@ -142,10 +148,16 @@ func (d *UpdatesDifferenceEmpty) GetSeq() (value int) {
 // Decode implements bin.Decoder.
 func (d *UpdatesDifferenceEmpty) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode updates.differenceEmpty#5d75a138 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "updates.differenceEmpty#5d75a138",
+		}
 	}
 	if err := b.ConsumeID(UpdatesDifferenceEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.differenceEmpty#5d75a138: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "updates.differenceEmpty#5d75a138",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (d *UpdatesDifferenceEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *UpdatesDifferenceEmpty) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode updates.differenceEmpty#5d75a138 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "updates.differenceEmpty#5d75a138",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceEmpty#5d75a138: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.differenceEmpty#5d75a138",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		d.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceEmpty#5d75a138: field seq: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.differenceEmpty#5d75a138",
+				FieldName:  "seq",
+				Underlying: err,
+			}
 		}
 		d.Seq = value
 	}
@@ -313,7 +338,10 @@ func (d *UpdatesDifference) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *UpdatesDifference) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode updates.difference#f49ca0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "updates.difference#f49ca0",
+		}
 	}
 	b.PutID(UpdatesDifferenceTypeID)
 	return d.EncodeBare(b)
@@ -322,55 +350,163 @@ func (d *UpdatesDifference) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *UpdatesDifference) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode updates.difference#f49ca0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "updates.difference#f49ca0",
+		}
 	}
 	b.PutVectorHeader(len(d.NewMessages))
 	for idx, v := range d.NewMessages {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field new_messages element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.difference#f49ca0",
+				FieldName: "new_messages",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Message>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field new_messages element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.difference#f49ca0",
+				FieldName: "new_messages",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.NewEncryptedMessages))
 	for idx, v := range d.NewEncryptedMessages {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field new_encrypted_messages element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.difference#f49ca0",
+				FieldName: "new_encrypted_messages",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<EncryptedMessage>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field new_encrypted_messages element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.difference#f49ca0",
+				FieldName: "new_encrypted_messages",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.OtherUpdates))
 	for idx, v := range d.OtherUpdates {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field other_updates element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.difference#f49ca0",
+				FieldName: "other_updates",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Update>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field other_updates element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.difference#f49ca0",
+				FieldName: "other_updates",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.Chats))
 	for idx, v := range d.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field chats element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.difference#f49ca0",
+				FieldName: "chats",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Chat>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field chats element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.difference#f49ca0",
+				FieldName: "chats",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.Users))
 	for idx, v := range d.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.difference#f49ca0",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.difference#f49ca0",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if err := d.State.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.difference#f49ca0: field state: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "updates.difference#f49ca0",
+			FieldName:  "state",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -433,10 +569,16 @@ func (d *UpdatesDifference) GetState() (value UpdatesState) {
 // Decode implements bin.Decoder.
 func (d *UpdatesDifference) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode updates.difference#f49ca0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "updates.difference#f49ca0",
+		}
 	}
 	if err := b.ConsumeID(UpdatesDifferenceTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.difference#f49ca0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "updates.difference#f49ca0",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -444,12 +586,20 @@ func (d *UpdatesDifference) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode updates.difference#f49ca0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "updates.difference#f49ca0",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.difference#f49ca0: field new_messages: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.difference#f49ca0",
+				FieldName:  "new_messages",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -458,7 +608,12 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.difference#f49ca0: field new_messages: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "updates.difference#f49ca0",
+					FieldName:  "new_messages",
+					Underlying: err,
+				}
 			}
 			d.NewMessages = append(d.NewMessages, value)
 		}
@@ -466,7 +621,12 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.difference#f49ca0: field new_encrypted_messages: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.difference#f49ca0",
+				FieldName:  "new_encrypted_messages",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -475,7 +635,12 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeEncryptedMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.difference#f49ca0: field new_encrypted_messages: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "updates.difference#f49ca0",
+					FieldName:  "new_encrypted_messages",
+					Underlying: err,
+				}
 			}
 			d.NewEncryptedMessages = append(d.NewEncryptedMessages, value)
 		}
@@ -483,7 +648,12 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.difference#f49ca0: field other_updates: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.difference#f49ca0",
+				FieldName:  "other_updates",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -492,7 +662,12 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUpdate(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.difference#f49ca0: field other_updates: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "updates.difference#f49ca0",
+					FieldName:  "other_updates",
+					Underlying: err,
+				}
 			}
 			d.OtherUpdates = append(d.OtherUpdates, value)
 		}
@@ -500,7 +675,12 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.difference#f49ca0: field chats: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.difference#f49ca0",
+				FieldName:  "chats",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -509,7 +689,12 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.difference#f49ca0: field chats: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "updates.difference#f49ca0",
+					FieldName:  "chats",
+					Underlying: err,
+				}
 			}
 			d.Chats = append(d.Chats, value)
 		}
@@ -517,7 +702,12 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.difference#f49ca0: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.difference#f49ca0",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -526,14 +716,24 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.difference#f49ca0: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "updates.difference#f49ca0",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			d.Users = append(d.Users, value)
 		}
 	}
 	{
 		if err := d.State.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updates.difference#f49ca0: field state: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.difference#f49ca0",
+				FieldName:  "state",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -683,7 +883,10 @@ func (d *UpdatesDifferenceSlice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *UpdatesDifferenceSlice) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode updates.differenceSlice#a8fb1981 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "updates.differenceSlice#a8fb1981",
+		}
 	}
 	b.PutID(UpdatesDifferenceSliceTypeID)
 	return d.EncodeBare(b)
@@ -692,55 +895,163 @@ func (d *UpdatesDifferenceSlice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *UpdatesDifferenceSlice) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode updates.differenceSlice#a8fb1981 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "updates.differenceSlice#a8fb1981",
+		}
 	}
 	b.PutVectorHeader(len(d.NewMessages))
 	for idx, v := range d.NewMessages {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field new_messages element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.differenceSlice#a8fb1981",
+				FieldName: "new_messages",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Message>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field new_messages element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.differenceSlice#a8fb1981",
+				FieldName: "new_messages",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.NewEncryptedMessages))
 	for idx, v := range d.NewEncryptedMessages {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field new_encrypted_messages element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.differenceSlice#a8fb1981",
+				FieldName: "new_encrypted_messages",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<EncryptedMessage>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field new_encrypted_messages element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.differenceSlice#a8fb1981",
+				FieldName: "new_encrypted_messages",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.OtherUpdates))
 	for idx, v := range d.OtherUpdates {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field other_updates element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.differenceSlice#a8fb1981",
+				FieldName: "other_updates",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Update>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field other_updates element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.differenceSlice#a8fb1981",
+				FieldName: "other_updates",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.Chats))
 	for idx, v := range d.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field chats element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.differenceSlice#a8fb1981",
+				FieldName: "chats",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Chat>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field chats element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.differenceSlice#a8fb1981",
+				FieldName: "chats",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.Users))
 	for idx, v := range d.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.differenceSlice#a8fb1981",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "updates.differenceSlice#a8fb1981",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if err := d.IntermediateState.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field intermediate_state: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "updates.differenceSlice#a8fb1981",
+			FieldName:  "intermediate_state",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -803,10 +1114,16 @@ func (d *UpdatesDifferenceSlice) GetIntermediateState() (value UpdatesState) {
 // Decode implements bin.Decoder.
 func (d *UpdatesDifferenceSlice) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode updates.differenceSlice#a8fb1981 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "updates.differenceSlice#a8fb1981",
+		}
 	}
 	if err := b.ConsumeID(UpdatesDifferenceSliceTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "updates.differenceSlice#a8fb1981",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -814,12 +1131,20 @@ func (d *UpdatesDifferenceSlice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode updates.differenceSlice#a8fb1981 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "updates.differenceSlice#a8fb1981",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field new_messages: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.differenceSlice#a8fb1981",
+				FieldName:  "new_messages",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -828,7 +1153,12 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field new_messages: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "updates.differenceSlice#a8fb1981",
+					FieldName:  "new_messages",
+					Underlying: err,
+				}
 			}
 			d.NewMessages = append(d.NewMessages, value)
 		}
@@ -836,7 +1166,12 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field new_encrypted_messages: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.differenceSlice#a8fb1981",
+				FieldName:  "new_encrypted_messages",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -845,7 +1180,12 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeEncryptedMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field new_encrypted_messages: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "updates.differenceSlice#a8fb1981",
+					FieldName:  "new_encrypted_messages",
+					Underlying: err,
+				}
 			}
 			d.NewEncryptedMessages = append(d.NewEncryptedMessages, value)
 		}
@@ -853,7 +1193,12 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field other_updates: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.differenceSlice#a8fb1981",
+				FieldName:  "other_updates",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -862,7 +1207,12 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUpdate(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field other_updates: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "updates.differenceSlice#a8fb1981",
+					FieldName:  "other_updates",
+					Underlying: err,
+				}
 			}
 			d.OtherUpdates = append(d.OtherUpdates, value)
 		}
@@ -870,7 +1220,12 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field chats: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.differenceSlice#a8fb1981",
+				FieldName:  "chats",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -879,7 +1234,12 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field chats: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "updates.differenceSlice#a8fb1981",
+					FieldName:  "chats",
+					Underlying: err,
+				}
 			}
 			d.Chats = append(d.Chats, value)
 		}
@@ -887,7 +1247,12 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.differenceSlice#a8fb1981",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -896,14 +1261,24 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "updates.differenceSlice#a8fb1981",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			d.Users = append(d.Users, value)
 		}
 	}
 	{
 		if err := d.IntermediateState.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field intermediate_state: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.differenceSlice#a8fb1981",
+				FieldName:  "intermediate_state",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -998,7 +1373,10 @@ func (d *UpdatesDifferenceTooLong) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *UpdatesDifferenceTooLong) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode updates.differenceTooLong#4afe8f6d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "updates.differenceTooLong#4afe8f6d",
+		}
 	}
 	b.PutID(UpdatesDifferenceTooLongTypeID)
 	return d.EncodeBare(b)
@@ -1007,7 +1385,10 @@ func (d *UpdatesDifferenceTooLong) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *UpdatesDifferenceTooLong) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode updates.differenceTooLong#4afe8f6d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "updates.differenceTooLong#4afe8f6d",
+		}
 	}
 	b.PutInt(d.Pts)
 	return nil
@@ -1021,10 +1402,16 @@ func (d *UpdatesDifferenceTooLong) GetPts() (value int) {
 // Decode implements bin.Decoder.
 func (d *UpdatesDifferenceTooLong) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode updates.differenceTooLong#4afe8f6d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "updates.differenceTooLong#4afe8f6d",
+		}
 	}
 	if err := b.ConsumeID(UpdatesDifferenceTooLongTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.differenceTooLong#4afe8f6d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "updates.differenceTooLong#4afe8f6d",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -1032,12 +1419,20 @@ func (d *UpdatesDifferenceTooLong) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *UpdatesDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode updates.differenceTooLong#4afe8f6d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "updates.differenceTooLong#4afe8f6d",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceTooLong#4afe8f6d: field pts: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.differenceTooLong#4afe8f6d",
+				FieldName:  "pts",
+				Underlying: err,
+			}
 		}
 		d.Pts = value
 	}
@@ -1103,32 +1498,47 @@ func DecodeUpdatesDifference(buf *bin.Buffer) (UpdatesDifferenceClass, error) {
 		// Decoding updates.differenceEmpty#5d75a138.
 		v := UpdatesDifferenceEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesDifferenceClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "UpdatesDifferenceClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case UpdatesDifferenceTypeID:
 		// Decoding updates.difference#f49ca0.
 		v := UpdatesDifference{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesDifferenceClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "UpdatesDifferenceClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case UpdatesDifferenceSliceTypeID:
 		// Decoding updates.differenceSlice#a8fb1981.
 		v := UpdatesDifferenceSlice{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesDifferenceClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "UpdatesDifferenceClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case UpdatesDifferenceTooLongTypeID:
 		// Decoding updates.differenceTooLong#4afe8f6d.
 		v := UpdatesDifferenceTooLong{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdatesDifferenceClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "UpdatesDifferenceClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode UpdatesDifferenceClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "UpdatesDifferenceClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -1140,7 +1550,10 @@ type UpdatesDifferenceBox struct {
 // Decode implements bin.Decoder for UpdatesDifferenceBox.
 func (b *UpdatesDifferenceBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode UpdatesDifferenceBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "UpdatesDifferenceBox",
+		}
 	}
 	v, err := DecodeUpdatesDifference(buf)
 	if err != nil {
@@ -1153,7 +1566,10 @@ func (b *UpdatesDifferenceBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for UpdatesDifferenceBox.
 func (b *UpdatesDifferenceBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Difference == nil {
-		return fmt.Errorf("unable to encode UpdatesDifferenceClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "UpdatesDifferenceBox",
+		}
 	}
 	return b.Difference.Encode(buf)
 }

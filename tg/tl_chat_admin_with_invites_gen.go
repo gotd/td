@@ -123,7 +123,10 @@ func (c *ChatAdminWithInvites) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatAdminWithInvites) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAdminWithInvites#dfd2330f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatAdminWithInvites#dfd2330f",
+		}
 	}
 	b.PutID(ChatAdminWithInvitesTypeID)
 	return c.EncodeBare(b)
@@ -132,7 +135,10 @@ func (c *ChatAdminWithInvites) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatAdminWithInvites) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAdminWithInvites#dfd2330f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatAdminWithInvites#dfd2330f",
+		}
 	}
 	b.PutInt(c.AdminID)
 	b.PutInt(c.InvitesCount)
@@ -158,10 +164,16 @@ func (c *ChatAdminWithInvites) GetRevokedInvitesCount() (value int) {
 // Decode implements bin.Decoder.
 func (c *ChatAdminWithInvites) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAdminWithInvites#dfd2330f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatAdminWithInvites#dfd2330f",
+		}
 	}
 	if err := b.ConsumeID(ChatAdminWithInvitesTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatAdminWithInvites#dfd2330f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "chatAdminWithInvites#dfd2330f",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -169,26 +181,44 @@ func (c *ChatAdminWithInvites) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatAdminWithInvites) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAdminWithInvites#dfd2330f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatAdminWithInvites#dfd2330f",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdminWithInvites#dfd2330f: field admin_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatAdminWithInvites#dfd2330f",
+				FieldName:  "admin_id",
+				Underlying: err,
+			}
 		}
 		c.AdminID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdminWithInvites#dfd2330f: field invites_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatAdminWithInvites#dfd2330f",
+				FieldName:  "invites_count",
+				Underlying: err,
+			}
 		}
 		c.InvitesCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdminWithInvites#dfd2330f: field revoked_invites_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatAdminWithInvites#dfd2330f",
+				FieldName:  "revoked_invites_count",
+				Underlying: err,
+			}
 		}
 		c.RevokedInvitesCount = value
 	}

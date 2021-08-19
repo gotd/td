@@ -209,7 +209,10 @@ func (a *HelpAppUpdate) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *HelpAppUpdate) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode help.appUpdate#ccbbce30 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.appUpdate#ccbbce30",
+		}
 	}
 	b.PutID(HelpAppUpdateTypeID)
 	return a.EncodeBare(b)
@@ -218,7 +221,10 @@ func (a *HelpAppUpdate) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *HelpAppUpdate) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode help.appUpdate#ccbbce30 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.appUpdate#ccbbce30",
+		}
 	}
 	if !(a.CanNotSkip == false) {
 		a.Flags.Set(0)
@@ -233,7 +239,12 @@ func (a *HelpAppUpdate) EncodeBare(b *bin.Buffer) error {
 		a.Flags.Set(3)
 	}
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.appUpdate#ccbbce30: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "help.appUpdate#ccbbce30",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(a.ID)
 	b.PutString(a.Version)
@@ -241,18 +252,51 @@ func (a *HelpAppUpdate) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(a.Entities))
 	for idx, v := range a.Entities {
 		if v == nil {
-			return fmt.Errorf("unable to encode help.appUpdate#ccbbce30: field entities element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.appUpdate#ccbbce30",
+				FieldName: "entities",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<MessageEntity>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.appUpdate#ccbbce30: field entities element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.appUpdate#ccbbce30",
+				FieldName: "entities",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if a.Flags.Has(1) {
 		if a.Document == nil {
-			return fmt.Errorf("unable to encode help.appUpdate#ccbbce30: field document is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.appUpdate#ccbbce30",
+				FieldName: "document",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "Document",
+				},
+			}
 		}
 		if err := a.Document.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.appUpdate#ccbbce30: field document: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "help.appUpdate#ccbbce30",
+				FieldName:  "document",
+				Underlying: err,
+			}
 		}
 	}
 	if a.Flags.Has(2) {
@@ -260,10 +304,23 @@ func (a *HelpAppUpdate) EncodeBare(b *bin.Buffer) error {
 	}
 	if a.Flags.Has(3) {
 		if a.Sticker == nil {
-			return fmt.Errorf("unable to encode help.appUpdate#ccbbce30: field sticker is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.appUpdate#ccbbce30",
+				FieldName: "sticker",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "Document",
+				},
+			}
 		}
 		if err := a.Sticker.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.appUpdate#ccbbce30: field sticker: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "help.appUpdate#ccbbce30",
+				FieldName:  "sticker",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -358,10 +415,16 @@ func (a *HelpAppUpdate) GetSticker() (value DocumentClass, ok bool) {
 // Decode implements bin.Decoder.
 func (a *HelpAppUpdate) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode help.appUpdate#ccbbce30 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.appUpdate#ccbbce30",
+		}
 	}
 	if err := b.ConsumeID(HelpAppUpdateTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.appUpdate#ccbbce30: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.appUpdate#ccbbce30",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -369,39 +432,67 @@ func (a *HelpAppUpdate) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *HelpAppUpdate) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode help.appUpdate#ccbbce30 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.appUpdate#ccbbce30",
+		}
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.appUpdate#ccbbce30: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.appUpdate#ccbbce30",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	a.CanNotSkip = a.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.appUpdate#ccbbce30: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.appUpdate#ccbbce30",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		a.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.appUpdate#ccbbce30: field version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.appUpdate#ccbbce30",
+				FieldName:  "version",
+				Underlying: err,
+			}
 		}
 		a.Version = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.appUpdate#ccbbce30: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.appUpdate#ccbbce30",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		a.Text = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.appUpdate#ccbbce30: field entities: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.appUpdate#ccbbce30",
+				FieldName:  "entities",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -410,7 +501,12 @@ func (a *HelpAppUpdate) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.appUpdate#ccbbce30: field entities: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "help.appUpdate#ccbbce30",
+					FieldName:  "entities",
+					Underlying: err,
+				}
 			}
 			a.Entities = append(a.Entities, value)
 		}
@@ -418,21 +514,36 @@ func (a *HelpAppUpdate) DecodeBare(b *bin.Buffer) error {
 	if a.Flags.Has(1) {
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode help.appUpdate#ccbbce30: field document: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.appUpdate#ccbbce30",
+				FieldName:  "document",
+				Underlying: err,
+			}
 		}
 		a.Document = value
 	}
 	if a.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.appUpdate#ccbbce30: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.appUpdate#ccbbce30",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		a.URL = value
 	}
 	if a.Flags.Has(3) {
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode help.appUpdate#ccbbce30: field sticker: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.appUpdate#ccbbce30",
+				FieldName:  "sticker",
+				Underlying: err,
+			}
 		}
 		a.Sticker = value
 	}
@@ -508,7 +619,10 @@ func (n *HelpNoAppUpdate) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (n *HelpNoAppUpdate) Encode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode help.noAppUpdate#c45a6536 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.noAppUpdate#c45a6536",
+		}
 	}
 	b.PutID(HelpNoAppUpdateTypeID)
 	return n.EncodeBare(b)
@@ -517,7 +631,10 @@ func (n *HelpNoAppUpdate) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (n *HelpNoAppUpdate) EncodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode help.noAppUpdate#c45a6536 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.noAppUpdate#c45a6536",
+		}
 	}
 	return nil
 }
@@ -525,10 +642,16 @@ func (n *HelpNoAppUpdate) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (n *HelpNoAppUpdate) Decode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode help.noAppUpdate#c45a6536 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.noAppUpdate#c45a6536",
+		}
 	}
 	if err := b.ConsumeID(HelpNoAppUpdateTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.noAppUpdate#c45a6536: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.noAppUpdate#c45a6536",
+			Underlying: err,
+		}
 	}
 	return n.DecodeBare(b)
 }
@@ -536,7 +659,10 @@ func (n *HelpNoAppUpdate) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (n *HelpNoAppUpdate) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode help.noAppUpdate#c45a6536 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.noAppUpdate#c45a6536",
+		}
 	}
 	return nil
 }
@@ -598,18 +724,27 @@ func DecodeHelpAppUpdate(buf *bin.Buffer) (HelpAppUpdateClass, error) {
 		// Decoding help.appUpdate#ccbbce30.
 		v := HelpAppUpdate{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode HelpAppUpdateClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "HelpAppUpdateClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case HelpNoAppUpdateTypeID:
 		// Decoding help.noAppUpdate#c45a6536.
 		v := HelpNoAppUpdate{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode HelpAppUpdateClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "HelpAppUpdateClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode HelpAppUpdateClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "HelpAppUpdateClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -621,7 +756,10 @@ type HelpAppUpdateBox struct {
 // Decode implements bin.Decoder for HelpAppUpdateBox.
 func (b *HelpAppUpdateBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode HelpAppUpdateBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "HelpAppUpdateBox",
+		}
 	}
 	v, err := DecodeHelpAppUpdate(buf)
 	if err != nil {
@@ -634,7 +772,10 @@ func (b *HelpAppUpdateBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for HelpAppUpdateBox.
 func (b *HelpAppUpdateBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.AppUpdate == nil {
-		return fmt.Errorf("unable to encode HelpAppUpdateClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "HelpAppUpdateBox",
+		}
 	}
 	return b.AppUpdate.Encode(buf)
 }

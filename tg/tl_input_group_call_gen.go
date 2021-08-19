@@ -112,7 +112,10 @@ func (i *InputGroupCall) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputGroupCall) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputGroupCall#d8aa840f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputGroupCall#d8aa840f",
+		}
 	}
 	b.PutID(InputGroupCallTypeID)
 	return i.EncodeBare(b)
@@ -121,7 +124,10 @@ func (i *InputGroupCall) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputGroupCall) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputGroupCall#d8aa840f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputGroupCall#d8aa840f",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -141,10 +147,16 @@ func (i *InputGroupCall) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputGroupCall) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputGroupCall#d8aa840f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputGroupCall#d8aa840f",
+		}
 	}
 	if err := b.ConsumeID(InputGroupCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputGroupCall#d8aa840f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputGroupCall#d8aa840f",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -152,19 +164,32 @@ func (i *InputGroupCall) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputGroupCall) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputGroupCall#d8aa840f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputGroupCall#d8aa840f",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputGroupCall#d8aa840f: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputGroupCall#d8aa840f",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputGroupCall#d8aa840f: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputGroupCall#d8aa840f",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}

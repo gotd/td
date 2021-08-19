@@ -113,7 +113,10 @@ func (i *InvokeWithTakeoutRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InvokeWithTakeoutRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invokeWithTakeout#aca9fd2e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "invokeWithTakeout#aca9fd2e",
+		}
 	}
 	b.PutID(InvokeWithTakeoutRequestTypeID)
 	return i.EncodeBare(b)
@@ -122,11 +125,19 @@ func (i *InvokeWithTakeoutRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InvokeWithTakeoutRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invokeWithTakeout#aca9fd2e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "invokeWithTakeout#aca9fd2e",
+		}
 	}
 	b.PutLong(i.TakeoutID)
 	if err := i.Query.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode invokeWithTakeout#aca9fd2e: field query: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "invokeWithTakeout#aca9fd2e",
+			FieldName:  "query",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -144,10 +155,16 @@ func (i *InvokeWithTakeoutRequest) GetQuery() (value bin.Object) {
 // Decode implements bin.Decoder.
 func (i *InvokeWithTakeoutRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invokeWithTakeout#aca9fd2e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "invokeWithTakeout#aca9fd2e",
+		}
 	}
 	if err := b.ConsumeID(InvokeWithTakeoutRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode invokeWithTakeout#aca9fd2e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "invokeWithTakeout#aca9fd2e",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -155,18 +172,31 @@ func (i *InvokeWithTakeoutRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InvokeWithTakeoutRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invokeWithTakeout#aca9fd2e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "invokeWithTakeout#aca9fd2e",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode invokeWithTakeout#aca9fd2e: field takeout_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "invokeWithTakeout#aca9fd2e",
+				FieldName:  "takeout_id",
+				Underlying: err,
+			}
 		}
 		i.TakeoutID = value
 	}
 	{
 		if err := i.Query.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode invokeWithTakeout#aca9fd2e: field query: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "invokeWithTakeout#aca9fd2e",
+				FieldName:  "query",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

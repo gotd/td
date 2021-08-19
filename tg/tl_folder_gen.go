@@ -174,7 +174,10 @@ func (f *Folder) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *Folder) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode folder#ff544e65 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "folder#ff544e65",
+		}
 	}
 	b.PutID(FolderTypeID)
 	return f.EncodeBare(b)
@@ -183,7 +186,10 @@ func (f *Folder) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *Folder) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode folder#ff544e65 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "folder#ff544e65",
+		}
 	}
 	if !(f.AutofillNewBroadcasts == false) {
 		f.Flags.Set(0)
@@ -198,16 +204,34 @@ func (f *Folder) EncodeBare(b *bin.Buffer) error {
 		f.Flags.Set(3)
 	}
 	if err := f.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode folder#ff544e65: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "folder#ff544e65",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(f.ID)
 	b.PutString(f.Title)
 	if f.Flags.Has(3) {
 		if f.Photo == nil {
-			return fmt.Errorf("unable to encode folder#ff544e65: field photo is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "folder#ff544e65",
+				FieldName: "photo",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "ChatPhoto",
+				},
+			}
 		}
 		if err := f.Photo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode folder#ff544e65: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "folder#ff544e65",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -298,10 +322,16 @@ func (f *Folder) GetPhotoAsNotEmpty() (*ChatPhoto, bool) {
 // Decode implements bin.Decoder.
 func (f *Folder) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode folder#ff544e65 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "folder#ff544e65",
+		}
 	}
 	if err := b.ConsumeID(FolderTypeID); err != nil {
-		return fmt.Errorf("unable to decode folder#ff544e65: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "folder#ff544e65",
+			Underlying: err,
+		}
 	}
 	return f.DecodeBare(b)
 }
@@ -309,11 +339,19 @@ func (f *Folder) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *Folder) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode folder#ff544e65 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "folder#ff544e65",
+		}
 	}
 	{
 		if err := f.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode folder#ff544e65: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "folder#ff544e65",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	f.AutofillNewBroadcasts = f.Flags.Has(0)
@@ -322,21 +360,36 @@ func (f *Folder) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode folder#ff544e65: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "folder#ff544e65",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		f.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode folder#ff544e65: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "folder#ff544e65",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		f.Title = value
 	}
 	if f.Flags.Has(3) {
 		value, err := DecodeChatPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode folder#ff544e65: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "folder#ff544e65",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 		f.Photo = value
 	}

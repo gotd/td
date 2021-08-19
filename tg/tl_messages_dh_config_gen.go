@@ -102,7 +102,10 @@ func (d *MessagesDhConfigNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDhConfigNotModified) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.dhConfigNotModified#c0e24635 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.dhConfigNotModified#c0e24635",
+		}
 	}
 	b.PutID(MessagesDhConfigNotModifiedTypeID)
 	return d.EncodeBare(b)
@@ -111,7 +114,10 @@ func (d *MessagesDhConfigNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDhConfigNotModified) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.dhConfigNotModified#c0e24635 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.dhConfigNotModified#c0e24635",
+		}
 	}
 	b.PutBytes(d.Random)
 	return nil
@@ -125,10 +131,16 @@ func (d *MessagesDhConfigNotModified) GetRandom() (value []byte) {
 // Decode implements bin.Decoder.
 func (d *MessagesDhConfigNotModified) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.dhConfigNotModified#c0e24635 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.dhConfigNotModified#c0e24635",
+		}
 	}
 	if err := b.ConsumeID(MessagesDhConfigNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.dhConfigNotModified#c0e24635: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.dhConfigNotModified#c0e24635",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (d *MessagesDhConfigNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDhConfigNotModified) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.dhConfigNotModified#c0e24635 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.dhConfigNotModified#c0e24635",
+		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dhConfigNotModified#c0e24635: field random: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dhConfigNotModified#c0e24635",
+				FieldName:  "random",
+				Underlying: err,
+			}
 		}
 		d.Random = value
 	}
@@ -273,7 +293,10 @@ func (d *MessagesDhConfig) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDhConfig) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.dhConfig#2c221edd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.dhConfig#2c221edd",
+		}
 	}
 	b.PutID(MessagesDhConfigTypeID)
 	return d.EncodeBare(b)
@@ -282,7 +305,10 @@ func (d *MessagesDhConfig) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDhConfig) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.dhConfig#2c221edd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.dhConfig#2c221edd",
+		}
 	}
 	b.PutInt(d.G)
 	b.PutBytes(d.P)
@@ -314,10 +340,16 @@ func (d *MessagesDhConfig) GetRandom() (value []byte) {
 // Decode implements bin.Decoder.
 func (d *MessagesDhConfig) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.dhConfig#2c221edd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.dhConfig#2c221edd",
+		}
 	}
 	if err := b.ConsumeID(MessagesDhConfigTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.dhConfig#2c221edd: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.dhConfig#2c221edd",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -325,33 +357,56 @@ func (d *MessagesDhConfig) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDhConfig) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.dhConfig#2c221edd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.dhConfig#2c221edd",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dhConfig#2c221edd: field g: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dhConfig#2c221edd",
+				FieldName:  "g",
+				Underlying: err,
+			}
 		}
 		d.G = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dhConfig#2c221edd: field p: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dhConfig#2c221edd",
+				FieldName:  "p",
+				Underlying: err,
+			}
 		}
 		d.P = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dhConfig#2c221edd: field version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dhConfig#2c221edd",
+				FieldName:  "version",
+				Underlying: err,
+			}
 		}
 		d.Version = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.dhConfig#2c221edd: field random: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.dhConfig#2c221edd",
+				FieldName:  "random",
+				Underlying: err,
+			}
 		}
 		d.Random = value
 	}
@@ -430,18 +485,27 @@ func DecodeMessagesDhConfig(buf *bin.Buffer) (MessagesDhConfigClass, error) {
 		// Decoding messages.dhConfigNotModified#c0e24635.
 		v := MessagesDhConfigNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesDhConfigClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessagesDhConfigClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessagesDhConfigTypeID:
 		// Decoding messages.dhConfig#2c221edd.
 		v := MessagesDhConfig{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesDhConfigClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessagesDhConfigClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessagesDhConfigClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "MessagesDhConfigClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -453,7 +517,10 @@ type MessagesDhConfigBox struct {
 // Decode implements bin.Decoder for MessagesDhConfigBox.
 func (b *MessagesDhConfigBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode MessagesDhConfigBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "MessagesDhConfigBox",
+		}
 	}
 	v, err := DecodeMessagesDhConfig(buf)
 	if err != nil {
@@ -466,7 +533,10 @@ func (b *MessagesDhConfigBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for MessagesDhConfigBox.
 func (b *MessagesDhConfigBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.DhConfig == nil {
-		return fmt.Errorf("unable to encode MessagesDhConfigClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "MessagesDhConfigBox",
+		}
 	}
 	return b.DhConfig.Encode(buf)
 }

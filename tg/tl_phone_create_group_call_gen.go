@@ -151,7 +151,10 @@ func (c *PhoneCreateGroupCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *PhoneCreateGroupCallRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode phone.createGroupCall#48cdc6d8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.createGroupCall#48cdc6d8",
+		}
 	}
 	b.PutID(PhoneCreateGroupCallRequestTypeID)
 	return c.EncodeBare(b)
@@ -160,7 +163,10 @@ func (c *PhoneCreateGroupCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *PhoneCreateGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode phone.createGroupCall#48cdc6d8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.createGroupCall#48cdc6d8",
+		}
 	}
 	if !(c.Title == "") {
 		c.Flags.Set(0)
@@ -169,13 +175,31 @@ func (c *PhoneCreateGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(1)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.createGroupCall#48cdc6d8: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.createGroupCall#48cdc6d8",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if c.Peer == nil {
-		return fmt.Errorf("unable to encode phone.createGroupCall#48cdc6d8: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "phone.createGroupCall#48cdc6d8",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := c.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.createGroupCall#48cdc6d8: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.createGroupCall#48cdc6d8",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(c.RandomID)
 	if c.Flags.Has(0) {
@@ -230,10 +254,16 @@ func (c *PhoneCreateGroupCallRequest) GetScheduleDate() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (c *PhoneCreateGroupCallRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode phone.createGroupCall#48cdc6d8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.createGroupCall#48cdc6d8",
+		}
 	}
 	if err := b.ConsumeID(PhoneCreateGroupCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.createGroupCall#48cdc6d8",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -241,38 +271,66 @@ func (c *PhoneCreateGroupCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *PhoneCreateGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode phone.createGroupCall#48cdc6d8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.createGroupCall#48cdc6d8",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.createGroupCall#48cdc6d8",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.createGroupCall#48cdc6d8",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		c.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: field random_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.createGroupCall#48cdc6d8",
+				FieldName:  "random_id",
+				Underlying: err,
+			}
 		}
 		c.RandomID = value
 	}
 	if c.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.createGroupCall#48cdc6d8",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		c.Title = value
 	}
 	if c.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: field schedule_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.createGroupCall#48cdc6d8",
+				FieldName:  "schedule_date",
+				Underlying: err,
+			}
 		}
 		c.ScheduleDate = value
 	}

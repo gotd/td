@@ -88,7 +88,10 @@ func (g *AccountGetWebAuthorizationsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetWebAuthorizationsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getWebAuthorizations#182e6d6f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getWebAuthorizations#182e6d6f",
+		}
 	}
 	b.PutID(AccountGetWebAuthorizationsRequestTypeID)
 	return g.EncodeBare(b)
@@ -97,7 +100,10 @@ func (g *AccountGetWebAuthorizationsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetWebAuthorizationsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getWebAuthorizations#182e6d6f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getWebAuthorizations#182e6d6f",
+		}
 	}
 	return nil
 }
@@ -105,10 +111,16 @@ func (g *AccountGetWebAuthorizationsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *AccountGetWebAuthorizationsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getWebAuthorizations#182e6d6f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getWebAuthorizations#182e6d6f",
+		}
 	}
 	if err := b.ConsumeID(AccountGetWebAuthorizationsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getWebAuthorizations#182e6d6f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.getWebAuthorizations#182e6d6f",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -116,7 +128,10 @@ func (g *AccountGetWebAuthorizationsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetWebAuthorizationsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getWebAuthorizations#182e6d6f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getWebAuthorizations#182e6d6f",
+		}
 	}
 	return nil
 }

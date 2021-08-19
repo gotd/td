@@ -85,7 +85,10 @@ func (t *TopPeerCategoryBotsPM) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryBotsPM) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryBotsPM#ab661b5b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryBotsPM#ab661b5b",
+		}
 	}
 	b.PutID(TopPeerCategoryBotsPMTypeID)
 	return t.EncodeBare(b)
@@ -94,7 +97,10 @@ func (t *TopPeerCategoryBotsPM) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TopPeerCategoryBotsPM) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryBotsPM#ab661b5b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryBotsPM#ab661b5b",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (t *TopPeerCategoryBotsPM) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TopPeerCategoryBotsPM) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryBotsPM#ab661b5b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryBotsPM#ab661b5b",
+		}
 	}
 	if err := b.ConsumeID(TopPeerCategoryBotsPMTypeID); err != nil {
-		return fmt.Errorf("unable to decode topPeerCategoryBotsPM#ab661b5b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "topPeerCategoryBotsPM#ab661b5b",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (t *TopPeerCategoryBotsPM) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TopPeerCategoryBotsPM) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryBotsPM#ab661b5b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryBotsPM#ab661b5b",
+		}
 	}
 	return nil
 }
@@ -187,7 +202,10 @@ func (t *TopPeerCategoryBotsInline) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryBotsInline) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryBotsInline#148677e2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryBotsInline#148677e2",
+		}
 	}
 	b.PutID(TopPeerCategoryBotsInlineTypeID)
 	return t.EncodeBare(b)
@@ -196,7 +214,10 @@ func (t *TopPeerCategoryBotsInline) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TopPeerCategoryBotsInline) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryBotsInline#148677e2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryBotsInline#148677e2",
+		}
 	}
 	return nil
 }
@@ -204,10 +225,16 @@ func (t *TopPeerCategoryBotsInline) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TopPeerCategoryBotsInline) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryBotsInline#148677e2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryBotsInline#148677e2",
+		}
 	}
 	if err := b.ConsumeID(TopPeerCategoryBotsInlineTypeID); err != nil {
-		return fmt.Errorf("unable to decode topPeerCategoryBotsInline#148677e2: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "topPeerCategoryBotsInline#148677e2",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -215,7 +242,10 @@ func (t *TopPeerCategoryBotsInline) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TopPeerCategoryBotsInline) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryBotsInline#148677e2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryBotsInline#148677e2",
+		}
 	}
 	return nil
 }
@@ -289,7 +319,10 @@ func (t *TopPeerCategoryCorrespondents) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryCorrespondents) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryCorrespondents#637b7ed as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryCorrespondents#637b7ed",
+		}
 	}
 	b.PutID(TopPeerCategoryCorrespondentsTypeID)
 	return t.EncodeBare(b)
@@ -298,7 +331,10 @@ func (t *TopPeerCategoryCorrespondents) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TopPeerCategoryCorrespondents) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryCorrespondents#637b7ed as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryCorrespondents#637b7ed",
+		}
 	}
 	return nil
 }
@@ -306,10 +342,16 @@ func (t *TopPeerCategoryCorrespondents) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TopPeerCategoryCorrespondents) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryCorrespondents#637b7ed to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryCorrespondents#637b7ed",
+		}
 	}
 	if err := b.ConsumeID(TopPeerCategoryCorrespondentsTypeID); err != nil {
-		return fmt.Errorf("unable to decode topPeerCategoryCorrespondents#637b7ed: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "topPeerCategoryCorrespondents#637b7ed",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -317,7 +359,10 @@ func (t *TopPeerCategoryCorrespondents) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TopPeerCategoryCorrespondents) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryCorrespondents#637b7ed to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryCorrespondents#637b7ed",
+		}
 	}
 	return nil
 }
@@ -391,7 +436,10 @@ func (t *TopPeerCategoryGroups) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryGroups) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryGroups#bd17a14a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryGroups#bd17a14a",
+		}
 	}
 	b.PutID(TopPeerCategoryGroupsTypeID)
 	return t.EncodeBare(b)
@@ -400,7 +448,10 @@ func (t *TopPeerCategoryGroups) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TopPeerCategoryGroups) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryGroups#bd17a14a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryGroups#bd17a14a",
+		}
 	}
 	return nil
 }
@@ -408,10 +459,16 @@ func (t *TopPeerCategoryGroups) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TopPeerCategoryGroups) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryGroups#bd17a14a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryGroups#bd17a14a",
+		}
 	}
 	if err := b.ConsumeID(TopPeerCategoryGroupsTypeID); err != nil {
-		return fmt.Errorf("unable to decode topPeerCategoryGroups#bd17a14a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "topPeerCategoryGroups#bd17a14a",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -419,7 +476,10 @@ func (t *TopPeerCategoryGroups) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TopPeerCategoryGroups) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryGroups#bd17a14a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryGroups#bd17a14a",
+		}
 	}
 	return nil
 }
@@ -493,7 +553,10 @@ func (t *TopPeerCategoryChannels) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryChannels) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryChannels#161d9628 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryChannels#161d9628",
+		}
 	}
 	b.PutID(TopPeerCategoryChannelsTypeID)
 	return t.EncodeBare(b)
@@ -502,7 +565,10 @@ func (t *TopPeerCategoryChannels) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TopPeerCategoryChannels) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryChannels#161d9628 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryChannels#161d9628",
+		}
 	}
 	return nil
 }
@@ -510,10 +576,16 @@ func (t *TopPeerCategoryChannels) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TopPeerCategoryChannels) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryChannels#161d9628 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryChannels#161d9628",
+		}
 	}
 	if err := b.ConsumeID(TopPeerCategoryChannelsTypeID); err != nil {
-		return fmt.Errorf("unable to decode topPeerCategoryChannels#161d9628: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "topPeerCategoryChannels#161d9628",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -521,7 +593,10 @@ func (t *TopPeerCategoryChannels) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TopPeerCategoryChannels) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryChannels#161d9628 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryChannels#161d9628",
+		}
 	}
 	return nil
 }
@@ -595,7 +670,10 @@ func (t *TopPeerCategoryPhoneCalls) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryPhoneCalls) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryPhoneCalls#1e76a78c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryPhoneCalls#1e76a78c",
+		}
 	}
 	b.PutID(TopPeerCategoryPhoneCallsTypeID)
 	return t.EncodeBare(b)
@@ -604,7 +682,10 @@ func (t *TopPeerCategoryPhoneCalls) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TopPeerCategoryPhoneCalls) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryPhoneCalls#1e76a78c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryPhoneCalls#1e76a78c",
+		}
 	}
 	return nil
 }
@@ -612,10 +693,16 @@ func (t *TopPeerCategoryPhoneCalls) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TopPeerCategoryPhoneCalls) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryPhoneCalls#1e76a78c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryPhoneCalls#1e76a78c",
+		}
 	}
 	if err := b.ConsumeID(TopPeerCategoryPhoneCallsTypeID); err != nil {
-		return fmt.Errorf("unable to decode topPeerCategoryPhoneCalls#1e76a78c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "topPeerCategoryPhoneCalls#1e76a78c",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -623,7 +710,10 @@ func (t *TopPeerCategoryPhoneCalls) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TopPeerCategoryPhoneCalls) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryPhoneCalls#1e76a78c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryPhoneCalls#1e76a78c",
+		}
 	}
 	return nil
 }
@@ -697,7 +787,10 @@ func (t *TopPeerCategoryForwardUsers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryForwardUsers) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryForwardUsers#a8406ca9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryForwardUsers#a8406ca9",
+		}
 	}
 	b.PutID(TopPeerCategoryForwardUsersTypeID)
 	return t.EncodeBare(b)
@@ -706,7 +799,10 @@ func (t *TopPeerCategoryForwardUsers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TopPeerCategoryForwardUsers) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryForwardUsers#a8406ca9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryForwardUsers#a8406ca9",
+		}
 	}
 	return nil
 }
@@ -714,10 +810,16 @@ func (t *TopPeerCategoryForwardUsers) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TopPeerCategoryForwardUsers) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryForwardUsers#a8406ca9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryForwardUsers#a8406ca9",
+		}
 	}
 	if err := b.ConsumeID(TopPeerCategoryForwardUsersTypeID); err != nil {
-		return fmt.Errorf("unable to decode topPeerCategoryForwardUsers#a8406ca9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "topPeerCategoryForwardUsers#a8406ca9",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -725,7 +827,10 @@ func (t *TopPeerCategoryForwardUsers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TopPeerCategoryForwardUsers) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryForwardUsers#a8406ca9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryForwardUsers#a8406ca9",
+		}
 	}
 	return nil
 }
@@ -799,7 +904,10 @@ func (t *TopPeerCategoryForwardChats) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryForwardChats) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryForwardChats#fbeec0f0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryForwardChats#fbeec0f0",
+		}
 	}
 	b.PutID(TopPeerCategoryForwardChatsTypeID)
 	return t.EncodeBare(b)
@@ -808,7 +916,10 @@ func (t *TopPeerCategoryForwardChats) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TopPeerCategoryForwardChats) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode topPeerCategoryForwardChats#fbeec0f0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "topPeerCategoryForwardChats#fbeec0f0",
+		}
 	}
 	return nil
 }
@@ -816,10 +927,16 @@ func (t *TopPeerCategoryForwardChats) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TopPeerCategoryForwardChats) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryForwardChats#fbeec0f0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryForwardChats#fbeec0f0",
+		}
 	}
 	if err := b.ConsumeID(TopPeerCategoryForwardChatsTypeID); err != nil {
-		return fmt.Errorf("unable to decode topPeerCategoryForwardChats#fbeec0f0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "topPeerCategoryForwardChats#fbeec0f0",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -827,7 +944,10 @@ func (t *TopPeerCategoryForwardChats) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TopPeerCategoryForwardChats) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode topPeerCategoryForwardChats#fbeec0f0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "topPeerCategoryForwardChats#fbeec0f0",
+		}
 	}
 	return nil
 }
@@ -895,60 +1015,87 @@ func DecodeTopPeerCategory(buf *bin.Buffer) (TopPeerCategoryClass, error) {
 		// Decoding topPeerCategoryBotsPM#ab661b5b.
 		v := TopPeerCategoryBotsPM{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TopPeerCategoryClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "TopPeerCategoryClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case TopPeerCategoryBotsInlineTypeID:
 		// Decoding topPeerCategoryBotsInline#148677e2.
 		v := TopPeerCategoryBotsInline{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TopPeerCategoryClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "TopPeerCategoryClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case TopPeerCategoryCorrespondentsTypeID:
 		// Decoding topPeerCategoryCorrespondents#637b7ed.
 		v := TopPeerCategoryCorrespondents{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TopPeerCategoryClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "TopPeerCategoryClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case TopPeerCategoryGroupsTypeID:
 		// Decoding topPeerCategoryGroups#bd17a14a.
 		v := TopPeerCategoryGroups{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TopPeerCategoryClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "TopPeerCategoryClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case TopPeerCategoryChannelsTypeID:
 		// Decoding topPeerCategoryChannels#161d9628.
 		v := TopPeerCategoryChannels{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TopPeerCategoryClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "TopPeerCategoryClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case TopPeerCategoryPhoneCallsTypeID:
 		// Decoding topPeerCategoryPhoneCalls#1e76a78c.
 		v := TopPeerCategoryPhoneCalls{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TopPeerCategoryClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "TopPeerCategoryClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case TopPeerCategoryForwardUsersTypeID:
 		// Decoding topPeerCategoryForwardUsers#a8406ca9.
 		v := TopPeerCategoryForwardUsers{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TopPeerCategoryClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "TopPeerCategoryClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case TopPeerCategoryForwardChatsTypeID:
 		// Decoding topPeerCategoryForwardChats#fbeec0f0.
 		v := TopPeerCategoryForwardChats{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode TopPeerCategoryClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "TopPeerCategoryClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode TopPeerCategoryClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "TopPeerCategoryClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -960,7 +1107,10 @@ type TopPeerCategoryBox struct {
 // Decode implements bin.Decoder for TopPeerCategoryBox.
 func (b *TopPeerCategoryBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode TopPeerCategoryBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "TopPeerCategoryBox",
+		}
 	}
 	v, err := DecodeTopPeerCategory(buf)
 	if err != nil {
@@ -973,7 +1123,10 @@ func (b *TopPeerCategoryBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for TopPeerCategoryBox.
 func (b *TopPeerCategoryBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.TopPeerCategory == nil {
-		return fmt.Errorf("unable to encode TopPeerCategoryClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "TopPeerCategoryBox",
+		}
 	}
 	return b.TopPeerCategory.Encode(buf)
 }

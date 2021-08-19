@@ -108,7 +108,10 @@ func (d *FoldersDeleteFolderRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *FoldersDeleteFolderRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode folders.deleteFolder#1c295881 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "folders.deleteFolder#1c295881",
+		}
 	}
 	b.PutID(FoldersDeleteFolderRequestTypeID)
 	return d.EncodeBare(b)
@@ -117,7 +120,10 @@ func (d *FoldersDeleteFolderRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *FoldersDeleteFolderRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode folders.deleteFolder#1c295881 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "folders.deleteFolder#1c295881",
+		}
 	}
 	b.PutInt(d.FolderID)
 	return nil
@@ -131,10 +137,16 @@ func (d *FoldersDeleteFolderRequest) GetFolderID() (value int) {
 // Decode implements bin.Decoder.
 func (d *FoldersDeleteFolderRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode folders.deleteFolder#1c295881 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "folders.deleteFolder#1c295881",
+		}
 	}
 	if err := b.ConsumeID(FoldersDeleteFolderRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode folders.deleteFolder#1c295881: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "folders.deleteFolder#1c295881",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -142,12 +154,20 @@ func (d *FoldersDeleteFolderRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *FoldersDeleteFolderRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode folders.deleteFolder#1c295881 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "folders.deleteFolder#1c295881",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode folders.deleteFolder#1c295881: field folder_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "folders.deleteFolder#1c295881",
+				FieldName:  "folder_id",
+				Underlying: err,
+			}
 		}
 		d.FolderID = value
 	}

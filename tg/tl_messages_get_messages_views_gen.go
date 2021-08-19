@@ -127,7 +127,10 @@ func (g *MessagesGetMessagesViewsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetMessagesViewsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getMessagesViews#5784d3e1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getMessagesViews#5784d3e1",
+		}
 	}
 	b.PutID(MessagesGetMessagesViewsRequestTypeID)
 	return g.EncodeBare(b)
@@ -136,13 +139,29 @@ func (g *MessagesGetMessagesViewsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetMessagesViewsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getMessagesViews#5784d3e1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getMessagesViews#5784d3e1",
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getMessagesViews#5784d3e1: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getMessagesViews#5784d3e1",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getMessagesViews#5784d3e1: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getMessagesViews#5784d3e1",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(g.ID))
 	for _, v := range g.ID {
@@ -170,10 +189,16 @@ func (g *MessagesGetMessagesViewsRequest) GetIncrement() (value bool) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetMessagesViewsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getMessagesViews#5784d3e1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getMessagesViews#5784d3e1",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetMessagesViewsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getMessagesViews#5784d3e1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getMessagesViews#5784d3e1",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -181,19 +206,32 @@ func (g *MessagesGetMessagesViewsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetMessagesViewsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getMessagesViews#5784d3e1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getMessagesViews#5784d3e1",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMessagesViews#5784d3e1: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getMessagesViews#5784d3e1",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMessagesViews#5784d3e1: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getMessagesViews#5784d3e1",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -202,7 +240,12 @@ func (g *MessagesGetMessagesViewsRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.getMessagesViews#5784d3e1: field id: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.getMessagesViews#5784d3e1",
+					FieldName:  "id",
+					Underlying: err,
+				}
 			}
 			g.ID = append(g.ID, value)
 		}
@@ -210,7 +253,12 @@ func (g *MessagesGetMessagesViewsRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMessagesViews#5784d3e1: field increment: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getMessagesViews#5784d3e1",
+				FieldName:  "increment",
+				Underlying: err,
+			}
 		}
 		g.Increment = value
 	}

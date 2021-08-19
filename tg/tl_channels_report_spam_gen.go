@@ -125,7 +125,10 @@ func (r *ChannelsReportSpamRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ChannelsReportSpamRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode channels.reportSpam#fe087810 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.reportSpam#fe087810",
+		}
 	}
 	b.PutID(ChannelsReportSpamRequestTypeID)
 	return r.EncodeBare(b)
@@ -134,19 +137,48 @@ func (r *ChannelsReportSpamRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ChannelsReportSpamRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode channels.reportSpam#fe087810 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.reportSpam#fe087810",
+		}
 	}
 	if r.Channel == nil {
-		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.reportSpam#fe087810",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := r.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.reportSpam#fe087810",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	if r.UserID == nil {
-		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field user_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.reportSpam#fe087810",
+			FieldName: "user_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := r.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field user_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.reportSpam#fe087810",
+			FieldName:  "user_id",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(r.ID))
 	for _, v := range r.ID {
@@ -178,10 +210,16 @@ func (r *ChannelsReportSpamRequest) GetID() (value []int) {
 // Decode implements bin.Decoder.
 func (r *ChannelsReportSpamRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode channels.reportSpam#fe087810 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.reportSpam#fe087810",
+		}
 	}
 	if err := b.ConsumeID(ChannelsReportSpamRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.reportSpam#fe087810: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.reportSpam#fe087810",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -189,26 +227,44 @@ func (r *ChannelsReportSpamRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ChannelsReportSpamRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode channels.reportSpam#fe087810 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.reportSpam#fe087810",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.reportSpam#fe087810: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.reportSpam#fe087810",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		r.Channel = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.reportSpam#fe087810: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.reportSpam#fe087810",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		r.UserID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.reportSpam#fe087810: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.reportSpam#fe087810",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -217,7 +273,12 @@ func (r *ChannelsReportSpamRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.reportSpam#fe087810: field id: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "channels.reportSpam#fe087810",
+					FieldName:  "id",
+					Underlying: err,
+				}
 			}
 			r.ID = append(r.ID, value)
 		}

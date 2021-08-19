@@ -130,7 +130,10 @@ func (g *MessagesGetOldFeaturedStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetOldFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getOldFeaturedStickers#5fe7025b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getOldFeaturedStickers#5fe7025b",
+		}
 	}
 	b.PutID(MessagesGetOldFeaturedStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -139,7 +142,10 @@ func (g *MessagesGetOldFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetOldFeaturedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getOldFeaturedStickers#5fe7025b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getOldFeaturedStickers#5fe7025b",
+		}
 	}
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
@@ -165,10 +171,16 @@ func (g *MessagesGetOldFeaturedStickersRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetOldFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getOldFeaturedStickers#5fe7025b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getOldFeaturedStickers#5fe7025b",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetOldFeaturedStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getOldFeaturedStickers#5fe7025b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getOldFeaturedStickers#5fe7025b",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -176,26 +188,44 @@ func (g *MessagesGetOldFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetOldFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getOldFeaturedStickers#5fe7025b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getOldFeaturedStickers#5fe7025b",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getOldFeaturedStickers#5fe7025b: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getOldFeaturedStickers#5fe7025b",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getOldFeaturedStickers#5fe7025b: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getOldFeaturedStickers#5fe7025b",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getOldFeaturedStickers#5fe7025b: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getOldFeaturedStickers#5fe7025b",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		g.Hash = value
 	}

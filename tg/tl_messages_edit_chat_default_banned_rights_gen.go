@@ -116,7 +116,10 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatDefaultBannedRightsRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatDefaultBannedRights#a5866b41 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.editChatDefaultBannedRights#a5866b41",
+		}
 	}
 	b.PutID(MessagesEditChatDefaultBannedRightsRequestTypeID)
 	return e.EncodeBare(b)
@@ -125,16 +128,37 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) Encode(b *bin.Buffer) error
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesEditChatDefaultBannedRightsRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatDefaultBannedRights#a5866b41 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.editChatDefaultBannedRights#a5866b41",
+		}
 	}
 	if e.Peer == nil {
-		return fmt.Errorf("unable to encode messages.editChatDefaultBannedRights#a5866b41: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.editChatDefaultBannedRights#a5866b41",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := e.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editChatDefaultBannedRights#a5866b41: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.editChatDefaultBannedRights#a5866b41",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	if err := e.BannedRights.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editChatDefaultBannedRights#a5866b41: field banned_rights: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.editChatDefaultBannedRights#a5866b41",
+			FieldName:  "banned_rights",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -152,10 +176,16 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) GetBannedRights() (value Ch
 // Decode implements bin.Decoder.
 func (e *MessagesEditChatDefaultBannedRightsRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatDefaultBannedRights#a5866b41 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.editChatDefaultBannedRights#a5866b41",
+		}
 	}
 	if err := b.ConsumeID(MessagesEditChatDefaultBannedRightsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editChatDefaultBannedRights#a5866b41: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.editChatDefaultBannedRights#a5866b41",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -163,18 +193,31 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) Decode(b *bin.Buffer) error
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesEditChatDefaultBannedRightsRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatDefaultBannedRights#a5866b41 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.editChatDefaultBannedRights#a5866b41",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatDefaultBannedRights#a5866b41: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editChatDefaultBannedRights#a5866b41",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		e.Peer = value
 	}
 	{
 		if err := e.BannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.editChatDefaultBannedRights#a5866b41: field banned_rights: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editChatDefaultBannedRights#a5866b41",
+				FieldName:  "banned_rights",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

@@ -99,7 +99,10 @@ func (vec *BotCommandVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *BotCommandVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<BotCommand> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<BotCommand>",
+		}
 	}
 
 	return vec.EncodeBare(b)
@@ -108,12 +111,24 @@ func (vec *BotCommandVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *BotCommandVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<BotCommand> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<BotCommand>",
+		}
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<BotCommand>: field Elems element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "Vector<BotCommand>",
+				FieldName: "Elems",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -127,7 +142,10 @@ func (vec *BotCommandVector) GetElems() (value []BotCommand) {
 // Decode implements bin.Decoder.
 func (vec *BotCommandVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<BotCommand> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<BotCommand>",
+		}
 	}
 
 	return vec.DecodeBare(b)
@@ -136,12 +154,20 @@ func (vec *BotCommandVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *BotCommandVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<BotCommand> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<BotCommand>",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<BotCommand>: field Elems: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "Vector<BotCommand>",
+				FieldName:  "Elems",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -150,7 +176,13 @@ func (vec *BotCommandVector) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode Vector<BotCommand>: field Elems: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "Vector<BotCommand>",
+					FieldName:  "Elems",
+					Underlying: err,
+				}
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

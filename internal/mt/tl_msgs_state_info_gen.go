@@ -110,7 +110,10 @@ func (m *MsgsStateInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MsgsStateInfo) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msgs_state_info#4deb57d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "msgs_state_info#4deb57d",
+		}
 	}
 	b.PutID(MsgsStateInfoTypeID)
 	return m.EncodeBare(b)
@@ -119,7 +122,10 @@ func (m *MsgsStateInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MsgsStateInfo) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msgs_state_info#4deb57d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "msgs_state_info#4deb57d",
+		}
 	}
 	b.PutLong(m.ReqMsgID)
 	b.PutBytes(m.Info)
@@ -139,10 +145,16 @@ func (m *MsgsStateInfo) GetInfo() (value []byte) {
 // Decode implements bin.Decoder.
 func (m *MsgsStateInfo) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msgs_state_info#4deb57d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "msgs_state_info#4deb57d",
+		}
 	}
 	if err := b.ConsumeID(MsgsStateInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode msgs_state_info#4deb57d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "msgs_state_info#4deb57d",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -150,19 +162,32 @@ func (m *MsgsStateInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MsgsStateInfo) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msgs_state_info#4deb57d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "msgs_state_info#4deb57d",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode msgs_state_info#4deb57d: field req_msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "msgs_state_info#4deb57d",
+				FieldName:  "req_msg_id",
+				Underlying: err,
+			}
 		}
 		m.ReqMsgID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode msgs_state_info#4deb57d: field info: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "msgs_state_info#4deb57d",
+				FieldName:  "info",
+				Underlying: err,
+			}
 		}
 		m.Info = value
 	}

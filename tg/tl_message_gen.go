@@ -124,7 +124,10 @@ func (m *MessageEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEmpty) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEmpty#90a6ca84 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEmpty#90a6ca84",
+		}
 	}
 	b.PutID(MessageEmptyTypeID)
 	return m.EncodeBare(b)
@@ -133,21 +136,42 @@ func (m *MessageEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEmpty) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEmpty#90a6ca84 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEmpty#90a6ca84",
+		}
 	}
 	if !(m.PeerID == nil) {
 		m.Flags.Set(0)
 	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageEmpty#90a6ca84: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messageEmpty#90a6ca84",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(m.ID)
 	if m.Flags.Has(0) {
 		if m.PeerID == nil {
-			return fmt.Errorf("unable to encode messageEmpty#90a6ca84: field peer_id is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messageEmpty#90a6ca84",
+				FieldName: "peer_id",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "Peer",
+				},
+			}
 		}
 		if err := m.PeerID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageEmpty#90a6ca84: field peer_id: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "messageEmpty#90a6ca84",
+				FieldName:  "peer_id",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -176,10 +200,16 @@ func (m *MessageEmpty) GetPeerID() (value PeerClass, ok bool) {
 // Decode implements bin.Decoder.
 func (m *MessageEmpty) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEmpty#90a6ca84 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEmpty#90a6ca84",
+		}
 	}
 	if err := b.ConsumeID(MessageEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEmpty#90a6ca84: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEmpty#90a6ca84",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -187,24 +217,42 @@ func (m *MessageEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEmpty) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEmpty#90a6ca84 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEmpty#90a6ca84",
+		}
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageEmpty#90a6ca84: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEmpty#90a6ca84",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEmpty#90a6ca84: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEmpty#90a6ca84",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		m.ID = value
 	}
 	if m.Flags.Has(0) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEmpty#90a6ca84: field peer_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEmpty#90a6ca84",
+				FieldName:  "peer_id",
+				Underlying: err,
+			}
 		}
 		m.PeerID = value
 	}
@@ -722,7 +770,10 @@ func (m *Message) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *Message) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#bce383d2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "message#bce383d2",
+		}
 	}
 	b.PutID(MessageTypeID)
 	return m.EncodeBare(b)
@@ -731,7 +782,10 @@ func (m *Message) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *Message) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#bce383d2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "message#bce383d2",
+		}
 	}
 	if !(m.Out == false) {
 		m.Flags.Set(1)
@@ -806,26 +860,62 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 		m.Flags.Set(25)
 	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#bce383d2: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "message#bce383d2",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(m.ID)
 	if m.Flags.Has(8) {
 		if m.FromID == nil {
-			return fmt.Errorf("unable to encode message#bce383d2: field from_id is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "message#bce383d2",
+				FieldName: "from_id",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "Peer",
+				},
+			}
 		}
 		if err := m.FromID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#bce383d2: field from_id: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "from_id",
+				Underlying: err,
+			}
 		}
 	}
 	if m.PeerID == nil {
-		return fmt.Errorf("unable to encode message#bce383d2: field peer_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "message#bce383d2",
+			FieldName: "peer_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "Peer",
+			},
+		}
 	}
 	if err := m.PeerID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#bce383d2: field peer_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "message#bce383d2",
+			FieldName:  "peer_id",
+			Underlying: err,
+		}
 	}
 	if m.Flags.Has(2) {
 		if err := m.FwdFrom.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#bce383d2: field fwd_from: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "fwd_from",
+				Underlying: err,
+			}
 		}
 	}
 	if m.Flags.Has(11) {
@@ -833,35 +923,86 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	}
 	if m.Flags.Has(3) {
 		if err := m.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#bce383d2: field reply_to: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "reply_to",
+				Underlying: err,
+			}
 		}
 	}
 	b.PutInt(m.Date)
 	b.PutString(m.Message)
 	if m.Flags.Has(9) {
 		if m.Media == nil {
-			return fmt.Errorf("unable to encode message#bce383d2: field media is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "message#bce383d2",
+				FieldName: "media",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "MessageMedia",
+				},
+			}
 		}
 		if err := m.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#bce383d2: field media: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "media",
+				Underlying: err,
+			}
 		}
 	}
 	if m.Flags.Has(6) {
 		if m.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode message#bce383d2: field reply_markup is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "message#bce383d2",
+				FieldName: "reply_markup",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "ReplyMarkup",
+				},
+			}
 		}
 		if err := m.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#bce383d2: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 	}
 	if m.Flags.Has(7) {
 		b.PutVectorHeader(len(m.Entities))
 		for idx, v := range m.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode message#bce383d2: field entities element with index %d is nil", idx)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "message#bce383d2",
+					FieldName: "entities",
+					Underlying: &bin.IndexError{
+						Index: idx,
+						Underlying: &bin.NilError{
+							Action:   "encode",
+							TypeName: "Vector<MessageEntity>",
+						},
+					},
+				}
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode message#bce383d2: field entities element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "message#bce383d2",
+					FieldName: "entities",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
@@ -873,7 +1014,12 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	}
 	if m.Flags.Has(23) {
 		if err := m.Replies.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#bce383d2: field replies: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "replies",
+				Underlying: err,
+			}
 		}
 	}
 	if m.Flags.Has(15) {
@@ -889,7 +1035,16 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(m.RestrictionReason))
 		for idx, v := range m.RestrictionReason {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode message#bce383d2: field restriction_reason element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "message#bce383d2",
+					FieldName: "restriction_reason",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
@@ -1299,10 +1454,16 @@ func (m *Message) GetTTLPeriod() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (m *Message) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#bce383d2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "message#bce383d2",
+		}
 	}
 	if err := b.ConsumeID(MessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode message#bce383d2: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "message#bce383d2",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -1310,11 +1471,19 @@ func (m *Message) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *Message) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#bce383d2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "message#bce383d2",
+		}
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	m.Out = m.Flags.Has(1)
@@ -1329,73 +1498,128 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		m.ID = value
 	}
 	if m.Flags.Has(8) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field from_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "from_id",
+				Underlying: err,
+			}
 		}
 		m.FromID = value
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field peer_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "peer_id",
+				Underlying: err,
+			}
 		}
 		m.PeerID = value
 	}
 	if m.Flags.Has(2) {
 		if err := m.FwdFrom.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field fwd_from: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "fwd_from",
+				Underlying: err,
+			}
 		}
 	}
 	if m.Flags.Has(11) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field via_bot_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "via_bot_id",
+				Underlying: err,
+			}
 		}
 		m.ViaBotID = value
 	}
 	if m.Flags.Has(3) {
 		if err := m.ReplyTo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field reply_to: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "reply_to",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		m.Date = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "message",
+				Underlying: err,
+			}
 		}
 		m.Message = value
 	}
 	if m.Flags.Has(9) {
 		value, err := DecodeMessageMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field media: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "media",
+				Underlying: err,
+			}
 		}
 		m.Media = value
 	}
 	if m.Flags.Has(6) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 		m.ReplyMarkup = value
 	}
 	if m.Flags.Has(7) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field entities: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "entities",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -1404,7 +1628,12 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#bce383d2: field entities: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "message#bce383d2",
+					FieldName:  "entities",
+					Underlying: err,
+				}
 			}
 			m.Entities = append(m.Entities, value)
 		}
@@ -1412,47 +1641,82 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field views: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "views",
+				Underlying: err,
+			}
 		}
 		m.Views = value
 	}
 	if m.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field forwards: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "forwards",
+				Underlying: err,
+			}
 		}
 		m.Forwards = value
 	}
 	if m.Flags.Has(23) {
 		if err := m.Replies.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field replies: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "replies",
+				Underlying: err,
+			}
 		}
 	}
 	if m.Flags.Has(15) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field edit_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "edit_date",
+				Underlying: err,
+			}
 		}
 		m.EditDate = value
 	}
 	if m.Flags.Has(16) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field post_author: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "post_author",
+				Underlying: err,
+			}
 		}
 		m.PostAuthor = value
 	}
 	if m.Flags.Has(17) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field grouped_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "grouped_id",
+				Underlying: err,
+			}
 		}
 		m.GroupedID = value
 	}
 	if m.Flags.Has(22) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field restriction_reason: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "restriction_reason",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -1461,7 +1725,13 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value RestrictionReason
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode message#bce383d2: field restriction_reason: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "message#bce383d2",
+					FieldName:  "restriction_reason",
+					Underlying: err,
+				}
 			}
 			m.RestrictionReason = append(m.RestrictionReason, value)
 		}
@@ -1469,7 +1739,12 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(25) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field ttl_period: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#bce383d2",
+				FieldName:  "ttl_period",
+				Underlying: err,
+			}
 		}
 		m.TTLPeriod = value
 	}
@@ -1726,7 +2001,10 @@ func (m *MessageService) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageService) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageService#2b085862 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageService#2b085862",
+		}
 	}
 	b.PutID(MessageServiceTypeID)
 	return m.EncodeBare(b)
@@ -1735,7 +2013,10 @@ func (m *MessageService) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageService) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageService#2b085862 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageService#2b085862",
+		}
 	}
 	if !(m.Out == false) {
 		m.Flags.Set(1)
@@ -1765,34 +2046,83 @@ func (m *MessageService) EncodeBare(b *bin.Buffer) error {
 		m.Flags.Set(25)
 	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageService#2b085862: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messageService#2b085862",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(m.ID)
 	if m.Flags.Has(8) {
 		if m.FromID == nil {
-			return fmt.Errorf("unable to encode messageService#2b085862: field from_id is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messageService#2b085862",
+				FieldName: "from_id",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "Peer",
+				},
+			}
 		}
 		if err := m.FromID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageService#2b085862: field from_id: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "messageService#2b085862",
+				FieldName:  "from_id",
+				Underlying: err,
+			}
 		}
 	}
 	if m.PeerID == nil {
-		return fmt.Errorf("unable to encode messageService#2b085862: field peer_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messageService#2b085862",
+			FieldName: "peer_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "Peer",
+			},
+		}
 	}
 	if err := m.PeerID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageService#2b085862: field peer_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messageService#2b085862",
+			FieldName:  "peer_id",
+			Underlying: err,
+		}
 	}
 	if m.Flags.Has(3) {
 		if err := m.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageService#2b085862: field reply_to: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "messageService#2b085862",
+				FieldName:  "reply_to",
+				Underlying: err,
+			}
 		}
 	}
 	b.PutInt(m.Date)
 	if m.Action == nil {
-		return fmt.Errorf("unable to encode messageService#2b085862: field action is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messageService#2b085862",
+			FieldName: "action",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "MessageAction",
+			},
+		}
 	}
 	if err := m.Action.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageService#2b085862: field action: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messageService#2b085862",
+			FieldName:  "action",
+			Underlying: err,
+		}
 	}
 	if m.Flags.Has(25) {
 		b.PutInt(m.TTLPeriod)
@@ -1964,10 +2294,16 @@ func (m *MessageService) GetTTLPeriod() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (m *MessageService) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageService#2b085862 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageService#2b085862",
+		}
 	}
 	if err := b.ConsumeID(MessageServiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageService#2b085862: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageService#2b085862",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -1975,11 +2311,19 @@ func (m *MessageService) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageService) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageService#2b085862 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageService#2b085862",
+		}
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageService#2b085862",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	m.Out = m.Flags.Has(1)
@@ -1991,47 +2335,82 @@ func (m *MessageService) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageService#2b085862",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		m.ID = value
 	}
 	if m.Flags.Has(8) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field from_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageService#2b085862",
+				FieldName:  "from_id",
+				Underlying: err,
+			}
 		}
 		m.FromID = value
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field peer_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageService#2b085862",
+				FieldName:  "peer_id",
+				Underlying: err,
+			}
 		}
 		m.PeerID = value
 	}
 	if m.Flags.Has(3) {
 		if err := m.ReplyTo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field reply_to: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageService#2b085862",
+				FieldName:  "reply_to",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageService#2b085862",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		m.Date = value
 	}
 	{
 		value, err := DecodeMessageAction(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field action: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageService#2b085862",
+				FieldName:  "action",
+				Underlying: err,
+			}
 		}
 		m.Action = value
 	}
 	if m.Flags.Has(25) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field ttl_period: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageService#2b085862",
+				FieldName:  "ttl_period",
+				Underlying: err,
+			}
 		}
 		m.TTLPeriod = value
 	}
@@ -2195,25 +2574,37 @@ func DecodeMessage(buf *bin.Buffer) (MessageClass, error) {
 		// Decoding messageEmpty#90a6ca84.
 		v := MessageEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageTypeID:
 		// Decoding message#bce383d2.
 		v := Message{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageServiceTypeID:
 		// Decoding messageService#2b085862.
 		v := MessageService{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessageClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "MessageClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -2225,7 +2616,10 @@ type MessageBox struct {
 // Decode implements bin.Decoder for MessageBox.
 func (b *MessageBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode MessageBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "MessageBox",
+		}
 	}
 	v, err := DecodeMessage(buf)
 	if err != nil {
@@ -2238,7 +2632,10 @@ func (b *MessageBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for MessageBox.
 func (b *MessageBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Message == nil {
-		return fmt.Errorf("unable to encode MessageClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "MessageBox",
+		}
 	}
 	return b.Message.Encode(buf)
 }

@@ -113,7 +113,10 @@ func (p *PhotosPhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhotosPhoto) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode photos.photo#20212ca8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "photos.photo#20212ca8",
+		}
 	}
 	b.PutID(PhotosPhotoTypeID)
 	return p.EncodeBare(b)
@@ -122,21 +125,57 @@ func (p *PhotosPhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhotosPhoto) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode photos.photo#20212ca8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "photos.photo#20212ca8",
+		}
 	}
 	if p.Photo == nil {
-		return fmt.Errorf("unable to encode photos.photo#20212ca8: field photo is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "photos.photo#20212ca8",
+			FieldName: "photo",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "Photo",
+			},
+		}
 	}
 	if err := p.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photos.photo#20212ca8: field photo: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "photos.photo#20212ca8",
+			FieldName:  "photo",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(p.Users))
 	for idx, v := range p.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode photos.photo#20212ca8: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "photos.photo#20212ca8",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode photos.photo#20212ca8: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "photos.photo#20212ca8",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -165,10 +204,16 @@ func (p *PhotosPhoto) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (p *PhotosPhoto) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode photos.photo#20212ca8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "photos.photo#20212ca8",
+		}
 	}
 	if err := b.ConsumeID(PhotosPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode photos.photo#20212ca8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "photos.photo#20212ca8",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -176,19 +221,32 @@ func (p *PhotosPhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhotosPhoto) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode photos.photo#20212ca8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "photos.photo#20212ca8",
+		}
 	}
 	{
 		value, err := DecodePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.photo#20212ca8: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photos.photo#20212ca8",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 		p.Photo = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.photo#20212ca8: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photos.photo#20212ca8",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -197,7 +255,12 @@ func (p *PhotosPhoto) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode photos.photo#20212ca8: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "photos.photo#20212ca8",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			p.Users = append(p.Users, value)
 		}

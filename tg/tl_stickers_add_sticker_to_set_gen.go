@@ -114,7 +114,10 @@ func (a *StickersAddStickerToSetRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *StickersAddStickerToSetRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode stickers.addStickerToSet#8653febe as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stickers.addStickerToSet#8653febe",
+		}
 	}
 	b.PutID(StickersAddStickerToSetRequestTypeID)
 	return a.EncodeBare(b)
@@ -123,16 +126,37 @@ func (a *StickersAddStickerToSetRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *StickersAddStickerToSetRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode stickers.addStickerToSet#8653febe as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stickers.addStickerToSet#8653febe",
+		}
 	}
 	if a.Stickerset == nil {
-		return fmt.Errorf("unable to encode stickers.addStickerToSet#8653febe: field stickerset is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stickers.addStickerToSet#8653febe",
+			FieldName: "stickerset",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputStickerSet",
+			},
+		}
 	}
 	if err := a.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickers.addStickerToSet#8653febe: field stickerset: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stickers.addStickerToSet#8653febe",
+			FieldName:  "stickerset",
+			Underlying: err,
+		}
 	}
 	if err := a.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickers.addStickerToSet#8653febe: field sticker: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stickers.addStickerToSet#8653febe",
+			FieldName:  "sticker",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -150,10 +174,16 @@ func (a *StickersAddStickerToSetRequest) GetSticker() (value InputStickerSetItem
 // Decode implements bin.Decoder.
 func (a *StickersAddStickerToSetRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode stickers.addStickerToSet#8653febe to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stickers.addStickerToSet#8653febe",
+		}
 	}
 	if err := b.ConsumeID(StickersAddStickerToSetRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickers.addStickerToSet#8653febe: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "stickers.addStickerToSet#8653febe",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -161,18 +191,31 @@ func (a *StickersAddStickerToSetRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *StickersAddStickerToSetRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode stickers.addStickerToSet#8653febe to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stickers.addStickerToSet#8653febe",
+		}
 	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.addStickerToSet#8653febe: field stickerset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stickers.addStickerToSet#8653febe",
+				FieldName:  "stickerset",
+				Underlying: err,
+			}
 		}
 		a.Stickerset = value
 	}
 	{
 		if err := a.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stickers.addStickerToSet#8653febe: field sticker: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stickers.addStickerToSet#8653febe",
+				FieldName:  "sticker",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

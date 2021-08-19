@@ -124,7 +124,10 @@ func (a *AccountAutoDownloadSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AccountAutoDownloadSettings) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode account.autoDownloadSettings#63cacf26 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.autoDownloadSettings#63cacf26",
+		}
 	}
 	b.PutID(AccountAutoDownloadSettingsTypeID)
 	return a.EncodeBare(b)
@@ -133,16 +136,34 @@ func (a *AccountAutoDownloadSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AccountAutoDownloadSettings) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode account.autoDownloadSettings#63cacf26 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.autoDownloadSettings#63cacf26",
+		}
 	}
 	if err := a.Low.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.autoDownloadSettings#63cacf26: field low: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.autoDownloadSettings#63cacf26",
+			FieldName:  "low",
+			Underlying: err,
+		}
 	}
 	if err := a.Medium.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.autoDownloadSettings#63cacf26: field medium: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.autoDownloadSettings#63cacf26",
+			FieldName:  "medium",
+			Underlying: err,
+		}
 	}
 	if err := a.High.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.autoDownloadSettings#63cacf26: field high: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.autoDownloadSettings#63cacf26",
+			FieldName:  "high",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -165,10 +186,16 @@ func (a *AccountAutoDownloadSettings) GetHigh() (value AutoDownloadSettings) {
 // Decode implements bin.Decoder.
 func (a *AccountAutoDownloadSettings) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode account.autoDownloadSettings#63cacf26 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.autoDownloadSettings#63cacf26",
+		}
 	}
 	if err := b.ConsumeID(AccountAutoDownloadSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.autoDownloadSettings#63cacf26: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.autoDownloadSettings#63cacf26",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -176,21 +203,39 @@ func (a *AccountAutoDownloadSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AccountAutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode account.autoDownloadSettings#63cacf26 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.autoDownloadSettings#63cacf26",
+		}
 	}
 	{
 		if err := a.Low.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.autoDownloadSettings#63cacf26: field low: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.autoDownloadSettings#63cacf26",
+				FieldName:  "low",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		if err := a.Medium.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.autoDownloadSettings#63cacf26: field medium: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.autoDownloadSettings#63cacf26",
+				FieldName:  "medium",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		if err := a.High.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.autoDownloadSettings#63cacf26: field high: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.autoDownloadSettings#63cacf26",
+				FieldName:  "high",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

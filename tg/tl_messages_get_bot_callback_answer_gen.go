@@ -172,7 +172,10 @@ func (g *MessagesGetBotCallbackAnswerRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetBotCallbackAnswerRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getBotCallbackAnswer#9342ca07 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getBotCallbackAnswer#9342ca07",
+		}
 	}
 	b.PutID(MessagesGetBotCallbackAnswerRequestTypeID)
 	return g.EncodeBare(b)
@@ -181,7 +184,10 @@ func (g *MessagesGetBotCallbackAnswerRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetBotCallbackAnswerRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getBotCallbackAnswer#9342ca07 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getBotCallbackAnswer#9342ca07",
+		}
 	}
 	if !(g.Game == false) {
 		g.Flags.Set(1)
@@ -193,13 +199,31 @@ func (g *MessagesGetBotCallbackAnswerRequest) EncodeBare(b *bin.Buffer) error {
 		g.Flags.Set(2)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getBotCallbackAnswer#9342ca07: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getBotCallbackAnswer#9342ca07",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getBotCallbackAnswer#9342ca07: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getBotCallbackAnswer#9342ca07",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getBotCallbackAnswer#9342ca07: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getBotCallbackAnswer#9342ca07",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.MsgID)
 	if g.Flags.Has(0) {
@@ -207,10 +231,23 @@ func (g *MessagesGetBotCallbackAnswerRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if g.Flags.Has(2) {
 		if g.Password == nil {
-			return fmt.Errorf("unable to encode messages.getBotCallbackAnswer#9342ca07: field password is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.getBotCallbackAnswer#9342ca07",
+				FieldName: "password",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputCheckPasswordSRP",
+				},
+			}
 		}
 		if err := g.Password.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.getBotCallbackAnswer#9342ca07: field password: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "messages.getBotCallbackAnswer#9342ca07",
+				FieldName:  "password",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -284,10 +321,16 @@ func (g *MessagesGetBotCallbackAnswerRequest) GetPasswordAsNotEmpty() (*InputChe
 // Decode implements bin.Decoder.
 func (g *MessagesGetBotCallbackAnswerRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getBotCallbackAnswer#9342ca07 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getBotCallbackAnswer#9342ca07",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetBotCallbackAnswerRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getBotCallbackAnswer#9342ca07: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getBotCallbackAnswer#9342ca07",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -295,39 +338,67 @@ func (g *MessagesGetBotCallbackAnswerRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetBotCallbackAnswerRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getBotCallbackAnswer#9342ca07 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getBotCallbackAnswer#9342ca07",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getBotCallbackAnswer#9342ca07: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getBotCallbackAnswer#9342ca07",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	g.Game = g.Flags.Has(1)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getBotCallbackAnswer#9342ca07: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getBotCallbackAnswer#9342ca07",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getBotCallbackAnswer#9342ca07: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getBotCallbackAnswer#9342ca07",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		g.MsgID = value
 	}
 	if g.Flags.Has(0) {
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getBotCallbackAnswer#9342ca07: field data: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getBotCallbackAnswer#9342ca07",
+				FieldName:  "data",
+				Underlying: err,
+			}
 		}
 		g.Data = value
 	}
 	if g.Flags.Has(2) {
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getBotCallbackAnswer#9342ca07: field password: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getBotCallbackAnswer#9342ca07",
+				FieldName:  "password",
+				Underlying: err,
+			}
 		}
 		g.Password = value
 	}

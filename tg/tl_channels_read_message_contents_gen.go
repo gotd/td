@@ -119,7 +119,10 @@ func (r *ChannelsReadMessageContentsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ChannelsReadMessageContentsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode channels.readMessageContents#eab5dc38 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.readMessageContents#eab5dc38",
+		}
 	}
 	b.PutID(ChannelsReadMessageContentsRequestTypeID)
 	return r.EncodeBare(b)
@@ -128,13 +131,29 @@ func (r *ChannelsReadMessageContentsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ChannelsReadMessageContentsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode channels.readMessageContents#eab5dc38 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.readMessageContents#eab5dc38",
+		}
 	}
 	if r.Channel == nil {
-		return fmt.Errorf("unable to encode channels.readMessageContents#eab5dc38: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.readMessageContents#eab5dc38",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := r.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.readMessageContents#eab5dc38: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.readMessageContents#eab5dc38",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(r.ID))
 	for _, v := range r.ID {
@@ -161,10 +180,16 @@ func (r *ChannelsReadMessageContentsRequest) GetID() (value []int) {
 // Decode implements bin.Decoder.
 func (r *ChannelsReadMessageContentsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode channels.readMessageContents#eab5dc38 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.readMessageContents#eab5dc38",
+		}
 	}
 	if err := b.ConsumeID(ChannelsReadMessageContentsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.readMessageContents#eab5dc38: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.readMessageContents#eab5dc38",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -172,19 +197,32 @@ func (r *ChannelsReadMessageContentsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ChannelsReadMessageContentsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode channels.readMessageContents#eab5dc38 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.readMessageContents#eab5dc38",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.readMessageContents#eab5dc38: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.readMessageContents#eab5dc38",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		r.Channel = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.readMessageContents#eab5dc38: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.readMessageContents#eab5dc38",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -193,7 +231,12 @@ func (r *ChannelsReadMessageContentsRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.readMessageContents#eab5dc38: field id: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "channels.readMessageContents#eab5dc38",
+					FieldName:  "id",
+					Underlying: err,
+				}
 			}
 			r.ID = append(r.ID, value)
 		}

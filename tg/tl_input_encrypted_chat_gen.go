@@ -119,7 +119,10 @@ func (i *InputEncryptedChat) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputEncryptedChat) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputEncryptedChat#f141b5e1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputEncryptedChat#f141b5e1",
+		}
 	}
 	b.PutID(InputEncryptedChatTypeID)
 	return i.EncodeBare(b)
@@ -128,7 +131,10 @@ func (i *InputEncryptedChat) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputEncryptedChat) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputEncryptedChat#f141b5e1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputEncryptedChat#f141b5e1",
+		}
 	}
 	b.PutInt(i.ChatID)
 	b.PutLong(i.AccessHash)
@@ -148,10 +154,16 @@ func (i *InputEncryptedChat) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputEncryptedChat) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputEncryptedChat#f141b5e1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputEncryptedChat#f141b5e1",
+		}
 	}
 	if err := b.ConsumeID(InputEncryptedChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputEncryptedChat#f141b5e1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputEncryptedChat#f141b5e1",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -159,19 +171,32 @@ func (i *InputEncryptedChat) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputEncryptedChat) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputEncryptedChat#f141b5e1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputEncryptedChat#f141b5e1",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedChat#f141b5e1: field chat_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputEncryptedChat#f141b5e1",
+				FieldName:  "chat_id",
+				Underlying: err,
+			}
 		}
 		i.ChatID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedChat#f141b5e1: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputEncryptedChat#f141b5e1",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}

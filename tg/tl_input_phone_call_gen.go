@@ -113,7 +113,10 @@ func (i *InputPhoneCall) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPhoneCall) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhoneCall#1e36fded as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPhoneCall#1e36fded",
+		}
 	}
 	b.PutID(InputPhoneCallTypeID)
 	return i.EncodeBare(b)
@@ -122,7 +125,10 @@ func (i *InputPhoneCall) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPhoneCall) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhoneCall#1e36fded as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPhoneCall#1e36fded",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -142,10 +148,16 @@ func (i *InputPhoneCall) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputPhoneCall) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhoneCall#1e36fded to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPhoneCall#1e36fded",
+		}
 	}
 	if err := b.ConsumeID(InputPhoneCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPhoneCall#1e36fded: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputPhoneCall#1e36fded",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (i *InputPhoneCall) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPhoneCall) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhoneCall#1e36fded to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPhoneCall#1e36fded",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoneCall#1e36fded: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhoneCall#1e36fded",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoneCall#1e36fded: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhoneCall#1e36fded",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}

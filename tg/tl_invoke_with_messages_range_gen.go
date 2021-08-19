@@ -113,7 +113,10 @@ func (i *InvokeWithMessagesRangeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InvokeWithMessagesRangeRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invokeWithMessagesRange#365275f2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "invokeWithMessagesRange#365275f2",
+		}
 	}
 	b.PutID(InvokeWithMessagesRangeRequestTypeID)
 	return i.EncodeBare(b)
@@ -122,13 +125,26 @@ func (i *InvokeWithMessagesRangeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InvokeWithMessagesRangeRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invokeWithMessagesRange#365275f2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "invokeWithMessagesRange#365275f2",
+		}
 	}
 	if err := i.Range.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode invokeWithMessagesRange#365275f2: field range: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "invokeWithMessagesRange#365275f2",
+			FieldName:  "range",
+			Underlying: err,
+		}
 	}
 	if err := i.Query.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode invokeWithMessagesRange#365275f2: field query: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "invokeWithMessagesRange#365275f2",
+			FieldName:  "query",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -146,10 +162,16 @@ func (i *InvokeWithMessagesRangeRequest) GetQuery() (value bin.Object) {
 // Decode implements bin.Decoder.
 func (i *InvokeWithMessagesRangeRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invokeWithMessagesRange#365275f2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "invokeWithMessagesRange#365275f2",
+		}
 	}
 	if err := b.ConsumeID(InvokeWithMessagesRangeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode invokeWithMessagesRange#365275f2: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "invokeWithMessagesRange#365275f2",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -157,16 +179,29 @@ func (i *InvokeWithMessagesRangeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InvokeWithMessagesRangeRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invokeWithMessagesRange#365275f2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "invokeWithMessagesRange#365275f2",
+		}
 	}
 	{
 		if err := i.Range.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode invokeWithMessagesRange#365275f2: field range: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "invokeWithMessagesRange#365275f2",
+				FieldName:  "range",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		if err := i.Query.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode invokeWithMessagesRange#365275f2: field query: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "invokeWithMessagesRange#365275f2",
+				FieldName:  "query",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

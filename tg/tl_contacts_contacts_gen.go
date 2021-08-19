@@ -85,7 +85,10 @@ func (c *ContactsContactsNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ContactsContactsNotModified) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contacts.contactsNotModified#b74ba9d2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.contactsNotModified#b74ba9d2",
+		}
 	}
 	b.PutID(ContactsContactsNotModifiedTypeID)
 	return c.EncodeBare(b)
@@ -94,7 +97,10 @@ func (c *ContactsContactsNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ContactsContactsNotModified) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contacts.contactsNotModified#b74ba9d2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.contactsNotModified#b74ba9d2",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (c *ContactsContactsNotModified) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ContactsContactsNotModified) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contacts.contactsNotModified#b74ba9d2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.contactsNotModified#b74ba9d2",
+		}
 	}
 	if err := b.ConsumeID(ContactsContactsNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.contactsNotModified#b74ba9d2: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "contacts.contactsNotModified#b74ba9d2",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (c *ContactsContactsNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ContactsContactsNotModified) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contacts.contactsNotModified#b74ba9d2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.contactsNotModified#b74ba9d2",
+		}
 	}
 	return nil
 }
@@ -226,7 +241,10 @@ func (c *ContactsContacts) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ContactsContacts) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contacts.contacts#eae87e42 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.contacts#eae87e42",
+		}
 	}
 	b.PutID(ContactsContactsTypeID)
 	return c.EncodeBare(b)
@@ -235,22 +253,54 @@ func (c *ContactsContacts) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ContactsContacts) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contacts.contacts#eae87e42 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.contacts#eae87e42",
+		}
 	}
 	b.PutVectorHeader(len(c.Contacts))
 	for idx, v := range c.Contacts {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.contacts#eae87e42: field contacts element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.contacts#eae87e42",
+				FieldName: "contacts",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutInt(c.SavedCount)
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.contacts#eae87e42: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.contacts#eae87e42",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.contacts#eae87e42: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.contacts#eae87e42",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -279,10 +329,16 @@ func (c *ContactsContacts) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (c *ContactsContacts) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contacts.contacts#eae87e42 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.contacts#eae87e42",
+		}
 	}
 	if err := b.ConsumeID(ContactsContactsTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.contacts#eae87e42: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "contacts.contacts#eae87e42",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -290,12 +346,20 @@ func (c *ContactsContacts) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ContactsContacts) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contacts.contacts#eae87e42 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.contacts#eae87e42",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.contacts#eae87e42: field contacts: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.contacts#eae87e42",
+				FieldName:  "contacts",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -304,7 +368,13 @@ func (c *ContactsContacts) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value Contact
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode contacts.contacts#eae87e42: field contacts: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "contacts.contacts#eae87e42",
+					FieldName:  "contacts",
+					Underlying: err,
+				}
 			}
 			c.Contacts = append(c.Contacts, value)
 		}
@@ -312,14 +382,24 @@ func (c *ContactsContacts) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.contacts#eae87e42: field saved_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.contacts#eae87e42",
+				FieldName:  "saved_count",
+				Underlying: err,
+			}
 		}
 		c.SavedCount = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.contacts#eae87e42: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.contacts#eae87e42",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -328,7 +408,12 @@ func (c *ContactsContacts) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.contacts#eae87e42: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "contacts.contacts#eae87e42",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			c.Users = append(c.Users, value)
 		}
@@ -406,18 +491,27 @@ func DecodeContactsContacts(buf *bin.Buffer) (ContactsContactsClass, error) {
 		// Decoding contacts.contactsNotModified#b74ba9d2.
 		v := ContactsContactsNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ContactsContactsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ContactsContactsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case ContactsContactsTypeID:
 		// Decoding contacts.contacts#eae87e42.
 		v := ContactsContacts{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ContactsContactsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ContactsContactsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ContactsContactsClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "ContactsContactsClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -429,7 +523,10 @@ type ContactsContactsBox struct {
 // Decode implements bin.Decoder for ContactsContactsBox.
 func (b *ContactsContactsBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode ContactsContactsBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ContactsContactsBox",
+		}
 	}
 	v, err := DecodeContactsContacts(buf)
 	if err != nil {
@@ -442,7 +539,10 @@ func (b *ContactsContactsBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for ContactsContactsBox.
 func (b *ContactsContactsBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Contacts == nil {
-		return fmt.Errorf("unable to encode ContactsContactsClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ContactsContactsBox",
+		}
 	}
 	return b.Contacts.Encode(buf)
 }

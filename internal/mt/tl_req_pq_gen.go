@@ -99,7 +99,10 @@ func (r *ReqPqRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReqPqRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode req_pq#60469778 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "req_pq#60469778",
+		}
 	}
 	b.PutID(ReqPqRequestTypeID)
 	return r.EncodeBare(b)
@@ -108,7 +111,10 @@ func (r *ReqPqRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReqPqRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode req_pq#60469778 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "req_pq#60469778",
+		}
 	}
 	b.PutInt128(r.Nonce)
 	return nil
@@ -122,10 +128,16 @@ func (r *ReqPqRequest) GetNonce() (value bin.Int128) {
 // Decode implements bin.Decoder.
 func (r *ReqPqRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode req_pq#60469778 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "req_pq#60469778",
+		}
 	}
 	if err := b.ConsumeID(ReqPqRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode req_pq#60469778: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "req_pq#60469778",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -133,12 +145,20 @@ func (r *ReqPqRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReqPqRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode req_pq#60469778 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "req_pq#60469778",
+		}
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode req_pq#60469778: field nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "req_pq#60469778",
+				FieldName:  "nonce",
+				Underlying: err,
+			}
 		}
 		r.Nonce = value
 	}

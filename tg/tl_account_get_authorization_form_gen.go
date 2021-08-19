@@ -124,7 +124,10 @@ func (g *AccountGetAuthorizationFormRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetAuthorizationFormRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getAuthorizationForm#b86ba8e1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getAuthorizationForm#b86ba8e1",
+		}
 	}
 	b.PutID(AccountGetAuthorizationFormRequestTypeID)
 	return g.EncodeBare(b)
@@ -133,7 +136,10 @@ func (g *AccountGetAuthorizationFormRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetAuthorizationFormRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getAuthorizationForm#b86ba8e1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getAuthorizationForm#b86ba8e1",
+		}
 	}
 	b.PutInt(g.BotID)
 	b.PutString(g.Scope)
@@ -159,10 +165,16 @@ func (g *AccountGetAuthorizationFormRequest) GetPublicKey() (value string) {
 // Decode implements bin.Decoder.
 func (g *AccountGetAuthorizationFormRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getAuthorizationForm#b86ba8e1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getAuthorizationForm#b86ba8e1",
+		}
 	}
 	if err := b.ConsumeID(AccountGetAuthorizationFormRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getAuthorizationForm#b86ba8e1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.getAuthorizationForm#b86ba8e1",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -170,26 +182,44 @@ func (g *AccountGetAuthorizationFormRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getAuthorizationForm#b86ba8e1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getAuthorizationForm#b86ba8e1",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getAuthorizationForm#b86ba8e1: field bot_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.getAuthorizationForm#b86ba8e1",
+				FieldName:  "bot_id",
+				Underlying: err,
+			}
 		}
 		g.BotID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getAuthorizationForm#b86ba8e1: field scope: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.getAuthorizationForm#b86ba8e1",
+				FieldName:  "scope",
+				Underlying: err,
+			}
 		}
 		g.Scope = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getAuthorizationForm#b86ba8e1: field public_key: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.getAuthorizationForm#b86ba8e1",
+				FieldName:  "public_key",
+				Underlying: err,
+			}
 		}
 		g.PublicKey = value
 	}

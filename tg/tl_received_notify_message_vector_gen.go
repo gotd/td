@@ -99,7 +99,10 @@ func (vec *ReceivedNotifyMessageVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *ReceivedNotifyMessageVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<ReceivedNotifyMessage> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<ReceivedNotifyMessage>",
+		}
 	}
 
 	return vec.EncodeBare(b)
@@ -108,12 +111,24 @@ func (vec *ReceivedNotifyMessageVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *ReceivedNotifyMessageVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<ReceivedNotifyMessage> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<ReceivedNotifyMessage>",
+		}
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<ReceivedNotifyMessage>: field Elems element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "Vector<ReceivedNotifyMessage>",
+				FieldName: "Elems",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -127,7 +142,10 @@ func (vec *ReceivedNotifyMessageVector) GetElems() (value []ReceivedNotifyMessag
 // Decode implements bin.Decoder.
 func (vec *ReceivedNotifyMessageVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<ReceivedNotifyMessage> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<ReceivedNotifyMessage>",
+		}
 	}
 
 	return vec.DecodeBare(b)
@@ -136,12 +154,20 @@ func (vec *ReceivedNotifyMessageVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *ReceivedNotifyMessageVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<ReceivedNotifyMessage> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<ReceivedNotifyMessage>",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<ReceivedNotifyMessage>: field Elems: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "Vector<ReceivedNotifyMessage>",
+				FieldName:  "Elems",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -150,7 +176,13 @@ func (vec *ReceivedNotifyMessageVector) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value ReceivedNotifyMessage
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode Vector<ReceivedNotifyMessage>: field Elems: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "Vector<ReceivedNotifyMessage>",
+					FieldName:  "Elems",
+					Underlying: err,
+				}
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

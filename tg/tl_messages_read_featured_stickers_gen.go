@@ -102,7 +102,10 @@ func (r *MessagesReadFeaturedStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesReadFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readFeaturedStickers#5b118126 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.readFeaturedStickers#5b118126",
+		}
 	}
 	b.PutID(MessagesReadFeaturedStickersRequestTypeID)
 	return r.EncodeBare(b)
@@ -111,7 +114,10 @@ func (r *MessagesReadFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReadFeaturedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readFeaturedStickers#5b118126 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.readFeaturedStickers#5b118126",
+		}
 	}
 	b.PutVectorHeader(len(r.ID))
 	for _, v := range r.ID {
@@ -128,10 +134,16 @@ func (r *MessagesReadFeaturedStickersRequest) GetID() (value []int64) {
 // Decode implements bin.Decoder.
 func (r *MessagesReadFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readFeaturedStickers#5b118126 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.readFeaturedStickers#5b118126",
+		}
 	}
 	if err := b.ConsumeID(MessagesReadFeaturedStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.readFeaturedStickers#5b118126: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.readFeaturedStickers#5b118126",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -139,12 +151,20 @@ func (r *MessagesReadFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReadFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readFeaturedStickers#5b118126 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.readFeaturedStickers#5b118126",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.readFeaturedStickers#5b118126: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.readFeaturedStickers#5b118126",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -153,7 +173,12 @@ func (r *MessagesReadFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.readFeaturedStickers#5b118126: field id: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.readFeaturedStickers#5b118126",
+					FieldName:  "id",
+					Underlying: err,
+				}
 			}
 			r.ID = append(r.ID, value)
 		}

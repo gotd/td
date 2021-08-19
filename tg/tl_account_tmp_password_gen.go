@@ -113,7 +113,10 @@ func (t *AccountTmpPassword) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *AccountTmpPassword) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode account.tmpPassword#db64fd34 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.tmpPassword#db64fd34",
+		}
 	}
 	b.PutID(AccountTmpPasswordTypeID)
 	return t.EncodeBare(b)
@@ -122,7 +125,10 @@ func (t *AccountTmpPassword) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *AccountTmpPassword) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode account.tmpPassword#db64fd34 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.tmpPassword#db64fd34",
+		}
 	}
 	b.PutBytes(t.TmpPassword)
 	b.PutInt(t.ValidUntil)
@@ -142,10 +148,16 @@ func (t *AccountTmpPassword) GetValidUntil() (value int) {
 // Decode implements bin.Decoder.
 func (t *AccountTmpPassword) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode account.tmpPassword#db64fd34 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.tmpPassword#db64fd34",
+		}
 	}
 	if err := b.ConsumeID(AccountTmpPasswordTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.tmpPassword#db64fd34: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.tmpPassword#db64fd34",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (t *AccountTmpPassword) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *AccountTmpPassword) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode account.tmpPassword#db64fd34 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.tmpPassword#db64fd34",
+		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.tmpPassword#db64fd34: field tmp_password: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.tmpPassword#db64fd34",
+				FieldName:  "tmp_password",
+				Underlying: err,
+			}
 		}
 		t.TmpPassword = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.tmpPassword#db64fd34: field valid_until: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.tmpPassword#db64fd34",
+				FieldName:  "valid_until",
+				Underlying: err,
+			}
 		}
 		t.ValidUntil = value
 	}

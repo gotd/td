@@ -102,7 +102,10 @@ func (k *KeyboardButtonRow) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRow) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonRow#77608b83 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "keyboardButtonRow#77608b83",
+		}
 	}
 	b.PutID(KeyboardButtonRowTypeID)
 	return k.EncodeBare(b)
@@ -111,15 +114,38 @@ func (k *KeyboardButtonRow) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButtonRow) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonRow#77608b83 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "keyboardButtonRow#77608b83",
+		}
 	}
 	b.PutVectorHeader(len(k.Buttons))
 	for idx, v := range k.Buttons {
 		if v == nil {
-			return fmt.Errorf("unable to encode keyboardButtonRow#77608b83: field buttons element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "keyboardButtonRow#77608b83",
+				FieldName: "buttons",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<KeyboardButton>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode keyboardButtonRow#77608b83: field buttons element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "keyboardButtonRow#77608b83",
+				FieldName: "buttons",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -138,10 +164,16 @@ func (k *KeyboardButtonRow) MapButtons() (value KeyboardButtonClassArray) {
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonRow) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonRow#77608b83 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "keyboardButtonRow#77608b83",
+		}
 	}
 	if err := b.ConsumeID(KeyboardButtonRowTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButtonRow#77608b83: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "keyboardButtonRow#77608b83",
+			Underlying: err,
+		}
 	}
 	return k.DecodeBare(b)
 }
@@ -149,12 +181,20 @@ func (k *KeyboardButtonRow) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButtonRow) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonRow#77608b83 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "keyboardButtonRow#77608b83",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonRow#77608b83: field buttons: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "keyboardButtonRow#77608b83",
+				FieldName:  "buttons",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -163,7 +203,12 @@ func (k *KeyboardButtonRow) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeKeyboardButton(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode keyboardButtonRow#77608b83: field buttons: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "keyboardButtonRow#77608b83",
+					FieldName:  "buttons",
+					Underlying: err,
+				}
 			}
 			k.Buttons = append(k.Buttons, value)
 		}

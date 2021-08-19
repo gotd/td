@@ -127,7 +127,10 @@ func (e *MessagesEditChatAdminRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatAdminRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatAdmin#a9e69f2e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.editChatAdmin#a9e69f2e",
+		}
 	}
 	b.PutID(MessagesEditChatAdminRequestTypeID)
 	return e.EncodeBare(b)
@@ -136,14 +139,30 @@ func (e *MessagesEditChatAdminRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesEditChatAdminRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatAdmin#a9e69f2e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.editChatAdmin#a9e69f2e",
+		}
 	}
 	b.PutInt(e.ChatID)
 	if e.UserID == nil {
-		return fmt.Errorf("unable to encode messages.editChatAdmin#a9e69f2e: field user_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.editChatAdmin#a9e69f2e",
+			FieldName: "user_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := e.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editChatAdmin#a9e69f2e: field user_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.editChatAdmin#a9e69f2e",
+			FieldName:  "user_id",
+			Underlying: err,
+		}
 	}
 	b.PutBool(e.IsAdmin)
 	return nil
@@ -167,10 +186,16 @@ func (e *MessagesEditChatAdminRequest) GetIsAdmin() (value bool) {
 // Decode implements bin.Decoder.
 func (e *MessagesEditChatAdminRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatAdmin#a9e69f2e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.editChatAdmin#a9e69f2e",
+		}
 	}
 	if err := b.ConsumeID(MessagesEditChatAdminRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editChatAdmin#a9e69f2e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.editChatAdmin#a9e69f2e",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -178,26 +203,44 @@ func (e *MessagesEditChatAdminRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesEditChatAdminRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatAdmin#a9e69f2e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.editChatAdmin#a9e69f2e",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatAdmin#a9e69f2e: field chat_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editChatAdmin#a9e69f2e",
+				FieldName:  "chat_id",
+				Underlying: err,
+			}
 		}
 		e.ChatID = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatAdmin#a9e69f2e: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editChatAdmin#a9e69f2e",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		e.UserID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatAdmin#a9e69f2e: field is_admin: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editChatAdmin#a9e69f2e",
+				FieldName:  "is_admin",
+				Underlying: err,
+			}
 		}
 		e.IsAdmin = value
 	}

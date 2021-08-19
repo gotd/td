@@ -112,7 +112,10 @@ func (s *PhoneSaveDefaultGroupCallJoinAsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *PhoneSaveDefaultGroupCallJoinAsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode phone.saveDefaultGroupCallJoinAs#575e1f8c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.saveDefaultGroupCallJoinAs#575e1f8c",
+		}
 	}
 	b.PutID(PhoneSaveDefaultGroupCallJoinAsRequestTypeID)
 	return s.EncodeBare(b)
@@ -121,19 +124,48 @@ func (s *PhoneSaveDefaultGroupCallJoinAsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PhoneSaveDefaultGroupCallJoinAsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode phone.saveDefaultGroupCallJoinAs#575e1f8c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.saveDefaultGroupCallJoinAs#575e1f8c",
+		}
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode phone.saveDefaultGroupCallJoinAs#575e1f8c: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "phone.saveDefaultGroupCallJoinAs#575e1f8c",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.saveDefaultGroupCallJoinAs#575e1f8c: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.saveDefaultGroupCallJoinAs#575e1f8c",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	if s.JoinAs == nil {
-		return fmt.Errorf("unable to encode phone.saveDefaultGroupCallJoinAs#575e1f8c: field join_as is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "phone.saveDefaultGroupCallJoinAs#575e1f8c",
+			FieldName: "join_as",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := s.JoinAs.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.saveDefaultGroupCallJoinAs#575e1f8c: field join_as: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.saveDefaultGroupCallJoinAs#575e1f8c",
+			FieldName:  "join_as",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -151,10 +183,16 @@ func (s *PhoneSaveDefaultGroupCallJoinAsRequest) GetJoinAs() (value InputPeerCla
 // Decode implements bin.Decoder.
 func (s *PhoneSaveDefaultGroupCallJoinAsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode phone.saveDefaultGroupCallJoinAs#575e1f8c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.saveDefaultGroupCallJoinAs#575e1f8c",
+		}
 	}
 	if err := b.ConsumeID(PhoneSaveDefaultGroupCallJoinAsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.saveDefaultGroupCallJoinAs#575e1f8c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.saveDefaultGroupCallJoinAs#575e1f8c",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -162,19 +200,32 @@ func (s *PhoneSaveDefaultGroupCallJoinAsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PhoneSaveDefaultGroupCallJoinAsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode phone.saveDefaultGroupCallJoinAs#575e1f8c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.saveDefaultGroupCallJoinAs#575e1f8c",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.saveDefaultGroupCallJoinAs#575e1f8c: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.saveDefaultGroupCallJoinAs#575e1f8c",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		s.Peer = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.saveDefaultGroupCallJoinAs#575e1f8c: field join_as: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.saveDefaultGroupCallJoinAs#575e1f8c",
+				FieldName:  "join_as",
+				Underlying: err,
+			}
 		}
 		s.JoinAs = value
 	}

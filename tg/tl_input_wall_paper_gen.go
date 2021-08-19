@@ -113,7 +113,10 @@ func (i *InputWallPaper) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputWallPaper) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWallPaper#e630b979 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputWallPaper#e630b979",
+		}
 	}
 	b.PutID(InputWallPaperTypeID)
 	return i.EncodeBare(b)
@@ -122,7 +125,10 @@ func (i *InputWallPaper) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputWallPaper) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWallPaper#e630b979 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputWallPaper#e630b979",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -142,10 +148,16 @@ func (i *InputWallPaper) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputWallPaper) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWallPaper#e630b979 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputWallPaper#e630b979",
+		}
 	}
 	if err := b.ConsumeID(InputWallPaperTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputWallPaper#e630b979: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputWallPaper#e630b979",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (i *InputWallPaper) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputWallPaper) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWallPaper#e630b979 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputWallPaper#e630b979",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWallPaper#e630b979: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputWallPaper#e630b979",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWallPaper#e630b979: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputWallPaper#e630b979",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}
@@ -258,7 +283,10 @@ func (i *InputWallPaperSlug) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputWallPaperSlug) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWallPaperSlug#72091c80 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputWallPaperSlug#72091c80",
+		}
 	}
 	b.PutID(InputWallPaperSlugTypeID)
 	return i.EncodeBare(b)
@@ -267,7 +295,10 @@ func (i *InputWallPaperSlug) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputWallPaperSlug) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWallPaperSlug#72091c80 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputWallPaperSlug#72091c80",
+		}
 	}
 	b.PutString(i.Slug)
 	return nil
@@ -281,10 +312,16 @@ func (i *InputWallPaperSlug) GetSlug() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputWallPaperSlug) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWallPaperSlug#72091c80 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputWallPaperSlug#72091c80",
+		}
 	}
 	if err := b.ConsumeID(InputWallPaperSlugTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputWallPaperSlug#72091c80: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputWallPaperSlug#72091c80",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -292,12 +329,20 @@ func (i *InputWallPaperSlug) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputWallPaperSlug) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWallPaperSlug#72091c80 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputWallPaperSlug#72091c80",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWallPaperSlug#72091c80: field slug: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputWallPaperSlug#72091c80",
+				FieldName:  "slug",
+				Underlying: err,
+			}
 		}
 		i.Slug = value
 	}
@@ -390,7 +435,10 @@ func (i *InputWallPaperNoFile) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputWallPaperNoFile) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWallPaperNoFile#967a462e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputWallPaperNoFile#967a462e",
+		}
 	}
 	b.PutID(InputWallPaperNoFileTypeID)
 	return i.EncodeBare(b)
@@ -399,7 +447,10 @@ func (i *InputWallPaperNoFile) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputWallPaperNoFile) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWallPaperNoFile#967a462e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputWallPaperNoFile#967a462e",
+		}
 	}
 	b.PutLong(i.ID)
 	return nil
@@ -413,10 +464,16 @@ func (i *InputWallPaperNoFile) GetID() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputWallPaperNoFile) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWallPaperNoFile#967a462e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputWallPaperNoFile#967a462e",
+		}
 	}
 	if err := b.ConsumeID(InputWallPaperNoFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputWallPaperNoFile#967a462e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputWallPaperNoFile#967a462e",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -424,12 +481,20 @@ func (i *InputWallPaperNoFile) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputWallPaperNoFile) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWallPaperNoFile#967a462e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputWallPaperNoFile#967a462e",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWallPaperNoFile#967a462e: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputWallPaperNoFile#967a462e",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
@@ -494,25 +559,37 @@ func DecodeInputWallPaper(buf *bin.Buffer) (InputWallPaperClass, error) {
 		// Decoding inputWallPaper#e630b979.
 		v := InputWallPaper{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputWallPaperClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputWallPaperClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputWallPaperSlugTypeID:
 		// Decoding inputWallPaperSlug#72091c80.
 		v := InputWallPaperSlug{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputWallPaperClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputWallPaperClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputWallPaperNoFileTypeID:
 		// Decoding inputWallPaperNoFile#967a462e.
 		v := InputWallPaperNoFile{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputWallPaperClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputWallPaperClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputWallPaperClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "InputWallPaperClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -524,7 +601,10 @@ type InputWallPaperBox struct {
 // Decode implements bin.Decoder for InputWallPaperBox.
 func (b *InputWallPaperBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputWallPaperBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "InputWallPaperBox",
+		}
 	}
 	v, err := DecodeInputWallPaper(buf)
 	if err != nil {
@@ -537,7 +617,10 @@ func (b *InputWallPaperBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputWallPaperBox.
 func (b *InputWallPaperBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputWallPaper == nil {
-		return fmt.Errorf("unable to encode InputWallPaperClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "InputWallPaperBox",
+		}
 	}
 	return b.InputWallPaper.Encode(buf)
 }

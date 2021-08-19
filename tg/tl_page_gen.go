@@ -206,7 +206,10 @@ func (p *Page) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *Page) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode page#98657f0d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "page#98657f0d",
+		}
 	}
 	b.PutID(PageTypeID)
 	return p.EncodeBare(b)
@@ -215,7 +218,10 @@ func (p *Page) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *Page) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode page#98657f0d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "page#98657f0d",
+		}
 	}
 	if !(p.Part == false) {
 		p.Flags.Set(0)
@@ -230,34 +236,99 @@ func (p *Page) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(3)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode page#98657f0d: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "page#98657f0d",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(p.URL)
 	b.PutVectorHeader(len(p.Blocks))
 	for idx, v := range p.Blocks {
 		if v == nil {
-			return fmt.Errorf("unable to encode page#98657f0d: field blocks element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "page#98657f0d",
+				FieldName: "blocks",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<PageBlock>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode page#98657f0d: field blocks element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "page#98657f0d",
+				FieldName: "blocks",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(p.Photos))
 	for idx, v := range p.Photos {
 		if v == nil {
-			return fmt.Errorf("unable to encode page#98657f0d: field photos element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "page#98657f0d",
+				FieldName: "photos",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Photo>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode page#98657f0d: field photos element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "page#98657f0d",
+				FieldName: "photos",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(p.Documents))
 	for idx, v := range p.Documents {
 		if v == nil {
-			return fmt.Errorf("unable to encode page#98657f0d: field documents element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "page#98657f0d",
+				FieldName: "documents",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Document>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode page#98657f0d: field documents element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "page#98657f0d",
+				FieldName: "documents",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if p.Flags.Has(3) {
@@ -367,10 +438,16 @@ func (p *Page) GetViews() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (p *Page) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode page#98657f0d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "page#98657f0d",
+		}
 	}
 	if err := b.ConsumeID(PageTypeID); err != nil {
-		return fmt.Errorf("unable to decode page#98657f0d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "page#98657f0d",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -378,11 +455,19 @@ func (p *Page) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *Page) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode page#98657f0d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "page#98657f0d",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode page#98657f0d: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "page#98657f0d",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	p.Part = p.Flags.Has(0)
@@ -391,14 +476,24 @@ func (p *Page) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode page#98657f0d: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "page#98657f0d",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		p.URL = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode page#98657f0d: field blocks: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "page#98657f0d",
+				FieldName:  "blocks",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -407,7 +502,12 @@ func (p *Page) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode page#98657f0d: field blocks: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "page#98657f0d",
+					FieldName:  "blocks",
+					Underlying: err,
+				}
 			}
 			p.Blocks = append(p.Blocks, value)
 		}
@@ -415,7 +515,12 @@ func (p *Page) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode page#98657f0d: field photos: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "page#98657f0d",
+				FieldName:  "photos",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -424,7 +529,12 @@ func (p *Page) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePhoto(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode page#98657f0d: field photos: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "page#98657f0d",
+					FieldName:  "photos",
+					Underlying: err,
+				}
 			}
 			p.Photos = append(p.Photos, value)
 		}
@@ -432,7 +542,12 @@ func (p *Page) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode page#98657f0d: field documents: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "page#98657f0d",
+				FieldName:  "documents",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -441,7 +556,12 @@ func (p *Page) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode page#98657f0d: field documents: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "page#98657f0d",
+					FieldName:  "documents",
+					Underlying: err,
+				}
 			}
 			p.Documents = append(p.Documents, value)
 		}
@@ -449,7 +569,12 @@ func (p *Page) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode page#98657f0d: field views: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "page#98657f0d",
+				FieldName:  "views",
+				Underlying: err,
+			}
 		}
 		p.Views = value
 	}

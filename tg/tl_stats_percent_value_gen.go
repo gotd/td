@@ -117,7 +117,10 @@ func (s *StatsPercentValue) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsPercentValue) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsPercentValue#cbce2fe0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "statsPercentValue#cbce2fe0",
+		}
 	}
 	b.PutID(StatsPercentValueTypeID)
 	return s.EncodeBare(b)
@@ -126,7 +129,10 @@ func (s *StatsPercentValue) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsPercentValue) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsPercentValue#cbce2fe0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "statsPercentValue#cbce2fe0",
+		}
 	}
 	b.PutDouble(s.Part)
 	b.PutDouble(s.Total)
@@ -146,10 +152,16 @@ func (s *StatsPercentValue) GetTotal() (value float64) {
 // Decode implements bin.Decoder.
 func (s *StatsPercentValue) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsPercentValue#cbce2fe0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "statsPercentValue#cbce2fe0",
+		}
 	}
 	if err := b.ConsumeID(StatsPercentValueTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsPercentValue#cbce2fe0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "statsPercentValue#cbce2fe0",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -157,19 +169,32 @@ func (s *StatsPercentValue) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsPercentValue) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsPercentValue#cbce2fe0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "statsPercentValue#cbce2fe0",
+		}
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsPercentValue#cbce2fe0: field part: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "statsPercentValue#cbce2fe0",
+				FieldName:  "part",
+				Underlying: err,
+			}
 		}
 		s.Part = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsPercentValue#cbce2fe0: field total: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "statsPercentValue#cbce2fe0",
+				FieldName:  "total",
+				Underlying: err,
+			}
 		}
 		s.Total = value
 	}

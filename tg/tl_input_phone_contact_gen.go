@@ -140,7 +140,10 @@ func (i *InputPhoneContact) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPhoneContact) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhoneContact#f392b7f4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPhoneContact#f392b7f4",
+		}
 	}
 	b.PutID(InputPhoneContactTypeID)
 	return i.EncodeBare(b)
@@ -149,7 +152,10 @@ func (i *InputPhoneContact) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPhoneContact) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhoneContact#f392b7f4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPhoneContact#f392b7f4",
+		}
 	}
 	b.PutLong(i.ClientID)
 	b.PutString(i.Phone)
@@ -181,10 +187,16 @@ func (i *InputPhoneContact) GetLastName() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputPhoneContact) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhoneContact#f392b7f4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPhoneContact#f392b7f4",
+		}
 	}
 	if err := b.ConsumeID(InputPhoneContactTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPhoneContact#f392b7f4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputPhoneContact#f392b7f4",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -192,33 +204,56 @@ func (i *InputPhoneContact) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPhoneContact) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhoneContact#f392b7f4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPhoneContact#f392b7f4",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoneContact#f392b7f4: field client_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhoneContact#f392b7f4",
+				FieldName:  "client_id",
+				Underlying: err,
+			}
 		}
 		i.ClientID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoneContact#f392b7f4: field phone: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhoneContact#f392b7f4",
+				FieldName:  "phone",
+				Underlying: err,
+			}
 		}
 		i.Phone = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoneContact#f392b7f4: field first_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhoneContact#f392b7f4",
+				FieldName:  "first_name",
+				Underlying: err,
+			}
 		}
 		i.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoneContact#f392b7f4: field last_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhoneContact#f392b7f4",
+				FieldName:  "last_name",
+				Underlying: err,
+			}
 		}
 		i.LastName = value
 	}

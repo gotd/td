@@ -85,7 +85,10 @@ func (g *AccountGetAuthorizationsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetAuthorizationsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getAuthorizations#e320c158 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getAuthorizations#e320c158",
+		}
 	}
 	b.PutID(AccountGetAuthorizationsRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +97,10 @@ func (g *AccountGetAuthorizationsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetAuthorizationsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getAuthorizations#e320c158 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getAuthorizations#e320c158",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (g *AccountGetAuthorizationsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *AccountGetAuthorizationsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getAuthorizations#e320c158 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getAuthorizations#e320c158",
+		}
 	}
 	if err := b.ConsumeID(AccountGetAuthorizationsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getAuthorizations#e320c158: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.getAuthorizations#e320c158",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (g *AccountGetAuthorizationsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetAuthorizationsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getAuthorizations#e320c158 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getAuthorizations#e320c158",
+		}
 	}
 	return nil
 }

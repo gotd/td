@@ -149,7 +149,10 @@ func (p *MessagesPeerDialogs) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *MessagesPeerDialogs) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode messages.peerDialogs#3371c354 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.peerDialogs#3371c354",
+		}
 	}
 	b.PutID(MessagesPeerDialogsTypeID)
 	return p.EncodeBare(b)
@@ -158,46 +161,134 @@ func (p *MessagesPeerDialogs) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *MessagesPeerDialogs) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode messages.peerDialogs#3371c354 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.peerDialogs#3371c354",
+		}
 	}
 	b.PutVectorHeader(len(p.Dialogs))
 	for idx, v := range p.Dialogs {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field dialogs element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.peerDialogs#3371c354",
+				FieldName: "dialogs",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Dialog>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field dialogs element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.peerDialogs#3371c354",
+				FieldName: "dialogs",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(p.Messages))
 	for idx, v := range p.Messages {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field messages element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.peerDialogs#3371c354",
+				FieldName: "messages",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Message>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field messages element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.peerDialogs#3371c354",
+				FieldName: "messages",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(p.Chats))
 	for idx, v := range p.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field chats element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.peerDialogs#3371c354",
+				FieldName: "chats",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Chat>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field chats element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.peerDialogs#3371c354",
+				FieldName: "chats",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(p.Users))
 	for idx, v := range p.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.peerDialogs#3371c354",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.peerDialogs#3371c354",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if err := p.State.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field state: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.peerDialogs#3371c354",
+			FieldName:  "state",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -250,10 +341,16 @@ func (p *MessagesPeerDialogs) GetState() (value UpdatesState) {
 // Decode implements bin.Decoder.
 func (p *MessagesPeerDialogs) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode messages.peerDialogs#3371c354 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.peerDialogs#3371c354",
+		}
 	}
 	if err := b.ConsumeID(MessagesPeerDialogsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.peerDialogs#3371c354",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -261,12 +358,20 @@ func (p *MessagesPeerDialogs) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode messages.peerDialogs#3371c354 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.peerDialogs#3371c354",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field dialogs: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.peerDialogs#3371c354",
+				FieldName:  "dialogs",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -275,7 +380,12 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDialog(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field dialogs: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.peerDialogs#3371c354",
+					FieldName:  "dialogs",
+					Underlying: err,
+				}
 			}
 			p.Dialogs = append(p.Dialogs, value)
 		}
@@ -283,7 +393,12 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field messages: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.peerDialogs#3371c354",
+				FieldName:  "messages",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -292,7 +407,12 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field messages: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.peerDialogs#3371c354",
+					FieldName:  "messages",
+					Underlying: err,
+				}
 			}
 			p.Messages = append(p.Messages, value)
 		}
@@ -300,7 +420,12 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field chats: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.peerDialogs#3371c354",
+				FieldName:  "chats",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -309,7 +434,12 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field chats: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.peerDialogs#3371c354",
+					FieldName:  "chats",
+					Underlying: err,
+				}
 			}
 			p.Chats = append(p.Chats, value)
 		}
@@ -317,7 +447,12 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.peerDialogs#3371c354",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -326,14 +461,24 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.peerDialogs#3371c354",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			p.Users = append(p.Users, value)
 		}
 	}
 	{
 		if err := p.State.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field state: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.peerDialogs#3371c354",
+				FieldName:  "state",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

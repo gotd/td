@@ -101,7 +101,10 @@ func (p *PingRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PingRequest) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode ping#ce73048f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ping#ce73048f",
+		}
 	}
 	b.PutID(PingRequestTypeID)
 	return p.EncodeBare(b)
@@ -110,7 +113,10 @@ func (p *PingRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PingRequest) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode ping#ce73048f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ping#ce73048f",
+		}
 	}
 	b.PutInt32(p.ID)
 	return nil
@@ -124,10 +130,16 @@ func (p *PingRequest) GetID() (value int32) {
 // Decode implements bin.Decoder.
 func (p *PingRequest) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode ping#ce73048f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ping#ce73048f",
+		}
 	}
 	if err := b.ConsumeID(PingRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode ping#ce73048f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "ping#ce73048f",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -135,12 +147,20 @@ func (p *PingRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PingRequest) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode ping#ce73048f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ping#ce73048f",
+		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode ping#ce73048f: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "ping#ce73048f",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		p.ID = value
 	}

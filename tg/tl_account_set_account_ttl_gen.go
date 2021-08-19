@@ -102,7 +102,10 @@ func (s *AccountSetAccountTTLRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSetAccountTTLRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.setAccountTTL#2442485e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.setAccountTTL#2442485e",
+		}
 	}
 	b.PutID(AccountSetAccountTTLRequestTypeID)
 	return s.EncodeBare(b)
@@ -111,10 +114,18 @@ func (s *AccountSetAccountTTLRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSetAccountTTLRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.setAccountTTL#2442485e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.setAccountTTL#2442485e",
+		}
 	}
 	if err := s.TTL.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.setAccountTTL#2442485e: field ttl: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.setAccountTTL#2442485e",
+			FieldName:  "ttl",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -127,10 +138,16 @@ func (s *AccountSetAccountTTLRequest) GetTTL() (value AccountDaysTTL) {
 // Decode implements bin.Decoder.
 func (s *AccountSetAccountTTLRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.setAccountTTL#2442485e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.setAccountTTL#2442485e",
+		}
 	}
 	if err := b.ConsumeID(AccountSetAccountTTLRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.setAccountTTL#2442485e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.setAccountTTL#2442485e",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -138,11 +155,19 @@ func (s *AccountSetAccountTTLRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSetAccountTTLRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.setAccountTTL#2442485e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.setAccountTTL#2442485e",
+		}
 	}
 	{
 		if err := s.TTL.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.setAccountTTL#2442485e: field ttl: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.setAccountTTL#2442485e",
+				FieldName:  "ttl",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

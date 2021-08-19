@@ -113,7 +113,10 @@ func (s *AccountSetPrivacyRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSetPrivacyRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.setPrivacy#c9f81ce8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.setPrivacy#c9f81ce8",
+		}
 	}
 	b.PutID(AccountSetPrivacyRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,21 +125,57 @@ func (s *AccountSetPrivacyRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSetPrivacyRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.setPrivacy#c9f81ce8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.setPrivacy#c9f81ce8",
+		}
 	}
 	if s.Key == nil {
-		return fmt.Errorf("unable to encode account.setPrivacy#c9f81ce8: field key is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.setPrivacy#c9f81ce8",
+			FieldName: "key",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPrivacyKey",
+			},
+		}
 	}
 	if err := s.Key.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.setPrivacy#c9f81ce8: field key: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.setPrivacy#c9f81ce8",
+			FieldName:  "key",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(s.Rules))
 	for idx, v := range s.Rules {
 		if v == nil {
-			return fmt.Errorf("unable to encode account.setPrivacy#c9f81ce8: field rules element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.setPrivacy#c9f81ce8",
+				FieldName: "rules",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<InputPrivacyRule>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.setPrivacy#c9f81ce8: field rules element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.setPrivacy#c9f81ce8",
+				FieldName: "rules",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -160,10 +199,16 @@ func (s *AccountSetPrivacyRequest) MapRules() (value InputPrivacyRuleClassArray)
 // Decode implements bin.Decoder.
 func (s *AccountSetPrivacyRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.setPrivacy#c9f81ce8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.setPrivacy#c9f81ce8",
+		}
 	}
 	if err := b.ConsumeID(AccountSetPrivacyRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.setPrivacy#c9f81ce8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.setPrivacy#c9f81ce8",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -171,19 +216,32 @@ func (s *AccountSetPrivacyRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSetPrivacyRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.setPrivacy#c9f81ce8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.setPrivacy#c9f81ce8",
+		}
 	}
 	{
 		value, err := DecodeInputPrivacyKey(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.setPrivacy#c9f81ce8: field key: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.setPrivacy#c9f81ce8",
+				FieldName:  "key",
+				Underlying: err,
+			}
 		}
 		s.Key = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.setPrivacy#c9f81ce8: field rules: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.setPrivacy#c9f81ce8",
+				FieldName:  "rules",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -192,7 +250,12 @@ func (s *AccountSetPrivacyRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPrivacyRule(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode account.setPrivacy#c9f81ce8: field rules: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "account.setPrivacy#c9f81ce8",
+					FieldName:  "rules",
+					Underlying: err,
+				}
 			}
 			s.Rules = append(s.Rules, value)
 		}

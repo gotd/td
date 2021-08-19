@@ -140,7 +140,10 @@ func (i *InputPeerPhotoFileLocationLegacy) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPeerPhotoFileLocationLegacy) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerPhotoFileLocationLegacy#27d69997 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPeerPhotoFileLocationLegacy#27d69997",
+		}
 	}
 	b.PutID(InputPeerPhotoFileLocationLegacyTypeID)
 	return i.EncodeBare(b)
@@ -149,19 +152,40 @@ func (i *InputPeerPhotoFileLocationLegacy) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerPhotoFileLocationLegacy) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerPhotoFileLocationLegacy#27d69997 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPeerPhotoFileLocationLegacy#27d69997",
+		}
 	}
 	if !(i.Big == false) {
 		i.Flags.Set(0)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerPhotoFileLocationLegacy#27d69997: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputPeerPhotoFileLocationLegacy#27d69997",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if i.Peer == nil {
-		return fmt.Errorf("unable to encode inputPeerPhotoFileLocationLegacy#27d69997: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "inputPeerPhotoFileLocationLegacy#27d69997",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := i.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerPhotoFileLocationLegacy#27d69997: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputPeerPhotoFileLocationLegacy#27d69997",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutLong(i.VolumeID)
 	b.PutInt(i.LocalID)
@@ -202,10 +226,16 @@ func (i *InputPeerPhotoFileLocationLegacy) GetLocalID() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputPeerPhotoFileLocationLegacy) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerPhotoFileLocationLegacy#27d69997 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPeerPhotoFileLocationLegacy#27d69997",
+		}
 	}
 	if err := b.ConsumeID(InputPeerPhotoFileLocationLegacyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputPeerPhotoFileLocationLegacy#27d69997",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -213,32 +243,55 @@ func (i *InputPeerPhotoFileLocationLegacy) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerPhotoFileLocationLegacy) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerPhotoFileLocationLegacy#27d69997 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPeerPhotoFileLocationLegacy#27d69997",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPeerPhotoFileLocationLegacy#27d69997",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	i.Big = i.Flags.Has(0)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPeerPhotoFileLocationLegacy#27d69997",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		i.Peer = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: field volume_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPeerPhotoFileLocationLegacy#27d69997",
+				FieldName:  "volume_id",
+				Underlying: err,
+			}
 		}
 		i.VolumeID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: field local_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPeerPhotoFileLocationLegacy#27d69997",
+				FieldName:  "local_id",
+				Underlying: err,
+			}
 		}
 		i.LocalID = value
 	}
@@ -352,7 +405,10 @@ func (i *InputStickerSetThumbLegacy) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputStickerSetThumbLegacy) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetThumbLegacy#dbaeae9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetThumbLegacy#dbaeae9",
+		}
 	}
 	b.PutID(InputStickerSetThumbLegacyTypeID)
 	return i.EncodeBare(b)
@@ -361,13 +417,29 @@ func (i *InputStickerSetThumbLegacy) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStickerSetThumbLegacy) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetThumbLegacy#dbaeae9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetThumbLegacy#dbaeae9",
+		}
 	}
 	if i.Stickerset == nil {
-		return fmt.Errorf("unable to encode inputStickerSetThumbLegacy#dbaeae9: field stickerset is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "inputStickerSetThumbLegacy#dbaeae9",
+			FieldName: "stickerset",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputStickerSet",
+			},
+		}
 	}
 	if err := i.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputStickerSetThumbLegacy#dbaeae9: field stickerset: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputStickerSetThumbLegacy#dbaeae9",
+			FieldName:  "stickerset",
+			Underlying: err,
+		}
 	}
 	b.PutLong(i.VolumeID)
 	b.PutInt(i.LocalID)
@@ -392,10 +464,16 @@ func (i *InputStickerSetThumbLegacy) GetLocalID() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputStickerSetThumbLegacy) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetThumbLegacy#dbaeae9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetThumbLegacy#dbaeae9",
+		}
 	}
 	if err := b.ConsumeID(InputStickerSetThumbLegacyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickerSetThumbLegacy#dbaeae9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputStickerSetThumbLegacy#dbaeae9",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -403,26 +481,44 @@ func (i *InputStickerSetThumbLegacy) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStickerSetThumbLegacy) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetThumbLegacy#dbaeae9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetThumbLegacy#dbaeae9",
+		}
 	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetThumbLegacy#dbaeae9: field stickerset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputStickerSetThumbLegacy#dbaeae9",
+				FieldName:  "stickerset",
+				Underlying: err,
+			}
 		}
 		i.Stickerset = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetThumbLegacy#dbaeae9: field volume_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputStickerSetThumbLegacy#dbaeae9",
+				FieldName:  "volume_id",
+				Underlying: err,
+			}
 		}
 		i.VolumeID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetThumbLegacy#dbaeae9: field local_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputStickerSetThumbLegacy#dbaeae9",
+				FieldName:  "local_id",
+				Underlying: err,
+			}
 		}
 		i.LocalID = value
 	}
@@ -551,7 +647,10 @@ func (i *InputFileLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputFileLocation#dfdaabe1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputFileLocation#dfdaabe1",
+		}
 	}
 	b.PutID(InputFileLocationTypeID)
 	return i.EncodeBare(b)
@@ -560,7 +659,10 @@ func (i *InputFileLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputFileLocation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputFileLocation#dfdaabe1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputFileLocation#dfdaabe1",
+		}
 	}
 	b.PutLong(i.VolumeID)
 	b.PutInt(i.LocalID)
@@ -592,10 +694,16 @@ func (i *InputFileLocation) GetFileReference() (value []byte) {
 // Decode implements bin.Decoder.
 func (i *InputFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputFileLocation#dfdaabe1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputFileLocation#dfdaabe1",
+		}
 	}
 	if err := b.ConsumeID(InputFileLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputFileLocation#dfdaabe1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputFileLocation#dfdaabe1",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -603,33 +711,56 @@ func (i *InputFileLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputFileLocation) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputFileLocation#dfdaabe1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputFileLocation#dfdaabe1",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFileLocation#dfdaabe1: field volume_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputFileLocation#dfdaabe1",
+				FieldName:  "volume_id",
+				Underlying: err,
+			}
 		}
 		i.VolumeID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFileLocation#dfdaabe1: field local_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputFileLocation#dfdaabe1",
+				FieldName:  "local_id",
+				Underlying: err,
+			}
 		}
 		i.LocalID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFileLocation#dfdaabe1: field secret: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputFileLocation#dfdaabe1",
+				FieldName:  "secret",
+				Underlying: err,
+			}
 		}
 		i.Secret = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFileLocation#dfdaabe1: field file_reference: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputFileLocation#dfdaabe1",
+				FieldName:  "file_reference",
+				Underlying: err,
+			}
 		}
 		i.FileReference = value
 	}
@@ -739,7 +870,10 @@ func (i *InputEncryptedFileLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputEncryptedFileLocation#f5235d55 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputEncryptedFileLocation#f5235d55",
+		}
 	}
 	b.PutID(InputEncryptedFileLocationTypeID)
 	return i.EncodeBare(b)
@@ -748,7 +882,10 @@ func (i *InputEncryptedFileLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputEncryptedFileLocation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputEncryptedFileLocation#f5235d55 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputEncryptedFileLocation#f5235d55",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -768,10 +905,16 @@ func (i *InputEncryptedFileLocation) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputEncryptedFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputEncryptedFileLocation#f5235d55 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputEncryptedFileLocation#f5235d55",
+		}
 	}
 	if err := b.ConsumeID(InputEncryptedFileLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputEncryptedFileLocation#f5235d55: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputEncryptedFileLocation#f5235d55",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -779,19 +922,32 @@ func (i *InputEncryptedFileLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputEncryptedFileLocation) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputEncryptedFileLocation#f5235d55 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputEncryptedFileLocation#f5235d55",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedFileLocation#f5235d55: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputEncryptedFileLocation#f5235d55",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputEncryptedFileLocation#f5235d55: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputEncryptedFileLocation#f5235d55",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}
@@ -923,7 +1079,10 @@ func (i *InputDocumentFileLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputDocumentFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputDocumentFileLocation#bad07584 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputDocumentFileLocation#bad07584",
+		}
 	}
 	b.PutID(InputDocumentFileLocationTypeID)
 	return i.EncodeBare(b)
@@ -932,7 +1091,10 @@ func (i *InputDocumentFileLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputDocumentFileLocation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputDocumentFileLocation#bad07584 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputDocumentFileLocation#bad07584",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -964,10 +1126,16 @@ func (i *InputDocumentFileLocation) GetThumbSize() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputDocumentFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputDocumentFileLocation#bad07584 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputDocumentFileLocation#bad07584",
+		}
 	}
 	if err := b.ConsumeID(InputDocumentFileLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputDocumentFileLocation#bad07584: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputDocumentFileLocation#bad07584",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -975,33 +1143,56 @@ func (i *InputDocumentFileLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputDocumentFileLocation) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputDocumentFileLocation#bad07584 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputDocumentFileLocation#bad07584",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputDocumentFileLocation#bad07584: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputDocumentFileLocation#bad07584",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputDocumentFileLocation#bad07584: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputDocumentFileLocation#bad07584",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputDocumentFileLocation#bad07584: field file_reference: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputDocumentFileLocation#bad07584",
+				FieldName:  "file_reference",
+				Underlying: err,
+			}
 		}
 		i.FileReference = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputDocumentFileLocation#bad07584: field thumb_size: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputDocumentFileLocation#bad07584",
+				FieldName:  "thumb_size",
+				Underlying: err,
+			}
 		}
 		i.ThumbSize = value
 	}
@@ -1114,7 +1305,10 @@ func (i *InputSecureFileLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputSecureFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputSecureFileLocation#cbc7ee28 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputSecureFileLocation#cbc7ee28",
+		}
 	}
 	b.PutID(InputSecureFileLocationTypeID)
 	return i.EncodeBare(b)
@@ -1123,7 +1317,10 @@ func (i *InputSecureFileLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputSecureFileLocation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputSecureFileLocation#cbc7ee28 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputSecureFileLocation#cbc7ee28",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -1143,10 +1340,16 @@ func (i *InputSecureFileLocation) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputSecureFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputSecureFileLocation#cbc7ee28 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputSecureFileLocation#cbc7ee28",
+		}
 	}
 	if err := b.ConsumeID(InputSecureFileLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputSecureFileLocation#cbc7ee28: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputSecureFileLocation#cbc7ee28",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -1154,19 +1357,32 @@ func (i *InputSecureFileLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputSecureFileLocation) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputSecureFileLocation#cbc7ee28 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputSecureFileLocation#cbc7ee28",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSecureFileLocation#cbc7ee28: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputSecureFileLocation#cbc7ee28",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSecureFileLocation#cbc7ee28: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputSecureFileLocation#cbc7ee28",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}
@@ -1242,7 +1458,10 @@ func (i *InputTakeoutFileLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputTakeoutFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputTakeoutFileLocation#29be5899 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputTakeoutFileLocation#29be5899",
+		}
 	}
 	b.PutID(InputTakeoutFileLocationTypeID)
 	return i.EncodeBare(b)
@@ -1251,7 +1470,10 @@ func (i *InputTakeoutFileLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputTakeoutFileLocation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputTakeoutFileLocation#29be5899 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputTakeoutFileLocation#29be5899",
+		}
 	}
 	return nil
 }
@@ -1259,10 +1481,16 @@ func (i *InputTakeoutFileLocation) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputTakeoutFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputTakeoutFileLocation#29be5899 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputTakeoutFileLocation#29be5899",
+		}
 	}
 	if err := b.ConsumeID(InputTakeoutFileLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputTakeoutFileLocation#29be5899: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputTakeoutFileLocation#29be5899",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -1270,7 +1498,10 @@ func (i *InputTakeoutFileLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputTakeoutFileLocation) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputTakeoutFileLocation#29be5899 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputTakeoutFileLocation#29be5899",
+		}
 	}
 	return nil
 }
@@ -1411,7 +1642,10 @@ func (i *InputPhotoFileLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPhotoFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhotoFileLocation#40181ffe as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPhotoFileLocation#40181ffe",
+		}
 	}
 	b.PutID(InputPhotoFileLocationTypeID)
 	return i.EncodeBare(b)
@@ -1420,7 +1654,10 @@ func (i *InputPhotoFileLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPhotoFileLocation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhotoFileLocation#40181ffe as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPhotoFileLocation#40181ffe",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -1452,10 +1689,16 @@ func (i *InputPhotoFileLocation) GetThumbSize() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputPhotoFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhotoFileLocation#40181ffe to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPhotoFileLocation#40181ffe",
+		}
 	}
 	if err := b.ConsumeID(InputPhotoFileLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPhotoFileLocation#40181ffe: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputPhotoFileLocation#40181ffe",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -1463,33 +1706,56 @@ func (i *InputPhotoFileLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPhotoFileLocation) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhotoFileLocation#40181ffe to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPhotoFileLocation#40181ffe",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhotoFileLocation#40181ffe: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhotoFileLocation#40181ffe",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhotoFileLocation#40181ffe: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhotoFileLocation#40181ffe",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhotoFileLocation#40181ffe: field file_reference: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhotoFileLocation#40181ffe",
+				FieldName:  "file_reference",
+				Underlying: err,
+			}
 		}
 		i.FileReference = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhotoFileLocation#40181ffe: field thumb_size: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhotoFileLocation#40181ffe",
+				FieldName:  "thumb_size",
+				Underlying: err,
+			}
 		}
 		i.ThumbSize = value
 	}
@@ -1637,7 +1903,10 @@ func (i *InputPhotoLegacyFileLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPhotoLegacyFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhotoLegacyFileLocation#d83466f3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPhotoLegacyFileLocation#d83466f3",
+		}
 	}
 	b.PutID(InputPhotoLegacyFileLocationTypeID)
 	return i.EncodeBare(b)
@@ -1646,7 +1915,10 @@ func (i *InputPhotoLegacyFileLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPhotoLegacyFileLocation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhotoLegacyFileLocation#d83466f3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPhotoLegacyFileLocation#d83466f3",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -1690,10 +1962,16 @@ func (i *InputPhotoLegacyFileLocation) GetSecret() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputPhotoLegacyFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhotoLegacyFileLocation#d83466f3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPhotoLegacyFileLocation#d83466f3",
+		}
 	}
 	if err := b.ConsumeID(InputPhotoLegacyFileLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPhotoLegacyFileLocation#d83466f3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputPhotoLegacyFileLocation#d83466f3",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -1701,47 +1979,80 @@ func (i *InputPhotoLegacyFileLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPhotoLegacyFileLocation) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhotoLegacyFileLocation#d83466f3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPhotoLegacyFileLocation#d83466f3",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhotoLegacyFileLocation#d83466f3: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhotoLegacyFileLocation#d83466f3",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhotoLegacyFileLocation#d83466f3: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhotoLegacyFileLocation#d83466f3",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhotoLegacyFileLocation#d83466f3: field file_reference: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhotoLegacyFileLocation#d83466f3",
+				FieldName:  "file_reference",
+				Underlying: err,
+			}
 		}
 		i.FileReference = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhotoLegacyFileLocation#d83466f3: field volume_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhotoLegacyFileLocation#d83466f3",
+				FieldName:  "volume_id",
+				Underlying: err,
+			}
 		}
 		i.VolumeID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhotoLegacyFileLocation#d83466f3: field local_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhotoLegacyFileLocation#d83466f3",
+				FieldName:  "local_id",
+				Underlying: err,
+			}
 		}
 		i.LocalID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhotoLegacyFileLocation#d83466f3: field secret: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPhotoLegacyFileLocation#d83466f3",
+				FieldName:  "secret",
+				Underlying: err,
+			}
 		}
 		i.Secret = value
 	}
@@ -1865,7 +2176,10 @@ func (i *InputPeerPhotoFileLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPeerPhotoFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerPhotoFileLocation#37257e99 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPeerPhotoFileLocation#37257e99",
+		}
 	}
 	b.PutID(InputPeerPhotoFileLocationTypeID)
 	return i.EncodeBare(b)
@@ -1874,19 +2188,40 @@ func (i *InputPeerPhotoFileLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerPhotoFileLocation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerPhotoFileLocation#37257e99 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPeerPhotoFileLocation#37257e99",
+		}
 	}
 	if !(i.Big == false) {
 		i.Flags.Set(0)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerPhotoFileLocation#37257e99: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputPeerPhotoFileLocation#37257e99",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if i.Peer == nil {
-		return fmt.Errorf("unable to encode inputPeerPhotoFileLocation#37257e99: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "inputPeerPhotoFileLocation#37257e99",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := i.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerPhotoFileLocation#37257e99: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputPeerPhotoFileLocation#37257e99",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutLong(i.PhotoID)
 	return nil
@@ -1921,10 +2256,16 @@ func (i *InputPeerPhotoFileLocation) GetPhotoID() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputPeerPhotoFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerPhotoFileLocation#37257e99 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPeerPhotoFileLocation#37257e99",
+		}
 	}
 	if err := b.ConsumeID(InputPeerPhotoFileLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#37257e99: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputPeerPhotoFileLocation#37257e99",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -1932,25 +2273,43 @@ func (i *InputPeerPhotoFileLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerPhotoFileLocation) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerPhotoFileLocation#37257e99 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPeerPhotoFileLocation#37257e99",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#37257e99: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPeerPhotoFileLocation#37257e99",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	i.Big = i.Flags.Has(0)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#37257e99: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPeerPhotoFileLocation#37257e99",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		i.Peer = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#37257e99: field photo_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPeerPhotoFileLocation#37257e99",
+				FieldName:  "photo_id",
+				Underlying: err,
+			}
 		}
 		i.PhotoID = value
 	}
@@ -2057,7 +2416,10 @@ func (i *InputStickerSetThumb) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputStickerSetThumb) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetThumb#9d84f3db as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetThumb#9d84f3db",
+		}
 	}
 	b.PutID(InputStickerSetThumbTypeID)
 	return i.EncodeBare(b)
@@ -2066,13 +2428,29 @@ func (i *InputStickerSetThumb) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStickerSetThumb) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetThumb#9d84f3db as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetThumb#9d84f3db",
+		}
 	}
 	if i.Stickerset == nil {
-		return fmt.Errorf("unable to encode inputStickerSetThumb#9d84f3db: field stickerset is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "inputStickerSetThumb#9d84f3db",
+			FieldName: "stickerset",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputStickerSet",
+			},
+		}
 	}
 	if err := i.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputStickerSetThumb#9d84f3db: field stickerset: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputStickerSetThumb#9d84f3db",
+			FieldName:  "stickerset",
+			Underlying: err,
+		}
 	}
 	b.PutInt(i.ThumbVersion)
 	return nil
@@ -2091,10 +2469,16 @@ func (i *InputStickerSetThumb) GetThumbVersion() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputStickerSetThumb) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetThumb#9d84f3db to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetThumb#9d84f3db",
+		}
 	}
 	if err := b.ConsumeID(InputStickerSetThumbTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickerSetThumb#9d84f3db: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputStickerSetThumb#9d84f3db",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -2102,19 +2486,32 @@ func (i *InputStickerSetThumb) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStickerSetThumb) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetThumb#9d84f3db to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetThumb#9d84f3db",
+		}
 	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetThumb#9d84f3db: field stickerset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputStickerSetThumb#9d84f3db",
+				FieldName:  "stickerset",
+				Underlying: err,
+			}
 		}
 		i.Stickerset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetThumb#9d84f3db: field thumb_version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputStickerSetThumb#9d84f3db",
+				FieldName:  "thumb_version",
+				Underlying: err,
+			}
 		}
 		i.ThumbVersion = value
 	}
@@ -2228,7 +2625,10 @@ func (i *InputGroupCallStream) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputGroupCallStream) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputGroupCallStream#bba51639 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputGroupCallStream#bba51639",
+		}
 	}
 	b.PutID(InputGroupCallStreamTypeID)
 	return i.EncodeBare(b)
@@ -2237,10 +2637,18 @@ func (i *InputGroupCallStream) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputGroupCallStream) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputGroupCallStream#bba51639 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputGroupCallStream#bba51639",
+		}
 	}
 	if err := i.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputGroupCallStream#bba51639: field call: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputGroupCallStream#bba51639",
+			FieldName:  "call",
+			Underlying: err,
+		}
 	}
 	b.PutLong(i.TimeMs)
 	b.PutInt(i.Scale)
@@ -2265,10 +2673,16 @@ func (i *InputGroupCallStream) GetScale() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputGroupCallStream) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputGroupCallStream#bba51639 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputGroupCallStream#bba51639",
+		}
 	}
 	if err := b.ConsumeID(InputGroupCallStreamTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputGroupCallStream#bba51639",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -2276,24 +2690,42 @@ func (i *InputGroupCallStream) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputGroupCallStream) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputGroupCallStream#bba51639 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputGroupCallStream#bba51639",
+		}
 	}
 	{
 		if err := i.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: field call: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputGroupCallStream#bba51639",
+				FieldName:  "call",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: field time_ms: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputGroupCallStream#bba51639",
+				FieldName:  "time_ms",
+				Underlying: err,
+			}
 		}
 		i.TimeMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: field scale: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputGroupCallStream#bba51639",
+				FieldName:  "scale",
+				Underlying: err,
+			}
 		}
 		i.Scale = value
 	}
@@ -2367,88 +2799,127 @@ func DecodeInputFileLocation(buf *bin.Buffer) (InputFileLocationClass, error) {
 		// Decoding inputPeerPhotoFileLocationLegacy#27d69997.
 		v := InputPeerPhotoFileLocationLegacy{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputStickerSetThumbLegacyTypeID:
 		// Decoding inputStickerSetThumbLegacy#dbaeae9.
 		v := InputStickerSetThumbLegacy{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputFileLocationTypeID:
 		// Decoding inputFileLocation#dfdaabe1.
 		v := InputFileLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputEncryptedFileLocationTypeID:
 		// Decoding inputEncryptedFileLocation#f5235d55.
 		v := InputEncryptedFileLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputDocumentFileLocationTypeID:
 		// Decoding inputDocumentFileLocation#bad07584.
 		v := InputDocumentFileLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputSecureFileLocationTypeID:
 		// Decoding inputSecureFileLocation#cbc7ee28.
 		v := InputSecureFileLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputTakeoutFileLocationTypeID:
 		// Decoding inputTakeoutFileLocation#29be5899.
 		v := InputTakeoutFileLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputPhotoFileLocationTypeID:
 		// Decoding inputPhotoFileLocation#40181ffe.
 		v := InputPhotoFileLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputPhotoLegacyFileLocationTypeID:
 		// Decoding inputPhotoLegacyFileLocation#d83466f3.
 		v := InputPhotoLegacyFileLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputPeerPhotoFileLocationTypeID:
 		// Decoding inputPeerPhotoFileLocation#37257e99.
 		v := InputPeerPhotoFileLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputStickerSetThumbTypeID:
 		// Decoding inputStickerSetThumb#9d84f3db.
 		v := InputStickerSetThumb{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputGroupCallStreamTypeID:
 		// Decoding inputGroupCallStream#bba51639.
 		v := InputGroupCallStream{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "InputFileLocationClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -2460,7 +2931,10 @@ type InputFileLocationBox struct {
 // Decode implements bin.Decoder for InputFileLocationBox.
 func (b *InputFileLocationBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputFileLocationBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "InputFileLocationBox",
+		}
 	}
 	v, err := DecodeInputFileLocation(buf)
 	if err != nil {
@@ -2473,7 +2947,10 @@ func (b *InputFileLocationBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputFileLocationBox.
 func (b *InputFileLocationBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputFileLocation == nil {
-		return fmt.Errorf("unable to encode InputFileLocationClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "InputFileLocationBox",
+		}
 	}
 	return b.InputFileLocation.Encode(buf)
 }

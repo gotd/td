@@ -111,7 +111,10 @@ func (s *AccountSetContentSettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSetContentSettingsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.setContentSettings#b574b16b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.setContentSettings#b574b16b",
+		}
 	}
 	b.PutID(AccountSetContentSettingsRequestTypeID)
 	return s.EncodeBare(b)
@@ -120,13 +123,21 @@ func (s *AccountSetContentSettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSetContentSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.setContentSettings#b574b16b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.setContentSettings#b574b16b",
+		}
 	}
 	if !(s.SensitiveEnabled == false) {
 		s.Flags.Set(0)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.setContentSettings#b574b16b: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.setContentSettings#b574b16b",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -150,10 +161,16 @@ func (s *AccountSetContentSettingsRequest) GetSensitiveEnabled() (value bool) {
 // Decode implements bin.Decoder.
 func (s *AccountSetContentSettingsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.setContentSettings#b574b16b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.setContentSettings#b574b16b",
+		}
 	}
 	if err := b.ConsumeID(AccountSetContentSettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.setContentSettings#b574b16b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.setContentSettings#b574b16b",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -161,11 +178,19 @@ func (s *AccountSetContentSettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSetContentSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.setContentSettings#b574b16b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.setContentSettings#b574b16b",
+		}
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.setContentSettings#b574b16b: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.setContentSettings#b574b16b",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	s.SensitiveEnabled = s.Flags.Has(0)

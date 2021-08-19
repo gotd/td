@@ -102,7 +102,10 @@ func (i *HelpInviteText) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *HelpInviteText) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode help.inviteText#18cb9f78 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.inviteText#18cb9f78",
+		}
 	}
 	b.PutID(HelpInviteTextTypeID)
 	return i.EncodeBare(b)
@@ -111,7 +114,10 @@ func (i *HelpInviteText) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *HelpInviteText) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode help.inviteText#18cb9f78 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.inviteText#18cb9f78",
+		}
 	}
 	b.PutString(i.Message)
 	return nil
@@ -125,10 +131,16 @@ func (i *HelpInviteText) GetMessage() (value string) {
 // Decode implements bin.Decoder.
 func (i *HelpInviteText) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode help.inviteText#18cb9f78 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.inviteText#18cb9f78",
+		}
 	}
 	if err := b.ConsumeID(HelpInviteTextTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.inviteText#18cb9f78: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.inviteText#18cb9f78",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (i *HelpInviteText) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *HelpInviteText) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode help.inviteText#18cb9f78 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.inviteText#18cb9f78",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.inviteText#18cb9f78: field message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.inviteText#18cb9f78",
+				FieldName:  "message",
+				Underlying: err,
+			}
 		}
 		i.Message = value
 	}

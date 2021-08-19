@@ -116,7 +116,10 @@ func (r *ContactsResetTopPeerRatingRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ContactsResetTopPeerRatingRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode contacts.resetTopPeerRating#1ae373ac as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.resetTopPeerRating#1ae373ac",
+		}
 	}
 	b.PutID(ContactsResetTopPeerRatingRequestTypeID)
 	return r.EncodeBare(b)
@@ -125,19 +128,48 @@ func (r *ContactsResetTopPeerRatingRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ContactsResetTopPeerRatingRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode contacts.resetTopPeerRating#1ae373ac as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.resetTopPeerRating#1ae373ac",
+		}
 	}
 	if r.Category == nil {
-		return fmt.Errorf("unable to encode contacts.resetTopPeerRating#1ae373ac: field category is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "contacts.resetTopPeerRating#1ae373ac",
+			FieldName: "category",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "TopPeerCategory",
+			},
+		}
 	}
 	if err := r.Category.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contacts.resetTopPeerRating#1ae373ac: field category: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "contacts.resetTopPeerRating#1ae373ac",
+			FieldName:  "category",
+			Underlying: err,
+		}
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode contacts.resetTopPeerRating#1ae373ac: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "contacts.resetTopPeerRating#1ae373ac",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contacts.resetTopPeerRating#1ae373ac: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "contacts.resetTopPeerRating#1ae373ac",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -155,10 +187,16 @@ func (r *ContactsResetTopPeerRatingRequest) GetPeer() (value InputPeerClass) {
 // Decode implements bin.Decoder.
 func (r *ContactsResetTopPeerRatingRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode contacts.resetTopPeerRating#1ae373ac to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.resetTopPeerRating#1ae373ac",
+		}
 	}
 	if err := b.ConsumeID(ContactsResetTopPeerRatingRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.resetTopPeerRating#1ae373ac: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "contacts.resetTopPeerRating#1ae373ac",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -166,19 +204,32 @@ func (r *ContactsResetTopPeerRatingRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ContactsResetTopPeerRatingRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode contacts.resetTopPeerRating#1ae373ac to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.resetTopPeerRating#1ae373ac",
+		}
 	}
 	{
 		value, err := DecodeTopPeerCategory(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.resetTopPeerRating#1ae373ac: field category: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.resetTopPeerRating#1ae373ac",
+				FieldName:  "category",
+				Underlying: err,
+			}
 		}
 		r.Category = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.resetTopPeerRating#1ae373ac: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.resetTopPeerRating#1ae373ac",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		r.Peer = value
 	}

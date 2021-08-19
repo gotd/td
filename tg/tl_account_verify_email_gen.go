@@ -116,7 +116,10 @@ func (v *AccountVerifyEmailRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (v *AccountVerifyEmailRequest) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode account.verifyEmail#ecba39db as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.verifyEmail#ecba39db",
+		}
 	}
 	b.PutID(AccountVerifyEmailRequestTypeID)
 	return v.EncodeBare(b)
@@ -125,7 +128,10 @@ func (v *AccountVerifyEmailRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *AccountVerifyEmailRequest) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode account.verifyEmail#ecba39db as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.verifyEmail#ecba39db",
+		}
 	}
 	b.PutString(v.Email)
 	b.PutString(v.Code)
@@ -145,10 +151,16 @@ func (v *AccountVerifyEmailRequest) GetCode() (value string) {
 // Decode implements bin.Decoder.
 func (v *AccountVerifyEmailRequest) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode account.verifyEmail#ecba39db to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.verifyEmail#ecba39db",
+		}
 	}
 	if err := b.ConsumeID(AccountVerifyEmailRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.verifyEmail#ecba39db: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.verifyEmail#ecba39db",
+			Underlying: err,
+		}
 	}
 	return v.DecodeBare(b)
 }
@@ -156,19 +168,32 @@ func (v *AccountVerifyEmailRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *AccountVerifyEmailRequest) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode account.verifyEmail#ecba39db to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.verifyEmail#ecba39db",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.verifyEmail#ecba39db: field email: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.verifyEmail#ecba39db",
+				FieldName:  "email",
+				Underlying: err,
+			}
 		}
 		v.Email = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.verifyEmail#ecba39db: field code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.verifyEmail#ecba39db",
+				FieldName:  "code",
+				Underlying: err,
+			}
 		}
 		v.Code = value
 	}

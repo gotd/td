@@ -141,7 +141,10 @@ func (e *ChannelsEditAdminRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *ChannelsEditAdminRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editAdmin#d33c8902 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.editAdmin#d33c8902",
+		}
 	}
 	b.PutID(ChannelsEditAdminRequestTypeID)
 	return e.EncodeBare(b)
@@ -150,22 +153,56 @@ func (e *ChannelsEditAdminRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsEditAdminRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editAdmin#d33c8902 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.editAdmin#d33c8902",
+		}
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.editAdmin#d33c8902: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.editAdmin#d33c8902",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editAdmin#d33c8902: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.editAdmin#d33c8902",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	if e.UserID == nil {
-		return fmt.Errorf("unable to encode channels.editAdmin#d33c8902: field user_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.editAdmin#d33c8902",
+			FieldName: "user_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := e.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editAdmin#d33c8902: field user_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.editAdmin#d33c8902",
+			FieldName:  "user_id",
+			Underlying: err,
+		}
 	}
 	if err := e.AdminRights.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editAdmin#d33c8902: field admin_rights: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.editAdmin#d33c8902",
+			FieldName:  "admin_rights",
+			Underlying: err,
+		}
 	}
 	b.PutString(e.Rank)
 	return nil
@@ -199,10 +236,16 @@ func (e *ChannelsEditAdminRequest) GetRank() (value string) {
 // Decode implements bin.Decoder.
 func (e *ChannelsEditAdminRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editAdmin#d33c8902 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.editAdmin#d33c8902",
+		}
 	}
 	if err := b.ConsumeID(ChannelsEditAdminRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.editAdmin#d33c8902: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.editAdmin#d33c8902",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -210,31 +253,54 @@ func (e *ChannelsEditAdminRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsEditAdminRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editAdmin#d33c8902 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.editAdmin#d33c8902",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editAdmin#d33c8902: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.editAdmin#d33c8902",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		e.Channel = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editAdmin#d33c8902: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.editAdmin#d33c8902",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		e.UserID = value
 	}
 	{
 		if err := e.AdminRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.editAdmin#d33c8902: field admin_rights: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.editAdmin#d33c8902",
+				FieldName:  "admin_rights",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editAdmin#d33c8902: field rank: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.editAdmin#d33c8902",
+				FieldName:  "rank",
+				Underlying: err,
+			}
 		}
 		e.Rank = value
 	}

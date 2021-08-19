@@ -88,7 +88,10 @@ func (g *HelpGetAppConfigRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetAppConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getAppConfig#98914110 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getAppConfig#98914110",
+		}
 	}
 	b.PutID(HelpGetAppConfigRequestTypeID)
 	return g.EncodeBare(b)
@@ -97,7 +100,10 @@ func (g *HelpGetAppConfigRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetAppConfigRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getAppConfig#98914110 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getAppConfig#98914110",
+		}
 	}
 	return nil
 }
@@ -105,10 +111,16 @@ func (g *HelpGetAppConfigRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *HelpGetAppConfigRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getAppConfig#98914110 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getAppConfig#98914110",
+		}
 	}
 	if err := b.ConsumeID(HelpGetAppConfigRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getAppConfig#98914110: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.getAppConfig#98914110",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -116,7 +128,10 @@ func (g *HelpGetAppConfigRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetAppConfigRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getAppConfig#98914110 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getAppConfig#98914110",
+		}
 	}
 	return nil
 }

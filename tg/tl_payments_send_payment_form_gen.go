@@ -197,7 +197,10 @@ func (s *PaymentsSendPaymentFormRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *PaymentsSendPaymentFormRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.sendPaymentForm#30c3bc9d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.sendPaymentForm#30c3bc9d",
+		}
 	}
 	b.PutID(PaymentsSendPaymentFormRequestTypeID)
 	return s.EncodeBare(b)
@@ -206,7 +209,10 @@ func (s *PaymentsSendPaymentFormRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PaymentsSendPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.sendPaymentForm#30c3bc9d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.sendPaymentForm#30c3bc9d",
+		}
 	}
 	if !(s.RequestedInfoID == "") {
 		s.Flags.Set(0)
@@ -218,14 +224,32 @@ func (s *PaymentsSendPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(2)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.sendPaymentForm#30c3bc9d: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "payments.sendPaymentForm#30c3bc9d",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutLong(s.FormID)
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode payments.sendPaymentForm#30c3bc9d: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "payments.sendPaymentForm#30c3bc9d",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.sendPaymentForm#30c3bc9d: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "payments.sendPaymentForm#30c3bc9d",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(s.MsgID)
 	if s.Flags.Has(0) {
@@ -235,10 +259,23 @@ func (s *PaymentsSendPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutString(s.ShippingOptionID)
 	}
 	if s.Credentials == nil {
-		return fmt.Errorf("unable to encode payments.sendPaymentForm#30c3bc9d: field credentials is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "payments.sendPaymentForm#30c3bc9d",
+			FieldName: "credentials",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPaymentCredentials",
+			},
+		}
 	}
 	if err := s.Credentials.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.sendPaymentForm#30c3bc9d: field credentials: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "payments.sendPaymentForm#30c3bc9d",
+			FieldName:  "credentials",
+			Underlying: err,
+		}
 	}
 	if s.Flags.Has(2) {
 		b.PutLong(s.TipAmount)
@@ -314,10 +351,16 @@ func (s *PaymentsSendPaymentFormRequest) GetTipAmount() (value int64, ok bool) {
 // Decode implements bin.Decoder.
 func (s *PaymentsSendPaymentFormRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.sendPaymentForm#30c3bc9d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.sendPaymentForm#30c3bc9d",
+		}
 	}
 	if err := b.ConsumeID(PaymentsSendPaymentFormRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "payments.sendPaymentForm#30c3bc9d",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -325,59 +368,102 @@ func (s *PaymentsSendPaymentFormRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PaymentsSendPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.sendPaymentForm#30c3bc9d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.sendPaymentForm#30c3bc9d",
+		}
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.sendPaymentForm#30c3bc9d",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field form_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.sendPaymentForm#30c3bc9d",
+				FieldName:  "form_id",
+				Underlying: err,
+			}
 		}
 		s.FormID = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.sendPaymentForm#30c3bc9d",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.sendPaymentForm#30c3bc9d",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		s.MsgID = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field requested_info_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.sendPaymentForm#30c3bc9d",
+				FieldName:  "requested_info_id",
+				Underlying: err,
+			}
 		}
 		s.RequestedInfoID = value
 	}
 	if s.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field shipping_option_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.sendPaymentForm#30c3bc9d",
+				FieldName:  "shipping_option_id",
+				Underlying: err,
+			}
 		}
 		s.ShippingOptionID = value
 	}
 	{
 		value, err := DecodeInputPaymentCredentials(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field credentials: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.sendPaymentForm#30c3bc9d",
+				FieldName:  "credentials",
+				Underlying: err,
+			}
 		}
 		s.Credentials = value
 	}
 	if s.Flags.Has(2) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field tip_amount: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.sendPaymentForm#30c3bc9d",
+				FieldName:  "tip_amount",
+				Underlying: err,
+			}
 		}
 		s.TipAmount = value
 	}

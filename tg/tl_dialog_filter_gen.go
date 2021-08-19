@@ -312,7 +312,10 @@ func (d *DialogFilter) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DialogFilter) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialogFilter#7438f7e8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "dialogFilter#7438f7e8",
+		}
 	}
 	b.PutID(DialogFilterTypeID)
 	return d.EncodeBare(b)
@@ -321,7 +324,10 @@ func (d *DialogFilter) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DialogFilter) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialogFilter#7438f7e8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "dialogFilter#7438f7e8",
+		}
 	}
 	if !(d.Contacts == false) {
 		d.Flags.Set(0)
@@ -351,7 +357,12 @@ func (d *DialogFilter) EncodeBare(b *bin.Buffer) error {
 		d.Flags.Set(25)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dialogFilter#7438f7e8: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "dialogFilter#7438f7e8",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(d.ID)
 	b.PutString(d.Title)
@@ -361,28 +372,88 @@ func (d *DialogFilter) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(d.PinnedPeers))
 	for idx, v := range d.PinnedPeers {
 		if v == nil {
-			return fmt.Errorf("unable to encode dialogFilter#7438f7e8: field pinned_peers element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "dialogFilter#7438f7e8",
+				FieldName: "pinned_peers",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<InputPeer>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode dialogFilter#7438f7e8: field pinned_peers element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "dialogFilter#7438f7e8",
+				FieldName: "pinned_peers",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.IncludePeers))
 	for idx, v := range d.IncludePeers {
 		if v == nil {
-			return fmt.Errorf("unable to encode dialogFilter#7438f7e8: field include_peers element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "dialogFilter#7438f7e8",
+				FieldName: "include_peers",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<InputPeer>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode dialogFilter#7438f7e8: field include_peers element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "dialogFilter#7438f7e8",
+				FieldName: "include_peers",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(d.ExcludePeers))
 	for idx, v := range d.ExcludePeers {
 		if v == nil {
-			return fmt.Errorf("unable to encode dialogFilter#7438f7e8: field exclude_peers element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "dialogFilter#7438f7e8",
+				FieldName: "exclude_peers",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<InputPeer>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode dialogFilter#7438f7e8: field exclude_peers element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "dialogFilter#7438f7e8",
+				FieldName: "exclude_peers",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -574,10 +645,16 @@ func (d *DialogFilter) MapExcludePeers() (value InputPeerClassArray) {
 // Decode implements bin.Decoder.
 func (d *DialogFilter) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialogFilter#7438f7e8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "dialogFilter#7438f7e8",
+		}
 	}
 	if err := b.ConsumeID(DialogFilterTypeID); err != nil {
-		return fmt.Errorf("unable to decode dialogFilter#7438f7e8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "dialogFilter#7438f7e8",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -585,11 +662,19 @@ func (d *DialogFilter) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialogFilter#7438f7e8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "dialogFilter#7438f7e8",
+		}
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFilter#7438f7e8",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	d.Contacts = d.Flags.Has(0)
@@ -603,28 +688,48 @@ func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFilter#7438f7e8",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		d.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFilter#7438f7e8",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		d.Title = value
 	}
 	if d.Flags.Has(25) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field emoticon: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFilter#7438f7e8",
+				FieldName:  "emoticon",
+				Underlying: err,
+			}
 		}
 		d.Emoticon = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field pinned_peers: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFilter#7438f7e8",
+				FieldName:  "pinned_peers",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -633,7 +738,12 @@ func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field pinned_peers: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "dialogFilter#7438f7e8",
+					FieldName:  "pinned_peers",
+					Underlying: err,
+				}
 			}
 			d.PinnedPeers = append(d.PinnedPeers, value)
 		}
@@ -641,7 +751,12 @@ func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field include_peers: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFilter#7438f7e8",
+				FieldName:  "include_peers",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -650,7 +765,12 @@ func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field include_peers: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "dialogFilter#7438f7e8",
+					FieldName:  "include_peers",
+					Underlying: err,
+				}
 			}
 			d.IncludePeers = append(d.IncludePeers, value)
 		}
@@ -658,7 +778,12 @@ func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field exclude_peers: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFilter#7438f7e8",
+				FieldName:  "exclude_peers",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -667,7 +792,12 @@ func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field exclude_peers: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "dialogFilter#7438f7e8",
+					FieldName:  "exclude_peers",
+					Underlying: err,
+				}
 			}
 			d.ExcludePeers = append(d.ExcludePeers, value)
 		}

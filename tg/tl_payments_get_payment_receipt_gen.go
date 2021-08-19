@@ -113,7 +113,10 @@ func (g *PaymentsGetPaymentReceiptRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PaymentsGetPaymentReceiptRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getPaymentReceipt#2478d1cc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.getPaymentReceipt#2478d1cc",
+		}
 	}
 	b.PutID(PaymentsGetPaymentReceiptRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,13 +125,29 @@ func (g *PaymentsGetPaymentReceiptRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetPaymentReceiptRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getPaymentReceipt#2478d1cc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.getPaymentReceipt#2478d1cc",
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode payments.getPaymentReceipt#2478d1cc: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "payments.getPaymentReceipt#2478d1cc",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getPaymentReceipt#2478d1cc: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "payments.getPaymentReceipt#2478d1cc",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.MsgID)
 	return nil
@@ -147,10 +166,16 @@ func (g *PaymentsGetPaymentReceiptRequest) GetMsgID() (value int) {
 // Decode implements bin.Decoder.
 func (g *PaymentsGetPaymentReceiptRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getPaymentReceipt#2478d1cc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.getPaymentReceipt#2478d1cc",
+		}
 	}
 	if err := b.ConsumeID(PaymentsGetPaymentReceiptRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getPaymentReceipt#2478d1cc: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "payments.getPaymentReceipt#2478d1cc",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -158,19 +183,32 @@ func (g *PaymentsGetPaymentReceiptRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetPaymentReceiptRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getPaymentReceipt#2478d1cc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.getPaymentReceipt#2478d1cc",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getPaymentReceipt#2478d1cc: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.getPaymentReceipt#2478d1cc",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getPaymentReceipt#2478d1cc: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.getPaymentReceipt#2478d1cc",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		g.MsgID = value
 	}

@@ -108,7 +108,10 @@ func (d *ChannelsDeleteChannelRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *ChannelsDeleteChannelRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode channels.deleteChannel#c0111fe3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.deleteChannel#c0111fe3",
+		}
 	}
 	b.PutID(ChannelsDeleteChannelRequestTypeID)
 	return d.EncodeBare(b)
@@ -117,13 +120,29 @@ func (d *ChannelsDeleteChannelRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *ChannelsDeleteChannelRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode channels.deleteChannel#c0111fe3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.deleteChannel#c0111fe3",
+		}
 	}
 	if d.Channel == nil {
-		return fmt.Errorf("unable to encode channels.deleteChannel#c0111fe3: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.deleteChannel#c0111fe3",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := d.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.deleteChannel#c0111fe3: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.deleteChannel#c0111fe3",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -141,10 +160,16 @@ func (d *ChannelsDeleteChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChan
 // Decode implements bin.Decoder.
 func (d *ChannelsDeleteChannelRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode channels.deleteChannel#c0111fe3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.deleteChannel#c0111fe3",
+		}
 	}
 	if err := b.ConsumeID(ChannelsDeleteChannelRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.deleteChannel#c0111fe3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.deleteChannel#c0111fe3",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -152,12 +177,20 @@ func (d *ChannelsDeleteChannelRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *ChannelsDeleteChannelRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode channels.deleteChannel#c0111fe3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.deleteChannel#c0111fe3",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.deleteChannel#c0111fe3: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.deleteChannel#c0111fe3",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		d.Channel = value
 	}

@@ -112,7 +112,10 @@ func (c *PhoneCheckGroupCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *PhoneCheckGroupCallRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode phone.checkGroupCall#b59cf977 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.checkGroupCall#b59cf977",
+		}
 	}
 	b.PutID(PhoneCheckGroupCallRequestTypeID)
 	return c.EncodeBare(b)
@@ -121,10 +124,18 @@ func (c *PhoneCheckGroupCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *PhoneCheckGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode phone.checkGroupCall#b59cf977 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.checkGroupCall#b59cf977",
+		}
 	}
 	if err := c.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.checkGroupCall#b59cf977: field call: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.checkGroupCall#b59cf977",
+			FieldName:  "call",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(c.Sources))
 	for _, v := range c.Sources {
@@ -146,10 +157,16 @@ func (c *PhoneCheckGroupCallRequest) GetSources() (value []int) {
 // Decode implements bin.Decoder.
 func (c *PhoneCheckGroupCallRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode phone.checkGroupCall#b59cf977 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.checkGroupCall#b59cf977",
+		}
 	}
 	if err := b.ConsumeID(PhoneCheckGroupCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.checkGroupCall#b59cf977: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.checkGroupCall#b59cf977",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -157,17 +174,30 @@ func (c *PhoneCheckGroupCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *PhoneCheckGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode phone.checkGroupCall#b59cf977 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.checkGroupCall#b59cf977",
+		}
 	}
 	{
 		if err := c.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.checkGroupCall#b59cf977: field call: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.checkGroupCall#b59cf977",
+				FieldName:  "call",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.checkGroupCall#b59cf977: field sources: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.checkGroupCall#b59cf977",
+				FieldName:  "sources",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -176,7 +206,12 @@ func (c *PhoneCheckGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.checkGroupCall#b59cf977: field sources: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "phone.checkGroupCall#b59cf977",
+					FieldName:  "sources",
+					Underlying: err,
+				}
 			}
 			c.Sources = append(c.Sources, value)
 		}

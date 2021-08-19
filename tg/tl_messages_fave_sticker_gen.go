@@ -113,7 +113,10 @@ func (f *MessagesFaveStickerRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *MessagesFaveStickerRequest) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.faveSticker#b9ffc55b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.faveSticker#b9ffc55b",
+		}
 	}
 	b.PutID(MessagesFaveStickerRequestTypeID)
 	return f.EncodeBare(b)
@@ -122,13 +125,29 @@ func (f *MessagesFaveStickerRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *MessagesFaveStickerRequest) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.faveSticker#b9ffc55b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.faveSticker#b9ffc55b",
+		}
 	}
 	if f.ID == nil {
-		return fmt.Errorf("unable to encode messages.faveSticker#b9ffc55b: field id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.faveSticker#b9ffc55b",
+			FieldName: "id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputDocument",
+			},
+		}
 	}
 	if err := f.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.faveSticker#b9ffc55b: field id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.faveSticker#b9ffc55b",
+			FieldName:  "id",
+			Underlying: err,
+		}
 	}
 	b.PutBool(f.Unfave)
 	return nil
@@ -152,10 +171,16 @@ func (f *MessagesFaveStickerRequest) GetUnfave() (value bool) {
 // Decode implements bin.Decoder.
 func (f *MessagesFaveStickerRequest) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.faveSticker#b9ffc55b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.faveSticker#b9ffc55b",
+		}
 	}
 	if err := b.ConsumeID(MessagesFaveStickerRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.faveSticker#b9ffc55b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.faveSticker#b9ffc55b",
+			Underlying: err,
+		}
 	}
 	return f.DecodeBare(b)
 }
@@ -163,19 +188,32 @@ func (f *MessagesFaveStickerRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *MessagesFaveStickerRequest) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.faveSticker#b9ffc55b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.faveSticker#b9ffc55b",
+		}
 	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.faveSticker#b9ffc55b: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.faveSticker#b9ffc55b",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		f.ID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.faveSticker#b9ffc55b: field unfave: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.faveSticker#b9ffc55b",
+				FieldName:  "unfave",
+				Underlying: err,
+			}
 		}
 		f.Unfave = value
 	}

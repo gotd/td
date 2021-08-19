@@ -85,7 +85,10 @@ func (g *UpdatesGetStateRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UpdatesGetStateRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode updates.getState#edd4882a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "updates.getState#edd4882a",
+		}
 	}
 	b.PutID(UpdatesGetStateRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +97,10 @@ func (g *UpdatesGetStateRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UpdatesGetStateRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode updates.getState#edd4882a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "updates.getState#edd4882a",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (g *UpdatesGetStateRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *UpdatesGetStateRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode updates.getState#edd4882a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "updates.getState#edd4882a",
+		}
 	}
 	if err := b.ConsumeID(UpdatesGetStateRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.getState#edd4882a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "updates.getState#edd4882a",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (g *UpdatesGetStateRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UpdatesGetStateRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode updates.getState#edd4882a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "updates.getState#edd4882a",
+		}
 	}
 	return nil
 }

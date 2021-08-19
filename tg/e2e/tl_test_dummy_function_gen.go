@@ -84,7 +84,10 @@ func (d *TestDummyFunctionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *TestDummyFunctionRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode test.dummyFunction#c8357709 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "test.dummyFunction#c8357709",
+		}
 	}
 	b.PutID(TestDummyFunctionRequestTypeID)
 	return d.EncodeBare(b)
@@ -93,7 +96,10 @@ func (d *TestDummyFunctionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *TestDummyFunctionRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode test.dummyFunction#c8357709 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "test.dummyFunction#c8357709",
+		}
 	}
 	return nil
 }
@@ -101,10 +107,16 @@ func (d *TestDummyFunctionRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *TestDummyFunctionRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode test.dummyFunction#c8357709 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "test.dummyFunction#c8357709",
+		}
 	}
 	if err := b.ConsumeID(TestDummyFunctionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode test.dummyFunction#c8357709: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "test.dummyFunction#c8357709",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -112,7 +124,10 @@ func (d *TestDummyFunctionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *TestDummyFunctionRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode test.dummyFunction#c8357709 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "test.dummyFunction#c8357709",
+		}
 	}
 	return nil
 }

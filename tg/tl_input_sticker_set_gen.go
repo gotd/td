@@ -85,7 +85,10 @@ func (i *InputStickerSetEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputStickerSetEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetEmpty#ffb62b95 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetEmpty#ffb62b95",
+		}
 	}
 	b.PutID(InputStickerSetEmptyTypeID)
 	return i.EncodeBare(b)
@@ -94,7 +97,10 @@ func (i *InputStickerSetEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStickerSetEmpty) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetEmpty#ffb62b95 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetEmpty#ffb62b95",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (i *InputStickerSetEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputStickerSetEmpty) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetEmpty#ffb62b95 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetEmpty#ffb62b95",
+		}
 	}
 	if err := b.ConsumeID(InputStickerSetEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickerSetEmpty#ffb62b95: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputStickerSetEmpty#ffb62b95",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (i *InputStickerSetEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStickerSetEmpty) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetEmpty#ffb62b95 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetEmpty#ffb62b95",
+		}
 	}
 	return nil
 }
@@ -215,7 +230,10 @@ func (i *InputStickerSetID) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputStickerSetID) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetID#9de7a269 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetID#9de7a269",
+		}
 	}
 	b.PutID(InputStickerSetIDTypeID)
 	return i.EncodeBare(b)
@@ -224,7 +242,10 @@ func (i *InputStickerSetID) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStickerSetID) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetID#9de7a269 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetID#9de7a269",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -244,10 +265,16 @@ func (i *InputStickerSetID) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputStickerSetID) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetID#9de7a269 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetID#9de7a269",
+		}
 	}
 	if err := b.ConsumeID(InputStickerSetIDTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickerSetID#9de7a269: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputStickerSetID#9de7a269",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -255,19 +282,32 @@ func (i *InputStickerSetID) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStickerSetID) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetID#9de7a269 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetID#9de7a269",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetID#9de7a269: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputStickerSetID#9de7a269",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetID#9de7a269: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputStickerSetID#9de7a269",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}
@@ -360,7 +400,10 @@ func (i *InputStickerSetShortName) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputStickerSetShortName) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetShortName#861cc8a0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetShortName#861cc8a0",
+		}
 	}
 	b.PutID(InputStickerSetShortNameTypeID)
 	return i.EncodeBare(b)
@@ -369,7 +412,10 @@ func (i *InputStickerSetShortName) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStickerSetShortName) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetShortName#861cc8a0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetShortName#861cc8a0",
+		}
 	}
 	b.PutString(i.ShortName)
 	return nil
@@ -383,10 +429,16 @@ func (i *InputStickerSetShortName) GetShortName() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputStickerSetShortName) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetShortName#861cc8a0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetShortName#861cc8a0",
+		}
 	}
 	if err := b.ConsumeID(InputStickerSetShortNameTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickerSetShortName#861cc8a0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputStickerSetShortName#861cc8a0",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -394,12 +446,20 @@ func (i *InputStickerSetShortName) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStickerSetShortName) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetShortName#861cc8a0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetShortName#861cc8a0",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetShortName#861cc8a0: field short_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputStickerSetShortName#861cc8a0",
+				FieldName:  "short_name",
+				Underlying: err,
+			}
 		}
 		i.ShortName = value
 	}
@@ -475,7 +535,10 @@ func (i *InputStickerSetAnimatedEmoji) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputStickerSetAnimatedEmoji) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetAnimatedEmoji#28703c8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetAnimatedEmoji#28703c8",
+		}
 	}
 	b.PutID(InputStickerSetAnimatedEmojiTypeID)
 	return i.EncodeBare(b)
@@ -484,7 +547,10 @@ func (i *InputStickerSetAnimatedEmoji) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStickerSetAnimatedEmoji) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetAnimatedEmoji#28703c8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetAnimatedEmoji#28703c8",
+		}
 	}
 	return nil
 }
@@ -492,10 +558,16 @@ func (i *InputStickerSetAnimatedEmoji) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputStickerSetAnimatedEmoji) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetAnimatedEmoji#28703c8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetAnimatedEmoji#28703c8",
+		}
 	}
 	if err := b.ConsumeID(InputStickerSetAnimatedEmojiTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickerSetAnimatedEmoji#28703c8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputStickerSetAnimatedEmoji#28703c8",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -503,7 +575,10 @@ func (i *InputStickerSetAnimatedEmoji) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStickerSetAnimatedEmoji) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetAnimatedEmoji#28703c8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetAnimatedEmoji#28703c8",
+		}
 	}
 	return nil
 }
@@ -597,7 +672,10 @@ func (i *InputStickerSetDice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputStickerSetDice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetDice#e67f520e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetDice#e67f520e",
+		}
 	}
 	b.PutID(InputStickerSetDiceTypeID)
 	return i.EncodeBare(b)
@@ -606,7 +684,10 @@ func (i *InputStickerSetDice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStickerSetDice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetDice#e67f520e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputStickerSetDice#e67f520e",
+		}
 	}
 	b.PutString(i.Emoticon)
 	return nil
@@ -620,10 +701,16 @@ func (i *InputStickerSetDice) GetEmoticon() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputStickerSetDice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetDice#e67f520e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetDice#e67f520e",
+		}
 	}
 	if err := b.ConsumeID(InputStickerSetDiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickerSetDice#e67f520e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputStickerSetDice#e67f520e",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -631,12 +718,20 @@ func (i *InputStickerSetDice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStickerSetDice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetDice#e67f520e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputStickerSetDice#e67f520e",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetDice#e67f520e: field emoticon: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputStickerSetDice#e67f520e",
+				FieldName:  "emoticon",
+				Underlying: err,
+			}
 		}
 		i.Emoticon = value
 	}
@@ -703,39 +798,57 @@ func DecodeInputStickerSet(buf *bin.Buffer) (InputStickerSetClass, error) {
 		// Decoding inputStickerSetEmpty#ffb62b95.
 		v := InputStickerSetEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputStickerSetClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputStickerSetClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputStickerSetIDTypeID:
 		// Decoding inputStickerSetID#9de7a269.
 		v := InputStickerSetID{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputStickerSetClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputStickerSetClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputStickerSetShortNameTypeID:
 		// Decoding inputStickerSetShortName#861cc8a0.
 		v := InputStickerSetShortName{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputStickerSetClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputStickerSetClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputStickerSetAnimatedEmojiTypeID:
 		// Decoding inputStickerSetAnimatedEmoji#28703c8.
 		v := InputStickerSetAnimatedEmoji{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputStickerSetClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputStickerSetClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputStickerSetDiceTypeID:
 		// Decoding inputStickerSetDice#e67f520e.
 		v := InputStickerSetDice{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputStickerSetClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputStickerSetClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputStickerSetClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "InputStickerSetClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -747,7 +860,10 @@ type InputStickerSetBox struct {
 // Decode implements bin.Decoder for InputStickerSetBox.
 func (b *InputStickerSetBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputStickerSetBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "InputStickerSetBox",
+		}
 	}
 	v, err := DecodeInputStickerSet(buf)
 	if err != nil {
@@ -760,7 +876,10 @@ func (b *InputStickerSetBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputStickerSetBox.
 func (b *InputStickerSetBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputStickerSet == nil {
-		return fmt.Errorf("unable to encode InputStickerSetClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "InputStickerSetBox",
+		}
 	}
 	return b.InputStickerSet.Encode(buf)
 }

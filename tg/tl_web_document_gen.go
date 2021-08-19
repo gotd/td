@@ -146,7 +146,10 @@ func (w *WebDocument) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WebDocument) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webDocument#1c570ed1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "webDocument#1c570ed1",
+		}
 	}
 	b.PutID(WebDocumentTypeID)
 	return w.EncodeBare(b)
@@ -155,7 +158,10 @@ func (w *WebDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebDocument) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webDocument#1c570ed1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "webDocument#1c570ed1",
+		}
 	}
 	b.PutString(w.URL)
 	b.PutLong(w.AccessHash)
@@ -164,10 +170,30 @@ func (w *WebDocument) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(w.Attributes))
 	for idx, v := range w.Attributes {
 		if v == nil {
-			return fmt.Errorf("unable to encode webDocument#1c570ed1: field attributes element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "webDocument#1c570ed1",
+				FieldName: "attributes",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<DocumentAttribute>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode webDocument#1c570ed1: field attributes element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "webDocument#1c570ed1",
+				FieldName: "attributes",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -206,10 +232,16 @@ func (w *WebDocument) MapAttributes() (value DocumentAttributeClassArray) {
 // Decode implements bin.Decoder.
 func (w *WebDocument) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webDocument#1c570ed1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "webDocument#1c570ed1",
+		}
 	}
 	if err := b.ConsumeID(WebDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode webDocument#1c570ed1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "webDocument#1c570ed1",
+			Underlying: err,
+		}
 	}
 	return w.DecodeBare(b)
 }
@@ -217,40 +249,68 @@ func (w *WebDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebDocument) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webDocument#1c570ed1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "webDocument#1c570ed1",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webDocument#1c570ed1: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "webDocument#1c570ed1",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		w.URL = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode webDocument#1c570ed1: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "webDocument#1c570ed1",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		w.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webDocument#1c570ed1: field size: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "webDocument#1c570ed1",
+				FieldName:  "size",
+				Underlying: err,
+			}
 		}
 		w.Size = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webDocument#1c570ed1: field mime_type: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "webDocument#1c570ed1",
+				FieldName:  "mime_type",
+				Underlying: err,
+			}
 		}
 		w.MimeType = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode webDocument#1c570ed1: field attributes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "webDocument#1c570ed1",
+				FieldName:  "attributes",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -259,7 +319,12 @@ func (w *WebDocument) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode webDocument#1c570ed1: field attributes: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "webDocument#1c570ed1",
+					FieldName:  "attributes",
+					Underlying: err,
+				}
 			}
 			w.Attributes = append(w.Attributes, value)
 		}
@@ -389,7 +454,10 @@ func (w *WebDocumentNoProxy) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WebDocumentNoProxy) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webDocumentNoProxy#f9c8bcc6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "webDocumentNoProxy#f9c8bcc6",
+		}
 	}
 	b.PutID(WebDocumentNoProxyTypeID)
 	return w.EncodeBare(b)
@@ -398,7 +466,10 @@ func (w *WebDocumentNoProxy) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebDocumentNoProxy) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webDocumentNoProxy#f9c8bcc6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "webDocumentNoProxy#f9c8bcc6",
+		}
 	}
 	b.PutString(w.URL)
 	b.PutInt(w.Size)
@@ -406,10 +477,30 @@ func (w *WebDocumentNoProxy) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(w.Attributes))
 	for idx, v := range w.Attributes {
 		if v == nil {
-			return fmt.Errorf("unable to encode webDocumentNoProxy#f9c8bcc6: field attributes element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "webDocumentNoProxy#f9c8bcc6",
+				FieldName: "attributes",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<DocumentAttribute>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode webDocumentNoProxy#f9c8bcc6: field attributes element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "webDocumentNoProxy#f9c8bcc6",
+				FieldName: "attributes",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -443,10 +534,16 @@ func (w *WebDocumentNoProxy) MapAttributes() (value DocumentAttributeClassArray)
 // Decode implements bin.Decoder.
 func (w *WebDocumentNoProxy) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webDocumentNoProxy#f9c8bcc6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "webDocumentNoProxy#f9c8bcc6",
+		}
 	}
 	if err := b.ConsumeID(WebDocumentNoProxyTypeID); err != nil {
-		return fmt.Errorf("unable to decode webDocumentNoProxy#f9c8bcc6: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "webDocumentNoProxy#f9c8bcc6",
+			Underlying: err,
+		}
 	}
 	return w.DecodeBare(b)
 }
@@ -454,33 +551,56 @@ func (w *WebDocumentNoProxy) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebDocumentNoProxy) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webDocumentNoProxy#f9c8bcc6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "webDocumentNoProxy#f9c8bcc6",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webDocumentNoProxy#f9c8bcc6: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "webDocumentNoProxy#f9c8bcc6",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		w.URL = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webDocumentNoProxy#f9c8bcc6: field size: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "webDocumentNoProxy#f9c8bcc6",
+				FieldName:  "size",
+				Underlying: err,
+			}
 		}
 		w.Size = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webDocumentNoProxy#f9c8bcc6: field mime_type: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "webDocumentNoProxy#f9c8bcc6",
+				FieldName:  "mime_type",
+				Underlying: err,
+			}
 		}
 		w.MimeType = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode webDocumentNoProxy#f9c8bcc6: field attributes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "webDocumentNoProxy#f9c8bcc6",
+				FieldName:  "attributes",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -489,7 +609,12 @@ func (w *WebDocumentNoProxy) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode webDocumentNoProxy#f9c8bcc6: field attributes: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "webDocumentNoProxy#f9c8bcc6",
+					FieldName:  "attributes",
+					Underlying: err,
+				}
 			}
 			w.Attributes = append(w.Attributes, value)
 		}
@@ -579,18 +704,27 @@ func DecodeWebDocument(buf *bin.Buffer) (WebDocumentClass, error) {
 		// Decoding webDocument#1c570ed1.
 		v := WebDocument{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode WebDocumentClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "WebDocumentClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case WebDocumentNoProxyTypeID:
 		// Decoding webDocumentNoProxy#f9c8bcc6.
 		v := WebDocumentNoProxy{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode WebDocumentClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "WebDocumentClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode WebDocumentClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "WebDocumentClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -602,7 +736,10 @@ type WebDocumentBox struct {
 // Decode implements bin.Decoder for WebDocumentBox.
 func (b *WebDocumentBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode WebDocumentBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "WebDocumentBox",
+		}
 	}
 	v, err := DecodeWebDocument(buf)
 	if err != nil {
@@ -615,7 +752,10 @@ func (b *WebDocumentBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for WebDocumentBox.
 func (b *WebDocumentBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.WebDocument == nil {
-		return fmt.Errorf("unable to encode WebDocumentClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "WebDocumentBox",
+		}
 	}
 	return b.WebDocument.Encode(buf)
 }

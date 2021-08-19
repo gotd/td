@@ -85,7 +85,10 @@ func (p *PhoneCallDiscardReasonMissed) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonMissed) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallDiscardReasonMissed#85e42301 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phoneCallDiscardReasonMissed#85e42301",
+		}
 	}
 	b.PutID(PhoneCallDiscardReasonMissedTypeID)
 	return p.EncodeBare(b)
@@ -94,7 +97,10 @@ func (p *PhoneCallDiscardReasonMissed) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneCallDiscardReasonMissed) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallDiscardReasonMissed#85e42301 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phoneCallDiscardReasonMissed#85e42301",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (p *PhoneCallDiscardReasonMissed) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PhoneCallDiscardReasonMissed) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscardReasonMissed#85e42301 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phoneCallDiscardReasonMissed#85e42301",
+		}
 	}
 	if err := b.ConsumeID(PhoneCallDiscardReasonMissedTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneCallDiscardReasonMissed#85e42301: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phoneCallDiscardReasonMissed#85e42301",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (p *PhoneCallDiscardReasonMissed) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneCallDiscardReasonMissed) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscardReasonMissed#85e42301 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phoneCallDiscardReasonMissed#85e42301",
+		}
 	}
 	return nil
 }
@@ -187,7 +202,10 @@ func (p *PhoneCallDiscardReasonDisconnect) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonDisconnect) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallDiscardReasonDisconnect#e095c1a0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phoneCallDiscardReasonDisconnect#e095c1a0",
+		}
 	}
 	b.PutID(PhoneCallDiscardReasonDisconnectTypeID)
 	return p.EncodeBare(b)
@@ -196,7 +214,10 @@ func (p *PhoneCallDiscardReasonDisconnect) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneCallDiscardReasonDisconnect) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallDiscardReasonDisconnect#e095c1a0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phoneCallDiscardReasonDisconnect#e095c1a0",
+		}
 	}
 	return nil
 }
@@ -204,10 +225,16 @@ func (p *PhoneCallDiscardReasonDisconnect) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PhoneCallDiscardReasonDisconnect) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscardReasonDisconnect#e095c1a0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phoneCallDiscardReasonDisconnect#e095c1a0",
+		}
 	}
 	if err := b.ConsumeID(PhoneCallDiscardReasonDisconnectTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneCallDiscardReasonDisconnect#e095c1a0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phoneCallDiscardReasonDisconnect#e095c1a0",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -215,7 +242,10 @@ func (p *PhoneCallDiscardReasonDisconnect) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneCallDiscardReasonDisconnect) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscardReasonDisconnect#e095c1a0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phoneCallDiscardReasonDisconnect#e095c1a0",
+		}
 	}
 	return nil
 }
@@ -289,7 +319,10 @@ func (p *PhoneCallDiscardReasonHangup) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonHangup) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallDiscardReasonHangup#57adc690 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phoneCallDiscardReasonHangup#57adc690",
+		}
 	}
 	b.PutID(PhoneCallDiscardReasonHangupTypeID)
 	return p.EncodeBare(b)
@@ -298,7 +331,10 @@ func (p *PhoneCallDiscardReasonHangup) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneCallDiscardReasonHangup) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallDiscardReasonHangup#57adc690 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phoneCallDiscardReasonHangup#57adc690",
+		}
 	}
 	return nil
 }
@@ -306,10 +342,16 @@ func (p *PhoneCallDiscardReasonHangup) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PhoneCallDiscardReasonHangup) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscardReasonHangup#57adc690 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phoneCallDiscardReasonHangup#57adc690",
+		}
 	}
 	if err := b.ConsumeID(PhoneCallDiscardReasonHangupTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneCallDiscardReasonHangup#57adc690: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phoneCallDiscardReasonHangup#57adc690",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -317,7 +359,10 @@ func (p *PhoneCallDiscardReasonHangup) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneCallDiscardReasonHangup) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscardReasonHangup#57adc690 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phoneCallDiscardReasonHangup#57adc690",
+		}
 	}
 	return nil
 }
@@ -391,7 +436,10 @@ func (p *PhoneCallDiscardReasonBusy) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonBusy) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallDiscardReasonBusy#faf7e8c9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phoneCallDiscardReasonBusy#faf7e8c9",
+		}
 	}
 	b.PutID(PhoneCallDiscardReasonBusyTypeID)
 	return p.EncodeBare(b)
@@ -400,7 +448,10 @@ func (p *PhoneCallDiscardReasonBusy) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneCallDiscardReasonBusy) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallDiscardReasonBusy#faf7e8c9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phoneCallDiscardReasonBusy#faf7e8c9",
+		}
 	}
 	return nil
 }
@@ -408,10 +459,16 @@ func (p *PhoneCallDiscardReasonBusy) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PhoneCallDiscardReasonBusy) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscardReasonBusy#faf7e8c9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phoneCallDiscardReasonBusy#faf7e8c9",
+		}
 	}
 	if err := b.ConsumeID(PhoneCallDiscardReasonBusyTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneCallDiscardReasonBusy#faf7e8c9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phoneCallDiscardReasonBusy#faf7e8c9",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -419,7 +476,10 @@ func (p *PhoneCallDiscardReasonBusy) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneCallDiscardReasonBusy) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscardReasonBusy#faf7e8c9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phoneCallDiscardReasonBusy#faf7e8c9",
+		}
 	}
 	return nil
 }
@@ -483,32 +543,47 @@ func DecodePhoneCallDiscardReason(buf *bin.Buffer) (PhoneCallDiscardReasonClass,
 		// Decoding phoneCallDiscardReasonMissed#85e42301.
 		v := PhoneCallDiscardReasonMissed{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PhoneCallDiscardReasonClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PhoneCallDiscardReasonClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PhoneCallDiscardReasonDisconnectTypeID:
 		// Decoding phoneCallDiscardReasonDisconnect#e095c1a0.
 		v := PhoneCallDiscardReasonDisconnect{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PhoneCallDiscardReasonClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PhoneCallDiscardReasonClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PhoneCallDiscardReasonHangupTypeID:
 		// Decoding phoneCallDiscardReasonHangup#57adc690.
 		v := PhoneCallDiscardReasonHangup{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PhoneCallDiscardReasonClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PhoneCallDiscardReasonClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PhoneCallDiscardReasonBusyTypeID:
 		// Decoding phoneCallDiscardReasonBusy#faf7e8c9.
 		v := PhoneCallDiscardReasonBusy{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PhoneCallDiscardReasonClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PhoneCallDiscardReasonClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode PhoneCallDiscardReasonClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "PhoneCallDiscardReasonClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -520,7 +595,10 @@ type PhoneCallDiscardReasonBox struct {
 // Decode implements bin.Decoder for PhoneCallDiscardReasonBox.
 func (b *PhoneCallDiscardReasonBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode PhoneCallDiscardReasonBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "PhoneCallDiscardReasonBox",
+		}
 	}
 	v, err := DecodePhoneCallDiscardReason(buf)
 	if err != nil {
@@ -533,7 +611,10 @@ func (b *PhoneCallDiscardReasonBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for PhoneCallDiscardReasonBox.
 func (b *PhoneCallDiscardReasonBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.PhoneCallDiscardReason == nil {
-		return fmt.Errorf("unable to encode PhoneCallDiscardReasonClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "PhoneCallDiscardReasonBox",
+		}
 	}
 	return b.PhoneCallDiscardReason.Encode(buf)
 }

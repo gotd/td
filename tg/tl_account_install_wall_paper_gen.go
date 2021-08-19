@@ -113,7 +113,10 @@ func (i *AccountInstallWallPaperRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *AccountInstallWallPaperRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode account.installWallPaper#feed5769 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.installWallPaper#feed5769",
+		}
 	}
 	b.PutID(AccountInstallWallPaperRequestTypeID)
 	return i.EncodeBare(b)
@@ -122,16 +125,37 @@ func (i *AccountInstallWallPaperRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *AccountInstallWallPaperRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode account.installWallPaper#feed5769 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.installWallPaper#feed5769",
+		}
 	}
 	if i.Wallpaper == nil {
-		return fmt.Errorf("unable to encode account.installWallPaper#feed5769: field wallpaper is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.installWallPaper#feed5769",
+			FieldName: "wallpaper",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputWallPaper",
+			},
+		}
 	}
 	if err := i.Wallpaper.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.installWallPaper#feed5769: field wallpaper: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.installWallPaper#feed5769",
+			FieldName:  "wallpaper",
+			Underlying: err,
+		}
 	}
 	if err := i.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.installWallPaper#feed5769: field settings: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.installWallPaper#feed5769",
+			FieldName:  "settings",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -149,10 +173,16 @@ func (i *AccountInstallWallPaperRequest) GetSettings() (value WallPaperSettings)
 // Decode implements bin.Decoder.
 func (i *AccountInstallWallPaperRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode account.installWallPaper#feed5769 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.installWallPaper#feed5769",
+		}
 	}
 	if err := b.ConsumeID(AccountInstallWallPaperRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.installWallPaper#feed5769: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.installWallPaper#feed5769",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -160,18 +190,31 @@ func (i *AccountInstallWallPaperRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *AccountInstallWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode account.installWallPaper#feed5769 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.installWallPaper#feed5769",
+		}
 	}
 	{
 		value, err := DecodeInputWallPaper(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.installWallPaper#feed5769: field wallpaper: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.installWallPaper#feed5769",
+				FieldName:  "wallpaper",
+				Underlying: err,
+			}
 		}
 		i.Wallpaper = value
 	}
 	{
 		if err := i.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.installWallPaper#feed5769: field settings: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.installWallPaper#feed5769",
+				FieldName:  "settings",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

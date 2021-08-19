@@ -116,7 +116,10 @@ func (p *PollAnswer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PollAnswer) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollAnswer#6ca9c2e9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pollAnswer#6ca9c2e9",
+		}
 	}
 	b.PutID(PollAnswerTypeID)
 	return p.EncodeBare(b)
@@ -125,7 +128,10 @@ func (p *PollAnswer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PollAnswer) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollAnswer#6ca9c2e9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pollAnswer#6ca9c2e9",
+		}
 	}
 	b.PutString(p.Text)
 	b.PutBytes(p.Option)
@@ -145,10 +151,16 @@ func (p *PollAnswer) GetOption() (value []byte) {
 // Decode implements bin.Decoder.
 func (p *PollAnswer) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollAnswer#6ca9c2e9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pollAnswer#6ca9c2e9",
+		}
 	}
 	if err := b.ConsumeID(PollAnswerTypeID); err != nil {
-		return fmt.Errorf("unable to decode pollAnswer#6ca9c2e9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pollAnswer#6ca9c2e9",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -156,19 +168,32 @@ func (p *PollAnswer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PollAnswer) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollAnswer#6ca9c2e9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pollAnswer#6ca9c2e9",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollAnswer#6ca9c2e9: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pollAnswer#6ca9c2e9",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		p.Text = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollAnswer#6ca9c2e9: field option: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pollAnswer#6ca9c2e9",
+				FieldName:  "option",
+				Underlying: err,
+			}
 		}
 		p.Option = value
 	}

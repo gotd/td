@@ -144,7 +144,10 @@ func (i *AuthImportBotAuthorizationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *AuthImportBotAuthorizationRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode auth.importBotAuthorization#67a3ff2c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.importBotAuthorization#67a3ff2c",
+		}
 	}
 	b.PutID(AuthImportBotAuthorizationRequestTypeID)
 	return i.EncodeBare(b)
@@ -153,7 +156,10 @@ func (i *AuthImportBotAuthorizationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *AuthImportBotAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode auth.importBotAuthorization#67a3ff2c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.importBotAuthorization#67a3ff2c",
+		}
 	}
 	b.PutInt(i.Flags)
 	b.PutInt(i.APIID)
@@ -185,10 +191,16 @@ func (i *AuthImportBotAuthorizationRequest) GetBotAuthToken() (value string) {
 // Decode implements bin.Decoder.
 func (i *AuthImportBotAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode auth.importBotAuthorization#67a3ff2c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.importBotAuthorization#67a3ff2c",
+		}
 	}
 	if err := b.ConsumeID(AuthImportBotAuthorizationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.importBotAuthorization#67a3ff2c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.importBotAuthorization#67a3ff2c",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -196,33 +208,56 @@ func (i *AuthImportBotAuthorizationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *AuthImportBotAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode auth.importBotAuthorization#67a3ff2c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.importBotAuthorization#67a3ff2c",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.importBotAuthorization#67a3ff2c: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.importBotAuthorization#67a3ff2c",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 		i.Flags = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.importBotAuthorization#67a3ff2c: field api_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.importBotAuthorization#67a3ff2c",
+				FieldName:  "api_id",
+				Underlying: err,
+			}
 		}
 		i.APIID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.importBotAuthorization#67a3ff2c: field api_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.importBotAuthorization#67a3ff2c",
+				FieldName:  "api_hash",
+				Underlying: err,
+			}
 		}
 		i.APIHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.importBotAuthorization#67a3ff2c: field bot_auth_token: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.importBotAuthorization#67a3ff2c",
+				FieldName:  "bot_auth_token",
+				Underlying: err,
+			}
 		}
 		i.BotAuthToken = value
 	}

@@ -113,7 +113,10 @@ func (l *LangPackString) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LangPackString) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode langPackString#cad181f6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "langPackString#cad181f6",
+		}
 	}
 	b.PutID(LangPackStringTypeID)
 	return l.EncodeBare(b)
@@ -122,7 +125,10 @@ func (l *LangPackString) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LangPackString) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode langPackString#cad181f6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "langPackString#cad181f6",
+		}
 	}
 	b.PutString(l.Key)
 	b.PutString(l.Value)
@@ -142,10 +148,16 @@ func (l *LangPackString) GetValue() (value string) {
 // Decode implements bin.Decoder.
 func (l *LangPackString) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode langPackString#cad181f6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "langPackString#cad181f6",
+		}
 	}
 	if err := b.ConsumeID(LangPackStringTypeID); err != nil {
-		return fmt.Errorf("unable to decode langPackString#cad181f6: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "langPackString#cad181f6",
+			Underlying: err,
+		}
 	}
 	return l.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (l *LangPackString) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LangPackString) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode langPackString#cad181f6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "langPackString#cad181f6",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackString#cad181f6: field key: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackString#cad181f6",
+				FieldName:  "key",
+				Underlying: err,
+			}
 		}
 		l.Key = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackString#cad181f6: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackString#cad181f6",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 		l.Value = value
 	}
@@ -367,7 +392,10 @@ func (l *LangPackStringPluralized) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LangPackStringPluralized) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode langPackStringPluralized#6c47ac9f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "langPackStringPluralized#6c47ac9f",
+		}
 	}
 	b.PutID(LangPackStringPluralizedTypeID)
 	return l.EncodeBare(b)
@@ -376,7 +404,10 @@ func (l *LangPackStringPluralized) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LangPackStringPluralized) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode langPackStringPluralized#6c47ac9f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "langPackStringPluralized#6c47ac9f",
+		}
 	}
 	if !(l.ZeroValue == "") {
 		l.Flags.Set(0)
@@ -394,7 +425,12 @@ func (l *LangPackStringPluralized) EncodeBare(b *bin.Buffer) error {
 		l.Flags.Set(4)
 	}
 	if err := l.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode langPackStringPluralized#6c47ac9f: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "langPackStringPluralized#6c47ac9f",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(l.Key)
 	if l.Flags.Has(0) {
@@ -504,10 +540,16 @@ func (l *LangPackStringPluralized) GetOtherValue() (value string) {
 // Decode implements bin.Decoder.
 func (l *LangPackStringPluralized) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode langPackStringPluralized#6c47ac9f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "langPackStringPluralized#6c47ac9f",
+		}
 	}
 	if err := b.ConsumeID(LangPackStringPluralizedTypeID); err != nil {
-		return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "langPackStringPluralized#6c47ac9f",
+			Underlying: err,
+		}
 	}
 	return l.DecodeBare(b)
 }
@@ -515,59 +557,102 @@ func (l *LangPackStringPluralized) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LangPackStringPluralized) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode langPackStringPluralized#6c47ac9f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "langPackStringPluralized#6c47ac9f",
+		}
 	}
 	{
 		if err := l.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackStringPluralized#6c47ac9f",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field key: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackStringPluralized#6c47ac9f",
+				FieldName:  "key",
+				Underlying: err,
+			}
 		}
 		l.Key = value
 	}
 	if l.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field zero_value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackStringPluralized#6c47ac9f",
+				FieldName:  "zero_value",
+				Underlying: err,
+			}
 		}
 		l.ZeroValue = value
 	}
 	if l.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field one_value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackStringPluralized#6c47ac9f",
+				FieldName:  "one_value",
+				Underlying: err,
+			}
 		}
 		l.OneValue = value
 	}
 	if l.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field two_value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackStringPluralized#6c47ac9f",
+				FieldName:  "two_value",
+				Underlying: err,
+			}
 		}
 		l.TwoValue = value
 	}
 	if l.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field few_value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackStringPluralized#6c47ac9f",
+				FieldName:  "few_value",
+				Underlying: err,
+			}
 		}
 		l.FewValue = value
 	}
 	if l.Flags.Has(4) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field many_value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackStringPluralized#6c47ac9f",
+				FieldName:  "many_value",
+				Underlying: err,
+			}
 		}
 		l.ManyValue = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field other_value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackStringPluralized#6c47ac9f",
+				FieldName:  "other_value",
+				Underlying: err,
+			}
 		}
 		l.OtherValue = value
 	}
@@ -660,7 +745,10 @@ func (l *LangPackStringDeleted) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LangPackStringDeleted) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode langPackStringDeleted#2979eeb2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "langPackStringDeleted#2979eeb2",
+		}
 	}
 	b.PutID(LangPackStringDeletedTypeID)
 	return l.EncodeBare(b)
@@ -669,7 +757,10 @@ func (l *LangPackStringDeleted) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LangPackStringDeleted) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode langPackStringDeleted#2979eeb2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "langPackStringDeleted#2979eeb2",
+		}
 	}
 	b.PutString(l.Key)
 	return nil
@@ -683,10 +774,16 @@ func (l *LangPackStringDeleted) GetKey() (value string) {
 // Decode implements bin.Decoder.
 func (l *LangPackStringDeleted) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode langPackStringDeleted#2979eeb2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "langPackStringDeleted#2979eeb2",
+		}
 	}
 	if err := b.ConsumeID(LangPackStringDeletedTypeID); err != nil {
-		return fmt.Errorf("unable to decode langPackStringDeleted#2979eeb2: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "langPackStringDeleted#2979eeb2",
+			Underlying: err,
+		}
 	}
 	return l.DecodeBare(b)
 }
@@ -694,12 +791,20 @@ func (l *LangPackStringDeleted) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LangPackStringDeleted) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode langPackStringDeleted#2979eeb2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "langPackStringDeleted#2979eeb2",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringDeleted#2979eeb2: field key: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackStringDeleted#2979eeb2",
+				FieldName:  "key",
+				Underlying: err,
+			}
 		}
 		l.Key = value
 	}
@@ -767,25 +872,37 @@ func DecodeLangPackString(buf *bin.Buffer) (LangPackStringClass, error) {
 		// Decoding langPackString#cad181f6.
 		v := LangPackString{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode LangPackStringClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "LangPackStringClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case LangPackStringPluralizedTypeID:
 		// Decoding langPackStringPluralized#6c47ac9f.
 		v := LangPackStringPluralized{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode LangPackStringClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "LangPackStringClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case LangPackStringDeletedTypeID:
 		// Decoding langPackStringDeleted#2979eeb2.
 		v := LangPackStringDeleted{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode LangPackStringClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "LangPackStringClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode LangPackStringClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "LangPackStringClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -797,7 +914,10 @@ type LangPackStringBox struct {
 // Decode implements bin.Decoder for LangPackStringBox.
 func (b *LangPackStringBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode LangPackStringBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "LangPackStringBox",
+		}
 	}
 	v, err := DecodeLangPackString(buf)
 	if err != nil {
@@ -810,7 +930,10 @@ func (b *LangPackStringBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for LangPackStringBox.
 func (b *LangPackStringBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.LangPackString == nil {
-		return fmt.Errorf("unable to encode LangPackStringClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "LangPackStringBox",
+		}
 	}
 	return b.LangPackString.Encode(buf)
 }

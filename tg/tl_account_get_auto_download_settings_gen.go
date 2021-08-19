@@ -85,7 +85,10 @@ func (g *AccountGetAutoDownloadSettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetAutoDownloadSettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getAutoDownloadSettings#56da0b3f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getAutoDownloadSettings#56da0b3f",
+		}
 	}
 	b.PutID(AccountGetAutoDownloadSettingsRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +97,10 @@ func (g *AccountGetAutoDownloadSettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetAutoDownloadSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getAutoDownloadSettings#56da0b3f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getAutoDownloadSettings#56da0b3f",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (g *AccountGetAutoDownloadSettingsRequest) EncodeBare(b *bin.Buffer) error 
 // Decode implements bin.Decoder.
 func (g *AccountGetAutoDownloadSettingsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getAutoDownloadSettings#56da0b3f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getAutoDownloadSettings#56da0b3f",
+		}
 	}
 	if err := b.ConsumeID(AccountGetAutoDownloadSettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getAutoDownloadSettings#56da0b3f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.getAutoDownloadSettings#56da0b3f",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (g *AccountGetAutoDownloadSettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetAutoDownloadSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getAutoDownloadSettings#56da0b3f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getAutoDownloadSettings#56da0b3f",
+		}
 	}
 	return nil
 }

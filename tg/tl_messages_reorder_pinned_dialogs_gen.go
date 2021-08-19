@@ -136,7 +136,10 @@ func (r *MessagesReorderPinnedDialogsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesReorderPinnedDialogsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.reorderPinnedDialogs#3b1adf37 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.reorderPinnedDialogs#3b1adf37",
+		}
 	}
 	b.PutID(MessagesReorderPinnedDialogsRequestTypeID)
 	return r.EncodeBare(b)
@@ -145,22 +148,50 @@ func (r *MessagesReorderPinnedDialogsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReorderPinnedDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.reorderPinnedDialogs#3b1adf37 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.reorderPinnedDialogs#3b1adf37",
+		}
 	}
 	if !(r.Force == false) {
 		r.Flags.Set(0)
 	}
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.reorderPinnedDialogs#3b1adf37: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.reorderPinnedDialogs#3b1adf37",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(r.FolderID)
 	b.PutVectorHeader(len(r.Order))
 	for idx, v := range r.Order {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.reorderPinnedDialogs#3b1adf37: field order element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.reorderPinnedDialogs#3b1adf37",
+				FieldName: "order",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<InputDialogPeer>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.reorderPinnedDialogs#3b1adf37: field order element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.reorderPinnedDialogs#3b1adf37",
+				FieldName: "order",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -200,10 +231,16 @@ func (r *MessagesReorderPinnedDialogsRequest) MapOrder() (value InputDialogPeerC
 // Decode implements bin.Decoder.
 func (r *MessagesReorderPinnedDialogsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.reorderPinnedDialogs#3b1adf37 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.reorderPinnedDialogs#3b1adf37",
+		}
 	}
 	if err := b.ConsumeID(MessagesReorderPinnedDialogsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.reorderPinnedDialogs#3b1adf37: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.reorderPinnedDialogs#3b1adf37",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -211,25 +248,43 @@ func (r *MessagesReorderPinnedDialogsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReorderPinnedDialogsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.reorderPinnedDialogs#3b1adf37 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.reorderPinnedDialogs#3b1adf37",
+		}
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.reorderPinnedDialogs#3b1adf37: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.reorderPinnedDialogs#3b1adf37",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	r.Force = r.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.reorderPinnedDialogs#3b1adf37: field folder_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.reorderPinnedDialogs#3b1adf37",
+				FieldName:  "folder_id",
+				Underlying: err,
+			}
 		}
 		r.FolderID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.reorderPinnedDialogs#3b1adf37: field order: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.reorderPinnedDialogs#3b1adf37",
+				FieldName:  "order",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -238,7 +293,12 @@ func (r *MessagesReorderPinnedDialogsRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputDialogPeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.reorderPinnedDialogs#3b1adf37: field order: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.reorderPinnedDialogs#3b1adf37",
+					FieldName:  "order",
+					Underlying: err,
+				}
 			}
 			r.Order = append(r.Order, value)
 		}

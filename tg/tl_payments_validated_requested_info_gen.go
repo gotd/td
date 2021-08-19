@@ -129,7 +129,10 @@ func (v *PaymentsValidatedRequestedInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (v *PaymentsValidatedRequestedInfo) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode payments.validatedRequestedInfo#d1451883 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.validatedRequestedInfo#d1451883",
+		}
 	}
 	b.PutID(PaymentsValidatedRequestedInfoTypeID)
 	return v.EncodeBare(b)
@@ -138,7 +141,10 @@ func (v *PaymentsValidatedRequestedInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *PaymentsValidatedRequestedInfo) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode payments.validatedRequestedInfo#d1451883 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.validatedRequestedInfo#d1451883",
+		}
 	}
 	if !(v.ID == "") {
 		v.Flags.Set(0)
@@ -147,7 +153,12 @@ func (v *PaymentsValidatedRequestedInfo) EncodeBare(b *bin.Buffer) error {
 		v.Flags.Set(1)
 	}
 	if err := v.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.validatedRequestedInfo#d1451883: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "payments.validatedRequestedInfo#d1451883",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if v.Flags.Has(0) {
 		b.PutString(v.ID)
@@ -156,7 +167,16 @@ func (v *PaymentsValidatedRequestedInfo) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(v.ShippingOptions))
 		for idx, v := range v.ShippingOptions {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode payments.validatedRequestedInfo#d1451883: field shipping_options element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "payments.validatedRequestedInfo#d1451883",
+					FieldName: "shipping_options",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
@@ -196,10 +216,16 @@ func (v *PaymentsValidatedRequestedInfo) GetShippingOptions() (value []ShippingO
 // Decode implements bin.Decoder.
 func (v *PaymentsValidatedRequestedInfo) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode payments.validatedRequestedInfo#d1451883 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.validatedRequestedInfo#d1451883",
+		}
 	}
 	if err := b.ConsumeID(PaymentsValidatedRequestedInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.validatedRequestedInfo#d1451883: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "payments.validatedRequestedInfo#d1451883",
+			Underlying: err,
+		}
 	}
 	return v.DecodeBare(b)
 }
@@ -207,24 +233,42 @@ func (v *PaymentsValidatedRequestedInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *PaymentsValidatedRequestedInfo) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode payments.validatedRequestedInfo#d1451883 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.validatedRequestedInfo#d1451883",
+		}
 	}
 	{
 		if err := v.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.validatedRequestedInfo#d1451883: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.validatedRequestedInfo#d1451883",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	if v.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.validatedRequestedInfo#d1451883: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.validatedRequestedInfo#d1451883",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		v.ID = value
 	}
 	if v.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.validatedRequestedInfo#d1451883: field shipping_options: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.validatedRequestedInfo#d1451883",
+				FieldName:  "shipping_options",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -233,7 +277,13 @@ func (v *PaymentsValidatedRequestedInfo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value ShippingOption
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode payments.validatedRequestedInfo#d1451883: field shipping_options: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "payments.validatedRequestedInfo#d1451883",
+					FieldName:  "shipping_options",
+					Underlying: err,
+				}
 			}
 			v.ShippingOptions = append(v.ShippingOptions, value)
 		}

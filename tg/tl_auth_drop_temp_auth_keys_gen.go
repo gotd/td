@@ -102,7 +102,10 @@ func (d *AuthDropTempAuthKeysRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *AuthDropTempAuthKeysRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode auth.dropTempAuthKeys#8e48a188 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.dropTempAuthKeys#8e48a188",
+		}
 	}
 	b.PutID(AuthDropTempAuthKeysRequestTypeID)
 	return d.EncodeBare(b)
@@ -111,7 +114,10 @@ func (d *AuthDropTempAuthKeysRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *AuthDropTempAuthKeysRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode auth.dropTempAuthKeys#8e48a188 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.dropTempAuthKeys#8e48a188",
+		}
 	}
 	b.PutVectorHeader(len(d.ExceptAuthKeys))
 	for _, v := range d.ExceptAuthKeys {
@@ -128,10 +134,16 @@ func (d *AuthDropTempAuthKeysRequest) GetExceptAuthKeys() (value []int64) {
 // Decode implements bin.Decoder.
 func (d *AuthDropTempAuthKeysRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode auth.dropTempAuthKeys#8e48a188 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.dropTempAuthKeys#8e48a188",
+		}
 	}
 	if err := b.ConsumeID(AuthDropTempAuthKeysRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.dropTempAuthKeys#8e48a188: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.dropTempAuthKeys#8e48a188",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -139,12 +151,20 @@ func (d *AuthDropTempAuthKeysRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *AuthDropTempAuthKeysRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode auth.dropTempAuthKeys#8e48a188 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.dropTempAuthKeys#8e48a188",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.dropTempAuthKeys#8e48a188: field except_auth_keys: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.dropTempAuthKeys#8e48a188",
+				FieldName:  "except_auth_keys",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -153,7 +173,12 @@ func (d *AuthDropTempAuthKeysRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode auth.dropTempAuthKeys#8e48a188: field except_auth_keys: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "auth.dropTempAuthKeys#8e48a188",
+					FieldName:  "except_auth_keys",
+					Underlying: err,
+				}
 			}
 			d.ExceptAuthKeys = append(d.ExceptAuthKeys, value)
 		}

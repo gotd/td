@@ -175,7 +175,10 @@ func (g *StatsGetMessagePublicForwardsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *StatsGetMessagePublicForwardsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getMessagePublicForwards#5630281b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stats.getMessagePublicForwards#5630281b",
+		}
 	}
 	b.PutID(StatsGetMessagePublicForwardsRequestTypeID)
 	return g.EncodeBare(b)
@@ -184,21 +187,50 @@ func (g *StatsGetMessagePublicForwardsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *StatsGetMessagePublicForwardsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getMessagePublicForwards#5630281b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stats.getMessagePublicForwards#5630281b",
+		}
 	}
 	if g.Channel == nil {
-		return fmt.Errorf("unable to encode stats.getMessagePublicForwards#5630281b: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.getMessagePublicForwards#5630281b",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getMessagePublicForwards#5630281b: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.getMessagePublicForwards#5630281b",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.MsgID)
 	b.PutInt(g.OffsetRate)
 	if g.OffsetPeer == nil {
-		return fmt.Errorf("unable to encode stats.getMessagePublicForwards#5630281b: field offset_peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.getMessagePublicForwards#5630281b",
+			FieldName: "offset_peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.OffsetPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getMessagePublicForwards#5630281b: field offset_peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.getMessagePublicForwards#5630281b",
+			FieldName:  "offset_peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.OffsetID)
 	b.PutInt(g.Limit)
@@ -243,10 +275,16 @@ func (g *StatsGetMessagePublicForwardsRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *StatsGetMessagePublicForwardsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getMessagePublicForwards#5630281b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stats.getMessagePublicForwards#5630281b",
+		}
 	}
 	if err := b.ConsumeID(StatsGetMessagePublicForwardsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "stats.getMessagePublicForwards#5630281b",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -254,47 +292,80 @@ func (g *StatsGetMessagePublicForwardsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *StatsGetMessagePublicForwardsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getMessagePublicForwards#5630281b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stats.getMessagePublicForwards#5630281b",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.getMessagePublicForwards#5630281b",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		g.Channel = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.getMessagePublicForwards#5630281b",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		g.MsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: field offset_rate: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.getMessagePublicForwards#5630281b",
+				FieldName:  "offset_rate",
+				Underlying: err,
+			}
 		}
 		g.OffsetRate = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: field offset_peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.getMessagePublicForwards#5630281b",
+				FieldName:  "offset_peer",
+				Underlying: err,
+			}
 		}
 		g.OffsetPeer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: field offset_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.getMessagePublicForwards#5630281b",
+				FieldName:  "offset_id",
+				Underlying: err,
+			}
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.getMessagePublicForwards#5630281b",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}

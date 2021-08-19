@@ -135,7 +135,10 @@ func (c *ChannelsChannelParticipants) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelsChannelParticipants) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.channelParticipants#9ab0feaf as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.channelParticipants#9ab0feaf",
+		}
 	}
 	b.PutID(ChannelsChannelParticipantsTypeID)
 	return c.EncodeBare(b)
@@ -144,34 +147,97 @@ func (c *ChannelsChannelParticipants) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelsChannelParticipants) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.channelParticipants#9ab0feaf as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.channelParticipants#9ab0feaf",
+		}
 	}
 	b.PutInt(c.Count)
 	b.PutVectorHeader(len(c.Participants))
 	for idx, v := range c.Participants {
 		if v == nil {
-			return fmt.Errorf("unable to encode channels.channelParticipants#9ab0feaf: field participants element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "channels.channelParticipants#9ab0feaf",
+				FieldName: "participants",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<ChannelParticipant>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.channelParticipants#9ab0feaf: field participants element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "channels.channelParticipants#9ab0feaf",
+				FieldName: "participants",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(c.Chats))
 	for idx, v := range c.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode channels.channelParticipants#9ab0feaf: field chats element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "channels.channelParticipants#9ab0feaf",
+				FieldName: "chats",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Chat>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.channelParticipants#9ab0feaf: field chats element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "channels.channelParticipants#9ab0feaf",
+				FieldName: "chats",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode channels.channelParticipants#9ab0feaf: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "channels.channelParticipants#9ab0feaf",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.channelParticipants#9ab0feaf: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "channels.channelParticipants#9ab0feaf",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -215,10 +281,16 @@ func (c *ChannelsChannelParticipants) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (c *ChannelsChannelParticipants) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.channelParticipants#9ab0feaf to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.channelParticipants#9ab0feaf",
+		}
 	}
 	if err := b.ConsumeID(ChannelsChannelParticipantsTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.channelParticipants#9ab0feaf",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -226,19 +298,32 @@ func (c *ChannelsChannelParticipants) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.channelParticipants#9ab0feaf to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.channelParticipants#9ab0feaf",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.channelParticipants#9ab0feaf",
+				FieldName:  "count",
+				Underlying: err,
+			}
 		}
 		c.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field participants: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.channelParticipants#9ab0feaf",
+				FieldName:  "participants",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -247,7 +332,12 @@ func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChannelParticipant(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field participants: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "channels.channelParticipants#9ab0feaf",
+					FieldName:  "participants",
+					Underlying: err,
+				}
 			}
 			c.Participants = append(c.Participants, value)
 		}
@@ -255,7 +345,12 @@ func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field chats: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.channelParticipants#9ab0feaf",
+				FieldName:  "chats",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -264,7 +359,12 @@ func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field chats: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "channels.channelParticipants#9ab0feaf",
+					FieldName:  "chats",
+					Underlying: err,
+				}
 			}
 			c.Chats = append(c.Chats, value)
 		}
@@ -272,7 +372,12 @@ func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.channelParticipants#9ab0feaf",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -281,7 +386,12 @@ func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "channels.channelParticipants#9ab0feaf",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			c.Users = append(c.Users, value)
 		}
@@ -358,7 +468,10 @@ func (c *ChannelsChannelParticipantsNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelsChannelParticipantsNotModified) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.channelParticipantsNotModified#f0173fe9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.channelParticipantsNotModified#f0173fe9",
+		}
 	}
 	b.PutID(ChannelsChannelParticipantsNotModifiedTypeID)
 	return c.EncodeBare(b)
@@ -367,7 +480,10 @@ func (c *ChannelsChannelParticipantsNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelsChannelParticipantsNotModified) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.channelParticipantsNotModified#f0173fe9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.channelParticipantsNotModified#f0173fe9",
+		}
 	}
 	return nil
 }
@@ -375,10 +491,16 @@ func (c *ChannelsChannelParticipantsNotModified) EncodeBare(b *bin.Buffer) error
 // Decode implements bin.Decoder.
 func (c *ChannelsChannelParticipantsNotModified) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.channelParticipantsNotModified#f0173fe9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.channelParticipantsNotModified#f0173fe9",
+		}
 	}
 	if err := b.ConsumeID(ChannelsChannelParticipantsNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.channelParticipantsNotModified#f0173fe9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.channelParticipantsNotModified#f0173fe9",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -386,7 +508,10 @@ func (c *ChannelsChannelParticipantsNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelsChannelParticipantsNotModified) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.channelParticipantsNotModified#f0173fe9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.channelParticipantsNotModified#f0173fe9",
+		}
 	}
 	return nil
 }
@@ -463,18 +588,27 @@ func DecodeChannelsChannelParticipants(buf *bin.Buffer) (ChannelsChannelParticip
 		// Decoding channels.channelParticipants#9ab0feaf.
 		v := ChannelsChannelParticipants{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChannelsChannelParticipantsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ChannelsChannelParticipantsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case ChannelsChannelParticipantsNotModifiedTypeID:
 		// Decoding channels.channelParticipantsNotModified#f0173fe9.
 		v := ChannelsChannelParticipantsNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChannelsChannelParticipantsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ChannelsChannelParticipantsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ChannelsChannelParticipantsClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "ChannelsChannelParticipantsClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -486,7 +620,10 @@ type ChannelsChannelParticipantsBox struct {
 // Decode implements bin.Decoder for ChannelsChannelParticipantsBox.
 func (b *ChannelsChannelParticipantsBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode ChannelsChannelParticipantsBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ChannelsChannelParticipantsBox",
+		}
 	}
 	v, err := DecodeChannelsChannelParticipants(buf)
 	if err != nil {
@@ -499,7 +636,10 @@ func (b *ChannelsChannelParticipantsBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for ChannelsChannelParticipantsBox.
 func (b *ChannelsChannelParticipantsBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.ChannelParticipants == nil {
-		return fmt.Errorf("unable to encode ChannelsChannelParticipantsClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ChannelsChannelParticipantsBox",
+		}
 	}
 	return b.ChannelParticipants.Encode(buf)
 }

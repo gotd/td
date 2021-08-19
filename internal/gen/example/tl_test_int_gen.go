@@ -101,7 +101,10 @@ func (t *TestInt) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TestInt) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testInt#ddbd2c09 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "testInt#ddbd2c09",
+		}
 	}
 	b.PutID(TestIntTypeID)
 	return t.EncodeBare(b)
@@ -110,7 +113,10 @@ func (t *TestInt) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TestInt) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testInt#ddbd2c09 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "testInt#ddbd2c09",
+		}
 	}
 	b.PutInt32(t.Value)
 	return nil
@@ -124,10 +130,16 @@ func (t *TestInt) GetValue() (value int32) {
 // Decode implements bin.Decoder.
 func (t *TestInt) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testInt#ddbd2c09 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "testInt#ddbd2c09",
+		}
 	}
 	if err := b.ConsumeID(TestIntTypeID); err != nil {
-		return fmt.Errorf("unable to decode testInt#ddbd2c09: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "testInt#ddbd2c09",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -135,12 +147,20 @@ func (t *TestInt) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TestInt) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testInt#ddbd2c09 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "testInt#ddbd2c09",
+		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode testInt#ddbd2c09: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "testInt#ddbd2c09",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 		t.Value = value
 	}

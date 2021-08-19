@@ -160,7 +160,10 @@ func (g *UploadGetFileRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UploadGetFileRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getFile#b15a9afc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "upload.getFile#b15a9afc",
+		}
 	}
 	b.PutID(UploadGetFileRequestTypeID)
 	return g.EncodeBare(b)
@@ -169,7 +172,10 @@ func (g *UploadGetFileRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UploadGetFileRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getFile#b15a9afc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "upload.getFile#b15a9afc",
+		}
 	}
 	if !(g.Precise == false) {
 		g.Flags.Set(0)
@@ -178,13 +184,31 @@ func (g *UploadGetFileRequest) EncodeBare(b *bin.Buffer) error {
 		g.Flags.Set(1)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode upload.getFile#b15a9afc: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "upload.getFile#b15a9afc",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if g.Location == nil {
-		return fmt.Errorf("unable to encode upload.getFile#b15a9afc: field location is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "upload.getFile#b15a9afc",
+			FieldName: "location",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputFileLocation",
+			},
+		}
 	}
 	if err := g.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode upload.getFile#b15a9afc: field location: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "upload.getFile#b15a9afc",
+			FieldName:  "location",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
@@ -241,10 +265,16 @@ func (g *UploadGetFileRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *UploadGetFileRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getFile#b15a9afc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "upload.getFile#b15a9afc",
+		}
 	}
 	if err := b.ConsumeID(UploadGetFileRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.getFile#b15a9afc: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "upload.getFile#b15a9afc",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -252,11 +282,19 @@ func (g *UploadGetFileRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UploadGetFileRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getFile#b15a9afc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "upload.getFile#b15a9afc",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode upload.getFile#b15a9afc: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.getFile#b15a9afc",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	g.Precise = g.Flags.Has(0)
@@ -264,21 +302,36 @@ func (g *UploadGetFileRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputFileLocation(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getFile#b15a9afc: field location: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.getFile#b15a9afc",
+				FieldName:  "location",
+				Underlying: err,
+			}
 		}
 		g.Location = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getFile#b15a9afc: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.getFile#b15a9afc",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getFile#b15a9afc: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.getFile#b15a9afc",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}

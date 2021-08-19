@@ -102,7 +102,10 @@ func (a *AccountDaysTTL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AccountDaysTTL) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode accountDaysTTL#b8d0afdf as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "accountDaysTTL#b8d0afdf",
+		}
 	}
 	b.PutID(AccountDaysTTLTypeID)
 	return a.EncodeBare(b)
@@ -111,7 +114,10 @@ func (a *AccountDaysTTL) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AccountDaysTTL) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode accountDaysTTL#b8d0afdf as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "accountDaysTTL#b8d0afdf",
+		}
 	}
 	b.PutInt(a.Days)
 	return nil
@@ -125,10 +131,16 @@ func (a *AccountDaysTTL) GetDays() (value int) {
 // Decode implements bin.Decoder.
 func (a *AccountDaysTTL) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode accountDaysTTL#b8d0afdf to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "accountDaysTTL#b8d0afdf",
+		}
 	}
 	if err := b.ConsumeID(AccountDaysTTLTypeID); err != nil {
-		return fmt.Errorf("unable to decode accountDaysTTL#b8d0afdf: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "accountDaysTTL#b8d0afdf",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (a *AccountDaysTTL) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AccountDaysTTL) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode accountDaysTTL#b8d0afdf to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "accountDaysTTL#b8d0afdf",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode accountDaysTTL#b8d0afdf: field days: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "accountDaysTTL#b8d0afdf",
+				FieldName:  "days",
+				Underlying: err,
+			}
 		}
 		a.Days = value
 	}

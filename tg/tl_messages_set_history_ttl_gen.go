@@ -112,7 +112,10 @@ func (s *MessagesSetHistoryTTLRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSetHistoryTTLRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setHistoryTTL#b80e5fe4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.setHistoryTTL#b80e5fe4",
+		}
 	}
 	b.PutID(MessagesSetHistoryTTLRequestTypeID)
 	return s.EncodeBare(b)
@@ -121,13 +124,29 @@ func (s *MessagesSetHistoryTTLRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSetHistoryTTLRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setHistoryTTL#b80e5fe4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.setHistoryTTL#b80e5fe4",
+		}
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.setHistoryTTL#b80e5fe4: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.setHistoryTTL#b80e5fe4",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setHistoryTTL#b80e5fe4: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.setHistoryTTL#b80e5fe4",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(s.Period)
 	return nil
@@ -146,10 +165,16 @@ func (s *MessagesSetHistoryTTLRequest) GetPeriod() (value int) {
 // Decode implements bin.Decoder.
 func (s *MessagesSetHistoryTTLRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setHistoryTTL#b80e5fe4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.setHistoryTTL#b80e5fe4",
+		}
 	}
 	if err := b.ConsumeID(MessagesSetHistoryTTLRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setHistoryTTL#b80e5fe4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.setHistoryTTL#b80e5fe4",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -157,19 +182,32 @@ func (s *MessagesSetHistoryTTLRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSetHistoryTTLRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setHistoryTTL#b80e5fe4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.setHistoryTTL#b80e5fe4",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setHistoryTTL#b80e5fe4: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.setHistoryTTL#b80e5fe4",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setHistoryTTL#b80e5fe4: field period: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.setHistoryTTL#b80e5fe4",
+				FieldName:  "period",
+				Underlying: err,
+			}
 		}
 		s.Period = value
 	}

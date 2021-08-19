@@ -151,7 +151,10 @@ func (s *MessagesSetBotShippingResultsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSetBotShippingResultsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setBotShippingResults#e5f672fa as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.setBotShippingResults#e5f672fa",
+		}
 	}
 	b.PutID(MessagesSetBotShippingResultsRequestTypeID)
 	return s.EncodeBare(b)
@@ -160,7 +163,10 @@ func (s *MessagesSetBotShippingResultsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSetBotShippingResultsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setBotShippingResults#e5f672fa as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.setBotShippingResults#e5f672fa",
+		}
 	}
 	if !(s.Error == "") {
 		s.Flags.Set(0)
@@ -169,7 +175,12 @@ func (s *MessagesSetBotShippingResultsRequest) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(1)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setBotShippingResults#e5f672fa: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.setBotShippingResults#e5f672fa",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutLong(s.QueryID)
 	if s.Flags.Has(0) {
@@ -179,7 +190,16 @@ func (s *MessagesSetBotShippingResultsRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(s.ShippingOptions))
 		for idx, v := range s.ShippingOptions {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messages.setBotShippingResults#e5f672fa: field shipping_options element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "messages.setBotShippingResults#e5f672fa",
+					FieldName: "shipping_options",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
@@ -224,10 +244,16 @@ func (s *MessagesSetBotShippingResultsRequest) GetShippingOptions() (value []Shi
 // Decode implements bin.Decoder.
 func (s *MessagesSetBotShippingResultsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setBotShippingResults#e5f672fa to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.setBotShippingResults#e5f672fa",
+		}
 	}
 	if err := b.ConsumeID(MessagesSetBotShippingResultsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setBotShippingResults#e5f672fa: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.setBotShippingResults#e5f672fa",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -235,31 +261,54 @@ func (s *MessagesSetBotShippingResultsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSetBotShippingResultsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setBotShippingResults#e5f672fa to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.setBotShippingResults#e5f672fa",
+		}
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setBotShippingResults#e5f672fa: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.setBotShippingResults#e5f672fa",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setBotShippingResults#e5f672fa: field query_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.setBotShippingResults#e5f672fa",
+				FieldName:  "query_id",
+				Underlying: err,
+			}
 		}
 		s.QueryID = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setBotShippingResults#e5f672fa: field error: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.setBotShippingResults#e5f672fa",
+				FieldName:  "error",
+				Underlying: err,
+			}
 		}
 		s.Error = value
 	}
 	if s.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setBotShippingResults#e5f672fa: field shipping_options: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.setBotShippingResults#e5f672fa",
+				FieldName:  "shipping_options",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -268,7 +317,13 @@ func (s *MessagesSetBotShippingResultsRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value ShippingOption
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messages.setBotShippingResults#e5f672fa: field shipping_options: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "messages.setBotShippingResults#e5f672fa",
+					FieldName:  "shipping_options",
+					Underlying: err,
+				}
 			}
 			s.ShippingOptions = append(s.ShippingOptions, value)
 		}

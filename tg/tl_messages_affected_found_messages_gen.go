@@ -134,7 +134,10 @@ func (a *MessagesAffectedFoundMessages) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *MessagesAffectedFoundMessages) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.affectedFoundMessages#ef8d3e6c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.affectedFoundMessages#ef8d3e6c",
+		}
 	}
 	b.PutID(MessagesAffectedFoundMessagesTypeID)
 	return a.EncodeBare(b)
@@ -143,7 +146,10 @@ func (a *MessagesAffectedFoundMessages) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *MessagesAffectedFoundMessages) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.affectedFoundMessages#ef8d3e6c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.affectedFoundMessages#ef8d3e6c",
+		}
 	}
 	b.PutInt(a.Pts)
 	b.PutInt(a.PtsCount)
@@ -178,10 +184,16 @@ func (a *MessagesAffectedFoundMessages) GetMessages() (value []int) {
 // Decode implements bin.Decoder.
 func (a *MessagesAffectedFoundMessages) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.affectedFoundMessages#ef8d3e6c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.affectedFoundMessages#ef8d3e6c",
+		}
 	}
 	if err := b.ConsumeID(MessagesAffectedFoundMessagesTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.affectedFoundMessages#ef8d3e6c",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -189,33 +201,56 @@ func (a *MessagesAffectedFoundMessages) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *MessagesAffectedFoundMessages) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.affectedFoundMessages#ef8d3e6c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.affectedFoundMessages#ef8d3e6c",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: field pts: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.affectedFoundMessages#ef8d3e6c",
+				FieldName:  "pts",
+				Underlying: err,
+			}
 		}
 		a.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: field pts_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.affectedFoundMessages#ef8d3e6c",
+				FieldName:  "pts_count",
+				Underlying: err,
+			}
 		}
 		a.PtsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.affectedFoundMessages#ef8d3e6c",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		a.Offset = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: field messages: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.affectedFoundMessages#ef8d3e6c",
+				FieldName:  "messages",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -224,7 +259,12 @@ func (a *MessagesAffectedFoundMessages) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: field messages: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.affectedFoundMessages#ef8d3e6c",
+					FieldName:  "messages",
+					Underlying: err,
+				}
 			}
 			a.Messages = append(a.Messages, value)
 		}

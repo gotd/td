@@ -125,7 +125,10 @@ func (g *StatsGetBroadcastStatsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *StatsGetBroadcastStatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getBroadcastStats#ab42441a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stats.getBroadcastStats#ab42441a",
+		}
 	}
 	b.PutID(StatsGetBroadcastStatsRequestTypeID)
 	return g.EncodeBare(b)
@@ -134,19 +137,40 @@ func (g *StatsGetBroadcastStatsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *StatsGetBroadcastStatsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getBroadcastStats#ab42441a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stats.getBroadcastStats#ab42441a",
+		}
 	}
 	if !(g.Dark == false) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getBroadcastStats#ab42441a: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.getBroadcastStats#ab42441a",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if g.Channel == nil {
-		return fmt.Errorf("unable to encode stats.getBroadcastStats#ab42441a: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.getBroadcastStats#ab42441a",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getBroadcastStats#ab42441a: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.getBroadcastStats#ab42441a",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -180,10 +204,16 @@ func (g *StatsGetBroadcastStatsRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 // Decode implements bin.Decoder.
 func (g *StatsGetBroadcastStatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getBroadcastStats#ab42441a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stats.getBroadcastStats#ab42441a",
+		}
 	}
 	if err := b.ConsumeID(StatsGetBroadcastStatsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.getBroadcastStats#ab42441a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "stats.getBroadcastStats#ab42441a",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -191,18 +221,31 @@ func (g *StatsGetBroadcastStatsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *StatsGetBroadcastStatsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getBroadcastStats#ab42441a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stats.getBroadcastStats#ab42441a",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stats.getBroadcastStats#ab42441a: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.getBroadcastStats#ab42441a",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	g.Dark = g.Flags.Has(0)
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getBroadcastStats#ab42441a: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.getBroadcastStats#ab42441a",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		g.Channel = value
 	}

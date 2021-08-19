@@ -119,7 +119,10 @@ func (u *MessagesUploadMediaRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *MessagesUploadMediaRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.uploadMedia#519bc2b1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.uploadMedia#519bc2b1",
+		}
 	}
 	b.PutID(MessagesUploadMediaRequestTypeID)
 	return u.EncodeBare(b)
@@ -128,19 +131,48 @@ func (u *MessagesUploadMediaRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *MessagesUploadMediaRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.uploadMedia#519bc2b1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.uploadMedia#519bc2b1",
+		}
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode messages.uploadMedia#519bc2b1: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.uploadMedia#519bc2b1",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.uploadMedia#519bc2b1: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.uploadMedia#519bc2b1",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	if u.Media == nil {
-		return fmt.Errorf("unable to encode messages.uploadMedia#519bc2b1: field media is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.uploadMedia#519bc2b1",
+			FieldName: "media",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputMedia",
+			},
+		}
 	}
 	if err := u.Media.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.uploadMedia#519bc2b1: field media: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.uploadMedia#519bc2b1",
+			FieldName:  "media",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -158,10 +190,16 @@ func (u *MessagesUploadMediaRequest) GetMedia() (value InputMediaClass) {
 // Decode implements bin.Decoder.
 func (u *MessagesUploadMediaRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.uploadMedia#519bc2b1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.uploadMedia#519bc2b1",
+		}
 	}
 	if err := b.ConsumeID(MessagesUploadMediaRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.uploadMedia#519bc2b1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.uploadMedia#519bc2b1",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -169,19 +207,32 @@ func (u *MessagesUploadMediaRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *MessagesUploadMediaRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.uploadMedia#519bc2b1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.uploadMedia#519bc2b1",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.uploadMedia#519bc2b1: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.uploadMedia#519bc2b1",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		u.Peer = value
 	}
 	{
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.uploadMedia#519bc2b1: field media: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.uploadMedia#519bc2b1",
+				FieldName:  "media",
+				Underlying: err,
+			}
 		}
 		u.Media = value
 	}

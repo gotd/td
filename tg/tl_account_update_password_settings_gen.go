@@ -119,7 +119,10 @@ func (u *AccountUpdatePasswordSettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUpdatePasswordSettingsRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updatePasswordSettings#a59b102f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.updatePasswordSettings#a59b102f",
+		}
 	}
 	b.PutID(AccountUpdatePasswordSettingsRequestTypeID)
 	return u.EncodeBare(b)
@@ -128,16 +131,37 @@ func (u *AccountUpdatePasswordSettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUpdatePasswordSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updatePasswordSettings#a59b102f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.updatePasswordSettings#a59b102f",
+		}
 	}
 	if u.Password == nil {
-		return fmt.Errorf("unable to encode account.updatePasswordSettings#a59b102f: field password is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.updatePasswordSettings#a59b102f",
+			FieldName: "password",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputCheckPasswordSRP",
+			},
+		}
 	}
 	if err := u.Password.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updatePasswordSettings#a59b102f: field password: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.updatePasswordSettings#a59b102f",
+			FieldName:  "password",
+			Underlying: err,
+		}
 	}
 	if err := u.NewSettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updatePasswordSettings#a59b102f: field new_settings: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.updatePasswordSettings#a59b102f",
+			FieldName:  "new_settings",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -160,10 +184,16 @@ func (u *AccountUpdatePasswordSettingsRequest) GetNewSettings() (value AccountPa
 // Decode implements bin.Decoder.
 func (u *AccountUpdatePasswordSettingsRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updatePasswordSettings#a59b102f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.updatePasswordSettings#a59b102f",
+		}
 	}
 	if err := b.ConsumeID(AccountUpdatePasswordSettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.updatePasswordSettings#a59b102f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.updatePasswordSettings#a59b102f",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -171,18 +201,31 @@ func (u *AccountUpdatePasswordSettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUpdatePasswordSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updatePasswordSettings#a59b102f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.updatePasswordSettings#a59b102f",
+		}
 	}
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updatePasswordSettings#a59b102f: field password: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.updatePasswordSettings#a59b102f",
+				FieldName:  "password",
+				Underlying: err,
+			}
 		}
 		u.Password = value
 	}
 	{
 		if err := u.NewSettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.updatePasswordSettings#a59b102f: field new_settings: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.updatePasswordSettings#a59b102f",
+				FieldName:  "new_settings",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

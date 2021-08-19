@@ -88,7 +88,10 @@ func (g *MessagesGetSuggestedDialogFiltersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetSuggestedDialogFiltersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSuggestedDialogFilters#a29cd42c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getSuggestedDialogFilters#a29cd42c",
+		}
 	}
 	b.PutID(MessagesGetSuggestedDialogFiltersRequestTypeID)
 	return g.EncodeBare(b)
@@ -97,7 +100,10 @@ func (g *MessagesGetSuggestedDialogFiltersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetSuggestedDialogFiltersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSuggestedDialogFilters#a29cd42c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getSuggestedDialogFilters#a29cd42c",
+		}
 	}
 	return nil
 }
@@ -105,10 +111,16 @@ func (g *MessagesGetSuggestedDialogFiltersRequest) EncodeBare(b *bin.Buffer) err
 // Decode implements bin.Decoder.
 func (g *MessagesGetSuggestedDialogFiltersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSuggestedDialogFilters#a29cd42c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getSuggestedDialogFilters#a29cd42c",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetSuggestedDialogFiltersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getSuggestedDialogFilters#a29cd42c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getSuggestedDialogFilters#a29cd42c",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -116,7 +128,10 @@ func (g *MessagesGetSuggestedDialogFiltersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetSuggestedDialogFiltersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSuggestedDialogFilters#a29cd42c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getSuggestedDialogFilters#a29cd42c",
+		}
 	}
 	return nil
 }

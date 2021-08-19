@@ -163,7 +163,10 @@ func (e *MessagesEditExportedChatInviteRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *MessagesEditExportedChatInviteRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editExportedChatInvite#2e4ffbe as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.editExportedChatInvite#2e4ffbe",
+		}
 	}
 	b.PutID(MessagesEditExportedChatInviteRequestTypeID)
 	return e.EncodeBare(b)
@@ -172,7 +175,10 @@ func (e *MessagesEditExportedChatInviteRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesEditExportedChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editExportedChatInvite#2e4ffbe as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.editExportedChatInvite#2e4ffbe",
+		}
 	}
 	if !(e.Revoked == false) {
 		e.Flags.Set(2)
@@ -184,13 +190,31 @@ func (e *MessagesEditExportedChatInviteRequest) EncodeBare(b *bin.Buffer) error 
 		e.Flags.Set(1)
 	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editExportedChatInvite#2e4ffbe: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.editExportedChatInvite#2e4ffbe",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if e.Peer == nil {
-		return fmt.Errorf("unable to encode messages.editExportedChatInvite#2e4ffbe: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.editExportedChatInvite#2e4ffbe",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := e.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editExportedChatInvite#2e4ffbe: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.editExportedChatInvite#2e4ffbe",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutString(e.Link)
 	if e.Flags.Has(0) {
@@ -261,10 +285,16 @@ func (e *MessagesEditExportedChatInviteRequest) GetUsageLimit() (value int, ok b
 // Decode implements bin.Decoder.
 func (e *MessagesEditExportedChatInviteRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editExportedChatInvite#2e4ffbe to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.editExportedChatInvite#2e4ffbe",
+		}
 	}
 	if err := b.ConsumeID(MessagesEditExportedChatInviteRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.editExportedChatInvite#2e4ffbe",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -272,39 +302,67 @@ func (e *MessagesEditExportedChatInviteRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesEditExportedChatInviteRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editExportedChatInvite#2e4ffbe to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.editExportedChatInvite#2e4ffbe",
+		}
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editExportedChatInvite#2e4ffbe",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	e.Revoked = e.Flags.Has(2)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editExportedChatInvite#2e4ffbe",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		e.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: field link: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editExportedChatInvite#2e4ffbe",
+				FieldName:  "link",
+				Underlying: err,
+			}
 		}
 		e.Link = value
 	}
 	if e.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: field expire_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editExportedChatInvite#2e4ffbe",
+				FieldName:  "expire_date",
+				Underlying: err,
+			}
 		}
 		e.ExpireDate = value
 	}
 	if e.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: field usage_limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editExportedChatInvite#2e4ffbe",
+				FieldName:  "usage_limit",
+				Underlying: err,
+			}
 		}
 		e.UsageLimit = value
 	}

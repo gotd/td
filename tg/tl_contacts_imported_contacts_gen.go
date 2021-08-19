@@ -139,7 +139,10 @@ func (i *ContactsImportedContacts) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *ContactsImportedContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode contacts.importedContacts#77d01c3b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.importedContacts#77d01c3b",
+		}
 	}
 	b.PutID(ContactsImportedContactsTypeID)
 	return i.EncodeBare(b)
@@ -148,18 +151,39 @@ func (i *ContactsImportedContacts) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *ContactsImportedContacts) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode contacts.importedContacts#77d01c3b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.importedContacts#77d01c3b",
+		}
 	}
 	b.PutVectorHeader(len(i.Imported))
 	for idx, v := range i.Imported {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.importedContacts#77d01c3b: field imported element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.importedContacts#77d01c3b",
+				FieldName: "imported",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(i.PopularInvites))
 	for idx, v := range i.PopularInvites {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.importedContacts#77d01c3b: field popular_invites element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.importedContacts#77d01c3b",
+				FieldName: "popular_invites",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(i.RetryContacts))
@@ -169,10 +193,30 @@ func (i *ContactsImportedContacts) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(i.Users))
 	for idx, v := range i.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.importedContacts#77d01c3b: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.importedContacts#77d01c3b",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.importedContacts#77d01c3b: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.importedContacts#77d01c3b",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -206,10 +250,16 @@ func (i *ContactsImportedContacts) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (i *ContactsImportedContacts) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode contacts.importedContacts#77d01c3b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.importedContacts#77d01c3b",
+		}
 	}
 	if err := b.ConsumeID(ContactsImportedContactsTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "contacts.importedContacts#77d01c3b",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -217,12 +267,20 @@ func (i *ContactsImportedContacts) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode contacts.importedContacts#77d01c3b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.importedContacts#77d01c3b",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field imported: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.importedContacts#77d01c3b",
+				FieldName:  "imported",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -231,7 +289,13 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value ImportedContact
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field imported: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "contacts.importedContacts#77d01c3b",
+					FieldName:  "imported",
+					Underlying: err,
+				}
 			}
 			i.Imported = append(i.Imported, value)
 		}
@@ -239,7 +303,12 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field popular_invites: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.importedContacts#77d01c3b",
+				FieldName:  "popular_invites",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -248,7 +317,13 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value PopularContact
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field popular_invites: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "contacts.importedContacts#77d01c3b",
+					FieldName:  "popular_invites",
+					Underlying: err,
+				}
 			}
 			i.PopularInvites = append(i.PopularInvites, value)
 		}
@@ -256,7 +331,12 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field retry_contacts: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.importedContacts#77d01c3b",
+				FieldName:  "retry_contacts",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -265,7 +345,12 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field retry_contacts: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "contacts.importedContacts#77d01c3b",
+					FieldName:  "retry_contacts",
+					Underlying: err,
+				}
 			}
 			i.RetryContacts = append(i.RetryContacts, value)
 		}
@@ -273,7 +358,12 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.importedContacts#77d01c3b",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -282,7 +372,12 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "contacts.importedContacts#77d01c3b",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			i.Users = append(i.Users, value)
 		}

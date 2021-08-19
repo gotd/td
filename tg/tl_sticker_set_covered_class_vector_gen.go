@@ -99,7 +99,10 @@ func (vec *StickerSetCoveredClassVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *StickerSetCoveredClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<StickerSetCovered> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<StickerSetCovered>",
+		}
 	}
 
 	return vec.EncodeBare(b)
@@ -108,15 +111,38 @@ func (vec *StickerSetCoveredClassVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *StickerSetCoveredClassVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<StickerSetCovered> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<StickerSetCovered>",
+		}
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if v == nil {
-			return fmt.Errorf("unable to encode Vector<StickerSetCovered>: field Elems element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "Vector<StickerSetCovered>",
+				FieldName: "Elems",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<StickerSetCovered>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<StickerSetCovered>: field Elems element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "Vector<StickerSetCovered>",
+				FieldName: "Elems",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -135,7 +161,10 @@ func (vec *StickerSetCoveredClassVector) MapElems() (value StickerSetCoveredClas
 // Decode implements bin.Decoder.
 func (vec *StickerSetCoveredClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<StickerSetCovered> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<StickerSetCovered>",
+		}
 	}
 
 	return vec.DecodeBare(b)
@@ -144,12 +173,20 @@ func (vec *StickerSetCoveredClassVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *StickerSetCoveredClassVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<StickerSetCovered> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<StickerSetCovered>",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<StickerSetCovered>: field Elems: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "Vector<StickerSetCovered>",
+				FieldName:  "Elems",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -158,7 +195,12 @@ func (vec *StickerSetCoveredClassVector) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStickerSetCovered(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode Vector<StickerSetCovered>: field Elems: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "Vector<StickerSetCovered>",
+					FieldName:  "Elems",
+					Underlying: err,
+				}
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

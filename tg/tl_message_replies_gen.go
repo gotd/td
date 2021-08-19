@@ -216,7 +216,10 @@ func (m *MessageReplies) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageReplies) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReplies#4128faac as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageReplies#4128faac",
+		}
 	}
 	b.PutID(MessageRepliesTypeID)
 	return m.EncodeBare(b)
@@ -225,7 +228,10 @@ func (m *MessageReplies) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReplies#4128faac as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageReplies#4128faac",
+		}
 	}
 	if !(m.Comments == false) {
 		m.Flags.Set(0)
@@ -243,7 +249,12 @@ func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
 		m.Flags.Set(3)
 	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageReplies#4128faac: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messageReplies#4128faac",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(m.Replies)
 	b.PutInt(m.RepliesPts)
@@ -251,10 +262,30 @@ func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(m.RecentRepliers))
 		for idx, v := range m.RecentRepliers {
 			if v == nil {
-				return fmt.Errorf("unable to encode messageReplies#4128faac: field recent_repliers element with index %d is nil", idx)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "messageReplies#4128faac",
+					FieldName: "recent_repliers",
+					Underlying: &bin.IndexError{
+						Index: idx,
+						Underlying: &bin.NilError{
+							Action:   "encode",
+							TypeName: "Vector<Peer>",
+						},
+					},
+				}
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messageReplies#4128faac: field recent_repliers element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "messageReplies#4128faac",
+					FieldName: "recent_repliers",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
@@ -367,10 +398,16 @@ func (m *MessageReplies) GetReadMaxID() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (m *MessageReplies) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReplies#4128faac to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageReplies#4128faac",
+		}
 	}
 	if err := b.ConsumeID(MessageRepliesTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageReplies#4128faac: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageReplies#4128faac",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -378,32 +415,55 @@ func (m *MessageReplies) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageReplies) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReplies#4128faac to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageReplies#4128faac",
+		}
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageReplies#4128faac",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	m.Comments = m.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field replies: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageReplies#4128faac",
+				FieldName:  "replies",
+				Underlying: err,
+			}
 		}
 		m.Replies = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field replies_pts: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageReplies#4128faac",
+				FieldName:  "replies_pts",
+				Underlying: err,
+			}
 		}
 		m.RepliesPts = value
 	}
 	if m.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field recent_repliers: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageReplies#4128faac",
+				FieldName:  "recent_repliers",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -412,7 +472,12 @@ func (m *MessageReplies) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageReplies#4128faac: field recent_repliers: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messageReplies#4128faac",
+					FieldName:  "recent_repliers",
+					Underlying: err,
+				}
 			}
 			m.RecentRepliers = append(m.RecentRepliers, value)
 		}
@@ -420,21 +485,36 @@ func (m *MessageReplies) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field channel_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageReplies#4128faac",
+				FieldName:  "channel_id",
+				Underlying: err,
+			}
 		}
 		m.ChannelID = value
 	}
 	if m.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field max_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageReplies#4128faac",
+				FieldName:  "max_id",
+				Underlying: err,
+			}
 		}
 		m.MaxID = value
 	}
 	if m.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field read_max_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageReplies#4128faac",
+				FieldName:  "read_max_id",
+				Underlying: err,
+			}
 		}
 		m.ReadMaxID = value
 	}

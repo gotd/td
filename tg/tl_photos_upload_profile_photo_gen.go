@@ -157,7 +157,10 @@ func (u *PhotosUploadProfilePhotoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *PhotosUploadProfilePhotoRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode photos.uploadProfilePhoto#89f30f69 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "photos.uploadProfilePhoto#89f30f69",
+		}
 	}
 	b.PutID(PhotosUploadProfilePhotoRequestTypeID)
 	return u.EncodeBare(b)
@@ -166,7 +169,10 @@ func (u *PhotosUploadProfilePhotoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *PhotosUploadProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode photos.uploadProfilePhoto#89f30f69 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "photos.uploadProfilePhoto#89f30f69",
+		}
 	}
 	if !(u.File == nil) {
 		u.Flags.Set(0)
@@ -178,22 +184,53 @@ func (u *PhotosUploadProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 		u.Flags.Set(2)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photos.uploadProfilePhoto#89f30f69: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "photos.uploadProfilePhoto#89f30f69",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if u.Flags.Has(0) {
 		if u.File == nil {
-			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#89f30f69: field file is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "photos.uploadProfilePhoto#89f30f69",
+				FieldName: "file",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputFile",
+				},
+			}
 		}
 		if err := u.File.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#89f30f69: field file: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "photos.uploadProfilePhoto#89f30f69",
+				FieldName:  "file",
+				Underlying: err,
+			}
 		}
 	}
 	if u.Flags.Has(1) {
 		if u.Video == nil {
-			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#89f30f69: field video is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "photos.uploadProfilePhoto#89f30f69",
+				FieldName: "video",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputFile",
+				},
+			}
 		}
 		if err := u.Video.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#89f30f69: field video: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "photos.uploadProfilePhoto#89f30f69",
+				FieldName:  "video",
+				Underlying: err,
+			}
 		}
 	}
 	if u.Flags.Has(2) {
@@ -250,10 +287,16 @@ func (u *PhotosUploadProfilePhotoRequest) GetVideoStartTs() (value float64, ok b
 // Decode implements bin.Decoder.
 func (u *PhotosUploadProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode photos.uploadProfilePhoto#89f30f69 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "photos.uploadProfilePhoto#89f30f69",
+		}
 	}
 	if err := b.ConsumeID(PhotosUploadProfilePhotoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode photos.uploadProfilePhoto#89f30f69: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "photos.uploadProfilePhoto#89f30f69",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -261,31 +304,54 @@ func (u *PhotosUploadProfilePhotoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *PhotosUploadProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode photos.uploadProfilePhoto#89f30f69 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "photos.uploadProfilePhoto#89f30f69",
+		}
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#89f30f69: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photos.uploadProfilePhoto#89f30f69",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	if u.Flags.Has(0) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#89f30f69: field file: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photos.uploadProfilePhoto#89f30f69",
+				FieldName:  "file",
+				Underlying: err,
+			}
 		}
 		u.File = value
 	}
 	if u.Flags.Has(1) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#89f30f69: field video: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photos.uploadProfilePhoto#89f30f69",
+				FieldName:  "video",
+				Underlying: err,
+			}
 		}
 		u.Video = value
 	}
 	if u.Flags.Has(2) {
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#89f30f69: field video_start_ts: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photos.uploadProfilePhoto#89f30f69",
+				FieldName:  "video_start_ts",
+				Underlying: err,
+			}
 		}
 		u.VideoStartTs = value
 	}

@@ -102,7 +102,10 @@ func (u *UserEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserEmpty) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userEmpty#200250ba as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userEmpty#200250ba",
+		}
 	}
 	b.PutID(UserEmptyTypeID)
 	return u.EncodeBare(b)
@@ -111,7 +114,10 @@ func (u *UserEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserEmpty) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userEmpty#200250ba as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userEmpty#200250ba",
+		}
 	}
 	b.PutInt(u.ID)
 	return nil
@@ -125,10 +131,16 @@ func (u *UserEmpty) GetID() (value int) {
 // Decode implements bin.Decoder.
 func (u *UserEmpty) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userEmpty#200250ba to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userEmpty#200250ba",
+		}
 	}
 	if err := b.ConsumeID(UserEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode userEmpty#200250ba: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "userEmpty#200250ba",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (u *UserEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserEmpty) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userEmpty#200250ba to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userEmpty#200250ba",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userEmpty#200250ba: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "userEmpty#200250ba",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		u.ID = value
 	}
@@ -615,7 +635,10 @@ func (u *User) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *User) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode user#938458c1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "user#938458c1",
+		}
 	}
 	b.PutID(UserTypeID)
 	return u.EncodeBare(b)
@@ -624,7 +647,10 @@ func (u *User) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *User) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode user#938458c1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "user#938458c1",
+		}
 	}
 	if !(u.Self == false) {
 		u.Flags.Set(10)
@@ -705,7 +731,12 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 		u.Flags.Set(22)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode user#938458c1: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "user#938458c1",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(u.ID)
 	if u.Flags.Has(0) {
@@ -725,18 +756,44 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 	}
 	if u.Flags.Has(5) {
 		if u.Photo == nil {
-			return fmt.Errorf("unable to encode user#938458c1: field photo is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "user#938458c1",
+				FieldName: "photo",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "UserProfilePhoto",
+				},
+			}
 		}
 		if err := u.Photo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode user#938458c1: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "user#938458c1",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 	}
 	if u.Flags.Has(6) {
 		if u.Status == nil {
-			return fmt.Errorf("unable to encode user#938458c1: field status is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "user#938458c1",
+				FieldName: "status",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "UserStatus",
+				},
+			}
 		}
 		if err := u.Status.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode user#938458c1: field status: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "user#938458c1",
+				FieldName:  "status",
+				Underlying: err,
+			}
 		}
 	}
 	if u.Flags.Has(14) {
@@ -746,7 +803,16 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(u.RestrictionReason))
 		for idx, v := range u.RestrictionReason {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode user#938458c1: field restriction_reason element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "user#938458c1",
+					FieldName: "restriction_reason",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
@@ -1172,10 +1238,16 @@ func (u *User) GetLangCode() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (u *User) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode user#938458c1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "user#938458c1",
+		}
 	}
 	if err := b.ConsumeID(UserTypeID); err != nil {
-		return fmt.Errorf("unable to decode user#938458c1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "user#938458c1",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -1183,11 +1255,19 @@ func (u *User) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *User) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode user#938458c1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "user#938458c1",
+		}
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	u.Self = u.Flags.Has(10)
@@ -1208,70 +1288,120 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		u.ID = value
 	}
 	if u.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		u.AccessHash = value
 	}
 	if u.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field first_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "first_name",
+				Underlying: err,
+			}
 		}
 		u.FirstName = value
 	}
 	if u.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field last_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "last_name",
+				Underlying: err,
+			}
 		}
 		u.LastName = value
 	}
 	if u.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field username: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "username",
+				Underlying: err,
+			}
 		}
 		u.Username = value
 	}
 	if u.Flags.Has(4) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field phone: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "phone",
+				Underlying: err,
+			}
 		}
 		u.Phone = value
 	}
 	if u.Flags.Has(5) {
 		value, err := DecodeUserProfilePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 		u.Photo = value
 	}
 	if u.Flags.Has(6) {
 		value, err := DecodeUserStatus(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field status: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "status",
+				Underlying: err,
+			}
 		}
 		u.Status = value
 	}
 	if u.Flags.Has(14) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field bot_info_version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "bot_info_version",
+				Underlying: err,
+			}
 		}
 		u.BotInfoVersion = value
 	}
 	if u.Flags.Has(18) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "restriction_reason",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -1280,7 +1410,13 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value RestrictionReason
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "user#938458c1",
+					FieldName:  "restriction_reason",
+					Underlying: err,
+				}
 			}
 			u.RestrictionReason = append(u.RestrictionReason, value)
 		}
@@ -1288,14 +1424,24 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	if u.Flags.Has(19) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field bot_inline_placeholder: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "bot_inline_placeholder",
+				Underlying: err,
+			}
 		}
 		u.BotInlinePlaceholder = value
 	}
 	if u.Flags.Has(22) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field lang_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "user#938458c1",
+				FieldName:  "lang_code",
+				Underlying: err,
+			}
 		}
 		u.LangCode = value
 	}
@@ -1397,18 +1543,27 @@ func DecodeUser(buf *bin.Buffer) (UserClass, error) {
 		// Decoding userEmpty#200250ba.
 		v := UserEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "UserClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case UserTypeID:
 		// Decoding user#938458c1.
 		v := User{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "UserClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode UserClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "UserClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -1420,7 +1575,10 @@ type UserBox struct {
 // Decode implements bin.Decoder for UserBox.
 func (b *UserBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode UserBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "UserBox",
+		}
 	}
 	v, err := DecodeUser(buf)
 	if err != nil {
@@ -1433,7 +1591,10 @@ func (b *UserBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for UserBox.
 func (b *UserBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.User == nil {
-		return fmt.Errorf("unable to encode UserClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "UserBox",
+		}
 	}
 	return b.User.Encode(buf)
 }

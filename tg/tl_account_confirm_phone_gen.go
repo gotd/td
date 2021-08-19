@@ -122,7 +122,10 @@ func (c *AccountConfirmPhoneRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AccountConfirmPhoneRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.confirmPhone#5f2178c3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.confirmPhone#5f2178c3",
+		}
 	}
 	b.PutID(AccountConfirmPhoneRequestTypeID)
 	return c.EncodeBare(b)
@@ -131,7 +134,10 @@ func (c *AccountConfirmPhoneRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AccountConfirmPhoneRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.confirmPhone#5f2178c3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.confirmPhone#5f2178c3",
+		}
 	}
 	b.PutString(c.PhoneCodeHash)
 	b.PutString(c.PhoneCode)
@@ -151,10 +157,16 @@ func (c *AccountConfirmPhoneRequest) GetPhoneCode() (value string) {
 // Decode implements bin.Decoder.
 func (c *AccountConfirmPhoneRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.confirmPhone#5f2178c3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.confirmPhone#5f2178c3",
+		}
 	}
 	if err := b.ConsumeID(AccountConfirmPhoneRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.confirmPhone#5f2178c3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.confirmPhone#5f2178c3",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -162,19 +174,32 @@ func (c *AccountConfirmPhoneRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AccountConfirmPhoneRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.confirmPhone#5f2178c3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.confirmPhone#5f2178c3",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.confirmPhone#5f2178c3: field phone_code_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.confirmPhone#5f2178c3",
+				FieldName:  "phone_code_hash",
+				Underlying: err,
+			}
 		}
 		c.PhoneCodeHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.confirmPhone#5f2178c3: field phone_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.confirmPhone#5f2178c3",
+				FieldName:  "phone_code",
+				Underlying: err,
+			}
 		}
 		c.PhoneCode = value
 	}

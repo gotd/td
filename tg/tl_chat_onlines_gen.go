@@ -102,7 +102,10 @@ func (c *ChatOnlines) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatOnlines) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatOnlines#f041e250 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatOnlines#f041e250",
+		}
 	}
 	b.PutID(ChatOnlinesTypeID)
 	return c.EncodeBare(b)
@@ -111,7 +114,10 @@ func (c *ChatOnlines) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatOnlines) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatOnlines#f041e250 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatOnlines#f041e250",
+		}
 	}
 	b.PutInt(c.Onlines)
 	return nil
@@ -125,10 +131,16 @@ func (c *ChatOnlines) GetOnlines() (value int) {
 // Decode implements bin.Decoder.
 func (c *ChatOnlines) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatOnlines#f041e250 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatOnlines#f041e250",
+		}
 	}
 	if err := b.ConsumeID(ChatOnlinesTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatOnlines#f041e250: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "chatOnlines#f041e250",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (c *ChatOnlines) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatOnlines) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatOnlines#f041e250 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatOnlines#f041e250",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatOnlines#f041e250: field onlines: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatOnlines#f041e250",
+				FieldName:  "onlines",
+				Underlying: err,
+			}
 		}
 		c.Onlines = value
 	}

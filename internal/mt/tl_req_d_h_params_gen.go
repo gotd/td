@@ -154,7 +154,10 @@ func (r *ReqDHParamsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReqDHParamsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode req_DH_params#d712e4be as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "req_DH_params#d712e4be",
+		}
 	}
 	b.PutID(ReqDHParamsRequestTypeID)
 	return r.EncodeBare(b)
@@ -163,7 +166,10 @@ func (r *ReqDHParamsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReqDHParamsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode req_DH_params#d712e4be as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "req_DH_params#d712e4be",
+		}
 	}
 	b.PutInt128(r.Nonce)
 	b.PutInt128(r.ServerNonce)
@@ -207,10 +213,16 @@ func (r *ReqDHParamsRequest) GetEncryptedData() (value []byte) {
 // Decode implements bin.Decoder.
 func (r *ReqDHParamsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode req_DH_params#d712e4be to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "req_DH_params#d712e4be",
+		}
 	}
 	if err := b.ConsumeID(ReqDHParamsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode req_DH_params#d712e4be: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "req_DH_params#d712e4be",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -218,47 +230,80 @@ func (r *ReqDHParamsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReqDHParamsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode req_DH_params#d712e4be to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "req_DH_params#d712e4be",
+		}
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode req_DH_params#d712e4be: field nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "req_DH_params#d712e4be",
+				FieldName:  "nonce",
+				Underlying: err,
+			}
 		}
 		r.Nonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode req_DH_params#d712e4be: field server_nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "req_DH_params#d712e4be",
+				FieldName:  "server_nonce",
+				Underlying: err,
+			}
 		}
 		r.ServerNonce = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode req_DH_params#d712e4be: field p: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "req_DH_params#d712e4be",
+				FieldName:  "p",
+				Underlying: err,
+			}
 		}
 		r.P = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode req_DH_params#d712e4be: field q: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "req_DH_params#d712e4be",
+				FieldName:  "q",
+				Underlying: err,
+			}
 		}
 		r.Q = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode req_DH_params#d712e4be: field public_key_fingerprint: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "req_DH_params#d712e4be",
+				FieldName:  "public_key_fingerprint",
+				Underlying: err,
+			}
 		}
 		r.PublicKeyFingerprint = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode req_DH_params#d712e4be: field encrypted_data: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "req_DH_params#d712e4be",
+				FieldName:  "encrypted_data",
+				Underlying: err,
+			}
 		}
 		r.EncryptedData = value
 	}

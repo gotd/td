@@ -144,7 +144,10 @@ func (v *PaymentsValidateRequestedInfoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (v *PaymentsValidateRequestedInfoRequest) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode payments.validateRequestedInfo#db103170 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.validateRequestedInfo#db103170",
+		}
 	}
 	b.PutID(PaymentsValidateRequestedInfoRequestTypeID)
 	return v.EncodeBare(b)
@@ -153,23 +156,49 @@ func (v *PaymentsValidateRequestedInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *PaymentsValidateRequestedInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode payments.validateRequestedInfo#db103170 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.validateRequestedInfo#db103170",
+		}
 	}
 	if !(v.Save == false) {
 		v.Flags.Set(0)
 	}
 	if err := v.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.validateRequestedInfo#db103170: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "payments.validateRequestedInfo#db103170",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if v.Peer == nil {
-		return fmt.Errorf("unable to encode payments.validateRequestedInfo#db103170: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "payments.validateRequestedInfo#db103170",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := v.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.validateRequestedInfo#db103170: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "payments.validateRequestedInfo#db103170",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(v.MsgID)
 	if err := v.Info.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.validateRequestedInfo#db103170: field info: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "payments.validateRequestedInfo#db103170",
+			FieldName:  "info",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -208,10 +237,16 @@ func (v *PaymentsValidateRequestedInfoRequest) GetInfo() (value PaymentRequested
 // Decode implements bin.Decoder.
 func (v *PaymentsValidateRequestedInfoRequest) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode payments.validateRequestedInfo#db103170 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.validateRequestedInfo#db103170",
+		}
 	}
 	if err := b.ConsumeID(PaymentsValidateRequestedInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.validateRequestedInfo#db103170: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "payments.validateRequestedInfo#db103170",
+			Underlying: err,
+		}
 	}
 	return v.DecodeBare(b)
 }
@@ -219,31 +254,54 @@ func (v *PaymentsValidateRequestedInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *PaymentsValidateRequestedInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode payments.validateRequestedInfo#db103170 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.validateRequestedInfo#db103170",
+		}
 	}
 	{
 		if err := v.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.validateRequestedInfo#db103170: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.validateRequestedInfo#db103170",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	v.Save = v.Flags.Has(0)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.validateRequestedInfo#db103170: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.validateRequestedInfo#db103170",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		v.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.validateRequestedInfo#db103170: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.validateRequestedInfo#db103170",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		v.MsgID = value
 	}
 	{
 		if err := v.Info.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.validateRequestedInfo#db103170: field info: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.validateRequestedInfo#db103170",
+				FieldName:  "info",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

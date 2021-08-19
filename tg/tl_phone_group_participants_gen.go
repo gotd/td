@@ -156,7 +156,10 @@ func (g *PhoneGroupParticipants) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PhoneGroupParticipants) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.groupParticipants#f47751b6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.groupParticipants#f47751b6",
+		}
 	}
 	b.PutID(PhoneGroupParticipantsTypeID)
 	return g.EncodeBare(b)
@@ -165,32 +168,84 @@ func (g *PhoneGroupParticipants) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PhoneGroupParticipants) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.groupParticipants#f47751b6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.groupParticipants#f47751b6",
+		}
 	}
 	b.PutInt(g.Count)
 	b.PutVectorHeader(len(g.Participants))
 	for idx, v := range g.Participants {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.groupParticipants#f47751b6: field participants element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "phone.groupParticipants#f47751b6",
+				FieldName: "participants",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutString(g.NextOffset)
 	b.PutVectorHeader(len(g.Chats))
 	for idx, v := range g.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode phone.groupParticipants#f47751b6: field chats element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "phone.groupParticipants#f47751b6",
+				FieldName: "chats",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Chat>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.groupParticipants#f47751b6: field chats element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "phone.groupParticipants#f47751b6",
+				FieldName: "chats",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(g.Users))
 	for idx, v := range g.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode phone.groupParticipants#f47751b6: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "phone.groupParticipants#f47751b6",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.groupParticipants#f47751b6: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "phone.groupParticipants#f47751b6",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutInt(g.Version)
@@ -240,10 +295,16 @@ func (g *PhoneGroupParticipants) GetVersion() (value int) {
 // Decode implements bin.Decoder.
 func (g *PhoneGroupParticipants) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.groupParticipants#f47751b6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.groupParticipants#f47751b6",
+		}
 	}
 	if err := b.ConsumeID(PhoneGroupParticipantsTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.groupParticipants#f47751b6",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -251,19 +312,32 @@ func (g *PhoneGroupParticipants) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.groupParticipants#f47751b6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.groupParticipants#f47751b6",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.groupParticipants#f47751b6",
+				FieldName:  "count",
+				Underlying: err,
+			}
 		}
 		g.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field participants: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.groupParticipants#f47751b6",
+				FieldName:  "participants",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -272,7 +346,13 @@ func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value GroupCallParticipant
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field participants: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "phone.groupParticipants#f47751b6",
+					FieldName:  "participants",
+					Underlying: err,
+				}
 			}
 			g.Participants = append(g.Participants, value)
 		}
@@ -280,14 +360,24 @@ func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field next_offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.groupParticipants#f47751b6",
+				FieldName:  "next_offset",
+				Underlying: err,
+			}
 		}
 		g.NextOffset = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field chats: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.groupParticipants#f47751b6",
+				FieldName:  "chats",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -296,7 +386,12 @@ func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field chats: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "phone.groupParticipants#f47751b6",
+					FieldName:  "chats",
+					Underlying: err,
+				}
 			}
 			g.Chats = append(g.Chats, value)
 		}
@@ -304,7 +399,12 @@ func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.groupParticipants#f47751b6",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -313,7 +413,12 @@ func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "phone.groupParticipants#f47751b6",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			g.Users = append(g.Users, value)
 		}
@@ -321,7 +426,12 @@ func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.groupParticipants#f47751b6",
+				FieldName:  "version",
+				Underlying: err,
+			}
 		}
 		g.Version = value
 	}

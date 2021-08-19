@@ -82,7 +82,10 @@ func (r *RPCAnswerUnknown) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RPCAnswerUnknown) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode rpc_answer_unknown#5e2ad36e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "rpc_answer_unknown#5e2ad36e",
+		}
 	}
 	b.PutID(RPCAnswerUnknownTypeID)
 	return r.EncodeBare(b)
@@ -91,7 +94,10 @@ func (r *RPCAnswerUnknown) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RPCAnswerUnknown) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode rpc_answer_unknown#5e2ad36e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "rpc_answer_unknown#5e2ad36e",
+		}
 	}
 	return nil
 }
@@ -99,10 +105,16 @@ func (r *RPCAnswerUnknown) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *RPCAnswerUnknown) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode rpc_answer_unknown#5e2ad36e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "rpc_answer_unknown#5e2ad36e",
+		}
 	}
 	if err := b.ConsumeID(RPCAnswerUnknownTypeID); err != nil {
-		return fmt.Errorf("unable to decode rpc_answer_unknown#5e2ad36e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "rpc_answer_unknown#5e2ad36e",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -110,7 +122,10 @@ func (r *RPCAnswerUnknown) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RPCAnswerUnknown) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode rpc_answer_unknown#5e2ad36e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "rpc_answer_unknown#5e2ad36e",
+		}
 	}
 	return nil
 }
@@ -181,7 +196,10 @@ func (r *RPCAnswerDroppedRunning) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RPCAnswerDroppedRunning) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode rpc_answer_dropped_running#cd78e586 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "rpc_answer_dropped_running#cd78e586",
+		}
 	}
 	b.PutID(RPCAnswerDroppedRunningTypeID)
 	return r.EncodeBare(b)
@@ -190,7 +208,10 @@ func (r *RPCAnswerDroppedRunning) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RPCAnswerDroppedRunning) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode rpc_answer_dropped_running#cd78e586 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "rpc_answer_dropped_running#cd78e586",
+		}
 	}
 	return nil
 }
@@ -198,10 +219,16 @@ func (r *RPCAnswerDroppedRunning) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *RPCAnswerDroppedRunning) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode rpc_answer_dropped_running#cd78e586 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "rpc_answer_dropped_running#cd78e586",
+		}
 	}
 	if err := b.ConsumeID(RPCAnswerDroppedRunningTypeID); err != nil {
-		return fmt.Errorf("unable to decode rpc_answer_dropped_running#cd78e586: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "rpc_answer_dropped_running#cd78e586",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -209,7 +236,10 @@ func (r *RPCAnswerDroppedRunning) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RPCAnswerDroppedRunning) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode rpc_answer_dropped_running#cd78e586 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "rpc_answer_dropped_running#cd78e586",
+		}
 	}
 	return nil
 }
@@ -319,7 +349,10 @@ func (r *RPCAnswerDropped) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RPCAnswerDropped) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode rpc_answer_dropped#a43ad8b7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "rpc_answer_dropped#a43ad8b7",
+		}
 	}
 	b.PutID(RPCAnswerDroppedTypeID)
 	return r.EncodeBare(b)
@@ -328,7 +361,10 @@ func (r *RPCAnswerDropped) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RPCAnswerDropped) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode rpc_answer_dropped#a43ad8b7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "rpc_answer_dropped#a43ad8b7",
+		}
 	}
 	b.PutLong(r.MsgID)
 	b.PutInt(r.SeqNo)
@@ -354,10 +390,16 @@ func (r *RPCAnswerDropped) GetBytes() (value int) {
 // Decode implements bin.Decoder.
 func (r *RPCAnswerDropped) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode rpc_answer_dropped#a43ad8b7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "rpc_answer_dropped#a43ad8b7",
+		}
 	}
 	if err := b.ConsumeID(RPCAnswerDroppedTypeID); err != nil {
-		return fmt.Errorf("unable to decode rpc_answer_dropped#a43ad8b7: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "rpc_answer_dropped#a43ad8b7",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -365,26 +407,44 @@ func (r *RPCAnswerDropped) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RPCAnswerDropped) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode rpc_answer_dropped#a43ad8b7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "rpc_answer_dropped#a43ad8b7",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode rpc_answer_dropped#a43ad8b7: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "rpc_answer_dropped#a43ad8b7",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		r.MsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode rpc_answer_dropped#a43ad8b7: field seq_no: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "rpc_answer_dropped#a43ad8b7",
+				FieldName:  "seq_no",
+				Underlying: err,
+			}
 		}
 		r.SeqNo = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode rpc_answer_dropped#a43ad8b7: field bytes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "rpc_answer_dropped#a43ad8b7",
+				FieldName:  "bytes",
+				Underlying: err,
+			}
 		}
 		r.Bytes = value
 	}
@@ -447,25 +507,37 @@ func DecodeRPCDropAnswer(buf *bin.Buffer) (RPCDropAnswerClass, error) {
 		// Decoding rpc_answer_unknown#5e2ad36e.
 		v := RPCAnswerUnknown{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RPCDropAnswerClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "RPCDropAnswerClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case RPCAnswerDroppedRunningTypeID:
 		// Decoding rpc_answer_dropped_running#cd78e586.
 		v := RPCAnswerDroppedRunning{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RPCDropAnswerClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "RPCDropAnswerClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case RPCAnswerDroppedTypeID:
 		// Decoding rpc_answer_dropped#a43ad8b7.
 		v := RPCAnswerDropped{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RPCDropAnswerClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "RPCDropAnswerClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode RPCDropAnswerClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "RPCDropAnswerClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -477,7 +549,10 @@ type RPCDropAnswerBox struct {
 // Decode implements bin.Decoder for RPCDropAnswerBox.
 func (b *RPCDropAnswerBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode RPCDropAnswerBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "RPCDropAnswerBox",
+		}
 	}
 	v, err := DecodeRPCDropAnswer(buf)
 	if err != nil {
@@ -490,7 +565,10 @@ func (b *RPCDropAnswerBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for RPCDropAnswerBox.
 func (b *RPCDropAnswerBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.RpcDropAnswer == nil {
-		return fmt.Errorf("unable to encode RPCDropAnswerClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "RPCDropAnswerBox",
+		}
 	}
 	return b.RpcDropAnswer.Encode(buf)
 }

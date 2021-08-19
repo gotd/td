@@ -119,7 +119,10 @@ func (r *ChannelsReadHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ChannelsReadHistoryRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode channels.readHistory#cc104937 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.readHistory#cc104937",
+		}
 	}
 	b.PutID(ChannelsReadHistoryRequestTypeID)
 	return r.EncodeBare(b)
@@ -128,13 +131,29 @@ func (r *ChannelsReadHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ChannelsReadHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode channels.readHistory#cc104937 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.readHistory#cc104937",
+		}
 	}
 	if r.Channel == nil {
-		return fmt.Errorf("unable to encode channels.readHistory#cc104937: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.readHistory#cc104937",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := r.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.readHistory#cc104937: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.readHistory#cc104937",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	b.PutInt(r.MaxID)
 	return nil
@@ -158,10 +177,16 @@ func (r *ChannelsReadHistoryRequest) GetMaxID() (value int) {
 // Decode implements bin.Decoder.
 func (r *ChannelsReadHistoryRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode channels.readHistory#cc104937 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.readHistory#cc104937",
+		}
 	}
 	if err := b.ConsumeID(ChannelsReadHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.readHistory#cc104937: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.readHistory#cc104937",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -169,19 +194,32 @@ func (r *ChannelsReadHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ChannelsReadHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode channels.readHistory#cc104937 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.readHistory#cc104937",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.readHistory#cc104937: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.readHistory#cc104937",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		r.Channel = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.readHistory#cc104937: field max_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.readHistory#cc104937",
+				FieldName:  "max_id",
+				Underlying: err,
+			}
 		}
 		r.MaxID = value
 	}

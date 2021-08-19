@@ -113,7 +113,10 @@ func (i *InputPaymentCredentialsSaved) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentialsSaved) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPaymentCredentialsSaved#c10eb2cf as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPaymentCredentialsSaved#c10eb2cf",
+		}
 	}
 	b.PutID(InputPaymentCredentialsSavedTypeID)
 	return i.EncodeBare(b)
@@ -122,7 +125,10 @@ func (i *InputPaymentCredentialsSaved) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPaymentCredentialsSaved) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPaymentCredentialsSaved#c10eb2cf as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPaymentCredentialsSaved#c10eb2cf",
+		}
 	}
 	b.PutString(i.ID)
 	b.PutBytes(i.TmpPassword)
@@ -142,10 +148,16 @@ func (i *InputPaymentCredentialsSaved) GetTmpPassword() (value []byte) {
 // Decode implements bin.Decoder.
 func (i *InputPaymentCredentialsSaved) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPaymentCredentialsSaved#c10eb2cf to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPaymentCredentialsSaved#c10eb2cf",
+		}
 	}
 	if err := b.ConsumeID(InputPaymentCredentialsSavedTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPaymentCredentialsSaved#c10eb2cf: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputPaymentCredentialsSaved#c10eb2cf",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (i *InputPaymentCredentialsSaved) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPaymentCredentialsSaved) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPaymentCredentialsSaved#c10eb2cf to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPaymentCredentialsSaved#c10eb2cf",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPaymentCredentialsSaved#c10eb2cf: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPaymentCredentialsSaved#c10eb2cf",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPaymentCredentialsSaved#c10eb2cf: field tmp_password: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPaymentCredentialsSaved#c10eb2cf",
+				FieldName:  "tmp_password",
+				Underlying: err,
+			}
 		}
 		i.TmpPassword = value
 	}
@@ -278,7 +303,10 @@ func (i *InputPaymentCredentials) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentials) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPaymentCredentials#3417d728 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPaymentCredentials#3417d728",
+		}
 	}
 	b.PutID(InputPaymentCredentialsTypeID)
 	return i.EncodeBare(b)
@@ -287,16 +315,29 @@ func (i *InputPaymentCredentials) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPaymentCredentials) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPaymentCredentials#3417d728 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPaymentCredentials#3417d728",
+		}
 	}
 	if !(i.Save == false) {
 		i.Flags.Set(0)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPaymentCredentials#3417d728: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputPaymentCredentials#3417d728",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if err := i.Data.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPaymentCredentials#3417d728: field data: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputPaymentCredentials#3417d728",
+			FieldName:  "data",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -325,10 +366,16 @@ func (i *InputPaymentCredentials) GetData() (value DataJSON) {
 // Decode implements bin.Decoder.
 func (i *InputPaymentCredentials) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPaymentCredentials#3417d728 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPaymentCredentials#3417d728",
+		}
 	}
 	if err := b.ConsumeID(InputPaymentCredentialsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPaymentCredentials#3417d728: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputPaymentCredentials#3417d728",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -336,17 +383,30 @@ func (i *InputPaymentCredentials) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPaymentCredentials) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPaymentCredentials#3417d728 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPaymentCredentials#3417d728",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPaymentCredentials#3417d728: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPaymentCredentials#3417d728",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	i.Save = i.Flags.Has(0)
 	{
 		if err := i.Data.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPaymentCredentials#3417d728: field data: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPaymentCredentials#3417d728",
+				FieldName:  "data",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -438,7 +498,10 @@ func (i *InputPaymentCredentialsApplePay) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentialsApplePay) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPaymentCredentialsApplePay#aa1c39f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPaymentCredentialsApplePay#aa1c39f",
+		}
 	}
 	b.PutID(InputPaymentCredentialsApplePayTypeID)
 	return i.EncodeBare(b)
@@ -447,10 +510,18 @@ func (i *InputPaymentCredentialsApplePay) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPaymentCredentialsApplePay) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPaymentCredentialsApplePay#aa1c39f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPaymentCredentialsApplePay#aa1c39f",
+		}
 	}
 	if err := i.PaymentData.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPaymentCredentialsApplePay#aa1c39f: field payment_data: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputPaymentCredentialsApplePay#aa1c39f",
+			FieldName:  "payment_data",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -463,10 +534,16 @@ func (i *InputPaymentCredentialsApplePay) GetPaymentData() (value DataJSON) {
 // Decode implements bin.Decoder.
 func (i *InputPaymentCredentialsApplePay) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPaymentCredentialsApplePay#aa1c39f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPaymentCredentialsApplePay#aa1c39f",
+		}
 	}
 	if err := b.ConsumeID(InputPaymentCredentialsApplePayTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPaymentCredentialsApplePay#aa1c39f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputPaymentCredentialsApplePay#aa1c39f",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -474,11 +551,19 @@ func (i *InputPaymentCredentialsApplePay) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPaymentCredentialsApplePay) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPaymentCredentialsApplePay#aa1c39f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPaymentCredentialsApplePay#aa1c39f",
+		}
 	}
 	{
 		if err := i.PaymentData.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPaymentCredentialsApplePay#aa1c39f: field payment_data: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPaymentCredentialsApplePay#aa1c39f",
+				FieldName:  "payment_data",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -569,7 +654,10 @@ func (i *InputPaymentCredentialsGooglePay) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentialsGooglePay) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPaymentCredentialsGooglePay#8ac32801 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPaymentCredentialsGooglePay#8ac32801",
+		}
 	}
 	b.PutID(InputPaymentCredentialsGooglePayTypeID)
 	return i.EncodeBare(b)
@@ -578,10 +666,18 @@ func (i *InputPaymentCredentialsGooglePay) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPaymentCredentialsGooglePay) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPaymentCredentialsGooglePay#8ac32801 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPaymentCredentialsGooglePay#8ac32801",
+		}
 	}
 	if err := i.PaymentToken.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPaymentCredentialsGooglePay#8ac32801: field payment_token: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputPaymentCredentialsGooglePay#8ac32801",
+			FieldName:  "payment_token",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -594,10 +690,16 @@ func (i *InputPaymentCredentialsGooglePay) GetPaymentToken() (value DataJSON) {
 // Decode implements bin.Decoder.
 func (i *InputPaymentCredentialsGooglePay) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPaymentCredentialsGooglePay#8ac32801 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPaymentCredentialsGooglePay#8ac32801",
+		}
 	}
 	if err := b.ConsumeID(InputPaymentCredentialsGooglePayTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPaymentCredentialsGooglePay#8ac32801: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputPaymentCredentialsGooglePay#8ac32801",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -605,11 +707,19 @@ func (i *InputPaymentCredentialsGooglePay) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPaymentCredentialsGooglePay) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPaymentCredentialsGooglePay#8ac32801 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPaymentCredentialsGooglePay#8ac32801",
+		}
 	}
 	{
 		if err := i.PaymentToken.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPaymentCredentialsGooglePay#8ac32801: field payment_token: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPaymentCredentialsGooglePay#8ac32801",
+				FieldName:  "payment_token",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -674,32 +784,47 @@ func DecodeInputPaymentCredentials(buf *bin.Buffer) (InputPaymentCredentialsClas
 		// Decoding inputPaymentCredentialsSaved#c10eb2cf.
 		v := InputPaymentCredentialsSaved{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPaymentCredentialsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputPaymentCredentialsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputPaymentCredentialsTypeID:
 		// Decoding inputPaymentCredentials#3417d728.
 		v := InputPaymentCredentials{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPaymentCredentialsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputPaymentCredentialsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputPaymentCredentialsApplePayTypeID:
 		// Decoding inputPaymentCredentialsApplePay#aa1c39f.
 		v := InputPaymentCredentialsApplePay{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPaymentCredentialsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputPaymentCredentialsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputPaymentCredentialsGooglePayTypeID:
 		// Decoding inputPaymentCredentialsGooglePay#8ac32801.
 		v := InputPaymentCredentialsGooglePay{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputPaymentCredentialsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputPaymentCredentialsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputPaymentCredentialsClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "InputPaymentCredentialsClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -711,7 +836,10 @@ type InputPaymentCredentialsBox struct {
 // Decode implements bin.Decoder for InputPaymentCredentialsBox.
 func (b *InputPaymentCredentialsBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputPaymentCredentialsBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "InputPaymentCredentialsBox",
+		}
 	}
 	v, err := DecodeInputPaymentCredentials(buf)
 	if err != nil {
@@ -724,7 +852,10 @@ func (b *InputPaymentCredentialsBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputPaymentCredentialsBox.
 func (b *InputPaymentCredentialsBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputPaymentCredentials == nil {
-		return fmt.Errorf("unable to encode InputPaymentCredentialsClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "InputPaymentCredentialsBox",
+		}
 	}
 	return b.InputPaymentCredentials.Encode(buf)
 }

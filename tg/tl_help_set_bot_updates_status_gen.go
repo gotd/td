@@ -114,7 +114,10 @@ func (s *HelpSetBotUpdatesStatusRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *HelpSetBotUpdatesStatusRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode help.setBotUpdatesStatus#ec22cfcd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.setBotUpdatesStatus#ec22cfcd",
+		}
 	}
 	b.PutID(HelpSetBotUpdatesStatusRequestTypeID)
 	return s.EncodeBare(b)
@@ -123,7 +126,10 @@ func (s *HelpSetBotUpdatesStatusRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *HelpSetBotUpdatesStatusRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode help.setBotUpdatesStatus#ec22cfcd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.setBotUpdatesStatus#ec22cfcd",
+		}
 	}
 	b.PutInt(s.PendingUpdatesCount)
 	b.PutString(s.Message)
@@ -143,10 +149,16 @@ func (s *HelpSetBotUpdatesStatusRequest) GetMessage() (value string) {
 // Decode implements bin.Decoder.
 func (s *HelpSetBotUpdatesStatusRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode help.setBotUpdatesStatus#ec22cfcd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.setBotUpdatesStatus#ec22cfcd",
+		}
 	}
 	if err := b.ConsumeID(HelpSetBotUpdatesStatusRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.setBotUpdatesStatus#ec22cfcd: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.setBotUpdatesStatus#ec22cfcd",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -154,19 +166,32 @@ func (s *HelpSetBotUpdatesStatusRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *HelpSetBotUpdatesStatusRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode help.setBotUpdatesStatus#ec22cfcd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.setBotUpdatesStatus#ec22cfcd",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.setBotUpdatesStatus#ec22cfcd: field pending_updates_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.setBotUpdatesStatus#ec22cfcd",
+				FieldName:  "pending_updates_count",
+				Underlying: err,
+			}
 		}
 		s.PendingUpdatesCount = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.setBotUpdatesStatus#ec22cfcd: field message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.setBotUpdatesStatus#ec22cfcd",
+				FieldName:  "message",
+				Underlying: err,
+			}
 		}
 		s.Message = value
 	}

@@ -167,7 +167,10 @@ func (i *InputPeerNotifySettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerNotifySettings#9c3d198e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPeerNotifySettings#9c3d198e",
+		}
 	}
 	b.PutID(InputPeerNotifySettingsTypeID)
 	return i.EncodeBare(b)
@@ -176,7 +179,10 @@ func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerNotifySettings#9c3d198e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputPeerNotifySettings#9c3d198e",
+		}
 	}
 	if !(i.ShowPreviews == false) {
 		i.Flags.Set(0)
@@ -191,7 +197,12 @@ func (i *InputPeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(3)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerNotifySettings#9c3d198e: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputPeerNotifySettings#9c3d198e",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if i.Flags.Has(0) {
 		b.PutBool(i.ShowPreviews)
@@ -271,10 +282,16 @@ func (i *InputPeerNotifySettings) GetSound() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (i *InputPeerNotifySettings) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerNotifySettings#9c3d198e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPeerNotifySettings#9c3d198e",
+		}
 	}
 	if err := b.ConsumeID(InputPeerNotifySettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputPeerNotifySettings#9c3d198e",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -282,38 +299,66 @@ func (i *InputPeerNotifySettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerNotifySettings) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerNotifySettings#9c3d198e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputPeerNotifySettings#9c3d198e",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPeerNotifySettings#9c3d198e",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field show_previews: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPeerNotifySettings#9c3d198e",
+				FieldName:  "show_previews",
+				Underlying: err,
+			}
 		}
 		i.ShowPreviews = value
 	}
 	if i.Flags.Has(1) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field silent: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPeerNotifySettings#9c3d198e",
+				FieldName:  "silent",
+				Underlying: err,
+			}
 		}
 		i.Silent = value
 	}
 	if i.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field mute_until: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPeerNotifySettings#9c3d198e",
+				FieldName:  "mute_until",
+				Underlying: err,
+			}
 		}
 		i.MuteUntil = value
 	}
 	if i.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field sound: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputPeerNotifySettings#9c3d198e",
+				FieldName:  "sound",
+				Underlying: err,
+			}
 		}
 		i.Sound = value
 	}

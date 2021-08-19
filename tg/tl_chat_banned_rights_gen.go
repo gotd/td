@@ -295,7 +295,10 @@ func (c *ChatBannedRights) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatBannedRights) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBannedRights#9f120418 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatBannedRights#9f120418",
+		}
 	}
 	b.PutID(ChatBannedRightsTypeID)
 	return c.EncodeBare(b)
@@ -304,7 +307,10 @@ func (c *ChatBannedRights) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatBannedRights) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBannedRights#9f120418 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatBannedRights#9f120418",
+		}
 	}
 	if !(c.ViewMessages == false) {
 		c.Flags.Set(0)
@@ -343,7 +349,12 @@ func (c *ChatBannedRights) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(17)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatBannedRights#9f120418: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "chatBannedRights#9f120418",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(c.UntilDate)
 	return nil
@@ -549,10 +560,16 @@ func (c *ChatBannedRights) GetUntilDate() (value int) {
 // Decode implements bin.Decoder.
 func (c *ChatBannedRights) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBannedRights#9f120418 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatBannedRights#9f120418",
+		}
 	}
 	if err := b.ConsumeID(ChatBannedRightsTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatBannedRights#9f120418: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "chatBannedRights#9f120418",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -560,11 +577,19 @@ func (c *ChatBannedRights) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatBannedRights) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBannedRights#9f120418 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatBannedRights#9f120418",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatBannedRights#9f120418: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatBannedRights#9f120418",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	c.ViewMessages = c.Flags.Has(0)
@@ -582,7 +607,12 @@ func (c *ChatBannedRights) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBannedRights#9f120418: field until_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatBannedRights#9f120418",
+				FieldName:  "until_date",
+				Underlying: err,
+			}
 		}
 		c.UntilDate = value
 	}

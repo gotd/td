@@ -88,7 +88,10 @@ func (c *MessagesClearAllDraftsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *MessagesClearAllDraftsRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.clearAllDrafts#7e58ee9c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.clearAllDrafts#7e58ee9c",
+		}
 	}
 	b.PutID(MessagesClearAllDraftsRequestTypeID)
 	return c.EncodeBare(b)
@@ -97,7 +100,10 @@ func (c *MessagesClearAllDraftsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesClearAllDraftsRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.clearAllDrafts#7e58ee9c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.clearAllDrafts#7e58ee9c",
+		}
 	}
 	return nil
 }
@@ -105,10 +111,16 @@ func (c *MessagesClearAllDraftsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *MessagesClearAllDraftsRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.clearAllDrafts#7e58ee9c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.clearAllDrafts#7e58ee9c",
+		}
 	}
 	if err := b.ConsumeID(MessagesClearAllDraftsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.clearAllDrafts#7e58ee9c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.clearAllDrafts#7e58ee9c",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -116,7 +128,10 @@ func (c *MessagesClearAllDraftsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesClearAllDraftsRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.clearAllDrafts#7e58ee9c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.clearAllDrafts#7e58ee9c",
+		}
 	}
 	return nil
 }

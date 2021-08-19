@@ -286,7 +286,10 @@ func (p *PaymentsPaymentReceipt) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PaymentsPaymentReceipt) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode payments.paymentReceipt#10b555d0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.paymentReceipt#10b555d0",
+		}
 	}
 	b.PutID(PaymentsPaymentReceiptTypeID)
 	return p.EncodeBare(b)
@@ -295,7 +298,10 @@ func (p *PaymentsPaymentReceipt) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PaymentsPaymentReceipt) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode payments.paymentReceipt#10b555d0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.paymentReceipt#10b555d0",
+		}
 	}
 	if !(p.Photo == nil) {
 		p.Flags.Set(2)
@@ -310,7 +316,12 @@ func (p *PaymentsPaymentReceipt) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(3)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.paymentReceipt#10b555d0: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "payments.paymentReceipt#10b555d0",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(p.Date)
 	b.PutInt(p.BotID)
@@ -319,23 +330,51 @@ func (p *PaymentsPaymentReceipt) EncodeBare(b *bin.Buffer) error {
 	b.PutString(p.Description)
 	if p.Flags.Has(2) {
 		if p.Photo == nil {
-			return fmt.Errorf("unable to encode payments.paymentReceipt#10b555d0: field photo is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "payments.paymentReceipt#10b555d0",
+				FieldName: "photo",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "WebDocument",
+				},
+			}
 		}
 		if err := p.Photo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.paymentReceipt#10b555d0: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 	}
 	if err := p.Invoice.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.paymentReceipt#10b555d0: field invoice: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "payments.paymentReceipt#10b555d0",
+			FieldName:  "invoice",
+			Underlying: err,
+		}
 	}
 	if p.Flags.Has(0) {
 		if err := p.Info.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.paymentReceipt#10b555d0: field info: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "info",
+				Underlying: err,
+			}
 		}
 	}
 	if p.Flags.Has(1) {
 		if err := p.Shipping.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.paymentReceipt#10b555d0: field shipping: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "shipping",
+				Underlying: err,
+			}
 		}
 	}
 	if p.Flags.Has(3) {
@@ -347,10 +386,30 @@ func (p *PaymentsPaymentReceipt) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(p.Users))
 	for idx, v := range p.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode payments.paymentReceipt#10b555d0: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "payments.paymentReceipt#10b555d0",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.paymentReceipt#10b555d0: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "payments.paymentReceipt#10b555d0",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -474,10 +533,16 @@ func (p *PaymentsPaymentReceipt) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (p *PaymentsPaymentReceipt) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode payments.paymentReceipt#10b555d0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.paymentReceipt#10b555d0",
+		}
 	}
 	if err := b.ConsumeID(PaymentsPaymentReceiptTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "payments.paymentReceipt#10b555d0",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -485,102 +550,180 @@ func (p *PaymentsPaymentReceipt) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PaymentsPaymentReceipt) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode payments.paymentReceipt#10b555d0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.paymentReceipt#10b555d0",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		p.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field bot_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "bot_id",
+				Underlying: err,
+			}
 		}
 		p.BotID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field provider_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "provider_id",
+				Underlying: err,
+			}
 		}
 		p.ProviderID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		p.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field description: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "description",
+				Underlying: err,
+			}
 		}
 		p.Description = value
 	}
 	if p.Flags.Has(2) {
 		value, err := DecodeWebDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 		p.Photo = value
 	}
 	{
 		if err := p.Invoice.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field invoice: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "invoice",
+				Underlying: err,
+			}
 		}
 	}
 	if p.Flags.Has(0) {
 		if err := p.Info.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field info: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "info",
+				Underlying: err,
+			}
 		}
 	}
 	if p.Flags.Has(1) {
 		if err := p.Shipping.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field shipping: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "shipping",
+				Underlying: err,
+			}
 		}
 	}
 	if p.Flags.Has(3) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field tip_amount: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "tip_amount",
+				Underlying: err,
+			}
 		}
 		p.TipAmount = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field currency: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "currency",
+				Underlying: err,
+			}
 		}
 		p.Currency = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field total_amount: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "total_amount",
+				Underlying: err,
+			}
 		}
 		p.TotalAmount = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field credentials_title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "credentials_title",
+				Underlying: err,
+			}
 		}
 		p.CredentialsTitle = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentReceipt#10b555d0",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -589,7 +732,12 @@ func (p *PaymentsPaymentReceipt) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode payments.paymentReceipt#10b555d0: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "payments.paymentReceipt#10b555d0",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			p.Users = append(p.Users, value)
 		}

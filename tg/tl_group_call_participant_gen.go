@@ -350,7 +350,10 @@ func (g *GroupCallParticipant) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipant#eba636fe as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "groupCallParticipant#eba636fe",
+		}
 	}
 	b.PutID(GroupCallParticipantTypeID)
 	return g.EncodeBare(b)
@@ -359,7 +362,10 @@ func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GroupCallParticipant) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipant#eba636fe as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "groupCallParticipant#eba636fe",
+		}
 	}
 	if !(g.Muted == false) {
 		g.Flags.Set(0)
@@ -410,13 +416,31 @@ func (g *GroupCallParticipant) EncodeBare(b *bin.Buffer) error {
 		g.Flags.Set(14)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode groupCallParticipant#eba636fe: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "groupCallParticipant#eba636fe",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode groupCallParticipant#eba636fe: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "groupCallParticipant#eba636fe",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "Peer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode groupCallParticipant#eba636fe: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "groupCallParticipant#eba636fe",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.Date)
 	if g.Flags.Has(3) {
@@ -434,12 +458,22 @@ func (g *GroupCallParticipant) EncodeBare(b *bin.Buffer) error {
 	}
 	if g.Flags.Has(6) {
 		if err := g.Video.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode groupCallParticipant#eba636fe: field video: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "groupCallParticipant#eba636fe",
+				FieldName:  "video",
+				Underlying: err,
+			}
 		}
 	}
 	if g.Flags.Has(14) {
 		if err := g.Presentation.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode groupCallParticipant#eba636fe: field presentation: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "groupCallParticipant#eba636fe",
+				FieldName:  "presentation",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -713,10 +747,16 @@ func (g *GroupCallParticipant) GetPresentation() (value GroupCallParticipantVide
 // Decode implements bin.Decoder.
 func (g *GroupCallParticipant) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipant#eba636fe to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "groupCallParticipant#eba636fe",
+		}
 	}
 	if err := b.ConsumeID(GroupCallParticipantTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "groupCallParticipant#eba636fe",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -724,11 +764,19 @@ func (g *GroupCallParticipant) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GroupCallParticipant) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipant#eba636fe to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "groupCallParticipant#eba636fe",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipant#eba636fe",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	g.Muted = g.Flags.Has(0)
@@ -744,60 +792,105 @@ func (g *GroupCallParticipant) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipant#eba636fe",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipant#eba636fe",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		g.Date = value
 	}
 	if g.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field active_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipant#eba636fe",
+				FieldName:  "active_date",
+				Underlying: err,
+			}
 		}
 		g.ActiveDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field source: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipant#eba636fe",
+				FieldName:  "source",
+				Underlying: err,
+			}
 		}
 		g.Source = value
 	}
 	if g.Flags.Has(7) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field volume: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipant#eba636fe",
+				FieldName:  "volume",
+				Underlying: err,
+			}
 		}
 		g.Volume = value
 	}
 	if g.Flags.Has(11) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field about: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipant#eba636fe",
+				FieldName:  "about",
+				Underlying: err,
+			}
 		}
 		g.About = value
 	}
 	if g.Flags.Has(13) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field raise_hand_rating: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipant#eba636fe",
+				FieldName:  "raise_hand_rating",
+				Underlying: err,
+			}
 		}
 		g.RaiseHandRating = value
 	}
 	if g.Flags.Has(6) {
 		if err := g.Video.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field video: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipant#eba636fe",
+				FieldName:  "video",
+				Underlying: err,
+			}
 		}
 	}
 	if g.Flags.Has(14) {
 		if err := g.Presentation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field presentation: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipant#eba636fe",
+				FieldName:  "presentation",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

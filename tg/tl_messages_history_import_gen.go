@@ -101,7 +101,10 @@ func (h *MessagesHistoryImport) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (h *MessagesHistoryImport) Encode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode messages.historyImport#1662af0b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.historyImport#1662af0b",
+		}
 	}
 	b.PutID(MessagesHistoryImportTypeID)
 	return h.EncodeBare(b)
@@ -110,7 +113,10 @@ func (h *MessagesHistoryImport) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (h *MessagesHistoryImport) EncodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode messages.historyImport#1662af0b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.historyImport#1662af0b",
+		}
 	}
 	b.PutLong(h.ID)
 	return nil
@@ -124,10 +130,16 @@ func (h *MessagesHistoryImport) GetID() (value int64) {
 // Decode implements bin.Decoder.
 func (h *MessagesHistoryImport) Decode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode messages.historyImport#1662af0b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.historyImport#1662af0b",
+		}
 	}
 	if err := b.ConsumeID(MessagesHistoryImportTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.historyImport#1662af0b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.historyImport#1662af0b",
+			Underlying: err,
+		}
 	}
 	return h.DecodeBare(b)
 }
@@ -135,12 +147,20 @@ func (h *MessagesHistoryImport) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (h *MessagesHistoryImport) DecodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode messages.historyImport#1662af0b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.historyImport#1662af0b",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.historyImport#1662af0b: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.historyImport#1662af0b",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		h.ID = value
 	}

@@ -85,7 +85,10 @@ func (g *AccountGetPasswordRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetPasswordRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getPassword#548a30f5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getPassword#548a30f5",
+		}
 	}
 	b.PutID(AccountGetPasswordRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +97,10 @@ func (g *AccountGetPasswordRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetPasswordRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getPassword#548a30f5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getPassword#548a30f5",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (g *AccountGetPasswordRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *AccountGetPasswordRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getPassword#548a30f5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getPassword#548a30f5",
+		}
 	}
 	if err := b.ConsumeID(AccountGetPasswordRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getPassword#548a30f5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.getPassword#548a30f5",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (g *AccountGetPasswordRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getPassword#548a30f5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getPassword#548a30f5",
+		}
 	}
 	return nil
 }

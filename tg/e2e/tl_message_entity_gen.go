@@ -113,7 +113,10 @@ func (m *MessageEntityUnknown) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityUnknown) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityUnknown#bb92ba95 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityUnknown#bb92ba95",
+		}
 	}
 	b.PutID(MessageEntityUnknownTypeID)
 	return m.EncodeBare(b)
@@ -122,7 +125,10 @@ func (m *MessageEntityUnknown) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityUnknown) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityUnknown#bb92ba95 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityUnknown#bb92ba95",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -142,10 +148,16 @@ func (m *MessageEntityUnknown) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityUnknown) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityUnknown#bb92ba95 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityUnknown#bb92ba95",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityUnknownTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityUnknown#bb92ba95: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityUnknown#bb92ba95",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (m *MessageEntityUnknown) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityUnknown) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityUnknown#bb92ba95 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityUnknown#bb92ba95",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityUnknown#bb92ba95: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityUnknown#bb92ba95",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityUnknown#bb92ba95: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityUnknown#bb92ba95",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -272,7 +297,10 @@ func (m *MessageEntityMention) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityMention) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityMention#fa04579d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityMention#fa04579d",
+		}
 	}
 	b.PutID(MessageEntityMentionTypeID)
 	return m.EncodeBare(b)
@@ -281,7 +309,10 @@ func (m *MessageEntityMention) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityMention) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityMention#fa04579d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityMention#fa04579d",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -301,10 +332,16 @@ func (m *MessageEntityMention) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityMention) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityMention#fa04579d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityMention#fa04579d",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityMentionTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityMention#fa04579d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityMention#fa04579d",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -312,19 +349,32 @@ func (m *MessageEntityMention) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityMention) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityMention#fa04579d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityMention#fa04579d",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityMention#fa04579d: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityMention#fa04579d",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityMention#fa04579d: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityMention#fa04579d",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -428,7 +478,10 @@ func (m *MessageEntityHashtag) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityHashtag) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityHashtag#6f635b0d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityHashtag#6f635b0d",
+		}
 	}
 	b.PutID(MessageEntityHashtagTypeID)
 	return m.EncodeBare(b)
@@ -437,7 +490,10 @@ func (m *MessageEntityHashtag) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityHashtag) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityHashtag#6f635b0d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityHashtag#6f635b0d",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -457,10 +513,16 @@ func (m *MessageEntityHashtag) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityHashtag) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityHashtag#6f635b0d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityHashtag#6f635b0d",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityHashtagTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityHashtag#6f635b0d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityHashtag#6f635b0d",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -468,19 +530,32 @@ func (m *MessageEntityHashtag) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityHashtag) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityHashtag#6f635b0d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityHashtag#6f635b0d",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityHashtag#6f635b0d: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityHashtag#6f635b0d",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityHashtag#6f635b0d: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityHashtag#6f635b0d",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -584,7 +659,10 @@ func (m *MessageEntityBotCommand) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityBotCommand) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityBotCommand#6cef8ac7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityBotCommand#6cef8ac7",
+		}
 	}
 	b.PutID(MessageEntityBotCommandTypeID)
 	return m.EncodeBare(b)
@@ -593,7 +671,10 @@ func (m *MessageEntityBotCommand) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityBotCommand) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityBotCommand#6cef8ac7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityBotCommand#6cef8ac7",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -613,10 +694,16 @@ func (m *MessageEntityBotCommand) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityBotCommand) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityBotCommand#6cef8ac7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityBotCommand#6cef8ac7",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityBotCommandTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityBotCommand#6cef8ac7: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityBotCommand#6cef8ac7",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -624,19 +711,32 @@ func (m *MessageEntityBotCommand) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityBotCommand) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityBotCommand#6cef8ac7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityBotCommand#6cef8ac7",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityBotCommand#6cef8ac7: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityBotCommand#6cef8ac7",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityBotCommand#6cef8ac7: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityBotCommand#6cef8ac7",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -746,7 +846,10 @@ func (m *MessageEntityURL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityURL) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityUrl#6ed02538 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityUrl#6ed02538",
+		}
 	}
 	b.PutID(MessageEntityURLTypeID)
 	return m.EncodeBare(b)
@@ -755,7 +858,10 @@ func (m *MessageEntityURL) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityURL) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityUrl#6ed02538 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityUrl#6ed02538",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -775,10 +881,16 @@ func (m *MessageEntityURL) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityURL) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityUrl#6ed02538 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityUrl#6ed02538",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityURLTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityUrl#6ed02538: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityUrl#6ed02538",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -786,19 +898,32 @@ func (m *MessageEntityURL) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityURL) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityUrl#6ed02538 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityUrl#6ed02538",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityUrl#6ed02538: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityUrl#6ed02538",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityUrl#6ed02538: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityUrl#6ed02538",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -905,7 +1030,10 @@ func (m *MessageEntityEmail) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityEmail) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityEmail#64e475c2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityEmail#64e475c2",
+		}
 	}
 	b.PutID(MessageEntityEmailTypeID)
 	return m.EncodeBare(b)
@@ -914,7 +1042,10 @@ func (m *MessageEntityEmail) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityEmail) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityEmail#64e475c2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityEmail#64e475c2",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -934,10 +1065,16 @@ func (m *MessageEntityEmail) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityEmail) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityEmail#64e475c2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityEmail#64e475c2",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityEmailTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityEmail#64e475c2: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityEmail#64e475c2",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -945,19 +1082,32 @@ func (m *MessageEntityEmail) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityEmail) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityEmail#64e475c2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityEmail#64e475c2",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityEmail#64e475c2: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityEmail#64e475c2",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityEmail#64e475c2: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityEmail#64e475c2",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -1061,7 +1211,10 @@ func (m *MessageEntityBold) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityBold) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityBold#bd610bc9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityBold#bd610bc9",
+		}
 	}
 	b.PutID(MessageEntityBoldTypeID)
 	return m.EncodeBare(b)
@@ -1070,7 +1223,10 @@ func (m *MessageEntityBold) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityBold) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityBold#bd610bc9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityBold#bd610bc9",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -1090,10 +1246,16 @@ func (m *MessageEntityBold) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityBold) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityBold#bd610bc9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityBold#bd610bc9",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityBoldTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityBold#bd610bc9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityBold#bd610bc9",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -1101,19 +1263,32 @@ func (m *MessageEntityBold) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityBold) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityBold#bd610bc9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityBold#bd610bc9",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityBold#bd610bc9: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityBold#bd610bc9",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityBold#bd610bc9: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityBold#bd610bc9",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -1217,7 +1392,10 @@ func (m *MessageEntityItalic) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityItalic) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityItalic#826f8b60 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityItalic#826f8b60",
+		}
 	}
 	b.PutID(MessageEntityItalicTypeID)
 	return m.EncodeBare(b)
@@ -1226,7 +1404,10 @@ func (m *MessageEntityItalic) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityItalic) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityItalic#826f8b60 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityItalic#826f8b60",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -1246,10 +1427,16 @@ func (m *MessageEntityItalic) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityItalic) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityItalic#826f8b60 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityItalic#826f8b60",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityItalicTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityItalic#826f8b60: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityItalic#826f8b60",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -1257,19 +1444,32 @@ func (m *MessageEntityItalic) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityItalic) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityItalic#826f8b60 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityItalic#826f8b60",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityItalic#826f8b60: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityItalic#826f8b60",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityItalic#826f8b60: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityItalic#826f8b60",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -1373,7 +1573,10 @@ func (m *MessageEntityCode) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityCode) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityCode#28a20571 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityCode#28a20571",
+		}
 	}
 	b.PutID(MessageEntityCodeTypeID)
 	return m.EncodeBare(b)
@@ -1382,7 +1585,10 @@ func (m *MessageEntityCode) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityCode) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityCode#28a20571 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityCode#28a20571",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -1402,10 +1608,16 @@ func (m *MessageEntityCode) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityCode) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityCode#28a20571 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityCode#28a20571",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityCodeTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityCode#28a20571: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityCode#28a20571",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -1413,19 +1625,32 @@ func (m *MessageEntityCode) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityCode) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityCode#28a20571 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityCode#28a20571",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityCode#28a20571: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityCode#28a20571",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityCode#28a20571: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityCode#28a20571",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -1541,7 +1766,10 @@ func (m *MessageEntityPre) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityPre) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityPre#73924be0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityPre#73924be0",
+		}
 	}
 	b.PutID(MessageEntityPreTypeID)
 	return m.EncodeBare(b)
@@ -1550,7 +1778,10 @@ func (m *MessageEntityPre) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityPre) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityPre#73924be0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityPre#73924be0",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -1576,10 +1807,16 @@ func (m *MessageEntityPre) GetLanguage() (value string) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityPre) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityPre#73924be0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityPre#73924be0",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityPreTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityPre#73924be0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityPre#73924be0",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -1587,26 +1824,44 @@ func (m *MessageEntityPre) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityPre) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityPre#73924be0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityPre#73924be0",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityPre#73924be0: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityPre#73924be0",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityPre#73924be0: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityPre#73924be0",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityPre#73924be0: field language: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityPre#73924be0",
+				FieldName:  "language",
+				Underlying: err,
+			}
 		}
 		m.Language = value
 	}
@@ -1727,7 +1982,10 @@ func (m *MessageEntityTextURL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityTextURL) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityTextUrl#76a6d327 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityTextUrl#76a6d327",
+		}
 	}
 	b.PutID(MessageEntityTextURLTypeID)
 	return m.EncodeBare(b)
@@ -1736,7 +1994,10 @@ func (m *MessageEntityTextURL) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityTextURL) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityTextUrl#76a6d327 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityTextUrl#76a6d327",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -1762,10 +2023,16 @@ func (m *MessageEntityTextURL) GetURL() (value string) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityTextURL) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityTextUrl#76a6d327 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityTextUrl#76a6d327",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityTextURLTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityTextUrl#76a6d327: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityTextUrl#76a6d327",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -1773,26 +2040,44 @@ func (m *MessageEntityTextURL) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityTextURL) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityTextUrl#76a6d327 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityTextUrl#76a6d327",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityTextUrl#76a6d327: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityTextUrl#76a6d327",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityTextUrl#76a6d327: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityTextUrl#76a6d327",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityTextUrl#76a6d327: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityTextUrl#76a6d327",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		m.URL = value
 	}
@@ -1912,7 +2197,10 @@ func (m *MessageEntityMentionName) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityMentionName) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityMentionName#352dca58 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityMentionName#352dca58",
+		}
 	}
 	b.PutID(MessageEntityMentionNameTypeID)
 	return m.EncodeBare(b)
@@ -1921,7 +2209,10 @@ func (m *MessageEntityMentionName) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityMentionName) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityMentionName#352dca58 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityMentionName#352dca58",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -1947,10 +2238,16 @@ func (m *MessageEntityMentionName) GetUserID() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityMentionName) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityMentionName#352dca58 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityMentionName#352dca58",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityMentionNameTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityMentionName#352dca58: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityMentionName#352dca58",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -1958,26 +2255,44 @@ func (m *MessageEntityMentionName) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityMentionName) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityMentionName#352dca58 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityMentionName#352dca58",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityMentionName#352dca58: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityMentionName#352dca58",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityMentionName#352dca58: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityMentionName#352dca58",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityMentionName#352dca58: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityMentionName#352dca58",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		m.UserID = value
 	}
@@ -2081,7 +2396,10 @@ func (m *MessageEntityPhone) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityPhone) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityPhone#9b69e34b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityPhone#9b69e34b",
+		}
 	}
 	b.PutID(MessageEntityPhoneTypeID)
 	return m.EncodeBare(b)
@@ -2090,7 +2408,10 @@ func (m *MessageEntityPhone) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityPhone) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityPhone#9b69e34b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityPhone#9b69e34b",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -2110,10 +2431,16 @@ func (m *MessageEntityPhone) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityPhone) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityPhone#9b69e34b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityPhone#9b69e34b",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityPhoneTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityPhone#9b69e34b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityPhone#9b69e34b",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -2121,19 +2448,32 @@ func (m *MessageEntityPhone) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityPhone) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityPhone#9b69e34b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityPhone#9b69e34b",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityPhone#9b69e34b: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityPhone#9b69e34b",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityPhone#9b69e34b: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityPhone#9b69e34b",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -2237,7 +2577,10 @@ func (m *MessageEntityCashtag) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityCashtag) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityCashtag#4c4e743f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityCashtag#4c4e743f",
+		}
 	}
 	b.PutID(MessageEntityCashtagTypeID)
 	return m.EncodeBare(b)
@@ -2246,7 +2589,10 @@ func (m *MessageEntityCashtag) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityCashtag) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityCashtag#4c4e743f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityCashtag#4c4e743f",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -2266,10 +2612,16 @@ func (m *MessageEntityCashtag) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityCashtag) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityCashtag#4c4e743f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityCashtag#4c4e743f",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityCashtagTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityCashtag#4c4e743f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityCashtag#4c4e743f",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -2277,19 +2629,32 @@ func (m *MessageEntityCashtag) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityCashtag) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityCashtag#4c4e743f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityCashtag#4c4e743f",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityCashtag#4c4e743f: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityCashtag#4c4e743f",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityCashtag#4c4e743f: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityCashtag#4c4e743f",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -2393,7 +2758,10 @@ func (m *MessageEntityBankCard) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityBankCard) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityBankCard#761e6af4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityBankCard#761e6af4",
+		}
 	}
 	b.PutID(MessageEntityBankCardTypeID)
 	return m.EncodeBare(b)
@@ -2402,7 +2770,10 @@ func (m *MessageEntityBankCard) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityBankCard) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityBankCard#761e6af4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityBankCard#761e6af4",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -2422,10 +2793,16 @@ func (m *MessageEntityBankCard) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityBankCard) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityBankCard#761e6af4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityBankCard#761e6af4",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityBankCardTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityBankCard#761e6af4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityBankCard#761e6af4",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -2433,19 +2810,32 @@ func (m *MessageEntityBankCard) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityBankCard) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityBankCard#761e6af4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityBankCard#761e6af4",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityBankCard#761e6af4: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityBankCard#761e6af4",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityBankCard#761e6af4: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityBankCard#761e6af4",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -2549,7 +2939,10 @@ func (m *MessageEntityUnderline) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityUnderline) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityUnderline#9c4e7e8b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityUnderline#9c4e7e8b",
+		}
 	}
 	b.PutID(MessageEntityUnderlineTypeID)
 	return m.EncodeBare(b)
@@ -2558,7 +2951,10 @@ func (m *MessageEntityUnderline) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityUnderline) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityUnderline#9c4e7e8b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityUnderline#9c4e7e8b",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -2578,10 +2974,16 @@ func (m *MessageEntityUnderline) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityUnderline) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityUnderline#9c4e7e8b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityUnderline#9c4e7e8b",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityUnderlineTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityUnderline#9c4e7e8b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityUnderline#9c4e7e8b",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -2589,19 +2991,32 @@ func (m *MessageEntityUnderline) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityUnderline) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityUnderline#9c4e7e8b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityUnderline#9c4e7e8b",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityUnderline#9c4e7e8b: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityUnderline#9c4e7e8b",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityUnderline#9c4e7e8b: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityUnderline#9c4e7e8b",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -2705,7 +3120,10 @@ func (m *MessageEntityStrike) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityStrike) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityStrike#bf0693d4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityStrike#bf0693d4",
+		}
 	}
 	b.PutID(MessageEntityStrikeTypeID)
 	return m.EncodeBare(b)
@@ -2714,7 +3132,10 @@ func (m *MessageEntityStrike) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityStrike) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityStrike#bf0693d4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityStrike#bf0693d4",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -2734,10 +3155,16 @@ func (m *MessageEntityStrike) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityStrike) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityStrike#bf0693d4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityStrike#bf0693d4",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityStrikeTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityStrike#bf0693d4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityStrike#bf0693d4",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -2745,19 +3172,32 @@ func (m *MessageEntityStrike) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityStrike) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityStrike#bf0693d4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityStrike#bf0693d4",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityStrike#bf0693d4: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityStrike#bf0693d4",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityStrike#bf0693d4: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityStrike#bf0693d4",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -2861,7 +3301,10 @@ func (m *MessageEntityBlockquote) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityBlockquote) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityBlockquote#20df5d0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityBlockquote#20df5d0",
+		}
 	}
 	b.PutID(MessageEntityBlockquoteTypeID)
 	return m.EncodeBare(b)
@@ -2870,7 +3313,10 @@ func (m *MessageEntityBlockquote) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityBlockquote) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityBlockquote#20df5d0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageEntityBlockquote#20df5d0",
+		}
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -2890,10 +3336,16 @@ func (m *MessageEntityBlockquote) GetLength() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageEntityBlockquote) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityBlockquote#20df5d0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityBlockquote#20df5d0",
+		}
 	}
 	if err := b.ConsumeID(MessageEntityBlockquoteTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageEntityBlockquote#20df5d0",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -2901,19 +3353,32 @@ func (m *MessageEntityBlockquote) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityBlockquote) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityBlockquote#20df5d0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageEntityBlockquote#20df5d0",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityBlockquote#20df5d0",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageEntityBlockquote#20df5d0",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		m.Length = value
 	}
@@ -2999,130 +3464,187 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 		// Decoding messageEntityUnknown#bb92ba95.
 		v := MessageEntityUnknown{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityMentionTypeID:
 		// Decoding messageEntityMention#fa04579d.
 		v := MessageEntityMention{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityHashtagTypeID:
 		// Decoding messageEntityHashtag#6f635b0d.
 		v := MessageEntityHashtag{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityBotCommandTypeID:
 		// Decoding messageEntityBotCommand#6cef8ac7.
 		v := MessageEntityBotCommand{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityURLTypeID:
 		// Decoding messageEntityUrl#6ed02538.
 		v := MessageEntityURL{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityEmailTypeID:
 		// Decoding messageEntityEmail#64e475c2.
 		v := MessageEntityEmail{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityBoldTypeID:
 		// Decoding messageEntityBold#bd610bc9.
 		v := MessageEntityBold{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityItalicTypeID:
 		// Decoding messageEntityItalic#826f8b60.
 		v := MessageEntityItalic{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityCodeTypeID:
 		// Decoding messageEntityCode#28a20571.
 		v := MessageEntityCode{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityPreTypeID:
 		// Decoding messageEntityPre#73924be0.
 		v := MessageEntityPre{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityTextURLTypeID:
 		// Decoding messageEntityTextUrl#76a6d327.
 		v := MessageEntityTextURL{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityMentionNameTypeID:
 		// Decoding messageEntityMentionName#352dca58.
 		v := MessageEntityMentionName{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityPhoneTypeID:
 		// Decoding messageEntityPhone#9b69e34b.
 		v := MessageEntityPhone{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityCashtagTypeID:
 		// Decoding messageEntityCashtag#4c4e743f.
 		v := MessageEntityCashtag{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityBankCardTypeID:
 		// Decoding messageEntityBankCard#761e6af4.
 		v := MessageEntityBankCard{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityUnderlineTypeID:
 		// Decoding messageEntityUnderline#9c4e7e8b.
 		v := MessageEntityUnderline{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityStrikeTypeID:
 		// Decoding messageEntityStrike#bf0693d4.
 		v := MessageEntityStrike{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageEntityBlockquoteTypeID:
 		// Decoding messageEntityBlockquote#20df5d0.
 		v := MessageEntityBlockquote{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageEntityClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "MessageEntityClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -3134,7 +3656,10 @@ type MessageEntityBox struct {
 // Decode implements bin.Decoder for MessageEntityBox.
 func (b *MessageEntityBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode MessageEntityBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "MessageEntityBox",
+		}
 	}
 	v, err := DecodeMessageEntity(buf)
 	if err != nil {
@@ -3147,7 +3672,10 @@ func (b *MessageEntityBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for MessageEntityBox.
 func (b *MessageEntityBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.MessageEntity == nil {
-		return fmt.Errorf("unable to encode MessageEntityClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "MessageEntityBox",
+		}
 	}
 	return b.MessageEntity.Encode(buf)
 }

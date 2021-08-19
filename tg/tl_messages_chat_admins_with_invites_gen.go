@@ -112,7 +112,10 @@ func (c *MessagesChatAdminsWithInvites) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *MessagesChatAdminsWithInvites) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.chatAdminsWithInvites#b69b72d7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.chatAdminsWithInvites#b69b72d7",
+		}
 	}
 	b.PutID(MessagesChatAdminsWithInvitesTypeID)
 	return c.EncodeBare(b)
@@ -121,21 +124,53 @@ func (c *MessagesChatAdminsWithInvites) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesChatAdminsWithInvites) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.chatAdminsWithInvites#b69b72d7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.chatAdminsWithInvites#b69b72d7",
+		}
 	}
 	b.PutVectorHeader(len(c.Admins))
 	for idx, v := range c.Admins {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.chatAdminsWithInvites#b69b72d7: field admins element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.chatAdminsWithInvites#b69b72d7",
+				FieldName: "admins",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.chatAdminsWithInvites#b69b72d7: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.chatAdminsWithInvites#b69b72d7",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.chatAdminsWithInvites#b69b72d7: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.chatAdminsWithInvites#b69b72d7",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -159,10 +194,16 @@ func (c *MessagesChatAdminsWithInvites) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (c *MessagesChatAdminsWithInvites) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.chatAdminsWithInvites#b69b72d7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.chatAdminsWithInvites#b69b72d7",
+		}
 	}
 	if err := b.ConsumeID(MessagesChatAdminsWithInvitesTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.chatAdminsWithInvites#b69b72d7: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.chatAdminsWithInvites#b69b72d7",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -170,12 +211,20 @@ func (c *MessagesChatAdminsWithInvites) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesChatAdminsWithInvites) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.chatAdminsWithInvites#b69b72d7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.chatAdminsWithInvites#b69b72d7",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.chatAdminsWithInvites#b69b72d7: field admins: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.chatAdminsWithInvites#b69b72d7",
+				FieldName:  "admins",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -184,7 +233,13 @@ func (c *MessagesChatAdminsWithInvites) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value ChatAdminWithInvites
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messages.chatAdminsWithInvites#b69b72d7: field admins: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "messages.chatAdminsWithInvites#b69b72d7",
+					FieldName:  "admins",
+					Underlying: err,
+				}
 			}
 			c.Admins = append(c.Admins, value)
 		}
@@ -192,7 +247,12 @@ func (c *MessagesChatAdminsWithInvites) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.chatAdminsWithInvites#b69b72d7: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.chatAdminsWithInvites#b69b72d7",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -201,7 +261,12 @@ func (c *MessagesChatAdminsWithInvites) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.chatAdminsWithInvites#b69b72d7: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.chatAdminsWithInvites#b69b72d7",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			c.Users = append(c.Users, value)
 		}

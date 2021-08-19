@@ -85,7 +85,10 @@ func (g *ChannelsGetInactiveChannelsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ChannelsGetInactiveChannelsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getInactiveChannels#11e831ee as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.getInactiveChannels#11e831ee",
+		}
 	}
 	b.PutID(ChannelsGetInactiveChannelsRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +97,10 @@ func (g *ChannelsGetInactiveChannelsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ChannelsGetInactiveChannelsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getInactiveChannels#11e831ee as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.getInactiveChannels#11e831ee",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (g *ChannelsGetInactiveChannelsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *ChannelsGetInactiveChannelsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getInactiveChannels#11e831ee to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.getInactiveChannels#11e831ee",
+		}
 	}
 	if err := b.ConsumeID(ChannelsGetInactiveChannelsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.getInactiveChannels#11e831ee: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.getInactiveChannels#11e831ee",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (g *ChannelsGetInactiveChannelsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ChannelsGetInactiveChannelsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getInactiveChannels#11e831ee to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.getInactiveChannels#11e831ee",
+		}
 	}
 	return nil
 }

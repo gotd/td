@@ -159,7 +159,10 @@ func (s *MessagesSetInlineGameScoreRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSetInlineGameScoreRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setInlineGameScore#15ad9f64 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.setInlineGameScore#15ad9f64",
+		}
 	}
 	b.PutID(MessagesSetInlineGameScoreRequestTypeID)
 	return s.EncodeBare(b)
@@ -168,7 +171,10 @@ func (s *MessagesSetInlineGameScoreRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSetInlineGameScoreRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setInlineGameScore#15ad9f64 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.setInlineGameScore#15ad9f64",
+		}
 	}
 	if !(s.EditMessage == false) {
 		s.Flags.Set(0)
@@ -177,16 +183,39 @@ func (s *MessagesSetInlineGameScoreRequest) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(1)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setInlineGameScore#15ad9f64: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.setInlineGameScore#15ad9f64",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if err := s.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setInlineGameScore#15ad9f64: field id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.setInlineGameScore#15ad9f64",
+			FieldName:  "id",
+			Underlying: err,
+		}
 	}
 	if s.UserID == nil {
-		return fmt.Errorf("unable to encode messages.setInlineGameScore#15ad9f64: field user_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.setInlineGameScore#15ad9f64",
+			FieldName: "user_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := s.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setInlineGameScore#15ad9f64: field user_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.setInlineGameScore#15ad9f64",
+			FieldName:  "user_id",
+			Underlying: err,
+		}
 	}
 	b.PutInt(s.Score)
 	return nil
@@ -242,10 +271,16 @@ func (s *MessagesSetInlineGameScoreRequest) GetScore() (value int) {
 // Decode implements bin.Decoder.
 func (s *MessagesSetInlineGameScoreRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setInlineGameScore#15ad9f64 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.setInlineGameScore#15ad9f64",
+		}
 	}
 	if err := b.ConsumeID(MessagesSetInlineGameScoreRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.setInlineGameScore#15ad9f64",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -253,31 +288,54 @@ func (s *MessagesSetInlineGameScoreRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSetInlineGameScoreRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setInlineGameScore#15ad9f64 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.setInlineGameScore#15ad9f64",
+		}
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.setInlineGameScore#15ad9f64",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	s.EditMessage = s.Flags.Has(0)
 	s.Force = s.Flags.Has(1)
 	{
 		if err := s.ID.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.setInlineGameScore#15ad9f64",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.setInlineGameScore#15ad9f64",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		s.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field score: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.setInlineGameScore#15ad9f64",
+				FieldName:  "score",
+				Underlying: err,
+			}
 		}
 		s.Score = value
 	}

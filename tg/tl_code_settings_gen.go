@@ -148,7 +148,10 @@ func (c *CodeSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CodeSettings) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode codeSettings#debebe83 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "codeSettings#debebe83",
+		}
 	}
 	b.PutID(CodeSettingsTypeID)
 	return c.EncodeBare(b)
@@ -157,7 +160,10 @@ func (c *CodeSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CodeSettings) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode codeSettings#debebe83 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "codeSettings#debebe83",
+		}
 	}
 	if !(c.AllowFlashcall == false) {
 		c.Flags.Set(0)
@@ -169,7 +175,12 @@ func (c *CodeSettings) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(4)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode codeSettings#debebe83: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "codeSettings#debebe83",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -225,10 +236,16 @@ func (c *CodeSettings) GetAllowAppHash() (value bool) {
 // Decode implements bin.Decoder.
 func (c *CodeSettings) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode codeSettings#debebe83 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "codeSettings#debebe83",
+		}
 	}
 	if err := b.ConsumeID(CodeSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode codeSettings#debebe83: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "codeSettings#debebe83",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -236,11 +253,19 @@ func (c *CodeSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CodeSettings) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode codeSettings#debebe83 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "codeSettings#debebe83",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode codeSettings#debebe83: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "codeSettings#debebe83",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	c.AllowFlashcall = c.Flags.Has(0)

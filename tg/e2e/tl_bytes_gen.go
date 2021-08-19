@@ -84,7 +84,10 @@ func (b *Bytes) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *Bytes) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bytes#e937bb82 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "bytes#e937bb82",
+		}
 	}
 	buf.PutID(BytesTypeID)
 	return b.EncodeBare(buf)
@@ -93,7 +96,10 @@ func (b *Bytes) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *Bytes) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bytes#e937bb82 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "bytes#e937bb82",
+		}
 	}
 	return nil
 }
@@ -101,10 +107,16 @@ func (b *Bytes) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *Bytes) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bytes#e937bb82 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "bytes#e937bb82",
+		}
 	}
 	if err := buf.ConsumeID(BytesTypeID); err != nil {
-		return fmt.Errorf("unable to decode bytes#e937bb82: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "bytes#e937bb82",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -112,7 +124,10 @@ func (b *Bytes) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *Bytes) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bytes#e937bb82 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "bytes#e937bb82",
+		}
 	}
 	return nil
 }

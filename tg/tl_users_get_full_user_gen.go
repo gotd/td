@@ -102,7 +102,10 @@ func (g *UsersGetFullUserRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UsersGetFullUserRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode users.getFullUser#ca30a5b1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "users.getFullUser#ca30a5b1",
+		}
 	}
 	b.PutID(UsersGetFullUserRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,13 +114,29 @@ func (g *UsersGetFullUserRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UsersGetFullUserRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode users.getFullUser#ca30a5b1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "users.getFullUser#ca30a5b1",
+		}
 	}
 	if g.ID == nil {
-		return fmt.Errorf("unable to encode users.getFullUser#ca30a5b1: field id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "users.getFullUser#ca30a5b1",
+			FieldName: "id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := g.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode users.getFullUser#ca30a5b1: field id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "users.getFullUser#ca30a5b1",
+			FieldName:  "id",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -130,10 +149,16 @@ func (g *UsersGetFullUserRequest) GetID() (value InputUserClass) {
 // Decode implements bin.Decoder.
 func (g *UsersGetFullUserRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode users.getFullUser#ca30a5b1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "users.getFullUser#ca30a5b1",
+		}
 	}
 	if err := b.ConsumeID(UsersGetFullUserRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode users.getFullUser#ca30a5b1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "users.getFullUser#ca30a5b1",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -141,12 +166,20 @@ func (g *UsersGetFullUserRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UsersGetFullUserRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode users.getFullUser#ca30a5b1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "users.getFullUser#ca30a5b1",
+		}
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode users.getFullUser#ca30a5b1: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "users.getFullUser#ca30a5b1",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		g.ID = value
 	}

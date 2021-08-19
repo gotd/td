@@ -127,7 +127,10 @@ func (s *StatsGroupTopPoster) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsGroupTopPoster) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGroupTopPoster#18f3d0f7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "statsGroupTopPoster#18f3d0f7",
+		}
 	}
 	b.PutID(StatsGroupTopPosterTypeID)
 	return s.EncodeBare(b)
@@ -136,7 +139,10 @@ func (s *StatsGroupTopPoster) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsGroupTopPoster) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGroupTopPoster#18f3d0f7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "statsGroupTopPoster#18f3d0f7",
+		}
 	}
 	b.PutInt(s.UserID)
 	b.PutInt(s.Messages)
@@ -162,10 +168,16 @@ func (s *StatsGroupTopPoster) GetAvgChars() (value int) {
 // Decode implements bin.Decoder.
 func (s *StatsGroupTopPoster) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGroupTopPoster#18f3d0f7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "statsGroupTopPoster#18f3d0f7",
+		}
 	}
 	if err := b.ConsumeID(StatsGroupTopPosterTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsGroupTopPoster#18f3d0f7: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "statsGroupTopPoster#18f3d0f7",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -173,26 +185,44 @@ func (s *StatsGroupTopPoster) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsGroupTopPoster) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGroupTopPoster#18f3d0f7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "statsGroupTopPoster#18f3d0f7",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopPoster#18f3d0f7: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "statsGroupTopPoster#18f3d0f7",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		s.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopPoster#18f3d0f7: field messages: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "statsGroupTopPoster#18f3d0f7",
+				FieldName:  "messages",
+				Underlying: err,
+			}
 		}
 		s.Messages = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopPoster#18f3d0f7: field avg_chars: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "statsGroupTopPoster#18f3d0f7",
+				FieldName:  "avg_chars",
+				Underlying: err,
+			}
 		}
 		s.AvgChars = value
 	}

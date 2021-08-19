@@ -84,7 +84,10 @@ func (o *Ok) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (o *Ok) Encode(b *bin.Buffer) error {
 	if o == nil {
-		return fmt.Errorf("can't encode ok#d4edbe69 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ok#d4edbe69",
+		}
 	}
 	b.PutID(OkTypeID)
 	return o.EncodeBare(b)
@@ -93,7 +96,10 @@ func (o *Ok) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (o *Ok) EncodeBare(b *bin.Buffer) error {
 	if o == nil {
-		return fmt.Errorf("can't encode ok#d4edbe69 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ok#d4edbe69",
+		}
 	}
 	return nil
 }
@@ -101,10 +107,16 @@ func (o *Ok) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (o *Ok) Decode(b *bin.Buffer) error {
 	if o == nil {
-		return fmt.Errorf("can't decode ok#d4edbe69 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ok#d4edbe69",
+		}
 	}
 	if err := b.ConsumeID(OkTypeID); err != nil {
-		return fmt.Errorf("unable to decode ok#d4edbe69: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "ok#d4edbe69",
+			Underlying: err,
+		}
 	}
 	return o.DecodeBare(b)
 }
@@ -112,7 +124,10 @@ func (o *Ok) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (o *Ok) DecodeBare(b *bin.Buffer) error {
 	if o == nil {
-		return fmt.Errorf("can't decode ok#d4edbe69 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ok#d4edbe69",
+		}
 	}
 	return nil
 }

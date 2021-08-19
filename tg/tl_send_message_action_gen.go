@@ -85,7 +85,10 @@ func (s *SendMessageTypingAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageTypingAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageTypingAction#16bf744e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageTypingAction#16bf744e",
+		}
 	}
 	b.PutID(SendMessageTypingActionTypeID)
 	return s.EncodeBare(b)
@@ -94,7 +97,10 @@ func (s *SendMessageTypingAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageTypingAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageTypingAction#16bf744e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageTypingAction#16bf744e",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (s *SendMessageTypingAction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendMessageTypingAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageTypingAction#16bf744e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageTypingAction#16bf744e",
+		}
 	}
 	if err := b.ConsumeID(SendMessageTypingActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageTypingAction#16bf744e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageTypingAction#16bf744e",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (s *SendMessageTypingAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageTypingAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageTypingAction#16bf744e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageTypingAction#16bf744e",
+		}
 	}
 	return nil
 }
@@ -188,7 +203,10 @@ func (s *SendMessageCancelAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageCancelAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageCancelAction#fd5ec8f5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageCancelAction#fd5ec8f5",
+		}
 	}
 	b.PutID(SendMessageCancelActionTypeID)
 	return s.EncodeBare(b)
@@ -197,7 +215,10 @@ func (s *SendMessageCancelAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageCancelAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageCancelAction#fd5ec8f5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageCancelAction#fd5ec8f5",
+		}
 	}
 	return nil
 }
@@ -205,10 +226,16 @@ func (s *SendMessageCancelAction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendMessageCancelAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageCancelAction#fd5ec8f5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageCancelAction#fd5ec8f5",
+		}
 	}
 	if err := b.ConsumeID(SendMessageCancelActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageCancelAction#fd5ec8f5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageCancelAction#fd5ec8f5",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -216,7 +243,10 @@ func (s *SendMessageCancelAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageCancelAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageCancelAction#fd5ec8f5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageCancelAction#fd5ec8f5",
+		}
 	}
 	return nil
 }
@@ -290,7 +320,10 @@ func (s *SendMessageRecordVideoAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageRecordVideoAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageRecordVideoAction#a187d66f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageRecordVideoAction#a187d66f",
+		}
 	}
 	b.PutID(SendMessageRecordVideoActionTypeID)
 	return s.EncodeBare(b)
@@ -299,7 +332,10 @@ func (s *SendMessageRecordVideoAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageRecordVideoAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageRecordVideoAction#a187d66f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageRecordVideoAction#a187d66f",
+		}
 	}
 	return nil
 }
@@ -307,10 +343,16 @@ func (s *SendMessageRecordVideoAction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendMessageRecordVideoAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageRecordVideoAction#a187d66f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageRecordVideoAction#a187d66f",
+		}
 	}
 	if err := b.ConsumeID(SendMessageRecordVideoActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageRecordVideoAction#a187d66f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageRecordVideoAction#a187d66f",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -318,7 +360,10 @@ func (s *SendMessageRecordVideoAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageRecordVideoAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageRecordVideoAction#a187d66f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageRecordVideoAction#a187d66f",
+		}
 	}
 	return nil
 }
@@ -409,7 +454,10 @@ func (s *SendMessageUploadVideoAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadVideoAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageUploadVideoAction#e9763aec as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageUploadVideoAction#e9763aec",
+		}
 	}
 	b.PutID(SendMessageUploadVideoActionTypeID)
 	return s.EncodeBare(b)
@@ -418,7 +466,10 @@ func (s *SendMessageUploadVideoAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageUploadVideoAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageUploadVideoAction#e9763aec as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageUploadVideoAction#e9763aec",
+		}
 	}
 	b.PutInt(s.Progress)
 	return nil
@@ -432,10 +483,16 @@ func (s *SendMessageUploadVideoAction) GetProgress() (value int) {
 // Decode implements bin.Decoder.
 func (s *SendMessageUploadVideoAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageUploadVideoAction#e9763aec to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageUploadVideoAction#e9763aec",
+		}
 	}
 	if err := b.ConsumeID(SendMessageUploadVideoActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageUploadVideoAction#e9763aec: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageUploadVideoAction#e9763aec",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -443,12 +500,20 @@ func (s *SendMessageUploadVideoAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageUploadVideoAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageUploadVideoAction#e9763aec to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageUploadVideoAction#e9763aec",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessageUploadVideoAction#e9763aec: field progress: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "sendMessageUploadVideoAction#e9763aec",
+				FieldName:  "progress",
+				Underlying: err,
+			}
 		}
 		s.Progress = value
 	}
@@ -524,7 +589,10 @@ func (s *SendMessageRecordAudioAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageRecordAudioAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageRecordAudioAction#d52f73f7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageRecordAudioAction#d52f73f7",
+		}
 	}
 	b.PutID(SendMessageRecordAudioActionTypeID)
 	return s.EncodeBare(b)
@@ -533,7 +601,10 @@ func (s *SendMessageRecordAudioAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageRecordAudioAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageRecordAudioAction#d52f73f7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageRecordAudioAction#d52f73f7",
+		}
 	}
 	return nil
 }
@@ -541,10 +612,16 @@ func (s *SendMessageRecordAudioAction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendMessageRecordAudioAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageRecordAudioAction#d52f73f7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageRecordAudioAction#d52f73f7",
+		}
 	}
 	if err := b.ConsumeID(SendMessageRecordAudioActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageRecordAudioAction#d52f73f7: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageRecordAudioAction#d52f73f7",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -552,7 +629,10 @@ func (s *SendMessageRecordAudioAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageRecordAudioAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageRecordAudioAction#d52f73f7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageRecordAudioAction#d52f73f7",
+		}
 	}
 	return nil
 }
@@ -643,7 +723,10 @@ func (s *SendMessageUploadAudioAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadAudioAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageUploadAudioAction#f351d7ab as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageUploadAudioAction#f351d7ab",
+		}
 	}
 	b.PutID(SendMessageUploadAudioActionTypeID)
 	return s.EncodeBare(b)
@@ -652,7 +735,10 @@ func (s *SendMessageUploadAudioAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageUploadAudioAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageUploadAudioAction#f351d7ab as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageUploadAudioAction#f351d7ab",
+		}
 	}
 	b.PutInt(s.Progress)
 	return nil
@@ -666,10 +752,16 @@ func (s *SendMessageUploadAudioAction) GetProgress() (value int) {
 // Decode implements bin.Decoder.
 func (s *SendMessageUploadAudioAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageUploadAudioAction#f351d7ab to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageUploadAudioAction#f351d7ab",
+		}
 	}
 	if err := b.ConsumeID(SendMessageUploadAudioActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageUploadAudioAction#f351d7ab: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageUploadAudioAction#f351d7ab",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -677,12 +769,20 @@ func (s *SendMessageUploadAudioAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageUploadAudioAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageUploadAudioAction#f351d7ab to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageUploadAudioAction#f351d7ab",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessageUploadAudioAction#f351d7ab: field progress: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "sendMessageUploadAudioAction#f351d7ab",
+				FieldName:  "progress",
+				Underlying: err,
+			}
 		}
 		s.Progress = value
 	}
@@ -775,7 +875,10 @@ func (s *SendMessageUploadPhotoAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadPhotoAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageUploadPhotoAction#d1d34a26 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageUploadPhotoAction#d1d34a26",
+		}
 	}
 	b.PutID(SendMessageUploadPhotoActionTypeID)
 	return s.EncodeBare(b)
@@ -784,7 +887,10 @@ func (s *SendMessageUploadPhotoAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageUploadPhotoAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageUploadPhotoAction#d1d34a26 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageUploadPhotoAction#d1d34a26",
+		}
 	}
 	b.PutInt(s.Progress)
 	return nil
@@ -798,10 +904,16 @@ func (s *SendMessageUploadPhotoAction) GetProgress() (value int) {
 // Decode implements bin.Decoder.
 func (s *SendMessageUploadPhotoAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageUploadPhotoAction#d1d34a26 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageUploadPhotoAction#d1d34a26",
+		}
 	}
 	if err := b.ConsumeID(SendMessageUploadPhotoActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageUploadPhotoAction#d1d34a26: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageUploadPhotoAction#d1d34a26",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -809,12 +921,20 @@ func (s *SendMessageUploadPhotoAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageUploadPhotoAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageUploadPhotoAction#d1d34a26 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageUploadPhotoAction#d1d34a26",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessageUploadPhotoAction#d1d34a26: field progress: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "sendMessageUploadPhotoAction#d1d34a26",
+				FieldName:  "progress",
+				Underlying: err,
+			}
 		}
 		s.Progress = value
 	}
@@ -907,7 +1027,10 @@ func (s *SendMessageUploadDocumentAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadDocumentAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageUploadDocumentAction#aa0cd9e4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageUploadDocumentAction#aa0cd9e4",
+		}
 	}
 	b.PutID(SendMessageUploadDocumentActionTypeID)
 	return s.EncodeBare(b)
@@ -916,7 +1039,10 @@ func (s *SendMessageUploadDocumentAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageUploadDocumentAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageUploadDocumentAction#aa0cd9e4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageUploadDocumentAction#aa0cd9e4",
+		}
 	}
 	b.PutInt(s.Progress)
 	return nil
@@ -930,10 +1056,16 @@ func (s *SendMessageUploadDocumentAction) GetProgress() (value int) {
 // Decode implements bin.Decoder.
 func (s *SendMessageUploadDocumentAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageUploadDocumentAction#aa0cd9e4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageUploadDocumentAction#aa0cd9e4",
+		}
 	}
 	if err := b.ConsumeID(SendMessageUploadDocumentActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageUploadDocumentAction#aa0cd9e4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageUploadDocumentAction#aa0cd9e4",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -941,12 +1073,20 @@ func (s *SendMessageUploadDocumentAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageUploadDocumentAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageUploadDocumentAction#aa0cd9e4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageUploadDocumentAction#aa0cd9e4",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessageUploadDocumentAction#aa0cd9e4: field progress: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "sendMessageUploadDocumentAction#aa0cd9e4",
+				FieldName:  "progress",
+				Underlying: err,
+			}
 		}
 		s.Progress = value
 	}
@@ -1022,7 +1162,10 @@ func (s *SendMessageGeoLocationAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageGeoLocationAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageGeoLocationAction#176f8ba1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageGeoLocationAction#176f8ba1",
+		}
 	}
 	b.PutID(SendMessageGeoLocationActionTypeID)
 	return s.EncodeBare(b)
@@ -1031,7 +1174,10 @@ func (s *SendMessageGeoLocationAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageGeoLocationAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageGeoLocationAction#176f8ba1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageGeoLocationAction#176f8ba1",
+		}
 	}
 	return nil
 }
@@ -1039,10 +1185,16 @@ func (s *SendMessageGeoLocationAction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendMessageGeoLocationAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageGeoLocationAction#176f8ba1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageGeoLocationAction#176f8ba1",
+		}
 	}
 	if err := b.ConsumeID(SendMessageGeoLocationActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageGeoLocationAction#176f8ba1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageGeoLocationAction#176f8ba1",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -1050,7 +1202,10 @@ func (s *SendMessageGeoLocationAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageGeoLocationAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageGeoLocationAction#176f8ba1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageGeoLocationAction#176f8ba1",
+		}
 	}
 	return nil
 }
@@ -1124,7 +1279,10 @@ func (s *SendMessageChooseContactAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageChooseContactAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageChooseContactAction#628cbc6f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageChooseContactAction#628cbc6f",
+		}
 	}
 	b.PutID(SendMessageChooseContactActionTypeID)
 	return s.EncodeBare(b)
@@ -1133,7 +1291,10 @@ func (s *SendMessageChooseContactAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageChooseContactAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageChooseContactAction#628cbc6f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageChooseContactAction#628cbc6f",
+		}
 	}
 	return nil
 }
@@ -1141,10 +1302,16 @@ func (s *SendMessageChooseContactAction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendMessageChooseContactAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageChooseContactAction#628cbc6f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageChooseContactAction#628cbc6f",
+		}
 	}
 	if err := b.ConsumeID(SendMessageChooseContactActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageChooseContactAction#628cbc6f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageChooseContactAction#628cbc6f",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -1152,7 +1319,10 @@ func (s *SendMessageChooseContactAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageChooseContactAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageChooseContactAction#628cbc6f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageChooseContactAction#628cbc6f",
+		}
 	}
 	return nil
 }
@@ -1226,7 +1396,10 @@ func (s *SendMessageGamePlayAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageGamePlayAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageGamePlayAction#dd6a8f48 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageGamePlayAction#dd6a8f48",
+		}
 	}
 	b.PutID(SendMessageGamePlayActionTypeID)
 	return s.EncodeBare(b)
@@ -1235,7 +1408,10 @@ func (s *SendMessageGamePlayAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageGamePlayAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageGamePlayAction#dd6a8f48 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageGamePlayAction#dd6a8f48",
+		}
 	}
 	return nil
 }
@@ -1243,10 +1419,16 @@ func (s *SendMessageGamePlayAction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendMessageGamePlayAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageGamePlayAction#dd6a8f48 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageGamePlayAction#dd6a8f48",
+		}
 	}
 	if err := b.ConsumeID(SendMessageGamePlayActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageGamePlayAction#dd6a8f48: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageGamePlayAction#dd6a8f48",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -1254,7 +1436,10 @@ func (s *SendMessageGamePlayAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageGamePlayAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageGamePlayAction#dd6a8f48 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageGamePlayAction#dd6a8f48",
+		}
 	}
 	return nil
 }
@@ -1328,7 +1513,10 @@ func (s *SendMessageRecordRoundAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageRecordRoundAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageRecordRoundAction#88f27fbc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageRecordRoundAction#88f27fbc",
+		}
 	}
 	b.PutID(SendMessageRecordRoundActionTypeID)
 	return s.EncodeBare(b)
@@ -1337,7 +1525,10 @@ func (s *SendMessageRecordRoundAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageRecordRoundAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageRecordRoundAction#88f27fbc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageRecordRoundAction#88f27fbc",
+		}
 	}
 	return nil
 }
@@ -1345,10 +1536,16 @@ func (s *SendMessageRecordRoundAction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendMessageRecordRoundAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageRecordRoundAction#88f27fbc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageRecordRoundAction#88f27fbc",
+		}
 	}
 	if err := b.ConsumeID(SendMessageRecordRoundActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageRecordRoundAction#88f27fbc: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageRecordRoundAction#88f27fbc",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -1356,7 +1553,10 @@ func (s *SendMessageRecordRoundAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageRecordRoundAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageRecordRoundAction#88f27fbc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageRecordRoundAction#88f27fbc",
+		}
 	}
 	return nil
 }
@@ -1447,7 +1647,10 @@ func (s *SendMessageUploadRoundAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadRoundAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageUploadRoundAction#243e1c66 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageUploadRoundAction#243e1c66",
+		}
 	}
 	b.PutID(SendMessageUploadRoundActionTypeID)
 	return s.EncodeBare(b)
@@ -1456,7 +1659,10 @@ func (s *SendMessageUploadRoundAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageUploadRoundAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageUploadRoundAction#243e1c66 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageUploadRoundAction#243e1c66",
+		}
 	}
 	b.PutInt(s.Progress)
 	return nil
@@ -1470,10 +1676,16 @@ func (s *SendMessageUploadRoundAction) GetProgress() (value int) {
 // Decode implements bin.Decoder.
 func (s *SendMessageUploadRoundAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageUploadRoundAction#243e1c66 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageUploadRoundAction#243e1c66",
+		}
 	}
 	if err := b.ConsumeID(SendMessageUploadRoundActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageUploadRoundAction#243e1c66: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageUploadRoundAction#243e1c66",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -1481,12 +1693,20 @@ func (s *SendMessageUploadRoundAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageUploadRoundAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageUploadRoundAction#243e1c66 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageUploadRoundAction#243e1c66",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessageUploadRoundAction#243e1c66: field progress: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "sendMessageUploadRoundAction#243e1c66",
+				FieldName:  "progress",
+				Underlying: err,
+			}
 		}
 		s.Progress = value
 	}
@@ -1561,7 +1781,10 @@ func (s *SpeakingInGroupCallAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SpeakingInGroupCallAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode speakingInGroupCallAction#d92c2285 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "speakingInGroupCallAction#d92c2285",
+		}
 	}
 	b.PutID(SpeakingInGroupCallActionTypeID)
 	return s.EncodeBare(b)
@@ -1570,7 +1793,10 @@ func (s *SpeakingInGroupCallAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SpeakingInGroupCallAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode speakingInGroupCallAction#d92c2285 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "speakingInGroupCallAction#d92c2285",
+		}
 	}
 	return nil
 }
@@ -1578,10 +1804,16 @@ func (s *SpeakingInGroupCallAction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SpeakingInGroupCallAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode speakingInGroupCallAction#d92c2285 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "speakingInGroupCallAction#d92c2285",
+		}
 	}
 	if err := b.ConsumeID(SpeakingInGroupCallActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode speakingInGroupCallAction#d92c2285: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "speakingInGroupCallAction#d92c2285",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -1589,7 +1821,10 @@ func (s *SpeakingInGroupCallAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SpeakingInGroupCallAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode speakingInGroupCallAction#d92c2285 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "speakingInGroupCallAction#d92c2285",
+		}
 	}
 	return nil
 }
@@ -1679,7 +1914,10 @@ func (s *SendMessageHistoryImportAction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageHistoryImportAction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageHistoryImportAction#dbda9246 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageHistoryImportAction#dbda9246",
+		}
 	}
 	b.PutID(SendMessageHistoryImportActionTypeID)
 	return s.EncodeBare(b)
@@ -1688,7 +1926,10 @@ func (s *SendMessageHistoryImportAction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageHistoryImportAction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageHistoryImportAction#dbda9246 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMessageHistoryImportAction#dbda9246",
+		}
 	}
 	b.PutInt(s.Progress)
 	return nil
@@ -1702,10 +1943,16 @@ func (s *SendMessageHistoryImportAction) GetProgress() (value int) {
 // Decode implements bin.Decoder.
 func (s *SendMessageHistoryImportAction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageHistoryImportAction#dbda9246 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageHistoryImportAction#dbda9246",
+		}
 	}
 	if err := b.ConsumeID(SendMessageHistoryImportActionTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageHistoryImportAction#dbda9246: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMessageHistoryImportAction#dbda9246",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -1713,12 +1960,20 @@ func (s *SendMessageHistoryImportAction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageHistoryImportAction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageHistoryImportAction#dbda9246 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMessageHistoryImportAction#dbda9246",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessageHistoryImportAction#dbda9246: field progress: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "sendMessageHistoryImportAction#dbda9246",
+				FieldName:  "progress",
+				Underlying: err,
+			}
 		}
 		s.Progress = value
 	}
@@ -1795,109 +2050,157 @@ func DecodeSendMessageAction(buf *bin.Buffer) (SendMessageActionClass, error) {
 		// Decoding sendMessageTypingAction#16bf744e.
 		v := SendMessageTypingAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageCancelActionTypeID:
 		// Decoding sendMessageCancelAction#fd5ec8f5.
 		v := SendMessageCancelAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageRecordVideoActionTypeID:
 		// Decoding sendMessageRecordVideoAction#a187d66f.
 		v := SendMessageRecordVideoAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageUploadVideoActionTypeID:
 		// Decoding sendMessageUploadVideoAction#e9763aec.
 		v := SendMessageUploadVideoAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageRecordAudioActionTypeID:
 		// Decoding sendMessageRecordAudioAction#d52f73f7.
 		v := SendMessageRecordAudioAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageUploadAudioActionTypeID:
 		// Decoding sendMessageUploadAudioAction#f351d7ab.
 		v := SendMessageUploadAudioAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageUploadPhotoActionTypeID:
 		// Decoding sendMessageUploadPhotoAction#d1d34a26.
 		v := SendMessageUploadPhotoAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageUploadDocumentActionTypeID:
 		// Decoding sendMessageUploadDocumentAction#aa0cd9e4.
 		v := SendMessageUploadDocumentAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageGeoLocationActionTypeID:
 		// Decoding sendMessageGeoLocationAction#176f8ba1.
 		v := SendMessageGeoLocationAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageChooseContactActionTypeID:
 		// Decoding sendMessageChooseContactAction#628cbc6f.
 		v := SendMessageChooseContactAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageGamePlayActionTypeID:
 		// Decoding sendMessageGamePlayAction#dd6a8f48.
 		v := SendMessageGamePlayAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageRecordRoundActionTypeID:
 		// Decoding sendMessageRecordRoundAction#88f27fbc.
 		v := SendMessageRecordRoundAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageUploadRoundActionTypeID:
 		// Decoding sendMessageUploadRoundAction#243e1c66.
 		v := SendMessageUploadRoundAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SpeakingInGroupCallActionTypeID:
 		// Decoding speakingInGroupCallAction#d92c2285.
 		v := SpeakingInGroupCallAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SendMessageHistoryImportActionTypeID:
 		// Decoding sendMessageHistoryImportAction#dbda9246.
 		v := SendMessageHistoryImportAction{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SendMessageActionClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "SendMessageActionClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -1909,7 +2212,10 @@ type SendMessageActionBox struct {
 // Decode implements bin.Decoder for SendMessageActionBox.
 func (b *SendMessageActionBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode SendMessageActionBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "SendMessageActionBox",
+		}
 	}
 	v, err := DecodeSendMessageAction(buf)
 	if err != nil {
@@ -1922,7 +2228,10 @@ func (b *SendMessageActionBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for SendMessageActionBox.
 func (b *SendMessageActionBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.SendMessageAction == nil {
-		return fmt.Errorf("unable to encode SendMessageActionClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "SendMessageActionBox",
+		}
 	}
 	return b.SendMessageAction.Encode(buf)
 }

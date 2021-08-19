@@ -135,7 +135,10 @@ func (s *SavedPhoneContact) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SavedPhoneContact) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode savedPhoneContact#1142bd56 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "savedPhoneContact#1142bd56",
+		}
 	}
 	b.PutID(SavedPhoneContactTypeID)
 	return s.EncodeBare(b)
@@ -144,7 +147,10 @@ func (s *SavedPhoneContact) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SavedPhoneContact) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode savedPhoneContact#1142bd56 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "savedPhoneContact#1142bd56",
+		}
 	}
 	b.PutString(s.Phone)
 	b.PutString(s.FirstName)
@@ -176,10 +182,16 @@ func (s *SavedPhoneContact) GetDate() (value int) {
 // Decode implements bin.Decoder.
 func (s *SavedPhoneContact) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode savedPhoneContact#1142bd56 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "savedPhoneContact#1142bd56",
+		}
 	}
 	if err := b.ConsumeID(SavedPhoneContactTypeID); err != nil {
-		return fmt.Errorf("unable to decode savedPhoneContact#1142bd56: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "savedPhoneContact#1142bd56",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -187,33 +199,56 @@ func (s *SavedPhoneContact) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SavedPhoneContact) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode savedPhoneContact#1142bd56 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "savedPhoneContact#1142bd56",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedPhoneContact#1142bd56: field phone: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "savedPhoneContact#1142bd56",
+				FieldName:  "phone",
+				Underlying: err,
+			}
 		}
 		s.Phone = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedPhoneContact#1142bd56: field first_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "savedPhoneContact#1142bd56",
+				FieldName:  "first_name",
+				Underlying: err,
+			}
 		}
 		s.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedPhoneContact#1142bd56: field last_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "savedPhoneContact#1142bd56",
+				FieldName:  "last_name",
+				Underlying: err,
+			}
 		}
 		s.LastName = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedPhoneContact#1142bd56: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "savedPhoneContact#1142bd56",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		s.Date = value
 	}

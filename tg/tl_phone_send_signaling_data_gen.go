@@ -113,7 +113,10 @@ func (s *PhoneSendSignalingDataRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *PhoneSendSignalingDataRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode phone.sendSignalingData#ff7a9383 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.sendSignalingData#ff7a9383",
+		}
 	}
 	b.PutID(PhoneSendSignalingDataRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,10 +125,18 @@ func (s *PhoneSendSignalingDataRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PhoneSendSignalingDataRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode phone.sendSignalingData#ff7a9383 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.sendSignalingData#ff7a9383",
+		}
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.sendSignalingData#ff7a9383: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.sendSignalingData#ff7a9383",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutBytes(s.Data)
 	return nil
@@ -144,10 +155,16 @@ func (s *PhoneSendSignalingDataRequest) GetData() (value []byte) {
 // Decode implements bin.Decoder.
 func (s *PhoneSendSignalingDataRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode phone.sendSignalingData#ff7a9383 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.sendSignalingData#ff7a9383",
+		}
 	}
 	if err := b.ConsumeID(PhoneSendSignalingDataRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.sendSignalingData#ff7a9383: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.sendSignalingData#ff7a9383",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -155,17 +172,30 @@ func (s *PhoneSendSignalingDataRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PhoneSendSignalingDataRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode phone.sendSignalingData#ff7a9383 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.sendSignalingData#ff7a9383",
+		}
 	}
 	{
 		if err := s.Peer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.sendSignalingData#ff7a9383: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.sendSignalingData#ff7a9383",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.sendSignalingData#ff7a9383: field data: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.sendSignalingData#ff7a9383",
+				FieldName:  "data",
+				Underlying: err,
+			}
 		}
 		s.Data = value
 	}

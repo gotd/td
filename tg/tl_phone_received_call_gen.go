@@ -103,7 +103,10 @@ func (r *PhoneReceivedCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *PhoneReceivedCallRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode phone.receivedCall#17d54f61 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.receivedCall#17d54f61",
+		}
 	}
 	b.PutID(PhoneReceivedCallRequestTypeID)
 	return r.EncodeBare(b)
@@ -112,10 +115,18 @@ func (r *PhoneReceivedCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *PhoneReceivedCallRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode phone.receivedCall#17d54f61 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.receivedCall#17d54f61",
+		}
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.receivedCall#17d54f61: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.receivedCall#17d54f61",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -128,10 +139,16 @@ func (r *PhoneReceivedCallRequest) GetPeer() (value InputPhoneCall) {
 // Decode implements bin.Decoder.
 func (r *PhoneReceivedCallRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode phone.receivedCall#17d54f61 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.receivedCall#17d54f61",
+		}
 	}
 	if err := b.ConsumeID(PhoneReceivedCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.receivedCall#17d54f61: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.receivedCall#17d54f61",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -139,11 +156,19 @@ func (r *PhoneReceivedCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *PhoneReceivedCallRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode phone.receivedCall#17d54f61 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.receivedCall#17d54f61",
+		}
 	}
 	{
 		if err := r.Peer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.receivedCall#17d54f61: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.receivedCall#17d54f61",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

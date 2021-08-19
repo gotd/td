@@ -121,7 +121,10 @@ func (g *MessagesGetDiscussionMessageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetDiscussionMessageRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDiscussionMessage#446972fd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getDiscussionMessage#446972fd",
+		}
 	}
 	b.PutID(MessagesGetDiscussionMessageRequestTypeID)
 	return g.EncodeBare(b)
@@ -130,13 +133,29 @@ func (g *MessagesGetDiscussionMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetDiscussionMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDiscussionMessage#446972fd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getDiscussionMessage#446972fd",
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getDiscussionMessage#446972fd: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getDiscussionMessage#446972fd",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getDiscussionMessage#446972fd: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getDiscussionMessage#446972fd",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.MsgID)
 	return nil
@@ -155,10 +174,16 @@ func (g *MessagesGetDiscussionMessageRequest) GetMsgID() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetDiscussionMessageRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDiscussionMessage#446972fd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getDiscussionMessage#446972fd",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetDiscussionMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getDiscussionMessage#446972fd: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getDiscussionMessage#446972fd",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -166,19 +191,32 @@ func (g *MessagesGetDiscussionMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetDiscussionMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDiscussionMessage#446972fd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getDiscussionMessage#446972fd",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDiscussionMessage#446972fd: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getDiscussionMessage#446972fd",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDiscussionMessage#446972fd: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getDiscussionMessage#446972fd",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		g.MsgID = value
 	}

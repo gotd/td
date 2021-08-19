@@ -116,7 +116,10 @@ func (e *ChannelsEditTitleRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *ChannelsEditTitleRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editTitle#566decd0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.editTitle#566decd0",
+		}
 	}
 	b.PutID(ChannelsEditTitleRequestTypeID)
 	return e.EncodeBare(b)
@@ -125,13 +128,29 @@ func (e *ChannelsEditTitleRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsEditTitleRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editTitle#566decd0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.editTitle#566decd0",
+		}
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.editTitle#566decd0: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.editTitle#566decd0",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editTitle#566decd0: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.editTitle#566decd0",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	b.PutString(e.Title)
 	return nil
@@ -155,10 +174,16 @@ func (e *ChannelsEditTitleRequest) GetTitle() (value string) {
 // Decode implements bin.Decoder.
 func (e *ChannelsEditTitleRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editTitle#566decd0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.editTitle#566decd0",
+		}
 	}
 	if err := b.ConsumeID(ChannelsEditTitleRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.editTitle#566decd0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.editTitle#566decd0",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -166,19 +191,32 @@ func (e *ChannelsEditTitleRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsEditTitleRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editTitle#566decd0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.editTitle#566decd0",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editTitle#566decd0: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.editTitle#566decd0",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		e.Channel = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editTitle#566decd0: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.editTitle#566decd0",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		e.Title = value
 	}

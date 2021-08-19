@@ -101,7 +101,10 @@ func (t *TestBytes) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TestBytes) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testBytes#a422c4de as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "testBytes#a422c4de",
+		}
 	}
 	b.PutID(TestBytesTypeID)
 	return t.EncodeBare(b)
@@ -110,7 +113,10 @@ func (t *TestBytes) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TestBytes) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testBytes#a422c4de as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "testBytes#a422c4de",
+		}
 	}
 	b.PutBytes(t.Value)
 	return nil
@@ -124,10 +130,16 @@ func (t *TestBytes) GetValue() (value []byte) {
 // Decode implements bin.Decoder.
 func (t *TestBytes) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testBytes#a422c4de to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "testBytes#a422c4de",
+		}
 	}
 	if err := b.ConsumeID(TestBytesTypeID); err != nil {
-		return fmt.Errorf("unable to decode testBytes#a422c4de: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "testBytes#a422c4de",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -135,12 +147,20 @@ func (t *TestBytes) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TestBytes) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testBytes#a422c4de to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "testBytes#a422c4de",
+		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode testBytes#a422c4de: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "testBytes#a422c4de",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 		t.Value = value
 	}

@@ -121,7 +121,10 @@ func (h *HTTPWaitRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (h *HTTPWaitRequest) Encode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode http_wait#9299359f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "http_wait#9299359f",
+		}
 	}
 	b.PutID(HTTPWaitRequestTypeID)
 	return h.EncodeBare(b)
@@ -130,7 +133,10 @@ func (h *HTTPWaitRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (h *HTTPWaitRequest) EncodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode http_wait#9299359f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "http_wait#9299359f",
+		}
 	}
 	b.PutInt(h.MaxDelay)
 	b.PutInt(h.WaitAfter)
@@ -156,10 +162,16 @@ func (h *HTTPWaitRequest) GetMaxWait() (value int) {
 // Decode implements bin.Decoder.
 func (h *HTTPWaitRequest) Decode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode http_wait#9299359f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "http_wait#9299359f",
+		}
 	}
 	if err := b.ConsumeID(HTTPWaitRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode http_wait#9299359f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "http_wait#9299359f",
+			Underlying: err,
+		}
 	}
 	return h.DecodeBare(b)
 }
@@ -167,26 +179,44 @@ func (h *HTTPWaitRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (h *HTTPWaitRequest) DecodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode http_wait#9299359f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "http_wait#9299359f",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode http_wait#9299359f: field max_delay: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "http_wait#9299359f",
+				FieldName:  "max_delay",
+				Underlying: err,
+			}
 		}
 		h.MaxDelay = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode http_wait#9299359f: field wait_after: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "http_wait#9299359f",
+				FieldName:  "wait_after",
+				Underlying: err,
+			}
 		}
 		h.WaitAfter = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode http_wait#9299359f: field max_wait: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "http_wait#9299359f",
+				FieldName:  "max_wait",
+				Underlying: err,
+			}
 		}
 		h.MaxWait = value
 	}

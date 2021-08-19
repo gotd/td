@@ -259,7 +259,10 @@ func (c *ChatAdminRights) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatAdminRights) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAdminRights#5fb224d5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatAdminRights#5fb224d5",
+		}
 	}
 	b.PutID(ChatAdminRightsTypeID)
 	return c.EncodeBare(b)
@@ -268,7 +271,10 @@ func (c *ChatAdminRights) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatAdminRights) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAdminRights#5fb224d5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatAdminRights#5fb224d5",
+		}
 	}
 	if !(c.ChangeInfo == false) {
 		c.Flags.Set(0)
@@ -304,7 +310,12 @@ func (c *ChatAdminRights) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(12)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatAdminRights#5fb224d5: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "chatAdminRights#5fb224d5",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -488,10 +499,16 @@ func (c *ChatAdminRights) GetOther() (value bool) {
 // Decode implements bin.Decoder.
 func (c *ChatAdminRights) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAdminRights#5fb224d5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatAdminRights#5fb224d5",
+		}
 	}
 	if err := b.ConsumeID(ChatAdminRightsTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatAdminRights#5fb224d5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "chatAdminRights#5fb224d5",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -499,11 +516,19 @@ func (c *ChatAdminRights) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatAdminRights) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAdminRights#5fb224d5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatAdminRights#5fb224d5",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatAdminRights#5fb224d5: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatAdminRights#5fb224d5",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	c.ChangeInfo = c.Flags.Has(0)

@@ -182,7 +182,10 @@ func (g *Game) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *Game) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode game#bdf9653b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "game#bdf9653b",
+		}
 	}
 	b.PutID(GameTypeID)
 	return g.EncodeBare(b)
@@ -191,13 +194,21 @@ func (g *Game) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *Game) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode game#bdf9653b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "game#bdf9653b",
+		}
 	}
 	if !(g.Document == nil) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode game#bdf9653b: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "game#bdf9653b",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutLong(g.ID)
 	b.PutLong(g.AccessHash)
@@ -205,17 +216,43 @@ func (g *Game) EncodeBare(b *bin.Buffer) error {
 	b.PutString(g.Title)
 	b.PutString(g.Description)
 	if g.Photo == nil {
-		return fmt.Errorf("unable to encode game#bdf9653b: field photo is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "game#bdf9653b",
+			FieldName: "photo",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "Photo",
+			},
+		}
 	}
 	if err := g.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode game#bdf9653b: field photo: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "game#bdf9653b",
+			FieldName:  "photo",
+			Underlying: err,
+		}
 	}
 	if g.Flags.Has(0) {
 		if g.Document == nil {
-			return fmt.Errorf("unable to encode game#bdf9653b: field document is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "game#bdf9653b",
+				FieldName: "document",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "Document",
+				},
+			}
 		}
 		if err := g.Document.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode game#bdf9653b: field document: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "game#bdf9653b",
+				FieldName:  "document",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -283,10 +320,16 @@ func (g *Game) GetDocumentAsNotEmpty() (*Document, bool) {
 // Decode implements bin.Decoder.
 func (g *Game) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode game#bdf9653b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "game#bdf9653b",
+		}
 	}
 	if err := b.ConsumeID(GameTypeID); err != nil {
-		return fmt.Errorf("unable to decode game#bdf9653b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "game#bdf9653b",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -294,59 +337,102 @@ func (g *Game) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *Game) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode game#bdf9653b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "game#bdf9653b",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode game#bdf9653b: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "game#bdf9653b",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode game#bdf9653b: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "game#bdf9653b",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		g.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode game#bdf9653b: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "game#bdf9653b",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		g.AccessHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode game#bdf9653b: field short_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "game#bdf9653b",
+				FieldName:  "short_name",
+				Underlying: err,
+			}
 		}
 		g.ShortName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode game#bdf9653b: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "game#bdf9653b",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		g.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode game#bdf9653b: field description: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "game#bdf9653b",
+				FieldName:  "description",
+				Underlying: err,
+			}
 		}
 		g.Description = value
 	}
 	{
 		value, err := DecodePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode game#bdf9653b: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "game#bdf9653b",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 		g.Photo = value
 	}
 	if g.Flags.Has(0) {
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode game#bdf9653b: field document: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "game#bdf9653b",
+				FieldName:  "document",
+				Underlying: err,
+			}
 		}
 		g.Document = value
 	}

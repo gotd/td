@@ -114,7 +114,10 @@ func (r *MessagesReadHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesReadHistoryRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readHistory#e306d3a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.readHistory#e306d3a",
+		}
 	}
 	b.PutID(MessagesReadHistoryRequestTypeID)
 	return r.EncodeBare(b)
@@ -123,13 +126,29 @@ func (r *MessagesReadHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReadHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readHistory#e306d3a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.readHistory#e306d3a",
+		}
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode messages.readHistory#e306d3a: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.readHistory#e306d3a",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.readHistory#e306d3a: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.readHistory#e306d3a",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(r.MaxID)
 	return nil
@@ -148,10 +167,16 @@ func (r *MessagesReadHistoryRequest) GetMaxID() (value int) {
 // Decode implements bin.Decoder.
 func (r *MessagesReadHistoryRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readHistory#e306d3a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.readHistory#e306d3a",
+		}
 	}
 	if err := b.ConsumeID(MessagesReadHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.readHistory#e306d3a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.readHistory#e306d3a",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -159,19 +184,32 @@ func (r *MessagesReadHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReadHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readHistory#e306d3a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.readHistory#e306d3a",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.readHistory#e306d3a: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.readHistory#e306d3a",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		r.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.readHistory#e306d3a: field max_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.readHistory#e306d3a",
+				FieldName:  "max_id",
+				Underlying: err,
+			}
 		}
 		r.MaxID = value
 	}

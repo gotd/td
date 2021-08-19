@@ -102,7 +102,10 @@ func (e *AuthExportAuthorizationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *AuthExportAuthorizationRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode auth.exportAuthorization#e5bfffcd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.exportAuthorization#e5bfffcd",
+		}
 	}
 	b.PutID(AuthExportAuthorizationRequestTypeID)
 	return e.EncodeBare(b)
@@ -111,7 +114,10 @@ func (e *AuthExportAuthorizationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *AuthExportAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode auth.exportAuthorization#e5bfffcd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.exportAuthorization#e5bfffcd",
+		}
 	}
 	b.PutInt(e.DCID)
 	return nil
@@ -125,10 +131,16 @@ func (e *AuthExportAuthorizationRequest) GetDCID() (value int) {
 // Decode implements bin.Decoder.
 func (e *AuthExportAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode auth.exportAuthorization#e5bfffcd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.exportAuthorization#e5bfffcd",
+		}
 	}
 	if err := b.ConsumeID(AuthExportAuthorizationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.exportAuthorization#e5bfffcd: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.exportAuthorization#e5bfffcd",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (e *AuthExportAuthorizationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *AuthExportAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode auth.exportAuthorization#e5bfffcd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.exportAuthorization#e5bfffcd",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.exportAuthorization#e5bfffcd: field dc_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.exportAuthorization#e5bfffcd",
+				FieldName:  "dc_id",
+				Underlying: err,
+			}
 		}
 		e.DCID = value
 	}

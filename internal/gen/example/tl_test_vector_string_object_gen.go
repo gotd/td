@@ -101,7 +101,10 @@ func (t *TestVectorStringObject) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TestVectorStringObject) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testVectorStringObject#e5ecc0d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "testVectorStringObject#e5ecc0d",
+		}
 	}
 	b.PutID(TestVectorStringObjectTypeID)
 	return t.EncodeBare(b)
@@ -110,12 +113,24 @@ func (t *TestVectorStringObject) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TestVectorStringObject) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testVectorStringObject#e5ecc0d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "testVectorStringObject#e5ecc0d",
+		}
 	}
 	b.PutInt(len(t.Value))
 	for idx, v := range t.Value {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare testVectorStringObject#e5ecc0d: field value element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "testVectorStringObject#e5ecc0d",
+				FieldName: "value",
+				BareField: true,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -129,10 +144,16 @@ func (t *TestVectorStringObject) GetValue() (value []TestString) {
 // Decode implements bin.Decoder.
 func (t *TestVectorStringObject) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testVectorStringObject#e5ecc0d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "testVectorStringObject#e5ecc0d",
+		}
 	}
 	if err := b.ConsumeID(TestVectorStringObjectTypeID); err != nil {
-		return fmt.Errorf("unable to decode testVectorStringObject#e5ecc0d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "testVectorStringObject#e5ecc0d",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -140,12 +161,20 @@ func (t *TestVectorStringObject) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TestVectorStringObject) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testVectorStringObject#e5ecc0d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "testVectorStringObject#e5ecc0d",
+		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode testVectorStringObject#e5ecc0d: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "testVectorStringObject#e5ecc0d",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -154,7 +183,13 @@ func (t *TestVectorStringObject) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value TestString
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare testVectorStringObject#e5ecc0d: field value: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  true,
+					TypeName:   "testVectorStringObject#e5ecc0d",
+					FieldName:  "value",
+					Underlying: err,
+				}
 			}
 			t.Value = append(t.Value, value)
 		}

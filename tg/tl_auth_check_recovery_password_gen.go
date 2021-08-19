@@ -101,7 +101,10 @@ func (c *AuthCheckRecoveryPasswordRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AuthCheckRecoveryPasswordRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode auth.checkRecoveryPassword#d36bf79 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.checkRecoveryPassword#d36bf79",
+		}
 	}
 	b.PutID(AuthCheckRecoveryPasswordRequestTypeID)
 	return c.EncodeBare(b)
@@ -110,7 +113,10 @@ func (c *AuthCheckRecoveryPasswordRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AuthCheckRecoveryPasswordRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode auth.checkRecoveryPassword#d36bf79 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.checkRecoveryPassword#d36bf79",
+		}
 	}
 	b.PutString(c.Code)
 	return nil
@@ -124,10 +130,16 @@ func (c *AuthCheckRecoveryPasswordRequest) GetCode() (value string) {
 // Decode implements bin.Decoder.
 func (c *AuthCheckRecoveryPasswordRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode auth.checkRecoveryPassword#d36bf79 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.checkRecoveryPassword#d36bf79",
+		}
 	}
 	if err := b.ConsumeID(AuthCheckRecoveryPasswordRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.checkRecoveryPassword#d36bf79: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.checkRecoveryPassword#d36bf79",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -135,12 +147,20 @@ func (c *AuthCheckRecoveryPasswordRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AuthCheckRecoveryPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode auth.checkRecoveryPassword#d36bf79 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.checkRecoveryPassword#d36bf79",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.checkRecoveryPassword#d36bf79: field code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.checkRecoveryPassword#d36bf79",
+				FieldName:  "code",
+				Underlying: err,
+			}
 		}
 		c.Code = value
 	}

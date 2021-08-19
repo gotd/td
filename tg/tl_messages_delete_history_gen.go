@@ -146,7 +146,10 @@ func (d *MessagesDeleteHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteHistory#1c015b09 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.deleteHistory#1c015b09",
+		}
 	}
 	b.PutID(MessagesDeleteHistoryRequestTypeID)
 	return d.EncodeBare(b)
@@ -155,7 +158,10 @@ func (d *MessagesDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteHistory#1c015b09 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.deleteHistory#1c015b09",
+		}
 	}
 	if !(d.JustClear == false) {
 		d.Flags.Set(0)
@@ -164,13 +170,31 @@ func (d *MessagesDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
 		d.Flags.Set(1)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteHistory#1c015b09: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.deleteHistory#1c015b09",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if d.Peer == nil {
-		return fmt.Errorf("unable to encode messages.deleteHistory#1c015b09: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.deleteHistory#1c015b09",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteHistory#1c015b09: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.deleteHistory#1c015b09",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(d.MaxID)
 	return nil
@@ -221,10 +245,16 @@ func (d *MessagesDeleteHistoryRequest) GetMaxID() (value int) {
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteHistory#1c015b09 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.deleteHistory#1c015b09",
+		}
 	}
 	if err := b.ConsumeID(MessagesDeleteHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.deleteHistory#1c015b09",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -232,11 +262,19 @@ func (d *MessagesDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteHistory#1c015b09 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.deleteHistory#1c015b09",
+		}
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.deleteHistory#1c015b09",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	d.JustClear = d.Flags.Has(0)
@@ -244,14 +282,24 @@ func (d *MessagesDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.deleteHistory#1c015b09",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		d.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field max_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.deleteHistory#1c015b09",
+				FieldName:  "max_id",
+				Underlying: err,
+			}
 		}
 		d.MaxID = value
 	}

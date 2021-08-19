@@ -184,7 +184,10 @@ func (g *MessagesGetHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetHistoryRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getHistory#dcbb8260 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getHistory#dcbb8260",
+		}
 	}
 	b.PutID(MessagesGetHistoryRequestTypeID)
 	return g.EncodeBare(b)
@@ -193,13 +196,29 @@ func (g *MessagesGetHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getHistory#dcbb8260 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getHistory#dcbb8260",
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getHistory#dcbb8260: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getHistory#dcbb8260",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getHistory#dcbb8260: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getHistory#dcbb8260",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.OffsetID)
 	b.PutInt(g.OffsetDate)
@@ -254,10 +273,16 @@ func (g *MessagesGetHistoryRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetHistoryRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getHistory#dcbb8260 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getHistory#dcbb8260",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getHistory#dcbb8260",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -265,61 +290,104 @@ func (g *MessagesGetHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getHistory#dcbb8260 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getHistory#dcbb8260",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getHistory#dcbb8260",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field offset_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getHistory#dcbb8260",
+				FieldName:  "offset_id",
+				Underlying: err,
+			}
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field offset_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getHistory#dcbb8260",
+				FieldName:  "offset_date",
+				Underlying: err,
+			}
 		}
 		g.OffsetDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field add_offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getHistory#dcbb8260",
+				FieldName:  "add_offset",
+				Underlying: err,
+			}
 		}
 		g.AddOffset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getHistory#dcbb8260",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field max_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getHistory#dcbb8260",
+				FieldName:  "max_id",
+				Underlying: err,
+			}
 		}
 		g.MaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field min_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getHistory#dcbb8260",
+				FieldName:  "min_id",
+				Underlying: err,
+			}
 		}
 		g.MinID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getHistory#dcbb8260",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		g.Hash = value
 	}

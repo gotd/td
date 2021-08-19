@@ -127,7 +127,10 @@ func (a *PhoneAcceptCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *PhoneAcceptCallRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode phone.acceptCall#3bd2b4a0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.acceptCall#3bd2b4a0",
+		}
 	}
 	b.PutID(PhoneAcceptCallRequestTypeID)
 	return a.EncodeBare(b)
@@ -136,14 +139,27 @@ func (a *PhoneAcceptCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *PhoneAcceptCallRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode phone.acceptCall#3bd2b4a0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.acceptCall#3bd2b4a0",
+		}
 	}
 	if err := a.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.acceptCall#3bd2b4a0: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.acceptCall#3bd2b4a0",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutBytes(a.GB)
 	if err := a.Protocol.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.acceptCall#3bd2b4a0: field protocol: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.acceptCall#3bd2b4a0",
+			FieldName:  "protocol",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -166,10 +182,16 @@ func (a *PhoneAcceptCallRequest) GetProtocol() (value PhoneCallProtocol) {
 // Decode implements bin.Decoder.
 func (a *PhoneAcceptCallRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode phone.acceptCall#3bd2b4a0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.acceptCall#3bd2b4a0",
+		}
 	}
 	if err := b.ConsumeID(PhoneAcceptCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.acceptCall#3bd2b4a0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.acceptCall#3bd2b4a0",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -177,23 +199,41 @@ func (a *PhoneAcceptCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *PhoneAcceptCallRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode phone.acceptCall#3bd2b4a0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.acceptCall#3bd2b4a0",
+		}
 	}
 	{
 		if err := a.Peer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.acceptCall#3bd2b4a0: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.acceptCall#3bd2b4a0",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.acceptCall#3bd2b4a0: field g_b: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.acceptCall#3bd2b4a0",
+				FieldName:  "g_b",
+				Underlying: err,
+			}
 		}
 		a.GB = value
 	}
 	{
 		if err := a.Protocol.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.acceptCall#3bd2b4a0: field protocol: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.acceptCall#3bd2b4a0",
+				FieldName:  "protocol",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

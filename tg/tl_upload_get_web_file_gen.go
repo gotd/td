@@ -123,7 +123,10 @@ func (g *UploadGetWebFileRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UploadGetWebFileRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getWebFile#24e6818d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "upload.getWebFile#24e6818d",
+		}
 	}
 	b.PutID(UploadGetWebFileRequestTypeID)
 	return g.EncodeBare(b)
@@ -132,13 +135,29 @@ func (g *UploadGetWebFileRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UploadGetWebFileRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getWebFile#24e6818d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "upload.getWebFile#24e6818d",
+		}
 	}
 	if g.Location == nil {
-		return fmt.Errorf("unable to encode upload.getWebFile#24e6818d: field location is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "upload.getWebFile#24e6818d",
+			FieldName: "location",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputWebFileLocation",
+			},
+		}
 	}
 	if err := g.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode upload.getWebFile#24e6818d: field location: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "upload.getWebFile#24e6818d",
+			FieldName:  "location",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
@@ -163,10 +182,16 @@ func (g *UploadGetWebFileRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *UploadGetWebFileRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getWebFile#24e6818d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "upload.getWebFile#24e6818d",
+		}
 	}
 	if err := b.ConsumeID(UploadGetWebFileRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.getWebFile#24e6818d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "upload.getWebFile#24e6818d",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -174,26 +199,44 @@ func (g *UploadGetWebFileRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UploadGetWebFileRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getWebFile#24e6818d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "upload.getWebFile#24e6818d",
+		}
 	}
 	{
 		value, err := DecodeInputWebFileLocation(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getWebFile#24e6818d: field location: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.getWebFile#24e6818d",
+				FieldName:  "location",
+				Underlying: err,
+			}
 		}
 		g.Location = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getWebFile#24e6818d: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.getWebFile#24e6818d",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getWebFile#24e6818d: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.getWebFile#24e6818d",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}

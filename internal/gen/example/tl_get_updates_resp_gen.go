@@ -101,7 +101,10 @@ func (g *GetUpdatesResp) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetUpdatesResp) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getUpdatesResp#300bb5e1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "getUpdatesResp#300bb5e1",
+		}
 	}
 	b.PutID(GetUpdatesRespTypeID)
 	return g.EncodeBare(b)
@@ -110,15 +113,38 @@ func (g *GetUpdatesResp) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetUpdatesResp) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getUpdatesResp#300bb5e1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "getUpdatesResp#300bb5e1",
+		}
 	}
 	b.PutVectorHeader(len(g.Updates))
 	for idx, v := range g.Updates {
 		if v == nil {
-			return fmt.Errorf("unable to encode getUpdatesResp#300bb5e1: field updates element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "getUpdatesResp#300bb5e1",
+				FieldName: "updates",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<AbstractMessage>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode getUpdatesResp#300bb5e1: field updates element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "getUpdatesResp#300bb5e1",
+				FieldName: "updates",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -137,10 +163,16 @@ func (g *GetUpdatesResp) MapUpdates() (value AbstractMessageClassArray) {
 // Decode implements bin.Decoder.
 func (g *GetUpdatesResp) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getUpdatesResp#300bb5e1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "getUpdatesResp#300bb5e1",
+		}
 	}
 	if err := b.ConsumeID(GetUpdatesRespTypeID); err != nil {
-		return fmt.Errorf("unable to decode getUpdatesResp#300bb5e1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "getUpdatesResp#300bb5e1",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -148,12 +180,20 @@ func (g *GetUpdatesResp) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetUpdatesResp) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getUpdatesResp#300bb5e1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "getUpdatesResp#300bb5e1",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode getUpdatesResp#300bb5e1: field updates: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "getUpdatesResp#300bb5e1",
+				FieldName:  "updates",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -162,7 +202,12 @@ func (g *GetUpdatesResp) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeAbstractMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getUpdatesResp#300bb5e1: field updates: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "getUpdatesResp#300bb5e1",
+					FieldName:  "updates",
+					Underlying: err,
+				}
 			}
 			g.Updates = append(g.Updates, value)
 		}

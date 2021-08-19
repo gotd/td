@@ -221,7 +221,10 @@ func (p *Poll) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *Poll) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode poll#86e18161 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "poll#86e18161",
+		}
 	}
 	b.PutID(PollTypeID)
 	return p.EncodeBare(b)
@@ -230,7 +233,10 @@ func (p *Poll) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *Poll) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode poll#86e18161 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "poll#86e18161",
+		}
 	}
 	if !(p.Closed == false) {
 		p.Flags.Set(0)
@@ -252,13 +258,27 @@ func (p *Poll) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutLong(p.ID)
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode poll#86e18161: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "poll#86e18161",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(p.Question)
 	b.PutVectorHeader(len(p.Answers))
 	for idx, v := range p.Answers {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode poll#86e18161: field answers element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "poll#86e18161",
+				FieldName: "answers",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if p.Flags.Has(4) {
@@ -382,10 +402,16 @@ func (p *Poll) GetCloseDate() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (p *Poll) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode poll#86e18161 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "poll#86e18161",
+		}
 	}
 	if err := b.ConsumeID(PollTypeID); err != nil {
-		return fmt.Errorf("unable to decode poll#86e18161: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "poll#86e18161",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -393,18 +419,31 @@ func (p *Poll) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *Poll) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode poll#86e18161 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "poll#86e18161",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "poll#86e18161",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		p.ID = value
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "poll#86e18161",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	p.Closed = p.Flags.Has(0)
@@ -414,14 +453,24 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field question: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "poll#86e18161",
+				FieldName:  "question",
+				Underlying: err,
+			}
 		}
 		p.Question = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field answers: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "poll#86e18161",
+				FieldName:  "answers",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -430,7 +479,13 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value PollAnswer
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode poll#86e18161: field answers: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "poll#86e18161",
+					FieldName:  "answers",
+					Underlying: err,
+				}
 			}
 			p.Answers = append(p.Answers, value)
 		}
@@ -438,14 +493,24 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field close_period: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "poll#86e18161",
+				FieldName:  "close_period",
+				Underlying: err,
+			}
 		}
 		p.ClosePeriod = value
 	}
 	if p.Flags.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field close_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "poll#86e18161",
+				FieldName:  "close_date",
+				Underlying: err,
+			}
 		}
 		p.CloseDate = value
 	}

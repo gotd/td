@@ -174,7 +174,10 @@ func (g *MessagesGetExportedChatInvitesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetExportedChatInvitesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getExportedChatInvites#a2b5a3f6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getExportedChatInvites#a2b5a3f6",
+		}
 	}
 	b.PutID(MessagesGetExportedChatInvitesRequestTypeID)
 	return g.EncodeBare(b)
@@ -183,7 +186,10 @@ func (g *MessagesGetExportedChatInvitesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetExportedChatInvitesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getExportedChatInvites#a2b5a3f6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getExportedChatInvites#a2b5a3f6",
+		}
 	}
 	if !(g.Revoked == false) {
 		g.Flags.Set(3)
@@ -195,19 +201,50 @@ func (g *MessagesGetExportedChatInvitesRequest) EncodeBare(b *bin.Buffer) error 
 		g.Flags.Set(2)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getExportedChatInvites#a2b5a3f6: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getExportedChatInvites#a2b5a3f6",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getExportedChatInvites#a2b5a3f6: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getExportedChatInvites#a2b5a3f6",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getExportedChatInvites#a2b5a3f6: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getExportedChatInvites#a2b5a3f6",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	if g.AdminID == nil {
-		return fmt.Errorf("unable to encode messages.getExportedChatInvites#a2b5a3f6: field admin_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getExportedChatInvites#a2b5a3f6",
+			FieldName: "admin_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := g.AdminID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getExportedChatInvites#a2b5a3f6: field admin_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getExportedChatInvites#a2b5a3f6",
+			FieldName:  "admin_id",
+			Underlying: err,
+		}
 	}
 	if g.Flags.Has(2) {
 		b.PutInt(g.OffsetDate)
@@ -283,10 +320,16 @@ func (g *MessagesGetExportedChatInvitesRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetExportedChatInvitesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getExportedChatInvites#a2b5a3f6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getExportedChatInvites#a2b5a3f6",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetExportedChatInvitesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getExportedChatInvites#a2b5a3f6: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getExportedChatInvites#a2b5a3f6",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -294,46 +337,79 @@ func (g *MessagesGetExportedChatInvitesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetExportedChatInvitesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getExportedChatInvites#a2b5a3f6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getExportedChatInvites#a2b5a3f6",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getExportedChatInvites#a2b5a3f6: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getExportedChatInvites#a2b5a3f6",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	g.Revoked = g.Flags.Has(3)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getExportedChatInvites#a2b5a3f6: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getExportedChatInvites#a2b5a3f6",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getExportedChatInvites#a2b5a3f6: field admin_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getExportedChatInvites#a2b5a3f6",
+				FieldName:  "admin_id",
+				Underlying: err,
+			}
 		}
 		g.AdminID = value
 	}
 	if g.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getExportedChatInvites#a2b5a3f6: field offset_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getExportedChatInvites#a2b5a3f6",
+				FieldName:  "offset_date",
+				Underlying: err,
+			}
 		}
 		g.OffsetDate = value
 	}
 	if g.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getExportedChatInvites#a2b5a3f6: field offset_link: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getExportedChatInvites#a2b5a3f6",
+				FieldName:  "offset_link",
+				Underlying: err,
+			}
 		}
 		g.OffsetLink = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getExportedChatInvites#a2b5a3f6: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getExportedChatInvites#a2b5a3f6",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}

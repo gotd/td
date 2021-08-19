@@ -116,7 +116,10 @@ func (g *UploadGetCDNFileHashesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UploadGetCDNFileHashesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getCdnFileHashes#4da54231 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "upload.getCdnFileHashes#4da54231",
+		}
 	}
 	b.PutID(UploadGetCDNFileHashesRequestTypeID)
 	return g.EncodeBare(b)
@@ -125,7 +128,10 @@ func (g *UploadGetCDNFileHashesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UploadGetCDNFileHashesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getCdnFileHashes#4da54231 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "upload.getCdnFileHashes#4da54231",
+		}
 	}
 	b.PutBytes(g.FileToken)
 	b.PutInt(g.Offset)
@@ -145,10 +151,16 @@ func (g *UploadGetCDNFileHashesRequest) GetOffset() (value int) {
 // Decode implements bin.Decoder.
 func (g *UploadGetCDNFileHashesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getCdnFileHashes#4da54231 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "upload.getCdnFileHashes#4da54231",
+		}
 	}
 	if err := b.ConsumeID(UploadGetCDNFileHashesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.getCdnFileHashes#4da54231: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "upload.getCdnFileHashes#4da54231",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -156,19 +168,32 @@ func (g *UploadGetCDNFileHashesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UploadGetCDNFileHashesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getCdnFileHashes#4da54231 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "upload.getCdnFileHashes#4da54231",
+		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getCdnFileHashes#4da54231: field file_token: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.getCdnFileHashes#4da54231",
+				FieldName:  "file_token",
+				Underlying: err,
+			}
 		}
 		g.FileToken = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getCdnFileHashes#4da54231: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.getCdnFileHashes#4da54231",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		g.Offset = value
 	}

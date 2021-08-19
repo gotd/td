@@ -99,7 +99,10 @@ func (vec *LangPackLanguageVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *LangPackLanguageVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<LangPackLanguage> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<LangPackLanguage>",
+		}
 	}
 
 	return vec.EncodeBare(b)
@@ -108,12 +111,24 @@ func (vec *LangPackLanguageVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *LangPackLanguageVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<LangPackLanguage> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<LangPackLanguage>",
+		}
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<LangPackLanguage>: field Elems element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "Vector<LangPackLanguage>",
+				FieldName: "Elems",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -127,7 +142,10 @@ func (vec *LangPackLanguageVector) GetElems() (value []LangPackLanguage) {
 // Decode implements bin.Decoder.
 func (vec *LangPackLanguageVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<LangPackLanguage> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<LangPackLanguage>",
+		}
 	}
 
 	return vec.DecodeBare(b)
@@ -136,12 +154,20 @@ func (vec *LangPackLanguageVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *LangPackLanguageVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<LangPackLanguage> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<LangPackLanguage>",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<LangPackLanguage>: field Elems: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "Vector<LangPackLanguage>",
+				FieldName:  "Elems",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -150,7 +176,13 @@ func (vec *LangPackLanguageVector) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value LangPackLanguage
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode Vector<LangPackLanguage>: field Elems: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "Vector<LangPackLanguage>",
+					FieldName:  "Elems",
+					Underlying: err,
+				}
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

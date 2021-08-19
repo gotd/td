@@ -113,7 +113,10 @@ func (s *SecureValueHash) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueHash) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueHash#ed1ecdb0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueHash#ed1ecdb0",
+		}
 	}
 	b.PutID(SecureValueHashTypeID)
 	return s.EncodeBare(b)
@@ -122,13 +125,29 @@ func (s *SecureValueHash) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueHash) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueHash#ed1ecdb0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueHash#ed1ecdb0",
+		}
 	}
 	if s.Type == nil {
-		return fmt.Errorf("unable to encode secureValueHash#ed1ecdb0: field type is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "secureValueHash#ed1ecdb0",
+			FieldName: "type",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "SecureValueType",
+			},
+		}
 	}
 	if err := s.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode secureValueHash#ed1ecdb0: field type: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "secureValueHash#ed1ecdb0",
+			FieldName:  "type",
+			Underlying: err,
+		}
 	}
 	b.PutBytes(s.Hash)
 	return nil
@@ -147,10 +166,16 @@ func (s *SecureValueHash) GetHash() (value []byte) {
 // Decode implements bin.Decoder.
 func (s *SecureValueHash) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueHash#ed1ecdb0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueHash#ed1ecdb0",
+		}
 	}
 	if err := b.ConsumeID(SecureValueHashTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueHash#ed1ecdb0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueHash#ed1ecdb0",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -158,19 +183,32 @@ func (s *SecureValueHash) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueHash) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueHash#ed1ecdb0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueHash#ed1ecdb0",
+		}
 	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode secureValueHash#ed1ecdb0: field type: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "secureValueHash#ed1ecdb0",
+				FieldName:  "type",
+				Underlying: err,
+			}
 		}
 		s.Type = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureValueHash#ed1ecdb0: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "secureValueHash#ed1ecdb0",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		s.Hash = value
 	}

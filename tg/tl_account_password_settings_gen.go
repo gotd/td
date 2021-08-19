@@ -143,7 +143,10 @@ func (p *AccountPasswordSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *AccountPasswordSettings) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode account.passwordSettings#9a5c33e5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.passwordSettings#9a5c33e5",
+		}
 	}
 	b.PutID(AccountPasswordSettingsTypeID)
 	return p.EncodeBare(b)
@@ -152,7 +155,10 @@ func (p *AccountPasswordSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *AccountPasswordSettings) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode account.passwordSettings#9a5c33e5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.passwordSettings#9a5c33e5",
+		}
 	}
 	if !(p.Email == "") {
 		p.Flags.Set(0)
@@ -161,14 +167,24 @@ func (p *AccountPasswordSettings) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(1)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.passwordSettings#9a5c33e5: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.passwordSettings#9a5c33e5",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if p.Flags.Has(0) {
 		b.PutString(p.Email)
 	}
 	if p.Flags.Has(1) {
 		if err := p.SecureSettings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.passwordSettings#9a5c33e5: field secure_settings: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "account.passwordSettings#9a5c33e5",
+				FieldName:  "secure_settings",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -207,10 +223,16 @@ func (p *AccountPasswordSettings) GetSecureSettings() (value SecureSecretSetting
 // Decode implements bin.Decoder.
 func (p *AccountPasswordSettings) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode account.passwordSettings#9a5c33e5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.passwordSettings#9a5c33e5",
+		}
 	}
 	if err := b.ConsumeID(AccountPasswordSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.passwordSettings#9a5c33e5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.passwordSettings#9a5c33e5",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -218,23 +240,41 @@ func (p *AccountPasswordSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *AccountPasswordSettings) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode account.passwordSettings#9a5c33e5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.passwordSettings#9a5c33e5",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.passwordSettings#9a5c33e5: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.passwordSettings#9a5c33e5",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	if p.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.passwordSettings#9a5c33e5: field email: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.passwordSettings#9a5c33e5",
+				FieldName:  "email",
+				Underlying: err,
+			}
 		}
 		p.Email = value
 	}
 	if p.Flags.Has(1) {
 		if err := p.SecureSettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.passwordSettings#9a5c33e5: field secure_settings: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.passwordSettings#9a5c33e5",
+				FieldName:  "secure_settings",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

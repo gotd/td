@@ -99,7 +99,10 @@ func (d *DestroySessionOk) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DestroySessionOk) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode destroy_session_ok#e22045fc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "destroy_session_ok#e22045fc",
+		}
 	}
 	b.PutID(DestroySessionOkTypeID)
 	return d.EncodeBare(b)
@@ -108,7 +111,10 @@ func (d *DestroySessionOk) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DestroySessionOk) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode destroy_session_ok#e22045fc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "destroy_session_ok#e22045fc",
+		}
 	}
 	b.PutLong(d.SessionID)
 	return nil
@@ -122,10 +128,16 @@ func (d *DestroySessionOk) GetSessionID() (value int64) {
 // Decode implements bin.Decoder.
 func (d *DestroySessionOk) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode destroy_session_ok#e22045fc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "destroy_session_ok#e22045fc",
+		}
 	}
 	if err := b.ConsumeID(DestroySessionOkTypeID); err != nil {
-		return fmt.Errorf("unable to decode destroy_session_ok#e22045fc: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "destroy_session_ok#e22045fc",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -133,12 +145,20 @@ func (d *DestroySessionOk) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DestroySessionOk) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode destroy_session_ok#e22045fc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "destroy_session_ok#e22045fc",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode destroy_session_ok#e22045fc: field session_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "destroy_session_ok#e22045fc",
+				FieldName:  "session_id",
+				Underlying: err,
+			}
 		}
 		d.SessionID = value
 	}
@@ -228,7 +248,10 @@ func (d *DestroySessionNone) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DestroySessionNone) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode destroy_session_none#62d350c9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "destroy_session_none#62d350c9",
+		}
 	}
 	b.PutID(DestroySessionNoneTypeID)
 	return d.EncodeBare(b)
@@ -237,7 +260,10 @@ func (d *DestroySessionNone) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DestroySessionNone) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode destroy_session_none#62d350c9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "destroy_session_none#62d350c9",
+		}
 	}
 	b.PutLong(d.SessionID)
 	return nil
@@ -251,10 +277,16 @@ func (d *DestroySessionNone) GetSessionID() (value int64) {
 // Decode implements bin.Decoder.
 func (d *DestroySessionNone) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode destroy_session_none#62d350c9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "destroy_session_none#62d350c9",
+		}
 	}
 	if err := b.ConsumeID(DestroySessionNoneTypeID); err != nil {
-		return fmt.Errorf("unable to decode destroy_session_none#62d350c9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "destroy_session_none#62d350c9",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -262,12 +294,20 @@ func (d *DestroySessionNone) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DestroySessionNone) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode destroy_session_none#62d350c9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "destroy_session_none#62d350c9",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode destroy_session_none#62d350c9: field session_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "destroy_session_none#62d350c9",
+				FieldName:  "session_id",
+				Underlying: err,
+			}
 		}
 		d.SessionID = value
 	}
@@ -332,18 +372,27 @@ func DecodeDestroySessionRes(buf *bin.Buffer) (DestroySessionResClass, error) {
 		// Decoding destroy_session_ok#e22045fc.
 		v := DestroySessionOk{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DestroySessionResClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "DestroySessionResClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case DestroySessionNoneTypeID:
 		// Decoding destroy_session_none#62d350c9.
 		v := DestroySessionNone{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DestroySessionResClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "DestroySessionResClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode DestroySessionResClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "DestroySessionResClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -355,7 +404,10 @@ type DestroySessionResBox struct {
 // Decode implements bin.Decoder for DestroySessionResBox.
 func (b *DestroySessionResBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode DestroySessionResBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "DestroySessionResBox",
+		}
 	}
 	v, err := DecodeDestroySessionRes(buf)
 	if err != nil {
@@ -368,7 +420,10 @@ func (b *DestroySessionResBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for DestroySessionResBox.
 func (b *DestroySessionResBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.DestroySessionRes == nil {
-		return fmt.Errorf("unable to encode DestroySessionResClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "DestroySessionResBox",
+		}
 	}
 	return b.DestroySessionRes.Encode(buf)
 }

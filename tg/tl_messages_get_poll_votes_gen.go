@@ -173,7 +173,10 @@ func (g *MessagesGetPollVotesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetPollVotesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPollVotes#b86e380e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getPollVotes#b86e380e",
+		}
 	}
 	b.PutID(MessagesGetPollVotesRequestTypeID)
 	return g.EncodeBare(b)
@@ -182,7 +185,10 @@ func (g *MessagesGetPollVotesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetPollVotesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPollVotes#b86e380e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getPollVotes#b86e380e",
+		}
 	}
 	if !(g.Option == nil) {
 		g.Flags.Set(0)
@@ -191,13 +197,31 @@ func (g *MessagesGetPollVotesRequest) EncodeBare(b *bin.Buffer) error {
 		g.Flags.Set(1)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getPollVotes#b86e380e: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getPollVotes#b86e380e",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getPollVotes#b86e380e: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getPollVotes#b86e380e",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getPollVotes#b86e380e: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getPollVotes#b86e380e",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.ID)
 	if g.Flags.Has(0) {
@@ -258,10 +282,16 @@ func (g *MessagesGetPollVotesRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetPollVotesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPollVotes#b86e380e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getPollVotes#b86e380e",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetPollVotesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getPollVotes#b86e380e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getPollVotes#b86e380e",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -269,45 +299,78 @@ func (g *MessagesGetPollVotesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetPollVotesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPollVotes#b86e380e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getPollVotes#b86e380e",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getPollVotes#b86e380e: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getPollVotes#b86e380e",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPollVotes#b86e380e: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getPollVotes#b86e380e",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPollVotes#b86e380e: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getPollVotes#b86e380e",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		g.ID = value
 	}
 	if g.Flags.Has(0) {
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPollVotes#b86e380e: field option: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getPollVotes#b86e380e",
+				FieldName:  "option",
+				Underlying: err,
+			}
 		}
 		g.Option = value
 	}
 	if g.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPollVotes#b86e380e: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getPollVotes#b86e380e",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPollVotes#b86e380e: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getPollVotes#b86e380e",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}

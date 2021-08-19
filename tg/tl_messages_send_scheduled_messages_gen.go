@@ -113,7 +113,10 @@ func (s *MessagesSendScheduledMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSendScheduledMessagesRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendScheduledMessages#bd38850a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.sendScheduledMessages#bd38850a",
+		}
 	}
 	b.PutID(MessagesSendScheduledMessagesRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,13 +125,29 @@ func (s *MessagesSendScheduledMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendScheduledMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendScheduledMessages#bd38850a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.sendScheduledMessages#bd38850a",
+		}
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendScheduledMessages#bd38850a: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.sendScheduledMessages#bd38850a",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendScheduledMessages#bd38850a: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.sendScheduledMessages#bd38850a",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(s.ID))
 	for _, v := range s.ID {
@@ -150,10 +169,16 @@ func (s *MessagesSendScheduledMessagesRequest) GetID() (value []int) {
 // Decode implements bin.Decoder.
 func (s *MessagesSendScheduledMessagesRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendScheduledMessages#bd38850a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.sendScheduledMessages#bd38850a",
+		}
 	}
 	if err := b.ConsumeID(MessagesSendScheduledMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendScheduledMessages#bd38850a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.sendScheduledMessages#bd38850a",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -161,19 +186,32 @@ func (s *MessagesSendScheduledMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendScheduledMessages#bd38850a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.sendScheduledMessages#bd38850a",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendScheduledMessages#bd38850a: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.sendScheduledMessages#bd38850a",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		s.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendScheduledMessages#bd38850a: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.sendScheduledMessages#bd38850a",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -182,7 +220,12 @@ func (s *MessagesSendScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.sendScheduledMessages#bd38850a: field id: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.sendScheduledMessages#bd38850a",
+					FieldName:  "id",
+					Underlying: err,
+				}
 			}
 			s.ID = append(s.ID, value)
 		}

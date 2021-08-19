@@ -102,7 +102,10 @@ func (g *HelpGetRecentMeURLsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetRecentMeURLsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getRecentMeUrls#3dc0f114 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getRecentMeUrls#3dc0f114",
+		}
 	}
 	b.PutID(HelpGetRecentMeURLsRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,7 +114,10 @@ func (g *HelpGetRecentMeURLsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetRecentMeURLsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getRecentMeUrls#3dc0f114 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getRecentMeUrls#3dc0f114",
+		}
 	}
 	b.PutString(g.Referer)
 	return nil
@@ -125,10 +131,16 @@ func (g *HelpGetRecentMeURLsRequest) GetReferer() (value string) {
 // Decode implements bin.Decoder.
 func (g *HelpGetRecentMeURLsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getRecentMeUrls#3dc0f114 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getRecentMeUrls#3dc0f114",
+		}
 	}
 	if err := b.ConsumeID(HelpGetRecentMeURLsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getRecentMeUrls#3dc0f114: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.getRecentMeUrls#3dc0f114",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (g *HelpGetRecentMeURLsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetRecentMeURLsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getRecentMeUrls#3dc0f114 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getRecentMeUrls#3dc0f114",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.getRecentMeUrls#3dc0f114: field referer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.getRecentMeUrls#3dc0f114",
+				FieldName:  "referer",
+				Underlying: err,
+			}
 		}
 		g.Referer = value
 	}

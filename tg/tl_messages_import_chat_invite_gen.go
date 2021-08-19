@@ -102,7 +102,10 @@ func (i *MessagesImportChatInviteRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *MessagesImportChatInviteRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode messages.importChatInvite#6c50051c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.importChatInvite#6c50051c",
+		}
 	}
 	b.PutID(MessagesImportChatInviteRequestTypeID)
 	return i.EncodeBare(b)
@@ -111,7 +114,10 @@ func (i *MessagesImportChatInviteRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *MessagesImportChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode messages.importChatInvite#6c50051c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.importChatInvite#6c50051c",
+		}
 	}
 	b.PutString(i.Hash)
 	return nil
@@ -125,10 +131,16 @@ func (i *MessagesImportChatInviteRequest) GetHash() (value string) {
 // Decode implements bin.Decoder.
 func (i *MessagesImportChatInviteRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode messages.importChatInvite#6c50051c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.importChatInvite#6c50051c",
+		}
 	}
 	if err := b.ConsumeID(MessagesImportChatInviteRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.importChatInvite#6c50051c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.importChatInvite#6c50051c",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (i *MessagesImportChatInviteRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *MessagesImportChatInviteRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode messages.importChatInvite#6c50051c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.importChatInvite#6c50051c",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.importChatInvite#6c50051c: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.importChatInvite#6c50051c",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		i.Hash = value
 	}

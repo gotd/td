@@ -108,7 +108,10 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *MessagesUpdateDialogFiltersOrderRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.updateDialogFiltersOrder#c563c1e4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.updateDialogFiltersOrder#c563c1e4",
+		}
 	}
 	b.PutID(MessagesUpdateDialogFiltersOrderRequestTypeID)
 	return u.EncodeBare(b)
@@ -117,7 +120,10 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *MessagesUpdateDialogFiltersOrderRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.updateDialogFiltersOrder#c563c1e4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.updateDialogFiltersOrder#c563c1e4",
+		}
 	}
 	b.PutVectorHeader(len(u.Order))
 	for _, v := range u.Order {
@@ -134,10 +140,16 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) GetOrder() (value []int) {
 // Decode implements bin.Decoder.
 func (u *MessagesUpdateDialogFiltersOrderRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.updateDialogFiltersOrder#c563c1e4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.updateDialogFiltersOrder#c563c1e4",
+		}
 	}
 	if err := b.ConsumeID(MessagesUpdateDialogFiltersOrderRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.updateDialogFiltersOrder#c563c1e4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.updateDialogFiltersOrder#c563c1e4",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -145,12 +157,20 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *MessagesUpdateDialogFiltersOrderRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.updateDialogFiltersOrder#c563c1e4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.updateDialogFiltersOrder#c563c1e4",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.updateDialogFiltersOrder#c563c1e4: field order: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.updateDialogFiltersOrder#c563c1e4",
+				FieldName:  "order",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -159,7 +179,12 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) DecodeBare(b *bin.Buffer) erro
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.updateDialogFiltersOrder#c563c1e4: field order: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.updateDialogFiltersOrder#c563c1e4",
+					FieldName:  "order",
+					Underlying: err,
+				}
 			}
 			u.Order = append(u.Order, value)
 		}

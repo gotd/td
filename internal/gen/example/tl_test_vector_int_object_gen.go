@@ -101,7 +101,10 @@ func (t *TestVectorIntObject) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TestVectorIntObject) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testVectorIntObject#f152999b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "testVectorIntObject#f152999b",
+		}
 	}
 	b.PutID(TestVectorIntObjectTypeID)
 	return t.EncodeBare(b)
@@ -110,12 +113,24 @@ func (t *TestVectorIntObject) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TestVectorIntObject) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testVectorIntObject#f152999b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "testVectorIntObject#f152999b",
+		}
 	}
 	b.PutInt(len(t.Value))
 	for idx, v := range t.Value {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare testVectorIntObject#f152999b: field value element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "testVectorIntObject#f152999b",
+				FieldName: "value",
+				BareField: true,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -129,10 +144,16 @@ func (t *TestVectorIntObject) GetValue() (value []TestInt) {
 // Decode implements bin.Decoder.
 func (t *TestVectorIntObject) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testVectorIntObject#f152999b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "testVectorIntObject#f152999b",
+		}
 	}
 	if err := b.ConsumeID(TestVectorIntObjectTypeID); err != nil {
-		return fmt.Errorf("unable to decode testVectorIntObject#f152999b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "testVectorIntObject#f152999b",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -140,12 +161,20 @@ func (t *TestVectorIntObject) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TestVectorIntObject) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testVectorIntObject#f152999b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "testVectorIntObject#f152999b",
+		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode testVectorIntObject#f152999b: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "testVectorIntObject#f152999b",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -154,7 +183,13 @@ func (t *TestVectorIntObject) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value TestInt
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare testVectorIntObject#f152999b: field value: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  true,
+					TypeName:   "testVectorIntObject#f152999b",
+					FieldName:  "value",
+					Underlying: err,
+				}
 			}
 			t.Value = append(t.Value, value)
 		}

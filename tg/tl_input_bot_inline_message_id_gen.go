@@ -124,7 +124,10 @@ func (i *InputBotInlineMessageID) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageID) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageID#890c3d89 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageID#890c3d89",
+		}
 	}
 	b.PutID(InputBotInlineMessageIDTypeID)
 	return i.EncodeBare(b)
@@ -133,7 +136,10 @@ func (i *InputBotInlineMessageID) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputBotInlineMessageID) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageID#890c3d89 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageID#890c3d89",
+		}
 	}
 	b.PutInt(i.DCID)
 	b.PutLong(i.ID)
@@ -159,10 +165,16 @@ func (i *InputBotInlineMessageID) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageID) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageID#890c3d89 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageID#890c3d89",
+		}
 	}
 	if err := b.ConsumeID(InputBotInlineMessageIDTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputBotInlineMessageID#890c3d89: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputBotInlineMessageID#890c3d89",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -170,26 +182,44 @@ func (i *InputBotInlineMessageID) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputBotInlineMessageID) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageID#890c3d89 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageID#890c3d89",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageID#890c3d89: field dc_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageID#890c3d89",
+				FieldName:  "dc_id",
+				Underlying: err,
+			}
 		}
 		i.DCID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageID#890c3d89: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageID#890c3d89",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageID#890c3d89: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageID#890c3d89",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}

@@ -113,7 +113,10 @@ func (e *MessagesEditChatTitleRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatTitleRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatTitle#dc452855 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.editChatTitle#dc452855",
+		}
 	}
 	b.PutID(MessagesEditChatTitleRequestTypeID)
 	return e.EncodeBare(b)
@@ -122,7 +125,10 @@ func (e *MessagesEditChatTitleRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesEditChatTitleRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatTitle#dc452855 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.editChatTitle#dc452855",
+		}
 	}
 	b.PutInt(e.ChatID)
 	b.PutString(e.Title)
@@ -142,10 +148,16 @@ func (e *MessagesEditChatTitleRequest) GetTitle() (value string) {
 // Decode implements bin.Decoder.
 func (e *MessagesEditChatTitleRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatTitle#dc452855 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.editChatTitle#dc452855",
+		}
 	}
 	if err := b.ConsumeID(MessagesEditChatTitleRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editChatTitle#dc452855: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.editChatTitle#dc452855",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (e *MessagesEditChatTitleRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesEditChatTitleRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatTitle#dc452855 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.editChatTitle#dc452855",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatTitle#dc452855: field chat_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editChatTitle#dc452855",
+				FieldName:  "chat_id",
+				Underlying: err,
+			}
 		}
 		e.ChatID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatTitle#dc452855: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editChatTitle#dc452855",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		e.Title = value
 	}

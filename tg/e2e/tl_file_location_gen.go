@@ -123,7 +123,10 @@ func (f *FileLocationUnavailable) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *FileLocationUnavailable) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode fileLocationUnavailable#7c596b46 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "fileLocationUnavailable#7c596b46",
+		}
 	}
 	b.PutID(FileLocationUnavailableTypeID)
 	return f.EncodeBare(b)
@@ -132,7 +135,10 @@ func (f *FileLocationUnavailable) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *FileLocationUnavailable) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode fileLocationUnavailable#7c596b46 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "fileLocationUnavailable#7c596b46",
+		}
 	}
 	b.PutLong(f.VolumeID)
 	b.PutInt(f.LocalID)
@@ -158,10 +164,16 @@ func (f *FileLocationUnavailable) GetSecret() (value int64) {
 // Decode implements bin.Decoder.
 func (f *FileLocationUnavailable) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode fileLocationUnavailable#7c596b46 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "fileLocationUnavailable#7c596b46",
+		}
 	}
 	if err := b.ConsumeID(FileLocationUnavailableTypeID); err != nil {
-		return fmt.Errorf("unable to decode fileLocationUnavailable#7c596b46: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "fileLocationUnavailable#7c596b46",
+			Underlying: err,
+		}
 	}
 	return f.DecodeBare(b)
 }
@@ -169,26 +181,44 @@ func (f *FileLocationUnavailable) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *FileLocationUnavailable) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode fileLocationUnavailable#7c596b46 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "fileLocationUnavailable#7c596b46",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileLocationUnavailable#7c596b46: field volume_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "fileLocationUnavailable#7c596b46",
+				FieldName:  "volume_id",
+				Underlying: err,
+			}
 		}
 		f.VolumeID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileLocationUnavailable#7c596b46: field local_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "fileLocationUnavailable#7c596b46",
+				FieldName:  "local_id",
+				Underlying: err,
+			}
 		}
 		f.LocalID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileLocationUnavailable#7c596b46: field secret: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "fileLocationUnavailable#7c596b46",
+				FieldName:  "secret",
+				Underlying: err,
+			}
 		}
 		f.Secret = value
 	}
@@ -313,7 +343,10 @@ func (f *FileLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *FileLocation) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode fileLocation#53d69076 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "fileLocation#53d69076",
+		}
 	}
 	b.PutID(FileLocationTypeID)
 	return f.EncodeBare(b)
@@ -322,7 +355,10 @@ func (f *FileLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *FileLocation) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode fileLocation#53d69076 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "fileLocation#53d69076",
+		}
 	}
 	b.PutInt(f.DCID)
 	b.PutLong(f.VolumeID)
@@ -354,10 +390,16 @@ func (f *FileLocation) GetSecret() (value int64) {
 // Decode implements bin.Decoder.
 func (f *FileLocation) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode fileLocation#53d69076 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "fileLocation#53d69076",
+		}
 	}
 	if err := b.ConsumeID(FileLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode fileLocation#53d69076: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "fileLocation#53d69076",
+			Underlying: err,
+		}
 	}
 	return f.DecodeBare(b)
 }
@@ -365,33 +407,56 @@ func (f *FileLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *FileLocation) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode fileLocation#53d69076 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "fileLocation#53d69076",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileLocation#53d69076: field dc_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "fileLocation#53d69076",
+				FieldName:  "dc_id",
+				Underlying: err,
+			}
 		}
 		f.DCID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileLocation#53d69076: field volume_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "fileLocation#53d69076",
+				FieldName:  "volume_id",
+				Underlying: err,
+			}
 		}
 		f.VolumeID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileLocation#53d69076: field local_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "fileLocation#53d69076",
+				FieldName:  "local_id",
+				Underlying: err,
+			}
 		}
 		f.LocalID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileLocation#53d69076: field secret: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "fileLocation#53d69076",
+				FieldName:  "secret",
+				Underlying: err,
+			}
 		}
 		f.Secret = value
 	}
@@ -477,18 +542,27 @@ func DecodeFileLocation(buf *bin.Buffer) (FileLocationClass, error) {
 		// Decoding fileLocationUnavailable#7c596b46.
 		v := FileLocationUnavailable{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode FileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "FileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case FileLocationTypeID:
 		// Decoding fileLocation#53d69076.
 		v := FileLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode FileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "FileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode FileLocationClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "FileLocationClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -500,7 +574,10 @@ type FileLocationBox struct {
 // Decode implements bin.Decoder for FileLocationBox.
 func (b *FileLocationBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode FileLocationBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "FileLocationBox",
+		}
 	}
 	v, err := DecodeFileLocation(buf)
 	if err != nil {
@@ -513,7 +590,10 @@ func (b *FileLocationBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for FileLocationBox.
 func (b *FileLocationBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.FileLocation == nil {
-		return fmt.Errorf("unable to encode FileLocationClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "FileLocationBox",
+		}
 	}
 	return b.FileLocation.Encode(buf)
 }

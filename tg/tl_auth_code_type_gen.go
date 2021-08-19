@@ -86,7 +86,10 @@ func (c *AuthCodeTypeSMS) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AuthCodeTypeSMS) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode auth.codeTypeSms#72a3158c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.codeTypeSms#72a3158c",
+		}
 	}
 	b.PutID(AuthCodeTypeSMSTypeID)
 	return c.EncodeBare(b)
@@ -95,7 +98,10 @@ func (c *AuthCodeTypeSMS) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AuthCodeTypeSMS) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode auth.codeTypeSms#72a3158c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.codeTypeSms#72a3158c",
+		}
 	}
 	return nil
 }
@@ -103,10 +109,16 @@ func (c *AuthCodeTypeSMS) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *AuthCodeTypeSMS) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode auth.codeTypeSms#72a3158c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.codeTypeSms#72a3158c",
+		}
 	}
 	if err := b.ConsumeID(AuthCodeTypeSMSTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.codeTypeSms#72a3158c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.codeTypeSms#72a3158c",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -114,7 +126,10 @@ func (c *AuthCodeTypeSMS) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AuthCodeTypeSMS) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode auth.codeTypeSms#72a3158c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.codeTypeSms#72a3158c",
+		}
 	}
 	return nil
 }
@@ -189,7 +204,10 @@ func (c *AuthCodeTypeCall) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AuthCodeTypeCall) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode auth.codeTypeCall#741cd3e3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.codeTypeCall#741cd3e3",
+		}
 	}
 	b.PutID(AuthCodeTypeCallTypeID)
 	return c.EncodeBare(b)
@@ -198,7 +216,10 @@ func (c *AuthCodeTypeCall) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AuthCodeTypeCall) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode auth.codeTypeCall#741cd3e3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.codeTypeCall#741cd3e3",
+		}
 	}
 	return nil
 }
@@ -206,10 +227,16 @@ func (c *AuthCodeTypeCall) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *AuthCodeTypeCall) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode auth.codeTypeCall#741cd3e3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.codeTypeCall#741cd3e3",
+		}
 	}
 	if err := b.ConsumeID(AuthCodeTypeCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.codeTypeCall#741cd3e3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.codeTypeCall#741cd3e3",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -217,7 +244,10 @@ func (c *AuthCodeTypeCall) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AuthCodeTypeCall) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode auth.codeTypeCall#741cd3e3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.codeTypeCall#741cd3e3",
+		}
 	}
 	return nil
 }
@@ -292,7 +322,10 @@ func (c *AuthCodeTypeFlashCall) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AuthCodeTypeFlashCall) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode auth.codeTypeFlashCall#226ccefb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.codeTypeFlashCall#226ccefb",
+		}
 	}
 	b.PutID(AuthCodeTypeFlashCallTypeID)
 	return c.EncodeBare(b)
@@ -301,7 +334,10 @@ func (c *AuthCodeTypeFlashCall) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AuthCodeTypeFlashCall) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode auth.codeTypeFlashCall#226ccefb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.codeTypeFlashCall#226ccefb",
+		}
 	}
 	return nil
 }
@@ -309,10 +345,16 @@ func (c *AuthCodeTypeFlashCall) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *AuthCodeTypeFlashCall) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode auth.codeTypeFlashCall#226ccefb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.codeTypeFlashCall#226ccefb",
+		}
 	}
 	if err := b.ConsumeID(AuthCodeTypeFlashCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.codeTypeFlashCall#226ccefb: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.codeTypeFlashCall#226ccefb",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -320,7 +362,10 @@ func (c *AuthCodeTypeFlashCall) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AuthCodeTypeFlashCall) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode auth.codeTypeFlashCall#226ccefb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.codeTypeFlashCall#226ccefb",
+		}
 	}
 	return nil
 }
@@ -383,25 +428,37 @@ func DecodeAuthCodeType(buf *bin.Buffer) (AuthCodeTypeClass, error) {
 		// Decoding auth.codeTypeSms#72a3158c.
 		v := AuthCodeTypeSMS{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AuthCodeTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AuthCodeTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case AuthCodeTypeCallTypeID:
 		// Decoding auth.codeTypeCall#741cd3e3.
 		v := AuthCodeTypeCall{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AuthCodeTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AuthCodeTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case AuthCodeTypeFlashCallTypeID:
 		// Decoding auth.codeTypeFlashCall#226ccefb.
 		v := AuthCodeTypeFlashCall{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AuthCodeTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AuthCodeTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode AuthCodeTypeClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "AuthCodeTypeClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -413,7 +470,10 @@ type AuthCodeTypeBox struct {
 // Decode implements bin.Decoder for AuthCodeTypeBox.
 func (b *AuthCodeTypeBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode AuthCodeTypeBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "AuthCodeTypeBox",
+		}
 	}
 	v, err := DecodeAuthCodeType(buf)
 	if err != nil {
@@ -426,7 +486,10 @@ func (b *AuthCodeTypeBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for AuthCodeTypeBox.
 func (b *AuthCodeTypeBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.CodeType == nil {
-		return fmt.Errorf("unable to encode AuthCodeTypeClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "AuthCodeTypeBox",
+		}
 	}
 	return b.CodeType.Encode(buf)
 }

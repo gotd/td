@@ -105,7 +105,10 @@ func (g *AccountGetWallPapersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetWallPapersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getWallPapers#aabb1763 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getWallPapers#aabb1763",
+		}
 	}
 	b.PutID(AccountGetWallPapersRequestTypeID)
 	return g.EncodeBare(b)
@@ -114,7 +117,10 @@ func (g *AccountGetWallPapersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetWallPapersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getWallPapers#aabb1763 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getWallPapers#aabb1763",
+		}
 	}
 	b.PutInt(g.Hash)
 	return nil
@@ -128,10 +134,16 @@ func (g *AccountGetWallPapersRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *AccountGetWallPapersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getWallPapers#aabb1763 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getWallPapers#aabb1763",
+		}
 	}
 	if err := b.ConsumeID(AccountGetWallPapersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getWallPapers#aabb1763: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.getWallPapers#aabb1763",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -139,12 +151,20 @@ func (g *AccountGetWallPapersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetWallPapersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getWallPapers#aabb1763 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getWallPapers#aabb1763",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getWallPapers#aabb1763: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.getWallPapers#aabb1763",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		g.Hash = value
 	}

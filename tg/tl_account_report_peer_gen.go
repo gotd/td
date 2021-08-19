@@ -124,7 +124,10 @@ func (r *AccountReportPeerRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountReportPeerRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.reportPeer#c5ba3d86 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.reportPeer#c5ba3d86",
+		}
 	}
 	b.PutID(AccountReportPeerRequestTypeID)
 	return r.EncodeBare(b)
@@ -133,19 +136,48 @@ func (r *AccountReportPeerRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountReportPeerRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.reportPeer#c5ba3d86 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.reportPeer#c5ba3d86",
+		}
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.reportPeer#c5ba3d86",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.reportPeer#c5ba3d86",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	if r.Reason == nil {
-		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field reason is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.reportPeer#c5ba3d86",
+			FieldName: "reason",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "ReportReason",
+			},
+		}
 	}
 	if err := r.Reason.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field reason: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.reportPeer#c5ba3d86",
+			FieldName:  "reason",
+			Underlying: err,
+		}
 	}
 	b.PutString(r.Message)
 	return nil
@@ -169,10 +201,16 @@ func (r *AccountReportPeerRequest) GetMessage() (value string) {
 // Decode implements bin.Decoder.
 func (r *AccountReportPeerRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.reportPeer#c5ba3d86 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.reportPeer#c5ba3d86",
+		}
 	}
 	if err := b.ConsumeID(AccountReportPeerRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.reportPeer#c5ba3d86",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -180,26 +218,44 @@ func (r *AccountReportPeerRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountReportPeerRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.reportPeer#c5ba3d86 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.reportPeer#c5ba3d86",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.reportPeer#c5ba3d86",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		r.Peer = value
 	}
 	{
 		value, err := DecodeReportReason(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: field reason: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.reportPeer#c5ba3d86",
+				FieldName:  "reason",
+				Underlying: err,
+			}
 		}
 		r.Reason = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: field message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.reportPeer#c5ba3d86",
+				FieldName:  "message",
+				Underlying: err,
+			}
 		}
 		r.Message = value
 	}

@@ -119,7 +119,10 @@ func (d *ChannelsDeleteUserHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *ChannelsDeleteUserHistoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode channels.deleteUserHistory#d10dd71b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.deleteUserHistory#d10dd71b",
+		}
 	}
 	b.PutID(ChannelsDeleteUserHistoryRequestTypeID)
 	return d.EncodeBare(b)
@@ -128,19 +131,48 @@ func (d *ChannelsDeleteUserHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *ChannelsDeleteUserHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode channels.deleteUserHistory#d10dd71b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.deleteUserHistory#d10dd71b",
+		}
 	}
 	if d.Channel == nil {
-		return fmt.Errorf("unable to encode channels.deleteUserHistory#d10dd71b: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.deleteUserHistory#d10dd71b",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := d.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.deleteUserHistory#d10dd71b: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.deleteUserHistory#d10dd71b",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	if d.UserID == nil {
-		return fmt.Errorf("unable to encode channels.deleteUserHistory#d10dd71b: field user_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.deleteUserHistory#d10dd71b",
+			FieldName: "user_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := d.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.deleteUserHistory#d10dd71b: field user_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.deleteUserHistory#d10dd71b",
+			FieldName:  "user_id",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -163,10 +195,16 @@ func (d *ChannelsDeleteUserHistoryRequest) GetUserID() (value InputUserClass) {
 // Decode implements bin.Decoder.
 func (d *ChannelsDeleteUserHistoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode channels.deleteUserHistory#d10dd71b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.deleteUserHistory#d10dd71b",
+		}
 	}
 	if err := b.ConsumeID(ChannelsDeleteUserHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.deleteUserHistory#d10dd71b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.deleteUserHistory#d10dd71b",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -174,19 +212,32 @@ func (d *ChannelsDeleteUserHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *ChannelsDeleteUserHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode channels.deleteUserHistory#d10dd71b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.deleteUserHistory#d10dd71b",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.deleteUserHistory#d10dd71b: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.deleteUserHistory#d10dd71b",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		d.Channel = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.deleteUserHistory#d10dd71b: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.deleteUserHistory#d10dd71b",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		d.UserID = value
 	}

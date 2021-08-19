@@ -113,7 +113,10 @@ func (s *ChannelsSetStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *ChannelsSetStickersRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode channels.setStickers#ea8ca4f9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.setStickers#ea8ca4f9",
+		}
 	}
 	b.PutID(ChannelsSetStickersRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,19 +125,48 @@ func (s *ChannelsSetStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *ChannelsSetStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode channels.setStickers#ea8ca4f9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.setStickers#ea8ca4f9",
+		}
 	}
 	if s.Channel == nil {
-		return fmt.Errorf("unable to encode channels.setStickers#ea8ca4f9: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.setStickers#ea8ca4f9",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := s.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.setStickers#ea8ca4f9: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.setStickers#ea8ca4f9",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	if s.Stickerset == nil {
-		return fmt.Errorf("unable to encode channels.setStickers#ea8ca4f9: field stickerset is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.setStickers#ea8ca4f9",
+			FieldName: "stickerset",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputStickerSet",
+			},
+		}
 	}
 	if err := s.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.setStickers#ea8ca4f9: field stickerset: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.setStickers#ea8ca4f9",
+			FieldName:  "stickerset",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -157,10 +189,16 @@ func (s *ChannelsSetStickersRequest) GetStickerset() (value InputStickerSetClass
 // Decode implements bin.Decoder.
 func (s *ChannelsSetStickersRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode channels.setStickers#ea8ca4f9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.setStickers#ea8ca4f9",
+		}
 	}
 	if err := b.ConsumeID(ChannelsSetStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.setStickers#ea8ca4f9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.setStickers#ea8ca4f9",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -168,19 +206,32 @@ func (s *ChannelsSetStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *ChannelsSetStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode channels.setStickers#ea8ca4f9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.setStickers#ea8ca4f9",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.setStickers#ea8ca4f9: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.setStickers#ea8ca4f9",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		s.Channel = value
 	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.setStickers#ea8ca4f9: field stickerset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.setStickers#ea8ca4f9",
+				FieldName:  "stickerset",
+				Underlying: err,
+			}
 		}
 		s.Stickerset = value
 	}

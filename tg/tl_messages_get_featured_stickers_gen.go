@@ -105,7 +105,10 @@ func (g *MessagesGetFeaturedStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getFeaturedStickers#2dacca4f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getFeaturedStickers#2dacca4f",
+		}
 	}
 	b.PutID(MessagesGetFeaturedStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -114,7 +117,10 @@ func (g *MessagesGetFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetFeaturedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getFeaturedStickers#2dacca4f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getFeaturedStickers#2dacca4f",
+		}
 	}
 	b.PutInt(g.Hash)
 	return nil
@@ -128,10 +134,16 @@ func (g *MessagesGetFeaturedStickersRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getFeaturedStickers#2dacca4f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getFeaturedStickers#2dacca4f",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetFeaturedStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getFeaturedStickers#2dacca4f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getFeaturedStickers#2dacca4f",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -139,12 +151,20 @@ func (g *MessagesGetFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getFeaturedStickers#2dacca4f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getFeaturedStickers#2dacca4f",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getFeaturedStickers#2dacca4f: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getFeaturedStickers#2dacca4f",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		g.Hash = value
 	}

@@ -102,7 +102,10 @@ func (g *UsersGetUsersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UsersGetUsersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode users.getUsers#d91a548 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "users.getUsers#d91a548",
+		}
 	}
 	b.PutID(UsersGetUsersRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,15 +114,38 @@ func (g *UsersGetUsersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UsersGetUsersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode users.getUsers#d91a548 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "users.getUsers#d91a548",
+		}
 	}
 	b.PutVectorHeader(len(g.ID))
 	for idx, v := range g.ID {
 		if v == nil {
-			return fmt.Errorf("unable to encode users.getUsers#d91a548: field id element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "users.getUsers#d91a548",
+				FieldName: "id",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<InputUser>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode users.getUsers#d91a548: field id element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "users.getUsers#d91a548",
+				FieldName: "id",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -138,10 +164,16 @@ func (g *UsersGetUsersRequest) MapID() (value InputUserClassArray) {
 // Decode implements bin.Decoder.
 func (g *UsersGetUsersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode users.getUsers#d91a548 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "users.getUsers#d91a548",
+		}
 	}
 	if err := b.ConsumeID(UsersGetUsersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode users.getUsers#d91a548: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "users.getUsers#d91a548",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -149,12 +181,20 @@ func (g *UsersGetUsersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UsersGetUsersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode users.getUsers#d91a548 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "users.getUsers#d91a548",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode users.getUsers#d91a548: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "users.getUsers#d91a548",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -163,7 +203,12 @@ func (g *UsersGetUsersRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode users.getUsers#d91a548: field id: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "users.getUsers#d91a548",
+					FieldName:  "id",
+					Underlying: err,
+				}
 			}
 			g.ID = append(g.ID, value)
 		}

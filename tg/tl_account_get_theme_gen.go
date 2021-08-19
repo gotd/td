@@ -124,7 +124,10 @@ func (g *AccountGetThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetThemeRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getTheme#8d9d742b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getTheme#8d9d742b",
+		}
 	}
 	b.PutID(AccountGetThemeRequestTypeID)
 	return g.EncodeBare(b)
@@ -133,14 +136,30 @@ func (g *AccountGetThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getTheme#8d9d742b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getTheme#8d9d742b",
+		}
 	}
 	b.PutString(g.Format)
 	if g.Theme == nil {
-		return fmt.Errorf("unable to encode account.getTheme#8d9d742b: field theme is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.getTheme#8d9d742b",
+			FieldName: "theme",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputTheme",
+			},
+		}
 	}
 	if err := g.Theme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.getTheme#8d9d742b: field theme: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.getTheme#8d9d742b",
+			FieldName:  "theme",
+			Underlying: err,
+		}
 	}
 	b.PutLong(g.DocumentID)
 	return nil
@@ -164,10 +183,16 @@ func (g *AccountGetThemeRequest) GetDocumentID() (value int64) {
 // Decode implements bin.Decoder.
 func (g *AccountGetThemeRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getTheme#8d9d742b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getTheme#8d9d742b",
+		}
 	}
 	if err := b.ConsumeID(AccountGetThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getTheme#8d9d742b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.getTheme#8d9d742b",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -175,26 +200,44 @@ func (g *AccountGetThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getTheme#8d9d742b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getTheme#8d9d742b",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getTheme#8d9d742b: field format: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.getTheme#8d9d742b",
+				FieldName:  "format",
+				Underlying: err,
+			}
 		}
 		g.Format = value
 	}
 	{
 		value, err := DecodeInputTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getTheme#8d9d742b: field theme: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.getTheme#8d9d742b",
+				FieldName:  "theme",
+				Underlying: err,
+			}
 		}
 		g.Theme = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getTheme#8d9d742b: field document_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.getTheme#8d9d742b",
+				FieldName:  "document_id",
+				Underlying: err,
+			}
 		}
 		g.DocumentID = value
 	}

@@ -118,7 +118,10 @@ func (e *PhoneExportGroupCallInviteRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *PhoneExportGroupCallInviteRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode phone.exportGroupCallInvite#e6aa647f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.exportGroupCallInvite#e6aa647f",
+		}
 	}
 	b.PutID(PhoneExportGroupCallInviteRequestTypeID)
 	return e.EncodeBare(b)
@@ -127,16 +130,29 @@ func (e *PhoneExportGroupCallInviteRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *PhoneExportGroupCallInviteRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode phone.exportGroupCallInvite#e6aa647f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.exportGroupCallInvite#e6aa647f",
+		}
 	}
 	if !(e.CanSelfUnmute == false) {
 		e.Flags.Set(0)
 	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.exportGroupCallInvite#e6aa647f: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.exportGroupCallInvite#e6aa647f",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if err := e.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.exportGroupCallInvite#e6aa647f: field call: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.exportGroupCallInvite#e6aa647f",
+			FieldName:  "call",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -165,10 +181,16 @@ func (e *PhoneExportGroupCallInviteRequest) GetCall() (value InputGroupCall) {
 // Decode implements bin.Decoder.
 func (e *PhoneExportGroupCallInviteRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode phone.exportGroupCallInvite#e6aa647f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.exportGroupCallInvite#e6aa647f",
+		}
 	}
 	if err := b.ConsumeID(PhoneExportGroupCallInviteRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.exportGroupCallInvite#e6aa647f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.exportGroupCallInvite#e6aa647f",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -176,17 +198,30 @@ func (e *PhoneExportGroupCallInviteRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *PhoneExportGroupCallInviteRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode phone.exportGroupCallInvite#e6aa647f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.exportGroupCallInvite#e6aa647f",
+		}
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.exportGroupCallInvite#e6aa647f: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.exportGroupCallInvite#e6aa647f",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	e.CanSelfUnmute = e.Flags.Has(0)
 	{
 		if err := e.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.exportGroupCallInvite#e6aa647f: field call: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.exportGroupCallInvite#e6aa647f",
+				FieldName:  "call",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

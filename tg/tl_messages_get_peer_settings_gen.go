@@ -102,7 +102,10 @@ func (g *MessagesGetPeerSettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetPeerSettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPeerSettings#3672e09c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getPeerSettings#3672e09c",
+		}
 	}
 	b.PutID(MessagesGetPeerSettingsRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,13 +114,29 @@ func (g *MessagesGetPeerSettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetPeerSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPeerSettings#3672e09c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getPeerSettings#3672e09c",
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getPeerSettings#3672e09c: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getPeerSettings#3672e09c",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getPeerSettings#3672e09c: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getPeerSettings#3672e09c",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -130,10 +149,16 @@ func (g *MessagesGetPeerSettingsRequest) GetPeer() (value InputPeerClass) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetPeerSettingsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPeerSettings#3672e09c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getPeerSettings#3672e09c",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetPeerSettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getPeerSettings#3672e09c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getPeerSettings#3672e09c",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -141,12 +166,20 @@ func (g *MessagesGetPeerSettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetPeerSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPeerSettings#3672e09c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getPeerSettings#3672e09c",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPeerSettings#3672e09c: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getPeerSettings#3672e09c",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}

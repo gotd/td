@@ -85,7 +85,10 @@ func (i *InputUserEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputUserEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputUserEmpty#b98886cf as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputUserEmpty#b98886cf",
+		}
 	}
 	b.PutID(InputUserEmptyTypeID)
 	return i.EncodeBare(b)
@@ -94,7 +97,10 @@ func (i *InputUserEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputUserEmpty) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputUserEmpty#b98886cf as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputUserEmpty#b98886cf",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (i *InputUserEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputUserEmpty) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputUserEmpty#b98886cf to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputUserEmpty#b98886cf",
+		}
 	}
 	if err := b.ConsumeID(InputUserEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputUserEmpty#b98886cf: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputUserEmpty#b98886cf",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (i *InputUserEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputUserEmpty) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputUserEmpty#b98886cf to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputUserEmpty#b98886cf",
+		}
 	}
 	return nil
 }
@@ -187,7 +202,10 @@ func (i *InputUserSelf) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputUserSelf) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputUserSelf#f7c1b13f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputUserSelf#f7c1b13f",
+		}
 	}
 	b.PutID(InputUserSelfTypeID)
 	return i.EncodeBare(b)
@@ -196,7 +214,10 @@ func (i *InputUserSelf) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputUserSelf) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputUserSelf#f7c1b13f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputUserSelf#f7c1b13f",
+		}
 	}
 	return nil
 }
@@ -204,10 +225,16 @@ func (i *InputUserSelf) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputUserSelf) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputUserSelf#f7c1b13f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputUserSelf#f7c1b13f",
+		}
 	}
 	if err := b.ConsumeID(InputUserSelfTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputUserSelf#f7c1b13f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputUserSelf#f7c1b13f",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -215,7 +242,10 @@ func (i *InputUserSelf) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputUserSelf) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputUserSelf#f7c1b13f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputUserSelf#f7c1b13f",
+		}
 	}
 	return nil
 }
@@ -320,7 +350,10 @@ func (i *InputUser) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputUser) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputUser#d8292816 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputUser#d8292816",
+		}
 	}
 	b.PutID(InputUserTypeID)
 	return i.EncodeBare(b)
@@ -329,7 +362,10 @@ func (i *InputUser) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputUser) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputUser#d8292816 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputUser#d8292816",
+		}
 	}
 	b.PutInt(i.UserID)
 	b.PutLong(i.AccessHash)
@@ -349,10 +385,16 @@ func (i *InputUser) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputUser) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputUser#d8292816 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputUser#d8292816",
+		}
 	}
 	if err := b.ConsumeID(InputUserTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputUser#d8292816: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputUser#d8292816",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -360,19 +402,32 @@ func (i *InputUser) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputUser) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputUser#d8292816 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputUser#d8292816",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputUser#d8292816: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputUser#d8292816",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		i.UserID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputUser#d8292816: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputUser#d8292816",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}
@@ -490,7 +545,10 @@ func (i *InputUserFromMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputUserFromMessage) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputUserFromMessage#2d117597 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputUserFromMessage#2d117597",
+		}
 	}
 	b.PutID(InputUserFromMessageTypeID)
 	return i.EncodeBare(b)
@@ -499,13 +557,29 @@ func (i *InputUserFromMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputUserFromMessage) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputUserFromMessage#2d117597 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputUserFromMessage#2d117597",
+		}
 	}
 	if i.Peer == nil {
-		return fmt.Errorf("unable to encode inputUserFromMessage#2d117597: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "inputUserFromMessage#2d117597",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := i.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputUserFromMessage#2d117597: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputUserFromMessage#2d117597",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(i.MsgID)
 	b.PutInt(i.UserID)
@@ -530,10 +604,16 @@ func (i *InputUserFromMessage) GetUserID() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputUserFromMessage) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputUserFromMessage#2d117597 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputUserFromMessage#2d117597",
+		}
 	}
 	if err := b.ConsumeID(InputUserFromMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputUserFromMessage#2d117597: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputUserFromMessage#2d117597",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -541,26 +621,44 @@ func (i *InputUserFromMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputUserFromMessage) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputUserFromMessage#2d117597 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputUserFromMessage#2d117597",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputUserFromMessage#2d117597: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputUserFromMessage#2d117597",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		i.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputUserFromMessage#2d117597: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputUserFromMessage#2d117597",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		i.MsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputUserFromMessage#2d117597: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputUserFromMessage#2d117597",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		i.UserID = value
 	}
@@ -626,32 +724,47 @@ func DecodeInputUser(buf *bin.Buffer) (InputUserClass, error) {
 		// Decoding inputUserEmpty#b98886cf.
 		v := InputUserEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputUserClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputUserClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputUserSelfTypeID:
 		// Decoding inputUserSelf#f7c1b13f.
 		v := InputUserSelf{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputUserClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputUserClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputUserTypeID:
 		// Decoding inputUser#d8292816.
 		v := InputUser{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputUserClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputUserClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputUserFromMessageTypeID:
 		// Decoding inputUserFromMessage#2d117597.
 		v := InputUserFromMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputUserClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputUserClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputUserClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "InputUserClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -663,7 +776,10 @@ type InputUserBox struct {
 // Decode implements bin.Decoder for InputUserBox.
 func (b *InputUserBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputUserBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "InputUserBox",
+		}
 	}
 	v, err := DecodeInputUser(buf)
 	if err != nil {
@@ -676,7 +792,10 @@ func (b *InputUserBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputUserBox.
 func (b *InputUserBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputUser == nil {
-		return fmt.Errorf("unable to encode InputUserClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "InputUserBox",
+		}
 	}
 	return b.InputUser.Encode(buf)
 }

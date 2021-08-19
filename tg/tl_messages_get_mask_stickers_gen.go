@@ -105,7 +105,10 @@ func (g *MessagesGetMaskStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetMaskStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getMaskStickers#65b8c79f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getMaskStickers#65b8c79f",
+		}
 	}
 	b.PutID(MessagesGetMaskStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -114,7 +117,10 @@ func (g *MessagesGetMaskStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetMaskStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getMaskStickers#65b8c79f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getMaskStickers#65b8c79f",
+		}
 	}
 	b.PutInt(g.Hash)
 	return nil
@@ -128,10 +134,16 @@ func (g *MessagesGetMaskStickersRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetMaskStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getMaskStickers#65b8c79f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getMaskStickers#65b8c79f",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetMaskStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getMaskStickers#65b8c79f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getMaskStickers#65b8c79f",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -139,12 +151,20 @@ func (g *MessagesGetMaskStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetMaskStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getMaskStickers#65b8c79f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getMaskStickers#65b8c79f",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMaskStickers#65b8c79f: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getMaskStickers#65b8c79f",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		g.Hash = value
 	}

@@ -135,7 +135,10 @@ func (s *AuthSignUpRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AuthSignUpRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.signUp#80eee427 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.signUp#80eee427",
+		}
 	}
 	b.PutID(AuthSignUpRequestTypeID)
 	return s.EncodeBare(b)
@@ -144,7 +147,10 @@ func (s *AuthSignUpRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AuthSignUpRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.signUp#80eee427 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.signUp#80eee427",
+		}
 	}
 	b.PutString(s.PhoneNumber)
 	b.PutString(s.PhoneCodeHash)
@@ -176,10 +182,16 @@ func (s *AuthSignUpRequest) GetLastName() (value string) {
 // Decode implements bin.Decoder.
 func (s *AuthSignUpRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.signUp#80eee427 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.signUp#80eee427",
+		}
 	}
 	if err := b.ConsumeID(AuthSignUpRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.signUp#80eee427: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.signUp#80eee427",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -187,33 +199,56 @@ func (s *AuthSignUpRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AuthSignUpRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.signUp#80eee427 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.signUp#80eee427",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signUp#80eee427: field phone_number: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.signUp#80eee427",
+				FieldName:  "phone_number",
+				Underlying: err,
+			}
 		}
 		s.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signUp#80eee427: field phone_code_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.signUp#80eee427",
+				FieldName:  "phone_code_hash",
+				Underlying: err,
+			}
 		}
 		s.PhoneCodeHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signUp#80eee427: field first_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.signUp#80eee427",
+				FieldName:  "first_name",
+				Underlying: err,
+			}
 		}
 		s.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signUp#80eee427: field last_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.signUp#80eee427",
+				FieldName:  "last_name",
+				Underlying: err,
+			}
 		}
 		s.LastName = value
 	}

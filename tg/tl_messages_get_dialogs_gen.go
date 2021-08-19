@@ -198,7 +198,10 @@ func (g *MessagesGetDialogsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetDialogsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDialogs#a0ee3b73 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getDialogs#a0ee3b73",
+		}
 	}
 	b.PutID(MessagesGetDialogsRequestTypeID)
 	return g.EncodeBare(b)
@@ -207,7 +210,10 @@ func (g *MessagesGetDialogsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDialogs#a0ee3b73 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getDialogs#a0ee3b73",
+		}
 	}
 	if !(g.ExcludePinned == false) {
 		g.Flags.Set(0)
@@ -216,7 +222,12 @@ func (g *MessagesGetDialogsRequest) EncodeBare(b *bin.Buffer) error {
 		g.Flags.Set(1)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getDialogs#a0ee3b73: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getDialogs#a0ee3b73",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if g.Flags.Has(1) {
 		b.PutInt(g.FolderID)
@@ -224,10 +235,23 @@ func (g *MessagesGetDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(g.OffsetDate)
 	b.PutInt(g.OffsetID)
 	if g.OffsetPeer == nil {
-		return fmt.Errorf("unable to encode messages.getDialogs#a0ee3b73: field offset_peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getDialogs#a0ee3b73",
+			FieldName: "offset_peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.OffsetPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getDialogs#a0ee3b73: field offset_peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getDialogs#a0ee3b73",
+			FieldName:  "offset_peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.Limit)
 	b.PutInt(g.Hash)
@@ -293,10 +317,16 @@ func (g *MessagesGetDialogsRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetDialogsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDialogs#a0ee3b73 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getDialogs#a0ee3b73",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetDialogsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getDialogs#a0ee3b73",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -304,53 +334,91 @@ func (g *MessagesGetDialogsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetDialogsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDialogs#a0ee3b73 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getDialogs#a0ee3b73",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getDialogs#a0ee3b73",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	g.ExcludePinned = g.Flags.Has(0)
 	if g.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field folder_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getDialogs#a0ee3b73",
+				FieldName:  "folder_id",
+				Underlying: err,
+			}
 		}
 		g.FolderID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field offset_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getDialogs#a0ee3b73",
+				FieldName:  "offset_date",
+				Underlying: err,
+			}
 		}
 		g.OffsetDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field offset_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getDialogs#a0ee3b73",
+				FieldName:  "offset_id",
+				Underlying: err,
+			}
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field offset_peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getDialogs#a0ee3b73",
+				FieldName:  "offset_peer",
+				Underlying: err,
+			}
 		}
 		g.OffsetPeer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getDialogs#a0ee3b73",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getDialogs#a0ee3b73",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		g.Hash = value
 	}

@@ -90,7 +90,10 @@ func (r *AuthRequestPasswordRecoveryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AuthRequestPasswordRecoveryRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode auth.requestPasswordRecovery#d897bc66 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.requestPasswordRecovery#d897bc66",
+		}
 	}
 	b.PutID(AuthRequestPasswordRecoveryRequestTypeID)
 	return r.EncodeBare(b)
@@ -99,7 +102,10 @@ func (r *AuthRequestPasswordRecoveryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AuthRequestPasswordRecoveryRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode auth.requestPasswordRecovery#d897bc66 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.requestPasswordRecovery#d897bc66",
+		}
 	}
 	return nil
 }
@@ -107,10 +113,16 @@ func (r *AuthRequestPasswordRecoveryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *AuthRequestPasswordRecoveryRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode auth.requestPasswordRecovery#d897bc66 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.requestPasswordRecovery#d897bc66",
+		}
 	}
 	if err := b.ConsumeID(AuthRequestPasswordRecoveryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.requestPasswordRecovery#d897bc66: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.requestPasswordRecovery#d897bc66",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -118,7 +130,10 @@ func (r *AuthRequestPasswordRecoveryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AuthRequestPasswordRecoveryRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode auth.requestPasswordRecovery#d897bc66 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.requestPasswordRecovery#d897bc66",
+		}
 	}
 	return nil
 }

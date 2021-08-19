@@ -85,7 +85,10 @@ func (c *ChannelMessagesFilterEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelMessagesFilterEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelMessagesFilterEmpty#94d42ee7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channelMessagesFilterEmpty#94d42ee7",
+		}
 	}
 	b.PutID(ChannelMessagesFilterEmptyTypeID)
 	return c.EncodeBare(b)
@@ -94,7 +97,10 @@ func (c *ChannelMessagesFilterEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelMessagesFilterEmpty) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelMessagesFilterEmpty#94d42ee7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channelMessagesFilterEmpty#94d42ee7",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (c *ChannelMessagesFilterEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChannelMessagesFilterEmpty) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelMessagesFilterEmpty#94d42ee7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channelMessagesFilterEmpty#94d42ee7",
+		}
 	}
 	if err := b.ConsumeID(ChannelMessagesFilterEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelMessagesFilterEmpty#94d42ee7: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channelMessagesFilterEmpty#94d42ee7",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (c *ChannelMessagesFilterEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelMessagesFilterEmpty) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelMessagesFilterEmpty#94d42ee7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channelMessagesFilterEmpty#94d42ee7",
+		}
 	}
 	return nil
 }
@@ -224,7 +239,10 @@ func (c *ChannelMessagesFilter) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelMessagesFilter) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelMessagesFilter#cd77d957 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channelMessagesFilter#cd77d957",
+		}
 	}
 	b.PutID(ChannelMessagesFilterTypeID)
 	return c.EncodeBare(b)
@@ -233,18 +251,35 @@ func (c *ChannelMessagesFilter) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelMessagesFilter) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelMessagesFilter#cd77d957 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channelMessagesFilter#cd77d957",
+		}
 	}
 	if !(c.ExcludeNewMessages == false) {
 		c.Flags.Set(1)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channelMessagesFilter#cd77d957: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channelMessagesFilter#cd77d957",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(c.Ranges))
 	for idx, v := range c.Ranges {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channelMessagesFilter#cd77d957: field ranges element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "channelMessagesFilter#cd77d957",
+				FieldName: "ranges",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -274,10 +309,16 @@ func (c *ChannelMessagesFilter) GetRanges() (value []MessageRange) {
 // Decode implements bin.Decoder.
 func (c *ChannelMessagesFilter) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelMessagesFilter#cd77d957 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channelMessagesFilter#cd77d957",
+		}
 	}
 	if err := b.ConsumeID(ChannelMessagesFilterTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelMessagesFilter#cd77d957: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channelMessagesFilter#cd77d957",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -285,18 +326,31 @@ func (c *ChannelMessagesFilter) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelMessagesFilter) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelMessagesFilter#cd77d957 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channelMessagesFilter#cd77d957",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelMessagesFilter#cd77d957: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channelMessagesFilter#cd77d957",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	c.ExcludeNewMessages = c.Flags.Has(1)
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelMessagesFilter#cd77d957: field ranges: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channelMessagesFilter#cd77d957",
+				FieldName:  "ranges",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -305,7 +359,13 @@ func (c *ChannelMessagesFilter) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value MessageRange
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode channelMessagesFilter#cd77d957: field ranges: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "channelMessagesFilter#cd77d957",
+					FieldName:  "ranges",
+					Underlying: err,
+				}
 			}
 			c.Ranges = append(c.Ranges, value)
 		}
@@ -383,18 +443,27 @@ func DecodeChannelMessagesFilter(buf *bin.Buffer) (ChannelMessagesFilterClass, e
 		// Decoding channelMessagesFilterEmpty#94d42ee7.
 		v := ChannelMessagesFilterEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChannelMessagesFilterClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ChannelMessagesFilterClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case ChannelMessagesFilterTypeID:
 		// Decoding channelMessagesFilter#cd77d957.
 		v := ChannelMessagesFilter{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChannelMessagesFilterClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ChannelMessagesFilterClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ChannelMessagesFilterClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "ChannelMessagesFilterClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -406,7 +475,10 @@ type ChannelMessagesFilterBox struct {
 // Decode implements bin.Decoder for ChannelMessagesFilterBox.
 func (b *ChannelMessagesFilterBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode ChannelMessagesFilterBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ChannelMessagesFilterBox",
+		}
 	}
 	v, err := DecodeChannelMessagesFilter(buf)
 	if err != nil {
@@ -419,7 +491,10 @@ func (b *ChannelMessagesFilterBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for ChannelMessagesFilterBox.
 func (b *ChannelMessagesFilterBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.ChannelMessagesFilter == nil {
-		return fmt.Errorf("unable to encode ChannelMessagesFilterClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ChannelMessagesFilterBox",
+		}
 	}
 	return b.ChannelMessagesFilter.Encode(buf)
 }

@@ -124,7 +124,10 @@ func (c *MessagesChatFull) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *MessagesChatFull) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.chatFull#e5d7d19c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.chatFull#e5d7d19c",
+		}
 	}
 	b.PutID(MessagesChatFullTypeID)
 	return c.EncodeBare(b)
@@ -133,30 +136,86 @@ func (c *MessagesChatFull) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesChatFull) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.chatFull#e5d7d19c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.chatFull#e5d7d19c",
+		}
 	}
 	if c.FullChat == nil {
-		return fmt.Errorf("unable to encode messages.chatFull#e5d7d19c: field full_chat is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.chatFull#e5d7d19c",
+			FieldName: "full_chat",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "ChatFull",
+			},
+		}
 	}
 	if err := c.FullChat.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.chatFull#e5d7d19c: field full_chat: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.chatFull#e5d7d19c",
+			FieldName:  "full_chat",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(c.Chats))
 	for idx, v := range c.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.chatFull#e5d7d19c: field chats element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.chatFull#e5d7d19c",
+				FieldName: "chats",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Chat>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.chatFull#e5d7d19c: field chats element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.chatFull#e5d7d19c",
+				FieldName: "chats",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.chatFull#e5d7d19c: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.chatFull#e5d7d19c",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.chatFull#e5d7d19c: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.chatFull#e5d7d19c",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -190,10 +249,16 @@ func (c *MessagesChatFull) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (c *MessagesChatFull) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.chatFull#e5d7d19c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.chatFull#e5d7d19c",
+		}
 	}
 	if err := b.ConsumeID(MessagesChatFullTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.chatFull#e5d7d19c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.chatFull#e5d7d19c",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -201,19 +266,32 @@ func (c *MessagesChatFull) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesChatFull) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.chatFull#e5d7d19c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.chatFull#e5d7d19c",
+		}
 	}
 	{
 		value, err := DecodeChatFull(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.chatFull#e5d7d19c: field full_chat: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.chatFull#e5d7d19c",
+				FieldName:  "full_chat",
+				Underlying: err,
+			}
 		}
 		c.FullChat = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.chatFull#e5d7d19c: field chats: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.chatFull#e5d7d19c",
+				FieldName:  "chats",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -222,7 +300,12 @@ func (c *MessagesChatFull) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.chatFull#e5d7d19c: field chats: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.chatFull#e5d7d19c",
+					FieldName:  "chats",
+					Underlying: err,
+				}
 			}
 			c.Chats = append(c.Chats, value)
 		}
@@ -230,7 +313,12 @@ func (c *MessagesChatFull) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.chatFull#e5d7d19c: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.chatFull#e5d7d19c",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -239,7 +327,12 @@ func (c *MessagesChatFull) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.chatFull#e5d7d19c: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.chatFull#e5d7d19c",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			c.Users = append(c.Users, value)
 		}

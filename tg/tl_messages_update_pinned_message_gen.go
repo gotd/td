@@ -157,7 +157,10 @@ func (u *MessagesUpdatePinnedMessageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *MessagesUpdatePinnedMessageRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.updatePinnedMessage#d2aaf7ec as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.updatePinnedMessage#d2aaf7ec",
+		}
 	}
 	b.PutID(MessagesUpdatePinnedMessageRequestTypeID)
 	return u.EncodeBare(b)
@@ -166,7 +169,10 @@ func (u *MessagesUpdatePinnedMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *MessagesUpdatePinnedMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.updatePinnedMessage#d2aaf7ec as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.updatePinnedMessage#d2aaf7ec",
+		}
 	}
 	if !(u.Silent == false) {
 		u.Flags.Set(0)
@@ -178,13 +184,31 @@ func (u *MessagesUpdatePinnedMessageRequest) EncodeBare(b *bin.Buffer) error {
 		u.Flags.Set(2)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.updatePinnedMessage#d2aaf7ec: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.updatePinnedMessage#d2aaf7ec",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode messages.updatePinnedMessage#d2aaf7ec: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.updatePinnedMessage#d2aaf7ec",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.updatePinnedMessage#d2aaf7ec: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.updatePinnedMessage#d2aaf7ec",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(u.ID)
 	return nil
@@ -251,10 +275,16 @@ func (u *MessagesUpdatePinnedMessageRequest) GetID() (value int) {
 // Decode implements bin.Decoder.
 func (u *MessagesUpdatePinnedMessageRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.updatePinnedMessage#d2aaf7ec to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.updatePinnedMessage#d2aaf7ec",
+		}
 	}
 	if err := b.ConsumeID(MessagesUpdatePinnedMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.updatePinnedMessage#d2aaf7ec",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -262,11 +292,19 @@ func (u *MessagesUpdatePinnedMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *MessagesUpdatePinnedMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.updatePinnedMessage#d2aaf7ec to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.updatePinnedMessage#d2aaf7ec",
+		}
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.updatePinnedMessage#d2aaf7ec",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	u.Silent = u.Flags.Has(0)
@@ -275,14 +313,24 @@ func (u *MessagesUpdatePinnedMessageRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.updatePinnedMessage#d2aaf7ec",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		u.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.updatePinnedMessage#d2aaf7ec",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		u.ID = value
 	}

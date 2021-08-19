@@ -116,7 +116,10 @@ func (i *ImportedContact) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *ImportedContact) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode importedContact#d0028438 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "importedContact#d0028438",
+		}
 	}
 	b.PutID(ImportedContactTypeID)
 	return i.EncodeBare(b)
@@ -125,7 +128,10 @@ func (i *ImportedContact) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *ImportedContact) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode importedContact#d0028438 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "importedContact#d0028438",
+		}
 	}
 	b.PutInt(i.UserID)
 	b.PutLong(i.ClientID)
@@ -145,10 +151,16 @@ func (i *ImportedContact) GetClientID() (value int64) {
 // Decode implements bin.Decoder.
 func (i *ImportedContact) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode importedContact#d0028438 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "importedContact#d0028438",
+		}
 	}
 	if err := b.ConsumeID(ImportedContactTypeID); err != nil {
-		return fmt.Errorf("unable to decode importedContact#d0028438: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "importedContact#d0028438",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -156,19 +168,32 @@ func (i *ImportedContact) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *ImportedContact) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode importedContact#d0028438 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "importedContact#d0028438",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode importedContact#d0028438: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "importedContact#d0028438",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		i.UserID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode importedContact#d0028438: field client_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "importedContact#d0028438",
+				FieldName:  "client_id",
+				Underlying: err,
+			}
 		}
 		i.ClientID = value
 	}

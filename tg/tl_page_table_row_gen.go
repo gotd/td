@@ -102,7 +102,10 @@ func (p *PageTableRow) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageTableRow) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageTableRow#e0c0c5e5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageTableRow#e0c0c5e5",
+		}
 	}
 	b.PutID(PageTableRowTypeID)
 	return p.EncodeBare(b)
@@ -111,12 +114,24 @@ func (p *PageTableRow) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageTableRow) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageTableRow#e0c0c5e5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageTableRow#e0c0c5e5",
+		}
 	}
 	b.PutVectorHeader(len(p.Cells))
 	for idx, v := range p.Cells {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageTableRow#e0c0c5e5: field cells element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageTableRow#e0c0c5e5",
+				FieldName: "cells",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -130,10 +145,16 @@ func (p *PageTableRow) GetCells() (value []PageTableCell) {
 // Decode implements bin.Decoder.
 func (p *PageTableRow) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageTableRow#e0c0c5e5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageTableRow#e0c0c5e5",
+		}
 	}
 	if err := b.ConsumeID(PageTableRowTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageTableRow#e0c0c5e5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageTableRow#e0c0c5e5",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -141,12 +162,20 @@ func (p *PageTableRow) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageTableRow) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageTableRow#e0c0c5e5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageTableRow#e0c0c5e5",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageTableRow#e0c0c5e5: field cells: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageTableRow#e0c0c5e5",
+				FieldName:  "cells",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -155,7 +184,13 @@ func (p *PageTableRow) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value PageTableCell
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode pageTableRow#e0c0c5e5: field cells: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "pageTableRow#e0c0c5e5",
+					FieldName:  "cells",
+					Underlying: err,
+				}
 			}
 			p.Cells = append(p.Cells, value)
 		}

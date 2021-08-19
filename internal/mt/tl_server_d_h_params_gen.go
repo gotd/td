@@ -121,7 +121,10 @@ func (s *ServerDHParamsFail) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *ServerDHParamsFail) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode server_DH_params_fail#79cb045d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "server_DH_params_fail#79cb045d",
+		}
 	}
 	b.PutID(ServerDHParamsFailTypeID)
 	return s.EncodeBare(b)
@@ -130,7 +133,10 @@ func (s *ServerDHParamsFail) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *ServerDHParamsFail) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode server_DH_params_fail#79cb045d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "server_DH_params_fail#79cb045d",
+		}
 	}
 	b.PutInt128(s.Nonce)
 	b.PutInt128(s.ServerNonce)
@@ -156,10 +162,16 @@ func (s *ServerDHParamsFail) GetNewNonceHash() (value bin.Int128) {
 // Decode implements bin.Decoder.
 func (s *ServerDHParamsFail) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode server_DH_params_fail#79cb045d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "server_DH_params_fail#79cb045d",
+		}
 	}
 	if err := b.ConsumeID(ServerDHParamsFailTypeID); err != nil {
-		return fmt.Errorf("unable to decode server_DH_params_fail#79cb045d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "server_DH_params_fail#79cb045d",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -167,26 +179,44 @@ func (s *ServerDHParamsFail) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *ServerDHParamsFail) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode server_DH_params_fail#79cb045d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "server_DH_params_fail#79cb045d",
+		}
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode server_DH_params_fail#79cb045d: field nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "server_DH_params_fail#79cb045d",
+				FieldName:  "nonce",
+				Underlying: err,
+			}
 		}
 		s.Nonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode server_DH_params_fail#79cb045d: field server_nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "server_DH_params_fail#79cb045d",
+				FieldName:  "server_nonce",
+				Underlying: err,
+			}
 		}
 		s.ServerNonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode server_DH_params_fail#79cb045d: field new_nonce_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "server_DH_params_fail#79cb045d",
+				FieldName:  "new_nonce_hash",
+				Underlying: err,
+			}
 		}
 		s.NewNonceHash = value
 	}
@@ -298,7 +328,10 @@ func (s *ServerDHParamsOk) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *ServerDHParamsOk) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode server_DH_params_ok#d0e8075c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "server_DH_params_ok#d0e8075c",
+		}
 	}
 	b.PutID(ServerDHParamsOkTypeID)
 	return s.EncodeBare(b)
@@ -307,7 +340,10 @@ func (s *ServerDHParamsOk) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *ServerDHParamsOk) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode server_DH_params_ok#d0e8075c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "server_DH_params_ok#d0e8075c",
+		}
 	}
 	b.PutInt128(s.Nonce)
 	b.PutInt128(s.ServerNonce)
@@ -333,10 +369,16 @@ func (s *ServerDHParamsOk) GetEncryptedAnswer() (value []byte) {
 // Decode implements bin.Decoder.
 func (s *ServerDHParamsOk) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode server_DH_params_ok#d0e8075c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "server_DH_params_ok#d0e8075c",
+		}
 	}
 	if err := b.ConsumeID(ServerDHParamsOkTypeID); err != nil {
-		return fmt.Errorf("unable to decode server_DH_params_ok#d0e8075c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "server_DH_params_ok#d0e8075c",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -344,26 +386,44 @@ func (s *ServerDHParamsOk) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *ServerDHParamsOk) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode server_DH_params_ok#d0e8075c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "server_DH_params_ok#d0e8075c",
+		}
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode server_DH_params_ok#d0e8075c: field nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "server_DH_params_ok#d0e8075c",
+				FieldName:  "nonce",
+				Underlying: err,
+			}
 		}
 		s.Nonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode server_DH_params_ok#d0e8075c: field server_nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "server_DH_params_ok#d0e8075c",
+				FieldName:  "server_nonce",
+				Underlying: err,
+			}
 		}
 		s.ServerNonce = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode server_DH_params_ok#d0e8075c: field encrypted_answer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "server_DH_params_ok#d0e8075c",
+				FieldName:  "encrypted_answer",
+				Underlying: err,
+			}
 		}
 		s.EncryptedAnswer = value
 	}
@@ -431,18 +491,27 @@ func DecodeServerDHParams(buf *bin.Buffer) (ServerDHParamsClass, error) {
 		// Decoding server_DH_params_fail#79cb045d.
 		v := ServerDHParamsFail{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ServerDHParamsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ServerDHParamsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case ServerDHParamsOkTypeID:
 		// Decoding server_DH_params_ok#d0e8075c.
 		v := ServerDHParamsOk{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ServerDHParamsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ServerDHParamsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ServerDHParamsClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "ServerDHParamsClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -454,7 +523,10 @@ type ServerDHParamsBox struct {
 // Decode implements bin.Decoder for ServerDHParamsBox.
 func (b *ServerDHParamsBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode ServerDHParamsBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ServerDHParamsBox",
+		}
 	}
 	v, err := DecodeServerDHParams(buf)
 	if err != nil {
@@ -467,7 +539,10 @@ func (b *ServerDHParamsBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for ServerDHParamsBox.
 func (b *ServerDHParamsBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Server_DH_Params == nil {
-		return fmt.Errorf("unable to encode ServerDHParamsClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ServerDHParamsBox",
+		}
 	}
 	return b.Server_DH_Params.Encode(buf)
 }

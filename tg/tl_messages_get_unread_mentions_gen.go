@@ -172,7 +172,10 @@ func (g *MessagesGetUnreadMentionsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetUnreadMentionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getUnreadMentions#46578472 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getUnreadMentions#46578472",
+		}
 	}
 	b.PutID(MessagesGetUnreadMentionsRequestTypeID)
 	return g.EncodeBare(b)
@@ -181,13 +184,29 @@ func (g *MessagesGetUnreadMentionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetUnreadMentionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getUnreadMentions#46578472 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getUnreadMentions#46578472",
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getUnreadMentions#46578472: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getUnreadMentions#46578472",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getUnreadMentions#46578472: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getUnreadMentions#46578472",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.OffsetID)
 	b.PutInt(g.AddOffset)
@@ -230,10 +249,16 @@ func (g *MessagesGetUnreadMentionsRequest) GetMinID() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetUnreadMentionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getUnreadMentions#46578472 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getUnreadMentions#46578472",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetUnreadMentionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getUnreadMentions#46578472",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -241,47 +266,80 @@ func (g *MessagesGetUnreadMentionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetUnreadMentionsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getUnreadMentions#46578472 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getUnreadMentions#46578472",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getUnreadMentions#46578472",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: field offset_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getUnreadMentions#46578472",
+				FieldName:  "offset_id",
+				Underlying: err,
+			}
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: field add_offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getUnreadMentions#46578472",
+				FieldName:  "add_offset",
+				Underlying: err,
+			}
 		}
 		g.AddOffset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getUnreadMentions#46578472",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: field max_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getUnreadMentions#46578472",
+				FieldName:  "max_id",
+				Underlying: err,
+			}
 		}
 		g.MaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: field min_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getUnreadMentions#46578472",
+				FieldName:  "min_id",
+				Underlying: err,
+			}
 		}
 		g.MinID = value
 	}

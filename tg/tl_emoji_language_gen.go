@@ -102,7 +102,10 @@ func (e *EmojiLanguage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EmojiLanguage) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiLanguage#b3fb5361 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "emojiLanguage#b3fb5361",
+		}
 	}
 	b.PutID(EmojiLanguageTypeID)
 	return e.EncodeBare(b)
@@ -111,7 +114,10 @@ func (e *EmojiLanguage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EmojiLanguage) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiLanguage#b3fb5361 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "emojiLanguage#b3fb5361",
+		}
 	}
 	b.PutString(e.LangCode)
 	return nil
@@ -125,10 +131,16 @@ func (e *EmojiLanguage) GetLangCode() (value string) {
 // Decode implements bin.Decoder.
 func (e *EmojiLanguage) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiLanguage#b3fb5361 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "emojiLanguage#b3fb5361",
+		}
 	}
 	if err := b.ConsumeID(EmojiLanguageTypeID); err != nil {
-		return fmt.Errorf("unable to decode emojiLanguage#b3fb5361: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "emojiLanguage#b3fb5361",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (e *EmojiLanguage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EmojiLanguage) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiLanguage#b3fb5361 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "emojiLanguage#b3fb5361",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiLanguage#b3fb5361: field lang_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "emojiLanguage#b3fb5361",
+				FieldName:  "lang_code",
+				Underlying: err,
+			}
 		}
 		e.LangCode = value
 	}

@@ -85,7 +85,10 @@ func (u *UserStatusEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserStatusEmpty) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusEmpty#9d05049 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userStatusEmpty#9d05049",
+		}
 	}
 	b.PutID(UserStatusEmptyTypeID)
 	return u.EncodeBare(b)
@@ -94,7 +97,10 @@ func (u *UserStatusEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStatusEmpty) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusEmpty#9d05049 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userStatusEmpty#9d05049",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (u *UserStatusEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UserStatusEmpty) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusEmpty#9d05049 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userStatusEmpty#9d05049",
+		}
 	}
 	if err := b.ConsumeID(UserStatusEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStatusEmpty#9d05049: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "userStatusEmpty#9d05049",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (u *UserStatusEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStatusEmpty) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusEmpty#9d05049 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userStatusEmpty#9d05049",
+		}
 	}
 	return nil
 }
@@ -204,7 +219,10 @@ func (u *UserStatusOnline) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserStatusOnline) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusOnline#edb93949 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userStatusOnline#edb93949",
+		}
 	}
 	b.PutID(UserStatusOnlineTypeID)
 	return u.EncodeBare(b)
@@ -213,7 +231,10 @@ func (u *UserStatusOnline) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStatusOnline) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusOnline#edb93949 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userStatusOnline#edb93949",
+		}
 	}
 	b.PutInt(u.Expires)
 	return nil
@@ -227,10 +248,16 @@ func (u *UserStatusOnline) GetExpires() (value int) {
 // Decode implements bin.Decoder.
 func (u *UserStatusOnline) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusOnline#edb93949 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userStatusOnline#edb93949",
+		}
 	}
 	if err := b.ConsumeID(UserStatusOnlineTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStatusOnline#edb93949: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "userStatusOnline#edb93949",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -238,12 +265,20 @@ func (u *UserStatusOnline) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStatusOnline) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusOnline#edb93949 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userStatusOnline#edb93949",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userStatusOnline#edb93949: field expires: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "userStatusOnline#edb93949",
+				FieldName:  "expires",
+				Underlying: err,
+			}
 		}
 		u.Expires = value
 	}
@@ -336,7 +371,10 @@ func (u *UserStatusOffline) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserStatusOffline) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusOffline#8c703f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userStatusOffline#8c703f",
+		}
 	}
 	b.PutID(UserStatusOfflineTypeID)
 	return u.EncodeBare(b)
@@ -345,7 +383,10 @@ func (u *UserStatusOffline) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStatusOffline) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusOffline#8c703f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userStatusOffline#8c703f",
+		}
 	}
 	b.PutInt(u.WasOnline)
 	return nil
@@ -359,10 +400,16 @@ func (u *UserStatusOffline) GetWasOnline() (value int) {
 // Decode implements bin.Decoder.
 func (u *UserStatusOffline) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusOffline#8c703f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userStatusOffline#8c703f",
+		}
 	}
 	if err := b.ConsumeID(UserStatusOfflineTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStatusOffline#8c703f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "userStatusOffline#8c703f",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -370,12 +417,20 @@ func (u *UserStatusOffline) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStatusOffline) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusOffline#8c703f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userStatusOffline#8c703f",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userStatusOffline#8c703f: field was_online: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "userStatusOffline#8c703f",
+				FieldName:  "was_online",
+				Underlying: err,
+			}
 		}
 		u.WasOnline = value
 	}
@@ -451,7 +506,10 @@ func (u *UserStatusRecently) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserStatusRecently) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusRecently#e26f42f1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userStatusRecently#e26f42f1",
+		}
 	}
 	b.PutID(UserStatusRecentlyTypeID)
 	return u.EncodeBare(b)
@@ -460,7 +518,10 @@ func (u *UserStatusRecently) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStatusRecently) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusRecently#e26f42f1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userStatusRecently#e26f42f1",
+		}
 	}
 	return nil
 }
@@ -468,10 +529,16 @@ func (u *UserStatusRecently) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UserStatusRecently) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusRecently#e26f42f1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userStatusRecently#e26f42f1",
+		}
 	}
 	if err := b.ConsumeID(UserStatusRecentlyTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStatusRecently#e26f42f1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "userStatusRecently#e26f42f1",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -479,7 +546,10 @@ func (u *UserStatusRecently) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStatusRecently) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusRecently#e26f42f1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userStatusRecently#e26f42f1",
+		}
 	}
 	return nil
 }
@@ -553,7 +623,10 @@ func (u *UserStatusLastWeek) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserStatusLastWeek) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastWeek#7bf09fc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userStatusLastWeek#7bf09fc",
+		}
 	}
 	b.PutID(UserStatusLastWeekTypeID)
 	return u.EncodeBare(b)
@@ -562,7 +635,10 @@ func (u *UserStatusLastWeek) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStatusLastWeek) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastWeek#7bf09fc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userStatusLastWeek#7bf09fc",
+		}
 	}
 	return nil
 }
@@ -570,10 +646,16 @@ func (u *UserStatusLastWeek) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UserStatusLastWeek) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastWeek#7bf09fc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userStatusLastWeek#7bf09fc",
+		}
 	}
 	if err := b.ConsumeID(UserStatusLastWeekTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStatusLastWeek#7bf09fc: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "userStatusLastWeek#7bf09fc",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -581,7 +663,10 @@ func (u *UserStatusLastWeek) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStatusLastWeek) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastWeek#7bf09fc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userStatusLastWeek#7bf09fc",
+		}
 	}
 	return nil
 }
@@ -655,7 +740,10 @@ func (u *UserStatusLastMonth) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserStatusLastMonth) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastMonth#77ebc742 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userStatusLastMonth#77ebc742",
+		}
 	}
 	b.PutID(UserStatusLastMonthTypeID)
 	return u.EncodeBare(b)
@@ -664,7 +752,10 @@ func (u *UserStatusLastMonth) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStatusLastMonth) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastMonth#77ebc742 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "userStatusLastMonth#77ebc742",
+		}
 	}
 	return nil
 }
@@ -672,10 +763,16 @@ func (u *UserStatusLastMonth) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UserStatusLastMonth) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastMonth#77ebc742 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userStatusLastMonth#77ebc742",
+		}
 	}
 	if err := b.ConsumeID(UserStatusLastMonthTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStatusLastMonth#77ebc742: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "userStatusLastMonth#77ebc742",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -683,7 +780,10 @@ func (u *UserStatusLastMonth) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStatusLastMonth) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastMonth#77ebc742 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "userStatusLastMonth#77ebc742",
+		}
 	}
 	return nil
 }
@@ -749,46 +849,67 @@ func DecodeUserStatus(buf *bin.Buffer) (UserStatusClass, error) {
 		// Decoding userStatusEmpty#9d05049.
 		v := UserStatusEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "UserStatusClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case UserStatusOnlineTypeID:
 		// Decoding userStatusOnline#edb93949.
 		v := UserStatusOnline{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "UserStatusClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case UserStatusOfflineTypeID:
 		// Decoding userStatusOffline#8c703f.
 		v := UserStatusOffline{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "UserStatusClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case UserStatusRecentlyTypeID:
 		// Decoding userStatusRecently#e26f42f1.
 		v := UserStatusRecently{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "UserStatusClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case UserStatusLastWeekTypeID:
 		// Decoding userStatusLastWeek#7bf09fc.
 		v := UserStatusLastWeek{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "UserStatusClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case UserStatusLastMonthTypeID:
 		// Decoding userStatusLastMonth#77ebc742.
 		v := UserStatusLastMonth{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "UserStatusClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode UserStatusClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "UserStatusClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -800,7 +921,10 @@ type UserStatusBox struct {
 // Decode implements bin.Decoder for UserStatusBox.
 func (b *UserStatusBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode UserStatusBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "UserStatusBox",
+		}
 	}
 	v, err := DecodeUserStatus(buf)
 	if err != nil {
@@ -813,7 +937,10 @@ func (b *UserStatusBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for UserStatusBox.
 func (b *UserStatusBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.UserStatus == nil {
-		return fmt.Errorf("unable to encode UserStatusClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "UserStatusBox",
+		}
 	}
 	return b.UserStatus.Encode(buf)
 }

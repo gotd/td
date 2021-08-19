@@ -113,7 +113,10 @@ func (p *PhonePhoneCall) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhonePhoneCall) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phone.phoneCall#ec82e140 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.phoneCall#ec82e140",
+		}
 	}
 	b.PutID(PhonePhoneCallTypeID)
 	return p.EncodeBare(b)
@@ -122,21 +125,57 @@ func (p *PhonePhoneCall) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhonePhoneCall) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phone.phoneCall#ec82e140 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.phoneCall#ec82e140",
+		}
 	}
 	if p.PhoneCall == nil {
-		return fmt.Errorf("unable to encode phone.phoneCall#ec82e140: field phone_call is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "phone.phoneCall#ec82e140",
+			FieldName: "phone_call",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "PhoneCall",
+			},
+		}
 	}
 	if err := p.PhoneCall.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.phoneCall#ec82e140: field phone_call: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.phoneCall#ec82e140",
+			FieldName:  "phone_call",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(p.Users))
 	for idx, v := range p.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode phone.phoneCall#ec82e140: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "phone.phoneCall#ec82e140",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.phoneCall#ec82e140: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "phone.phoneCall#ec82e140",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -165,10 +204,16 @@ func (p *PhonePhoneCall) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (p *PhonePhoneCall) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phone.phoneCall#ec82e140 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.phoneCall#ec82e140",
+		}
 	}
 	if err := b.ConsumeID(PhonePhoneCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.phoneCall#ec82e140: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.phoneCall#ec82e140",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -176,19 +221,32 @@ func (p *PhonePhoneCall) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhonePhoneCall) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phone.phoneCall#ec82e140 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.phoneCall#ec82e140",
+		}
 	}
 	{
 		value, err := DecodePhoneCall(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.phoneCall#ec82e140: field phone_call: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.phoneCall#ec82e140",
+				FieldName:  "phone_call",
+				Underlying: err,
+			}
 		}
 		p.PhoneCall = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.phoneCall#ec82e140: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.phoneCall#ec82e140",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -197,7 +255,12 @@ func (p *PhonePhoneCall) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.phoneCall#ec82e140: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "phone.phoneCall#ec82e140",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			p.Users = append(p.Users, value)
 		}

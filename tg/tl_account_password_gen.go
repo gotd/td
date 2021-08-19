@@ -294,7 +294,10 @@ func (p *AccountPassword) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *AccountPassword) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode account.password#185b184f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.password#185b184f",
+		}
 	}
 	b.PutID(AccountPasswordTypeID)
 	return p.EncodeBare(b)
@@ -303,7 +306,10 @@ func (p *AccountPassword) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *AccountPassword) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode account.password#185b184f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.password#185b184f",
+		}
 	}
 	if !(p.HasRecovery == false) {
 		p.Flags.Set(0)
@@ -333,14 +339,32 @@ func (p *AccountPassword) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(5)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.password#185b184f: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.password#185b184f",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if p.Flags.Has(2) {
 		if p.CurrentAlgo == nil {
-			return fmt.Errorf("unable to encode account.password#185b184f: field current_algo is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.password#185b184f",
+				FieldName: "current_algo",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "PasswordKdfAlgo",
+				},
+			}
 		}
 		if err := p.CurrentAlgo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.password#185b184f: field current_algo: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "account.password#185b184f",
+				FieldName:  "current_algo",
+				Underlying: err,
+			}
 		}
 	}
 	if p.Flags.Has(2) {
@@ -356,16 +380,42 @@ func (p *AccountPassword) EncodeBare(b *bin.Buffer) error {
 		b.PutString(p.EmailUnconfirmedPattern)
 	}
 	if p.NewAlgo == nil {
-		return fmt.Errorf("unable to encode account.password#185b184f: field new_algo is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.password#185b184f",
+			FieldName: "new_algo",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "PasswordKdfAlgo",
+			},
+		}
 	}
 	if err := p.NewAlgo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.password#185b184f: field new_algo: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.password#185b184f",
+			FieldName:  "new_algo",
+			Underlying: err,
+		}
 	}
 	if p.NewSecureAlgo == nil {
-		return fmt.Errorf("unable to encode account.password#185b184f: field new_secure_algo is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.password#185b184f",
+			FieldName: "new_secure_algo",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "SecurePasswordKdfAlgo",
+			},
+		}
 	}
 	if err := p.NewSecureAlgo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.password#185b184f: field new_secure_algo: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.password#185b184f",
+			FieldName:  "new_secure_algo",
+			Underlying: err,
+		}
 	}
 	b.PutBytes(p.SecureRandom)
 	if p.Flags.Has(5) {
@@ -530,10 +580,16 @@ func (p *AccountPassword) GetPendingResetDate() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (p *AccountPassword) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode account.password#185b184f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.password#185b184f",
+		}
 	}
 	if err := b.ConsumeID(AccountPasswordTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.password#185b184f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.password#185b184f",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -541,11 +597,19 @@ func (p *AccountPassword) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *AccountPassword) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode account.password#185b184f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.password#185b184f",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.password#185b184f",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	p.HasRecovery = p.Flags.Has(0)
@@ -554,63 +618,108 @@ func (p *AccountPassword) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(2) {
 		value, err := DecodePasswordKdfAlgo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field current_algo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.password#185b184f",
+				FieldName:  "current_algo",
+				Underlying: err,
+			}
 		}
 		p.CurrentAlgo = value
 	}
 	if p.Flags.Has(2) {
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field srp_B: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.password#185b184f",
+				FieldName:  "srp_B",
+				Underlying: err,
+			}
 		}
 		p.SRPB = value
 	}
 	if p.Flags.Has(2) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field srp_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.password#185b184f",
+				FieldName:  "srp_id",
+				Underlying: err,
+			}
 		}
 		p.SRPID = value
 	}
 	if p.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field hint: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.password#185b184f",
+				FieldName:  "hint",
+				Underlying: err,
+			}
 		}
 		p.Hint = value
 	}
 	if p.Flags.Has(4) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field email_unconfirmed_pattern: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.password#185b184f",
+				FieldName:  "email_unconfirmed_pattern",
+				Underlying: err,
+			}
 		}
 		p.EmailUnconfirmedPattern = value
 	}
 	{
 		value, err := DecodePasswordKdfAlgo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field new_algo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.password#185b184f",
+				FieldName:  "new_algo",
+				Underlying: err,
+			}
 		}
 		p.NewAlgo = value
 	}
 	{
 		value, err := DecodeSecurePasswordKdfAlgo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field new_secure_algo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.password#185b184f",
+				FieldName:  "new_secure_algo",
+				Underlying: err,
+			}
 		}
 		p.NewSecureAlgo = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field secure_random: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.password#185b184f",
+				FieldName:  "secure_random",
+				Underlying: err,
+			}
 		}
 		p.SecureRandom = value
 	}
 	if p.Flags.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field pending_reset_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.password#185b184f",
+				FieldName:  "pending_reset_date",
+				Underlying: err,
+			}
 		}
 		p.PendingResetDate = value
 	}

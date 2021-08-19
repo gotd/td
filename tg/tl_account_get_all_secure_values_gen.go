@@ -89,7 +89,10 @@ func (g *AccountGetAllSecureValuesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetAllSecureValuesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getAllSecureValues#b288bc7d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getAllSecureValues#b288bc7d",
+		}
 	}
 	b.PutID(AccountGetAllSecureValuesRequestTypeID)
 	return g.EncodeBare(b)
@@ -98,7 +101,10 @@ func (g *AccountGetAllSecureValuesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetAllSecureValuesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getAllSecureValues#b288bc7d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getAllSecureValues#b288bc7d",
+		}
 	}
 	return nil
 }
@@ -106,10 +112,16 @@ func (g *AccountGetAllSecureValuesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *AccountGetAllSecureValuesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getAllSecureValues#b288bc7d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getAllSecureValues#b288bc7d",
+		}
 	}
 	if err := b.ConsumeID(AccountGetAllSecureValuesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getAllSecureValues#b288bc7d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.getAllSecureValues#b288bc7d",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -117,7 +129,10 @@ func (g *AccountGetAllSecureValuesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetAllSecureValuesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getAllSecureValues#b288bc7d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getAllSecureValues#b288bc7d",
+		}
 	}
 	return nil
 }

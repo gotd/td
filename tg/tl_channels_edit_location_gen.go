@@ -127,7 +127,10 @@ func (e *ChannelsEditLocationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *ChannelsEditLocationRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editLocation#58e63f6d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.editLocation#58e63f6d",
+		}
 	}
 	b.PutID(ChannelsEditLocationRequestTypeID)
 	return e.EncodeBare(b)
@@ -136,19 +139,48 @@ func (e *ChannelsEditLocationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsEditLocationRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editLocation#58e63f6d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.editLocation#58e63f6d",
+		}
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.editLocation#58e63f6d: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.editLocation#58e63f6d",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editLocation#58e63f6d: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.editLocation#58e63f6d",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	if e.GeoPoint == nil {
-		return fmt.Errorf("unable to encode channels.editLocation#58e63f6d: field geo_point is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.editLocation#58e63f6d",
+			FieldName: "geo_point",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputGeoPoint",
+			},
+		}
 	}
 	if err := e.GeoPoint.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editLocation#58e63f6d: field geo_point: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.editLocation#58e63f6d",
+			FieldName:  "geo_point",
+			Underlying: err,
+		}
 	}
 	b.PutString(e.Address)
 	return nil
@@ -182,10 +214,16 @@ func (e *ChannelsEditLocationRequest) GetAddress() (value string) {
 // Decode implements bin.Decoder.
 func (e *ChannelsEditLocationRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editLocation#58e63f6d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.editLocation#58e63f6d",
+		}
 	}
 	if err := b.ConsumeID(ChannelsEditLocationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.editLocation#58e63f6d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.editLocation#58e63f6d",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -193,26 +231,44 @@ func (e *ChannelsEditLocationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsEditLocationRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editLocation#58e63f6d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.editLocation#58e63f6d",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editLocation#58e63f6d: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.editLocation#58e63f6d",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		e.Channel = value
 	}
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editLocation#58e63f6d: field geo_point: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.editLocation#58e63f6d",
+				FieldName:  "geo_point",
+				Underlying: err,
+			}
 		}
 		e.GeoPoint = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editLocation#58e63f6d: field address: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.editLocation#58e63f6d",
+				FieldName:  "address",
+				Underlying: err,
+			}
 		}
 		e.Address = value
 	}

@@ -101,7 +101,10 @@ func (e *EchoVectorRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EchoVectorRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode echoVector#d4785939 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "echoVector#d4785939",
+		}
 	}
 	b.PutID(EchoVectorRequestTypeID)
 	return e.EncodeBare(b)
@@ -110,7 +113,10 @@ func (e *EchoVectorRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EchoVectorRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode echoVector#d4785939 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "echoVector#d4785939",
+		}
 	}
 	b.PutVectorHeader(len(e.IDs))
 	for _, v := range e.IDs {
@@ -127,10 +133,16 @@ func (e *EchoVectorRequest) GetIDs() (value []int) {
 // Decode implements bin.Decoder.
 func (e *EchoVectorRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode echoVector#d4785939 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "echoVector#d4785939",
+		}
 	}
 	if err := b.ConsumeID(EchoVectorRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode echoVector#d4785939: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "echoVector#d4785939",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -138,12 +150,20 @@ func (e *EchoVectorRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EchoVectorRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode echoVector#d4785939 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "echoVector#d4785939",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode echoVector#d4785939: field ids: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "echoVector#d4785939",
+				FieldName:  "ids",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -152,7 +172,12 @@ func (e *EchoVectorRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode echoVector#d4785939: field ids: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "echoVector#d4785939",
+					FieldName:  "ids",
+					Underlying: err,
+				}
 			}
 			e.IDs = append(e.IDs, value)
 		}

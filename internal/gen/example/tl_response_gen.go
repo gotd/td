@@ -101,7 +101,10 @@ func (r *ResponseID) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ResponseID) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode responseID#85d7fd8b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "responseID#85d7fd8b",
+		}
 	}
 	b.PutID(ResponseIDTypeID)
 	return r.EncodeBare(b)
@@ -110,7 +113,10 @@ func (r *ResponseID) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ResponseID) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode responseID#85d7fd8b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "responseID#85d7fd8b",
+		}
 	}
 	b.PutInt32(r.ID)
 	return nil
@@ -124,10 +130,16 @@ func (r *ResponseID) GetID() (value int32) {
 // Decode implements bin.Decoder.
 func (r *ResponseID) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode responseID#85d7fd8b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "responseID#85d7fd8b",
+		}
 	}
 	if err := b.ConsumeID(ResponseIDTypeID); err != nil {
-		return fmt.Errorf("unable to decode responseID#85d7fd8b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "responseID#85d7fd8b",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -135,12 +147,20 @@ func (r *ResponseID) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ResponseID) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode responseID#85d7fd8b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "responseID#85d7fd8b",
+		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode responseID#85d7fd8b: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "responseID#85d7fd8b",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		r.ID = value
 	}
@@ -232,7 +252,10 @@ func (r *ResponseText) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ResponseText) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode responseText#cb0244f2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "responseText#cb0244f2",
+		}
 	}
 	b.PutID(ResponseTextTypeID)
 	return r.EncodeBare(b)
@@ -241,7 +264,10 @@ func (r *ResponseText) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ResponseText) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode responseText#cb0244f2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "responseText#cb0244f2",
+		}
 	}
 	b.PutString(r.Text)
 	return nil
@@ -255,10 +281,16 @@ func (r *ResponseText) GetText() (value string) {
 // Decode implements bin.Decoder.
 func (r *ResponseText) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode responseText#cb0244f2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "responseText#cb0244f2",
+		}
 	}
 	if err := b.ConsumeID(ResponseTextTypeID); err != nil {
-		return fmt.Errorf("unable to decode responseText#cb0244f2: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "responseText#cb0244f2",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -266,12 +298,20 @@ func (r *ResponseText) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ResponseText) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode responseText#cb0244f2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "responseText#cb0244f2",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode responseText#cb0244f2: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "responseText#cb0244f2",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		r.Text = value
 	}
@@ -335,18 +375,27 @@ func DecodeResponse(buf *bin.Buffer) (ResponseClass, error) {
 		// Decoding responseID#85d7fd8b.
 		v := ResponseID{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ResponseClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ResponseClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case ResponseTextTypeID:
 		// Decoding responseText#cb0244f2.
 		v := ResponseText{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ResponseClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ResponseClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ResponseClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "ResponseClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -358,7 +407,10 @@ type ResponseBox struct {
 // Decode implements bin.Decoder for ResponseBox.
 func (b *ResponseBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode ResponseBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ResponseBox",
+		}
 	}
 	v, err := DecodeResponse(buf)
 	if err != nil {
@@ -371,7 +423,10 @@ func (b *ResponseBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for ResponseBox.
 func (b *ResponseBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Response == nil {
-		return fmt.Errorf("unable to encode ResponseClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ResponseBox",
+		}
 	}
 	return b.Response.Encode(buf)
 }

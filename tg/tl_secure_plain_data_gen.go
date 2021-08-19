@@ -106,7 +106,10 @@ func (s *SecurePlainPhone) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecurePlainPhone) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode securePlainPhone#7d6099dd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "securePlainPhone#7d6099dd",
+		}
 	}
 	b.PutID(SecurePlainPhoneTypeID)
 	return s.EncodeBare(b)
@@ -115,7 +118,10 @@ func (s *SecurePlainPhone) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecurePlainPhone) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode securePlainPhone#7d6099dd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "securePlainPhone#7d6099dd",
+		}
 	}
 	b.PutString(s.Phone)
 	return nil
@@ -129,10 +135,16 @@ func (s *SecurePlainPhone) GetPhone() (value string) {
 // Decode implements bin.Decoder.
 func (s *SecurePlainPhone) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode securePlainPhone#7d6099dd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "securePlainPhone#7d6099dd",
+		}
 	}
 	if err := b.ConsumeID(SecurePlainPhoneTypeID); err != nil {
-		return fmt.Errorf("unable to decode securePlainPhone#7d6099dd: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "securePlainPhone#7d6099dd",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -140,12 +152,20 @@ func (s *SecurePlainPhone) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecurePlainPhone) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode securePlainPhone#7d6099dd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "securePlainPhone#7d6099dd",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode securePlainPhone#7d6099dd: field phone: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "securePlainPhone#7d6099dd",
+				FieldName:  "phone",
+				Underlying: err,
+			}
 		}
 		s.Phone = value
 	}
@@ -242,7 +262,10 @@ func (s *SecurePlainEmail) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecurePlainEmail) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode securePlainEmail#21ec5a5f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "securePlainEmail#21ec5a5f",
+		}
 	}
 	b.PutID(SecurePlainEmailTypeID)
 	return s.EncodeBare(b)
@@ -251,7 +274,10 @@ func (s *SecurePlainEmail) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecurePlainEmail) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode securePlainEmail#21ec5a5f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "securePlainEmail#21ec5a5f",
+		}
 	}
 	b.PutString(s.Email)
 	return nil
@@ -265,10 +291,16 @@ func (s *SecurePlainEmail) GetEmail() (value string) {
 // Decode implements bin.Decoder.
 func (s *SecurePlainEmail) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode securePlainEmail#21ec5a5f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "securePlainEmail#21ec5a5f",
+		}
 	}
 	if err := b.ConsumeID(SecurePlainEmailTypeID); err != nil {
-		return fmt.Errorf("unable to decode securePlainEmail#21ec5a5f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "securePlainEmail#21ec5a5f",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -276,12 +308,20 @@ func (s *SecurePlainEmail) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecurePlainEmail) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode securePlainEmail#21ec5a5f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "securePlainEmail#21ec5a5f",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode securePlainEmail#21ec5a5f: field email: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "securePlainEmail#21ec5a5f",
+				FieldName:  "email",
+				Underlying: err,
+			}
 		}
 		s.Email = value
 	}
@@ -345,18 +385,27 @@ func DecodeSecurePlainData(buf *bin.Buffer) (SecurePlainDataClass, error) {
 		// Decoding securePlainPhone#7d6099dd.
 		v := SecurePlainPhone{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecurePlainDataClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecurePlainDataClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecurePlainEmailTypeID:
 		// Decoding securePlainEmail#21ec5a5f.
 		v := SecurePlainEmail{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecurePlainDataClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecurePlainDataClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode SecurePlainDataClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "SecurePlainDataClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -368,7 +417,10 @@ type SecurePlainDataBox struct {
 // Decode implements bin.Decoder for SecurePlainDataBox.
 func (b *SecurePlainDataBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode SecurePlainDataBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "SecurePlainDataBox",
+		}
 	}
 	v, err := DecodeSecurePlainData(buf)
 	if err != nil {
@@ -381,7 +433,10 @@ func (b *SecurePlainDataBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for SecurePlainDataBox.
 func (b *SecurePlainDataBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.SecurePlainData == nil {
-		return fmt.Errorf("unable to encode SecurePlainDataClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "SecurePlainDataBox",
+		}
 	}
 	return b.SecurePlainData.Encode(buf)
 }

@@ -102,7 +102,10 @@ func (p *HelpPromoDataEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *HelpPromoDataEmpty) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.promoDataEmpty#98f6ac75 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.promoDataEmpty#98f6ac75",
+		}
 	}
 	b.PutID(HelpPromoDataEmptyTypeID)
 	return p.EncodeBare(b)
@@ -111,7 +114,10 @@ func (p *HelpPromoDataEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *HelpPromoDataEmpty) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.promoDataEmpty#98f6ac75 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.promoDataEmpty#98f6ac75",
+		}
 	}
 	b.PutInt(p.Expires)
 	return nil
@@ -125,10 +131,16 @@ func (p *HelpPromoDataEmpty) GetExpires() (value int) {
 // Decode implements bin.Decoder.
 func (p *HelpPromoDataEmpty) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.promoDataEmpty#98f6ac75 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.promoDataEmpty#98f6ac75",
+		}
 	}
 	if err := b.ConsumeID(HelpPromoDataEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.promoDataEmpty#98f6ac75: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.promoDataEmpty#98f6ac75",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (p *HelpPromoDataEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *HelpPromoDataEmpty) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.promoDataEmpty#98f6ac75 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.promoDataEmpty#98f6ac75",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.promoDataEmpty#98f6ac75: field expires: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.promoDataEmpty#98f6ac75",
+				FieldName:  "expires",
+				Underlying: err,
+			}
 		}
 		p.Expires = value
 	}
@@ -321,7 +341,10 @@ func (p *HelpPromoData) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *HelpPromoData) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.promoData#8c39793f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.promoData#8c39793f",
+		}
 	}
 	b.PutID(HelpPromoDataTypeID)
 	return p.EncodeBare(b)
@@ -330,7 +353,10 @@ func (p *HelpPromoData) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *HelpPromoData) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.promoData#8c39793f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.promoData#8c39793f",
+		}
 	}
 	if !(p.Proxy == false) {
 		p.Flags.Set(0)
@@ -342,31 +368,89 @@ func (p *HelpPromoData) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(2)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.promoData#8c39793f: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "help.promoData#8c39793f",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(p.Expires)
 	if p.Peer == nil {
-		return fmt.Errorf("unable to encode help.promoData#8c39793f: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "help.promoData#8c39793f",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "Peer",
+			},
+		}
 	}
 	if err := p.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.promoData#8c39793f: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "help.promoData#8c39793f",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(p.Chats))
 	for idx, v := range p.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode help.promoData#8c39793f: field chats element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.promoData#8c39793f",
+				FieldName: "chats",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Chat>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.promoData#8c39793f: field chats element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.promoData#8c39793f",
+				FieldName: "chats",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(p.Users))
 	for idx, v := range p.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode help.promoData#8c39793f: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.promoData#8c39793f",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.promoData#8c39793f: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.promoData#8c39793f",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if p.Flags.Has(1) {
@@ -457,10 +541,16 @@ func (p *HelpPromoData) GetPsaMessage() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (p *HelpPromoData) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.promoData#8c39793f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.promoData#8c39793f",
+		}
 	}
 	if err := b.ConsumeID(HelpPromoDataTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.promoData#8c39793f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.promoData#8c39793f",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -468,32 +558,55 @@ func (p *HelpPromoData) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.promoData#8c39793f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.promoData#8c39793f",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.promoData#8c39793f",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	p.Proxy = p.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field expires: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.promoData#8c39793f",
+				FieldName:  "expires",
+				Underlying: err,
+			}
 		}
 		p.Expires = value
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.promoData#8c39793f",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		p.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field chats: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.promoData#8c39793f",
+				FieldName:  "chats",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -502,7 +615,12 @@ func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.promoData#8c39793f: field chats: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "help.promoData#8c39793f",
+					FieldName:  "chats",
+					Underlying: err,
+				}
 			}
 			p.Chats = append(p.Chats, value)
 		}
@@ -510,7 +628,12 @@ func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.promoData#8c39793f",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -519,7 +642,12 @@ func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.promoData#8c39793f: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "help.promoData#8c39793f",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			p.Users = append(p.Users, value)
 		}
@@ -527,14 +655,24 @@ func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field psa_type: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.promoData#8c39793f",
+				FieldName:  "psa_type",
+				Underlying: err,
+			}
 		}
 		p.PsaType = value
 	}
 	if p.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field psa_message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.promoData#8c39793f",
+				FieldName:  "psa_message",
+				Underlying: err,
+			}
 		}
 		p.PsaMessage = value
 	}
@@ -614,18 +752,27 @@ func DecodeHelpPromoData(buf *bin.Buffer) (HelpPromoDataClass, error) {
 		// Decoding help.promoDataEmpty#98f6ac75.
 		v := HelpPromoDataEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode HelpPromoDataClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "HelpPromoDataClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case HelpPromoDataTypeID:
 		// Decoding help.promoData#8c39793f.
 		v := HelpPromoData{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode HelpPromoDataClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "HelpPromoDataClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode HelpPromoDataClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "HelpPromoDataClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -637,7 +784,10 @@ type HelpPromoDataBox struct {
 // Decode implements bin.Decoder for HelpPromoDataBox.
 func (b *HelpPromoDataBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode HelpPromoDataBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "HelpPromoDataBox",
+		}
 	}
 	v, err := DecodeHelpPromoData(buf)
 	if err != nil {
@@ -650,7 +800,10 @@ func (b *HelpPromoDataBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for HelpPromoDataBox.
 func (b *HelpPromoDataBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.PromoData == nil {
-		return fmt.Errorf("unable to encode HelpPromoDataClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "HelpPromoDataBox",
+		}
 	}
 	return b.PromoData.Encode(buf)
 }

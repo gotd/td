@@ -134,7 +134,10 @@ func (r *AccountReportProfilePhotoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountReportProfilePhotoRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.reportProfilePhoto#fa8cc6f5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.reportProfilePhoto#fa8cc6f5",
+		}
 	}
 	b.PutID(AccountReportProfilePhotoRequestTypeID)
 	return r.EncodeBare(b)
@@ -143,25 +146,67 @@ func (r *AccountReportProfilePhotoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountReportProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.reportProfilePhoto#fa8cc6f5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.reportProfilePhoto#fa8cc6f5",
+		}
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode account.reportProfilePhoto#fa8cc6f5: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.reportProfilePhoto#fa8cc6f5",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.reportProfilePhoto#fa8cc6f5: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.reportProfilePhoto#fa8cc6f5",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	if r.PhotoID == nil {
-		return fmt.Errorf("unable to encode account.reportProfilePhoto#fa8cc6f5: field photo_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.reportProfilePhoto#fa8cc6f5",
+			FieldName: "photo_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPhoto",
+			},
+		}
 	}
 	if err := r.PhotoID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.reportProfilePhoto#fa8cc6f5: field photo_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.reportProfilePhoto#fa8cc6f5",
+			FieldName:  "photo_id",
+			Underlying: err,
+		}
 	}
 	if r.Reason == nil {
-		return fmt.Errorf("unable to encode account.reportProfilePhoto#fa8cc6f5: field reason is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.reportProfilePhoto#fa8cc6f5",
+			FieldName: "reason",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "ReportReason",
+			},
+		}
 	}
 	if err := r.Reason.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.reportProfilePhoto#fa8cc6f5: field reason: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.reportProfilePhoto#fa8cc6f5",
+			FieldName:  "reason",
+			Underlying: err,
+		}
 	}
 	b.PutString(r.Message)
 	return nil
@@ -195,10 +240,16 @@ func (r *AccountReportProfilePhotoRequest) GetMessage() (value string) {
 // Decode implements bin.Decoder.
 func (r *AccountReportProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.reportProfilePhoto#fa8cc6f5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.reportProfilePhoto#fa8cc6f5",
+		}
 	}
 	if err := b.ConsumeID(AccountReportProfilePhotoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.reportProfilePhoto#fa8cc6f5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.reportProfilePhoto#fa8cc6f5",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -206,33 +257,56 @@ func (r *AccountReportProfilePhotoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountReportProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.reportProfilePhoto#fa8cc6f5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.reportProfilePhoto#fa8cc6f5",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.reportProfilePhoto#fa8cc6f5: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.reportProfilePhoto#fa8cc6f5",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		r.Peer = value
 	}
 	{
 		value, err := DecodeInputPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.reportProfilePhoto#fa8cc6f5: field photo_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.reportProfilePhoto#fa8cc6f5",
+				FieldName:  "photo_id",
+				Underlying: err,
+			}
 		}
 		r.PhotoID = value
 	}
 	{
 		value, err := DecodeReportReason(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.reportProfilePhoto#fa8cc6f5: field reason: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.reportProfilePhoto#fa8cc6f5",
+				FieldName:  "reason",
+				Underlying: err,
+			}
 		}
 		r.Reason = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.reportProfilePhoto#fa8cc6f5: field message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.reportProfilePhoto#fa8cc6f5",
+				FieldName:  "message",
+				Underlying: err,
+			}
 		}
 		r.Message = value
 	}

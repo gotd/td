@@ -99,7 +99,10 @@ func (m *MsgsStateReq) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MsgsStateReq) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msgs_state_req#da69fb52 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "msgs_state_req#da69fb52",
+		}
 	}
 	b.PutID(MsgsStateReqTypeID)
 	return m.EncodeBare(b)
@@ -108,7 +111,10 @@ func (m *MsgsStateReq) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MsgsStateReq) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msgs_state_req#da69fb52 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "msgs_state_req#da69fb52",
+		}
 	}
 	b.PutVectorHeader(len(m.MsgIDs))
 	for _, v := range m.MsgIDs {
@@ -125,10 +131,16 @@ func (m *MsgsStateReq) GetMsgIDs() (value []int64) {
 // Decode implements bin.Decoder.
 func (m *MsgsStateReq) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msgs_state_req#da69fb52 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "msgs_state_req#da69fb52",
+		}
 	}
 	if err := b.ConsumeID(MsgsStateReqTypeID); err != nil {
-		return fmt.Errorf("unable to decode msgs_state_req#da69fb52: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "msgs_state_req#da69fb52",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (m *MsgsStateReq) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MsgsStateReq) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msgs_state_req#da69fb52 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "msgs_state_req#da69fb52",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode msgs_state_req#da69fb52: field msg_ids: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "msgs_state_req#da69fb52",
+				FieldName:  "msg_ids",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -150,7 +170,12 @@ func (m *MsgsStateReq) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode msgs_state_req#da69fb52: field msg_ids: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "msgs_state_req#da69fb52",
+					FieldName:  "msg_ids",
+					Underlying: err,
+				}
 			}
 			m.MsgIDs = append(m.MsgIDs, value)
 		}

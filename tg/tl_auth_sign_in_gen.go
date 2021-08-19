@@ -127,7 +127,10 @@ func (s *AuthSignInRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AuthSignInRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.signIn#bcd51581 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.signIn#bcd51581",
+		}
 	}
 	b.PutID(AuthSignInRequestTypeID)
 	return s.EncodeBare(b)
@@ -136,7 +139,10 @@ func (s *AuthSignInRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AuthSignInRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.signIn#bcd51581 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.signIn#bcd51581",
+		}
 	}
 	b.PutString(s.PhoneNumber)
 	b.PutString(s.PhoneCodeHash)
@@ -162,10 +168,16 @@ func (s *AuthSignInRequest) GetPhoneCode() (value string) {
 // Decode implements bin.Decoder.
 func (s *AuthSignInRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.signIn#bcd51581 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.signIn#bcd51581",
+		}
 	}
 	if err := b.ConsumeID(AuthSignInRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.signIn#bcd51581: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.signIn#bcd51581",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -173,26 +185,44 @@ func (s *AuthSignInRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AuthSignInRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.signIn#bcd51581 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.signIn#bcd51581",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signIn#bcd51581: field phone_number: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.signIn#bcd51581",
+				FieldName:  "phone_number",
+				Underlying: err,
+			}
 		}
 		s.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signIn#bcd51581: field phone_code_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.signIn#bcd51581",
+				FieldName:  "phone_code_hash",
+				Underlying: err,
+			}
 		}
 		s.PhoneCodeHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signIn#bcd51581: field phone_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.signIn#bcd51581",
+				FieldName:  "phone_code",
+				Underlying: err,
+			}
 		}
 		s.PhoneCode = value
 	}

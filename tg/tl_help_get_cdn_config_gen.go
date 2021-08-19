@@ -88,7 +88,10 @@ func (g *HelpGetCDNConfigRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetCDNConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getCdnConfig#52029342 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getCdnConfig#52029342",
+		}
 	}
 	b.PutID(HelpGetCDNConfigRequestTypeID)
 	return g.EncodeBare(b)
@@ -97,7 +100,10 @@ func (g *HelpGetCDNConfigRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetCDNConfigRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getCdnConfig#52029342 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getCdnConfig#52029342",
+		}
 	}
 	return nil
 }
@@ -105,10 +111,16 @@ func (g *HelpGetCDNConfigRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *HelpGetCDNConfigRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getCdnConfig#52029342 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getCdnConfig#52029342",
+		}
 	}
 	if err := b.ConsumeID(HelpGetCDNConfigRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getCdnConfig#52029342: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.getCdnConfig#52029342",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -116,7 +128,10 @@ func (g *HelpGetCDNConfigRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetCDNConfigRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getCdnConfig#52029342 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getCdnConfig#52029342",
+		}
 	}
 	return nil
 }

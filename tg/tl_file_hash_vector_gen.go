@@ -99,7 +99,10 @@ func (vec *FileHashVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *FileHashVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<FileHash> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<FileHash>",
+		}
 	}
 
 	return vec.EncodeBare(b)
@@ -108,12 +111,24 @@ func (vec *FileHashVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *FileHashVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<FileHash> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<FileHash>",
+		}
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<FileHash>: field Elems element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "Vector<FileHash>",
+				FieldName: "Elems",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -127,7 +142,10 @@ func (vec *FileHashVector) GetElems() (value []FileHash) {
 // Decode implements bin.Decoder.
 func (vec *FileHashVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<FileHash> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<FileHash>",
+		}
 	}
 
 	return vec.DecodeBare(b)
@@ -136,12 +154,20 @@ func (vec *FileHashVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *FileHashVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<FileHash> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<FileHash>",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<FileHash>: field Elems: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "Vector<FileHash>",
+				FieldName:  "Elems",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -150,7 +176,13 @@ func (vec *FileHashVector) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value FileHash
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode Vector<FileHash>: field Elems: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "Vector<FileHash>",
+					FieldName:  "Elems",
+					Underlying: err,
+				}
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

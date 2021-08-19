@@ -113,7 +113,10 @@ func (e *MessagesEditChatPhotoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatPhotoRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatPhoto#ca4c79d8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.editChatPhoto#ca4c79d8",
+		}
 	}
 	b.PutID(MessagesEditChatPhotoRequestTypeID)
 	return e.EncodeBare(b)
@@ -122,14 +125,30 @@ func (e *MessagesEditChatPhotoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesEditChatPhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatPhoto#ca4c79d8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.editChatPhoto#ca4c79d8",
+		}
 	}
 	b.PutInt(e.ChatID)
 	if e.Photo == nil {
-		return fmt.Errorf("unable to encode messages.editChatPhoto#ca4c79d8: field photo is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.editChatPhoto#ca4c79d8",
+			FieldName: "photo",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChatPhoto",
+			},
+		}
 	}
 	if err := e.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editChatPhoto#ca4c79d8: field photo: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.editChatPhoto#ca4c79d8",
+			FieldName:  "photo",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -147,10 +166,16 @@ func (e *MessagesEditChatPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
 // Decode implements bin.Decoder.
 func (e *MessagesEditChatPhotoRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatPhoto#ca4c79d8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.editChatPhoto#ca4c79d8",
+		}
 	}
 	if err := b.ConsumeID(MessagesEditChatPhotoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editChatPhoto#ca4c79d8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.editChatPhoto#ca4c79d8",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -158,19 +183,32 @@ func (e *MessagesEditChatPhotoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesEditChatPhotoRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatPhoto#ca4c79d8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.editChatPhoto#ca4c79d8",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatPhoto#ca4c79d8: field chat_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editChatPhoto#ca4c79d8",
+				FieldName:  "chat_id",
+				Underlying: err,
+			}
 		}
 		e.ChatID = value
 	}
 	{
 		value, err := DecodeInputChatPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatPhoto#ca4c79d8: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editChatPhoto#ca4c79d8",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 		e.Photo = value
 	}

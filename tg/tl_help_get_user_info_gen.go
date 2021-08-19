@@ -102,7 +102,10 @@ func (g *HelpGetUserInfoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetUserInfoRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getUserInfo#38a08d3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getUserInfo#38a08d3",
+		}
 	}
 	b.PutID(HelpGetUserInfoRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,13 +114,29 @@ func (g *HelpGetUserInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetUserInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getUserInfo#38a08d3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getUserInfo#38a08d3",
+		}
 	}
 	if g.UserID == nil {
-		return fmt.Errorf("unable to encode help.getUserInfo#38a08d3: field user_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "help.getUserInfo#38a08d3",
+			FieldName: "user_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := g.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.getUserInfo#38a08d3: field user_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "help.getUserInfo#38a08d3",
+			FieldName:  "user_id",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -130,10 +149,16 @@ func (g *HelpGetUserInfoRequest) GetUserID() (value InputUserClass) {
 // Decode implements bin.Decoder.
 func (g *HelpGetUserInfoRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getUserInfo#38a08d3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getUserInfo#38a08d3",
+		}
 	}
 	if err := b.ConsumeID(HelpGetUserInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getUserInfo#38a08d3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.getUserInfo#38a08d3",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -141,12 +166,20 @@ func (g *HelpGetUserInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetUserInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getUserInfo#38a08d3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getUserInfo#38a08d3",
+		}
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode help.getUserInfo#38a08d3: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.getUserInfo#38a08d3",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		g.UserID = value
 	}

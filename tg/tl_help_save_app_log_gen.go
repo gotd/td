@@ -102,7 +102,10 @@ func (s *HelpSaveAppLogRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *HelpSaveAppLogRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode help.saveAppLog#6f02f748 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.saveAppLog#6f02f748",
+		}
 	}
 	b.PutID(HelpSaveAppLogRequestTypeID)
 	return s.EncodeBare(b)
@@ -111,12 +114,24 @@ func (s *HelpSaveAppLogRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *HelpSaveAppLogRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode help.saveAppLog#6f02f748 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.saveAppLog#6f02f748",
+		}
 	}
 	b.PutVectorHeader(len(s.Events))
 	for idx, v := range s.Events {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.saveAppLog#6f02f748: field events element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.saveAppLog#6f02f748",
+				FieldName: "events",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -130,10 +145,16 @@ func (s *HelpSaveAppLogRequest) GetEvents() (value []InputAppEvent) {
 // Decode implements bin.Decoder.
 func (s *HelpSaveAppLogRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode help.saveAppLog#6f02f748 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.saveAppLog#6f02f748",
+		}
 	}
 	if err := b.ConsumeID(HelpSaveAppLogRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.saveAppLog#6f02f748: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.saveAppLog#6f02f748",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -141,12 +162,20 @@ func (s *HelpSaveAppLogRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *HelpSaveAppLogRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode help.saveAppLog#6f02f748 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.saveAppLog#6f02f748",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.saveAppLog#6f02f748: field events: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.saveAppLog#6f02f748",
+				FieldName:  "events",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -155,7 +184,13 @@ func (s *HelpSaveAppLogRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value InputAppEvent
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode help.saveAppLog#6f02f748: field events: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "help.saveAppLog#6f02f748",
+					FieldName:  "events",
+					Underlying: err,
+				}
 			}
 			s.Events = append(s.Events, value)
 		}

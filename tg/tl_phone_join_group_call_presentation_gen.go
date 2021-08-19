@@ -112,7 +112,10 @@ func (j *PhoneJoinGroupCallPresentationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (j *PhoneJoinGroupCallPresentationRequest) Encode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode phone.joinGroupCallPresentation#cbea6bc4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.joinGroupCallPresentation#cbea6bc4",
+		}
 	}
 	b.PutID(PhoneJoinGroupCallPresentationRequestTypeID)
 	return j.EncodeBare(b)
@@ -121,13 +124,26 @@ func (j *PhoneJoinGroupCallPresentationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (j *PhoneJoinGroupCallPresentationRequest) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode phone.joinGroupCallPresentation#cbea6bc4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.joinGroupCallPresentation#cbea6bc4",
+		}
 	}
 	if err := j.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.joinGroupCallPresentation#cbea6bc4: field call: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.joinGroupCallPresentation#cbea6bc4",
+			FieldName:  "call",
+			Underlying: err,
+		}
 	}
 	if err := j.Params.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.joinGroupCallPresentation#cbea6bc4: field params: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.joinGroupCallPresentation#cbea6bc4",
+			FieldName:  "params",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -145,10 +161,16 @@ func (j *PhoneJoinGroupCallPresentationRequest) GetParams() (value DataJSON) {
 // Decode implements bin.Decoder.
 func (j *PhoneJoinGroupCallPresentationRequest) Decode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode phone.joinGroupCallPresentation#cbea6bc4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.joinGroupCallPresentation#cbea6bc4",
+		}
 	}
 	if err := b.ConsumeID(PhoneJoinGroupCallPresentationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.joinGroupCallPresentation#cbea6bc4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.joinGroupCallPresentation#cbea6bc4",
+			Underlying: err,
+		}
 	}
 	return j.DecodeBare(b)
 }
@@ -156,16 +178,29 @@ func (j *PhoneJoinGroupCallPresentationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (j *PhoneJoinGroupCallPresentationRequest) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode phone.joinGroupCallPresentation#cbea6bc4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.joinGroupCallPresentation#cbea6bc4",
+		}
 	}
 	{
 		if err := j.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCallPresentation#cbea6bc4: field call: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.joinGroupCallPresentation#cbea6bc4",
+				FieldName:  "call",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		if err := j.Params.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCallPresentation#cbea6bc4: field params: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.joinGroupCallPresentation#cbea6bc4",
+				FieldName:  "params",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

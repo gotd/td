@@ -101,7 +101,10 @@ func (c *ChannelsConvertToGigagroupRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelsConvertToGigagroupRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.convertToGigagroup#b290c69 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.convertToGigagroup#b290c69",
+		}
 	}
 	b.PutID(ChannelsConvertToGigagroupRequestTypeID)
 	return c.EncodeBare(b)
@@ -110,13 +113,29 @@ func (c *ChannelsConvertToGigagroupRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelsConvertToGigagroupRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.convertToGigagroup#b290c69 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.convertToGigagroup#b290c69",
+		}
 	}
 	if c.Channel == nil {
-		return fmt.Errorf("unable to encode channels.convertToGigagroup#b290c69: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.convertToGigagroup#b290c69",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := c.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.convertToGigagroup#b290c69: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.convertToGigagroup#b290c69",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -134,10 +153,16 @@ func (c *ChannelsConvertToGigagroupRequest) GetChannelAsNotEmpty() (NotEmptyInpu
 // Decode implements bin.Decoder.
 func (c *ChannelsConvertToGigagroupRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.convertToGigagroup#b290c69 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.convertToGigagroup#b290c69",
+		}
 	}
 	if err := b.ConsumeID(ChannelsConvertToGigagroupRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.convertToGigagroup#b290c69: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.convertToGigagroup#b290c69",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -145,12 +170,20 @@ func (c *ChannelsConvertToGigagroupRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelsConvertToGigagroupRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.convertToGigagroup#b290c69 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.convertToGigagroup#b290c69",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.convertToGigagroup#b290c69: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.convertToGigagroup#b290c69",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		c.Channel = value
 	}

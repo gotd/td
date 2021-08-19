@@ -119,7 +119,10 @@ func (l *LabeledPrice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LabeledPrice) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode labeledPrice#cb296bf8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "labeledPrice#cb296bf8",
+		}
 	}
 	b.PutID(LabeledPriceTypeID)
 	return l.EncodeBare(b)
@@ -128,7 +131,10 @@ func (l *LabeledPrice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LabeledPrice) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode labeledPrice#cb296bf8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "labeledPrice#cb296bf8",
+		}
 	}
 	b.PutString(l.Label)
 	b.PutLong(l.Amount)
@@ -148,10 +154,16 @@ func (l *LabeledPrice) GetAmount() (value int64) {
 // Decode implements bin.Decoder.
 func (l *LabeledPrice) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode labeledPrice#cb296bf8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "labeledPrice#cb296bf8",
+		}
 	}
 	if err := b.ConsumeID(LabeledPriceTypeID); err != nil {
-		return fmt.Errorf("unable to decode labeledPrice#cb296bf8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "labeledPrice#cb296bf8",
+			Underlying: err,
+		}
 	}
 	return l.DecodeBare(b)
 }
@@ -159,19 +171,32 @@ func (l *LabeledPrice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LabeledPrice) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode labeledPrice#cb296bf8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "labeledPrice#cb296bf8",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode labeledPrice#cb296bf8: field label: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "labeledPrice#cb296bf8",
+				FieldName:  "label",
+				Underlying: err,
+			}
 		}
 		l.Label = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode labeledPrice#cb296bf8: field amount: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "labeledPrice#cb296bf8",
+				FieldName:  "amount",
+				Underlying: err,
+			}
 		}
 		l.Amount = value
 	}

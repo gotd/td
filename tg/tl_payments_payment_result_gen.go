@@ -102,7 +102,10 @@ func (p *PaymentsPaymentResult) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PaymentsPaymentResult) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode payments.paymentResult#4e5f810d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.paymentResult#4e5f810d",
+		}
 	}
 	b.PutID(PaymentsPaymentResultTypeID)
 	return p.EncodeBare(b)
@@ -111,13 +114,29 @@ func (p *PaymentsPaymentResult) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PaymentsPaymentResult) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode payments.paymentResult#4e5f810d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.paymentResult#4e5f810d",
+		}
 	}
 	if p.Updates == nil {
-		return fmt.Errorf("unable to encode payments.paymentResult#4e5f810d: field updates is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "payments.paymentResult#4e5f810d",
+			FieldName: "updates",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "Updates",
+			},
+		}
 	}
 	if err := p.Updates.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.paymentResult#4e5f810d: field updates: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "payments.paymentResult#4e5f810d",
+			FieldName:  "updates",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -130,10 +149,16 @@ func (p *PaymentsPaymentResult) GetUpdates() (value UpdatesClass) {
 // Decode implements bin.Decoder.
 func (p *PaymentsPaymentResult) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode payments.paymentResult#4e5f810d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.paymentResult#4e5f810d",
+		}
 	}
 	if err := b.ConsumeID(PaymentsPaymentResultTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.paymentResult#4e5f810d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "payments.paymentResult#4e5f810d",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -141,12 +166,20 @@ func (p *PaymentsPaymentResult) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PaymentsPaymentResult) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode payments.paymentResult#4e5f810d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.paymentResult#4e5f810d",
+		}
 	}
 	{
 		value, err := DecodeUpdates(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentResult#4e5f810d: field updates: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentResult#4e5f810d",
+				FieldName:  "updates",
+				Underlying: err,
+			}
 		}
 		p.Updates = value
 	}
@@ -239,7 +272,10 @@ func (p *PaymentsPaymentVerificationNeeded) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PaymentsPaymentVerificationNeeded) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode payments.paymentVerificationNeeded#d8411139 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.paymentVerificationNeeded#d8411139",
+		}
 	}
 	b.PutID(PaymentsPaymentVerificationNeededTypeID)
 	return p.EncodeBare(b)
@@ -248,7 +284,10 @@ func (p *PaymentsPaymentVerificationNeeded) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PaymentsPaymentVerificationNeeded) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode payments.paymentVerificationNeeded#d8411139 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "payments.paymentVerificationNeeded#d8411139",
+		}
 	}
 	b.PutString(p.URL)
 	return nil
@@ -262,10 +301,16 @@ func (p *PaymentsPaymentVerificationNeeded) GetURL() (value string) {
 // Decode implements bin.Decoder.
 func (p *PaymentsPaymentVerificationNeeded) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode payments.paymentVerificationNeeded#d8411139 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.paymentVerificationNeeded#d8411139",
+		}
 	}
 	if err := b.ConsumeID(PaymentsPaymentVerificationNeededTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.paymentVerificationNeeded#d8411139: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "payments.paymentVerificationNeeded#d8411139",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -273,12 +318,20 @@ func (p *PaymentsPaymentVerificationNeeded) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PaymentsPaymentVerificationNeeded) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode payments.paymentVerificationNeeded#d8411139 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "payments.paymentVerificationNeeded#d8411139",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.paymentVerificationNeeded#d8411139: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "payments.paymentVerificationNeeded#d8411139",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		p.URL = value
 	}
@@ -342,18 +395,27 @@ func DecodePaymentsPaymentResult(buf *bin.Buffer) (PaymentsPaymentResultClass, e
 		// Decoding payments.paymentResult#4e5f810d.
 		v := PaymentsPaymentResult{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PaymentsPaymentResultClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PaymentsPaymentResultClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PaymentsPaymentVerificationNeededTypeID:
 		// Decoding payments.paymentVerificationNeeded#d8411139.
 		v := PaymentsPaymentVerificationNeeded{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PaymentsPaymentResultClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PaymentsPaymentResultClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode PaymentsPaymentResultClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "PaymentsPaymentResultClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -365,7 +427,10 @@ type PaymentsPaymentResultBox struct {
 // Decode implements bin.Decoder for PaymentsPaymentResultBox.
 func (b *PaymentsPaymentResultBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode PaymentsPaymentResultBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "PaymentsPaymentResultBox",
+		}
 	}
 	v, err := DecodePaymentsPaymentResult(buf)
 	if err != nil {
@@ -378,7 +443,10 @@ func (b *PaymentsPaymentResultBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for PaymentsPaymentResultBox.
 func (b *PaymentsPaymentResultBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.PaymentResult == nil {
-		return fmt.Errorf("unable to encode PaymentsPaymentResultClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "PaymentsPaymentResultBox",
+		}
 	}
 	return b.PaymentResult.Encode(buf)
 }

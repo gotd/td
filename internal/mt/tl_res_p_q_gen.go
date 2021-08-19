@@ -132,7 +132,10 @@ func (r *ResPQ) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ResPQ) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode resPQ#5162463 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "resPQ#5162463",
+		}
 	}
 	b.PutID(ResPQTypeID)
 	return r.EncodeBare(b)
@@ -141,7 +144,10 @@ func (r *ResPQ) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ResPQ) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode resPQ#5162463 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "resPQ#5162463",
+		}
 	}
 	b.PutInt128(r.Nonce)
 	b.PutInt128(r.ServerNonce)
@@ -176,10 +182,16 @@ func (r *ResPQ) GetServerPublicKeyFingerprints() (value []int64) {
 // Decode implements bin.Decoder.
 func (r *ResPQ) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode resPQ#5162463 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "resPQ#5162463",
+		}
 	}
 	if err := b.ConsumeID(ResPQTypeID); err != nil {
-		return fmt.Errorf("unable to decode resPQ#5162463: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "resPQ#5162463",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -187,33 +199,56 @@ func (r *ResPQ) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ResPQ) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode resPQ#5162463 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "resPQ#5162463",
+		}
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode resPQ#5162463: field nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "resPQ#5162463",
+				FieldName:  "nonce",
+				Underlying: err,
+			}
 		}
 		r.Nonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode resPQ#5162463: field server_nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "resPQ#5162463",
+				FieldName:  "server_nonce",
+				Underlying: err,
+			}
 		}
 		r.ServerNonce = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode resPQ#5162463: field pq: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "resPQ#5162463",
+				FieldName:  "pq",
+				Underlying: err,
+			}
 		}
 		r.Pq = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode resPQ#5162463: field server_public_key_fingerprints: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "resPQ#5162463",
+				FieldName:  "server_public_key_fingerprints",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -222,7 +257,12 @@ func (r *ResPQ) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode resPQ#5162463: field server_public_key_fingerprints: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "resPQ#5162463",
+					FieldName:  "server_public_key_fingerprints",
+					Underlying: err,
+				}
 			}
 			r.ServerPublicKeyFingerprints = append(r.ServerPublicKeyFingerprints, value)
 		}

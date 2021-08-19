@@ -182,7 +182,10 @@ func (r *AccountRegisterDeviceRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountRegisterDeviceRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.registerDevice#68976c6f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.registerDevice#68976c6f",
+		}
 	}
 	b.PutID(AccountRegisterDeviceRequestTypeID)
 	return r.EncodeBare(b)
@@ -191,13 +194,21 @@ func (r *AccountRegisterDeviceRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountRegisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.registerDevice#68976c6f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.registerDevice#68976c6f",
+		}
 	}
 	if !(r.NoMuted == false) {
 		r.Flags.Set(0)
 	}
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.registerDevice#68976c6f: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.registerDevice#68976c6f",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(r.TokenType)
 	b.PutString(r.Token)
@@ -254,10 +265,16 @@ func (r *AccountRegisterDeviceRequest) GetOtherUIDs() (value []int) {
 // Decode implements bin.Decoder.
 func (r *AccountRegisterDeviceRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.registerDevice#68976c6f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.registerDevice#68976c6f",
+		}
 	}
 	if err := b.ConsumeID(AccountRegisterDeviceRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.registerDevice#68976c6f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.registerDevice#68976c6f",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -265,46 +282,79 @@ func (r *AccountRegisterDeviceRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountRegisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.registerDevice#68976c6f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.registerDevice#68976c6f",
+		}
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.registerDevice#68976c6f",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	r.NoMuted = r.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field token_type: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.registerDevice#68976c6f",
+				FieldName:  "token_type",
+				Underlying: err,
+			}
 		}
 		r.TokenType = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field token: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.registerDevice#68976c6f",
+				FieldName:  "token",
+				Underlying: err,
+			}
 		}
 		r.Token = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field app_sandbox: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.registerDevice#68976c6f",
+				FieldName:  "app_sandbox",
+				Underlying: err,
+			}
 		}
 		r.AppSandbox = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field secret: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.registerDevice#68976c6f",
+				FieldName:  "secret",
+				Underlying: err,
+			}
 		}
 		r.Secret = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field other_uids: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.registerDevice#68976c6f",
+				FieldName:  "other_uids",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -313,7 +363,12 @@ func (r *AccountRegisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field other_uids: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "account.registerDevice#68976c6f",
+					FieldName:  "other_uids",
+					Underlying: err,
+				}
 			}
 			r.OtherUIDs = append(r.OtherUIDs, value)
 		}

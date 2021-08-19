@@ -124,7 +124,10 @@ func (m *MessageUserVote) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageUserVote) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageUserVote#a28e5559 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageUserVote#a28e5559",
+		}
 	}
 	b.PutID(MessageUserVoteTypeID)
 	return m.EncodeBare(b)
@@ -133,7 +136,10 @@ func (m *MessageUserVote) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageUserVote) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageUserVote#a28e5559 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageUserVote#a28e5559",
+		}
 	}
 	b.PutInt(m.UserID)
 	b.PutBytes(m.Option)
@@ -159,10 +165,16 @@ func (m *MessageUserVote) GetDate() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageUserVote) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageUserVote#a28e5559 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageUserVote#a28e5559",
+		}
 	}
 	if err := b.ConsumeID(MessageUserVoteTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageUserVote#a28e5559: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageUserVote#a28e5559",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -170,26 +182,44 @@ func (m *MessageUserVote) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageUserVote) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageUserVote#a28e5559 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageUserVote#a28e5559",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageUserVote#a28e5559: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageUserVote#a28e5559",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		m.UserID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageUserVote#a28e5559: field option: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageUserVote#a28e5559",
+				FieldName:  "option",
+				Underlying: err,
+			}
 		}
 		m.Option = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageUserVote#a28e5559: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageUserVote#a28e5559",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		m.Date = value
 	}
@@ -297,7 +327,10 @@ func (m *MessageUserVoteInputOption) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageUserVoteInputOption) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageUserVoteInputOption#36377430 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageUserVoteInputOption#36377430",
+		}
 	}
 	b.PutID(MessageUserVoteInputOptionTypeID)
 	return m.EncodeBare(b)
@@ -306,7 +339,10 @@ func (m *MessageUserVoteInputOption) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageUserVoteInputOption) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageUserVoteInputOption#36377430 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageUserVoteInputOption#36377430",
+		}
 	}
 	b.PutInt(m.UserID)
 	b.PutInt(m.Date)
@@ -326,10 +362,16 @@ func (m *MessageUserVoteInputOption) GetDate() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageUserVoteInputOption) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageUserVoteInputOption#36377430 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageUserVoteInputOption#36377430",
+		}
 	}
 	if err := b.ConsumeID(MessageUserVoteInputOptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageUserVoteInputOption#36377430: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageUserVoteInputOption#36377430",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -337,19 +379,32 @@ func (m *MessageUserVoteInputOption) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageUserVoteInputOption) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageUserVoteInputOption#36377430 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageUserVoteInputOption#36377430",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageUserVoteInputOption#36377430: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageUserVoteInputOption#36377430",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		m.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageUserVoteInputOption#36377430: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageUserVoteInputOption#36377430",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		m.Date = value
 	}
@@ -464,7 +519,10 @@ func (m *MessageUserVoteMultiple) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageUserVoteMultiple) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageUserVoteMultiple#e8fe0de as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageUserVoteMultiple#e8fe0de",
+		}
 	}
 	b.PutID(MessageUserVoteMultipleTypeID)
 	return m.EncodeBare(b)
@@ -473,7 +531,10 @@ func (m *MessageUserVoteMultiple) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageUserVoteMultiple) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageUserVoteMultiple#e8fe0de as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageUserVoteMultiple#e8fe0de",
+		}
 	}
 	b.PutInt(m.UserID)
 	b.PutVectorHeader(len(m.Options))
@@ -502,10 +563,16 @@ func (m *MessageUserVoteMultiple) GetDate() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageUserVoteMultiple) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageUserVoteMultiple#e8fe0de to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageUserVoteMultiple#e8fe0de",
+		}
 	}
 	if err := b.ConsumeID(MessageUserVoteMultipleTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageUserVoteMultiple#e8fe0de: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageUserVoteMultiple#e8fe0de",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -513,19 +580,32 @@ func (m *MessageUserVoteMultiple) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageUserVoteMultiple) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageUserVoteMultiple#e8fe0de to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageUserVoteMultiple#e8fe0de",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageUserVoteMultiple#e8fe0de: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageUserVoteMultiple#e8fe0de",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		m.UserID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageUserVoteMultiple#e8fe0de: field options: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageUserVoteMultiple#e8fe0de",
+				FieldName:  "options",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -534,7 +614,12 @@ func (m *MessageUserVoteMultiple) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageUserVoteMultiple#e8fe0de: field options: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messageUserVoteMultiple#e8fe0de",
+					FieldName:  "options",
+					Underlying: err,
+				}
 			}
 			m.Options = append(m.Options, value)
 		}
@@ -542,7 +627,12 @@ func (m *MessageUserVoteMultiple) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageUserVoteMultiple#e8fe0de: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageUserVoteMultiple#e8fe0de",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		m.Date = value
 	}
@@ -613,25 +703,37 @@ func DecodeMessageUserVote(buf *bin.Buffer) (MessageUserVoteClass, error) {
 		// Decoding messageUserVote#a28e5559.
 		v := MessageUserVote{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageUserVoteClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageUserVoteClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageUserVoteInputOptionTypeID:
 		// Decoding messageUserVoteInputOption#36377430.
 		v := MessageUserVoteInputOption{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageUserVoteClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageUserVoteClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessageUserVoteMultipleTypeID:
 		// Decoding messageUserVoteMultiple#e8fe0de.
 		v := MessageUserVoteMultiple{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageUserVoteClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessageUserVoteClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessageUserVoteClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "MessageUserVoteClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -643,7 +745,10 @@ type MessageUserVoteBox struct {
 // Decode implements bin.Decoder for MessageUserVoteBox.
 func (b *MessageUserVoteBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode MessageUserVoteBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "MessageUserVoteBox",
+		}
 	}
 	v, err := DecodeMessageUserVote(buf)
 	if err != nil {
@@ -656,7 +761,10 @@ func (b *MessageUserVoteBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for MessageUserVoteBox.
 func (b *MessageUserVoteBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.MessageUserVote == nil {
-		return fmt.Errorf("unable to encode MessageUserVoteClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "MessageUserVoteBox",
+		}
 	}
 	return b.MessageUserVote.Encode(buf)
 }

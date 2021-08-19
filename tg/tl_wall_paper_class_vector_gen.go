@@ -99,7 +99,10 @@ func (vec *WallPaperClassVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *WallPaperClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<WallPaper> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<WallPaper>",
+		}
 	}
 
 	return vec.EncodeBare(b)
@@ -108,15 +111,38 @@ func (vec *WallPaperClassVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *WallPaperClassVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<WallPaper> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<WallPaper>",
+		}
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if v == nil {
-			return fmt.Errorf("unable to encode Vector<WallPaper>: field Elems element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "Vector<WallPaper>",
+				FieldName: "Elems",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<WallPaper>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<WallPaper>: field Elems element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "Vector<WallPaper>",
+				FieldName: "Elems",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -135,7 +161,10 @@ func (vec *WallPaperClassVector) MapElems() (value WallPaperClassArray) {
 // Decode implements bin.Decoder.
 func (vec *WallPaperClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<WallPaper> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<WallPaper>",
+		}
 	}
 
 	return vec.DecodeBare(b)
@@ -144,12 +173,20 @@ func (vec *WallPaperClassVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *WallPaperClassVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<WallPaper> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<WallPaper>",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<WallPaper>: field Elems: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "Vector<WallPaper>",
+				FieldName:  "Elems",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -158,7 +195,12 @@ func (vec *WallPaperClassVector) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeWallPaper(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode Vector<WallPaper>: field Elems: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "Vector<WallPaper>",
+					FieldName:  "Elems",
+					Underlying: err,
+				}
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

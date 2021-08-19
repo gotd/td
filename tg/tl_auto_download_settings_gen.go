@@ -191,7 +191,10 @@ func (a *AutoDownloadSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AutoDownloadSettings) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode autoDownloadSettings#e04232f3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "autoDownloadSettings#e04232f3",
+		}
 	}
 	b.PutID(AutoDownloadSettingsTypeID)
 	return a.EncodeBare(b)
@@ -200,7 +203,10 @@ func (a *AutoDownloadSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AutoDownloadSettings) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode autoDownloadSettings#e04232f3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "autoDownloadSettings#e04232f3",
+		}
 	}
 	if !(a.Disabled == false) {
 		a.Flags.Set(0)
@@ -215,7 +221,12 @@ func (a *AutoDownloadSettings) EncodeBare(b *bin.Buffer) error {
 		a.Flags.Set(3)
 	}
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode autoDownloadSettings#e04232f3: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "autoDownloadSettings#e04232f3",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(a.PhotoSizeMax)
 	b.PutInt(a.VideoSizeMax)
@@ -311,10 +322,16 @@ func (a *AutoDownloadSettings) GetVideoUploadMaxbitrate() (value int) {
 // Decode implements bin.Decoder.
 func (a *AutoDownloadSettings) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode autoDownloadSettings#e04232f3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "autoDownloadSettings#e04232f3",
+		}
 	}
 	if err := b.ConsumeID(AutoDownloadSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "autoDownloadSettings#e04232f3",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -322,11 +339,19 @@ func (a *AutoDownloadSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode autoDownloadSettings#e04232f3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "autoDownloadSettings#e04232f3",
+		}
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "autoDownloadSettings#e04232f3",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	a.Disabled = a.Flags.Has(0)
@@ -336,28 +361,48 @@ func (a *AutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field photo_size_max: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "autoDownloadSettings#e04232f3",
+				FieldName:  "photo_size_max",
+				Underlying: err,
+			}
 		}
 		a.PhotoSizeMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field video_size_max: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "autoDownloadSettings#e04232f3",
+				FieldName:  "video_size_max",
+				Underlying: err,
+			}
 		}
 		a.VideoSizeMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field file_size_max: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "autoDownloadSettings#e04232f3",
+				FieldName:  "file_size_max",
+				Underlying: err,
+			}
 		}
 		a.FileSizeMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field video_upload_maxbitrate: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "autoDownloadSettings#e04232f3",
+				FieldName:  "video_upload_maxbitrate",
+				Underlying: err,
+			}
 		}
 		a.VideoUploadMaxbitrate = value
 	}

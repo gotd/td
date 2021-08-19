@@ -119,7 +119,10 @@ func (a *MessagesAffectedMessages) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *MessagesAffectedMessages) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.affectedMessages#84d19185 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.affectedMessages#84d19185",
+		}
 	}
 	b.PutID(MessagesAffectedMessagesTypeID)
 	return a.EncodeBare(b)
@@ -128,7 +131,10 @@ func (a *MessagesAffectedMessages) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *MessagesAffectedMessages) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.affectedMessages#84d19185 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.affectedMessages#84d19185",
+		}
 	}
 	b.PutInt(a.Pts)
 	b.PutInt(a.PtsCount)
@@ -148,10 +154,16 @@ func (a *MessagesAffectedMessages) GetPtsCount() (value int) {
 // Decode implements bin.Decoder.
 func (a *MessagesAffectedMessages) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.affectedMessages#84d19185 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.affectedMessages#84d19185",
+		}
 	}
 	if err := b.ConsumeID(MessagesAffectedMessagesTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.affectedMessages#84d19185: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.affectedMessages#84d19185",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -159,19 +171,32 @@ func (a *MessagesAffectedMessages) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *MessagesAffectedMessages) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.affectedMessages#84d19185 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.affectedMessages#84d19185",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedMessages#84d19185: field pts: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.affectedMessages#84d19185",
+				FieldName:  "pts",
+				Underlying: err,
+			}
 		}
 		a.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.affectedMessages#84d19185: field pts_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.affectedMessages#84d19185",
+				FieldName:  "pts_count",
+				Underlying: err,
+			}
 		}
 		a.PtsCount = value
 	}

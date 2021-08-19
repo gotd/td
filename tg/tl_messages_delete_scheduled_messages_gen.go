@@ -113,7 +113,10 @@ func (d *MessagesDeleteScheduledMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteScheduledMessagesRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteScheduledMessages#59ae2b16 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.deleteScheduledMessages#59ae2b16",
+		}
 	}
 	b.PutID(MessagesDeleteScheduledMessagesRequestTypeID)
 	return d.EncodeBare(b)
@@ -122,13 +125,29 @@ func (d *MessagesDeleteScheduledMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDeleteScheduledMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteScheduledMessages#59ae2b16 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.deleteScheduledMessages#59ae2b16",
+		}
 	}
 	if d.Peer == nil {
-		return fmt.Errorf("unable to encode messages.deleteScheduledMessages#59ae2b16: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.deleteScheduledMessages#59ae2b16",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteScheduledMessages#59ae2b16: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.deleteScheduledMessages#59ae2b16",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(d.ID))
 	for _, v := range d.ID {
@@ -150,10 +169,16 @@ func (d *MessagesDeleteScheduledMessagesRequest) GetID() (value []int) {
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteScheduledMessagesRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteScheduledMessages#59ae2b16 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.deleteScheduledMessages#59ae2b16",
+		}
 	}
 	if err := b.ConsumeID(MessagesDeleteScheduledMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.deleteScheduledMessages#59ae2b16: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.deleteScheduledMessages#59ae2b16",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -161,19 +186,32 @@ func (d *MessagesDeleteScheduledMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDeleteScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteScheduledMessages#59ae2b16 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.deleteScheduledMessages#59ae2b16",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteScheduledMessages#59ae2b16: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.deleteScheduledMessages#59ae2b16",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		d.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteScheduledMessages#59ae2b16: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.deleteScheduledMessages#59ae2b16",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -182,7 +220,12 @@ func (d *MessagesDeleteScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.deleteScheduledMessages#59ae2b16: field id: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.deleteScheduledMessages#59ae2b16",
+					FieldName:  "id",
+					Underlying: err,
+				}
 			}
 			d.ID = append(d.ID, value)
 		}

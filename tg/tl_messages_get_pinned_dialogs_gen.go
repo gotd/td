@@ -105,7 +105,10 @@ func (g *MessagesGetPinnedDialogsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetPinnedDialogsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPinnedDialogs#d6b94df2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getPinnedDialogs#d6b94df2",
+		}
 	}
 	b.PutID(MessagesGetPinnedDialogsRequestTypeID)
 	return g.EncodeBare(b)
@@ -114,7 +117,10 @@ func (g *MessagesGetPinnedDialogsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetPinnedDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPinnedDialogs#d6b94df2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getPinnedDialogs#d6b94df2",
+		}
 	}
 	b.PutInt(g.FolderID)
 	return nil
@@ -128,10 +134,16 @@ func (g *MessagesGetPinnedDialogsRequest) GetFolderID() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetPinnedDialogsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPinnedDialogs#d6b94df2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getPinnedDialogs#d6b94df2",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetPinnedDialogsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getPinnedDialogs#d6b94df2: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getPinnedDialogs#d6b94df2",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -139,12 +151,20 @@ func (g *MessagesGetPinnedDialogsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetPinnedDialogsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPinnedDialogs#d6b94df2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getPinnedDialogs#d6b94df2",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPinnedDialogs#d6b94df2: field folder_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getPinnedDialogs#d6b94df2",
+				FieldName:  "folder_id",
+				Underlying: err,
+			}
 		}
 		g.FolderID = value
 	}

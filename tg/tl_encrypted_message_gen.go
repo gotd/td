@@ -150,7 +150,10 @@ func (e *EncryptedMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EncryptedMessage) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedMessage#ed18c118 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "encryptedMessage#ed18c118",
+		}
 	}
 	b.PutID(EncryptedMessageTypeID)
 	return e.EncodeBare(b)
@@ -159,17 +162,33 @@ func (e *EncryptedMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EncryptedMessage) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedMessage#ed18c118 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "encryptedMessage#ed18c118",
+		}
 	}
 	b.PutLong(e.RandomID)
 	b.PutInt(e.ChatID)
 	b.PutInt(e.Date)
 	b.PutBytes(e.Bytes)
 	if e.File == nil {
-		return fmt.Errorf("unable to encode encryptedMessage#ed18c118: field file is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "encryptedMessage#ed18c118",
+			FieldName: "file",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "EncryptedFile",
+			},
+		}
 	}
 	if err := e.File.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode encryptedMessage#ed18c118: field file: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "encryptedMessage#ed18c118",
+			FieldName:  "file",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -202,10 +221,16 @@ func (e *EncryptedMessage) GetFile() (value EncryptedFileClass) {
 // Decode implements bin.Decoder.
 func (e *EncryptedMessage) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedMessage#ed18c118 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "encryptedMessage#ed18c118",
+		}
 	}
 	if err := b.ConsumeID(EncryptedMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode encryptedMessage#ed18c118: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "encryptedMessage#ed18c118",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -213,40 +238,68 @@ func (e *EncryptedMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EncryptedMessage) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedMessage#ed18c118 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "encryptedMessage#ed18c118",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedMessage#ed18c118: field random_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "encryptedMessage#ed18c118",
+				FieldName:  "random_id",
+				Underlying: err,
+			}
 		}
 		e.RandomID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedMessage#ed18c118: field chat_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "encryptedMessage#ed18c118",
+				FieldName:  "chat_id",
+				Underlying: err,
+			}
 		}
 		e.ChatID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedMessage#ed18c118: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "encryptedMessage#ed18c118",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		e.Date = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedMessage#ed18c118: field bytes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "encryptedMessage#ed18c118",
+				FieldName:  "bytes",
+				Underlying: err,
+			}
 		}
 		e.Bytes = value
 	}
 	{
 		value, err := DecodeEncryptedFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedMessage#ed18c118: field file: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "encryptedMessage#ed18c118",
+				FieldName:  "file",
+				Underlying: err,
+			}
 		}
 		e.File = value
 	}
@@ -376,7 +429,10 @@ func (e *EncryptedMessageService) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EncryptedMessageService) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedMessageService#23734b06 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "encryptedMessageService#23734b06",
+		}
 	}
 	b.PutID(EncryptedMessageServiceTypeID)
 	return e.EncodeBare(b)
@@ -385,7 +441,10 @@ func (e *EncryptedMessageService) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EncryptedMessageService) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedMessageService#23734b06 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "encryptedMessageService#23734b06",
+		}
 	}
 	b.PutLong(e.RandomID)
 	b.PutInt(e.ChatID)
@@ -417,10 +476,16 @@ func (e *EncryptedMessageService) GetBytes() (value []byte) {
 // Decode implements bin.Decoder.
 func (e *EncryptedMessageService) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedMessageService#23734b06 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "encryptedMessageService#23734b06",
+		}
 	}
 	if err := b.ConsumeID(EncryptedMessageServiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode encryptedMessageService#23734b06: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "encryptedMessageService#23734b06",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -428,33 +493,56 @@ func (e *EncryptedMessageService) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EncryptedMessageService) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedMessageService#23734b06 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "encryptedMessageService#23734b06",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedMessageService#23734b06: field random_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "encryptedMessageService#23734b06",
+				FieldName:  "random_id",
+				Underlying: err,
+			}
 		}
 		e.RandomID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedMessageService#23734b06: field chat_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "encryptedMessageService#23734b06",
+				FieldName:  "chat_id",
+				Underlying: err,
+			}
 		}
 		e.ChatID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedMessageService#23734b06: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "encryptedMessageService#23734b06",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		e.Date = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedMessageService#23734b06: field bytes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "encryptedMessageService#23734b06",
+				FieldName:  "bytes",
+				Underlying: err,
+			}
 		}
 		e.Bytes = value
 	}
@@ -534,18 +622,27 @@ func DecodeEncryptedMessage(buf *bin.Buffer) (EncryptedMessageClass, error) {
 		// Decoding encryptedMessage#ed18c118.
 		v := EncryptedMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode EncryptedMessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "EncryptedMessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case EncryptedMessageServiceTypeID:
 		// Decoding encryptedMessageService#23734b06.
 		v := EncryptedMessageService{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode EncryptedMessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "EncryptedMessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode EncryptedMessageClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "EncryptedMessageClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -557,7 +654,10 @@ type EncryptedMessageBox struct {
 // Decode implements bin.Decoder for EncryptedMessageBox.
 func (b *EncryptedMessageBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode EncryptedMessageBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "EncryptedMessageBox",
+		}
 	}
 	v, err := DecodeEncryptedMessage(buf)
 	if err != nil {
@@ -570,7 +670,10 @@ func (b *EncryptedMessageBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for EncryptedMessageBox.
 func (b *EncryptedMessageBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.EncryptedMessage == nil {
-		return fmt.Errorf("unable to encode EncryptedMessageClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "EncryptedMessageBox",
+		}
 	}
 	return b.EncryptedMessage.Encode(buf)
 }

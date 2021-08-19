@@ -113,7 +113,10 @@ func (s *MessagesSaveGifRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSaveGifRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.saveGif#327a30cb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.saveGif#327a30cb",
+		}
 	}
 	b.PutID(MessagesSaveGifRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,13 +125,29 @@ func (s *MessagesSaveGifRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSaveGifRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.saveGif#327a30cb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.saveGif#327a30cb",
+		}
 	}
 	if s.ID == nil {
-		return fmt.Errorf("unable to encode messages.saveGif#327a30cb: field id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.saveGif#327a30cb",
+			FieldName: "id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputDocument",
+			},
+		}
 	}
 	if err := s.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.saveGif#327a30cb: field id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.saveGif#327a30cb",
+			FieldName:  "id",
+			Underlying: err,
+		}
 	}
 	b.PutBool(s.Unsave)
 	return nil
@@ -152,10 +171,16 @@ func (s *MessagesSaveGifRequest) GetUnsave() (value bool) {
 // Decode implements bin.Decoder.
 func (s *MessagesSaveGifRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.saveGif#327a30cb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.saveGif#327a30cb",
+		}
 	}
 	if err := b.ConsumeID(MessagesSaveGifRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.saveGif#327a30cb: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.saveGif#327a30cb",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -163,19 +188,32 @@ func (s *MessagesSaveGifRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSaveGifRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.saveGif#327a30cb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.saveGif#327a30cb",
+		}
 	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.saveGif#327a30cb: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.saveGif#327a30cb",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.saveGif#327a30cb: field unsave: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.saveGif#327a30cb",
+				FieldName:  "unsave",
+				Underlying: err,
+			}
 		}
 		s.Unsave = value
 	}

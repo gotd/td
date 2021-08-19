@@ -113,7 +113,10 @@ func (m *MessageRange) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageRange) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageRange#ae30253 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageRange#ae30253",
+		}
 	}
 	b.PutID(MessageRangeTypeID)
 	return m.EncodeBare(b)
@@ -122,7 +125,10 @@ func (m *MessageRange) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageRange) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageRange#ae30253 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageRange#ae30253",
+		}
 	}
 	b.PutInt(m.MinID)
 	b.PutInt(m.MaxID)
@@ -142,10 +148,16 @@ func (m *MessageRange) GetMaxID() (value int) {
 // Decode implements bin.Decoder.
 func (m *MessageRange) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageRange#ae30253 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageRange#ae30253",
+		}
 	}
 	if err := b.ConsumeID(MessageRangeTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageRange#ae30253: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageRange#ae30253",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (m *MessageRange) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageRange) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageRange#ae30253 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageRange#ae30253",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageRange#ae30253: field min_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageRange#ae30253",
+				FieldName:  "min_id",
+				Underlying: err,
+			}
 		}
 		m.MinID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageRange#ae30253: field max_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageRange#ae30253",
+				FieldName:  "max_id",
+				Underlying: err,
+			}
 		}
 		m.MaxID = value
 	}

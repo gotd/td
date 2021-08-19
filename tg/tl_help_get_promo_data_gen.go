@@ -85,7 +85,10 @@ func (g *HelpGetPromoDataRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetPromoDataRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getPromoData#c0977421 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getPromoData#c0977421",
+		}
 	}
 	b.PutID(HelpGetPromoDataRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +97,10 @@ func (g *HelpGetPromoDataRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetPromoDataRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getPromoData#c0977421 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getPromoData#c0977421",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (g *HelpGetPromoDataRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *HelpGetPromoDataRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getPromoData#c0977421 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getPromoData#c0977421",
+		}
 	}
 	if err := b.ConsumeID(HelpGetPromoDataRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getPromoData#c0977421: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.getPromoData#c0977421",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (g *HelpGetPromoDataRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetPromoDataRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getPromoData#c0977421 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getPromoData#c0977421",
+		}
 	}
 	return nil
 }

@@ -85,7 +85,10 @@ func (r *AccountResetWallPapersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountResetWallPapersRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetWallPapers#bb3b9804 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetWallPapers#bb3b9804",
+		}
 	}
 	b.PutID(AccountResetWallPapersRequestTypeID)
 	return r.EncodeBare(b)
@@ -94,7 +97,10 @@ func (r *AccountResetWallPapersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountResetWallPapersRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetWallPapers#bb3b9804 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetWallPapers#bb3b9804",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (r *AccountResetWallPapersRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *AccountResetWallPapersRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetWallPapers#bb3b9804 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetWallPapers#bb3b9804",
+		}
 	}
 	if err := b.ConsumeID(AccountResetWallPapersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.resetWallPapers#bb3b9804: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.resetWallPapers#bb3b9804",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (r *AccountResetWallPapersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountResetWallPapersRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetWallPapers#bb3b9804 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetWallPapers#bb3b9804",
+		}
 	}
 	return nil
 }

@@ -127,7 +127,10 @@ func (s *MessagesSendVoteRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSendVoteRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendVote#10ea6184 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.sendVote#10ea6184",
+		}
 	}
 	b.PutID(MessagesSendVoteRequestTypeID)
 	return s.EncodeBare(b)
@@ -136,13 +139,29 @@ func (s *MessagesSendVoteRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendVoteRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendVote#10ea6184 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.sendVote#10ea6184",
+		}
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendVote#10ea6184: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.sendVote#10ea6184",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendVote#10ea6184: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.sendVote#10ea6184",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(s.MsgID)
 	b.PutVectorHeader(len(s.Options))
@@ -170,10 +189,16 @@ func (s *MessagesSendVoteRequest) GetOptions() (value [][]byte) {
 // Decode implements bin.Decoder.
 func (s *MessagesSendVoteRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendVote#10ea6184 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.sendVote#10ea6184",
+		}
 	}
 	if err := b.ConsumeID(MessagesSendVoteRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendVote#10ea6184: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.sendVote#10ea6184",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -181,26 +206,44 @@ func (s *MessagesSendVoteRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendVoteRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendVote#10ea6184 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.sendVote#10ea6184",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendVote#10ea6184: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.sendVote#10ea6184",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendVote#10ea6184: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.sendVote#10ea6184",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		s.MsgID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendVote#10ea6184: field options: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.sendVote#10ea6184",
+				FieldName:  "options",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -209,7 +252,12 @@ func (s *MessagesSendVoteRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.sendVote#10ea6184: field options: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.sendVote#10ea6184",
+					FieldName:  "options",
+					Underlying: err,
+				}
 			}
 			s.Options = append(s.Options, value)
 		}

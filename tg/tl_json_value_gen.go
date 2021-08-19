@@ -85,7 +85,10 @@ func (j *JSONNull) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (j *JSONNull) Encode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode jsonNull#3f6d7b68 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "jsonNull#3f6d7b68",
+		}
 	}
 	b.PutID(JSONNullTypeID)
 	return j.EncodeBare(b)
@@ -94,7 +97,10 @@ func (j *JSONNull) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (j *JSONNull) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode jsonNull#3f6d7b68 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "jsonNull#3f6d7b68",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (j *JSONNull) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (j *JSONNull) Decode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode jsonNull#3f6d7b68 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "jsonNull#3f6d7b68",
+		}
 	}
 	if err := b.ConsumeID(JSONNullTypeID); err != nil {
-		return fmt.Errorf("unable to decode jsonNull#3f6d7b68: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "jsonNull#3f6d7b68",
+			Underlying: err,
+		}
 	}
 	return j.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (j *JSONNull) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (j *JSONNull) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode jsonNull#3f6d7b68 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "jsonNull#3f6d7b68",
+		}
 	}
 	return nil
 }
@@ -204,7 +219,10 @@ func (j *JSONBool) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (j *JSONBool) Encode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode jsonBool#c7345e6a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "jsonBool#c7345e6a",
+		}
 	}
 	b.PutID(JSONBoolTypeID)
 	return j.EncodeBare(b)
@@ -213,7 +231,10 @@ func (j *JSONBool) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (j *JSONBool) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode jsonBool#c7345e6a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "jsonBool#c7345e6a",
+		}
 	}
 	b.PutBool(j.Value)
 	return nil
@@ -227,10 +248,16 @@ func (j *JSONBool) GetValue() (value bool) {
 // Decode implements bin.Decoder.
 func (j *JSONBool) Decode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode jsonBool#c7345e6a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "jsonBool#c7345e6a",
+		}
 	}
 	if err := b.ConsumeID(JSONBoolTypeID); err != nil {
-		return fmt.Errorf("unable to decode jsonBool#c7345e6a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "jsonBool#c7345e6a",
+			Underlying: err,
+		}
 	}
 	return j.DecodeBare(b)
 }
@@ -238,12 +265,20 @@ func (j *JSONBool) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (j *JSONBool) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode jsonBool#c7345e6a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "jsonBool#c7345e6a",
+		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode jsonBool#c7345e6a: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "jsonBool#c7345e6a",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 		j.Value = value
 	}
@@ -336,7 +371,10 @@ func (j *JSONNumber) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (j *JSONNumber) Encode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode jsonNumber#2be0dfa4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "jsonNumber#2be0dfa4",
+		}
 	}
 	b.PutID(JSONNumberTypeID)
 	return j.EncodeBare(b)
@@ -345,7 +383,10 @@ func (j *JSONNumber) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (j *JSONNumber) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode jsonNumber#2be0dfa4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "jsonNumber#2be0dfa4",
+		}
 	}
 	b.PutDouble(j.Value)
 	return nil
@@ -359,10 +400,16 @@ func (j *JSONNumber) GetValue() (value float64) {
 // Decode implements bin.Decoder.
 func (j *JSONNumber) Decode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode jsonNumber#2be0dfa4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "jsonNumber#2be0dfa4",
+		}
 	}
 	if err := b.ConsumeID(JSONNumberTypeID); err != nil {
-		return fmt.Errorf("unable to decode jsonNumber#2be0dfa4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "jsonNumber#2be0dfa4",
+			Underlying: err,
+		}
 	}
 	return j.DecodeBare(b)
 }
@@ -370,12 +417,20 @@ func (j *JSONNumber) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (j *JSONNumber) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode jsonNumber#2be0dfa4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "jsonNumber#2be0dfa4",
+		}
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode jsonNumber#2be0dfa4: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "jsonNumber#2be0dfa4",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 		j.Value = value
 	}
@@ -468,7 +523,10 @@ func (j *JSONString) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (j *JSONString) Encode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode jsonString#b71e767a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "jsonString#b71e767a",
+		}
 	}
 	b.PutID(JSONStringTypeID)
 	return j.EncodeBare(b)
@@ -477,7 +535,10 @@ func (j *JSONString) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (j *JSONString) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode jsonString#b71e767a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "jsonString#b71e767a",
+		}
 	}
 	b.PutString(j.Value)
 	return nil
@@ -491,10 +552,16 @@ func (j *JSONString) GetValue() (value string) {
 // Decode implements bin.Decoder.
 func (j *JSONString) Decode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode jsonString#b71e767a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "jsonString#b71e767a",
+		}
 	}
 	if err := b.ConsumeID(JSONStringTypeID); err != nil {
-		return fmt.Errorf("unable to decode jsonString#b71e767a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "jsonString#b71e767a",
+			Underlying: err,
+		}
 	}
 	return j.DecodeBare(b)
 }
@@ -502,12 +569,20 @@ func (j *JSONString) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (j *JSONString) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode jsonString#b71e767a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "jsonString#b71e767a",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode jsonString#b71e767a: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "jsonString#b71e767a",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 		j.Value = value
 	}
@@ -600,7 +675,10 @@ func (j *JSONArray) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (j *JSONArray) Encode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode jsonArray#f7444763 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "jsonArray#f7444763",
+		}
 	}
 	b.PutID(JSONArrayTypeID)
 	return j.EncodeBare(b)
@@ -609,15 +687,38 @@ func (j *JSONArray) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (j *JSONArray) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode jsonArray#f7444763 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "jsonArray#f7444763",
+		}
 	}
 	b.PutVectorHeader(len(j.Value))
 	for idx, v := range j.Value {
 		if v == nil {
-			return fmt.Errorf("unable to encode jsonArray#f7444763: field value element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "jsonArray#f7444763",
+				FieldName: "value",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<JSONValue>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode jsonArray#f7444763: field value element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "jsonArray#f7444763",
+				FieldName: "value",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -636,10 +737,16 @@ func (j *JSONArray) MapValue() (value JSONValueClassArray) {
 // Decode implements bin.Decoder.
 func (j *JSONArray) Decode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode jsonArray#f7444763 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "jsonArray#f7444763",
+		}
 	}
 	if err := b.ConsumeID(JSONArrayTypeID); err != nil {
-		return fmt.Errorf("unable to decode jsonArray#f7444763: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "jsonArray#f7444763",
+			Underlying: err,
+		}
 	}
 	return j.DecodeBare(b)
 }
@@ -647,12 +754,20 @@ func (j *JSONArray) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (j *JSONArray) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode jsonArray#f7444763 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "jsonArray#f7444763",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode jsonArray#f7444763: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "jsonArray#f7444763",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -661,7 +776,12 @@ func (j *JSONArray) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeJSONValue(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode jsonArray#f7444763: field value: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "jsonArray#f7444763",
+					FieldName:  "value",
+					Underlying: err,
+				}
 			}
 			j.Value = append(j.Value, value)
 		}
@@ -755,7 +875,10 @@ func (j *JSONObject) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (j *JSONObject) Encode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode jsonObject#99c1d49d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "jsonObject#99c1d49d",
+		}
 	}
 	b.PutID(JSONObjectTypeID)
 	return j.EncodeBare(b)
@@ -764,12 +887,24 @@ func (j *JSONObject) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (j *JSONObject) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode jsonObject#99c1d49d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "jsonObject#99c1d49d",
+		}
 	}
 	b.PutVectorHeader(len(j.Value))
 	for idx, v := range j.Value {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode jsonObject#99c1d49d: field value element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "jsonObject#99c1d49d",
+				FieldName: "value",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -783,10 +918,16 @@ func (j *JSONObject) GetValue() (value []JSONObjectValue) {
 // Decode implements bin.Decoder.
 func (j *JSONObject) Decode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode jsonObject#99c1d49d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "jsonObject#99c1d49d",
+		}
 	}
 	if err := b.ConsumeID(JSONObjectTypeID); err != nil {
-		return fmt.Errorf("unable to decode jsonObject#99c1d49d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "jsonObject#99c1d49d",
+			Underlying: err,
+		}
 	}
 	return j.DecodeBare(b)
 }
@@ -794,12 +935,20 @@ func (j *JSONObject) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (j *JSONObject) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode jsonObject#99c1d49d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "jsonObject#99c1d49d",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode jsonObject#99c1d49d: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "jsonObject#99c1d49d",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -808,7 +957,13 @@ func (j *JSONObject) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value JSONObjectValue
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode jsonObject#99c1d49d: field value: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "jsonObject#99c1d49d",
+					FieldName:  "value",
+					Underlying: err,
+				}
 			}
 			j.Value = append(j.Value, value)
 		}
@@ -877,46 +1032,67 @@ func DecodeJSONValue(buf *bin.Buffer) (JSONValueClass, error) {
 		// Decoding jsonNull#3f6d7b68.
 		v := JSONNull{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode JSONValueClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "JSONValueClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case JSONBoolTypeID:
 		// Decoding jsonBool#c7345e6a.
 		v := JSONBool{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode JSONValueClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "JSONValueClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case JSONNumberTypeID:
 		// Decoding jsonNumber#2be0dfa4.
 		v := JSONNumber{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode JSONValueClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "JSONValueClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case JSONStringTypeID:
 		// Decoding jsonString#b71e767a.
 		v := JSONString{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode JSONValueClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "JSONValueClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case JSONArrayTypeID:
 		// Decoding jsonArray#f7444763.
 		v := JSONArray{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode JSONValueClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "JSONValueClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case JSONObjectTypeID:
 		// Decoding jsonObject#99c1d49d.
 		v := JSONObject{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode JSONValueClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "JSONValueClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode JSONValueClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "JSONValueClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -928,7 +1104,10 @@ type JSONValueBox struct {
 // Decode implements bin.Decoder for JSONValueBox.
 func (b *JSONValueBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode JSONValueBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "JSONValueBox",
+		}
 	}
 	v, err := DecodeJSONValue(buf)
 	if err != nil {
@@ -941,7 +1120,10 @@ func (b *JSONValueBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for JSONValueBox.
 func (b *JSONValueBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.JSONValue == nil {
-		return fmt.Errorf("unable to encode JSONValueClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "JSONValueBox",
+		}
 	}
 	return b.JSONValue.Encode(buf)
 }

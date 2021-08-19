@@ -113,7 +113,10 @@ func (c *ContactStatus) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ContactStatus) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contactStatus#d3680c61 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contactStatus#d3680c61",
+		}
 	}
 	b.PutID(ContactStatusTypeID)
 	return c.EncodeBare(b)
@@ -122,14 +125,30 @@ func (c *ContactStatus) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ContactStatus) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contactStatus#d3680c61 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contactStatus#d3680c61",
+		}
 	}
 	b.PutInt(c.UserID)
 	if c.Status == nil {
-		return fmt.Errorf("unable to encode contactStatus#d3680c61: field status is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "contactStatus#d3680c61",
+			FieldName: "status",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "UserStatus",
+			},
+		}
 	}
 	if err := c.Status.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contactStatus#d3680c61: field status: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "contactStatus#d3680c61",
+			FieldName:  "status",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -147,10 +166,16 @@ func (c *ContactStatus) GetStatus() (value UserStatusClass) {
 // Decode implements bin.Decoder.
 func (c *ContactStatus) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contactStatus#d3680c61 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contactStatus#d3680c61",
+		}
 	}
 	if err := b.ConsumeID(ContactStatusTypeID); err != nil {
-		return fmt.Errorf("unable to decode contactStatus#d3680c61: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "contactStatus#d3680c61",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -158,19 +183,32 @@ func (c *ContactStatus) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ContactStatus) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contactStatus#d3680c61 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contactStatus#d3680c61",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contactStatus#d3680c61: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contactStatus#d3680c61",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		c.UserID = value
 	}
 	{
 		value, err := DecodeUserStatus(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode contactStatus#d3680c61: field status: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contactStatus#d3680c61",
+				FieldName:  "status",
+				Underlying: err,
+			}
 		}
 		c.Status = value
 	}

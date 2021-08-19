@@ -112,7 +112,10 @@ func (r *BotsResetBotCommandsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *BotsResetBotCommandsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode bots.resetBotCommands#3d8de0f9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "bots.resetBotCommands#3d8de0f9",
+		}
 	}
 	b.PutID(BotsResetBotCommandsRequestTypeID)
 	return r.EncodeBare(b)
@@ -121,13 +124,29 @@ func (r *BotsResetBotCommandsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *BotsResetBotCommandsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode bots.resetBotCommands#3d8de0f9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "bots.resetBotCommands#3d8de0f9",
+		}
 	}
 	if r.Scope == nil {
-		return fmt.Errorf("unable to encode bots.resetBotCommands#3d8de0f9: field scope is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "bots.resetBotCommands#3d8de0f9",
+			FieldName: "scope",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "BotCommandScope",
+			},
+		}
 	}
 	if err := r.Scope.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode bots.resetBotCommands#3d8de0f9: field scope: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "bots.resetBotCommands#3d8de0f9",
+			FieldName:  "scope",
+			Underlying: err,
+		}
 	}
 	b.PutString(r.LangCode)
 	return nil
@@ -146,10 +165,16 @@ func (r *BotsResetBotCommandsRequest) GetLangCode() (value string) {
 // Decode implements bin.Decoder.
 func (r *BotsResetBotCommandsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode bots.resetBotCommands#3d8de0f9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "bots.resetBotCommands#3d8de0f9",
+		}
 	}
 	if err := b.ConsumeID(BotsResetBotCommandsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode bots.resetBotCommands#3d8de0f9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "bots.resetBotCommands#3d8de0f9",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -157,19 +182,32 @@ func (r *BotsResetBotCommandsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *BotsResetBotCommandsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode bots.resetBotCommands#3d8de0f9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "bots.resetBotCommands#3d8de0f9",
+		}
 	}
 	{
 		value, err := DecodeBotCommandScope(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.resetBotCommands#3d8de0f9: field scope: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "bots.resetBotCommands#3d8de0f9",
+				FieldName:  "scope",
+				Underlying: err,
+			}
 		}
 		r.Scope = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.resetBotCommands#3d8de0f9: field lang_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "bots.resetBotCommands#3d8de0f9",
+				FieldName:  "lang_code",
+				Underlying: err,
+			}
 		}
 		r.LangCode = value
 	}

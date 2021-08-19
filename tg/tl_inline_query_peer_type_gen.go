@@ -84,7 +84,10 @@ func (i *InlineQueryPeerTypeSameBotPM) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InlineQueryPeerTypeSameBotPM) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineQueryPeerTypeSameBotPM#3081ed9d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inlineQueryPeerTypeSameBotPM#3081ed9d",
+		}
 	}
 	b.PutID(InlineQueryPeerTypeSameBotPMTypeID)
 	return i.EncodeBare(b)
@@ -93,7 +96,10 @@ func (i *InlineQueryPeerTypeSameBotPM) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InlineQueryPeerTypeSameBotPM) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineQueryPeerTypeSameBotPM#3081ed9d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inlineQueryPeerTypeSameBotPM#3081ed9d",
+		}
 	}
 	return nil
 }
@@ -101,10 +107,16 @@ func (i *InlineQueryPeerTypeSameBotPM) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InlineQueryPeerTypeSameBotPM) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineQueryPeerTypeSameBotPM#3081ed9d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inlineQueryPeerTypeSameBotPM#3081ed9d",
+		}
 	}
 	if err := b.ConsumeID(InlineQueryPeerTypeSameBotPMTypeID); err != nil {
-		return fmt.Errorf("unable to decode inlineQueryPeerTypeSameBotPM#3081ed9d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inlineQueryPeerTypeSameBotPM#3081ed9d",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -112,7 +124,10 @@ func (i *InlineQueryPeerTypeSameBotPM) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InlineQueryPeerTypeSameBotPM) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineQueryPeerTypeSameBotPM#3081ed9d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inlineQueryPeerTypeSameBotPM#3081ed9d",
+		}
 	}
 	return nil
 }
@@ -185,7 +200,10 @@ func (i *InlineQueryPeerTypePM) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InlineQueryPeerTypePM) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineQueryPeerTypePM#833c0fac as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inlineQueryPeerTypePM#833c0fac",
+		}
 	}
 	b.PutID(InlineQueryPeerTypePMTypeID)
 	return i.EncodeBare(b)
@@ -194,7 +212,10 @@ func (i *InlineQueryPeerTypePM) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InlineQueryPeerTypePM) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineQueryPeerTypePM#833c0fac as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inlineQueryPeerTypePM#833c0fac",
+		}
 	}
 	return nil
 }
@@ -202,10 +223,16 @@ func (i *InlineQueryPeerTypePM) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InlineQueryPeerTypePM) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineQueryPeerTypePM#833c0fac to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inlineQueryPeerTypePM#833c0fac",
+		}
 	}
 	if err := b.ConsumeID(InlineQueryPeerTypePMTypeID); err != nil {
-		return fmt.Errorf("unable to decode inlineQueryPeerTypePM#833c0fac: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inlineQueryPeerTypePM#833c0fac",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -213,7 +240,10 @@ func (i *InlineQueryPeerTypePM) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InlineQueryPeerTypePM) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineQueryPeerTypePM#833c0fac to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inlineQueryPeerTypePM#833c0fac",
+		}
 	}
 	return nil
 }
@@ -286,7 +316,10 @@ func (i *InlineQueryPeerTypeChat) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InlineQueryPeerTypeChat) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineQueryPeerTypeChat#d766c50a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inlineQueryPeerTypeChat#d766c50a",
+		}
 	}
 	b.PutID(InlineQueryPeerTypeChatTypeID)
 	return i.EncodeBare(b)
@@ -295,7 +328,10 @@ func (i *InlineQueryPeerTypeChat) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InlineQueryPeerTypeChat) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineQueryPeerTypeChat#d766c50a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inlineQueryPeerTypeChat#d766c50a",
+		}
 	}
 	return nil
 }
@@ -303,10 +339,16 @@ func (i *InlineQueryPeerTypeChat) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InlineQueryPeerTypeChat) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineQueryPeerTypeChat#d766c50a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inlineQueryPeerTypeChat#d766c50a",
+		}
 	}
 	if err := b.ConsumeID(InlineQueryPeerTypeChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode inlineQueryPeerTypeChat#d766c50a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inlineQueryPeerTypeChat#d766c50a",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -314,7 +356,10 @@ func (i *InlineQueryPeerTypeChat) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InlineQueryPeerTypeChat) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineQueryPeerTypeChat#d766c50a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inlineQueryPeerTypeChat#d766c50a",
+		}
 	}
 	return nil
 }
@@ -387,7 +432,10 @@ func (i *InlineQueryPeerTypeMegagroup) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InlineQueryPeerTypeMegagroup) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineQueryPeerTypeMegagroup#5ec4be43 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inlineQueryPeerTypeMegagroup#5ec4be43",
+		}
 	}
 	b.PutID(InlineQueryPeerTypeMegagroupTypeID)
 	return i.EncodeBare(b)
@@ -396,7 +444,10 @@ func (i *InlineQueryPeerTypeMegagroup) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InlineQueryPeerTypeMegagroup) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineQueryPeerTypeMegagroup#5ec4be43 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inlineQueryPeerTypeMegagroup#5ec4be43",
+		}
 	}
 	return nil
 }
@@ -404,10 +455,16 @@ func (i *InlineQueryPeerTypeMegagroup) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InlineQueryPeerTypeMegagroup) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineQueryPeerTypeMegagroup#5ec4be43 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inlineQueryPeerTypeMegagroup#5ec4be43",
+		}
 	}
 	if err := b.ConsumeID(InlineQueryPeerTypeMegagroupTypeID); err != nil {
-		return fmt.Errorf("unable to decode inlineQueryPeerTypeMegagroup#5ec4be43: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inlineQueryPeerTypeMegagroup#5ec4be43",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -415,7 +472,10 @@ func (i *InlineQueryPeerTypeMegagroup) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InlineQueryPeerTypeMegagroup) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineQueryPeerTypeMegagroup#5ec4be43 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inlineQueryPeerTypeMegagroup#5ec4be43",
+		}
 	}
 	return nil
 }
@@ -488,7 +548,10 @@ func (i *InlineQueryPeerTypeBroadcast) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InlineQueryPeerTypeBroadcast) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineQueryPeerTypeBroadcast#6334ee9a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inlineQueryPeerTypeBroadcast#6334ee9a",
+		}
 	}
 	b.PutID(InlineQueryPeerTypeBroadcastTypeID)
 	return i.EncodeBare(b)
@@ -497,7 +560,10 @@ func (i *InlineQueryPeerTypeBroadcast) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InlineQueryPeerTypeBroadcast) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineQueryPeerTypeBroadcast#6334ee9a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inlineQueryPeerTypeBroadcast#6334ee9a",
+		}
 	}
 	return nil
 }
@@ -505,10 +571,16 @@ func (i *InlineQueryPeerTypeBroadcast) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InlineQueryPeerTypeBroadcast) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineQueryPeerTypeBroadcast#6334ee9a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inlineQueryPeerTypeBroadcast#6334ee9a",
+		}
 	}
 	if err := b.ConsumeID(InlineQueryPeerTypeBroadcastTypeID); err != nil {
-		return fmt.Errorf("unable to decode inlineQueryPeerTypeBroadcast#6334ee9a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inlineQueryPeerTypeBroadcast#6334ee9a",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -516,7 +588,10 @@ func (i *InlineQueryPeerTypeBroadcast) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InlineQueryPeerTypeBroadcast) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineQueryPeerTypeBroadcast#6334ee9a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inlineQueryPeerTypeBroadcast#6334ee9a",
+		}
 	}
 	return nil
 }
@@ -581,39 +656,57 @@ func DecodeInlineQueryPeerType(buf *bin.Buffer) (InlineQueryPeerTypeClass, error
 		// Decoding inlineQueryPeerTypeSameBotPM#3081ed9d.
 		v := InlineQueryPeerTypeSameBotPM{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InlineQueryPeerTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InlineQueryPeerTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InlineQueryPeerTypePMTypeID:
 		// Decoding inlineQueryPeerTypePM#833c0fac.
 		v := InlineQueryPeerTypePM{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InlineQueryPeerTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InlineQueryPeerTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InlineQueryPeerTypeChatTypeID:
 		// Decoding inlineQueryPeerTypeChat#d766c50a.
 		v := InlineQueryPeerTypeChat{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InlineQueryPeerTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InlineQueryPeerTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InlineQueryPeerTypeMegagroupTypeID:
 		// Decoding inlineQueryPeerTypeMegagroup#5ec4be43.
 		v := InlineQueryPeerTypeMegagroup{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InlineQueryPeerTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InlineQueryPeerTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InlineQueryPeerTypeBroadcastTypeID:
 		// Decoding inlineQueryPeerTypeBroadcast#6334ee9a.
 		v := InlineQueryPeerTypeBroadcast{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InlineQueryPeerTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InlineQueryPeerTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InlineQueryPeerTypeClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "InlineQueryPeerTypeClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -625,7 +718,10 @@ type InlineQueryPeerTypeBox struct {
 // Decode implements bin.Decoder for InlineQueryPeerTypeBox.
 func (b *InlineQueryPeerTypeBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InlineQueryPeerTypeBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "InlineQueryPeerTypeBox",
+		}
 	}
 	v, err := DecodeInlineQueryPeerType(buf)
 	if err != nil {
@@ -638,7 +734,10 @@ func (b *InlineQueryPeerTypeBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InlineQueryPeerTypeBox.
 func (b *InlineQueryPeerTypeBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InlineQueryPeerType == nil {
-		return fmt.Errorf("unable to encode InlineQueryPeerTypeClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "InlineQueryPeerTypeBox",
+		}
 	}
 	return b.InlineQueryPeerType.Encode(buf)
 }

@@ -116,7 +116,10 @@ func (g *HelpGetCountriesListRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetCountriesListRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getCountriesList#735787a8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getCountriesList#735787a8",
+		}
 	}
 	b.PutID(HelpGetCountriesListRequestTypeID)
 	return g.EncodeBare(b)
@@ -125,7 +128,10 @@ func (g *HelpGetCountriesListRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetCountriesListRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getCountriesList#735787a8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getCountriesList#735787a8",
+		}
 	}
 	b.PutString(g.LangCode)
 	b.PutInt(g.Hash)
@@ -145,10 +151,16 @@ func (g *HelpGetCountriesListRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *HelpGetCountriesListRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getCountriesList#735787a8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getCountriesList#735787a8",
+		}
 	}
 	if err := b.ConsumeID(HelpGetCountriesListRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getCountriesList#735787a8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.getCountriesList#735787a8",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -156,19 +168,32 @@ func (g *HelpGetCountriesListRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetCountriesListRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getCountriesList#735787a8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getCountriesList#735787a8",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.getCountriesList#735787a8: field lang_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.getCountriesList#735787a8",
+				FieldName:  "lang_code",
+				Underlying: err,
+			}
 		}
 		g.LangCode = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.getCountriesList#735787a8: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.getCountriesList#735787a8",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		g.Hash = value
 	}

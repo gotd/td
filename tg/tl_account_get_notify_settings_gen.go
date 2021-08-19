@@ -102,7 +102,10 @@ func (g *AccountGetNotifySettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetNotifySettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getNotifySettings#12b3ad31 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getNotifySettings#12b3ad31",
+		}
 	}
 	b.PutID(AccountGetNotifySettingsRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,13 +114,29 @@ func (g *AccountGetNotifySettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetNotifySettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getNotifySettings#12b3ad31 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getNotifySettings#12b3ad31",
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode account.getNotifySettings#12b3ad31: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.getNotifySettings#12b3ad31",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputNotifyPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.getNotifySettings#12b3ad31: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.getNotifySettings#12b3ad31",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -130,10 +149,16 @@ func (g *AccountGetNotifySettingsRequest) GetPeer() (value InputNotifyPeerClass)
 // Decode implements bin.Decoder.
 func (g *AccountGetNotifySettingsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getNotifySettings#12b3ad31 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getNotifySettings#12b3ad31",
+		}
 	}
 	if err := b.ConsumeID(AccountGetNotifySettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getNotifySettings#12b3ad31: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.getNotifySettings#12b3ad31",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -141,12 +166,20 @@ func (g *AccountGetNotifySettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetNotifySettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getNotifySettings#12b3ad31 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getNotifySettings#12b3ad31",
+		}
 	}
 	{
 		value, err := DecodeInputNotifyPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getNotifySettings#12b3ad31: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.getNotifySettings#12b3ad31",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}

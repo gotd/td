@@ -124,7 +124,10 @@ func (s *ShippingOption) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *ShippingOption) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode shippingOption#b6213cdf as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "shippingOption#b6213cdf",
+		}
 	}
 	b.PutID(ShippingOptionTypeID)
 	return s.EncodeBare(b)
@@ -133,14 +136,26 @@ func (s *ShippingOption) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *ShippingOption) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode shippingOption#b6213cdf as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "shippingOption#b6213cdf",
+		}
 	}
 	b.PutString(s.ID)
 	b.PutString(s.Title)
 	b.PutVectorHeader(len(s.Prices))
 	for idx, v := range s.Prices {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode shippingOption#b6213cdf: field prices element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "shippingOption#b6213cdf",
+				FieldName: "prices",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -164,10 +179,16 @@ func (s *ShippingOption) GetPrices() (value []LabeledPrice) {
 // Decode implements bin.Decoder.
 func (s *ShippingOption) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode shippingOption#b6213cdf to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "shippingOption#b6213cdf",
+		}
 	}
 	if err := b.ConsumeID(ShippingOptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode shippingOption#b6213cdf: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "shippingOption#b6213cdf",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -175,26 +196,44 @@ func (s *ShippingOption) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *ShippingOption) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode shippingOption#b6213cdf to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "shippingOption#b6213cdf",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode shippingOption#b6213cdf: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "shippingOption#b6213cdf",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode shippingOption#b6213cdf: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "shippingOption#b6213cdf",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		s.Title = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode shippingOption#b6213cdf: field prices: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "shippingOption#b6213cdf",
+				FieldName:  "prices",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -203,7 +242,13 @@ func (s *ShippingOption) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value LabeledPrice
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode shippingOption#b6213cdf: field prices: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "shippingOption#b6213cdf",
+					FieldName:  "prices",
+					Underlying: err,
+				}
 			}
 			s.Prices = append(s.Prices, value)
 		}

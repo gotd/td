@@ -99,7 +99,10 @@ func (m *MsgsAck) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MsgsAck) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msgs_ack#62d6b459 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "msgs_ack#62d6b459",
+		}
 	}
 	b.PutID(MsgsAckTypeID)
 	return m.EncodeBare(b)
@@ -108,7 +111,10 @@ func (m *MsgsAck) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MsgsAck) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msgs_ack#62d6b459 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "msgs_ack#62d6b459",
+		}
 	}
 	b.PutVectorHeader(len(m.MsgIDs))
 	for _, v := range m.MsgIDs {
@@ -125,10 +131,16 @@ func (m *MsgsAck) GetMsgIDs() (value []int64) {
 // Decode implements bin.Decoder.
 func (m *MsgsAck) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msgs_ack#62d6b459 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "msgs_ack#62d6b459",
+		}
 	}
 	if err := b.ConsumeID(MsgsAckTypeID); err != nil {
-		return fmt.Errorf("unable to decode msgs_ack#62d6b459: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "msgs_ack#62d6b459",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (m *MsgsAck) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MsgsAck) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msgs_ack#62d6b459 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "msgs_ack#62d6b459",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode msgs_ack#62d6b459: field msg_ids: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "msgs_ack#62d6b459",
+				FieldName:  "msg_ids",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -150,7 +170,12 @@ func (m *MsgsAck) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode msgs_ack#62d6b459: field msg_ids: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "msgs_ack#62d6b459",
+					FieldName:  "msg_ids",
+					Underlying: err,
+				}
 			}
 			m.MsgIDs = append(m.MsgIDs, value)
 		}

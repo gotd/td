@@ -102,7 +102,10 @@ func (g *MessagesGetAllChatsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetAllChatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getAllChats#eba80ff0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getAllChats#eba80ff0",
+		}
 	}
 	b.PutID(MessagesGetAllChatsRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,7 +114,10 @@ func (g *MessagesGetAllChatsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetAllChatsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getAllChats#eba80ff0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getAllChats#eba80ff0",
+		}
 	}
 	b.PutVectorHeader(len(g.ExceptIDs))
 	for _, v := range g.ExceptIDs {
@@ -128,10 +134,16 @@ func (g *MessagesGetAllChatsRequest) GetExceptIDs() (value []int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetAllChatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getAllChats#eba80ff0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getAllChats#eba80ff0",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetAllChatsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getAllChats#eba80ff0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getAllChats#eba80ff0",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -139,12 +151,20 @@ func (g *MessagesGetAllChatsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetAllChatsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getAllChats#eba80ff0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getAllChats#eba80ff0",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getAllChats#eba80ff0: field except_ids: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getAllChats#eba80ff0",
+				FieldName:  "except_ids",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -153,7 +173,12 @@ func (g *MessagesGetAllChatsRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.getAllChats#eba80ff0: field except_ids: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.getAllChats#eba80ff0",
+					FieldName:  "except_ids",
+					Underlying: err,
+				}
 			}
 			g.ExceptIDs = append(g.ExceptIDs, value)
 		}

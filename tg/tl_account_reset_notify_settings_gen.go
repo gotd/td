@@ -85,7 +85,10 @@ func (r *AccountResetNotifySettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountResetNotifySettingsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetNotifySettings#db7e1747 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetNotifySettings#db7e1747",
+		}
 	}
 	b.PutID(AccountResetNotifySettingsRequestTypeID)
 	return r.EncodeBare(b)
@@ -94,7 +97,10 @@ func (r *AccountResetNotifySettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountResetNotifySettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetNotifySettings#db7e1747 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetNotifySettings#db7e1747",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (r *AccountResetNotifySettingsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *AccountResetNotifySettingsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetNotifySettings#db7e1747 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetNotifySettings#db7e1747",
+		}
 	}
 	if err := b.ConsumeID(AccountResetNotifySettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.resetNotifySettings#db7e1747: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.resetNotifySettings#db7e1747",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (r *AccountResetNotifySettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountResetNotifySettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetNotifySettings#db7e1747 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetNotifySettings#db7e1747",
+		}
 	}
 	return nil
 }

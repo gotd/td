@@ -183,7 +183,10 @@ func (a *MessagesAcceptURLAuthRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *MessagesAcceptURLAuthRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.acceptUrlAuth#b12c7125 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.acceptUrlAuth#b12c7125",
+		}
 	}
 	b.PutID(MessagesAcceptURLAuthRequestTypeID)
 	return a.EncodeBare(b)
@@ -192,7 +195,10 @@ func (a *MessagesAcceptURLAuthRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *MessagesAcceptURLAuthRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.acceptUrlAuth#b12c7125 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.acceptUrlAuth#b12c7125",
+		}
 	}
 	if !(a.WriteAllowed == false) {
 		a.Flags.Set(0)
@@ -210,14 +216,32 @@ func (a *MessagesAcceptURLAuthRequest) EncodeBare(b *bin.Buffer) error {
 		a.Flags.Set(2)
 	}
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.acceptUrlAuth#b12c7125: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.acceptUrlAuth#b12c7125",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if a.Flags.Has(1) {
 		if a.Peer == nil {
-			return fmt.Errorf("unable to encode messages.acceptUrlAuth#b12c7125: field peer is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.acceptUrlAuth#b12c7125",
+				FieldName: "peer",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputPeer",
+				},
+			}
 		}
 		if err := a.Peer.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.acceptUrlAuth#b12c7125: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "messages.acceptUrlAuth#b12c7125",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 	}
 	if a.Flags.Has(1) {
@@ -311,10 +335,16 @@ func (a *MessagesAcceptURLAuthRequest) GetURL() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (a *MessagesAcceptURLAuthRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.acceptUrlAuth#b12c7125 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.acceptUrlAuth#b12c7125",
+		}
 	}
 	if err := b.ConsumeID(MessagesAcceptURLAuthRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.acceptUrlAuth#b12c7125",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -322,39 +352,67 @@ func (a *MessagesAcceptURLAuthRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *MessagesAcceptURLAuthRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.acceptUrlAuth#b12c7125 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.acceptUrlAuth#b12c7125",
+		}
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.acceptUrlAuth#b12c7125",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	a.WriteAllowed = a.Flags.Has(0)
 	if a.Flags.Has(1) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.acceptUrlAuth#b12c7125",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		a.Peer = value
 	}
 	if a.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.acceptUrlAuth#b12c7125",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		a.MsgID = value
 	}
 	if a.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field button_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.acceptUrlAuth#b12c7125",
+				FieldName:  "button_id",
+				Underlying: err,
+			}
 		}
 		a.ButtonID = value
 	}
 	if a.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.acceptUrlAuth#b12c7125",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		a.URL = value
 	}

@@ -119,7 +119,10 @@ func (d *ChannelsDeleteMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *ChannelsDeleteMessagesRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode channels.deleteMessages#84c1fd4e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.deleteMessages#84c1fd4e",
+		}
 	}
 	b.PutID(ChannelsDeleteMessagesRequestTypeID)
 	return d.EncodeBare(b)
@@ -128,13 +131,29 @@ func (d *ChannelsDeleteMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *ChannelsDeleteMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode channels.deleteMessages#84c1fd4e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.deleteMessages#84c1fd4e",
+		}
 	}
 	if d.Channel == nil {
-		return fmt.Errorf("unable to encode channels.deleteMessages#84c1fd4e: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.deleteMessages#84c1fd4e",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := d.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.deleteMessages#84c1fd4e: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.deleteMessages#84c1fd4e",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(d.ID))
 	for _, v := range d.ID {
@@ -161,10 +180,16 @@ func (d *ChannelsDeleteMessagesRequest) GetID() (value []int) {
 // Decode implements bin.Decoder.
 func (d *ChannelsDeleteMessagesRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode channels.deleteMessages#84c1fd4e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.deleteMessages#84c1fd4e",
+		}
 	}
 	if err := b.ConsumeID(ChannelsDeleteMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.deleteMessages#84c1fd4e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.deleteMessages#84c1fd4e",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -172,19 +197,32 @@ func (d *ChannelsDeleteMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *ChannelsDeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode channels.deleteMessages#84c1fd4e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.deleteMessages#84c1fd4e",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.deleteMessages#84c1fd4e: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.deleteMessages#84c1fd4e",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		d.Channel = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.deleteMessages#84c1fd4e: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.deleteMessages#84c1fd4e",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -193,7 +231,12 @@ func (d *ChannelsDeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.deleteMessages#84c1fd4e: field id: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "channels.deleteMessages#84c1fd4e",
+					FieldName:  "id",
+					Underlying: err,
+				}
 			}
 			d.ID = append(d.ID, value)
 		}

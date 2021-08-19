@@ -101,7 +101,10 @@ func (c *MessagesCheckedHistoryImportPeer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *MessagesCheckedHistoryImportPeer) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.checkedHistoryImportPeer#a24de717 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.checkedHistoryImportPeer#a24de717",
+		}
 	}
 	b.PutID(MessagesCheckedHistoryImportPeerTypeID)
 	return c.EncodeBare(b)
@@ -110,7 +113,10 @@ func (c *MessagesCheckedHistoryImportPeer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesCheckedHistoryImportPeer) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.checkedHistoryImportPeer#a24de717 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.checkedHistoryImportPeer#a24de717",
+		}
 	}
 	b.PutString(c.ConfirmText)
 	return nil
@@ -124,10 +130,16 @@ func (c *MessagesCheckedHistoryImportPeer) GetConfirmText() (value string) {
 // Decode implements bin.Decoder.
 func (c *MessagesCheckedHistoryImportPeer) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.checkedHistoryImportPeer#a24de717 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.checkedHistoryImportPeer#a24de717",
+		}
 	}
 	if err := b.ConsumeID(MessagesCheckedHistoryImportPeerTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.checkedHistoryImportPeer#a24de717: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.checkedHistoryImportPeer#a24de717",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -135,12 +147,20 @@ func (c *MessagesCheckedHistoryImportPeer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesCheckedHistoryImportPeer) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.checkedHistoryImportPeer#a24de717 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.checkedHistoryImportPeer#a24de717",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.checkedHistoryImportPeer#a24de717: field confirm_text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.checkedHistoryImportPeer#a24de717",
+				FieldName:  "confirm_text",
+				Underlying: err,
+			}
 		}
 		c.ConfirmText = value
 	}

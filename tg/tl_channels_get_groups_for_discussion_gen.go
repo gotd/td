@@ -95,7 +95,10 @@ func (g *ChannelsGetGroupsForDiscussionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ChannelsGetGroupsForDiscussionRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getGroupsForDiscussion#f5dad378 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.getGroupsForDiscussion#f5dad378",
+		}
 	}
 	b.PutID(ChannelsGetGroupsForDiscussionRequestTypeID)
 	return g.EncodeBare(b)
@@ -104,7 +107,10 @@ func (g *ChannelsGetGroupsForDiscussionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ChannelsGetGroupsForDiscussionRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getGroupsForDiscussion#f5dad378 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.getGroupsForDiscussion#f5dad378",
+		}
 	}
 	return nil
 }
@@ -112,10 +118,16 @@ func (g *ChannelsGetGroupsForDiscussionRequest) EncodeBare(b *bin.Buffer) error 
 // Decode implements bin.Decoder.
 func (g *ChannelsGetGroupsForDiscussionRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getGroupsForDiscussion#f5dad378 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.getGroupsForDiscussion#f5dad378",
+		}
 	}
 	if err := b.ConsumeID(ChannelsGetGroupsForDiscussionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.getGroupsForDiscussion#f5dad378: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.getGroupsForDiscussion#f5dad378",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -123,7 +135,10 @@ func (g *ChannelsGetGroupsForDiscussionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ChannelsGetGroupsForDiscussionRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getGroupsForDiscussion#f5dad378 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.getGroupsForDiscussion#f5dad378",
+		}
 	}
 	return nil
 }

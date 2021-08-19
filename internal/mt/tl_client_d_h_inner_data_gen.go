@@ -132,7 +132,10 @@ func (c *ClientDHInnerData) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ClientDHInnerData) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode client_DH_inner_data#6643b654 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "client_DH_inner_data#6643b654",
+		}
 	}
 	b.PutID(ClientDHInnerDataTypeID)
 	return c.EncodeBare(b)
@@ -141,7 +144,10 @@ func (c *ClientDHInnerData) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ClientDHInnerData) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode client_DH_inner_data#6643b654 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "client_DH_inner_data#6643b654",
+		}
 	}
 	b.PutInt128(c.Nonce)
 	b.PutInt128(c.ServerNonce)
@@ -173,10 +179,16 @@ func (c *ClientDHInnerData) GetGB() (value []byte) {
 // Decode implements bin.Decoder.
 func (c *ClientDHInnerData) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode client_DH_inner_data#6643b654 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "client_DH_inner_data#6643b654",
+		}
 	}
 	if err := b.ConsumeID(ClientDHInnerDataTypeID); err != nil {
-		return fmt.Errorf("unable to decode client_DH_inner_data#6643b654: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "client_DH_inner_data#6643b654",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -184,33 +196,56 @@ func (c *ClientDHInnerData) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ClientDHInnerData) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode client_DH_inner_data#6643b654 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "client_DH_inner_data#6643b654",
+		}
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode client_DH_inner_data#6643b654: field nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "client_DH_inner_data#6643b654",
+				FieldName:  "nonce",
+				Underlying: err,
+			}
 		}
 		c.Nonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode client_DH_inner_data#6643b654: field server_nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "client_DH_inner_data#6643b654",
+				FieldName:  "server_nonce",
+				Underlying: err,
+			}
 		}
 		c.ServerNonce = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode client_DH_inner_data#6643b654: field retry_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "client_DH_inner_data#6643b654",
+				FieldName:  "retry_id",
+				Underlying: err,
+			}
 		}
 		c.RetryID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode client_DH_inner_data#6643b654: field g_b: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "client_DH_inner_data#6643b654",
+				FieldName:  "g_b",
+				Underlying: err,
+			}
 		}
 		c.GB = value
 	}

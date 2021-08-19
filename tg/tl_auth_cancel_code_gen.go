@@ -116,7 +116,10 @@ func (c *AuthCancelCodeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AuthCancelCodeRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode auth.cancelCode#1f040578 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.cancelCode#1f040578",
+		}
 	}
 	b.PutID(AuthCancelCodeRequestTypeID)
 	return c.EncodeBare(b)
@@ -125,7 +128,10 @@ func (c *AuthCancelCodeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AuthCancelCodeRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode auth.cancelCode#1f040578 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.cancelCode#1f040578",
+		}
 	}
 	b.PutString(c.PhoneNumber)
 	b.PutString(c.PhoneCodeHash)
@@ -145,10 +151,16 @@ func (c *AuthCancelCodeRequest) GetPhoneCodeHash() (value string) {
 // Decode implements bin.Decoder.
 func (c *AuthCancelCodeRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode auth.cancelCode#1f040578 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.cancelCode#1f040578",
+		}
 	}
 	if err := b.ConsumeID(AuthCancelCodeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.cancelCode#1f040578: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.cancelCode#1f040578",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -156,19 +168,32 @@ func (c *AuthCancelCodeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AuthCancelCodeRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode auth.cancelCode#1f040578 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.cancelCode#1f040578",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.cancelCode#1f040578: field phone_number: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.cancelCode#1f040578",
+				FieldName:  "phone_number",
+				Underlying: err,
+			}
 		}
 		c.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.cancelCode#1f040578: field phone_code_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.cancelCode#1f040578",
+				FieldName:  "phone_code_hash",
+				Underlying: err,
+			}
 		}
 		c.PhoneCodeHash = value
 	}

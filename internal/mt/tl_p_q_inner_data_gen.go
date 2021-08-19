@@ -154,7 +154,10 @@ func (p *PQInnerData) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PQInnerData) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode p_q_inner_data#83c95aec as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "p_q_inner_data#83c95aec",
+		}
 	}
 	b.PutID(PQInnerDataTypeID)
 	return p.EncodeBare(b)
@@ -163,7 +166,10 @@ func (p *PQInnerData) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PQInnerData) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode p_q_inner_data#83c95aec as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "p_q_inner_data#83c95aec",
+		}
 	}
 	b.PutBytes(p.Pq)
 	b.PutBytes(p.P)
@@ -207,10 +213,16 @@ func (p *PQInnerData) GetNewNonce() (value bin.Int256) {
 // Decode implements bin.Decoder.
 func (p *PQInnerData) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode p_q_inner_data#83c95aec to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "p_q_inner_data#83c95aec",
+		}
 	}
 	if err := b.ConsumeID(PQInnerDataTypeID); err != nil {
-		return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "p_q_inner_data#83c95aec",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -218,47 +230,80 @@ func (p *PQInnerData) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PQInnerData) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode p_q_inner_data#83c95aec to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "p_q_inner_data#83c95aec",
+		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: field pq: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "p_q_inner_data#83c95aec",
+				FieldName:  "pq",
+				Underlying: err,
+			}
 		}
 		p.Pq = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: field p: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "p_q_inner_data#83c95aec",
+				FieldName:  "p",
+				Underlying: err,
+			}
 		}
 		p.P = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: field q: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "p_q_inner_data#83c95aec",
+				FieldName:  "q",
+				Underlying: err,
+			}
 		}
 		p.Q = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: field nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "p_q_inner_data#83c95aec",
+				FieldName:  "nonce",
+				Underlying: err,
+			}
 		}
 		p.Nonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: field server_nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "p_q_inner_data#83c95aec",
+				FieldName:  "server_nonce",
+				Underlying: err,
+			}
 		}
 		p.ServerNonce = value
 	}
 	{
 		value, err := b.Int256()
 		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: field new_nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "p_q_inner_data#83c95aec",
+				FieldName:  "new_nonce",
+				Underlying: err,
+			}
 		}
 		p.NewNonce = value
 	}

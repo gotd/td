@@ -88,7 +88,10 @@ func (r *AccountResetWebAuthorizationsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountResetWebAuthorizationsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetWebAuthorizations#682d2594 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetWebAuthorizations#682d2594",
+		}
 	}
 	b.PutID(AccountResetWebAuthorizationsRequestTypeID)
 	return r.EncodeBare(b)
@@ -97,7 +100,10 @@ func (r *AccountResetWebAuthorizationsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountResetWebAuthorizationsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetWebAuthorizations#682d2594 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetWebAuthorizations#682d2594",
+		}
 	}
 	return nil
 }
@@ -105,10 +111,16 @@ func (r *AccountResetWebAuthorizationsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *AccountResetWebAuthorizationsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetWebAuthorizations#682d2594 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetWebAuthorizations#682d2594",
+		}
 	}
 	if err := b.ConsumeID(AccountResetWebAuthorizationsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.resetWebAuthorizations#682d2594: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.resetWebAuthorizations#682d2594",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -116,7 +128,10 @@ func (r *AccountResetWebAuthorizationsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountResetWebAuthorizationsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetWebAuthorizations#682d2594 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetWebAuthorizations#682d2594",
+		}
 	}
 	return nil
 }

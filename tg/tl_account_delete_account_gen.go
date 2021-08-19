@@ -107,7 +107,10 @@ func (d *AccountDeleteAccountRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *AccountDeleteAccountRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode account.deleteAccount#418d4e0b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.deleteAccount#418d4e0b",
+		}
 	}
 	b.PutID(AccountDeleteAccountRequestTypeID)
 	return d.EncodeBare(b)
@@ -116,7 +119,10 @@ func (d *AccountDeleteAccountRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *AccountDeleteAccountRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode account.deleteAccount#418d4e0b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.deleteAccount#418d4e0b",
+		}
 	}
 	b.PutString(d.Reason)
 	return nil
@@ -130,10 +136,16 @@ func (d *AccountDeleteAccountRequest) GetReason() (value string) {
 // Decode implements bin.Decoder.
 func (d *AccountDeleteAccountRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode account.deleteAccount#418d4e0b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.deleteAccount#418d4e0b",
+		}
 	}
 	if err := b.ConsumeID(AccountDeleteAccountRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.deleteAccount#418d4e0b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.deleteAccount#418d4e0b",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -141,12 +153,20 @@ func (d *AccountDeleteAccountRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *AccountDeleteAccountRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode account.deleteAccount#418d4e0b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.deleteAccount#418d4e0b",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.deleteAccount#418d4e0b: field reason: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.deleteAccount#418d4e0b",
+				FieldName:  "reason",
+				Underlying: err,
+			}
 		}
 		d.Reason = value
 	}

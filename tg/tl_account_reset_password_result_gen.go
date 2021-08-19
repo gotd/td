@@ -101,7 +101,10 @@ func (r *AccountResetPasswordFailedWait) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountResetPasswordFailedWait) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetPasswordFailedWait#e3779861 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetPasswordFailedWait#e3779861",
+		}
 	}
 	b.PutID(AccountResetPasswordFailedWaitTypeID)
 	return r.EncodeBare(b)
@@ -110,7 +113,10 @@ func (r *AccountResetPasswordFailedWait) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountResetPasswordFailedWait) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetPasswordFailedWait#e3779861 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetPasswordFailedWait#e3779861",
+		}
 	}
 	b.PutInt(r.RetryDate)
 	return nil
@@ -124,10 +130,16 @@ func (r *AccountResetPasswordFailedWait) GetRetryDate() (value int) {
 // Decode implements bin.Decoder.
 func (r *AccountResetPasswordFailedWait) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetPasswordFailedWait#e3779861 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetPasswordFailedWait#e3779861",
+		}
 	}
 	if err := b.ConsumeID(AccountResetPasswordFailedWaitTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.resetPasswordFailedWait#e3779861: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.resetPasswordFailedWait#e3779861",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -135,12 +147,20 @@ func (r *AccountResetPasswordFailedWait) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountResetPasswordFailedWait) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetPasswordFailedWait#e3779861 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetPasswordFailedWait#e3779861",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.resetPasswordFailedWait#e3779861: field retry_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.resetPasswordFailedWait#e3779861",
+				FieldName:  "retry_date",
+				Underlying: err,
+			}
 		}
 		r.RetryDate = value
 	}
@@ -232,7 +252,10 @@ func (r *AccountResetPasswordRequestedWait) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountResetPasswordRequestedWait) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetPasswordRequestedWait#e9effc7d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetPasswordRequestedWait#e9effc7d",
+		}
 	}
 	b.PutID(AccountResetPasswordRequestedWaitTypeID)
 	return r.EncodeBare(b)
@@ -241,7 +264,10 @@ func (r *AccountResetPasswordRequestedWait) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountResetPasswordRequestedWait) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetPasswordRequestedWait#e9effc7d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetPasswordRequestedWait#e9effc7d",
+		}
 	}
 	b.PutInt(r.UntilDate)
 	return nil
@@ -255,10 +281,16 @@ func (r *AccountResetPasswordRequestedWait) GetUntilDate() (value int) {
 // Decode implements bin.Decoder.
 func (r *AccountResetPasswordRequestedWait) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetPasswordRequestedWait#e9effc7d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetPasswordRequestedWait#e9effc7d",
+		}
 	}
 	if err := b.ConsumeID(AccountResetPasswordRequestedWaitTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.resetPasswordRequestedWait#e9effc7d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.resetPasswordRequestedWait#e9effc7d",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -266,12 +298,20 @@ func (r *AccountResetPasswordRequestedWait) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountResetPasswordRequestedWait) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetPasswordRequestedWait#e9effc7d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetPasswordRequestedWait#e9effc7d",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.resetPasswordRequestedWait#e9effc7d: field until_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.resetPasswordRequestedWait#e9effc7d",
+				FieldName:  "until_date",
+				Underlying: err,
+			}
 		}
 		r.UntilDate = value
 	}
@@ -346,7 +386,10 @@ func (r *AccountResetPasswordOk) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountResetPasswordOk) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetPasswordOk#e926d63e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetPasswordOk#e926d63e",
+		}
 	}
 	b.PutID(AccountResetPasswordOkTypeID)
 	return r.EncodeBare(b)
@@ -355,7 +398,10 @@ func (r *AccountResetPasswordOk) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountResetPasswordOk) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetPasswordOk#e926d63e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetPasswordOk#e926d63e",
+		}
 	}
 	return nil
 }
@@ -363,10 +409,16 @@ func (r *AccountResetPasswordOk) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *AccountResetPasswordOk) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetPasswordOk#e926d63e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetPasswordOk#e926d63e",
+		}
 	}
 	if err := b.ConsumeID(AccountResetPasswordOkTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.resetPasswordOk#e926d63e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.resetPasswordOk#e926d63e",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -374,7 +426,10 @@ func (r *AccountResetPasswordOk) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountResetPasswordOk) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetPasswordOk#e926d63e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetPasswordOk#e926d63e",
+		}
 	}
 	return nil
 }
@@ -437,25 +492,37 @@ func DecodeAccountResetPasswordResult(buf *bin.Buffer) (AccountResetPasswordResu
 		// Decoding account.resetPasswordFailedWait#e3779861.
 		v := AccountResetPasswordFailedWait{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AccountResetPasswordResultClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AccountResetPasswordResultClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case AccountResetPasswordRequestedWaitTypeID:
 		// Decoding account.resetPasswordRequestedWait#e9effc7d.
 		v := AccountResetPasswordRequestedWait{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AccountResetPasswordResultClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AccountResetPasswordResultClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case AccountResetPasswordOkTypeID:
 		// Decoding account.resetPasswordOk#e926d63e.
 		v := AccountResetPasswordOk{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AccountResetPasswordResultClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AccountResetPasswordResultClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode AccountResetPasswordResultClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "AccountResetPasswordResultClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -467,7 +534,10 @@ type AccountResetPasswordResultBox struct {
 // Decode implements bin.Decoder for AccountResetPasswordResultBox.
 func (b *AccountResetPasswordResultBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode AccountResetPasswordResultBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "AccountResetPasswordResultBox",
+		}
 	}
 	v, err := DecodeAccountResetPasswordResult(buf)
 	if err != nil {
@@ -480,7 +550,10 @@ func (b *AccountResetPasswordResultBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for AccountResetPasswordResultBox.
 func (b *AccountResetPasswordResultBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.ResetPasswordResult == nil {
-		return fmt.Errorf("unable to encode AccountResetPasswordResultClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "AccountResetPasswordResultBox",
+		}
 	}
 	return b.ResetPasswordResult.Encode(buf)
 }

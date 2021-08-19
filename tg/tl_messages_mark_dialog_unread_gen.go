@@ -122,7 +122,10 @@ func (m *MessagesMarkDialogUnreadRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessagesMarkDialogUnreadRequest) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messages.markDialogUnread#c286d98f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.markDialogUnread#c286d98f",
+		}
 	}
 	b.PutID(MessagesMarkDialogUnreadRequestTypeID)
 	return m.EncodeBare(b)
@@ -131,19 +134,40 @@ func (m *MessagesMarkDialogUnreadRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessagesMarkDialogUnreadRequest) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messages.markDialogUnread#c286d98f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.markDialogUnread#c286d98f",
+		}
 	}
 	if !(m.Unread == false) {
 		m.Flags.Set(0)
 	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.markDialogUnread#c286d98f: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.markDialogUnread#c286d98f",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if m.Peer == nil {
-		return fmt.Errorf("unable to encode messages.markDialogUnread#c286d98f: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.markDialogUnread#c286d98f",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputDialogPeer",
+			},
+		}
 	}
 	if err := m.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.markDialogUnread#c286d98f: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.markDialogUnread#c286d98f",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -172,10 +196,16 @@ func (m *MessagesMarkDialogUnreadRequest) GetPeer() (value InputDialogPeerClass)
 // Decode implements bin.Decoder.
 func (m *MessagesMarkDialogUnreadRequest) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messages.markDialogUnread#c286d98f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.markDialogUnread#c286d98f",
+		}
 	}
 	if err := b.ConsumeID(MessagesMarkDialogUnreadRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.markDialogUnread#c286d98f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.markDialogUnread#c286d98f",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -183,18 +213,31 @@ func (m *MessagesMarkDialogUnreadRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessagesMarkDialogUnreadRequest) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messages.markDialogUnread#c286d98f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.markDialogUnread#c286d98f",
+		}
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.markDialogUnread#c286d98f: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.markDialogUnread#c286d98f",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	m.Unread = m.Flags.Has(0)
 	{
 		value, err := DecodeInputDialogPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.markDialogUnread#c286d98f: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.markDialogUnread#c286d98f",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		m.Peer = value
 	}

@@ -101,7 +101,10 @@ func (g *PhoneGetGroupCallJoinAsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PhoneGetGroupCallJoinAsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getGroupCallJoinAs#ef7c213a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.getGroupCallJoinAs#ef7c213a",
+		}
 	}
 	b.PutID(PhoneGetGroupCallJoinAsRequestTypeID)
 	return g.EncodeBare(b)
@@ -110,13 +113,29 @@ func (g *PhoneGetGroupCallJoinAsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PhoneGetGroupCallJoinAsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getGroupCallJoinAs#ef7c213a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.getGroupCallJoinAs#ef7c213a",
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode phone.getGroupCallJoinAs#ef7c213a: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "phone.getGroupCallJoinAs#ef7c213a",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.getGroupCallJoinAs#ef7c213a: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.getGroupCallJoinAs#ef7c213a",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -129,10 +148,16 @@ func (g *PhoneGetGroupCallJoinAsRequest) GetPeer() (value InputPeerClass) {
 // Decode implements bin.Decoder.
 func (g *PhoneGetGroupCallJoinAsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getGroupCallJoinAs#ef7c213a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.getGroupCallJoinAs#ef7c213a",
+		}
 	}
 	if err := b.ConsumeID(PhoneGetGroupCallJoinAsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.getGroupCallJoinAs#ef7c213a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.getGroupCallJoinAs#ef7c213a",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -140,12 +165,20 @@ func (g *PhoneGetGroupCallJoinAsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PhoneGetGroupCallJoinAsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getGroupCallJoinAs#ef7c213a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.getGroupCallJoinAs#ef7c213a",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupCallJoinAs#ef7c213a: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.getGroupCallJoinAs#ef7c213a",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}

@@ -112,7 +112,10 @@ func (i *PhoneInviteToGroupCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *PhoneInviteToGroupCallRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode phone.inviteToGroupCall#7b393160 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.inviteToGroupCall#7b393160",
+		}
 	}
 	b.PutID(PhoneInviteToGroupCallRequestTypeID)
 	return i.EncodeBare(b)
@@ -121,18 +124,46 @@ func (i *PhoneInviteToGroupCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *PhoneInviteToGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode phone.inviteToGroupCall#7b393160 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.inviteToGroupCall#7b393160",
+		}
 	}
 	if err := i.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.inviteToGroupCall#7b393160: field call: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.inviteToGroupCall#7b393160",
+			FieldName:  "call",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(i.Users))
 	for idx, v := range i.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode phone.inviteToGroupCall#7b393160: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "phone.inviteToGroupCall#7b393160",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<InputUser>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.inviteToGroupCall#7b393160: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "phone.inviteToGroupCall#7b393160",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -156,10 +187,16 @@ func (i *PhoneInviteToGroupCallRequest) MapUsers() (value InputUserClassArray) {
 // Decode implements bin.Decoder.
 func (i *PhoneInviteToGroupCallRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode phone.inviteToGroupCall#7b393160 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.inviteToGroupCall#7b393160",
+		}
 	}
 	if err := b.ConsumeID(PhoneInviteToGroupCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.inviteToGroupCall#7b393160: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.inviteToGroupCall#7b393160",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -167,17 +204,30 @@ func (i *PhoneInviteToGroupCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *PhoneInviteToGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode phone.inviteToGroupCall#7b393160 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.inviteToGroupCall#7b393160",
+		}
 	}
 	{
 		if err := i.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.inviteToGroupCall#7b393160: field call: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.inviteToGroupCall#7b393160",
+				FieldName:  "call",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.inviteToGroupCall#7b393160: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.inviteToGroupCall#7b393160",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -186,7 +236,12 @@ func (i *PhoneInviteToGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.inviteToGroupCall#7b393160: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "phone.inviteToGroupCall#7b393160",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			i.Users = append(i.Users, value)
 		}

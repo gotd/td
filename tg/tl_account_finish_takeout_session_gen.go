@@ -111,7 +111,10 @@ func (f *AccountFinishTakeoutSessionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *AccountFinishTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode account.finishTakeoutSession#1d2652ee as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.finishTakeoutSession#1d2652ee",
+		}
 	}
 	b.PutID(AccountFinishTakeoutSessionRequestTypeID)
 	return f.EncodeBare(b)
@@ -120,13 +123,21 @@ func (f *AccountFinishTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *AccountFinishTakeoutSessionRequest) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode account.finishTakeoutSession#1d2652ee as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.finishTakeoutSession#1d2652ee",
+		}
 	}
 	if !(f.Success == false) {
 		f.Flags.Set(0)
 	}
 	if err := f.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.finishTakeoutSession#1d2652ee: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.finishTakeoutSession#1d2652ee",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -150,10 +161,16 @@ func (f *AccountFinishTakeoutSessionRequest) GetSuccess() (value bool) {
 // Decode implements bin.Decoder.
 func (f *AccountFinishTakeoutSessionRequest) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode account.finishTakeoutSession#1d2652ee to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.finishTakeoutSession#1d2652ee",
+		}
 	}
 	if err := b.ConsumeID(AccountFinishTakeoutSessionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.finishTakeoutSession#1d2652ee: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.finishTakeoutSession#1d2652ee",
+			Underlying: err,
+		}
 	}
 	return f.DecodeBare(b)
 }
@@ -161,11 +178,19 @@ func (f *AccountFinishTakeoutSessionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *AccountFinishTakeoutSessionRequest) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode account.finishTakeoutSession#1d2652ee to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.finishTakeoutSession#1d2652ee",
+		}
 	}
 	{
 		if err := f.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.finishTakeoutSession#1d2652ee: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.finishTakeoutSession#1d2652ee",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	f.Success = f.Flags.Has(0)

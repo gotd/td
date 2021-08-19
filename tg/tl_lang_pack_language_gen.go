@@ -235,7 +235,10 @@ func (l *LangPackLanguage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LangPackLanguage) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode langPackLanguage#eeca5ce3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "langPackLanguage#eeca5ce3",
+		}
 	}
 	b.PutID(LangPackLanguageTypeID)
 	return l.EncodeBare(b)
@@ -244,7 +247,10 @@ func (l *LangPackLanguage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LangPackLanguage) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode langPackLanguage#eeca5ce3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "langPackLanguage#eeca5ce3",
+		}
 	}
 	if !(l.Official == false) {
 		l.Flags.Set(0)
@@ -259,7 +265,12 @@ func (l *LangPackLanguage) EncodeBare(b *bin.Buffer) error {
 		l.Flags.Set(1)
 	}
 	if err := l.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode langPackLanguage#eeca5ce3: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "langPackLanguage#eeca5ce3",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(l.Name)
 	b.PutString(l.NativeName)
@@ -375,10 +386,16 @@ func (l *LangPackLanguage) GetTranslationsURL() (value string) {
 // Decode implements bin.Decoder.
 func (l *LangPackLanguage) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode langPackLanguage#eeca5ce3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "langPackLanguage#eeca5ce3",
+		}
 	}
 	if err := b.ConsumeID(LangPackLanguageTypeID); err != nil {
-		return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "langPackLanguage#eeca5ce3",
+			Underlying: err,
+		}
 	}
 	return l.DecodeBare(b)
 }
@@ -386,11 +403,19 @@ func (l *LangPackLanguage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LangPackLanguage) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode langPackLanguage#eeca5ce3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "langPackLanguage#eeca5ce3",
+		}
 	}
 	{
 		if err := l.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackLanguage#eeca5ce3",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	l.Official = l.Flags.Has(0)
@@ -399,56 +424,96 @@ func (l *LangPackLanguage) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackLanguage#eeca5ce3",
+				FieldName:  "name",
+				Underlying: err,
+			}
 		}
 		l.Name = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field native_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackLanguage#eeca5ce3",
+				FieldName:  "native_name",
+				Underlying: err,
+			}
 		}
 		l.NativeName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field lang_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackLanguage#eeca5ce3",
+				FieldName:  "lang_code",
+				Underlying: err,
+			}
 		}
 		l.LangCode = value
 	}
 	if l.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field base_lang_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackLanguage#eeca5ce3",
+				FieldName:  "base_lang_code",
+				Underlying: err,
+			}
 		}
 		l.BaseLangCode = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field plural_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackLanguage#eeca5ce3",
+				FieldName:  "plural_code",
+				Underlying: err,
+			}
 		}
 		l.PluralCode = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field strings_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackLanguage#eeca5ce3",
+				FieldName:  "strings_count",
+				Underlying: err,
+			}
 		}
 		l.StringsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field translated_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackLanguage#eeca5ce3",
+				FieldName:  "translated_count",
+				Underlying: err,
+			}
 		}
 		l.TranslatedCount = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field translations_url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langPackLanguage#eeca5ce3",
+				FieldName:  "translations_url",
+				Underlying: err,
+			}
 		}
 		l.TranslationsURL = value
 	}

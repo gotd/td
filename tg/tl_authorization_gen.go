@@ -270,7 +270,10 @@ func (a *Authorization) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *Authorization) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authorization#ad01d61d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "authorization#ad01d61d",
+		}
 	}
 	b.PutID(AuthorizationTypeID)
 	return a.EncodeBare(b)
@@ -279,7 +282,10 @@ func (a *Authorization) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *Authorization) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authorization#ad01d61d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "authorization#ad01d61d",
+		}
 	}
 	if !(a.Current == false) {
 		a.Flags.Set(0)
@@ -291,7 +297,12 @@ func (a *Authorization) EncodeBare(b *bin.Buffer) error {
 		a.Flags.Set(2)
 	}
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode authorization#ad01d61d: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "authorization#ad01d61d",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutLong(a.Hash)
 	b.PutString(a.DeviceModel)
@@ -419,10 +430,16 @@ func (a *Authorization) GetRegion() (value string) {
 // Decode implements bin.Decoder.
 func (a *Authorization) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authorization#ad01d61d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "authorization#ad01d61d",
+		}
 	}
 	if err := b.ConsumeID(AuthorizationTypeID); err != nil {
-		return fmt.Errorf("unable to decode authorization#ad01d61d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "authorization#ad01d61d",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -430,11 +447,19 @@ func (a *Authorization) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *Authorization) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authorization#ad01d61d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "authorization#ad01d61d",
+		}
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	a.Current = a.Flags.Has(0)
@@ -443,84 +468,144 @@ func (a *Authorization) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		a.Hash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field device_model: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "device_model",
+				Underlying: err,
+			}
 		}
 		a.DeviceModel = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field platform: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "platform",
+				Underlying: err,
+			}
 		}
 		a.Platform = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field system_version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "system_version",
+				Underlying: err,
+			}
 		}
 		a.SystemVersion = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field api_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "api_id",
+				Underlying: err,
+			}
 		}
 		a.APIID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field app_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "app_name",
+				Underlying: err,
+			}
 		}
 		a.AppName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field app_version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "app_version",
+				Underlying: err,
+			}
 		}
 		a.AppVersion = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field date_created: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "date_created",
+				Underlying: err,
+			}
 		}
 		a.DateCreated = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field date_active: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "date_active",
+				Underlying: err,
+			}
 		}
 		a.DateActive = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field ip: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "ip",
+				Underlying: err,
+			}
 		}
 		a.IP = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field country: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "country",
+				Underlying: err,
+			}
 		}
 		a.Country = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorization#ad01d61d: field region: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authorization#ad01d61d",
+				FieldName:  "region",
+				Underlying: err,
+			}
 		}
 		a.Region = value
 	}

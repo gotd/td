@@ -224,7 +224,10 @@ func (e *MessagesEditMessageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *MessagesEditMessageRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editMessage#48f71778 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.editMessage#48f71778",
+		}
 	}
 	b.PutID(MessagesEditMessageRequestTypeID)
 	return e.EncodeBare(b)
@@ -233,7 +236,10 @@ func (e *MessagesEditMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesEditMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editMessage#48f71778 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.editMessage#48f71778",
+		}
 	}
 	if !(e.NoWebpage == false) {
 		e.Flags.Set(1)
@@ -254,13 +260,31 @@ func (e *MessagesEditMessageRequest) EncodeBare(b *bin.Buffer) error {
 		e.Flags.Set(15)
 	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editMessage#48f71778: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.editMessage#48f71778",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if e.Peer == nil {
-		return fmt.Errorf("unable to encode messages.editMessage#48f71778: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.editMessage#48f71778",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := e.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editMessage#48f71778: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.editMessage#48f71778",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(e.ID)
 	if e.Flags.Has(11) {
@@ -268,28 +292,74 @@ func (e *MessagesEditMessageRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if e.Flags.Has(14) {
 		if e.Media == nil {
-			return fmt.Errorf("unable to encode messages.editMessage#48f71778: field media is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.editMessage#48f71778",
+				FieldName: "media",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputMedia",
+				},
+			}
 		}
 		if err := e.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.editMessage#48f71778: field media: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "messages.editMessage#48f71778",
+				FieldName:  "media",
+				Underlying: err,
+			}
 		}
 	}
 	if e.Flags.Has(2) {
 		if e.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode messages.editMessage#48f71778: field reply_markup is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.editMessage#48f71778",
+				FieldName: "reply_markup",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "ReplyMarkup",
+				},
+			}
 		}
 		if err := e.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.editMessage#48f71778: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "messages.editMessage#48f71778",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 	}
 	if e.Flags.Has(3) {
 		b.PutVectorHeader(len(e.Entities))
 		for idx, v := range e.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode messages.editMessage#48f71778: field entities element with index %d is nil", idx)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "messages.editMessage#48f71778",
+					FieldName: "entities",
+					Underlying: &bin.IndexError{
+						Index: idx,
+						Underlying: &bin.NilError{
+							Action:   "encode",
+							TypeName: "Vector<MessageEntity>",
+						},
+					},
+				}
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messages.editMessage#48f71778: field entities element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "messages.editMessage#48f71778",
+					FieldName: "entities",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
@@ -411,10 +481,16 @@ func (e *MessagesEditMessageRequest) GetScheduleDate() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (e *MessagesEditMessageRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editMessage#48f71778 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.editMessage#48f71778",
+		}
 	}
 	if err := b.ConsumeID(MessagesEditMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editMessage#48f71778: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.editMessage#48f71778",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -422,53 +498,91 @@ func (e *MessagesEditMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesEditMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editMessage#48f71778 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.editMessage#48f71778",
+		}
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editMessage#48f71778",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	e.NoWebpage = e.Flags.Has(1)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editMessage#48f71778",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		e.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editMessage#48f71778",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		e.ID = value
 	}
 	if e.Flags.Has(11) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editMessage#48f71778",
+				FieldName:  "message",
+				Underlying: err,
+			}
 		}
 		e.Message = value
 	}
 	if e.Flags.Has(14) {
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field media: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editMessage#48f71778",
+				FieldName:  "media",
+				Underlying: err,
+			}
 		}
 		e.Media = value
 	}
 	if e.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editMessage#48f71778",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 		e.ReplyMarkup = value
 	}
 	if e.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field entities: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editMessage#48f71778",
+				FieldName:  "entities",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -477,7 +591,12 @@ func (e *MessagesEditMessageRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.editMessage#48f71778: field entities: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.editMessage#48f71778",
+					FieldName:  "entities",
+					Underlying: err,
+				}
 			}
 			e.Entities = append(e.Entities, value)
 		}
@@ -485,7 +604,12 @@ func (e *MessagesEditMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if e.Flags.Has(15) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field schedule_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.editMessage#48f71778",
+				FieldName:  "schedule_date",
+				Underlying: err,
+			}
 		}
 		e.ScheduleDate = value
 	}

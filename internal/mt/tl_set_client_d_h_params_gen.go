@@ -121,7 +121,10 @@ func (s *SetClientDHParamsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SetClientDHParamsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode set_client_DH_params#f5045f1f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "set_client_DH_params#f5045f1f",
+		}
 	}
 	b.PutID(SetClientDHParamsRequestTypeID)
 	return s.EncodeBare(b)
@@ -130,7 +133,10 @@ func (s *SetClientDHParamsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SetClientDHParamsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode set_client_DH_params#f5045f1f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "set_client_DH_params#f5045f1f",
+		}
 	}
 	b.PutInt128(s.Nonce)
 	b.PutInt128(s.ServerNonce)
@@ -156,10 +162,16 @@ func (s *SetClientDHParamsRequest) GetEncryptedData() (value []byte) {
 // Decode implements bin.Decoder.
 func (s *SetClientDHParamsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode set_client_DH_params#f5045f1f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "set_client_DH_params#f5045f1f",
+		}
 	}
 	if err := b.ConsumeID(SetClientDHParamsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode set_client_DH_params#f5045f1f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "set_client_DH_params#f5045f1f",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -167,26 +179,44 @@ func (s *SetClientDHParamsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SetClientDHParamsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode set_client_DH_params#f5045f1f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "set_client_DH_params#f5045f1f",
+		}
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode set_client_DH_params#f5045f1f: field nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "set_client_DH_params#f5045f1f",
+				FieldName:  "nonce",
+				Underlying: err,
+			}
 		}
 		s.Nonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode set_client_DH_params#f5045f1f: field server_nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "set_client_DH_params#f5045f1f",
+				FieldName:  "server_nonce",
+				Underlying: err,
+			}
 		}
 		s.ServerNonce = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode set_client_DH_params#f5045f1f: field encrypted_data: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "set_client_DH_params#f5045f1f",
+				FieldName:  "encrypted_data",
+				Underlying: err,
+			}
 		}
 		s.EncryptedData = value
 	}

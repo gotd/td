@@ -85,7 +85,10 @@ func (g *MessagesGetDialogUnreadMarksRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetDialogUnreadMarksRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDialogUnreadMarks#22e24e22 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getDialogUnreadMarks#22e24e22",
+		}
 	}
 	b.PutID(MessagesGetDialogUnreadMarksRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +97,10 @@ func (g *MessagesGetDialogUnreadMarksRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetDialogUnreadMarksRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDialogUnreadMarks#22e24e22 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getDialogUnreadMarks#22e24e22",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (g *MessagesGetDialogUnreadMarksRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetDialogUnreadMarksRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDialogUnreadMarks#22e24e22 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getDialogUnreadMarks#22e24e22",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetDialogUnreadMarksRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getDialogUnreadMarks#22e24e22: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getDialogUnreadMarks#22e24e22",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (g *MessagesGetDialogUnreadMarksRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetDialogUnreadMarksRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDialogUnreadMarks#22e24e22 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getDialogUnreadMarks#22e24e22",
+		}
 	}
 	return nil
 }

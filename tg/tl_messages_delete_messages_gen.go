@@ -122,7 +122,10 @@ func (d *MessagesDeleteMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteMessagesRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteMessages#e58e95d2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.deleteMessages#e58e95d2",
+		}
 	}
 	b.PutID(MessagesDeleteMessagesRequestTypeID)
 	return d.EncodeBare(b)
@@ -131,13 +134,21 @@ func (d *MessagesDeleteMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDeleteMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteMessages#e58e95d2 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.deleteMessages#e58e95d2",
+		}
 	}
 	if !(d.Revoke == false) {
 		d.Flags.Set(0)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteMessages#e58e95d2: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.deleteMessages#e58e95d2",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(d.ID))
 	for _, v := range d.ID {
@@ -170,10 +181,16 @@ func (d *MessagesDeleteMessagesRequest) GetID() (value []int) {
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteMessagesRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteMessages#e58e95d2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.deleteMessages#e58e95d2",
+		}
 	}
 	if err := b.ConsumeID(MessagesDeleteMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.deleteMessages#e58e95d2: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.deleteMessages#e58e95d2",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -181,18 +198,31 @@ func (d *MessagesDeleteMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteMessages#e58e95d2 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.deleteMessages#e58e95d2",
+		}
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.deleteMessages#e58e95d2: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.deleteMessages#e58e95d2",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	d.Revoke = d.Flags.Has(0)
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteMessages#e58e95d2: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.deleteMessages#e58e95d2",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -201,7 +231,12 @@ func (d *MessagesDeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.deleteMessages#e58e95d2: field id: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.deleteMessages#e58e95d2",
+					FieldName:  "id",
+					Underlying: err,
+				}
 			}
 			d.ID = append(d.ID, value)
 		}

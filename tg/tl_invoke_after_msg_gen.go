@@ -113,7 +113,10 @@ func (i *InvokeAfterMsgRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InvokeAfterMsgRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invokeAfterMsg#cb9f372d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "invokeAfterMsg#cb9f372d",
+		}
 	}
 	b.PutID(InvokeAfterMsgRequestTypeID)
 	return i.EncodeBare(b)
@@ -122,11 +125,19 @@ func (i *InvokeAfterMsgRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InvokeAfterMsgRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invokeAfterMsg#cb9f372d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "invokeAfterMsg#cb9f372d",
+		}
 	}
 	b.PutLong(i.MsgID)
 	if err := i.Query.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode invokeAfterMsg#cb9f372d: field query: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "invokeAfterMsg#cb9f372d",
+			FieldName:  "query",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -144,10 +155,16 @@ func (i *InvokeAfterMsgRequest) GetQuery() (value bin.Object) {
 // Decode implements bin.Decoder.
 func (i *InvokeAfterMsgRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invokeAfterMsg#cb9f372d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "invokeAfterMsg#cb9f372d",
+		}
 	}
 	if err := b.ConsumeID(InvokeAfterMsgRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode invokeAfterMsg#cb9f372d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "invokeAfterMsg#cb9f372d",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -155,18 +172,31 @@ func (i *InvokeAfterMsgRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InvokeAfterMsgRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invokeAfterMsg#cb9f372d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "invokeAfterMsg#cb9f372d",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode invokeAfterMsg#cb9f372d: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "invokeAfterMsg#cb9f372d",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		i.MsgID = value
 	}
 	{
 		if err := i.Query.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode invokeAfterMsg#cb9f372d: field query: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "invokeAfterMsg#cb9f372d",
+				FieldName:  "query",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

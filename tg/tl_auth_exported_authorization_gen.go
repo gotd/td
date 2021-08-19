@@ -113,7 +113,10 @@ func (e *AuthExportedAuthorization) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *AuthExportedAuthorization) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode auth.exportedAuthorization#df969c2d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.exportedAuthorization#df969c2d",
+		}
 	}
 	b.PutID(AuthExportedAuthorizationTypeID)
 	return e.EncodeBare(b)
@@ -122,7 +125,10 @@ func (e *AuthExportedAuthorization) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *AuthExportedAuthorization) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode auth.exportedAuthorization#df969c2d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.exportedAuthorization#df969c2d",
+		}
 	}
 	b.PutInt(e.ID)
 	b.PutBytes(e.Bytes)
@@ -142,10 +148,16 @@ func (e *AuthExportedAuthorization) GetBytes() (value []byte) {
 // Decode implements bin.Decoder.
 func (e *AuthExportedAuthorization) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode auth.exportedAuthorization#df969c2d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.exportedAuthorization#df969c2d",
+		}
 	}
 	if err := b.ConsumeID(AuthExportedAuthorizationTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.exportedAuthorization#df969c2d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.exportedAuthorization#df969c2d",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (e *AuthExportedAuthorization) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *AuthExportedAuthorization) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode auth.exportedAuthorization#df969c2d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.exportedAuthorization#df969c2d",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.exportedAuthorization#df969c2d: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.exportedAuthorization#df969c2d",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		e.ID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.exportedAuthorization#df969c2d: field bytes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.exportedAuthorization#df969c2d",
+				FieldName:  "bytes",
+				Underlying: err,
+			}
 		}
 		e.Bytes = value
 	}

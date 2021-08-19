@@ -113,7 +113,10 @@ func (c *MessagesCreateChatRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *MessagesCreateChatRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.createChat#9cb126e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.createChat#9cb126e",
+		}
 	}
 	b.PutID(MessagesCreateChatRequestTypeID)
 	return c.EncodeBare(b)
@@ -122,15 +125,38 @@ func (c *MessagesCreateChatRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesCreateChatRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.createChat#9cb126e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.createChat#9cb126e",
+		}
 	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.createChat#9cb126e: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.createChat#9cb126e",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<InputUser>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.createChat#9cb126e: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.createChat#9cb126e",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutString(c.Title)
@@ -155,10 +181,16 @@ func (c *MessagesCreateChatRequest) GetTitle() (value string) {
 // Decode implements bin.Decoder.
 func (c *MessagesCreateChatRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.createChat#9cb126e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.createChat#9cb126e",
+		}
 	}
 	if err := b.ConsumeID(MessagesCreateChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.createChat#9cb126e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.createChat#9cb126e",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -166,12 +198,20 @@ func (c *MessagesCreateChatRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesCreateChatRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.createChat#9cb126e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.createChat#9cb126e",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.createChat#9cb126e: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.createChat#9cb126e",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -180,7 +220,12 @@ func (c *MessagesCreateChatRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.createChat#9cb126e: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.createChat#9cb126e",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			c.Users = append(c.Users, value)
 		}
@@ -188,7 +233,12 @@ func (c *MessagesCreateChatRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.createChat#9cb126e: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.createChat#9cb126e",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		c.Title = value
 	}

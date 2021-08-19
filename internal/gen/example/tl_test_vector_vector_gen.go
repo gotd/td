@@ -101,7 +101,10 @@ func (t *TestVectorVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TestVectorVector) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testVectorVector#69e8846c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "testVectorVector#69e8846c",
+		}
 	}
 	b.PutID(TestVectorVectorTypeID)
 	return t.EncodeBare(b)
@@ -110,7 +113,10 @@ func (t *TestVectorVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TestVectorVector) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testVectorVector#69e8846c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "testVectorVector#69e8846c",
+		}
 	}
 	b.PutInt(len(t.Value))
 	for _, row := range t.Value {
@@ -130,10 +136,16 @@ func (t *TestVectorVector) GetValue() (value [][]string) {
 // Decode implements bin.Decoder.
 func (t *TestVectorVector) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testVectorVector#69e8846c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "testVectorVector#69e8846c",
+		}
 	}
 	if err := b.ConsumeID(TestVectorVectorTypeID); err != nil {
-		return fmt.Errorf("unable to decode testVectorVector#69e8846c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "testVectorVector#69e8846c",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -141,12 +153,20 @@ func (t *TestVectorVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TestVectorVector) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testVectorVector#69e8846c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "testVectorVector#69e8846c",
+		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode testVectorVector#69e8846c: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "testVectorVector#69e8846c",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -155,7 +175,15 @@ func (t *TestVectorVector) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			innerLen, err := b.VectorHeader()
 			if err != nil {
-				return fmt.Errorf("unable to decode testVectorVector#69e8846c: field value: %w", err)
+				return &bin.FieldError{
+					Action:    "decode",
+					TypeName:  "testVectorVector#69e8846c",
+					FieldName: "value",
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 
 			var row []string
@@ -165,7 +193,12 @@ func (t *TestVectorVector) DecodeBare(b *bin.Buffer) error {
 			for innerIndex := 0; innerIndex < innerLen; innerLen++ {
 				value, err := b.String()
 				if err != nil {
-					return fmt.Errorf("unable to decode testVectorVector#69e8846c: field value: %w", err)
+					return &bin.FieldError{
+						Action:     "decode",
+						TypeName:   "testVectorVector#69e8846c",
+						FieldName:  "value",
+						Underlying: err,
+					}
 				}
 				row = append(row, value)
 			}

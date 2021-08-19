@@ -113,7 +113,10 @@ func (e *Error) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *Error) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode error#c4b9f9bb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "error#c4b9f9bb",
+		}
 	}
 	b.PutID(ErrorTypeID)
 	return e.EncodeBare(b)
@@ -122,7 +125,10 @@ func (e *Error) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *Error) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode error#c4b9f9bb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "error#c4b9f9bb",
+		}
 	}
 	b.PutInt(e.Code)
 	b.PutString(e.Text)
@@ -142,10 +148,16 @@ func (e *Error) GetText() (value string) {
 // Decode implements bin.Decoder.
 func (e *Error) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode error#c4b9f9bb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "error#c4b9f9bb",
+		}
 	}
 	if err := b.ConsumeID(ErrorTypeID); err != nil {
-		return fmt.Errorf("unable to decode error#c4b9f9bb: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "error#c4b9f9bb",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (e *Error) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *Error) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode error#c4b9f9bb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "error#c4b9f9bb",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode error#c4b9f9bb: field code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "error#c4b9f9bb",
+				FieldName:  "code",
+				Underlying: err,
+			}
 		}
 		e.Code = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode error#c4b9f9bb: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "error#c4b9f9bb",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		e.Text = value
 	}

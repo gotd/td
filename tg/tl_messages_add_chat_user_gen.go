@@ -124,7 +124,10 @@ func (a *MessagesAddChatUserRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *MessagesAddChatUserRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.addChatUser#f9a0aa09 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.addChatUser#f9a0aa09",
+		}
 	}
 	b.PutID(MessagesAddChatUserRequestTypeID)
 	return a.EncodeBare(b)
@@ -133,14 +136,30 @@ func (a *MessagesAddChatUserRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *MessagesAddChatUserRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.addChatUser#f9a0aa09 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.addChatUser#f9a0aa09",
+		}
 	}
 	b.PutInt(a.ChatID)
 	if a.UserID == nil {
-		return fmt.Errorf("unable to encode messages.addChatUser#f9a0aa09: field user_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.addChatUser#f9a0aa09",
+			FieldName: "user_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := a.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.addChatUser#f9a0aa09: field user_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.addChatUser#f9a0aa09",
+			FieldName:  "user_id",
+			Underlying: err,
+		}
 	}
 	b.PutInt(a.FwdLimit)
 	return nil
@@ -164,10 +183,16 @@ func (a *MessagesAddChatUserRequest) GetFwdLimit() (value int) {
 // Decode implements bin.Decoder.
 func (a *MessagesAddChatUserRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.addChatUser#f9a0aa09 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.addChatUser#f9a0aa09",
+		}
 	}
 	if err := b.ConsumeID(MessagesAddChatUserRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.addChatUser#f9a0aa09: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.addChatUser#f9a0aa09",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -175,26 +200,44 @@ func (a *MessagesAddChatUserRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *MessagesAddChatUserRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.addChatUser#f9a0aa09 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.addChatUser#f9a0aa09",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.addChatUser#f9a0aa09: field chat_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.addChatUser#f9a0aa09",
+				FieldName:  "chat_id",
+				Underlying: err,
+			}
 		}
 		a.ChatID = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.addChatUser#f9a0aa09: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.addChatUser#f9a0aa09",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		a.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.addChatUser#f9a0aa09: field fwd_limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.addChatUser#f9a0aa09",
+				FieldName:  "fwd_limit",
+				Underlying: err,
+			}
 		}
 		a.FwdLimit = value
 	}

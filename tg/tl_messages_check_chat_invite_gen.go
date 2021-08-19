@@ -102,7 +102,10 @@ func (c *MessagesCheckChatInviteRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *MessagesCheckChatInviteRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.checkChatInvite#3eadb1bb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.checkChatInvite#3eadb1bb",
+		}
 	}
 	b.PutID(MessagesCheckChatInviteRequestTypeID)
 	return c.EncodeBare(b)
@@ -111,7 +114,10 @@ func (c *MessagesCheckChatInviteRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesCheckChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.checkChatInvite#3eadb1bb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.checkChatInvite#3eadb1bb",
+		}
 	}
 	b.PutString(c.Hash)
 	return nil
@@ -125,10 +131,16 @@ func (c *MessagesCheckChatInviteRequest) GetHash() (value string) {
 // Decode implements bin.Decoder.
 func (c *MessagesCheckChatInviteRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.checkChatInvite#3eadb1bb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.checkChatInvite#3eadb1bb",
+		}
 	}
 	if err := b.ConsumeID(MessagesCheckChatInviteRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.checkChatInvite#3eadb1bb: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.checkChatInvite#3eadb1bb",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (c *MessagesCheckChatInviteRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesCheckChatInviteRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.checkChatInvite#3eadb1bb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.checkChatInvite#3eadb1bb",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.checkChatInvite#3eadb1bb: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.checkChatInvite#3eadb1bb",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		c.Hash = value
 	}

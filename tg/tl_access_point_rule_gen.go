@@ -123,7 +123,10 @@ func (a *AccessPointRule) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AccessPointRule) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode accessPointRule#4679b65f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "accessPointRule#4679b65f",
+		}
 	}
 	b.PutID(AccessPointRuleTypeID)
 	return a.EncodeBare(b)
@@ -132,17 +135,40 @@ func (a *AccessPointRule) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AccessPointRule) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode accessPointRule#4679b65f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "accessPointRule#4679b65f",
+		}
 	}
 	b.PutString(a.PhonePrefixRules)
 	b.PutInt(a.DCID)
 	b.PutInt(len(a.IPs))
 	for idx, v := range a.IPs {
 		if v == nil {
-			return fmt.Errorf("unable to encode accessPointRule#4679b65f: field ips element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "accessPointRule#4679b65f",
+				FieldName: "ips",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "vector<IpPort>",
+					},
+				},
+			}
 		}
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare accessPointRule#4679b65f: field ips element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "accessPointRule#4679b65f",
+				FieldName: "ips",
+				BareField: true,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -171,10 +197,16 @@ func (a *AccessPointRule) MapIPs() (value IPPortClassArray) {
 // Decode implements bin.Decoder.
 func (a *AccessPointRule) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode accessPointRule#4679b65f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "accessPointRule#4679b65f",
+		}
 	}
 	if err := b.ConsumeID(AccessPointRuleTypeID); err != nil {
-		return fmt.Errorf("unable to decode accessPointRule#4679b65f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "accessPointRule#4679b65f",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -182,26 +214,44 @@ func (a *AccessPointRule) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AccessPointRule) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode accessPointRule#4679b65f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "accessPointRule#4679b65f",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode accessPointRule#4679b65f: field phone_prefix_rules: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "accessPointRule#4679b65f",
+				FieldName:  "phone_prefix_rules",
+				Underlying: err,
+			}
 		}
 		a.PhonePrefixRules = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode accessPointRule#4679b65f: field dc_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "accessPointRule#4679b65f",
+				FieldName:  "dc_id",
+				Underlying: err,
+			}
 		}
 		a.DCID = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode accessPointRule#4679b65f: field ips: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "accessPointRule#4679b65f",
+				FieldName:  "ips",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -210,7 +260,12 @@ func (a *AccessPointRule) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeIPPort(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode accessPointRule#4679b65f: field ips: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "accessPointRule#4679b65f",
+					FieldName:  "ips",
+					Underlying: err,
+				}
 			}
 			a.IPs = append(a.IPs, value)
 		}

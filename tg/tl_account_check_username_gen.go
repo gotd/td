@@ -103,7 +103,10 @@ func (c *AccountCheckUsernameRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AccountCheckUsernameRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.checkUsername#2714d86c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.checkUsername#2714d86c",
+		}
 	}
 	b.PutID(AccountCheckUsernameRequestTypeID)
 	return c.EncodeBare(b)
@@ -112,7 +115,10 @@ func (c *AccountCheckUsernameRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AccountCheckUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.checkUsername#2714d86c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.checkUsername#2714d86c",
+		}
 	}
 	b.PutString(c.Username)
 	return nil
@@ -126,10 +132,16 @@ func (c *AccountCheckUsernameRequest) GetUsername() (value string) {
 // Decode implements bin.Decoder.
 func (c *AccountCheckUsernameRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.checkUsername#2714d86c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.checkUsername#2714d86c",
+		}
 	}
 	if err := b.ConsumeID(AccountCheckUsernameRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.checkUsername#2714d86c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.checkUsername#2714d86c",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -137,12 +149,20 @@ func (c *AccountCheckUsernameRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AccountCheckUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.checkUsername#2714d86c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.checkUsername#2714d86c",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.checkUsername#2714d86c: field username: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.checkUsername#2714d86c",
+				FieldName:  "username",
+				Underlying: err,
+			}
 		}
 		c.Username = value
 	}

@@ -122,7 +122,10 @@ func (s *UsersSetSecureValueErrorsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *UsersSetSecureValueErrorsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode users.setSecureValueErrors#90c894b5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "users.setSecureValueErrors#90c894b5",
+		}
 	}
 	b.PutID(UsersSetSecureValueErrorsRequestTypeID)
 	return s.EncodeBare(b)
@@ -131,21 +134,57 @@ func (s *UsersSetSecureValueErrorsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *UsersSetSecureValueErrorsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode users.setSecureValueErrors#90c894b5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "users.setSecureValueErrors#90c894b5",
+		}
 	}
 	if s.ID == nil {
-		return fmt.Errorf("unable to encode users.setSecureValueErrors#90c894b5: field id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "users.setSecureValueErrors#90c894b5",
+			FieldName: "id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := s.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode users.setSecureValueErrors#90c894b5: field id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "users.setSecureValueErrors#90c894b5",
+			FieldName:  "id",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(s.Errors))
 	for idx, v := range s.Errors {
 		if v == nil {
-			return fmt.Errorf("unable to encode users.setSecureValueErrors#90c894b5: field errors element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "users.setSecureValueErrors#90c894b5",
+				FieldName: "errors",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<SecureValueError>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode users.setSecureValueErrors#90c894b5: field errors element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "users.setSecureValueErrors#90c894b5",
+				FieldName: "errors",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -169,10 +208,16 @@ func (s *UsersSetSecureValueErrorsRequest) MapErrors() (value SecureValueErrorCl
 // Decode implements bin.Decoder.
 func (s *UsersSetSecureValueErrorsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode users.setSecureValueErrors#90c894b5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "users.setSecureValueErrors#90c894b5",
+		}
 	}
 	if err := b.ConsumeID(UsersSetSecureValueErrorsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode users.setSecureValueErrors#90c894b5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "users.setSecureValueErrors#90c894b5",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -180,19 +225,32 @@ func (s *UsersSetSecureValueErrorsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *UsersSetSecureValueErrorsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode users.setSecureValueErrors#90c894b5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "users.setSecureValueErrors#90c894b5",
+		}
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode users.setSecureValueErrors#90c894b5: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "users.setSecureValueErrors#90c894b5",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		s.ID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode users.setSecureValueErrors#90c894b5: field errors: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "users.setSecureValueErrors#90c894b5",
+				FieldName:  "errors",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -201,7 +259,12 @@ func (s *UsersSetSecureValueErrorsRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureValueError(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode users.setSecureValueErrors#90c894b5: field errors: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "users.setSecureValueErrors#90c894b5",
+					FieldName:  "errors",
+					Underlying: err,
+				}
 			}
 			s.Errors = append(s.Errors, value)
 		}

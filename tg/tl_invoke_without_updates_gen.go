@@ -107,7 +107,10 @@ func (i *InvokeWithoutUpdatesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InvokeWithoutUpdatesRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invokeWithoutUpdates#bf9459b7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "invokeWithoutUpdates#bf9459b7",
+		}
 	}
 	b.PutID(InvokeWithoutUpdatesRequestTypeID)
 	return i.EncodeBare(b)
@@ -116,10 +119,18 @@ func (i *InvokeWithoutUpdatesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InvokeWithoutUpdatesRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invokeWithoutUpdates#bf9459b7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "invokeWithoutUpdates#bf9459b7",
+		}
 	}
 	if err := i.Query.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode invokeWithoutUpdates#bf9459b7: field query: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "invokeWithoutUpdates#bf9459b7",
+			FieldName:  "query",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -132,10 +143,16 @@ func (i *InvokeWithoutUpdatesRequest) GetQuery() (value bin.Object) {
 // Decode implements bin.Decoder.
 func (i *InvokeWithoutUpdatesRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invokeWithoutUpdates#bf9459b7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "invokeWithoutUpdates#bf9459b7",
+		}
 	}
 	if err := b.ConsumeID(InvokeWithoutUpdatesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode invokeWithoutUpdates#bf9459b7: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "invokeWithoutUpdates#bf9459b7",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -143,11 +160,19 @@ func (i *InvokeWithoutUpdatesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InvokeWithoutUpdatesRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invokeWithoutUpdates#bf9459b7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "invokeWithoutUpdates#bf9459b7",
+		}
 	}
 	{
 		if err := i.Query.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode invokeWithoutUpdates#bf9459b7: field query: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "invokeWithoutUpdates#bf9459b7",
+				FieldName:  "query",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

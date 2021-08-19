@@ -237,7 +237,10 @@ func (g *ContactsGetTopPeersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ContactsGetTopPeersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getTopPeers#d4982db5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.getTopPeers#d4982db5",
+		}
 	}
 	b.PutID(ContactsGetTopPeersRequestTypeID)
 	return g.EncodeBare(b)
@@ -246,7 +249,10 @@ func (g *ContactsGetTopPeersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ContactsGetTopPeersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getTopPeers#d4982db5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.getTopPeers#d4982db5",
+		}
 	}
 	if !(g.Correspondents == false) {
 		g.Flags.Set(0)
@@ -273,7 +279,12 @@ func (g *ContactsGetTopPeersRequest) EncodeBare(b *bin.Buffer) error {
 		g.Flags.Set(15)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contacts.getTopPeers#d4982db5: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "contacts.getTopPeers#d4982db5",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
@@ -427,10 +438,16 @@ func (g *ContactsGetTopPeersRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *ContactsGetTopPeersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getTopPeers#d4982db5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.getTopPeers#d4982db5",
+		}
 	}
 	if err := b.ConsumeID(ContactsGetTopPeersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "contacts.getTopPeers#d4982db5",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -438,11 +455,19 @@ func (g *ContactsGetTopPeersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ContactsGetTopPeersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getTopPeers#d4982db5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.getTopPeers#d4982db5",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.getTopPeers#d4982db5",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	g.Correspondents = g.Flags.Has(0)
@@ -456,21 +481,36 @@ func (g *ContactsGetTopPeersRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.getTopPeers#d4982db5",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.getTopPeers#d4982db5",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.getTopPeers#d4982db5",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		g.Hash = value
 	}

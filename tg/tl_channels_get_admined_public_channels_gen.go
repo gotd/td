@@ -140,7 +140,10 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ChannelsGetAdminedPublicChannelsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getAdminedPublicChannels#f8b036af as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.getAdminedPublicChannels#f8b036af",
+		}
 	}
 	b.PutID(ChannelsGetAdminedPublicChannelsRequestTypeID)
 	return g.EncodeBare(b)
@@ -149,7 +152,10 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ChannelsGetAdminedPublicChannelsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getAdminedPublicChannels#f8b036af as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.getAdminedPublicChannels#f8b036af",
+		}
 	}
 	if !(g.ByLocation == false) {
 		g.Flags.Set(0)
@@ -158,7 +164,12 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) EncodeBare(b *bin.Buffer) erro
 		g.Flags.Set(1)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.getAdminedPublicChannels#f8b036af: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.getAdminedPublicChannels#f8b036af",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -198,10 +209,16 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) GetCheckLimit() (value bool) {
 // Decode implements bin.Decoder.
 func (g *ChannelsGetAdminedPublicChannelsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getAdminedPublicChannels#f8b036af to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.getAdminedPublicChannels#f8b036af",
+		}
 	}
 	if err := b.ConsumeID(ChannelsGetAdminedPublicChannelsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.getAdminedPublicChannels#f8b036af: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.getAdminedPublicChannels#f8b036af",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -209,11 +226,19 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ChannelsGetAdminedPublicChannelsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getAdminedPublicChannels#f8b036af to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.getAdminedPublicChannels#f8b036af",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.getAdminedPublicChannels#f8b036af: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.getAdminedPublicChannels#f8b036af",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	g.ByLocation = g.Flags.Has(0)

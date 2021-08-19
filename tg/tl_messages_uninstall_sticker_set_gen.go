@@ -102,7 +102,10 @@ func (u *MessagesUninstallStickerSetRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *MessagesUninstallStickerSetRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.uninstallStickerSet#f96e55de as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.uninstallStickerSet#f96e55de",
+		}
 	}
 	b.PutID(MessagesUninstallStickerSetRequestTypeID)
 	return u.EncodeBare(b)
@@ -111,13 +114,29 @@ func (u *MessagesUninstallStickerSetRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *MessagesUninstallStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.uninstallStickerSet#f96e55de as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.uninstallStickerSet#f96e55de",
+		}
 	}
 	if u.Stickerset == nil {
-		return fmt.Errorf("unable to encode messages.uninstallStickerSet#f96e55de: field stickerset is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.uninstallStickerSet#f96e55de",
+			FieldName: "stickerset",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputStickerSet",
+			},
+		}
 	}
 	if err := u.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.uninstallStickerSet#f96e55de: field stickerset: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.uninstallStickerSet#f96e55de",
+			FieldName:  "stickerset",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -130,10 +149,16 @@ func (u *MessagesUninstallStickerSetRequest) GetStickerset() (value InputSticker
 // Decode implements bin.Decoder.
 func (u *MessagesUninstallStickerSetRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.uninstallStickerSet#f96e55de to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.uninstallStickerSet#f96e55de",
+		}
 	}
 	if err := b.ConsumeID(MessagesUninstallStickerSetRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.uninstallStickerSet#f96e55de: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.uninstallStickerSet#f96e55de",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -141,12 +166,20 @@ func (u *MessagesUninstallStickerSetRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *MessagesUninstallStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.uninstallStickerSet#f96e55de to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.uninstallStickerSet#f96e55de",
+		}
 	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.uninstallStickerSet#f96e55de: field stickerset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.uninstallStickerSet#f96e55de",
+				FieldName:  "stickerset",
+				Underlying: err,
+			}
 		}
 		u.Stickerset = value
 	}

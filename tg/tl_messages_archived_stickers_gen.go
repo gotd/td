@@ -113,7 +113,10 @@ func (a *MessagesArchivedStickers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *MessagesArchivedStickers) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.archivedStickers#4fcba9c8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.archivedStickers#4fcba9c8",
+		}
 	}
 	b.PutID(MessagesArchivedStickersTypeID)
 	return a.EncodeBare(b)
@@ -122,16 +125,39 @@ func (a *MessagesArchivedStickers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *MessagesArchivedStickers) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.archivedStickers#4fcba9c8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.archivedStickers#4fcba9c8",
+		}
 	}
 	b.PutInt(a.Count)
 	b.PutVectorHeader(len(a.Sets))
 	for idx, v := range a.Sets {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.archivedStickers#4fcba9c8: field sets element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.archivedStickers#4fcba9c8",
+				FieldName: "sets",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<StickerSetCovered>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.archivedStickers#4fcba9c8: field sets element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.archivedStickers#4fcba9c8",
+				FieldName: "sets",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -155,10 +181,16 @@ func (a *MessagesArchivedStickers) MapSets() (value StickerSetCoveredClassArray)
 // Decode implements bin.Decoder.
 func (a *MessagesArchivedStickers) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.archivedStickers#4fcba9c8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.archivedStickers#4fcba9c8",
+		}
 	}
 	if err := b.ConsumeID(MessagesArchivedStickersTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.archivedStickers#4fcba9c8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.archivedStickers#4fcba9c8",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -166,19 +198,32 @@ func (a *MessagesArchivedStickers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *MessagesArchivedStickers) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.archivedStickers#4fcba9c8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.archivedStickers#4fcba9c8",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.archivedStickers#4fcba9c8: field count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.archivedStickers#4fcba9c8",
+				FieldName:  "count",
+				Underlying: err,
+			}
 		}
 		a.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.archivedStickers#4fcba9c8: field sets: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.archivedStickers#4fcba9c8",
+				FieldName:  "sets",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -187,7 +232,12 @@ func (a *MessagesArchivedStickers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStickerSetCovered(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.archivedStickers#4fcba9c8: field sets: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.archivedStickers#4fcba9c8",
+					FieldName:  "sets",
+					Underlying: err,
+				}
 			}
 			a.Sets = append(a.Sets, value)
 		}

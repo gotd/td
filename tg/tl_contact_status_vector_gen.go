@@ -99,7 +99,10 @@ func (vec *ContactStatusVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *ContactStatusVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<ContactStatus> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<ContactStatus>",
+		}
 	}
 
 	return vec.EncodeBare(b)
@@ -108,12 +111,24 @@ func (vec *ContactStatusVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *ContactStatusVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<ContactStatus> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<ContactStatus>",
+		}
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<ContactStatus>: field Elems element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "Vector<ContactStatus>",
+				FieldName: "Elems",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -127,7 +142,10 @@ func (vec *ContactStatusVector) GetElems() (value []ContactStatus) {
 // Decode implements bin.Decoder.
 func (vec *ContactStatusVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<ContactStatus> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<ContactStatus>",
+		}
 	}
 
 	return vec.DecodeBare(b)
@@ -136,12 +154,20 @@ func (vec *ContactStatusVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *ContactStatusVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<ContactStatus> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<ContactStatus>",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<ContactStatus>: field Elems: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "Vector<ContactStatus>",
+				FieldName:  "Elems",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -150,7 +176,13 @@ func (vec *ContactStatusVector) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value ContactStatus
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode Vector<ContactStatus>: field Elems: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "Vector<ContactStatus>",
+					FieldName:  "Elems",
+					Underlying: err,
+				}
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

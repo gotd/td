@@ -122,7 +122,10 @@ func (d *DialogFilterSuggested) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DialogFilterSuggested) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialogFilterSuggested#77744d4a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "dialogFilterSuggested#77744d4a",
+		}
 	}
 	b.PutID(DialogFilterSuggestedTypeID)
 	return d.EncodeBare(b)
@@ -131,10 +134,18 @@ func (d *DialogFilterSuggested) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DialogFilterSuggested) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialogFilterSuggested#77744d4a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "dialogFilterSuggested#77744d4a",
+		}
 	}
 	if err := d.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dialogFilterSuggested#77744d4a: field filter: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "dialogFilterSuggested#77744d4a",
+			FieldName:  "filter",
+			Underlying: err,
+		}
 	}
 	b.PutString(d.Description)
 	return nil
@@ -153,10 +164,16 @@ func (d *DialogFilterSuggested) GetDescription() (value string) {
 // Decode implements bin.Decoder.
 func (d *DialogFilterSuggested) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialogFilterSuggested#77744d4a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "dialogFilterSuggested#77744d4a",
+		}
 	}
 	if err := b.ConsumeID(DialogFilterSuggestedTypeID); err != nil {
-		return fmt.Errorf("unable to decode dialogFilterSuggested#77744d4a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "dialogFilterSuggested#77744d4a",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -164,17 +181,30 @@ func (d *DialogFilterSuggested) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DialogFilterSuggested) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialogFilterSuggested#77744d4a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "dialogFilterSuggested#77744d4a",
+		}
 	}
 	{
 		if err := d.Filter.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialogFilterSuggested#77744d4a: field filter: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFilterSuggested#77744d4a",
+				FieldName:  "filter",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFilterSuggested#77744d4a: field description: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFilterSuggested#77744d4a",
+				FieldName:  "description",
+				Underlying: err,
+			}
 		}
 		d.Description = value
 	}

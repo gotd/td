@@ -121,7 +121,10 @@ func (f *FutureSalts) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *FutureSalts) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode future_salts#ae500895 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "future_salts#ae500895",
+		}
 	}
 	b.PutID(FutureSaltsTypeID)
 	return f.EncodeBare(b)
@@ -130,14 +133,26 @@ func (f *FutureSalts) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *FutureSalts) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode future_salts#ae500895 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "future_salts#ae500895",
+		}
 	}
 	b.PutLong(f.ReqMsgID)
 	b.PutInt(f.Now)
 	b.PutInt(len(f.Salts))
 	for idx, v := range f.Salts {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare future_salts#ae500895: field salts element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "future_salts#ae500895",
+				FieldName: "salts",
+				BareField: true,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -161,10 +176,16 @@ func (f *FutureSalts) GetSalts() (value []FutureSalt) {
 // Decode implements bin.Decoder.
 func (f *FutureSalts) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode future_salts#ae500895 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "future_salts#ae500895",
+		}
 	}
 	if err := b.ConsumeID(FutureSaltsTypeID); err != nil {
-		return fmt.Errorf("unable to decode future_salts#ae500895: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "future_salts#ae500895",
+			Underlying: err,
+		}
 	}
 	return f.DecodeBare(b)
 }
@@ -172,26 +193,44 @@ func (f *FutureSalts) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *FutureSalts) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode future_salts#ae500895 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "future_salts#ae500895",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode future_salts#ae500895: field req_msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "future_salts#ae500895",
+				FieldName:  "req_msg_id",
+				Underlying: err,
+			}
 		}
 		f.ReqMsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode future_salts#ae500895: field now: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "future_salts#ae500895",
+				FieldName:  "now",
+				Underlying: err,
+			}
 		}
 		f.Now = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode future_salts#ae500895: field salts: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "future_salts#ae500895",
+				FieldName:  "salts",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -200,7 +239,13 @@ func (f *FutureSalts) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value FutureSalt
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare future_salts#ae500895: field salts: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  true,
+					TypeName:   "future_salts#ae500895",
+					FieldName:  "salts",
+					Underlying: err,
+				}
 			}
 			f.Salts = append(f.Salts, value)
 		}

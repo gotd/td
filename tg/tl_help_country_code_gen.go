@@ -144,7 +144,10 @@ func (c *HelpCountryCode) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *HelpCountryCode) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode help.countryCode#4203c5ef as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.countryCode#4203c5ef",
+		}
 	}
 	b.PutID(HelpCountryCodeTypeID)
 	return c.EncodeBare(b)
@@ -153,7 +156,10 @@ func (c *HelpCountryCode) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *HelpCountryCode) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode help.countryCode#4203c5ef as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.countryCode#4203c5ef",
+		}
 	}
 	if !(c.Prefixes == nil) {
 		c.Flags.Set(0)
@@ -162,7 +168,12 @@ func (c *HelpCountryCode) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(1)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.countryCode#4203c5ef: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "help.countryCode#4203c5ef",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(c.CountryCode)
 	if c.Flags.Has(0) {
@@ -218,10 +229,16 @@ func (c *HelpCountryCode) GetPatterns() (value []string, ok bool) {
 // Decode implements bin.Decoder.
 func (c *HelpCountryCode) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode help.countryCode#4203c5ef to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.countryCode#4203c5ef",
+		}
 	}
 	if err := b.ConsumeID(HelpCountryCodeTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.countryCode#4203c5ef: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.countryCode#4203c5ef",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -229,24 +246,42 @@ func (c *HelpCountryCode) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *HelpCountryCode) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode help.countryCode#4203c5ef to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.countryCode#4203c5ef",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.countryCode#4203c5ef: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.countryCode#4203c5ef",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.countryCode#4203c5ef: field country_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.countryCode#4203c5ef",
+				FieldName:  "country_code",
+				Underlying: err,
+			}
 		}
 		c.CountryCode = value
 	}
 	if c.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.countryCode#4203c5ef: field prefixes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.countryCode#4203c5ef",
+				FieldName:  "prefixes",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -255,7 +290,12 @@ func (c *HelpCountryCode) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode help.countryCode#4203c5ef: field prefixes: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "help.countryCode#4203c5ef",
+					FieldName:  "prefixes",
+					Underlying: err,
+				}
 			}
 			c.Prefixes = append(c.Prefixes, value)
 		}
@@ -263,7 +303,12 @@ func (c *HelpCountryCode) DecodeBare(b *bin.Buffer) error {
 	if c.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.countryCode#4203c5ef: field patterns: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.countryCode#4203c5ef",
+				FieldName:  "patterns",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -272,7 +317,12 @@ func (c *HelpCountryCode) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode help.countryCode#4203c5ef: field patterns: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "help.countryCode#4203c5ef",
+					FieldName:  "patterns",
+					Underlying: err,
+				}
 			}
 			c.Patterns = append(c.Patterns, value)
 		}

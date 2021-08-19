@@ -260,7 +260,10 @@ func (d *Dialog) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *Dialog) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialog#2c171f72 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "dialog#2c171f72",
+		}
 	}
 	b.PutID(DialogTypeID)
 	return d.EncodeBare(b)
@@ -269,7 +272,10 @@ func (d *Dialog) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *Dialog) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialog#2c171f72 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "dialog#2c171f72",
+		}
 	}
 	if !(d.Pinned == false) {
 		d.Flags.Set(2)
@@ -287,13 +293,31 @@ func (d *Dialog) EncodeBare(b *bin.Buffer) error {
 		d.Flags.Set(4)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dialog#2c171f72: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "dialog#2c171f72",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if d.Peer == nil {
-		return fmt.Errorf("unable to encode dialog#2c171f72: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "dialog#2c171f72",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "Peer",
+			},
+		}
 	}
 	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dialog#2c171f72: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "dialog#2c171f72",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(d.TopMessage)
 	b.PutInt(d.ReadInboxMaxID)
@@ -301,17 +325,35 @@ func (d *Dialog) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(d.UnreadCount)
 	b.PutInt(d.UnreadMentionsCount)
 	if err := d.NotifySettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dialog#2c171f72: field notify_settings: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "dialog#2c171f72",
+			FieldName:  "notify_settings",
+			Underlying: err,
+		}
 	}
 	if d.Flags.Has(0) {
 		b.PutInt(d.Pts)
 	}
 	if d.Flags.Has(1) {
 		if d.Draft == nil {
-			return fmt.Errorf("unable to encode dialog#2c171f72: field draft is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "dialog#2c171f72",
+				FieldName: "draft",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "DraftMessage",
+				},
+			}
 		}
 		if err := d.Draft.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode dialog#2c171f72: field draft: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "dialog#2c171f72",
+				FieldName:  "draft",
+				Underlying: err,
+			}
 		}
 	}
 	if d.Flags.Has(4) {
@@ -435,10 +477,16 @@ func (d *Dialog) GetFolderID() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (d *Dialog) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialog#2c171f72 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "dialog#2c171f72",
+		}
 	}
 	if err := b.ConsumeID(DialogTypeID); err != nil {
-		return fmt.Errorf("unable to decode dialog#2c171f72: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "dialog#2c171f72",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -446,11 +494,19 @@ func (d *Dialog) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *Dialog) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialog#2c171f72 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "dialog#2c171f72",
+		}
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialog#2c171f72",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	d.Pinned = d.Flags.Has(2)
@@ -458,68 +514,118 @@ func (d *Dialog) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialog#2c171f72",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		d.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field top_message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialog#2c171f72",
+				FieldName:  "top_message",
+				Underlying: err,
+			}
 		}
 		d.TopMessage = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field read_inbox_max_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialog#2c171f72",
+				FieldName:  "read_inbox_max_id",
+				Underlying: err,
+			}
 		}
 		d.ReadInboxMaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field read_outbox_max_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialog#2c171f72",
+				FieldName:  "read_outbox_max_id",
+				Underlying: err,
+			}
 		}
 		d.ReadOutboxMaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field unread_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialog#2c171f72",
+				FieldName:  "unread_count",
+				Underlying: err,
+			}
 		}
 		d.UnreadCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field unread_mentions_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialog#2c171f72",
+				FieldName:  "unread_mentions_count",
+				Underlying: err,
+			}
 		}
 		d.UnreadMentionsCount = value
 	}
 	{
 		if err := d.NotifySettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field notify_settings: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialog#2c171f72",
+				FieldName:  "notify_settings",
+				Underlying: err,
+			}
 		}
 	}
 	if d.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field pts: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialog#2c171f72",
+				FieldName:  "pts",
+				Underlying: err,
+			}
 		}
 		d.Pts = value
 	}
 	if d.Flags.Has(1) {
 		value, err := DecodeDraftMessage(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field draft: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialog#2c171f72",
+				FieldName:  "draft",
+				Underlying: err,
+			}
 		}
 		d.Draft = value
 	}
 	if d.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field folder_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialog#2c171f72",
+				FieldName:  "folder_id",
+				Underlying: err,
+			}
 		}
 		d.FolderID = value
 	}
@@ -698,7 +804,10 @@ func (d *DialogFolder) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DialogFolder) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialogFolder#71bd134c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "dialogFolder#71bd134c",
+		}
 	}
 	b.PutID(DialogFolderTypeID)
 	return d.EncodeBare(b)
@@ -707,22 +816,48 @@ func (d *DialogFolder) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DialogFolder) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialogFolder#71bd134c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "dialogFolder#71bd134c",
+		}
 	}
 	if !(d.Pinned == false) {
 		d.Flags.Set(2)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dialogFolder#71bd134c: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "dialogFolder#71bd134c",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if err := d.Folder.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dialogFolder#71bd134c: field folder: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "dialogFolder#71bd134c",
+			FieldName:  "folder",
+			Underlying: err,
+		}
 	}
 	if d.Peer == nil {
-		return fmt.Errorf("unable to encode dialogFolder#71bd134c: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "dialogFolder#71bd134c",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "Peer",
+			},
+		}
 	}
 	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dialogFolder#71bd134c: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "dialogFolder#71bd134c",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(d.TopMessage)
 	b.PutInt(d.UnreadMutedPeersCount)
@@ -786,10 +921,16 @@ func (d *DialogFolder) GetUnreadUnmutedMessagesCount() (value int) {
 // Decode implements bin.Decoder.
 func (d *DialogFolder) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialogFolder#71bd134c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "dialogFolder#71bd134c",
+		}
 	}
 	if err := b.ConsumeID(DialogFolderTypeID); err != nil {
-		return fmt.Errorf("unable to decode dialogFolder#71bd134c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "dialogFolder#71bd134c",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -797,58 +938,101 @@ func (d *DialogFolder) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DialogFolder) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialogFolder#71bd134c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "dialogFolder#71bd134c",
+		}
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialogFolder#71bd134c: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFolder#71bd134c",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	d.Pinned = d.Flags.Has(2)
 	{
 		if err := d.Folder.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialogFolder#71bd134c: field folder: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFolder#71bd134c",
+				FieldName:  "folder",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFolder#71bd134c: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFolder#71bd134c",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		d.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFolder#71bd134c: field top_message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFolder#71bd134c",
+				FieldName:  "top_message",
+				Underlying: err,
+			}
 		}
 		d.TopMessage = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFolder#71bd134c: field unread_muted_peers_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFolder#71bd134c",
+				FieldName:  "unread_muted_peers_count",
+				Underlying: err,
+			}
 		}
 		d.UnreadMutedPeersCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFolder#71bd134c: field unread_unmuted_peers_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFolder#71bd134c",
+				FieldName:  "unread_unmuted_peers_count",
+				Underlying: err,
+			}
 		}
 		d.UnreadUnmutedPeersCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFolder#71bd134c: field unread_muted_messages_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFolder#71bd134c",
+				FieldName:  "unread_muted_messages_count",
+				Underlying: err,
+			}
 		}
 		d.UnreadMutedMessagesCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialogFolder#71bd134c: field unread_unmuted_messages_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "dialogFolder#71bd134c",
+				FieldName:  "unread_unmuted_messages_count",
+				Underlying: err,
+			}
 		}
 		d.UnreadUnmutedMessagesCount = value
 	}
@@ -931,18 +1115,27 @@ func DecodeDialog(buf *bin.Buffer) (DialogClass, error) {
 		// Decoding dialog#2c171f72.
 		v := Dialog{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DialogClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "DialogClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case DialogFolderTypeID:
 		// Decoding dialogFolder#71bd134c.
 		v := DialogFolder{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DialogClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "DialogClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode DialogClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "DialogClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -954,7 +1147,10 @@ type DialogBox struct {
 // Decode implements bin.Decoder for DialogBox.
 func (b *DialogBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode DialogBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "DialogBox",
+		}
 	}
 	v, err := DecodeDialog(buf)
 	if err != nil {
@@ -967,7 +1163,10 @@ func (b *DialogBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for DialogBox.
 func (b *DialogBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Dialog == nil {
-		return fmt.Errorf("unable to encode DialogClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "DialogBox",
+		}
 	}
 	return b.Dialog.Encode(buf)
 }

@@ -130,7 +130,10 @@ func (g *MessagesGetRecentLocationsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetRecentLocationsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getRecentLocations#bbc45b09 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getRecentLocations#bbc45b09",
+		}
 	}
 	b.PutID(MessagesGetRecentLocationsRequestTypeID)
 	return g.EncodeBare(b)
@@ -139,13 +142,29 @@ func (g *MessagesGetRecentLocationsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetRecentLocationsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getRecentLocations#bbc45b09 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getRecentLocations#bbc45b09",
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getRecentLocations#bbc45b09: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getRecentLocations#bbc45b09",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getRecentLocations#bbc45b09: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getRecentLocations#bbc45b09",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.Limit)
 	b.PutInt(g.Hash)
@@ -170,10 +189,16 @@ func (g *MessagesGetRecentLocationsRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetRecentLocationsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getRecentLocations#bbc45b09 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getRecentLocations#bbc45b09",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetRecentLocationsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getRecentLocations#bbc45b09: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getRecentLocations#bbc45b09",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -181,26 +206,44 @@ func (g *MessagesGetRecentLocationsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetRecentLocationsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getRecentLocations#bbc45b09 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getRecentLocations#bbc45b09",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getRecentLocations#bbc45b09: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getRecentLocations#bbc45b09",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getRecentLocations#bbc45b09: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getRecentLocations#bbc45b09",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getRecentLocations#bbc45b09: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getRecentLocations#bbc45b09",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		g.Hash = value
 	}

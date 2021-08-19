@@ -124,7 +124,10 @@ func (s *MessagesSendScreenshotNotificationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSendScreenshotNotificationRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendScreenshotNotification#c97df020 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.sendScreenshotNotification#c97df020",
+		}
 	}
 	b.PutID(MessagesSendScreenshotNotificationRequestTypeID)
 	return s.EncodeBare(b)
@@ -133,13 +136,29 @@ func (s *MessagesSendScreenshotNotificationRequest) Encode(b *bin.Buffer) error 
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendScreenshotNotificationRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendScreenshotNotification#c97df020 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.sendScreenshotNotification#c97df020",
+		}
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendScreenshotNotification#c97df020: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.sendScreenshotNotification#c97df020",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendScreenshotNotification#c97df020: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.sendScreenshotNotification#c97df020",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(s.ReplyToMsgID)
 	b.PutLong(s.RandomID)
@@ -164,10 +183,16 @@ func (s *MessagesSendScreenshotNotificationRequest) GetRandomID() (value int64) 
 // Decode implements bin.Decoder.
 func (s *MessagesSendScreenshotNotificationRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendScreenshotNotification#c97df020 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.sendScreenshotNotification#c97df020",
+		}
 	}
 	if err := b.ConsumeID(MessagesSendScreenshotNotificationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendScreenshotNotification#c97df020: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.sendScreenshotNotification#c97df020",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -175,26 +200,44 @@ func (s *MessagesSendScreenshotNotificationRequest) Decode(b *bin.Buffer) error 
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendScreenshotNotificationRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendScreenshotNotification#c97df020 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.sendScreenshotNotification#c97df020",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendScreenshotNotification#c97df020: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.sendScreenshotNotification#c97df020",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendScreenshotNotification#c97df020: field reply_to_msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.sendScreenshotNotification#c97df020",
+				FieldName:  "reply_to_msg_id",
+				Underlying: err,
+			}
 		}
 		s.ReplyToMsgID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendScreenshotNotification#c97df020: field random_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.sendScreenshotNotification#c97df020",
+				FieldName:  "random_id",
+				Underlying: err,
+			}
 		}
 		s.RandomID = value
 	}

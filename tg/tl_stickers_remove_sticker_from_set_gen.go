@@ -103,7 +103,10 @@ func (r *StickersRemoveStickerFromSetRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *StickersRemoveStickerFromSetRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode stickers.removeStickerFromSet#f7760f51 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stickers.removeStickerFromSet#f7760f51",
+		}
 	}
 	b.PutID(StickersRemoveStickerFromSetRequestTypeID)
 	return r.EncodeBare(b)
@@ -112,13 +115,29 @@ func (r *StickersRemoveStickerFromSetRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *StickersRemoveStickerFromSetRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode stickers.removeStickerFromSet#f7760f51 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stickers.removeStickerFromSet#f7760f51",
+		}
 	}
 	if r.Sticker == nil {
-		return fmt.Errorf("unable to encode stickers.removeStickerFromSet#f7760f51: field sticker is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stickers.removeStickerFromSet#f7760f51",
+			FieldName: "sticker",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputDocument",
+			},
+		}
 	}
 	if err := r.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickers.removeStickerFromSet#f7760f51: field sticker: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stickers.removeStickerFromSet#f7760f51",
+			FieldName:  "sticker",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -136,10 +155,16 @@ func (r *StickersRemoveStickerFromSetRequest) GetStickerAsNotEmpty() (*InputDocu
 // Decode implements bin.Decoder.
 func (r *StickersRemoveStickerFromSetRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode stickers.removeStickerFromSet#f7760f51 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stickers.removeStickerFromSet#f7760f51",
+		}
 	}
 	if err := b.ConsumeID(StickersRemoveStickerFromSetRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickers.removeStickerFromSet#f7760f51: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "stickers.removeStickerFromSet#f7760f51",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -147,12 +172,20 @@ func (r *StickersRemoveStickerFromSetRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *StickersRemoveStickerFromSetRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode stickers.removeStickerFromSet#f7760f51 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stickers.removeStickerFromSet#f7760f51",
+		}
 	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.removeStickerFromSet#f7760f51: field sticker: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stickers.removeStickerFromSet#f7760f51",
+				FieldName:  "sticker",
+				Underlying: err,
+			}
 		}
 		r.Sticker = value
 	}

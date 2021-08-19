@@ -108,7 +108,10 @@ func (g *ChannelsGetLeftChannelsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ChannelsGetLeftChannelsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getLeftChannels#8341ecc0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.getLeftChannels#8341ecc0",
+		}
 	}
 	b.PutID(ChannelsGetLeftChannelsRequestTypeID)
 	return g.EncodeBare(b)
@@ -117,7 +120,10 @@ func (g *ChannelsGetLeftChannelsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ChannelsGetLeftChannelsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getLeftChannels#8341ecc0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.getLeftChannels#8341ecc0",
+		}
 	}
 	b.PutInt(g.Offset)
 	return nil
@@ -131,10 +137,16 @@ func (g *ChannelsGetLeftChannelsRequest) GetOffset() (value int) {
 // Decode implements bin.Decoder.
 func (g *ChannelsGetLeftChannelsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getLeftChannels#8341ecc0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.getLeftChannels#8341ecc0",
+		}
 	}
 	if err := b.ConsumeID(ChannelsGetLeftChannelsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.getLeftChannels#8341ecc0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.getLeftChannels#8341ecc0",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -142,12 +154,20 @@ func (g *ChannelsGetLeftChannelsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ChannelsGetLeftChannelsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getLeftChannels#8341ecc0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.getLeftChannels#8341ecc0",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getLeftChannels#8341ecc0: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.getLeftChannels#8341ecc0",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		g.Offset = value
 	}

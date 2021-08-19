@@ -344,7 +344,10 @@ func (c *ChannelAdminLogEventsFilter) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventsFilter) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelAdminLogEventsFilter#ea107ae4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channelAdminLogEventsFilter#ea107ae4",
+		}
 	}
 	b.PutID(ChannelAdminLogEventsFilterTypeID)
 	return c.EncodeBare(b)
@@ -353,7 +356,10 @@ func (c *ChannelAdminLogEventsFilter) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelAdminLogEventsFilter) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelAdminLogEventsFilter#ea107ae4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channelAdminLogEventsFilter#ea107ae4",
+		}
 	}
 	if !(c.Join == false) {
 		c.Flags.Set(0)
@@ -404,7 +410,12 @@ func (c *ChannelAdminLogEventsFilter) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(15)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channelAdminLogEventsFilter#ea107ae4: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channelAdminLogEventsFilter#ea107ae4",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -668,10 +679,16 @@ func (c *ChannelAdminLogEventsFilter) GetInvites() (value bool) {
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventsFilter) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelAdminLogEventsFilter#ea107ae4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channelAdminLogEventsFilter#ea107ae4",
+		}
 	}
 	if err := b.ConsumeID(ChannelAdminLogEventsFilterTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelAdminLogEventsFilter#ea107ae4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channelAdminLogEventsFilter#ea107ae4",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -679,11 +696,19 @@ func (c *ChannelAdminLogEventsFilter) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelAdminLogEventsFilter) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelAdminLogEventsFilter#ea107ae4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channelAdminLogEventsFilter#ea107ae4",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelAdminLogEventsFilter#ea107ae4: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channelAdminLogEventsFilter#ea107ae4",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	c.Join = c.Flags.Has(0)

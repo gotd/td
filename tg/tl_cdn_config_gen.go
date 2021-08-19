@@ -108,7 +108,10 @@ func (c *CDNConfig) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CDNConfig) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode cdnConfig#5725e40a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "cdnConfig#5725e40a",
+		}
 	}
 	b.PutID(CDNConfigTypeID)
 	return c.EncodeBare(b)
@@ -117,12 +120,24 @@ func (c *CDNConfig) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CDNConfig) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode cdnConfig#5725e40a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "cdnConfig#5725e40a",
+		}
 	}
 	b.PutVectorHeader(len(c.PublicKeys))
 	for idx, v := range c.PublicKeys {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode cdnConfig#5725e40a: field public_keys element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "cdnConfig#5725e40a",
+				FieldName: "public_keys",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -136,10 +151,16 @@ func (c *CDNConfig) GetPublicKeys() (value []CDNPublicKey) {
 // Decode implements bin.Decoder.
 func (c *CDNConfig) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode cdnConfig#5725e40a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "cdnConfig#5725e40a",
+		}
 	}
 	if err := b.ConsumeID(CDNConfigTypeID); err != nil {
-		return fmt.Errorf("unable to decode cdnConfig#5725e40a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "cdnConfig#5725e40a",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -147,12 +168,20 @@ func (c *CDNConfig) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CDNConfig) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode cdnConfig#5725e40a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "cdnConfig#5725e40a",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode cdnConfig#5725e40a: field public_keys: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "cdnConfig#5725e40a",
+				FieldName:  "public_keys",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -161,7 +190,13 @@ func (c *CDNConfig) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value CDNPublicKey
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode cdnConfig#5725e40a: field public_keys: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "cdnConfig#5725e40a",
+					FieldName:  "public_keys",
+					Underlying: err,
+				}
 			}
 			c.PublicKeys = append(c.PublicKeys, value)
 		}

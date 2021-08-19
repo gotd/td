@@ -116,7 +116,10 @@ func (c *ChannelsCheckUsernameRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelsCheckUsernameRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.checkUsername#10e6bd2c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.checkUsername#10e6bd2c",
+		}
 	}
 	b.PutID(ChannelsCheckUsernameRequestTypeID)
 	return c.EncodeBare(b)
@@ -125,13 +128,29 @@ func (c *ChannelsCheckUsernameRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelsCheckUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.checkUsername#10e6bd2c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.checkUsername#10e6bd2c",
+		}
 	}
 	if c.Channel == nil {
-		return fmt.Errorf("unable to encode channels.checkUsername#10e6bd2c: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.checkUsername#10e6bd2c",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := c.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.checkUsername#10e6bd2c: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.checkUsername#10e6bd2c",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	b.PutString(c.Username)
 	return nil
@@ -155,10 +174,16 @@ func (c *ChannelsCheckUsernameRequest) GetUsername() (value string) {
 // Decode implements bin.Decoder.
 func (c *ChannelsCheckUsernameRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.checkUsername#10e6bd2c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.checkUsername#10e6bd2c",
+		}
 	}
 	if err := b.ConsumeID(ChannelsCheckUsernameRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.checkUsername#10e6bd2c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.checkUsername#10e6bd2c",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -166,19 +191,32 @@ func (c *ChannelsCheckUsernameRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelsCheckUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.checkUsername#10e6bd2c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.checkUsername#10e6bd2c",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.checkUsername#10e6bd2c: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.checkUsername#10e6bd2c",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		c.Channel = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.checkUsername#10e6bd2c: field username: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.checkUsername#10e6bd2c",
+				FieldName:  "username",
+				Underlying: err,
+			}
 		}
 		c.Username = value
 	}

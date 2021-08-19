@@ -155,7 +155,10 @@ func (d *PhoneDiscardCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *PhoneDiscardCallRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode phone.discardCall#b2cbc1c0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.discardCall#b2cbc1c0",
+		}
 	}
 	b.PutID(PhoneDiscardCallRequestTypeID)
 	return d.EncodeBare(b)
@@ -164,23 +167,49 @@ func (d *PhoneDiscardCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *PhoneDiscardCallRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode phone.discardCall#b2cbc1c0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.discardCall#b2cbc1c0",
+		}
 	}
 	if !(d.Video == false) {
 		d.Flags.Set(0)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.discardCall#b2cbc1c0: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.discardCall#b2cbc1c0",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.discardCall#b2cbc1c0: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.discardCall#b2cbc1c0",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(d.Duration)
 	if d.Reason == nil {
-		return fmt.Errorf("unable to encode phone.discardCall#b2cbc1c0: field reason is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "phone.discardCall#b2cbc1c0",
+			FieldName: "reason",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "PhoneCallDiscardReason",
+			},
+		}
 	}
 	if err := d.Reason.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.discardCall#b2cbc1c0: field reason: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.discardCall#b2cbc1c0",
+			FieldName:  "reason",
+			Underlying: err,
+		}
 	}
 	b.PutLong(d.ConnectionID)
 	return nil
@@ -225,10 +254,16 @@ func (d *PhoneDiscardCallRequest) GetConnectionID() (value int64) {
 // Decode implements bin.Decoder.
 func (d *PhoneDiscardCallRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode phone.discardCall#b2cbc1c0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.discardCall#b2cbc1c0",
+		}
 	}
 	if err := b.ConsumeID(PhoneDiscardCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.discardCall#b2cbc1c0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.discardCall#b2cbc1c0",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -236,37 +271,65 @@ func (d *PhoneDiscardCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *PhoneDiscardCallRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode phone.discardCall#b2cbc1c0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.discardCall#b2cbc1c0",
+		}
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.discardCall#b2cbc1c0: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.discardCall#b2cbc1c0",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	d.Video = d.Flags.Has(0)
 	{
 		if err := d.Peer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.discardCall#b2cbc1c0: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.discardCall#b2cbc1c0",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.discardCall#b2cbc1c0: field duration: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.discardCall#b2cbc1c0",
+				FieldName:  "duration",
+				Underlying: err,
+			}
 		}
 		d.Duration = value
 	}
 	{
 		value, err := DecodePhoneCallDiscardReason(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.discardCall#b2cbc1c0: field reason: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.discardCall#b2cbc1c0",
+				FieldName:  "reason",
+				Underlying: err,
+			}
 		}
 		d.Reason = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.discardCall#b2cbc1c0: field connection_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.discardCall#b2cbc1c0",
+				FieldName:  "connection_id",
+				Underlying: err,
+			}
 		}
 		d.ConnectionID = value
 	}

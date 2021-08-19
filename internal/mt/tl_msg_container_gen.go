@@ -99,7 +99,10 @@ func (m *MsgContainer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MsgContainer) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msg_container#73f1f8dc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "msg_container#73f1f8dc",
+		}
 	}
 	b.PutID(MsgContainerTypeID)
 	return m.EncodeBare(b)
@@ -108,12 +111,24 @@ func (m *MsgContainer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MsgContainer) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode msg_container#73f1f8dc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "msg_container#73f1f8dc",
+		}
 	}
 	b.PutInt(len(m.Messages))
 	for idx, v := range m.Messages {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare msg_container#73f1f8dc: field messages element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "msg_container#73f1f8dc",
+				FieldName: "messages",
+				BareField: true,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -127,10 +142,16 @@ func (m *MsgContainer) GetMessages() (value []Message) {
 // Decode implements bin.Decoder.
 func (m *MsgContainer) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msg_container#73f1f8dc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "msg_container#73f1f8dc",
+		}
 	}
 	if err := b.ConsumeID(MsgContainerTypeID); err != nil {
-		return fmt.Errorf("unable to decode msg_container#73f1f8dc: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "msg_container#73f1f8dc",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -138,12 +159,20 @@ func (m *MsgContainer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MsgContainer) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode msg_container#73f1f8dc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "msg_container#73f1f8dc",
+		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode msg_container#73f1f8dc: field messages: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "msg_container#73f1f8dc",
+				FieldName:  "messages",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -152,7 +181,13 @@ func (m *MsgContainer) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value Message
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare msg_container#73f1f8dc: field messages: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  true,
+					TypeName:   "msg_container#73f1f8dc",
+					FieldName:  "messages",
+					Underlying: err,
+				}
 			}
 			m.Messages = append(m.Messages, value)
 		}

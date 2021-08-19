@@ -102,7 +102,10 @@ func (d *DocumentEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DocumentEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode documentEmpty#36f8c871 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "documentEmpty#36f8c871",
+		}
 	}
 	b.PutID(DocumentEmptyTypeID)
 	return d.EncodeBare(b)
@@ -111,7 +114,10 @@ func (d *DocumentEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DocumentEmpty) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode documentEmpty#36f8c871 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "documentEmpty#36f8c871",
+		}
 	}
 	b.PutLong(d.ID)
 	return nil
@@ -125,10 +131,16 @@ func (d *DocumentEmpty) GetID() (value int64) {
 // Decode implements bin.Decoder.
 func (d *DocumentEmpty) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode documentEmpty#36f8c871 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "documentEmpty#36f8c871",
+		}
 	}
 	if err := b.ConsumeID(DocumentEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode documentEmpty#36f8c871: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "documentEmpty#36f8c871",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (d *DocumentEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DocumentEmpty) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode documentEmpty#36f8c871 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "documentEmpty#36f8c871",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode documentEmpty#36f8c871: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "documentEmpty#36f8c871",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		d.ID = value
 	}
@@ -356,7 +376,10 @@ func (d *Document) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *Document) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode document#1e87342b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "document#1e87342b",
+		}
 	}
 	b.PutID(DocumentTypeID)
 	return d.EncodeBare(b)
@@ -365,7 +388,10 @@ func (d *Document) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *Document) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode document#1e87342b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "document#1e87342b",
+		}
 	}
 	if !(d.Thumbs == nil) {
 		d.Flags.Set(0)
@@ -374,7 +400,12 @@ func (d *Document) EncodeBare(b *bin.Buffer) error {
 		d.Flags.Set(1)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode document#1e87342b: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "document#1e87342b",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutLong(d.ID)
 	b.PutLong(d.AccessHash)
@@ -386,10 +417,30 @@ func (d *Document) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(d.Thumbs))
 		for idx, v := range d.Thumbs {
 			if v == nil {
-				return fmt.Errorf("unable to encode document#1e87342b: field thumbs element with index %d is nil", idx)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "document#1e87342b",
+					FieldName: "thumbs",
+					Underlying: &bin.IndexError{
+						Index: idx,
+						Underlying: &bin.NilError{
+							Action:   "encode",
+							TypeName: "Vector<PhotoSize>",
+						},
+					},
+				}
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode document#1e87342b: field thumbs element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "document#1e87342b",
+					FieldName: "thumbs",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
@@ -397,7 +448,16 @@ func (d *Document) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(d.VideoThumbs))
 		for idx, v := range d.VideoThumbs {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode document#1e87342b: field video_thumbs element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "document#1e87342b",
+					FieldName: "video_thumbs",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
@@ -405,10 +465,30 @@ func (d *Document) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(d.Attributes))
 	for idx, v := range d.Attributes {
 		if v == nil {
-			return fmt.Errorf("unable to encode document#1e87342b: field attributes element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "document#1e87342b",
+				FieldName: "attributes",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<DocumentAttribute>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode document#1e87342b: field attributes element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "document#1e87342b",
+				FieldName: "attributes",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -500,10 +580,16 @@ func (d *Document) MapAttributes() (value DocumentAttributeClassArray) {
 // Decode implements bin.Decoder.
 func (d *Document) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode document#1e87342b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "document#1e87342b",
+		}
 	}
 	if err := b.ConsumeID(DocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode document#1e87342b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "document#1e87342b",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -511,59 +597,102 @@ func (d *Document) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *Document) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode document#1e87342b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "document#1e87342b",
+		}
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "document#1e87342b",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "document#1e87342b",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		d.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "document#1e87342b",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		d.AccessHash = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field file_reference: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "document#1e87342b",
+				FieldName:  "file_reference",
+				Underlying: err,
+			}
 		}
 		d.FileReference = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "document#1e87342b",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		d.Date = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field mime_type: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "document#1e87342b",
+				FieldName:  "mime_type",
+				Underlying: err,
+			}
 		}
 		d.MimeType = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field size: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "document#1e87342b",
+				FieldName:  "size",
+				Underlying: err,
+			}
 		}
 		d.Size = value
 	}
 	if d.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field thumbs: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "document#1e87342b",
+				FieldName:  "thumbs",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -572,7 +701,12 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePhotoSize(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode document#1e87342b: field thumbs: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "document#1e87342b",
+					FieldName:  "thumbs",
+					Underlying: err,
+				}
 			}
 			d.Thumbs = append(d.Thumbs, value)
 		}
@@ -580,7 +714,12 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 	if d.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field video_thumbs: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "document#1e87342b",
+				FieldName:  "video_thumbs",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -589,7 +728,13 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value VideoSize
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode document#1e87342b: field video_thumbs: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "document#1e87342b",
+					FieldName:  "video_thumbs",
+					Underlying: err,
+				}
 			}
 			d.VideoThumbs = append(d.VideoThumbs, value)
 		}
@@ -597,14 +742,24 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field dc_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "document#1e87342b",
+				FieldName:  "dc_id",
+				Underlying: err,
+			}
 		}
 		d.DCID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field attributes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "document#1e87342b",
+				FieldName:  "attributes",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -613,7 +768,12 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode document#1e87342b: field attributes: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "document#1e87342b",
+					FieldName:  "attributes",
+					Underlying: err,
+				}
 			}
 			d.Attributes = append(d.Attributes, value)
 		}
@@ -714,18 +874,27 @@ func DecodeDocument(buf *bin.Buffer) (DocumentClass, error) {
 		// Decoding documentEmpty#36f8c871.
 		v := DocumentEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DocumentClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "DocumentClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case DocumentTypeID:
 		// Decoding document#1e87342b.
 		v := Document{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DocumentClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "DocumentClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode DocumentClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "DocumentClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -737,7 +906,10 @@ type DocumentBox struct {
 // Decode implements bin.Decoder for DocumentBox.
 func (b *DocumentBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode DocumentBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "DocumentBox",
+		}
 	}
 	v, err := DecodeDocument(buf)
 	if err != nil {
@@ -750,7 +922,10 @@ func (b *DocumentBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for DocumentBox.
 func (b *DocumentBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Document == nil {
-		return fmt.Errorf("unable to encode DocumentClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "DocumentBox",
+		}
 	}
 	return b.Document.Encode(buf)
 }

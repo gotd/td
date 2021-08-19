@@ -127,7 +127,10 @@ func (e *HelpEditUserInfoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *HelpEditUserInfoRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode help.editUserInfo#66b91b70 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.editUserInfo#66b91b70",
+		}
 	}
 	b.PutID(HelpEditUserInfoRequestTypeID)
 	return e.EncodeBare(b)
@@ -136,22 +139,58 @@ func (e *HelpEditUserInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *HelpEditUserInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode help.editUserInfo#66b91b70 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.editUserInfo#66b91b70",
+		}
 	}
 	if e.UserID == nil {
-		return fmt.Errorf("unable to encode help.editUserInfo#66b91b70: field user_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "help.editUserInfo#66b91b70",
+			FieldName: "user_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := e.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.editUserInfo#66b91b70: field user_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "help.editUserInfo#66b91b70",
+			FieldName:  "user_id",
+			Underlying: err,
+		}
 	}
 	b.PutString(e.Message)
 	b.PutVectorHeader(len(e.Entities))
 	for idx, v := range e.Entities {
 		if v == nil {
-			return fmt.Errorf("unable to encode help.editUserInfo#66b91b70: field entities element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.editUserInfo#66b91b70",
+				FieldName: "entities",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<MessageEntity>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.editUserInfo#66b91b70: field entities element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.editUserInfo#66b91b70",
+				FieldName: "entities",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -180,10 +219,16 @@ func (e *HelpEditUserInfoRequest) MapEntities() (value MessageEntityClassArray) 
 // Decode implements bin.Decoder.
 func (e *HelpEditUserInfoRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode help.editUserInfo#66b91b70 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.editUserInfo#66b91b70",
+		}
 	}
 	if err := b.ConsumeID(HelpEditUserInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.editUserInfo#66b91b70: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.editUserInfo#66b91b70",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -191,26 +236,44 @@ func (e *HelpEditUserInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *HelpEditUserInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode help.editUserInfo#66b91b70 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.editUserInfo#66b91b70",
+		}
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode help.editUserInfo#66b91b70: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.editUserInfo#66b91b70",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		e.UserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.editUserInfo#66b91b70: field message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.editUserInfo#66b91b70",
+				FieldName:  "message",
+				Underlying: err,
+			}
 		}
 		e.Message = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.editUserInfo#66b91b70: field entities: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.editUserInfo#66b91b70",
+				FieldName:  "entities",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -219,7 +282,12 @@ func (e *HelpEditUserInfoRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.editUserInfo#66b91b70: field entities: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "help.editUserInfo#66b91b70",
+					FieldName:  "entities",
+					Underlying: err,
+				}
 			}
 			e.Entities = append(e.Entities, value)
 		}

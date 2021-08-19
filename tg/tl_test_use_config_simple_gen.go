@@ -84,7 +84,10 @@ func (u *TestUseConfigSimpleRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *TestUseConfigSimpleRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode test.useConfigSimple#f9b7b23d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "test.useConfigSimple#f9b7b23d",
+		}
 	}
 	b.PutID(TestUseConfigSimpleRequestTypeID)
 	return u.EncodeBare(b)
@@ -93,7 +96,10 @@ func (u *TestUseConfigSimpleRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *TestUseConfigSimpleRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode test.useConfigSimple#f9b7b23d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "test.useConfigSimple#f9b7b23d",
+		}
 	}
 	return nil
 }
@@ -101,10 +107,16 @@ func (u *TestUseConfigSimpleRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *TestUseConfigSimpleRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode test.useConfigSimple#f9b7b23d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "test.useConfigSimple#f9b7b23d",
+		}
 	}
 	if err := b.ConsumeID(TestUseConfigSimpleRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode test.useConfigSimple#f9b7b23d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "test.useConfigSimple#f9b7b23d",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -112,7 +124,10 @@ func (u *TestUseConfigSimpleRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *TestUseConfigSimpleRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode test.useConfigSimple#f9b7b23d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "test.useConfigSimple#f9b7b23d",
+		}
 	}
 	return nil
 }

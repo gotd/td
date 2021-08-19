@@ -113,7 +113,10 @@ func (i *InputWebFileLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputWebFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWebFileLocation#c239d686 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputWebFileLocation#c239d686",
+		}
 	}
 	b.PutID(InputWebFileLocationTypeID)
 	return i.EncodeBare(b)
@@ -122,7 +125,10 @@ func (i *InputWebFileLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputWebFileLocation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWebFileLocation#c239d686 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputWebFileLocation#c239d686",
+		}
 	}
 	b.PutString(i.URL)
 	b.PutLong(i.AccessHash)
@@ -142,10 +148,16 @@ func (i *InputWebFileLocation) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputWebFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWebFileLocation#c239d686 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputWebFileLocation#c239d686",
+		}
 	}
 	if err := b.ConsumeID(InputWebFileLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputWebFileLocation#c239d686: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputWebFileLocation#c239d686",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (i *InputWebFileLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputWebFileLocation) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWebFileLocation#c239d686 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputWebFileLocation#c239d686",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWebFileLocation#c239d686: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputWebFileLocation#c239d686",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		i.URL = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWebFileLocation#c239d686: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputWebFileLocation#c239d686",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}
@@ -313,7 +338,10 @@ func (i *InputWebFileGeoPointLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputWebFileGeoPointLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWebFileGeoPointLocation#9f2221c9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputWebFileGeoPointLocation#9f2221c9",
+		}
 	}
 	b.PutID(InputWebFileGeoPointLocationTypeID)
 	return i.EncodeBare(b)
@@ -322,13 +350,29 @@ func (i *InputWebFileGeoPointLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputWebFileGeoPointLocation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputWebFileGeoPointLocation#9f2221c9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputWebFileGeoPointLocation#9f2221c9",
+		}
 	}
 	if i.GeoPoint == nil {
-		return fmt.Errorf("unable to encode inputWebFileGeoPointLocation#9f2221c9: field geo_point is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "inputWebFileGeoPointLocation#9f2221c9",
+			FieldName: "geo_point",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputGeoPoint",
+			},
+		}
 	}
 	if err := i.GeoPoint.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputWebFileGeoPointLocation#9f2221c9: field geo_point: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputWebFileGeoPointLocation#9f2221c9",
+			FieldName:  "geo_point",
+			Underlying: err,
+		}
 	}
 	b.PutLong(i.AccessHash)
 	b.PutInt(i.W)
@@ -371,10 +415,16 @@ func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
 // Decode implements bin.Decoder.
 func (i *InputWebFileGeoPointLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWebFileGeoPointLocation#9f2221c9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputWebFileGeoPointLocation#9f2221c9",
+		}
 	}
 	if err := b.ConsumeID(InputWebFileGeoPointLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputWebFileGeoPointLocation#9f2221c9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputWebFileGeoPointLocation#9f2221c9",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -382,47 +432,80 @@ func (i *InputWebFileGeoPointLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputWebFileGeoPointLocation) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputWebFileGeoPointLocation#9f2221c9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputWebFileGeoPointLocation#9f2221c9",
+		}
 	}
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWebFileGeoPointLocation#9f2221c9: field geo_point: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputWebFileGeoPointLocation#9f2221c9",
+				FieldName:  "geo_point",
+				Underlying: err,
+			}
 		}
 		i.GeoPoint = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWebFileGeoPointLocation#9f2221c9: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputWebFileGeoPointLocation#9f2221c9",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWebFileGeoPointLocation#9f2221c9: field w: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputWebFileGeoPointLocation#9f2221c9",
+				FieldName:  "w",
+				Underlying: err,
+			}
 		}
 		i.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWebFileGeoPointLocation#9f2221c9: field h: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputWebFileGeoPointLocation#9f2221c9",
+				FieldName:  "h",
+				Underlying: err,
+			}
 		}
 		i.H = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWebFileGeoPointLocation#9f2221c9: field zoom: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputWebFileGeoPointLocation#9f2221c9",
+				FieldName:  "zoom",
+				Underlying: err,
+			}
 		}
 		i.Zoom = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputWebFileGeoPointLocation#9f2221c9: field scale: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputWebFileGeoPointLocation#9f2221c9",
+				FieldName:  "scale",
+				Underlying: err,
+			}
 		}
 		i.Scale = value
 	}
@@ -489,18 +572,27 @@ func DecodeInputWebFileLocation(buf *bin.Buffer) (InputWebFileLocationClass, err
 		// Decoding inputWebFileLocation#c239d686.
 		v := InputWebFileLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputWebFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputWebFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputWebFileGeoPointLocationTypeID:
 		// Decoding inputWebFileGeoPointLocation#9f2221c9.
 		v := InputWebFileGeoPointLocation{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputWebFileLocationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputWebFileLocationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputWebFileLocationClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "InputWebFileLocationClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -512,7 +604,10 @@ type InputWebFileLocationBox struct {
 // Decode implements bin.Decoder for InputWebFileLocationBox.
 func (b *InputWebFileLocationBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputWebFileLocationBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "InputWebFileLocationBox",
+		}
 	}
 	v, err := DecodeInputWebFileLocation(buf)
 	if err != nil {
@@ -525,7 +620,10 @@ func (b *InputWebFileLocationBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputWebFileLocationBox.
 func (b *InputWebFileLocationBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputWebFileLocation == nil {
-		return fmt.Errorf("unable to encode InputWebFileLocationClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "InputWebFileLocationBox",
+		}
 	}
 	return b.InputWebFileLocation.Encode(buf)
 }

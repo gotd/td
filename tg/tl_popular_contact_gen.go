@@ -113,7 +113,10 @@ func (p *PopularContact) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PopularContact) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode popularContact#5ce14175 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "popularContact#5ce14175",
+		}
 	}
 	b.PutID(PopularContactTypeID)
 	return p.EncodeBare(b)
@@ -122,7 +125,10 @@ func (p *PopularContact) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PopularContact) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode popularContact#5ce14175 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "popularContact#5ce14175",
+		}
 	}
 	b.PutLong(p.ClientID)
 	b.PutInt(p.Importers)
@@ -142,10 +148,16 @@ func (p *PopularContact) GetImporters() (value int) {
 // Decode implements bin.Decoder.
 func (p *PopularContact) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode popularContact#5ce14175 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "popularContact#5ce14175",
+		}
 	}
 	if err := b.ConsumeID(PopularContactTypeID); err != nil {
-		return fmt.Errorf("unable to decode popularContact#5ce14175: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "popularContact#5ce14175",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (p *PopularContact) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PopularContact) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode popularContact#5ce14175 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "popularContact#5ce14175",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode popularContact#5ce14175: field client_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "popularContact#5ce14175",
+				FieldName:  "client_id",
+				Underlying: err,
+			}
 		}
 		p.ClientID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode popularContact#5ce14175: field importers: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "popularContact#5ce14175",
+				FieldName:  "importers",
+				Underlying: err,
+			}
 		}
 		p.Importers = value
 	}

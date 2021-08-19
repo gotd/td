@@ -152,7 +152,10 @@ func (u *AccountUploadThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUploadThemeRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.uploadTheme#1c3db333 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.uploadTheme#1c3db333",
+		}
 	}
 	b.PutID(AccountUploadThemeRequestTypeID)
 	return u.EncodeBare(b)
@@ -161,26 +164,60 @@ func (u *AccountUploadThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUploadThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.uploadTheme#1c3db333 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.uploadTheme#1c3db333",
+		}
 	}
 	if !(u.Thumb == nil) {
 		u.Flags.Set(0)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.uploadTheme#1c3db333: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.uploadTheme#1c3db333",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if u.File == nil {
-		return fmt.Errorf("unable to encode account.uploadTheme#1c3db333: field file is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.uploadTheme#1c3db333",
+			FieldName: "file",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputFile",
+			},
+		}
 	}
 	if err := u.File.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.uploadTheme#1c3db333: field file: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.uploadTheme#1c3db333",
+			FieldName:  "file",
+			Underlying: err,
+		}
 	}
 	if u.Flags.Has(0) {
 		if u.Thumb == nil {
-			return fmt.Errorf("unable to encode account.uploadTheme#1c3db333: field thumb is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.uploadTheme#1c3db333",
+				FieldName: "thumb",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputFile",
+				},
+			}
 		}
 		if err := u.Thumb.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.uploadTheme#1c3db333: field thumb: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "account.uploadTheme#1c3db333",
+				FieldName:  "thumb",
+				Underlying: err,
+			}
 		}
 	}
 	b.PutString(u.FileName)
@@ -221,10 +258,16 @@ func (u *AccountUploadThemeRequest) GetMimeType() (value string) {
 // Decode implements bin.Decoder.
 func (u *AccountUploadThemeRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.uploadTheme#1c3db333 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.uploadTheme#1c3db333",
+		}
 	}
 	if err := b.ConsumeID(AccountUploadThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.uploadTheme#1c3db333",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -232,38 +275,66 @@ func (u *AccountUploadThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUploadThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.uploadTheme#1c3db333 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.uploadTheme#1c3db333",
+		}
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.uploadTheme#1c3db333",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: field file: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.uploadTheme#1c3db333",
+				FieldName:  "file",
+				Underlying: err,
+			}
 		}
 		u.File = value
 	}
 	if u.Flags.Has(0) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: field thumb: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.uploadTheme#1c3db333",
+				FieldName:  "thumb",
+				Underlying: err,
+			}
 		}
 		u.Thumb = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: field file_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.uploadTheme#1c3db333",
+				FieldName:  "file_name",
+				Underlying: err,
+			}
 		}
 		u.FileName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: field mime_type: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.uploadTheme#1c3db333",
+				FieldName:  "mime_type",
+				Underlying: err,
+			}
 		}
 		u.MimeType = value
 	}

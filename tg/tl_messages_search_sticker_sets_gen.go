@@ -136,7 +136,10 @@ func (s *MessagesSearchStickerSetsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSearchStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.searchStickerSets#c2b7d08b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.searchStickerSets#c2b7d08b",
+		}
 	}
 	b.PutID(MessagesSearchStickerSetsRequestTypeID)
 	return s.EncodeBare(b)
@@ -145,13 +148,21 @@ func (s *MessagesSearchStickerSetsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSearchStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.searchStickerSets#c2b7d08b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.searchStickerSets#c2b7d08b",
+		}
 	}
 	if !(s.ExcludeFeatured == false) {
 		s.Flags.Set(0)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.searchStickerSets#c2b7d08b: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.searchStickerSets#c2b7d08b",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(s.Q)
 	b.PutInt(s.Hash)
@@ -187,10 +198,16 @@ func (s *MessagesSearchStickerSetsRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (s *MessagesSearchStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.searchStickerSets#c2b7d08b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.searchStickerSets#c2b7d08b",
+		}
 	}
 	if err := b.ConsumeID(MessagesSearchStickerSetsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.searchStickerSets#c2b7d08b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.searchStickerSets#c2b7d08b",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -198,25 +215,43 @@ func (s *MessagesSearchStickerSetsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSearchStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.searchStickerSets#c2b7d08b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.searchStickerSets#c2b7d08b",
+		}
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.searchStickerSets#c2b7d08b: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.searchStickerSets#c2b7d08b",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	s.ExcludeFeatured = s.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchStickerSets#c2b7d08b: field q: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.searchStickerSets#c2b7d08b",
+				FieldName:  "q",
+				Underlying: err,
+			}
 		}
 		s.Q = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchStickerSets#c2b7d08b: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.searchStickerSets#c2b7d08b",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		s.Hash = value
 	}

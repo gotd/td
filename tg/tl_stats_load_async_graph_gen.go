@@ -133,7 +133,10 @@ func (l *StatsLoadAsyncGraphRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *StatsLoadAsyncGraphRequest) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode stats.loadAsyncGraph#621d5fa0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stats.loadAsyncGraph#621d5fa0",
+		}
 	}
 	b.PutID(StatsLoadAsyncGraphRequestTypeID)
 	return l.EncodeBare(b)
@@ -142,13 +145,21 @@ func (l *StatsLoadAsyncGraphRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *StatsLoadAsyncGraphRequest) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode stats.loadAsyncGraph#621d5fa0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stats.loadAsyncGraph#621d5fa0",
+		}
 	}
 	if !(l.X == 0) {
 		l.Flags.Set(0)
 	}
 	if err := l.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.loadAsyncGraph#621d5fa0: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.loadAsyncGraph#621d5fa0",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(l.Token)
 	if l.Flags.Has(0) {
@@ -180,10 +191,16 @@ func (l *StatsLoadAsyncGraphRequest) GetX() (value int64, ok bool) {
 // Decode implements bin.Decoder.
 func (l *StatsLoadAsyncGraphRequest) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode stats.loadAsyncGraph#621d5fa0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stats.loadAsyncGraph#621d5fa0",
+		}
 	}
 	if err := b.ConsumeID(StatsLoadAsyncGraphRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.loadAsyncGraph#621d5fa0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "stats.loadAsyncGraph#621d5fa0",
+			Underlying: err,
+		}
 	}
 	return l.DecodeBare(b)
 }
@@ -191,24 +208,42 @@ func (l *StatsLoadAsyncGraphRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *StatsLoadAsyncGraphRequest) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode stats.loadAsyncGraph#621d5fa0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stats.loadAsyncGraph#621d5fa0",
+		}
 	}
 	{
 		if err := l.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stats.loadAsyncGraph#621d5fa0: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.loadAsyncGraph#621d5fa0",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.loadAsyncGraph#621d5fa0: field token: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.loadAsyncGraph#621d5fa0",
+				FieldName:  "token",
+				Underlying: err,
+			}
 		}
 		l.Token = value
 	}
 	if l.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.loadAsyncGraph#621d5fa0: field x: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.loadAsyncGraph#621d5fa0",
+				FieldName:  "x",
+				Underlying: err,
+			}
 		}
 		l.X = value
 	}

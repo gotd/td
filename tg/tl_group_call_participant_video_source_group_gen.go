@@ -112,7 +112,10 @@ func (g *GroupCallParticipantVideoSourceGroup) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GroupCallParticipantVideoSourceGroup) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipantVideoSourceGroup#dcb118b7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "groupCallParticipantVideoSourceGroup#dcb118b7",
+		}
 	}
 	b.PutID(GroupCallParticipantVideoSourceGroupTypeID)
 	return g.EncodeBare(b)
@@ -121,7 +124,10 @@ func (g *GroupCallParticipantVideoSourceGroup) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GroupCallParticipantVideoSourceGroup) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipantVideoSourceGroup#dcb118b7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "groupCallParticipantVideoSourceGroup#dcb118b7",
+		}
 	}
 	b.PutString(g.Semantics)
 	b.PutVectorHeader(len(g.Sources))
@@ -144,10 +150,16 @@ func (g *GroupCallParticipantVideoSourceGroup) GetSources() (value []int) {
 // Decode implements bin.Decoder.
 func (g *GroupCallParticipantVideoSourceGroup) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipantVideoSourceGroup#dcb118b7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "groupCallParticipantVideoSourceGroup#dcb118b7",
+		}
 	}
 	if err := b.ConsumeID(GroupCallParticipantVideoSourceGroupTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCallParticipantVideoSourceGroup#dcb118b7: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "groupCallParticipantVideoSourceGroup#dcb118b7",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -155,19 +167,32 @@ func (g *GroupCallParticipantVideoSourceGroup) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GroupCallParticipantVideoSourceGroup) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipantVideoSourceGroup#dcb118b7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "groupCallParticipantVideoSourceGroup#dcb118b7",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipantVideoSourceGroup#dcb118b7: field semantics: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipantVideoSourceGroup#dcb118b7",
+				FieldName:  "semantics",
+				Underlying: err,
+			}
 		}
 		g.Semantics = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipantVideoSourceGroup#dcb118b7: field sources: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipantVideoSourceGroup#dcb118b7",
+				FieldName:  "sources",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -176,7 +201,12 @@ func (g *GroupCallParticipantVideoSourceGroup) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCallParticipantVideoSourceGroup#dcb118b7: field sources: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "groupCallParticipantVideoSourceGroup#dcb118b7",
+					FieldName:  "sources",
+					Underlying: err,
+				}
 			}
 			g.Sources = append(g.Sources, value)
 		}

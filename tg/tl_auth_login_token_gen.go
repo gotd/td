@@ -116,7 +116,10 @@ func (l *AuthLoginToken) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *AuthLoginToken) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode auth.loginToken#629f1980 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.loginToken#629f1980",
+		}
 	}
 	b.PutID(AuthLoginTokenTypeID)
 	return l.EncodeBare(b)
@@ -125,7 +128,10 @@ func (l *AuthLoginToken) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *AuthLoginToken) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode auth.loginToken#629f1980 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.loginToken#629f1980",
+		}
 	}
 	b.PutInt(l.Expires)
 	b.PutBytes(l.Token)
@@ -145,10 +151,16 @@ func (l *AuthLoginToken) GetToken() (value []byte) {
 // Decode implements bin.Decoder.
 func (l *AuthLoginToken) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode auth.loginToken#629f1980 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.loginToken#629f1980",
+		}
 	}
 	if err := b.ConsumeID(AuthLoginTokenTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.loginToken#629f1980: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.loginToken#629f1980",
+			Underlying: err,
+		}
 	}
 	return l.DecodeBare(b)
 }
@@ -156,19 +168,32 @@ func (l *AuthLoginToken) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *AuthLoginToken) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode auth.loginToken#629f1980 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.loginToken#629f1980",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.loginToken#629f1980: field expires: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.loginToken#629f1980",
+				FieldName:  "expires",
+				Underlying: err,
+			}
 		}
 		l.Expires = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.loginToken#629f1980: field token: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.loginToken#629f1980",
+				FieldName:  "token",
+				Underlying: err,
+			}
 		}
 		l.Token = value
 	}
@@ -272,7 +297,10 @@ func (l *AuthLoginTokenMigrateTo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *AuthLoginTokenMigrateTo) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode auth.loginTokenMigrateTo#68e9916 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.loginTokenMigrateTo#68e9916",
+		}
 	}
 	b.PutID(AuthLoginTokenMigrateToTypeID)
 	return l.EncodeBare(b)
@@ -281,7 +309,10 @@ func (l *AuthLoginTokenMigrateTo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *AuthLoginTokenMigrateTo) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode auth.loginTokenMigrateTo#68e9916 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.loginTokenMigrateTo#68e9916",
+		}
 	}
 	b.PutInt(l.DCID)
 	b.PutBytes(l.Token)
@@ -301,10 +332,16 @@ func (l *AuthLoginTokenMigrateTo) GetToken() (value []byte) {
 // Decode implements bin.Decoder.
 func (l *AuthLoginTokenMigrateTo) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode auth.loginTokenMigrateTo#68e9916 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.loginTokenMigrateTo#68e9916",
+		}
 	}
 	if err := b.ConsumeID(AuthLoginTokenMigrateToTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.loginTokenMigrateTo#68e9916: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.loginTokenMigrateTo#68e9916",
+			Underlying: err,
+		}
 	}
 	return l.DecodeBare(b)
 }
@@ -312,19 +349,32 @@ func (l *AuthLoginTokenMigrateTo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *AuthLoginTokenMigrateTo) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode auth.loginTokenMigrateTo#68e9916 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.loginTokenMigrateTo#68e9916",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.loginTokenMigrateTo#68e9916: field dc_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.loginTokenMigrateTo#68e9916",
+				FieldName:  "dc_id",
+				Underlying: err,
+			}
 		}
 		l.DCID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.loginTokenMigrateTo#68e9916: field token: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.loginTokenMigrateTo#68e9916",
+				FieldName:  "token",
+				Underlying: err,
+			}
 		}
 		l.Token = value
 	}
@@ -417,7 +467,10 @@ func (l *AuthLoginTokenSuccess) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *AuthLoginTokenSuccess) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode auth.loginTokenSuccess#390d5c5e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.loginTokenSuccess#390d5c5e",
+		}
 	}
 	b.PutID(AuthLoginTokenSuccessTypeID)
 	return l.EncodeBare(b)
@@ -426,13 +479,29 @@ func (l *AuthLoginTokenSuccess) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *AuthLoginTokenSuccess) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode auth.loginTokenSuccess#390d5c5e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.loginTokenSuccess#390d5c5e",
+		}
 	}
 	if l.Authorization == nil {
-		return fmt.Errorf("unable to encode auth.loginTokenSuccess#390d5c5e: field authorization is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "auth.loginTokenSuccess#390d5c5e",
+			FieldName: "authorization",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "auth.Authorization",
+			},
+		}
 	}
 	if err := l.Authorization.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode auth.loginTokenSuccess#390d5c5e: field authorization: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "auth.loginTokenSuccess#390d5c5e",
+			FieldName:  "authorization",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -445,10 +514,16 @@ func (l *AuthLoginTokenSuccess) GetAuthorization() (value AuthAuthorizationClass
 // Decode implements bin.Decoder.
 func (l *AuthLoginTokenSuccess) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode auth.loginTokenSuccess#390d5c5e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.loginTokenSuccess#390d5c5e",
+		}
 	}
 	if err := b.ConsumeID(AuthLoginTokenSuccessTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.loginTokenSuccess#390d5c5e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.loginTokenSuccess#390d5c5e",
+			Underlying: err,
+		}
 	}
 	return l.DecodeBare(b)
 }
@@ -456,12 +531,20 @@ func (l *AuthLoginTokenSuccess) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *AuthLoginTokenSuccess) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode auth.loginTokenSuccess#390d5c5e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.loginTokenSuccess#390d5c5e",
+		}
 	}
 	{
 		value, err := DecodeAuthAuthorization(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.loginTokenSuccess#390d5c5e: field authorization: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.loginTokenSuccess#390d5c5e",
+				FieldName:  "authorization",
+				Underlying: err,
+			}
 		}
 		l.Authorization = value
 	}
@@ -526,25 +609,37 @@ func DecodeAuthLoginToken(buf *bin.Buffer) (AuthLoginTokenClass, error) {
 		// Decoding auth.loginToken#629f1980.
 		v := AuthLoginToken{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AuthLoginTokenClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AuthLoginTokenClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case AuthLoginTokenMigrateToTypeID:
 		// Decoding auth.loginTokenMigrateTo#68e9916.
 		v := AuthLoginTokenMigrateTo{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AuthLoginTokenClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AuthLoginTokenClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case AuthLoginTokenSuccessTypeID:
 		// Decoding auth.loginTokenSuccess#390d5c5e.
 		v := AuthLoginTokenSuccess{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AuthLoginTokenClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AuthLoginTokenClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode AuthLoginTokenClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "AuthLoginTokenClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -556,7 +651,10 @@ type AuthLoginTokenBox struct {
 // Decode implements bin.Decoder for AuthLoginTokenBox.
 func (b *AuthLoginTokenBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode AuthLoginTokenBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "AuthLoginTokenBox",
+		}
 	}
 	v, err := DecodeAuthLoginToken(buf)
 	if err != nil {
@@ -569,7 +667,10 @@ func (b *AuthLoginTokenBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for AuthLoginTokenBox.
 func (b *AuthLoginTokenBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.LoginToken == nil {
-		return fmt.Errorf("unable to encode AuthLoginTokenClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "AuthLoginTokenBox",
+		}
 	}
 	return b.LoginToken.Encode(buf)
 }

@@ -123,7 +123,10 @@ func (c *HelpConfigSimple) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *HelpConfigSimple) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode help.configSimple#5a592a6c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.configSimple#5a592a6c",
+		}
 	}
 	b.PutID(HelpConfigSimpleTypeID)
 	return c.EncodeBare(b)
@@ -132,14 +135,26 @@ func (c *HelpConfigSimple) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *HelpConfigSimple) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode help.configSimple#5a592a6c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.configSimple#5a592a6c",
+		}
 	}
 	b.PutInt(c.Date)
 	b.PutInt(c.Expires)
 	b.PutInt(len(c.Rules))
 	for idx, v := range c.Rules {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.configSimple#5a592a6c: field rules element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.configSimple#5a592a6c",
+				FieldName: "rules",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -163,10 +178,16 @@ func (c *HelpConfigSimple) GetRules() (value []AccessPointRule) {
 // Decode implements bin.Decoder.
 func (c *HelpConfigSimple) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode help.configSimple#5a592a6c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.configSimple#5a592a6c",
+		}
 	}
 	if err := b.ConsumeID(HelpConfigSimpleTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.configSimple#5a592a6c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.configSimple#5a592a6c",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -174,26 +195,44 @@ func (c *HelpConfigSimple) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *HelpConfigSimple) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode help.configSimple#5a592a6c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.configSimple#5a592a6c",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.configSimple#5a592a6c: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.configSimple#5a592a6c",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		c.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.configSimple#5a592a6c: field expires: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.configSimple#5a592a6c",
+				FieldName:  "expires",
+				Underlying: err,
+			}
 		}
 		c.Expires = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.configSimple#5a592a6c: field rules: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.configSimple#5a592a6c",
+				FieldName:  "rules",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -202,7 +241,13 @@ func (c *HelpConfigSimple) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value AccessPointRule
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode help.configSimple#5a592a6c: field rules: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "help.configSimple#5a592a6c",
+					FieldName:  "rules",
+					Underlying: err,
+				}
 			}
 			c.Rules = append(c.Rules, value)
 		}

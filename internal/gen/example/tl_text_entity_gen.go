@@ -123,7 +123,10 @@ func (t *TextEntity) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntity) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntity#8bab99a8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "textEntity#8bab99a8",
+		}
 	}
 	b.PutID(TextEntityTypeID)
 	return t.EncodeBare(b)
@@ -132,15 +135,31 @@ func (t *TextEntity) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntity) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntity#8bab99a8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "textEntity#8bab99a8",
+		}
 	}
 	b.PutInt32(t.Offset)
 	b.PutInt32(t.Length)
 	if t.Type == nil {
-		return fmt.Errorf("unable to encode textEntity#8bab99a8: field type is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "textEntity#8bab99a8",
+			FieldName: "type",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "TextEntityType",
+			},
+		}
 	}
 	if err := t.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode textEntity#8bab99a8: field type: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "textEntity#8bab99a8",
+			FieldName:  "type",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -163,10 +182,16 @@ func (t *TextEntity) GetType() (value TextEntityTypeClass) {
 // Decode implements bin.Decoder.
 func (t *TextEntity) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntity#8bab99a8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "textEntity#8bab99a8",
+		}
 	}
 	if err := b.ConsumeID(TextEntityTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntity#8bab99a8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "textEntity#8bab99a8",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -174,26 +199,44 @@ func (t *TextEntity) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntity) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntity#8bab99a8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "textEntity#8bab99a8",
+		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode textEntity#8bab99a8: field offset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "textEntity#8bab99a8",
+				FieldName:  "offset",
+				Underlying: err,
+			}
 		}
 		t.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode textEntity#8bab99a8: field length: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "textEntity#8bab99a8",
+				FieldName:  "length",
+				Underlying: err,
+			}
 		}
 		t.Length = value
 	}
 	{
 		value, err := DecodeTextEntityType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode textEntity#8bab99a8: field type: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "textEntity#8bab99a8",
+				FieldName:  "type",
+				Underlying: err,
+			}
 		}
 		t.Type = value
 	}

@@ -101,7 +101,10 @@ func (a *Auth) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *Auth) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode auth#f8bb4a38 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth#f8bb4a38",
+		}
 	}
 	b.PutID(AuthTypeID)
 	return a.EncodeBare(b)
@@ -110,7 +113,10 @@ func (a *Auth) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *Auth) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode auth#f8bb4a38 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth#f8bb4a38",
+		}
 	}
 	b.PutString(a.Name)
 	return nil
@@ -124,10 +130,16 @@ func (a *Auth) GetName() (value string) {
 // Decode implements bin.Decoder.
 func (a *Auth) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode auth#f8bb4a38 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth#f8bb4a38",
+		}
 	}
 	if err := b.ConsumeID(AuthTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth#f8bb4a38: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth#f8bb4a38",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -135,12 +147,20 @@ func (a *Auth) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *Auth) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode auth#f8bb4a38 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth#f8bb4a38",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth#f8bb4a38: field name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth#f8bb4a38",
+				FieldName:  "name",
+				Underlying: err,
+			}
 		}
 		a.Name = value
 	}
@@ -243,7 +263,10 @@ func (a *AuthPassword) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AuthPassword) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authPassword#29bacabb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "authPassword#29bacabb",
+		}
 	}
 	b.PutID(AuthPasswordTypeID)
 	return a.EncodeBare(b)
@@ -252,7 +275,10 @@ func (a *AuthPassword) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AuthPassword) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authPassword#29bacabb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "authPassword#29bacabb",
+		}
 	}
 	b.PutString(a.Name)
 	b.PutString(a.Password)
@@ -272,10 +298,16 @@ func (a *AuthPassword) GetPassword() (value string) {
 // Decode implements bin.Decoder.
 func (a *AuthPassword) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authPassword#29bacabb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "authPassword#29bacabb",
+		}
 	}
 	if err := b.ConsumeID(AuthPasswordTypeID); err != nil {
-		return fmt.Errorf("unable to decode authPassword#29bacabb: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "authPassword#29bacabb",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -283,19 +315,32 @@ func (a *AuthPassword) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AuthPassword) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authPassword#29bacabb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "authPassword#29bacabb",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode authPassword#29bacabb: field name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authPassword#29bacabb",
+				FieldName:  "name",
+				Underlying: err,
+			}
 		}
 		a.Name = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode authPassword#29bacabb: field password: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "authPassword#29bacabb",
+				FieldName:  "password",
+				Underlying: err,
+			}
 		}
 		a.Password = value
 	}
@@ -362,18 +407,27 @@ func DecodeAuth(buf *bin.Buffer) (AuthClass, error) {
 		// Decoding auth#f8bb4a38.
 		v := Auth{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AuthClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AuthClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case AuthPasswordTypeID:
 		// Decoding authPassword#29bacabb.
 		v := AuthPassword{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AuthClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AuthClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode AuthClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "AuthClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -385,7 +439,10 @@ type AuthBox struct {
 // Decode implements bin.Decoder for AuthBox.
 func (b *AuthBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode AuthBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "AuthBox",
+		}
 	}
 	v, err := DecodeAuth(buf)
 	if err != nil {
@@ -398,7 +455,10 @@ func (b *AuthBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for AuthBox.
 func (b *AuthBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Auth == nil {
-		return fmt.Errorf("unable to encode AuthClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "AuthBox",
+		}
 	}
 	return b.Auth.Encode(buf)
 }

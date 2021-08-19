@@ -106,7 +106,10 @@ func (r *MessagesReportSpamRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesReportSpamRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.reportSpam#cf1592db as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.reportSpam#cf1592db",
+		}
 	}
 	b.PutID(MessagesReportSpamRequestTypeID)
 	return r.EncodeBare(b)
@@ -115,13 +118,29 @@ func (r *MessagesReportSpamRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReportSpamRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.reportSpam#cf1592db as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.reportSpam#cf1592db",
+		}
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode messages.reportSpam#cf1592db: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.reportSpam#cf1592db",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.reportSpam#cf1592db: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.reportSpam#cf1592db",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -134,10 +153,16 @@ func (r *MessagesReportSpamRequest) GetPeer() (value InputPeerClass) {
 // Decode implements bin.Decoder.
 func (r *MessagesReportSpamRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.reportSpam#cf1592db to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.reportSpam#cf1592db",
+		}
 	}
 	if err := b.ConsumeID(MessagesReportSpamRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.reportSpam#cf1592db: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.reportSpam#cf1592db",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -145,12 +170,20 @@ func (r *MessagesReportSpamRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReportSpamRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.reportSpam#cf1592db to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.reportSpam#cf1592db",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.reportSpam#cf1592db: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.reportSpam#cf1592db",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		r.Peer = value
 	}

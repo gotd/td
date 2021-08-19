@@ -135,7 +135,10 @@ func (t *PhoneToggleGroupCallRecordRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *PhoneToggleGroupCallRecordRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode phone.toggleGroupCallRecord#c02a66d7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.toggleGroupCallRecord#c02a66d7",
+		}
 	}
 	b.PutID(PhoneToggleGroupCallRecordRequestTypeID)
 	return t.EncodeBare(b)
@@ -144,7 +147,10 @@ func (t *PhoneToggleGroupCallRecordRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *PhoneToggleGroupCallRecordRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode phone.toggleGroupCallRecord#c02a66d7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.toggleGroupCallRecord#c02a66d7",
+		}
 	}
 	if !(t.Start == false) {
 		t.Flags.Set(0)
@@ -153,10 +159,20 @@ func (t *PhoneToggleGroupCallRecordRequest) EncodeBare(b *bin.Buffer) error {
 		t.Flags.Set(1)
 	}
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.toggleGroupCallRecord#c02a66d7: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.toggleGroupCallRecord#c02a66d7",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if err := t.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.toggleGroupCallRecord#c02a66d7: field call: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.toggleGroupCallRecord#c02a66d7",
+			FieldName:  "call",
+			Underlying: err,
+		}
 	}
 	if t.Flags.Has(1) {
 		b.PutString(t.Title)
@@ -203,10 +219,16 @@ func (t *PhoneToggleGroupCallRecordRequest) GetTitle() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (t *PhoneToggleGroupCallRecordRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode phone.toggleGroupCallRecord#c02a66d7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.toggleGroupCallRecord#c02a66d7",
+		}
 	}
 	if err := b.ConsumeID(PhoneToggleGroupCallRecordRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#c02a66d7: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.toggleGroupCallRecord#c02a66d7",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -214,23 +236,41 @@ func (t *PhoneToggleGroupCallRecordRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *PhoneToggleGroupCallRecordRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode phone.toggleGroupCallRecord#c02a66d7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.toggleGroupCallRecord#c02a66d7",
+		}
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#c02a66d7: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.toggleGroupCallRecord#c02a66d7",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	t.Start = t.Flags.Has(0)
 	{
 		if err := t.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#c02a66d7: field call: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.toggleGroupCallRecord#c02a66d7",
+				FieldName:  "call",
+				Underlying: err,
+			}
 		}
 	}
 	if t.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#c02a66d7: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.toggleGroupCallRecord#c02a66d7",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		t.Title = value
 	}

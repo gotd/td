@@ -99,7 +99,10 @@ func (vec *MessageRangeVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *MessageRangeVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<MessageRange> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<MessageRange>",
+		}
 	}
 
 	return vec.EncodeBare(b)
@@ -108,12 +111,24 @@ func (vec *MessageRangeVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *MessageRangeVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<MessageRange> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<MessageRange>",
+		}
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode Vector<MessageRange>: field Elems element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "Vector<MessageRange>",
+				FieldName: "Elems",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -127,7 +142,10 @@ func (vec *MessageRangeVector) GetElems() (value []MessageRange) {
 // Decode implements bin.Decoder.
 func (vec *MessageRangeVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<MessageRange> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<MessageRange>",
+		}
 	}
 
 	return vec.DecodeBare(b)
@@ -136,12 +154,20 @@ func (vec *MessageRangeVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *MessageRangeVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<MessageRange> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<MessageRange>",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<MessageRange>: field Elems: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "Vector<MessageRange>",
+				FieldName:  "Elems",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -150,7 +176,13 @@ func (vec *MessageRangeVector) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value MessageRange
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode Vector<MessageRange>: field Elems: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "Vector<MessageRange>",
+					FieldName:  "Elems",
+					Underlying: err,
+				}
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

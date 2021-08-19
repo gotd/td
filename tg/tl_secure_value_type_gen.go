@@ -85,7 +85,10 @@ func (s *SecureValueTypePersonalDetails) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePersonalDetails) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypePersonalDetails#9d2a81e3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypePersonalDetails#9d2a81e3",
+		}
 	}
 	b.PutID(SecureValueTypePersonalDetailsTypeID)
 	return s.EncodeBare(b)
@@ -94,7 +97,10 @@ func (s *SecureValueTypePersonalDetails) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypePersonalDetails) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypePersonalDetails#9d2a81e3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypePersonalDetails#9d2a81e3",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (s *SecureValueTypePersonalDetails) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypePersonalDetails) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypePersonalDetails#9d2a81e3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypePersonalDetails#9d2a81e3",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypePersonalDetailsTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypePersonalDetails#9d2a81e3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypePersonalDetails#9d2a81e3",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (s *SecureValueTypePersonalDetails) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypePersonalDetails) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypePersonalDetails#9d2a81e3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypePersonalDetails#9d2a81e3",
+		}
 	}
 	return nil
 }
@@ -187,7 +202,10 @@ func (s *SecureValueTypePassport) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePassport) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypePassport#3dac6a00 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypePassport#3dac6a00",
+		}
 	}
 	b.PutID(SecureValueTypePassportTypeID)
 	return s.EncodeBare(b)
@@ -196,7 +214,10 @@ func (s *SecureValueTypePassport) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypePassport) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypePassport#3dac6a00 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypePassport#3dac6a00",
+		}
 	}
 	return nil
 }
@@ -204,10 +225,16 @@ func (s *SecureValueTypePassport) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypePassport) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypePassport#3dac6a00 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypePassport#3dac6a00",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypePassportTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypePassport#3dac6a00: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypePassport#3dac6a00",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -215,7 +242,10 @@ func (s *SecureValueTypePassport) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypePassport) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypePassport#3dac6a00 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypePassport#3dac6a00",
+		}
 	}
 	return nil
 }
@@ -289,7 +319,10 @@ func (s *SecureValueTypeDriverLicense) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeDriverLicense) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeDriverLicense#6e425c4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeDriverLicense#6e425c4",
+		}
 	}
 	b.PutID(SecureValueTypeDriverLicenseTypeID)
 	return s.EncodeBare(b)
@@ -298,7 +331,10 @@ func (s *SecureValueTypeDriverLicense) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypeDriverLicense) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeDriverLicense#6e425c4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeDriverLicense#6e425c4",
+		}
 	}
 	return nil
 }
@@ -306,10 +342,16 @@ func (s *SecureValueTypeDriverLicense) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypeDriverLicense) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeDriverLicense#6e425c4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeDriverLicense#6e425c4",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypeDriverLicenseTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypeDriverLicense#6e425c4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypeDriverLicense#6e425c4",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -317,7 +359,10 @@ func (s *SecureValueTypeDriverLicense) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypeDriverLicense) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeDriverLicense#6e425c4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeDriverLicense#6e425c4",
+		}
 	}
 	return nil
 }
@@ -391,7 +436,10 @@ func (s *SecureValueTypeIdentityCard) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeIdentityCard) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeIdentityCard#a0d0744b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeIdentityCard#a0d0744b",
+		}
 	}
 	b.PutID(SecureValueTypeIdentityCardTypeID)
 	return s.EncodeBare(b)
@@ -400,7 +448,10 @@ func (s *SecureValueTypeIdentityCard) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypeIdentityCard) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeIdentityCard#a0d0744b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeIdentityCard#a0d0744b",
+		}
 	}
 	return nil
 }
@@ -408,10 +459,16 @@ func (s *SecureValueTypeIdentityCard) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypeIdentityCard) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeIdentityCard#a0d0744b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeIdentityCard#a0d0744b",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypeIdentityCardTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypeIdentityCard#a0d0744b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypeIdentityCard#a0d0744b",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -419,7 +476,10 @@ func (s *SecureValueTypeIdentityCard) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypeIdentityCard) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeIdentityCard#a0d0744b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeIdentityCard#a0d0744b",
+		}
 	}
 	return nil
 }
@@ -496,7 +556,10 @@ func (s *SecureValueTypeInternalPassport) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeInternalPassport) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeInternalPassport#99a48f23 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeInternalPassport#99a48f23",
+		}
 	}
 	b.PutID(SecureValueTypeInternalPassportTypeID)
 	return s.EncodeBare(b)
@@ -505,7 +568,10 @@ func (s *SecureValueTypeInternalPassport) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypeInternalPassport) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeInternalPassport#99a48f23 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeInternalPassport#99a48f23",
+		}
 	}
 	return nil
 }
@@ -513,10 +579,16 @@ func (s *SecureValueTypeInternalPassport) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypeInternalPassport) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeInternalPassport#99a48f23 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeInternalPassport#99a48f23",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypeInternalPassportTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypeInternalPassport#99a48f23: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypeInternalPassport#99a48f23",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -524,7 +596,10 @@ func (s *SecureValueTypeInternalPassport) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypeInternalPassport) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeInternalPassport#99a48f23 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeInternalPassport#99a48f23",
+		}
 	}
 	return nil
 }
@@ -598,7 +673,10 @@ func (s *SecureValueTypeAddress) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeAddress) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeAddress#cbe31e26 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeAddress#cbe31e26",
+		}
 	}
 	b.PutID(SecureValueTypeAddressTypeID)
 	return s.EncodeBare(b)
@@ -607,7 +685,10 @@ func (s *SecureValueTypeAddress) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypeAddress) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeAddress#cbe31e26 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeAddress#cbe31e26",
+		}
 	}
 	return nil
 }
@@ -615,10 +696,16 @@ func (s *SecureValueTypeAddress) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypeAddress) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeAddress#cbe31e26 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeAddress#cbe31e26",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypeAddressTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypeAddress#cbe31e26: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypeAddress#cbe31e26",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -626,7 +713,10 @@ func (s *SecureValueTypeAddress) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypeAddress) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeAddress#cbe31e26 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeAddress#cbe31e26",
+		}
 	}
 	return nil
 }
@@ -700,7 +790,10 @@ func (s *SecureValueTypeUtilityBill) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeUtilityBill) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeUtilityBill#fc36954e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeUtilityBill#fc36954e",
+		}
 	}
 	b.PutID(SecureValueTypeUtilityBillTypeID)
 	return s.EncodeBare(b)
@@ -709,7 +802,10 @@ func (s *SecureValueTypeUtilityBill) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypeUtilityBill) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeUtilityBill#fc36954e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeUtilityBill#fc36954e",
+		}
 	}
 	return nil
 }
@@ -717,10 +813,16 @@ func (s *SecureValueTypeUtilityBill) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypeUtilityBill) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeUtilityBill#fc36954e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeUtilityBill#fc36954e",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypeUtilityBillTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypeUtilityBill#fc36954e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypeUtilityBill#fc36954e",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -728,7 +830,10 @@ func (s *SecureValueTypeUtilityBill) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypeUtilityBill) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeUtilityBill#fc36954e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeUtilityBill#fc36954e",
+		}
 	}
 	return nil
 }
@@ -802,7 +907,10 @@ func (s *SecureValueTypeBankStatement) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeBankStatement) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeBankStatement#89137c0d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeBankStatement#89137c0d",
+		}
 	}
 	b.PutID(SecureValueTypeBankStatementTypeID)
 	return s.EncodeBare(b)
@@ -811,7 +919,10 @@ func (s *SecureValueTypeBankStatement) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypeBankStatement) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeBankStatement#89137c0d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeBankStatement#89137c0d",
+		}
 	}
 	return nil
 }
@@ -819,10 +930,16 @@ func (s *SecureValueTypeBankStatement) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypeBankStatement) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeBankStatement#89137c0d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeBankStatement#89137c0d",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypeBankStatementTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypeBankStatement#89137c0d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypeBankStatement#89137c0d",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -830,7 +947,10 @@ func (s *SecureValueTypeBankStatement) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypeBankStatement) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeBankStatement#89137c0d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeBankStatement#89137c0d",
+		}
 	}
 	return nil
 }
@@ -904,7 +1024,10 @@ func (s *SecureValueTypeRentalAgreement) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeRentalAgreement) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeRentalAgreement#8b883488 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeRentalAgreement#8b883488",
+		}
 	}
 	b.PutID(SecureValueTypeRentalAgreementTypeID)
 	return s.EncodeBare(b)
@@ -913,7 +1036,10 @@ func (s *SecureValueTypeRentalAgreement) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypeRentalAgreement) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeRentalAgreement#8b883488 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeRentalAgreement#8b883488",
+		}
 	}
 	return nil
 }
@@ -921,10 +1047,16 @@ func (s *SecureValueTypeRentalAgreement) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypeRentalAgreement) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeRentalAgreement#8b883488 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeRentalAgreement#8b883488",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypeRentalAgreementTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypeRentalAgreement#8b883488: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypeRentalAgreement#8b883488",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -932,7 +1064,10 @@ func (s *SecureValueTypeRentalAgreement) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypeRentalAgreement) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeRentalAgreement#8b883488 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeRentalAgreement#8b883488",
+		}
 	}
 	return nil
 }
@@ -1009,7 +1144,10 @@ func (s *SecureValueTypePassportRegistration) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePassportRegistration) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypePassportRegistration#99e3806a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypePassportRegistration#99e3806a",
+		}
 	}
 	b.PutID(SecureValueTypePassportRegistrationTypeID)
 	return s.EncodeBare(b)
@@ -1018,7 +1156,10 @@ func (s *SecureValueTypePassportRegistration) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypePassportRegistration) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypePassportRegistration#99e3806a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypePassportRegistration#99e3806a",
+		}
 	}
 	return nil
 }
@@ -1026,10 +1167,16 @@ func (s *SecureValueTypePassportRegistration) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypePassportRegistration) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypePassportRegistration#99e3806a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypePassportRegistration#99e3806a",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypePassportRegistrationTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypePassportRegistration#99e3806a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypePassportRegistration#99e3806a",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -1037,7 +1184,10 @@ func (s *SecureValueTypePassportRegistration) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypePassportRegistration) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypePassportRegistration#99e3806a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypePassportRegistration#99e3806a",
+		}
 	}
 	return nil
 }
@@ -1111,7 +1261,10 @@ func (s *SecureValueTypeTemporaryRegistration) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeTemporaryRegistration) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeTemporaryRegistration#ea02ec33 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeTemporaryRegistration#ea02ec33",
+		}
 	}
 	b.PutID(SecureValueTypeTemporaryRegistrationTypeID)
 	return s.EncodeBare(b)
@@ -1120,7 +1273,10 @@ func (s *SecureValueTypeTemporaryRegistration) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypeTemporaryRegistration) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeTemporaryRegistration#ea02ec33 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeTemporaryRegistration#ea02ec33",
+		}
 	}
 	return nil
 }
@@ -1128,10 +1284,16 @@ func (s *SecureValueTypeTemporaryRegistration) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypeTemporaryRegistration) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeTemporaryRegistration#ea02ec33 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeTemporaryRegistration#ea02ec33",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypeTemporaryRegistrationTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypeTemporaryRegistration#ea02ec33: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypeTemporaryRegistration#ea02ec33",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -1139,7 +1301,10 @@ func (s *SecureValueTypeTemporaryRegistration) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypeTemporaryRegistration) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeTemporaryRegistration#ea02ec33 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeTemporaryRegistration#ea02ec33",
+		}
 	}
 	return nil
 }
@@ -1213,7 +1378,10 @@ func (s *SecureValueTypePhone) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePhone) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypePhone#b320aadb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypePhone#b320aadb",
+		}
 	}
 	b.PutID(SecureValueTypePhoneTypeID)
 	return s.EncodeBare(b)
@@ -1222,7 +1390,10 @@ func (s *SecureValueTypePhone) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypePhone) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypePhone#b320aadb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypePhone#b320aadb",
+		}
 	}
 	return nil
 }
@@ -1230,10 +1401,16 @@ func (s *SecureValueTypePhone) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypePhone) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypePhone#b320aadb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypePhone#b320aadb",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypePhoneTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypePhone#b320aadb: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypePhone#b320aadb",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -1241,7 +1418,10 @@ func (s *SecureValueTypePhone) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypePhone) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypePhone#b320aadb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypePhone#b320aadb",
+		}
 	}
 	return nil
 }
@@ -1315,7 +1495,10 @@ func (s *SecureValueTypeEmail) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeEmail) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeEmail#8e3ca7ee as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeEmail#8e3ca7ee",
+		}
 	}
 	b.PutID(SecureValueTypeEmailTypeID)
 	return s.EncodeBare(b)
@@ -1324,7 +1507,10 @@ func (s *SecureValueTypeEmail) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureValueTypeEmail) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureValueTypeEmail#8e3ca7ee as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureValueTypeEmail#8e3ca7ee",
+		}
 	}
 	return nil
 }
@@ -1332,10 +1518,16 @@ func (s *SecureValueTypeEmail) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SecureValueTypeEmail) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeEmail#8e3ca7ee to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeEmail#8e3ca7ee",
+		}
 	}
 	if err := b.ConsumeID(SecureValueTypeEmailTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureValueTypeEmail#8e3ca7ee: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureValueTypeEmail#8e3ca7ee",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -1343,7 +1535,10 @@ func (s *SecureValueTypeEmail) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureValueTypeEmail) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureValueTypeEmail#8e3ca7ee to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureValueTypeEmail#8e3ca7ee",
+		}
 	}
 	return nil
 }
@@ -1416,95 +1611,137 @@ func DecodeSecureValueType(buf *bin.Buffer) (SecureValueTypeClass, error) {
 		// Decoding secureValueTypePersonalDetails#9d2a81e3.
 		v := SecureValueTypePersonalDetails{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureValueTypePassportTypeID:
 		// Decoding secureValueTypePassport#3dac6a00.
 		v := SecureValueTypePassport{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureValueTypeDriverLicenseTypeID:
 		// Decoding secureValueTypeDriverLicense#6e425c4.
 		v := SecureValueTypeDriverLicense{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureValueTypeIdentityCardTypeID:
 		// Decoding secureValueTypeIdentityCard#a0d0744b.
 		v := SecureValueTypeIdentityCard{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureValueTypeInternalPassportTypeID:
 		// Decoding secureValueTypeInternalPassport#99a48f23.
 		v := SecureValueTypeInternalPassport{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureValueTypeAddressTypeID:
 		// Decoding secureValueTypeAddress#cbe31e26.
 		v := SecureValueTypeAddress{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureValueTypeUtilityBillTypeID:
 		// Decoding secureValueTypeUtilityBill#fc36954e.
 		v := SecureValueTypeUtilityBill{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureValueTypeBankStatementTypeID:
 		// Decoding secureValueTypeBankStatement#89137c0d.
 		v := SecureValueTypeBankStatement{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureValueTypeRentalAgreementTypeID:
 		// Decoding secureValueTypeRentalAgreement#8b883488.
 		v := SecureValueTypeRentalAgreement{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureValueTypePassportRegistrationTypeID:
 		// Decoding secureValueTypePassportRegistration#99e3806a.
 		v := SecureValueTypePassportRegistration{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureValueTypeTemporaryRegistrationTypeID:
 		// Decoding secureValueTypeTemporaryRegistration#ea02ec33.
 		v := SecureValueTypeTemporaryRegistration{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureValueTypePhoneTypeID:
 		// Decoding secureValueTypePhone#b320aadb.
 		v := SecureValueTypePhone{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureValueTypeEmailTypeID:
 		// Decoding secureValueTypeEmail#8e3ca7ee.
 		v := SecureValueTypeEmail{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureValueTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "SecureValueTypeClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -1516,7 +1753,10 @@ type SecureValueTypeBox struct {
 // Decode implements bin.Decoder for SecureValueTypeBox.
 func (b *SecureValueTypeBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode SecureValueTypeBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "SecureValueTypeBox",
+		}
 	}
 	v, err := DecodeSecureValueType(buf)
 	if err != nil {
@@ -1529,7 +1769,10 @@ func (b *SecureValueTypeBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for SecureValueTypeBox.
 func (b *SecureValueTypeBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.SecureValueType == nil {
-		return fmt.Errorf("unable to encode SecureValueTypeClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "SecureValueTypeBox",
+		}
 	}
 	return b.SecureValueType.Encode(buf)
 }

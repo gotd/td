@@ -101,7 +101,10 @@ func (s *SendMultipleSMSRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMultipleSMSRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMultipleSMS#df18e5ca as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMultipleSMS#df18e5ca",
+		}
 	}
 	b.PutID(SendMultipleSMSRequestTypeID)
 	return s.EncodeBare(b)
@@ -110,12 +113,24 @@ func (s *SendMultipleSMSRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMultipleSMSRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMultipleSMS#df18e5ca as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sendMultipleSMS#df18e5ca",
+		}
 	}
 	b.PutInt(len(s.Messages))
 	for idx, v := range s.Messages {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode sendMultipleSMS#df18e5ca: field messages element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "sendMultipleSMS#df18e5ca",
+				FieldName: "messages",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -129,10 +144,16 @@ func (s *SendMultipleSMSRequest) GetMessages() (value []SMS) {
 // Decode implements bin.Decoder.
 func (s *SendMultipleSMSRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMultipleSMS#df18e5ca to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMultipleSMS#df18e5ca",
+		}
 	}
 	if err := b.ConsumeID(SendMultipleSMSRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMultipleSMS#df18e5ca: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sendMultipleSMS#df18e5ca",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -140,12 +161,20 @@ func (s *SendMultipleSMSRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMultipleSMSRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMultipleSMS#df18e5ca to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sendMultipleSMS#df18e5ca",
+		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMultipleSMS#df18e5ca: field messages: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "sendMultipleSMS#df18e5ca",
+				FieldName:  "messages",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -154,7 +183,13 @@ func (s *SendMultipleSMSRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value SMS
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode sendMultipleSMS#df18e5ca: field messages: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "sendMultipleSMS#df18e5ca",
+					FieldName:  "messages",
+					Underlying: err,
+				}
 			}
 			s.Messages = append(s.Messages, value)
 		}

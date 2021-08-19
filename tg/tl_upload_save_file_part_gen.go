@@ -124,7 +124,10 @@ func (s *UploadSaveFilePartRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *UploadSaveFilePartRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode upload.saveFilePart#b304a621 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "upload.saveFilePart#b304a621",
+		}
 	}
 	b.PutID(UploadSaveFilePartRequestTypeID)
 	return s.EncodeBare(b)
@@ -133,7 +136,10 @@ func (s *UploadSaveFilePartRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *UploadSaveFilePartRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode upload.saveFilePart#b304a621 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "upload.saveFilePart#b304a621",
+		}
 	}
 	b.PutLong(s.FileID)
 	b.PutInt(s.FilePart)
@@ -159,10 +165,16 @@ func (s *UploadSaveFilePartRequest) GetBytes() (value []byte) {
 // Decode implements bin.Decoder.
 func (s *UploadSaveFilePartRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode upload.saveFilePart#b304a621 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "upload.saveFilePart#b304a621",
+		}
 	}
 	if err := b.ConsumeID(UploadSaveFilePartRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.saveFilePart#b304a621: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "upload.saveFilePart#b304a621",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -170,26 +182,44 @@ func (s *UploadSaveFilePartRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *UploadSaveFilePartRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode upload.saveFilePart#b304a621 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "upload.saveFilePart#b304a621",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.saveFilePart#b304a621: field file_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.saveFilePart#b304a621",
+				FieldName:  "file_id",
+				Underlying: err,
+			}
 		}
 		s.FileID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.saveFilePart#b304a621: field file_part: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.saveFilePart#b304a621",
+				FieldName:  "file_part",
+				Underlying: err,
+			}
 		}
 		s.FilePart = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.saveFilePart#b304a621: field bytes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.saveFilePart#b304a621",
+				FieldName:  "bytes",
+				Underlying: err,
+			}
 		}
 		s.Bytes = value
 	}

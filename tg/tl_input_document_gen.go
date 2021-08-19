@@ -85,7 +85,10 @@ func (i *InputDocumentEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputDocumentEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputDocumentEmpty#72f0eaae as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputDocumentEmpty#72f0eaae",
+		}
 	}
 	b.PutID(InputDocumentEmptyTypeID)
 	return i.EncodeBare(b)
@@ -94,7 +97,10 @@ func (i *InputDocumentEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputDocumentEmpty) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputDocumentEmpty#72f0eaae as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputDocumentEmpty#72f0eaae",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (i *InputDocumentEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputDocumentEmpty) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputDocumentEmpty#72f0eaae to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputDocumentEmpty#72f0eaae",
+		}
 	}
 	if err := b.ConsumeID(InputDocumentEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputDocumentEmpty#72f0eaae: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputDocumentEmpty#72f0eaae",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (i *InputDocumentEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputDocumentEmpty) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputDocumentEmpty#72f0eaae to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputDocumentEmpty#72f0eaae",
+		}
 	}
 	return nil
 }
@@ -232,7 +247,10 @@ func (i *InputDocument) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputDocument#1abfb575 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputDocument#1abfb575",
+		}
 	}
 	b.PutID(InputDocumentTypeID)
 	return i.EncodeBare(b)
@@ -241,7 +259,10 @@ func (i *InputDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputDocument) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputDocument#1abfb575 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputDocument#1abfb575",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -267,10 +288,16 @@ func (i *InputDocument) GetFileReference() (value []byte) {
 // Decode implements bin.Decoder.
 func (i *InputDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputDocument#1abfb575 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputDocument#1abfb575",
+		}
 	}
 	if err := b.ConsumeID(InputDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputDocument#1abfb575: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputDocument#1abfb575",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -278,26 +305,44 @@ func (i *InputDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputDocument) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputDocument#1abfb575 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputDocument#1abfb575",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputDocument#1abfb575: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputDocument#1abfb575",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputDocument#1abfb575: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputDocument#1abfb575",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputDocument#1abfb575: field file_reference: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputDocument#1abfb575",
+				FieldName:  "file_reference",
+				Underlying: err,
+			}
 		}
 		i.FileReference = value
 	}
@@ -384,18 +429,27 @@ func DecodeInputDocument(buf *bin.Buffer) (InputDocumentClass, error) {
 		// Decoding inputDocumentEmpty#72f0eaae.
 		v := InputDocumentEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputDocumentClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputDocumentClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputDocumentTypeID:
 		// Decoding inputDocument#1abfb575.
 		v := InputDocument{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputDocumentClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputDocumentClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputDocumentClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "InputDocumentClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -407,7 +461,10 @@ type InputDocumentBox struct {
 // Decode implements bin.Decoder for InputDocumentBox.
 func (b *InputDocumentBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputDocumentBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "InputDocumentBox",
+		}
 	}
 	v, err := DecodeInputDocument(buf)
 	if err != nil {
@@ -420,7 +477,10 @@ func (b *InputDocumentBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputDocumentBox.
 func (b *InputDocumentBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputDocument == nil {
-		return fmt.Errorf("unable to encode InputDocumentClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "InputDocumentBox",
+		}
 	}
 	return b.InputDocument.Encode(buf)
 }

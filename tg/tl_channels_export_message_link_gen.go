@@ -148,7 +148,10 @@ func (e *ChannelsExportMessageLinkRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *ChannelsExportMessageLinkRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.exportMessageLink#e63fadeb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.exportMessageLink#e63fadeb",
+		}
 	}
 	b.PutID(ChannelsExportMessageLinkRequestTypeID)
 	return e.EncodeBare(b)
@@ -157,7 +160,10 @@ func (e *ChannelsExportMessageLinkRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsExportMessageLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.exportMessageLink#e63fadeb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.exportMessageLink#e63fadeb",
+		}
 	}
 	if !(e.Grouped == false) {
 		e.Flags.Set(0)
@@ -166,13 +172,31 @@ func (e *ChannelsExportMessageLinkRequest) EncodeBare(b *bin.Buffer) error {
 		e.Flags.Set(1)
 	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.exportMessageLink#e63fadeb: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.exportMessageLink#e63fadeb",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.exportMessageLink#e63fadeb: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.exportMessageLink#e63fadeb",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.exportMessageLink#e63fadeb: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.exportMessageLink#e63fadeb",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	b.PutInt(e.ID)
 	return nil
@@ -228,10 +252,16 @@ func (e *ChannelsExportMessageLinkRequest) GetID() (value int) {
 // Decode implements bin.Decoder.
 func (e *ChannelsExportMessageLinkRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.exportMessageLink#e63fadeb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.exportMessageLink#e63fadeb",
+		}
 	}
 	if err := b.ConsumeID(ChannelsExportMessageLinkRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.exportMessageLink#e63fadeb: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.exportMessageLink#e63fadeb",
+			Underlying: err,
+		}
 	}
 	return e.DecodeBare(b)
 }
@@ -239,11 +269,19 @@ func (e *ChannelsExportMessageLinkRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsExportMessageLinkRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.exportMessageLink#e63fadeb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.exportMessageLink#e63fadeb",
+		}
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.exportMessageLink#e63fadeb: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.exportMessageLink#e63fadeb",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	e.Grouped = e.Flags.Has(0)
@@ -251,14 +289,24 @@ func (e *ChannelsExportMessageLinkRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.exportMessageLink#e63fadeb: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.exportMessageLink#e63fadeb",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		e.Channel = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.exportMessageLink#e63fadeb: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.exportMessageLink#e63fadeb",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		e.ID = value
 	}

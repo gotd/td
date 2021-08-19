@@ -113,7 +113,10 @@ func (i *ChannelsInviteToChannelRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *ChannelsInviteToChannelRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode channels.inviteToChannel#199f3a6c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.inviteToChannel#199f3a6c",
+		}
 	}
 	b.PutID(ChannelsInviteToChannelRequestTypeID)
 	return i.EncodeBare(b)
@@ -122,21 +125,57 @@ func (i *ChannelsInviteToChannelRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *ChannelsInviteToChannelRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode channels.inviteToChannel#199f3a6c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.inviteToChannel#199f3a6c",
+		}
 	}
 	if i.Channel == nil {
-		return fmt.Errorf("unable to encode channels.inviteToChannel#199f3a6c: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.inviteToChannel#199f3a6c",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := i.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.inviteToChannel#199f3a6c: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.inviteToChannel#199f3a6c",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(i.Users))
 	for idx, v := range i.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode channels.inviteToChannel#199f3a6c: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "channels.inviteToChannel#199f3a6c",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<InputUser>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.inviteToChannel#199f3a6c: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "channels.inviteToChannel#199f3a6c",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -165,10 +204,16 @@ func (i *ChannelsInviteToChannelRequest) MapUsers() (value InputUserClassArray) 
 // Decode implements bin.Decoder.
 func (i *ChannelsInviteToChannelRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode channels.inviteToChannel#199f3a6c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.inviteToChannel#199f3a6c",
+		}
 	}
 	if err := b.ConsumeID(ChannelsInviteToChannelRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.inviteToChannel#199f3a6c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.inviteToChannel#199f3a6c",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -176,19 +221,32 @@ func (i *ChannelsInviteToChannelRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *ChannelsInviteToChannelRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode channels.inviteToChannel#199f3a6c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.inviteToChannel#199f3a6c",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.inviteToChannel#199f3a6c: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.inviteToChannel#199f3a6c",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		i.Channel = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.inviteToChannel#199f3a6c: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.inviteToChannel#199f3a6c",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -197,7 +255,12 @@ func (i *ChannelsInviteToChannelRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.inviteToChannel#199f3a6c: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "channels.inviteToChannel#199f3a6c",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			i.Users = append(i.Users, value)
 		}

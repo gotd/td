@@ -110,7 +110,10 @@ func (p *Pong) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *Pong) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pong#347773c5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pong#347773c5",
+		}
 	}
 	b.PutID(PongTypeID)
 	return p.EncodeBare(b)
@@ -119,7 +122,10 @@ func (p *Pong) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *Pong) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pong#347773c5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pong#347773c5",
+		}
 	}
 	b.PutLong(p.MsgID)
 	b.PutLong(p.PingID)
@@ -139,10 +145,16 @@ func (p *Pong) GetPingID() (value int64) {
 // Decode implements bin.Decoder.
 func (p *Pong) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pong#347773c5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pong#347773c5",
+		}
 	}
 	if err := b.ConsumeID(PongTypeID); err != nil {
-		return fmt.Errorf("unable to decode pong#347773c5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pong#347773c5",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -150,19 +162,32 @@ func (p *Pong) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *Pong) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pong#347773c5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pong#347773c5",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pong#347773c5: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pong#347773c5",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		p.MsgID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pong#347773c5: field ping_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pong#347773c5",
+				FieldName:  "ping_id",
+				Underlying: err,
+			}
 		}
 		p.PingID = value
 	}

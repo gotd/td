@@ -84,7 +84,10 @@ func (b *BotCommandScopeDefault) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotCommandScopeDefault) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopeDefault#2f6cb2ab as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopeDefault#2f6cb2ab",
+		}
 	}
 	buf.PutID(BotCommandScopeDefaultTypeID)
 	return b.EncodeBare(buf)
@@ -93,7 +96,10 @@ func (b *BotCommandScopeDefault) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotCommandScopeDefault) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopeDefault#2f6cb2ab as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopeDefault#2f6cb2ab",
+		}
 	}
 	return nil
 }
@@ -101,10 +107,16 @@ func (b *BotCommandScopeDefault) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotCommandScopeDefault) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopeDefault#2f6cb2ab to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopeDefault#2f6cb2ab",
+		}
 	}
 	if err := buf.ConsumeID(BotCommandScopeDefaultTypeID); err != nil {
-		return fmt.Errorf("unable to decode botCommandScopeDefault#2f6cb2ab: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "botCommandScopeDefault#2f6cb2ab",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -112,7 +124,10 @@ func (b *BotCommandScopeDefault) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotCommandScopeDefault) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopeDefault#2f6cb2ab to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopeDefault#2f6cb2ab",
+		}
 	}
 	return nil
 }
@@ -185,7 +200,10 @@ func (b *BotCommandScopeUsers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotCommandScopeUsers) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopeUsers#3c4f04d8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopeUsers#3c4f04d8",
+		}
 	}
 	buf.PutID(BotCommandScopeUsersTypeID)
 	return b.EncodeBare(buf)
@@ -194,7 +212,10 @@ func (b *BotCommandScopeUsers) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotCommandScopeUsers) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopeUsers#3c4f04d8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopeUsers#3c4f04d8",
+		}
 	}
 	return nil
 }
@@ -202,10 +223,16 @@ func (b *BotCommandScopeUsers) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotCommandScopeUsers) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopeUsers#3c4f04d8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopeUsers#3c4f04d8",
+		}
 	}
 	if err := buf.ConsumeID(BotCommandScopeUsersTypeID); err != nil {
-		return fmt.Errorf("unable to decode botCommandScopeUsers#3c4f04d8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "botCommandScopeUsers#3c4f04d8",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -213,7 +240,10 @@ func (b *BotCommandScopeUsers) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotCommandScopeUsers) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopeUsers#3c4f04d8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopeUsers#3c4f04d8",
+		}
 	}
 	return nil
 }
@@ -286,7 +316,10 @@ func (b *BotCommandScopeChats) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotCommandScopeChats) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopeChats#6fe1a881 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopeChats#6fe1a881",
+		}
 	}
 	buf.PutID(BotCommandScopeChatsTypeID)
 	return b.EncodeBare(buf)
@@ -295,7 +328,10 @@ func (b *BotCommandScopeChats) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotCommandScopeChats) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopeChats#6fe1a881 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopeChats#6fe1a881",
+		}
 	}
 	return nil
 }
@@ -303,10 +339,16 @@ func (b *BotCommandScopeChats) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotCommandScopeChats) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopeChats#6fe1a881 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopeChats#6fe1a881",
+		}
 	}
 	if err := buf.ConsumeID(BotCommandScopeChatsTypeID); err != nil {
-		return fmt.Errorf("unable to decode botCommandScopeChats#6fe1a881: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "botCommandScopeChats#6fe1a881",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -314,7 +356,10 @@ func (b *BotCommandScopeChats) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotCommandScopeChats) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopeChats#6fe1a881 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopeChats#6fe1a881",
+		}
 	}
 	return nil
 }
@@ -387,7 +432,10 @@ func (b *BotCommandScopeChatAdmins) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotCommandScopeChatAdmins) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopeChatAdmins#b9aa606a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopeChatAdmins#b9aa606a",
+		}
 	}
 	buf.PutID(BotCommandScopeChatAdminsTypeID)
 	return b.EncodeBare(buf)
@@ -396,7 +444,10 @@ func (b *BotCommandScopeChatAdmins) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotCommandScopeChatAdmins) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopeChatAdmins#b9aa606a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopeChatAdmins#b9aa606a",
+		}
 	}
 	return nil
 }
@@ -404,10 +455,16 @@ func (b *BotCommandScopeChatAdmins) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotCommandScopeChatAdmins) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopeChatAdmins#b9aa606a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopeChatAdmins#b9aa606a",
+		}
 	}
 	if err := buf.ConsumeID(BotCommandScopeChatAdminsTypeID); err != nil {
-		return fmt.Errorf("unable to decode botCommandScopeChatAdmins#b9aa606a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "botCommandScopeChatAdmins#b9aa606a",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -415,7 +472,10 @@ func (b *BotCommandScopeChatAdmins) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotCommandScopeChatAdmins) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopeChatAdmins#b9aa606a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopeChatAdmins#b9aa606a",
+		}
 	}
 	return nil
 }
@@ -505,7 +565,10 @@ func (b *BotCommandScopePeer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotCommandScopePeer) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopePeer#db9d897d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopePeer#db9d897d",
+		}
 	}
 	buf.PutID(BotCommandScopePeerTypeID)
 	return b.EncodeBare(buf)
@@ -514,13 +577,29 @@ func (b *BotCommandScopePeer) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotCommandScopePeer) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopePeer#db9d897d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopePeer#db9d897d",
+		}
 	}
 	if b.Peer == nil {
-		return fmt.Errorf("unable to encode botCommandScopePeer#db9d897d: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "botCommandScopePeer#db9d897d",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := b.Peer.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botCommandScopePeer#db9d897d: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "botCommandScopePeer#db9d897d",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -533,10 +612,16 @@ func (b *BotCommandScopePeer) GetPeer() (value InputPeerClass) {
 // Decode implements bin.Decoder.
 func (b *BotCommandScopePeer) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopePeer#db9d897d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopePeer#db9d897d",
+		}
 	}
 	if err := buf.ConsumeID(BotCommandScopePeerTypeID); err != nil {
-		return fmt.Errorf("unable to decode botCommandScopePeer#db9d897d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "botCommandScopePeer#db9d897d",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -544,12 +629,20 @@ func (b *BotCommandScopePeer) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotCommandScopePeer) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopePeer#db9d897d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopePeer#db9d897d",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botCommandScopePeer#db9d897d: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "botCommandScopePeer#db9d897d",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		b.Peer = value
 	}
@@ -641,7 +734,10 @@ func (b *BotCommandScopePeerAdmins) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotCommandScopePeerAdmins) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopePeerAdmins#3fd863d1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopePeerAdmins#3fd863d1",
+		}
 	}
 	buf.PutID(BotCommandScopePeerAdminsTypeID)
 	return b.EncodeBare(buf)
@@ -650,13 +746,29 @@ func (b *BotCommandScopePeerAdmins) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotCommandScopePeerAdmins) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopePeerAdmins#3fd863d1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopePeerAdmins#3fd863d1",
+		}
 	}
 	if b.Peer == nil {
-		return fmt.Errorf("unable to encode botCommandScopePeerAdmins#3fd863d1: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "botCommandScopePeerAdmins#3fd863d1",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := b.Peer.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botCommandScopePeerAdmins#3fd863d1: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "botCommandScopePeerAdmins#3fd863d1",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -669,10 +781,16 @@ func (b *BotCommandScopePeerAdmins) GetPeer() (value InputPeerClass) {
 // Decode implements bin.Decoder.
 func (b *BotCommandScopePeerAdmins) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopePeerAdmins#3fd863d1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopePeerAdmins#3fd863d1",
+		}
 	}
 	if err := buf.ConsumeID(BotCommandScopePeerAdminsTypeID); err != nil {
-		return fmt.Errorf("unable to decode botCommandScopePeerAdmins#3fd863d1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "botCommandScopePeerAdmins#3fd863d1",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -680,12 +798,20 @@ func (b *BotCommandScopePeerAdmins) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotCommandScopePeerAdmins) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopePeerAdmins#3fd863d1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopePeerAdmins#3fd863d1",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botCommandScopePeerAdmins#3fd863d1: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "botCommandScopePeerAdmins#3fd863d1",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		b.Peer = value
 	}
@@ -788,7 +914,10 @@ func (b *BotCommandScopePeerUser) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotCommandScopePeerUser) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopePeerUser#a1321f3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopePeerUser#a1321f3",
+		}
 	}
 	buf.PutID(BotCommandScopePeerUserTypeID)
 	return b.EncodeBare(buf)
@@ -797,19 +926,48 @@ func (b *BotCommandScopePeerUser) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotCommandScopePeerUser) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopePeerUser#a1321f3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botCommandScopePeerUser#a1321f3",
+		}
 	}
 	if b.Peer == nil {
-		return fmt.Errorf("unable to encode botCommandScopePeerUser#a1321f3: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "botCommandScopePeerUser#a1321f3",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := b.Peer.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botCommandScopePeerUser#a1321f3: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "botCommandScopePeerUser#a1321f3",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	if b.UserID == nil {
-		return fmt.Errorf("unable to encode botCommandScopePeerUser#a1321f3: field user_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "botCommandScopePeerUser#a1321f3",
+			FieldName: "user_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := b.UserID.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botCommandScopePeerUser#a1321f3: field user_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "botCommandScopePeerUser#a1321f3",
+			FieldName:  "user_id",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -827,10 +985,16 @@ func (b *BotCommandScopePeerUser) GetUserID() (value InputUserClass) {
 // Decode implements bin.Decoder.
 func (b *BotCommandScopePeerUser) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopePeerUser#a1321f3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopePeerUser#a1321f3",
+		}
 	}
 	if err := buf.ConsumeID(BotCommandScopePeerUserTypeID); err != nil {
-		return fmt.Errorf("unable to decode botCommandScopePeerUser#a1321f3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "botCommandScopePeerUser#a1321f3",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -838,19 +1002,32 @@ func (b *BotCommandScopePeerUser) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotCommandScopePeerUser) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopePeerUser#a1321f3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botCommandScopePeerUser#a1321f3",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botCommandScopePeerUser#a1321f3: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "botCommandScopePeerUser#a1321f3",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		b.Peer = value
 	}
 	{
 		value, err := DecodeInputUser(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botCommandScopePeerUser#a1321f3: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "botCommandScopePeerUser#a1321f3",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		b.UserID = value
 	}
@@ -919,53 +1096,77 @@ func DecodeBotCommandScope(buf *bin.Buffer) (BotCommandScopeClass, error) {
 		// Decoding botCommandScopeDefault#2f6cb2ab.
 		v := BotCommandScopeDefault{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BotCommandScopeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "BotCommandScopeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case BotCommandScopeUsersTypeID:
 		// Decoding botCommandScopeUsers#3c4f04d8.
 		v := BotCommandScopeUsers{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BotCommandScopeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "BotCommandScopeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case BotCommandScopeChatsTypeID:
 		// Decoding botCommandScopeChats#6fe1a881.
 		v := BotCommandScopeChats{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BotCommandScopeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "BotCommandScopeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case BotCommandScopeChatAdminsTypeID:
 		// Decoding botCommandScopeChatAdmins#b9aa606a.
 		v := BotCommandScopeChatAdmins{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BotCommandScopeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "BotCommandScopeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case BotCommandScopePeerTypeID:
 		// Decoding botCommandScopePeer#db9d897d.
 		v := BotCommandScopePeer{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BotCommandScopeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "BotCommandScopeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case BotCommandScopePeerAdminsTypeID:
 		// Decoding botCommandScopePeerAdmins#3fd863d1.
 		v := BotCommandScopePeerAdmins{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BotCommandScopeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "BotCommandScopeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case BotCommandScopePeerUserTypeID:
 		// Decoding botCommandScopePeerUser#a1321f3.
 		v := BotCommandScopePeerUser{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BotCommandScopeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "BotCommandScopeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode BotCommandScopeClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "BotCommandScopeClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -977,7 +1178,10 @@ type BotCommandScopeBox struct {
 // Decode implements bin.Decoder for BotCommandScopeBox.
 func (b *BotCommandScopeBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode BotCommandScopeBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "BotCommandScopeBox",
+		}
 	}
 	v, err := DecodeBotCommandScope(buf)
 	if err != nil {
@@ -990,7 +1194,10 @@ func (b *BotCommandScopeBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for BotCommandScopeBox.
 func (b *BotCommandScopeBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.BotCommandScope == nil {
-		return fmt.Errorf("unable to encode BotCommandScopeClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "BotCommandScopeBox",
+		}
 	}
 	return b.BotCommandScope.Encode(buf)
 }

@@ -85,7 +85,10 @@ func (t *ContactsTopPeersNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ContactsTopPeersNotModified) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode contacts.topPeersNotModified#de266ef5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.topPeersNotModified#de266ef5",
+		}
 	}
 	b.PutID(ContactsTopPeersNotModifiedTypeID)
 	return t.EncodeBare(b)
@@ -94,7 +97,10 @@ func (t *ContactsTopPeersNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ContactsTopPeersNotModified) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode contacts.topPeersNotModified#de266ef5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.topPeersNotModified#de266ef5",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (t *ContactsTopPeersNotModified) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *ContactsTopPeersNotModified) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode contacts.topPeersNotModified#de266ef5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.topPeersNotModified#de266ef5",
+		}
 	}
 	if err := b.ConsumeID(ContactsTopPeersNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.topPeersNotModified#de266ef5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "contacts.topPeersNotModified#de266ef5",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (t *ContactsTopPeersNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ContactsTopPeersNotModified) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode contacts.topPeersNotModified#de266ef5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.topPeersNotModified#de266ef5",
+		}
 	}
 	return nil
 }
@@ -226,7 +241,10 @@ func (t *ContactsTopPeers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ContactsTopPeers) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode contacts.topPeers#70b772a8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.topPeers#70b772a8",
+		}
 	}
 	b.PutID(ContactsTopPeersTypeID)
 	return t.EncodeBare(b)
@@ -235,30 +253,82 @@ func (t *ContactsTopPeers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ContactsTopPeers) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode contacts.topPeers#70b772a8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.topPeers#70b772a8",
+		}
 	}
 	b.PutVectorHeader(len(t.Categories))
 	for idx, v := range t.Categories {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.topPeers#70b772a8: field categories element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.topPeers#70b772a8",
+				FieldName: "categories",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(t.Chats))
 	for idx, v := range t.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.topPeers#70b772a8: field chats element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.topPeers#70b772a8",
+				FieldName: "chats",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Chat>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.topPeers#70b772a8: field chats element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.topPeers#70b772a8",
+				FieldName: "chats",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(t.Users))
 	for idx, v := range t.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode contacts.topPeers#70b772a8: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.topPeers#70b772a8",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode contacts.topPeers#70b772a8: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "contacts.topPeers#70b772a8",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -292,10 +362,16 @@ func (t *ContactsTopPeers) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (t *ContactsTopPeers) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode contacts.topPeers#70b772a8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.topPeers#70b772a8",
+		}
 	}
 	if err := b.ConsumeID(ContactsTopPeersTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.topPeers#70b772a8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "contacts.topPeers#70b772a8",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -303,12 +379,20 @@ func (t *ContactsTopPeers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ContactsTopPeers) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode contacts.topPeers#70b772a8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.topPeers#70b772a8",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.topPeers#70b772a8: field categories: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.topPeers#70b772a8",
+				FieldName:  "categories",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -317,7 +401,13 @@ func (t *ContactsTopPeers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value TopPeerCategoryPeers
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode contacts.topPeers#70b772a8: field categories: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "contacts.topPeers#70b772a8",
+					FieldName:  "categories",
+					Underlying: err,
+				}
 			}
 			t.Categories = append(t.Categories, value)
 		}
@@ -325,7 +415,12 @@ func (t *ContactsTopPeers) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.topPeers#70b772a8: field chats: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.topPeers#70b772a8",
+				FieldName:  "chats",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -334,7 +429,12 @@ func (t *ContactsTopPeers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.topPeers#70b772a8: field chats: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "contacts.topPeers#70b772a8",
+					FieldName:  "chats",
+					Underlying: err,
+				}
 			}
 			t.Chats = append(t.Chats, value)
 		}
@@ -342,7 +442,12 @@ func (t *ContactsTopPeers) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.topPeers#70b772a8: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.topPeers#70b772a8",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -351,7 +456,12 @@ func (t *ContactsTopPeers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode contacts.topPeers#70b772a8: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "contacts.topPeers#70b772a8",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			t.Users = append(t.Users, value)
 		}
@@ -428,7 +538,10 @@ func (t *ContactsTopPeersDisabled) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ContactsTopPeersDisabled) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode contacts.topPeersDisabled#b52c939d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.topPeersDisabled#b52c939d",
+		}
 	}
 	b.PutID(ContactsTopPeersDisabledTypeID)
 	return t.EncodeBare(b)
@@ -437,7 +550,10 @@ func (t *ContactsTopPeersDisabled) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ContactsTopPeersDisabled) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode contacts.topPeersDisabled#b52c939d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.topPeersDisabled#b52c939d",
+		}
 	}
 	return nil
 }
@@ -445,10 +561,16 @@ func (t *ContactsTopPeersDisabled) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *ContactsTopPeersDisabled) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode contacts.topPeersDisabled#b52c939d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.topPeersDisabled#b52c939d",
+		}
 	}
 	if err := b.ConsumeID(ContactsTopPeersDisabledTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.topPeersDisabled#b52c939d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "contacts.topPeersDisabled#b52c939d",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -456,7 +578,10 @@ func (t *ContactsTopPeersDisabled) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ContactsTopPeersDisabled) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode contacts.topPeersDisabled#b52c939d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.topPeersDisabled#b52c939d",
+		}
 	}
 	return nil
 }
@@ -519,25 +644,37 @@ func DecodeContactsTopPeers(buf *bin.Buffer) (ContactsTopPeersClass, error) {
 		// Decoding contacts.topPeersNotModified#de266ef5.
 		v := ContactsTopPeersNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ContactsTopPeersClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ContactsTopPeersClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case ContactsTopPeersTypeID:
 		// Decoding contacts.topPeers#70b772a8.
 		v := ContactsTopPeers{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ContactsTopPeersClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ContactsTopPeersClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case ContactsTopPeersDisabledTypeID:
 		// Decoding contacts.topPeersDisabled#b52c939d.
 		v := ContactsTopPeersDisabled{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ContactsTopPeersClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ContactsTopPeersClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ContactsTopPeersClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "ContactsTopPeersClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -549,7 +686,10 @@ type ContactsTopPeersBox struct {
 // Decode implements bin.Decoder for ContactsTopPeersBox.
 func (b *ContactsTopPeersBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode ContactsTopPeersBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ContactsTopPeersBox",
+		}
 	}
 	v, err := DecodeContactsTopPeers(buf)
 	if err != nil {
@@ -562,7 +702,10 @@ func (b *ContactsTopPeersBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for ContactsTopPeersBox.
 func (b *ContactsTopPeersBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.TopPeers == nil {
-		return fmt.Errorf("unable to encode ContactsTopPeersClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ContactsTopPeersBox",
+		}
 	}
 	return b.TopPeers.Encode(buf)
 }

@@ -85,7 +85,10 @@ func (p *HelpPassportConfigNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *HelpPassportConfigNotModified) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.passportConfigNotModified#bfb9f457 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.passportConfigNotModified#bfb9f457",
+		}
 	}
 	b.PutID(HelpPassportConfigNotModifiedTypeID)
 	return p.EncodeBare(b)
@@ -94,7 +97,10 @@ func (p *HelpPassportConfigNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *HelpPassportConfigNotModified) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.passportConfigNotModified#bfb9f457 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.passportConfigNotModified#bfb9f457",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (p *HelpPassportConfigNotModified) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *HelpPassportConfigNotModified) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.passportConfigNotModified#bfb9f457 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.passportConfigNotModified#bfb9f457",
+		}
 	}
 	if err := b.ConsumeID(HelpPassportConfigNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.passportConfigNotModified#bfb9f457: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.passportConfigNotModified#bfb9f457",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (p *HelpPassportConfigNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *HelpPassportConfigNotModified) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.passportConfigNotModified#bfb9f457 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.passportConfigNotModified#bfb9f457",
+		}
 	}
 	return nil
 }
@@ -221,7 +236,10 @@ func (p *HelpPassportConfig) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *HelpPassportConfig) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.passportConfig#a098d6af as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.passportConfig#a098d6af",
+		}
 	}
 	b.PutID(HelpPassportConfigTypeID)
 	return p.EncodeBare(b)
@@ -230,11 +248,19 @@ func (p *HelpPassportConfig) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *HelpPassportConfig) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.passportConfig#a098d6af as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.passportConfig#a098d6af",
+		}
 	}
 	b.PutInt(p.Hash)
 	if err := p.CountriesLangs.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.passportConfig#a098d6af: field countries_langs: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "help.passportConfig#a098d6af",
+			FieldName:  "countries_langs",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -252,10 +278,16 @@ func (p *HelpPassportConfig) GetCountriesLangs() (value DataJSON) {
 // Decode implements bin.Decoder.
 func (p *HelpPassportConfig) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.passportConfig#a098d6af to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.passportConfig#a098d6af",
+		}
 	}
 	if err := b.ConsumeID(HelpPassportConfigTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.passportConfig#a098d6af: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.passportConfig#a098d6af",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -263,18 +295,31 @@ func (p *HelpPassportConfig) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *HelpPassportConfig) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.passportConfig#a098d6af to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.passportConfig#a098d6af",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.passportConfig#a098d6af: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.passportConfig#a098d6af",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		p.Hash = value
 	}
 	{
 		if err := p.CountriesLangs.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.passportConfig#a098d6af: field countries_langs: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.passportConfig#a098d6af",
+				FieldName:  "countries_langs",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -350,18 +395,27 @@ func DecodeHelpPassportConfig(buf *bin.Buffer) (HelpPassportConfigClass, error) 
 		// Decoding help.passportConfigNotModified#bfb9f457.
 		v := HelpPassportConfigNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode HelpPassportConfigClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "HelpPassportConfigClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case HelpPassportConfigTypeID:
 		// Decoding help.passportConfig#a098d6af.
 		v := HelpPassportConfig{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode HelpPassportConfigClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "HelpPassportConfigClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode HelpPassportConfigClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "HelpPassportConfigClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -373,7 +427,10 @@ type HelpPassportConfigBox struct {
 // Decode implements bin.Decoder for HelpPassportConfigBox.
 func (b *HelpPassportConfigBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode HelpPassportConfigBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "HelpPassportConfigBox",
+		}
 	}
 	v, err := DecodeHelpPassportConfig(buf)
 	if err != nil {
@@ -386,7 +443,10 @@ func (b *HelpPassportConfigBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for HelpPassportConfigBox.
 func (b *HelpPassportConfigBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.PassportConfig == nil {
-		return fmt.Errorf("unable to encode HelpPassportConfigClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "HelpPassportConfigBox",
+		}
 	}
 	return b.PassportConfig.Encode(buf)
 }

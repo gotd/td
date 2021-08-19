@@ -113,7 +113,10 @@ func (s *AccountSaveThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSaveThemeRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.saveTheme#f257106c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.saveTheme#f257106c",
+		}
 	}
 	b.PutID(AccountSaveThemeRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,13 +125,29 @@ func (s *AccountSaveThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSaveThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.saveTheme#f257106c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.saveTheme#f257106c",
+		}
 	}
 	if s.Theme == nil {
-		return fmt.Errorf("unable to encode account.saveTheme#f257106c: field theme is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "account.saveTheme#f257106c",
+			FieldName: "theme",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputTheme",
+			},
+		}
 	}
 	if err := s.Theme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.saveTheme#f257106c: field theme: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.saveTheme#f257106c",
+			FieldName:  "theme",
+			Underlying: err,
+		}
 	}
 	b.PutBool(s.Unsave)
 	return nil
@@ -147,10 +166,16 @@ func (s *AccountSaveThemeRequest) GetUnsave() (value bool) {
 // Decode implements bin.Decoder.
 func (s *AccountSaveThemeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.saveTheme#f257106c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.saveTheme#f257106c",
+		}
 	}
 	if err := b.ConsumeID(AccountSaveThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.saveTheme#f257106c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.saveTheme#f257106c",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -158,19 +183,32 @@ func (s *AccountSaveThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSaveThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.saveTheme#f257106c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.saveTheme#f257106c",
+		}
 	}
 	{
 		value, err := DecodeInputTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.saveTheme#f257106c: field theme: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.saveTheme#f257106c",
+				FieldName:  "theme",
+				Underlying: err,
+			}
 		}
 		s.Theme = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.saveTheme#f257106c: field unsave: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.saveTheme#f257106c",
+				FieldName:  "unsave",
+				Underlying: err,
+			}
 		}
 		s.Unsave = value
 	}

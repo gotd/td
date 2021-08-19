@@ -113,7 +113,10 @@ func (p *PageCaption) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageCaption) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageCaption#6f747657 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageCaption#6f747657",
+		}
 	}
 	b.PutID(PageCaptionTypeID)
 	return p.EncodeBare(b)
@@ -122,19 +125,48 @@ func (p *PageCaption) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageCaption) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageCaption#6f747657 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageCaption#6f747657",
+		}
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageCaption#6f747657: field text is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageCaption#6f747657",
+			FieldName: "text",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageCaption#6f747657: field text: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageCaption#6f747657",
+			FieldName:  "text",
+			Underlying: err,
+		}
 	}
 	if p.Credit == nil {
-		return fmt.Errorf("unable to encode pageCaption#6f747657: field credit is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageCaption#6f747657",
+			FieldName: "credit",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Credit.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageCaption#6f747657: field credit: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageCaption#6f747657",
+			FieldName:  "credit",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -152,10 +184,16 @@ func (p *PageCaption) GetCredit() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (p *PageCaption) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageCaption#6f747657 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageCaption#6f747657",
+		}
 	}
 	if err := b.ConsumeID(PageCaptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageCaption#6f747657: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageCaption#6f747657",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -163,19 +201,32 @@ func (p *PageCaption) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageCaption) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageCaption#6f747657 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageCaption#6f747657",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageCaption#6f747657: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageCaption#6f747657",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		p.Text = value
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageCaption#6f747657: field credit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageCaption#6f747657",
+				FieldName:  "credit",
+				Underlying: err,
+			}
 		}
 		p.Credit = value
 	}

@@ -130,7 +130,10 @@ func (r *RestrictionReason) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RestrictionReason) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode restrictionReason#d072acb4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "restrictionReason#d072acb4",
+		}
 	}
 	b.PutID(RestrictionReasonTypeID)
 	return r.EncodeBare(b)
@@ -139,7 +142,10 @@ func (r *RestrictionReason) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RestrictionReason) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode restrictionReason#d072acb4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "restrictionReason#d072acb4",
+		}
 	}
 	b.PutString(r.Platform)
 	b.PutString(r.Reason)
@@ -165,10 +171,16 @@ func (r *RestrictionReason) GetText() (value string) {
 // Decode implements bin.Decoder.
 func (r *RestrictionReason) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode restrictionReason#d072acb4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "restrictionReason#d072acb4",
+		}
 	}
 	if err := b.ConsumeID(RestrictionReasonTypeID); err != nil {
-		return fmt.Errorf("unable to decode restrictionReason#d072acb4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "restrictionReason#d072acb4",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -176,26 +188,44 @@ func (r *RestrictionReason) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RestrictionReason) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode restrictionReason#d072acb4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "restrictionReason#d072acb4",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode restrictionReason#d072acb4: field platform: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "restrictionReason#d072acb4",
+				FieldName:  "platform",
+				Underlying: err,
+			}
 		}
 		r.Platform = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode restrictionReason#d072acb4: field reason: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "restrictionReason#d072acb4",
+				FieldName:  "reason",
+				Underlying: err,
+			}
 		}
 		r.Reason = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode restrictionReason#d072acb4: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "restrictionReason#d072acb4",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		r.Text = value
 	}

@@ -102,7 +102,10 @@ func (c *ChatEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEmpty#9ba2d800 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatEmpty#9ba2d800",
+		}
 	}
 	b.PutID(ChatEmptyTypeID)
 	return c.EncodeBare(b)
@@ -111,7 +114,10 @@ func (c *ChatEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatEmpty) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEmpty#9ba2d800 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatEmpty#9ba2d800",
+		}
 	}
 	b.PutInt(c.ID)
 	return nil
@@ -125,10 +131,16 @@ func (c *ChatEmpty) GetID() (value int) {
 // Decode implements bin.Decoder.
 func (c *ChatEmpty) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEmpty#9ba2d800 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatEmpty#9ba2d800",
+		}
 	}
 	if err := b.ConsumeID(ChatEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEmpty#9ba2d800: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "chatEmpty#9ba2d800",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (c *ChatEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatEmpty) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEmpty#9ba2d800 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatEmpty#9ba2d800",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEmpty#9ba2d800: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatEmpty#9ba2d800",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		c.ID = value
 	}
@@ -432,7 +452,10 @@ func (c *Chat) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *Chat) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chat#3bda1bde as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chat#3bda1bde",
+		}
 	}
 	b.PutID(ChatTypeID)
 	return c.EncodeBare(b)
@@ -441,7 +464,10 @@ func (c *Chat) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *Chat) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chat#3bda1bde as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chat#3bda1bde",
+		}
 	}
 	if !(c.Creator == false) {
 		c.Flags.Set(0)
@@ -471,35 +497,76 @@ func (c *Chat) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(18)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chat#3bda1bde: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "chat#3bda1bde",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(c.ID)
 	b.PutString(c.Title)
 	if c.Photo == nil {
-		return fmt.Errorf("unable to encode chat#3bda1bde: field photo is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "chat#3bda1bde",
+			FieldName: "photo",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "ChatPhoto",
+			},
+		}
 	}
 	if err := c.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chat#3bda1bde: field photo: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "chat#3bda1bde",
+			FieldName:  "photo",
+			Underlying: err,
+		}
 	}
 	b.PutInt(c.ParticipantsCount)
 	b.PutInt(c.Date)
 	b.PutInt(c.Version)
 	if c.Flags.Has(6) {
 		if c.MigratedTo == nil {
-			return fmt.Errorf("unable to encode chat#3bda1bde: field migrated_to is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "chat#3bda1bde",
+				FieldName: "migrated_to",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputChannel",
+				},
+			}
 		}
 		if err := c.MigratedTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode chat#3bda1bde: field migrated_to: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "migrated_to",
+				Underlying: err,
+			}
 		}
 	}
 	if c.Flags.Has(14) {
 		if err := c.AdminRights.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode chat#3bda1bde: field admin_rights: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "admin_rights",
+				Underlying: err,
+			}
 		}
 	}
 	if c.Flags.Has(18) {
 		if err := c.DefaultBannedRights.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode chat#3bda1bde: field default_banned_rights: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "default_banned_rights",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -679,10 +746,16 @@ func (c *Chat) GetDefaultBannedRights() (value ChatBannedRights, ok bool) {
 // Decode implements bin.Decoder.
 func (c *Chat) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chat#3bda1bde to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chat#3bda1bde",
+		}
 	}
 	if err := b.ConsumeID(ChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode chat#3bda1bde: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "chat#3bda1bde",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -690,11 +763,19 @@ func (c *Chat) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *Chat) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chat#3bda1bde to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chat#3bda1bde",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	c.Creator = c.Flags.Has(0)
@@ -706,60 +787,105 @@ func (c *Chat) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		c.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		c.Title = value
 	}
 	{
 		value, err := DecodeChatPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 		c.Photo = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field participants_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "participants_count",
+				Underlying: err,
+			}
 		}
 		c.ParticipantsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		c.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "version",
+				Underlying: err,
+			}
 		}
 		c.Version = value
 	}
 	if c.Flags.Has(6) {
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field migrated_to: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "migrated_to",
+				Underlying: err,
+			}
 		}
 		c.MigratedTo = value
 	}
 	if c.Flags.Has(14) {
 		if err := c.AdminRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field admin_rights: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "admin_rights",
+				Underlying: err,
+			}
 		}
 	}
 	if c.Flags.Has(18) {
 		if err := c.DefaultBannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field default_banned_rights: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chat#3bda1bde",
+				FieldName:  "default_banned_rights",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -863,7 +989,10 @@ func (c *ChatForbidden) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatForbidden) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatForbidden#7328bdb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatForbidden#7328bdb",
+		}
 	}
 	b.PutID(ChatForbiddenTypeID)
 	return c.EncodeBare(b)
@@ -872,7 +1001,10 @@ func (c *ChatForbidden) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatForbidden) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatForbidden#7328bdb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatForbidden#7328bdb",
+		}
 	}
 	b.PutInt(c.ID)
 	b.PutString(c.Title)
@@ -892,10 +1024,16 @@ func (c *ChatForbidden) GetTitle() (value string) {
 // Decode implements bin.Decoder.
 func (c *ChatForbidden) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatForbidden#7328bdb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatForbidden#7328bdb",
+		}
 	}
 	if err := b.ConsumeID(ChatForbiddenTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatForbidden#7328bdb: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "chatForbidden#7328bdb",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -903,19 +1041,32 @@ func (c *ChatForbidden) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatForbidden) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatForbidden#7328bdb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatForbidden#7328bdb",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatForbidden#7328bdb: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatForbidden#7328bdb",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		c.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatForbidden#7328bdb: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatForbidden#7328bdb",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		c.Title = value
 	}
@@ -1384,7 +1535,10 @@ func (c *Channel) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *Channel) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channel#d31a961e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channel#d31a961e",
+		}
 	}
 	b.PutID(ChannelTypeID)
 	return c.EncodeBare(b)
@@ -1393,7 +1547,10 @@ func (c *Channel) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *Channel) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channel#d31a961e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channel#d31a961e",
+		}
 	}
 	if !(c.Creator == false) {
 		c.Flags.Set(0)
@@ -1465,7 +1622,12 @@ func (c *Channel) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(17)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channel#d31a961e: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channel#d31a961e",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(c.ID)
 	if c.Flags.Has(13) {
@@ -1476,10 +1638,23 @@ func (c *Channel) EncodeBare(b *bin.Buffer) error {
 		b.PutString(c.Username)
 	}
 	if c.Photo == nil {
-		return fmt.Errorf("unable to encode channel#d31a961e: field photo is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channel#d31a961e",
+			FieldName: "photo",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "ChatPhoto",
+			},
+		}
 	}
 	if err := c.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channel#d31a961e: field photo: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channel#d31a961e",
+			FieldName:  "photo",
+			Underlying: err,
+		}
 	}
 	b.PutInt(c.Date)
 	b.PutInt(c.Version)
@@ -1487,23 +1662,47 @@ func (c *Channel) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(c.RestrictionReason))
 		for idx, v := range c.RestrictionReason {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode channel#d31a961e: field restriction_reason element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "channel#d31a961e",
+					FieldName: "restriction_reason",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
 	if c.Flags.Has(14) {
 		if err := c.AdminRights.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channel#d31a961e: field admin_rights: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "admin_rights",
+				Underlying: err,
+			}
 		}
 	}
 	if c.Flags.Has(15) {
 		if err := c.BannedRights.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channel#d31a961e: field banned_rights: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "banned_rights",
+				Underlying: err,
+			}
 		}
 	}
 	if c.Flags.Has(18) {
 		if err := c.DefaultBannedRights.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channel#d31a961e: field default_banned_rights: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "default_banned_rights",
+				Underlying: err,
+			}
 		}
 	}
 	if c.Flags.Has(17) {
@@ -1901,10 +2100,16 @@ func (c *Channel) GetParticipantsCount() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (c *Channel) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channel#d31a961e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channel#d31a961e",
+		}
 	}
 	if err := b.ConsumeID(ChannelTypeID); err != nil {
-		return fmt.Errorf("unable to decode channel#d31a961e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channel#d31a961e",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -1912,11 +2117,19 @@ func (c *Channel) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *Channel) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channel#d31a961e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channel#d31a961e",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	c.Creator = c.Flags.Has(0)
@@ -1938,56 +2151,96 @@ func (c *Channel) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		c.ID = value
 	}
 	if c.Flags.Has(13) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		c.AccessHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		c.Title = value
 	}
 	if c.Flags.Has(6) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field username: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "username",
+				Underlying: err,
+			}
 		}
 		c.Username = value
 	}
 	{
 		value, err := DecodeChatPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 		c.Photo = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		c.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "version",
+				Underlying: err,
+			}
 		}
 		c.Version = value
 	}
 	if c.Flags.Has(9) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field restriction_reason: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "restriction_reason",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -1996,30 +2249,56 @@ func (c *Channel) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value RestrictionReason
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode channel#d31a961e: field restriction_reason: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "channel#d31a961e",
+					FieldName:  "restriction_reason",
+					Underlying: err,
+				}
 			}
 			c.RestrictionReason = append(c.RestrictionReason, value)
 		}
 	}
 	if c.Flags.Has(14) {
 		if err := c.AdminRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field admin_rights: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "admin_rights",
+				Underlying: err,
+			}
 		}
 	}
 	if c.Flags.Has(15) {
 		if err := c.BannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field banned_rights: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "banned_rights",
+				Underlying: err,
+			}
 		}
 	}
 	if c.Flags.Has(18) {
 		if err := c.DefaultBannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field default_banned_rights: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "default_banned_rights",
+				Underlying: err,
+			}
 		}
 	}
 	if c.Flags.Has(17) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field participants_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channel#d31a961e",
+				FieldName:  "participants_count",
+				Underlying: err,
+			}
 		}
 		c.ParticipantsCount = value
 	}
@@ -2184,7 +2463,10 @@ func (c *ChannelForbidden) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelForbidden) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelForbidden#289da732 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channelForbidden#289da732",
+		}
 	}
 	b.PutID(ChannelForbiddenTypeID)
 	return c.EncodeBare(b)
@@ -2193,7 +2475,10 @@ func (c *ChannelForbidden) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelForbidden) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelForbidden#289da732 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channelForbidden#289da732",
+		}
 	}
 	if !(c.Broadcast == false) {
 		c.Flags.Set(5)
@@ -2205,7 +2490,12 @@ func (c *ChannelForbidden) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(16)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channelForbidden#289da732: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channelForbidden#289da732",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(c.ID)
 	b.PutLong(c.AccessHash)
@@ -2281,10 +2571,16 @@ func (c *ChannelForbidden) GetUntilDate() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (c *ChannelForbidden) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelForbidden#289da732 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channelForbidden#289da732",
+		}
 	}
 	if err := b.ConsumeID(ChannelForbiddenTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelForbidden#289da732: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channelForbidden#289da732",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -2292,11 +2588,19 @@ func (c *ChannelForbidden) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelForbidden) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelForbidden#289da732 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channelForbidden#289da732",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channelForbidden#289da732",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	c.Broadcast = c.Flags.Has(5)
@@ -2304,28 +2608,48 @@ func (c *ChannelForbidden) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channelForbidden#289da732",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		c.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channelForbidden#289da732",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		c.AccessHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channelForbidden#289da732",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		c.Title = value
 	}
 	if c.Flags.Has(16) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field until_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channelForbidden#289da732",
+				FieldName:  "until_date",
+				Underlying: err,
+			}
 		}
 		c.UntilDate = value
 	}
@@ -2630,39 +2954,57 @@ func DecodeChat(buf *bin.Buffer) (ChatClass, error) {
 		// Decoding chatEmpty#9ba2d800.
 		v := ChatEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ChatClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case ChatTypeID:
 		// Decoding chat#3bda1bde.
 		v := Chat{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ChatClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case ChatForbiddenTypeID:
 		// Decoding chatForbidden#7328bdb.
 		v := ChatForbidden{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ChatClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case ChannelTypeID:
 		// Decoding channel#d31a961e.
 		v := Channel{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ChatClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case ChannelForbiddenTypeID:
 		// Decoding channelForbidden#289da732.
 		v := ChannelForbidden{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ChatClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ChatClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "ChatClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -2674,7 +3016,10 @@ type ChatBox struct {
 // Decode implements bin.Decoder for ChatBox.
 func (b *ChatBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode ChatBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ChatBox",
+		}
 	}
 	v, err := DecodeChat(buf)
 	if err != nil {
@@ -2687,7 +3032,10 @@ func (b *ChatBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for ChatBox.
 func (b *ChatBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Chat == nil {
-		return fmt.Errorf("unable to encode ChatClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ChatBox",
+		}
 	}
 	return b.Chat.Encode(buf)
 }

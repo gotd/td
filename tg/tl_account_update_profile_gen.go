@@ -150,7 +150,10 @@ func (u *AccountUpdateProfileRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUpdateProfileRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateProfile#78515775 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.updateProfile#78515775",
+		}
 	}
 	b.PutID(AccountUpdateProfileRequestTypeID)
 	return u.EncodeBare(b)
@@ -159,7 +162,10 @@ func (u *AccountUpdateProfileRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUpdateProfileRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateProfile#78515775 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.updateProfile#78515775",
+		}
 	}
 	if !(u.FirstName == "") {
 		u.Flags.Set(0)
@@ -171,7 +177,12 @@ func (u *AccountUpdateProfileRequest) EncodeBare(b *bin.Buffer) error {
 		u.Flags.Set(2)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updateProfile#78515775: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.updateProfile#78515775",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if u.Flags.Has(0) {
 		b.PutString(u.FirstName)
@@ -233,10 +244,16 @@ func (u *AccountUpdateProfileRequest) GetAbout() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (u *AccountUpdateProfileRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateProfile#78515775 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.updateProfile#78515775",
+		}
 	}
 	if err := b.ConsumeID(AccountUpdateProfileRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.updateProfile#78515775: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.updateProfile#78515775",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -244,31 +261,54 @@ func (u *AccountUpdateProfileRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUpdateProfileRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateProfile#78515775 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.updateProfile#78515775",
+		}
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.updateProfile#78515775: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.updateProfile#78515775",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	if u.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateProfile#78515775: field first_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.updateProfile#78515775",
+				FieldName:  "first_name",
+				Underlying: err,
+			}
 		}
 		u.FirstName = value
 	}
 	if u.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateProfile#78515775: field last_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.updateProfile#78515775",
+				FieldName:  "last_name",
+				Underlying: err,
+			}
 		}
 		u.LastName = value
 	}
 	if u.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateProfile#78515775: field about: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.updateProfile#78515775",
+				FieldName:  "about",
+				Underlying: err,
+			}
 		}
 		u.About = value
 	}

@@ -112,7 +112,10 @@ func (l *PhoneLeaveGroupCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *PhoneLeaveGroupCallRequest) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode phone.leaveGroupCall#500377f9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.leaveGroupCall#500377f9",
+		}
 	}
 	b.PutID(PhoneLeaveGroupCallRequestTypeID)
 	return l.EncodeBare(b)
@@ -121,10 +124,18 @@ func (l *PhoneLeaveGroupCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *PhoneLeaveGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode phone.leaveGroupCall#500377f9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.leaveGroupCall#500377f9",
+		}
 	}
 	if err := l.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.leaveGroupCall#500377f9: field call: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.leaveGroupCall#500377f9",
+			FieldName:  "call",
+			Underlying: err,
+		}
 	}
 	b.PutInt(l.Source)
 	return nil
@@ -143,10 +154,16 @@ func (l *PhoneLeaveGroupCallRequest) GetSource() (value int) {
 // Decode implements bin.Decoder.
 func (l *PhoneLeaveGroupCallRequest) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode phone.leaveGroupCall#500377f9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.leaveGroupCall#500377f9",
+		}
 	}
 	if err := b.ConsumeID(PhoneLeaveGroupCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.leaveGroupCall#500377f9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.leaveGroupCall#500377f9",
+			Underlying: err,
+		}
 	}
 	return l.DecodeBare(b)
 }
@@ -154,17 +171,30 @@ func (l *PhoneLeaveGroupCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *PhoneLeaveGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode phone.leaveGroupCall#500377f9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.leaveGroupCall#500377f9",
+		}
 	}
 	{
 		if err := l.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.leaveGroupCall#500377f9: field call: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.leaveGroupCall#500377f9",
+				FieldName:  "call",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.leaveGroupCall#500377f9: field source: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.leaveGroupCall#500377f9",
+				FieldName:  "source",
+				Underlying: err,
+			}
 		}
 		l.Source = value
 	}

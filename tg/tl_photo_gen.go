@@ -102,7 +102,10 @@ func (p *PhotoEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhotoEmpty) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode photoEmpty#2331b22d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "photoEmpty#2331b22d",
+		}
 	}
 	b.PutID(PhotoEmptyTypeID)
 	return p.EncodeBare(b)
@@ -111,7 +114,10 @@ func (p *PhotoEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhotoEmpty) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode photoEmpty#2331b22d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "photoEmpty#2331b22d",
+		}
 	}
 	b.PutLong(p.ID)
 	return nil
@@ -125,10 +131,16 @@ func (p *PhotoEmpty) GetID() (value int64) {
 // Decode implements bin.Decoder.
 func (p *PhotoEmpty) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode photoEmpty#2331b22d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "photoEmpty#2331b22d",
+		}
 	}
 	if err := b.ConsumeID(PhotoEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode photoEmpty#2331b22d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "photoEmpty#2331b22d",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (p *PhotoEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode photoEmpty#2331b22d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "photoEmpty#2331b22d",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode photoEmpty#2331b22d: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photoEmpty#2331b22d",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		p.ID = value
 	}
@@ -332,7 +352,10 @@ func (p *Photo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *Photo) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode photo#fb197a65 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "photo#fb197a65",
+		}
 	}
 	b.PutID(PhotoTypeID)
 	return p.EncodeBare(b)
@@ -341,7 +364,10 @@ func (p *Photo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *Photo) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode photo#fb197a65 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "photo#fb197a65",
+		}
 	}
 	if !(p.HasStickers == false) {
 		p.Flags.Set(0)
@@ -350,7 +376,12 @@ func (p *Photo) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(1)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photo#fb197a65: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "photo#fb197a65",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutLong(p.ID)
 	b.PutLong(p.AccessHash)
@@ -359,17 +390,46 @@ func (p *Photo) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(p.Sizes))
 	for idx, v := range p.Sizes {
 		if v == nil {
-			return fmt.Errorf("unable to encode photo#fb197a65: field sizes element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "photo#fb197a65",
+				FieldName: "sizes",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<PhotoSize>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode photo#fb197a65: field sizes element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "photo#fb197a65",
+				FieldName: "sizes",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if p.Flags.Has(1) {
 		b.PutVectorHeader(len(p.VideoSizes))
 		for idx, v := range p.VideoSizes {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode photo#fb197a65: field video_sizes element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "photo#fb197a65",
+					FieldName: "video_sizes",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
@@ -446,10 +506,16 @@ func (p *Photo) GetDCID() (value int) {
 // Decode implements bin.Decoder.
 func (p *Photo) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode photo#fb197a65 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "photo#fb197a65",
+		}
 	}
 	if err := b.ConsumeID(PhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode photo#fb197a65: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "photo#fb197a65",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -457,46 +523,79 @@ func (p *Photo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *Photo) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode photo#fb197a65 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "photo#fb197a65",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode photo#fb197a65: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photo#fb197a65",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	p.HasStickers = p.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode photo#fb197a65: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photo#fb197a65",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		p.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode photo#fb197a65: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photo#fb197a65",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		p.AccessHash = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode photo#fb197a65: field file_reference: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photo#fb197a65",
+				FieldName:  "file_reference",
+				Underlying: err,
+			}
 		}
 		p.FileReference = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode photo#fb197a65: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photo#fb197a65",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		p.Date = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode photo#fb197a65: field sizes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photo#fb197a65",
+				FieldName:  "sizes",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -505,7 +604,12 @@ func (p *Photo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePhotoSize(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode photo#fb197a65: field sizes: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "photo#fb197a65",
+					FieldName:  "sizes",
+					Underlying: err,
+				}
 			}
 			p.Sizes = append(p.Sizes, value)
 		}
@@ -513,7 +617,12 @@ func (p *Photo) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode photo#fb197a65: field video_sizes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photo#fb197a65",
+				FieldName:  "video_sizes",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -522,7 +631,13 @@ func (p *Photo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value VideoSize
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode photo#fb197a65: field video_sizes: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "photo#fb197a65",
+					FieldName:  "video_sizes",
+					Underlying: err,
+				}
 			}
 			p.VideoSizes = append(p.VideoSizes, value)
 		}
@@ -530,7 +645,12 @@ func (p *Photo) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode photo#fb197a65: field dc_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photo#fb197a65",
+				FieldName:  "dc_id",
+				Underlying: err,
+			}
 		}
 		p.DCID = value
 	}
@@ -620,18 +740,27 @@ func DecodePhoto(buf *bin.Buffer) (PhotoClass, error) {
 		// Decoding photoEmpty#2331b22d.
 		v := PhotoEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PhotoClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PhotoClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PhotoTypeID:
 		// Decoding photo#fb197a65.
 		v := Photo{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PhotoClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PhotoClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode PhotoClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "PhotoClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -643,7 +772,10 @@ type PhotoBox struct {
 // Decode implements bin.Decoder for PhotoBox.
 func (b *PhotoBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode PhotoBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "PhotoBox",
+		}
 	}
 	v, err := DecodePhoto(buf)
 	if err != nil {
@@ -656,7 +788,10 @@ func (b *PhotoBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for PhotoBox.
 func (b *PhotoBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Photo == nil {
-		return fmt.Errorf("unable to encode PhotoClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "PhotoBox",
+		}
 	}
 	return b.Photo.Encode(buf)
 }

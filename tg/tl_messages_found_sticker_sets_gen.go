@@ -85,7 +85,10 @@ func (f *MessagesFoundStickerSetsNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *MessagesFoundStickerSetsNotModified) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.foundStickerSetsNotModified#d54b65d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.foundStickerSetsNotModified#d54b65d",
+		}
 	}
 	b.PutID(MessagesFoundStickerSetsNotModifiedTypeID)
 	return f.EncodeBare(b)
@@ -94,7 +97,10 @@ func (f *MessagesFoundStickerSetsNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *MessagesFoundStickerSetsNotModified) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.foundStickerSetsNotModified#d54b65d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.foundStickerSetsNotModified#d54b65d",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (f *MessagesFoundStickerSetsNotModified) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *MessagesFoundStickerSetsNotModified) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.foundStickerSetsNotModified#d54b65d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.foundStickerSetsNotModified#d54b65d",
+		}
 	}
 	if err := b.ConsumeID(MessagesFoundStickerSetsNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.foundStickerSetsNotModified#d54b65d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.foundStickerSetsNotModified#d54b65d",
+			Underlying: err,
+		}
 	}
 	return f.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (f *MessagesFoundStickerSetsNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *MessagesFoundStickerSetsNotModified) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.foundStickerSetsNotModified#d54b65d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.foundStickerSetsNotModified#d54b65d",
+		}
 	}
 	return nil
 }
@@ -218,7 +233,10 @@ func (f *MessagesFoundStickerSets) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *MessagesFoundStickerSets) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.foundStickerSets#5108d648 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.foundStickerSets#5108d648",
+		}
 	}
 	b.PutID(MessagesFoundStickerSetsTypeID)
 	return f.EncodeBare(b)
@@ -227,16 +245,39 @@ func (f *MessagesFoundStickerSets) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *MessagesFoundStickerSets) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.foundStickerSets#5108d648 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.foundStickerSets#5108d648",
+		}
 	}
 	b.PutInt(f.Hash)
 	b.PutVectorHeader(len(f.Sets))
 	for idx, v := range f.Sets {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.foundStickerSets#5108d648: field sets element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.foundStickerSets#5108d648",
+				FieldName: "sets",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<StickerSetCovered>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.foundStickerSets#5108d648: field sets element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.foundStickerSets#5108d648",
+				FieldName: "sets",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -260,10 +301,16 @@ func (f *MessagesFoundStickerSets) MapSets() (value StickerSetCoveredClassArray)
 // Decode implements bin.Decoder.
 func (f *MessagesFoundStickerSets) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.foundStickerSets#5108d648 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.foundStickerSets#5108d648",
+		}
 	}
 	if err := b.ConsumeID(MessagesFoundStickerSetsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.foundStickerSets#5108d648: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.foundStickerSets#5108d648",
+			Underlying: err,
+		}
 	}
 	return f.DecodeBare(b)
 }
@@ -271,19 +318,32 @@ func (f *MessagesFoundStickerSets) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *MessagesFoundStickerSets) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.foundStickerSets#5108d648 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.foundStickerSets#5108d648",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.foundStickerSets#5108d648: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.foundStickerSets#5108d648",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		f.Hash = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.foundStickerSets#5108d648: field sets: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.foundStickerSets#5108d648",
+				FieldName:  "sets",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -292,7 +352,12 @@ func (f *MessagesFoundStickerSets) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStickerSetCovered(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.foundStickerSets#5108d648: field sets: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.foundStickerSets#5108d648",
+					FieldName:  "sets",
+					Underlying: err,
+				}
 			}
 			f.Sets = append(f.Sets, value)
 		}
@@ -370,18 +435,27 @@ func DecodeMessagesFoundStickerSets(buf *bin.Buffer) (MessagesFoundStickerSetsCl
 		// Decoding messages.foundStickerSetsNotModified#d54b65d.
 		v := MessagesFoundStickerSetsNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFoundStickerSetsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessagesFoundStickerSetsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessagesFoundStickerSetsTypeID:
 		// Decoding messages.foundStickerSets#5108d648.
 		v := MessagesFoundStickerSets{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesFoundStickerSetsClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessagesFoundStickerSetsClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessagesFoundStickerSetsClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "MessagesFoundStickerSetsClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -393,7 +467,10 @@ type MessagesFoundStickerSetsBox struct {
 // Decode implements bin.Decoder for MessagesFoundStickerSetsBox.
 func (b *MessagesFoundStickerSetsBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode MessagesFoundStickerSetsBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "MessagesFoundStickerSetsBox",
+		}
 	}
 	v, err := DecodeMessagesFoundStickerSets(buf)
 	if err != nil {
@@ -406,7 +483,10 @@ func (b *MessagesFoundStickerSetsBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for MessagesFoundStickerSetsBox.
 func (b *MessagesFoundStickerSetsBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.FoundStickerSets == nil {
-		return fmt.Errorf("unable to encode MessagesFoundStickerSetsClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "MessagesFoundStickerSetsBox",
+		}
 	}
 	return b.FoundStickerSets.Encode(buf)
 }

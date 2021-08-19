@@ -102,7 +102,10 @@ func (g *MessagesGetStickerSetRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetStickerSetRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getStickerSet#2619a90e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getStickerSet#2619a90e",
+		}
 	}
 	b.PutID(MessagesGetStickerSetRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,13 +114,29 @@ func (g *MessagesGetStickerSetRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getStickerSet#2619a90e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getStickerSet#2619a90e",
+		}
 	}
 	if g.Stickerset == nil {
-		return fmt.Errorf("unable to encode messages.getStickerSet#2619a90e: field stickerset is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getStickerSet#2619a90e",
+			FieldName: "stickerset",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputStickerSet",
+			},
+		}
 	}
 	if err := g.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getStickerSet#2619a90e: field stickerset: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getStickerSet#2619a90e",
+			FieldName:  "stickerset",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -130,10 +149,16 @@ func (g *MessagesGetStickerSetRequest) GetStickerset() (value InputStickerSetCla
 // Decode implements bin.Decoder.
 func (g *MessagesGetStickerSetRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getStickerSet#2619a90e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getStickerSet#2619a90e",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetStickerSetRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getStickerSet#2619a90e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getStickerSet#2619a90e",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -141,12 +166,20 @@ func (g *MessagesGetStickerSetRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getStickerSet#2619a90e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getStickerSet#2619a90e",
+		}
 	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getStickerSet#2619a90e: field stickerset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getStickerSet#2619a90e",
+				FieldName:  "stickerset",
+				Underlying: err,
+			}
 		}
 		g.Stickerset = value
 	}

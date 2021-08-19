@@ -85,7 +85,10 @@ func (i *InputCheckPasswordEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputCheckPasswordEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputCheckPasswordEmpty#9880f658 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputCheckPasswordEmpty#9880f658",
+		}
 	}
 	b.PutID(InputCheckPasswordEmptyTypeID)
 	return i.EncodeBare(b)
@@ -94,7 +97,10 @@ func (i *InputCheckPasswordEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputCheckPasswordEmpty) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputCheckPasswordEmpty#9880f658 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputCheckPasswordEmpty#9880f658",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (i *InputCheckPasswordEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputCheckPasswordEmpty) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputCheckPasswordEmpty#9880f658 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputCheckPasswordEmpty#9880f658",
+		}
 	}
 	if err := b.ConsumeID(InputCheckPasswordEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputCheckPasswordEmpty#9880f658: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputCheckPasswordEmpty#9880f658",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (i *InputCheckPasswordEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputCheckPasswordEmpty) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputCheckPasswordEmpty#9880f658 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputCheckPasswordEmpty#9880f658",
+		}
 	}
 	return nil
 }
@@ -238,7 +253,10 @@ func (i *InputCheckPasswordSRP) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputCheckPasswordSRP) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputCheckPasswordSRP#d27ff082 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputCheckPasswordSRP#d27ff082",
+		}
 	}
 	b.PutID(InputCheckPasswordSRPTypeID)
 	return i.EncodeBare(b)
@@ -247,7 +265,10 @@ func (i *InputCheckPasswordSRP) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputCheckPasswordSRP) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputCheckPasswordSRP#d27ff082 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputCheckPasswordSRP#d27ff082",
+		}
 	}
 	b.PutLong(i.SRPID)
 	b.PutBytes(i.A)
@@ -273,10 +294,16 @@ func (i *InputCheckPasswordSRP) GetM1() (value []byte) {
 // Decode implements bin.Decoder.
 func (i *InputCheckPasswordSRP) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputCheckPasswordSRP#d27ff082 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputCheckPasswordSRP#d27ff082",
+		}
 	}
 	if err := b.ConsumeID(InputCheckPasswordSRPTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputCheckPasswordSRP#d27ff082: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputCheckPasswordSRP#d27ff082",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -284,26 +311,44 @@ func (i *InputCheckPasswordSRP) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputCheckPasswordSRP) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputCheckPasswordSRP#d27ff082 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputCheckPasswordSRP#d27ff082",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputCheckPasswordSRP#d27ff082: field srp_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputCheckPasswordSRP#d27ff082",
+				FieldName:  "srp_id",
+				Underlying: err,
+			}
 		}
 		i.SRPID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputCheckPasswordSRP#d27ff082: field A: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputCheckPasswordSRP#d27ff082",
+				FieldName:  "A",
+				Underlying: err,
+			}
 		}
 		i.A = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputCheckPasswordSRP#d27ff082: field M1: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputCheckPasswordSRP#d27ff082",
+				FieldName:  "M1",
+				Underlying: err,
+			}
 		}
 		i.M1 = value
 	}
@@ -380,18 +425,27 @@ func DecodeInputCheckPasswordSRP(buf *bin.Buffer) (InputCheckPasswordSRPClass, e
 		// Decoding inputCheckPasswordEmpty#9880f658.
 		v := InputCheckPasswordEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputCheckPasswordSRPClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputCheckPasswordSRPClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputCheckPasswordSRPTypeID:
 		// Decoding inputCheckPasswordSRP#d27ff082.
 		v := InputCheckPasswordSRP{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputCheckPasswordSRPClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputCheckPasswordSRPClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputCheckPasswordSRPClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "InputCheckPasswordSRPClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -403,7 +457,10 @@ type InputCheckPasswordSRPBox struct {
 // Decode implements bin.Decoder for InputCheckPasswordSRPBox.
 func (b *InputCheckPasswordSRPBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputCheckPasswordSRPBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "InputCheckPasswordSRPBox",
+		}
 	}
 	v, err := DecodeInputCheckPasswordSRP(buf)
 	if err != nil {
@@ -416,7 +473,10 @@ func (b *InputCheckPasswordSRPBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputCheckPasswordSRPBox.
 func (b *InputCheckPasswordSRPBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputCheckPasswordSRP == nil {
-		return fmt.Errorf("unable to encode InputCheckPasswordSRPClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "InputCheckPasswordSRPBox",
+		}
 	}
 	return b.InputCheckPasswordSRP.Encode(buf)
 }

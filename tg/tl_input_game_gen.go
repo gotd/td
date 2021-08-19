@@ -119,7 +119,10 @@ func (i *InputGameID) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputGameID) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputGameID#32c3e77 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputGameID#32c3e77",
+		}
 	}
 	b.PutID(InputGameIDTypeID)
 	return i.EncodeBare(b)
@@ -128,7 +131,10 @@ func (i *InputGameID) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputGameID) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputGameID#32c3e77 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputGameID#32c3e77",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -148,10 +154,16 @@ func (i *InputGameID) GetAccessHash() (value int64) {
 // Decode implements bin.Decoder.
 func (i *InputGameID) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputGameID#32c3e77 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputGameID#32c3e77",
+		}
 	}
 	if err := b.ConsumeID(InputGameIDTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputGameID#32c3e77: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputGameID#32c3e77",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -159,19 +171,32 @@ func (i *InputGameID) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputGameID) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputGameID#32c3e77 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputGameID#32c3e77",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputGameID#32c3e77: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputGameID#32c3e77",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputGameID#32c3e77: field access_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputGameID#32c3e77",
+				FieldName:  "access_hash",
+				Underlying: err,
+			}
 		}
 		i.AccessHash = value
 	}
@@ -275,7 +300,10 @@ func (i *InputGameShortName) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputGameShortName) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputGameShortName#c331e80a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputGameShortName#c331e80a",
+		}
 	}
 	b.PutID(InputGameShortNameTypeID)
 	return i.EncodeBare(b)
@@ -284,13 +312,29 @@ func (i *InputGameShortName) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputGameShortName) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputGameShortName#c331e80a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputGameShortName#c331e80a",
+		}
 	}
 	if i.BotID == nil {
-		return fmt.Errorf("unable to encode inputGameShortName#c331e80a: field bot_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "inputGameShortName#c331e80a",
+			FieldName: "bot_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := i.BotID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputGameShortName#c331e80a: field bot_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputGameShortName#c331e80a",
+			FieldName:  "bot_id",
+			Underlying: err,
+		}
 	}
 	b.PutString(i.ShortName)
 	return nil
@@ -309,10 +353,16 @@ func (i *InputGameShortName) GetShortName() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputGameShortName) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputGameShortName#c331e80a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputGameShortName#c331e80a",
+		}
 	}
 	if err := b.ConsumeID(InputGameShortNameTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputGameShortName#c331e80a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputGameShortName#c331e80a",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -320,19 +370,32 @@ func (i *InputGameShortName) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputGameShortName) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputGameShortName#c331e80a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputGameShortName#c331e80a",
+		}
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputGameShortName#c331e80a: field bot_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputGameShortName#c331e80a",
+				FieldName:  "bot_id",
+				Underlying: err,
+			}
 		}
 		i.BotID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputGameShortName#c331e80a: field short_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputGameShortName#c331e80a",
+				FieldName:  "short_name",
+				Underlying: err,
+			}
 		}
 		i.ShortName = value
 	}
@@ -396,18 +459,27 @@ func DecodeInputGame(buf *bin.Buffer) (InputGameClass, error) {
 		// Decoding inputGameID#32c3e77.
 		v := InputGameID{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputGameClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputGameClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputGameShortNameTypeID:
 		// Decoding inputGameShortName#c331e80a.
 		v := InputGameShortName{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputGameClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputGameClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputGameClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "InputGameClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -419,7 +491,10 @@ type InputGameBox struct {
 // Decode implements bin.Decoder for InputGameBox.
 func (b *InputGameBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputGameBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "InputGameBox",
+		}
 	}
 	v, err := DecodeInputGame(buf)
 	if err != nil {
@@ -432,7 +507,10 @@ func (b *InputGameBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputGameBox.
 func (b *InputGameBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputGame == nil {
-		return fmt.Errorf("unable to encode InputGameClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "InputGameBox",
+		}
 	}
 	return b.InputGame.Encode(buf)
 }

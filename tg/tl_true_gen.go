@@ -88,7 +88,10 @@ func (t *True) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *True) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode true#3fedd339 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "true#3fedd339",
+		}
 	}
 	b.PutID(TrueTypeID)
 	return t.EncodeBare(b)
@@ -97,7 +100,10 @@ func (t *True) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *True) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode true#3fedd339 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "true#3fedd339",
+		}
 	}
 	return nil
 }
@@ -105,10 +111,16 @@ func (t *True) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *True) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode true#3fedd339 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "true#3fedd339",
+		}
 	}
 	if err := b.ConsumeID(TrueTypeID); err != nil {
-		return fmt.Errorf("unable to decode true#3fedd339: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "true#3fedd339",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -116,7 +128,10 @@ func (t *True) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *True) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode true#3fedd339 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "true#3fedd339",
+		}
 	}
 	return nil
 }

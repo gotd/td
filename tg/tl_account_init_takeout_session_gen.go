@@ -197,7 +197,10 @@ func (i *AccountInitTakeoutSessionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *AccountInitTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode account.initTakeoutSession#f05b4804 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.initTakeoutSession#f05b4804",
+		}
 	}
 	b.PutID(AccountInitTakeoutSessionRequestTypeID)
 	return i.EncodeBare(b)
@@ -206,7 +209,10 @@ func (i *AccountInitTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *AccountInitTakeoutSessionRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode account.initTakeoutSession#f05b4804 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.initTakeoutSession#f05b4804",
+		}
 	}
 	if !(i.Contacts == false) {
 		i.Flags.Set(0)
@@ -230,7 +236,12 @@ func (i *AccountInitTakeoutSessionRequest) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(5)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.initTakeoutSession#f05b4804: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.initTakeoutSession#f05b4804",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if i.Flags.Has(5) {
 		b.PutInt(i.FileMaxSize)
@@ -352,10 +363,16 @@ func (i *AccountInitTakeoutSessionRequest) GetFileMaxSize() (value int, ok bool)
 // Decode implements bin.Decoder.
 func (i *AccountInitTakeoutSessionRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode account.initTakeoutSession#f05b4804 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.initTakeoutSession#f05b4804",
+		}
 	}
 	if err := b.ConsumeID(AccountInitTakeoutSessionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.initTakeoutSession#f05b4804: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.initTakeoutSession#f05b4804",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -363,11 +380,19 @@ func (i *AccountInitTakeoutSessionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *AccountInitTakeoutSessionRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode account.initTakeoutSession#f05b4804 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.initTakeoutSession#f05b4804",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.initTakeoutSession#f05b4804: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.initTakeoutSession#f05b4804",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	i.Contacts = i.Flags.Has(0)
@@ -379,7 +404,12 @@ func (i *AccountInitTakeoutSessionRequest) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.initTakeoutSession#f05b4804: field file_max_size: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.initTakeoutSession#f05b4804",
+				FieldName:  "file_max_size",
+				Underlying: err,
+			}
 		}
 		i.FileMaxSize = value
 	}

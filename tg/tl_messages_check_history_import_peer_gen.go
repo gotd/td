@@ -101,7 +101,10 @@ func (c *MessagesCheckHistoryImportPeerRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *MessagesCheckHistoryImportPeerRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.checkHistoryImportPeer#5dc60f03 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.checkHistoryImportPeer#5dc60f03",
+		}
 	}
 	b.PutID(MessagesCheckHistoryImportPeerRequestTypeID)
 	return c.EncodeBare(b)
@@ -110,13 +113,29 @@ func (c *MessagesCheckHistoryImportPeerRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesCheckHistoryImportPeerRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.checkHistoryImportPeer#5dc60f03 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.checkHistoryImportPeer#5dc60f03",
+		}
 	}
 	if c.Peer == nil {
-		return fmt.Errorf("unable to encode messages.checkHistoryImportPeer#5dc60f03: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.checkHistoryImportPeer#5dc60f03",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := c.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.checkHistoryImportPeer#5dc60f03: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.checkHistoryImportPeer#5dc60f03",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -129,10 +148,16 @@ func (c *MessagesCheckHistoryImportPeerRequest) GetPeer() (value InputPeerClass)
 // Decode implements bin.Decoder.
 func (c *MessagesCheckHistoryImportPeerRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.checkHistoryImportPeer#5dc60f03 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.checkHistoryImportPeer#5dc60f03",
+		}
 	}
 	if err := b.ConsumeID(MessagesCheckHistoryImportPeerRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.checkHistoryImportPeer#5dc60f03: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.checkHistoryImportPeer#5dc60f03",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -140,12 +165,20 @@ func (c *MessagesCheckHistoryImportPeerRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesCheckHistoryImportPeerRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.checkHistoryImportPeer#5dc60f03 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.checkHistoryImportPeer#5dc60f03",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.checkHistoryImportPeer#5dc60f03: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.checkHistoryImportPeer#5dc60f03",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		c.Peer = value
 	}

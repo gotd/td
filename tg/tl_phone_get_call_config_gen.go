@@ -85,7 +85,10 @@ func (g *PhoneGetCallConfigRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PhoneGetCallConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getCallConfig#55451fa9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.getCallConfig#55451fa9",
+		}
 	}
 	b.PutID(PhoneGetCallConfigRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +97,10 @@ func (g *PhoneGetCallConfigRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PhoneGetCallConfigRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getCallConfig#55451fa9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.getCallConfig#55451fa9",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (g *PhoneGetCallConfigRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *PhoneGetCallConfigRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getCallConfig#55451fa9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.getCallConfig#55451fa9",
+		}
 	}
 	if err := b.ConsumeID(PhoneGetCallConfigRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.getCallConfig#55451fa9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.getCallConfig#55451fa9",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (g *PhoneGetCallConfigRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PhoneGetCallConfigRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getCallConfig#55451fa9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.getCallConfig#55451fa9",
+		}
 	}
 	return nil
 }

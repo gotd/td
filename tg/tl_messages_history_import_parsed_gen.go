@@ -136,7 +136,10 @@ func (h *MessagesHistoryImportParsed) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (h *MessagesHistoryImportParsed) Encode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode messages.historyImportParsed#5e0fb7b9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.historyImportParsed#5e0fb7b9",
+		}
 	}
 	b.PutID(MessagesHistoryImportParsedTypeID)
 	return h.EncodeBare(b)
@@ -145,7 +148,10 @@ func (h *MessagesHistoryImportParsed) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (h *MessagesHistoryImportParsed) EncodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode messages.historyImportParsed#5e0fb7b9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.historyImportParsed#5e0fb7b9",
+		}
 	}
 	if !(h.Pm == false) {
 		h.Flags.Set(0)
@@ -157,7 +163,12 @@ func (h *MessagesHistoryImportParsed) EncodeBare(b *bin.Buffer) error {
 		h.Flags.Set(2)
 	}
 	if err := h.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.historyImportParsed#5e0fb7b9: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.historyImportParsed#5e0fb7b9",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if h.Flags.Has(2) {
 		b.PutString(h.Title)
@@ -215,10 +226,16 @@ func (h *MessagesHistoryImportParsed) GetTitle() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (h *MessagesHistoryImportParsed) Decode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode messages.historyImportParsed#5e0fb7b9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.historyImportParsed#5e0fb7b9",
+		}
 	}
 	if err := b.ConsumeID(MessagesHistoryImportParsedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.historyImportParsed#5e0fb7b9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.historyImportParsed#5e0fb7b9",
+			Underlying: err,
+		}
 	}
 	return h.DecodeBare(b)
 }
@@ -226,11 +243,19 @@ func (h *MessagesHistoryImportParsed) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (h *MessagesHistoryImportParsed) DecodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode messages.historyImportParsed#5e0fb7b9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.historyImportParsed#5e0fb7b9",
+		}
 	}
 	{
 		if err := h.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.historyImportParsed#5e0fb7b9: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.historyImportParsed#5e0fb7b9",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	h.Pm = h.Flags.Has(0)
@@ -238,7 +263,12 @@ func (h *MessagesHistoryImportParsed) DecodeBare(b *bin.Buffer) error {
 	if h.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.historyImportParsed#5e0fb7b9: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.historyImportParsed#5e0fb7b9",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		h.Title = value
 	}

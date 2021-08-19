@@ -85,7 +85,10 @@ func (g *HelpGetSupportRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetSupportRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getSupport#9cdf08cd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getSupport#9cdf08cd",
+		}
 	}
 	b.PutID(HelpGetSupportRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +97,10 @@ func (g *HelpGetSupportRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetSupportRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getSupport#9cdf08cd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getSupport#9cdf08cd",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (g *HelpGetSupportRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *HelpGetSupportRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getSupport#9cdf08cd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getSupport#9cdf08cd",
+		}
 	}
 	if err := b.ConsumeID(HelpGetSupportRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getSupport#9cdf08cd: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.getSupport#9cdf08cd",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (g *HelpGetSupportRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetSupportRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getSupport#9cdf08cd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getSupport#9cdf08cd",
+		}
 	}
 	return nil
 }

@@ -99,7 +99,10 @@ func (vec *LongVector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (vec *LongVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<long> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<long>",
+		}
 	}
 
 	return vec.EncodeBare(b)
@@ -108,7 +111,10 @@ func (vec *LongVector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (vec *LongVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't encode Vector<long> as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "Vector<long>",
+		}
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for _, v := range vec.Elems {
@@ -125,7 +131,10 @@ func (vec *LongVector) GetElems() (value []int64) {
 // Decode implements bin.Decoder.
 func (vec *LongVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<long> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<long>",
+		}
 	}
 
 	return vec.DecodeBare(b)
@@ -134,12 +143,20 @@ func (vec *LongVector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (vec *LongVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
-		return fmt.Errorf("can't decode Vector<long> to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "Vector<long>",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode Vector<long>: field Elems: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "Vector<long>",
+				FieldName:  "Elems",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -148,7 +165,12 @@ func (vec *LongVector) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode Vector<long>: field Elems: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "Vector<long>",
+					FieldName:  "Elems",
+					Underlying: err,
+				}
 			}
 			vec.Elems = append(vec.Elems, value)
 		}

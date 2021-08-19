@@ -85,7 +85,10 @@ func (p *PageBlockUnsupported) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockUnsupported) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockUnsupported#13567e8a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockUnsupported#13567e8a",
+		}
 	}
 	b.PutID(PageBlockUnsupportedTypeID)
 	return p.EncodeBare(b)
@@ -94,7 +97,10 @@ func (p *PageBlockUnsupported) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockUnsupported) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockUnsupported#13567e8a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockUnsupported#13567e8a",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (p *PageBlockUnsupported) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PageBlockUnsupported) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockUnsupported#13567e8a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockUnsupported#13567e8a",
+		}
 	}
 	if err := b.ConsumeID(PageBlockUnsupportedTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockUnsupported#13567e8a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockUnsupported#13567e8a",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (p *PageBlockUnsupported) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockUnsupported) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockUnsupported#13567e8a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockUnsupported#13567e8a",
+		}
 	}
 	return nil
 }
@@ -204,7 +219,10 @@ func (p *PageBlockTitle) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockTitle) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockTitle#70abc3fd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockTitle#70abc3fd",
+		}
 	}
 	b.PutID(PageBlockTitleTypeID)
 	return p.EncodeBare(b)
@@ -213,13 +231,29 @@ func (p *PageBlockTitle) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockTitle) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockTitle#70abc3fd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockTitle#70abc3fd",
+		}
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageBlockTitle#70abc3fd: field text is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockTitle#70abc3fd",
+			FieldName: "text",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockTitle#70abc3fd: field text: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockTitle#70abc3fd",
+			FieldName:  "text",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -232,10 +266,16 @@ func (p *PageBlockTitle) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (p *PageBlockTitle) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockTitle#70abc3fd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockTitle#70abc3fd",
+		}
 	}
 	if err := b.ConsumeID(PageBlockTitleTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockTitle#70abc3fd: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockTitle#70abc3fd",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -243,12 +283,20 @@ func (p *PageBlockTitle) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockTitle) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockTitle#70abc3fd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockTitle#70abc3fd",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockTitle#70abc3fd: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockTitle#70abc3fd",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		p.Text = value
 	}
@@ -341,7 +389,10 @@ func (p *PageBlockSubtitle) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockSubtitle) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockSubtitle#8ffa9a1f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockSubtitle#8ffa9a1f",
+		}
 	}
 	b.PutID(PageBlockSubtitleTypeID)
 	return p.EncodeBare(b)
@@ -350,13 +401,29 @@ func (p *PageBlockSubtitle) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockSubtitle) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockSubtitle#8ffa9a1f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockSubtitle#8ffa9a1f",
+		}
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageBlockSubtitle#8ffa9a1f: field text is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockSubtitle#8ffa9a1f",
+			FieldName: "text",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockSubtitle#8ffa9a1f: field text: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockSubtitle#8ffa9a1f",
+			FieldName:  "text",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -369,10 +436,16 @@ func (p *PageBlockSubtitle) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (p *PageBlockSubtitle) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockSubtitle#8ffa9a1f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockSubtitle#8ffa9a1f",
+		}
 	}
 	if err := b.ConsumeID(PageBlockSubtitleTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockSubtitle#8ffa9a1f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockSubtitle#8ffa9a1f",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -380,12 +453,20 @@ func (p *PageBlockSubtitle) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockSubtitle) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockSubtitle#8ffa9a1f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockSubtitle#8ffa9a1f",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockSubtitle#8ffa9a1f: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockSubtitle#8ffa9a1f",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		p.Text = value
 	}
@@ -489,7 +570,10 @@ func (p *PageBlockAuthorDate) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockAuthorDate) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockAuthorDate#baafe5e0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockAuthorDate#baafe5e0",
+		}
 	}
 	b.PutID(PageBlockAuthorDateTypeID)
 	return p.EncodeBare(b)
@@ -498,13 +582,29 @@ func (p *PageBlockAuthorDate) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockAuthorDate) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockAuthorDate#baafe5e0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockAuthorDate#baafe5e0",
+		}
 	}
 	if p.Author == nil {
-		return fmt.Errorf("unable to encode pageBlockAuthorDate#baafe5e0: field author is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockAuthorDate#baafe5e0",
+			FieldName: "author",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Author.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockAuthorDate#baafe5e0: field author: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockAuthorDate#baafe5e0",
+			FieldName:  "author",
+			Underlying: err,
+		}
 	}
 	b.PutInt(p.PublishedDate)
 	return nil
@@ -523,10 +623,16 @@ func (p *PageBlockAuthorDate) GetPublishedDate() (value int) {
 // Decode implements bin.Decoder.
 func (p *PageBlockAuthorDate) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockAuthorDate#baafe5e0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockAuthorDate#baafe5e0",
+		}
 	}
 	if err := b.ConsumeID(PageBlockAuthorDateTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockAuthorDate#baafe5e0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockAuthorDate#baafe5e0",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -534,19 +640,32 @@ func (p *PageBlockAuthorDate) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockAuthorDate) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockAuthorDate#baafe5e0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockAuthorDate#baafe5e0",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockAuthorDate#baafe5e0: field author: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockAuthorDate#baafe5e0",
+				FieldName:  "author",
+				Underlying: err,
+			}
 		}
 		p.Author = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockAuthorDate#baafe5e0: field published_date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockAuthorDate#baafe5e0",
+				FieldName:  "published_date",
+				Underlying: err,
+			}
 		}
 		p.PublishedDate = value
 	}
@@ -639,7 +758,10 @@ func (p *PageBlockHeader) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockHeader) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockHeader#bfd064ec as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockHeader#bfd064ec",
+		}
 	}
 	b.PutID(PageBlockHeaderTypeID)
 	return p.EncodeBare(b)
@@ -648,13 +770,29 @@ func (p *PageBlockHeader) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockHeader) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockHeader#bfd064ec as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockHeader#bfd064ec",
+		}
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageBlockHeader#bfd064ec: field text is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockHeader#bfd064ec",
+			FieldName: "text",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockHeader#bfd064ec: field text: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockHeader#bfd064ec",
+			FieldName:  "text",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -667,10 +805,16 @@ func (p *PageBlockHeader) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (p *PageBlockHeader) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockHeader#bfd064ec to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockHeader#bfd064ec",
+		}
 	}
 	if err := b.ConsumeID(PageBlockHeaderTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockHeader#bfd064ec: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockHeader#bfd064ec",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -678,12 +822,20 @@ func (p *PageBlockHeader) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockHeader) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockHeader#bfd064ec to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockHeader#bfd064ec",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockHeader#bfd064ec: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockHeader#bfd064ec",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		p.Text = value
 	}
@@ -776,7 +928,10 @@ func (p *PageBlockSubheader) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockSubheader) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockSubheader#f12bb6e1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockSubheader#f12bb6e1",
+		}
 	}
 	b.PutID(PageBlockSubheaderTypeID)
 	return p.EncodeBare(b)
@@ -785,13 +940,29 @@ func (p *PageBlockSubheader) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockSubheader) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockSubheader#f12bb6e1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockSubheader#f12bb6e1",
+		}
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageBlockSubheader#f12bb6e1: field text is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockSubheader#f12bb6e1",
+			FieldName: "text",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockSubheader#f12bb6e1: field text: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockSubheader#f12bb6e1",
+			FieldName:  "text",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -804,10 +975,16 @@ func (p *PageBlockSubheader) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (p *PageBlockSubheader) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockSubheader#f12bb6e1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockSubheader#f12bb6e1",
+		}
 	}
 	if err := b.ConsumeID(PageBlockSubheaderTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockSubheader#f12bb6e1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockSubheader#f12bb6e1",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -815,12 +992,20 @@ func (p *PageBlockSubheader) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockSubheader) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockSubheader#f12bb6e1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockSubheader#f12bb6e1",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockSubheader#f12bb6e1: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockSubheader#f12bb6e1",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		p.Text = value
 	}
@@ -913,7 +1098,10 @@ func (p *PageBlockParagraph) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockParagraph) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockParagraph#467a0766 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockParagraph#467a0766",
+		}
 	}
 	b.PutID(PageBlockParagraphTypeID)
 	return p.EncodeBare(b)
@@ -922,13 +1110,29 @@ func (p *PageBlockParagraph) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockParagraph) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockParagraph#467a0766 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockParagraph#467a0766",
+		}
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageBlockParagraph#467a0766: field text is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockParagraph#467a0766",
+			FieldName: "text",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockParagraph#467a0766: field text: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockParagraph#467a0766",
+			FieldName:  "text",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -941,10 +1145,16 @@ func (p *PageBlockParagraph) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (p *PageBlockParagraph) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockParagraph#467a0766 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockParagraph#467a0766",
+		}
 	}
 	if err := b.ConsumeID(PageBlockParagraphTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockParagraph#467a0766: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockParagraph#467a0766",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -952,12 +1162,20 @@ func (p *PageBlockParagraph) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockParagraph) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockParagraph#467a0766 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockParagraph#467a0766",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockParagraph#467a0766: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockParagraph#467a0766",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		p.Text = value
 	}
@@ -1061,7 +1279,10 @@ func (p *PageBlockPreformatted) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockPreformatted) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockPreformatted#c070d93e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockPreformatted#c070d93e",
+		}
 	}
 	b.PutID(PageBlockPreformattedTypeID)
 	return p.EncodeBare(b)
@@ -1070,13 +1291,29 @@ func (p *PageBlockPreformatted) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockPreformatted) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockPreformatted#c070d93e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockPreformatted#c070d93e",
+		}
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageBlockPreformatted#c070d93e: field text is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockPreformatted#c070d93e",
+			FieldName: "text",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockPreformatted#c070d93e: field text: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockPreformatted#c070d93e",
+			FieldName:  "text",
+			Underlying: err,
+		}
 	}
 	b.PutString(p.Language)
 	return nil
@@ -1095,10 +1332,16 @@ func (p *PageBlockPreformatted) GetLanguage() (value string) {
 // Decode implements bin.Decoder.
 func (p *PageBlockPreformatted) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockPreformatted#c070d93e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockPreformatted#c070d93e",
+		}
 	}
 	if err := b.ConsumeID(PageBlockPreformattedTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockPreformatted#c070d93e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockPreformatted#c070d93e",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -1106,19 +1349,32 @@ func (p *PageBlockPreformatted) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockPreformatted) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockPreformatted#c070d93e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockPreformatted#c070d93e",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockPreformatted#c070d93e: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockPreformatted#c070d93e",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		p.Text = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockPreformatted#c070d93e: field language: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockPreformatted#c070d93e",
+				FieldName:  "language",
+				Underlying: err,
+			}
 		}
 		p.Language = value
 	}
@@ -1211,7 +1467,10 @@ func (p *PageBlockFooter) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockFooter) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockFooter#48870999 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockFooter#48870999",
+		}
 	}
 	b.PutID(PageBlockFooterTypeID)
 	return p.EncodeBare(b)
@@ -1220,13 +1479,29 @@ func (p *PageBlockFooter) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockFooter) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockFooter#48870999 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockFooter#48870999",
+		}
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageBlockFooter#48870999: field text is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockFooter#48870999",
+			FieldName: "text",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockFooter#48870999: field text: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockFooter#48870999",
+			FieldName:  "text",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -1239,10 +1514,16 @@ func (p *PageBlockFooter) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (p *PageBlockFooter) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockFooter#48870999 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockFooter#48870999",
+		}
 	}
 	if err := b.ConsumeID(PageBlockFooterTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockFooter#48870999: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockFooter#48870999",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -1250,12 +1531,20 @@ func (p *PageBlockFooter) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockFooter) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockFooter#48870999 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockFooter#48870999",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockFooter#48870999: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockFooter#48870999",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		p.Text = value
 	}
@@ -1331,7 +1620,10 @@ func (p *PageBlockDivider) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockDivider) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockDivider#db20b188 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockDivider#db20b188",
+		}
 	}
 	b.PutID(PageBlockDividerTypeID)
 	return p.EncodeBare(b)
@@ -1340,7 +1632,10 @@ func (p *PageBlockDivider) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockDivider) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockDivider#db20b188 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockDivider#db20b188",
+		}
 	}
 	return nil
 }
@@ -1348,10 +1643,16 @@ func (p *PageBlockDivider) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PageBlockDivider) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockDivider#db20b188 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockDivider#db20b188",
+		}
 	}
 	if err := b.ConsumeID(PageBlockDividerTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockDivider#db20b188: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockDivider#db20b188",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -1359,7 +1660,10 @@ func (p *PageBlockDivider) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockDivider) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockDivider#db20b188 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockDivider#db20b188",
+		}
 	}
 	return nil
 }
@@ -1450,7 +1754,10 @@ func (p *PageBlockAnchor) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockAnchor) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockAnchor#ce0d37b0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockAnchor#ce0d37b0",
+		}
 	}
 	b.PutID(PageBlockAnchorTypeID)
 	return p.EncodeBare(b)
@@ -1459,7 +1766,10 @@ func (p *PageBlockAnchor) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockAnchor) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockAnchor#ce0d37b0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockAnchor#ce0d37b0",
+		}
 	}
 	b.PutString(p.Name)
 	return nil
@@ -1473,10 +1783,16 @@ func (p *PageBlockAnchor) GetName() (value string) {
 // Decode implements bin.Decoder.
 func (p *PageBlockAnchor) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockAnchor#ce0d37b0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockAnchor#ce0d37b0",
+		}
 	}
 	if err := b.ConsumeID(PageBlockAnchorTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockAnchor#ce0d37b0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockAnchor#ce0d37b0",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -1484,12 +1800,20 @@ func (p *PageBlockAnchor) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockAnchor) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockAnchor#ce0d37b0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockAnchor#ce0d37b0",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockAnchor#ce0d37b0: field name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockAnchor#ce0d37b0",
+				FieldName:  "name",
+				Underlying: err,
+			}
 		}
 		p.Name = value
 	}
@@ -1582,7 +1906,10 @@ func (p *PageBlockList) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockList) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockList#e4e88011 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockList#e4e88011",
+		}
 	}
 	b.PutID(PageBlockListTypeID)
 	return p.EncodeBare(b)
@@ -1591,15 +1918,38 @@ func (p *PageBlockList) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockList) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockList#e4e88011 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockList#e4e88011",
+		}
 	}
 	b.PutVectorHeader(len(p.Items))
 	for idx, v := range p.Items {
 		if v == nil {
-			return fmt.Errorf("unable to encode pageBlockList#e4e88011: field items element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockList#e4e88011",
+				FieldName: "items",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<PageListItem>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageBlockList#e4e88011: field items element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockList#e4e88011",
+				FieldName: "items",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -1618,10 +1968,16 @@ func (p *PageBlockList) MapItems() (value PageListItemClassArray) {
 // Decode implements bin.Decoder.
 func (p *PageBlockList) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockList#e4e88011 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockList#e4e88011",
+		}
 	}
 	if err := b.ConsumeID(PageBlockListTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockList#e4e88011: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockList#e4e88011",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -1629,12 +1985,20 @@ func (p *PageBlockList) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockList) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockList#e4e88011 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockList#e4e88011",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockList#e4e88011: field items: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockList#e4e88011",
+				FieldName:  "items",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -1643,7 +2007,12 @@ func (p *PageBlockList) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageListItem(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode pageBlockList#e4e88011: field items: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "pageBlockList#e4e88011",
+					FieldName:  "items",
+					Underlying: err,
+				}
 			}
 			p.Items = append(p.Items, value)
 		}
@@ -1748,7 +2117,10 @@ func (p *PageBlockBlockquote) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockBlockquote) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockBlockquote#263d7c26 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockBlockquote#263d7c26",
+		}
 	}
 	b.PutID(PageBlockBlockquoteTypeID)
 	return p.EncodeBare(b)
@@ -1757,19 +2129,48 @@ func (p *PageBlockBlockquote) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockBlockquote) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockBlockquote#263d7c26 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockBlockquote#263d7c26",
+		}
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageBlockBlockquote#263d7c26: field text is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockBlockquote#263d7c26",
+			FieldName: "text",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockBlockquote#263d7c26: field text: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockBlockquote#263d7c26",
+			FieldName:  "text",
+			Underlying: err,
+		}
 	}
 	if p.Caption == nil {
-		return fmt.Errorf("unable to encode pageBlockBlockquote#263d7c26: field caption is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockBlockquote#263d7c26",
+			FieldName: "caption",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockBlockquote#263d7c26: field caption: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockBlockquote#263d7c26",
+			FieldName:  "caption",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -1787,10 +2188,16 @@ func (p *PageBlockBlockquote) GetCaption() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (p *PageBlockBlockquote) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockBlockquote#263d7c26 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockBlockquote#263d7c26",
+		}
 	}
 	if err := b.ConsumeID(PageBlockBlockquoteTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockBlockquote#263d7c26: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockBlockquote#263d7c26",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -1798,19 +2205,32 @@ func (p *PageBlockBlockquote) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockBlockquote) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockBlockquote#263d7c26 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockBlockquote#263d7c26",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockBlockquote#263d7c26: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockBlockquote#263d7c26",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		p.Text = value
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockBlockquote#263d7c26: field caption: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockBlockquote#263d7c26",
+				FieldName:  "caption",
+				Underlying: err,
+			}
 		}
 		p.Caption = value
 	}
@@ -1914,7 +2334,10 @@ func (p *PageBlockPullquote) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockPullquote) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockPullquote#4f4456d3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockPullquote#4f4456d3",
+		}
 	}
 	b.PutID(PageBlockPullquoteTypeID)
 	return p.EncodeBare(b)
@@ -1923,19 +2346,48 @@ func (p *PageBlockPullquote) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockPullquote) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockPullquote#4f4456d3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockPullquote#4f4456d3",
+		}
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageBlockPullquote#4f4456d3: field text is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockPullquote#4f4456d3",
+			FieldName: "text",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockPullquote#4f4456d3: field text: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockPullquote#4f4456d3",
+			FieldName:  "text",
+			Underlying: err,
+		}
 	}
 	if p.Caption == nil {
-		return fmt.Errorf("unable to encode pageBlockPullquote#4f4456d3: field caption is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockPullquote#4f4456d3",
+			FieldName: "caption",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockPullquote#4f4456d3: field caption: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockPullquote#4f4456d3",
+			FieldName:  "caption",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -1953,10 +2405,16 @@ func (p *PageBlockPullquote) GetCaption() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (p *PageBlockPullquote) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockPullquote#4f4456d3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockPullquote#4f4456d3",
+		}
 	}
 	if err := b.ConsumeID(PageBlockPullquoteTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockPullquote#4f4456d3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockPullquote#4f4456d3",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -1964,19 +2422,32 @@ func (p *PageBlockPullquote) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockPullquote) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockPullquote#4f4456d3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockPullquote#4f4456d3",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockPullquote#4f4456d3: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockPullquote#4f4456d3",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		p.Text = value
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockPullquote#4f4456d3: field caption: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockPullquote#4f4456d3",
+				FieldName:  "caption",
+				Underlying: err,
+			}
 		}
 		p.Caption = value
 	}
@@ -2122,7 +2593,10 @@ func (p *PageBlockPhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockPhoto) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockPhoto#1759c560 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockPhoto#1759c560",
+		}
 	}
 	b.PutID(PageBlockPhotoTypeID)
 	return p.EncodeBare(b)
@@ -2131,7 +2605,10 @@ func (p *PageBlockPhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockPhoto) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockPhoto#1759c560 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockPhoto#1759c560",
+		}
 	}
 	if !(p.URL == "") {
 		p.Flags.Set(0)
@@ -2140,11 +2617,21 @@ func (p *PageBlockPhoto) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(0)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockPhoto#1759c560: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockPhoto#1759c560",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutLong(p.PhotoID)
 	if err := p.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockPhoto#1759c560: field caption: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockPhoto#1759c560",
+			FieldName:  "caption",
+			Underlying: err,
+		}
 	}
 	if p.Flags.Has(0) {
 		b.PutString(p.URL)
@@ -2198,10 +2685,16 @@ func (p *PageBlockPhoto) GetWebpageID() (value int64, ok bool) {
 // Decode implements bin.Decoder.
 func (p *PageBlockPhoto) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockPhoto#1759c560 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockPhoto#1759c560",
+		}
 	}
 	if err := b.ConsumeID(PageBlockPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockPhoto#1759c560: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockPhoto#1759c560",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -2209,36 +2702,64 @@ func (p *PageBlockPhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockPhoto) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockPhoto#1759c560 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockPhoto#1759c560",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockPhoto#1759c560: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockPhoto#1759c560",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockPhoto#1759c560: field photo_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockPhoto#1759c560",
+				FieldName:  "photo_id",
+				Underlying: err,
+			}
 		}
 		p.PhotoID = value
 	}
 	{
 		if err := p.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockPhoto#1759c560: field caption: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockPhoto#1759c560",
+				FieldName:  "caption",
+				Underlying: err,
+			}
 		}
 	}
 	if p.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockPhoto#1759c560: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockPhoto#1759c560",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		p.URL = value
 	}
 	if p.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockPhoto#1759c560: field webpage_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockPhoto#1759c560",
+				FieldName:  "webpage_id",
+				Underlying: err,
+			}
 		}
 		p.WebpageID = value
 	}
@@ -2374,7 +2895,10 @@ func (p *PageBlockVideo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockVideo) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockVideo#7c8fe7b6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockVideo#7c8fe7b6",
+		}
 	}
 	b.PutID(PageBlockVideoTypeID)
 	return p.EncodeBare(b)
@@ -2383,7 +2907,10 @@ func (p *PageBlockVideo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockVideo) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockVideo#7c8fe7b6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockVideo#7c8fe7b6",
+		}
 	}
 	if !(p.Autoplay == false) {
 		p.Flags.Set(0)
@@ -2392,11 +2919,21 @@ func (p *PageBlockVideo) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(1)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockVideo#7c8fe7b6: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockVideo#7c8fe7b6",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutLong(p.VideoID)
 	if err := p.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockVideo#7c8fe7b6: field caption: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockVideo#7c8fe7b6",
+			FieldName:  "caption",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -2446,10 +2983,16 @@ func (p *PageBlockVideo) GetCaption() (value PageCaption) {
 // Decode implements bin.Decoder.
 func (p *PageBlockVideo) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockVideo#7c8fe7b6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockVideo#7c8fe7b6",
+		}
 	}
 	if err := b.ConsumeID(PageBlockVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockVideo#7c8fe7b6",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -2457,11 +3000,19 @@ func (p *PageBlockVideo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockVideo) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockVideo#7c8fe7b6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockVideo#7c8fe7b6",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockVideo#7c8fe7b6",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	p.Autoplay = p.Flags.Has(0)
@@ -2469,13 +3020,23 @@ func (p *PageBlockVideo) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: field video_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockVideo#7c8fe7b6",
+				FieldName:  "video_id",
+				Underlying: err,
+			}
 		}
 		p.VideoID = value
 	}
 	{
 		if err := p.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: field caption: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockVideo#7c8fe7b6",
+				FieldName:  "caption",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -2567,7 +3128,10 @@ func (p *PageBlockCover) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockCover) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockCover#39f23300 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockCover#39f23300",
+		}
 	}
 	b.PutID(PageBlockCoverTypeID)
 	return p.EncodeBare(b)
@@ -2576,13 +3140,29 @@ func (p *PageBlockCover) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockCover) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockCover#39f23300 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockCover#39f23300",
+		}
 	}
 	if p.Cover == nil {
-		return fmt.Errorf("unable to encode pageBlockCover#39f23300: field cover is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockCover#39f23300",
+			FieldName: "cover",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "PageBlock",
+			},
+		}
 	}
 	if err := p.Cover.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockCover#39f23300: field cover: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockCover#39f23300",
+			FieldName:  "cover",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -2595,10 +3175,16 @@ func (p *PageBlockCover) GetCover() (value PageBlockClass) {
 // Decode implements bin.Decoder.
 func (p *PageBlockCover) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockCover#39f23300 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockCover#39f23300",
+		}
 	}
 	if err := b.ConsumeID(PageBlockCoverTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockCover#39f23300: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockCover#39f23300",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -2606,12 +3192,20 @@ func (p *PageBlockCover) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockCover) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockCover#39f23300 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockCover#39f23300",
+		}
 	}
 	{
 		value, err := DecodePageBlock(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockCover#39f23300: field cover: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockCover#39f23300",
+				FieldName:  "cover",
+				Underlying: err,
+			}
 		}
 		p.Cover = value
 	}
@@ -2821,7 +3415,10 @@ func (p *PageBlockEmbed) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockEmbed) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockEmbed#a8718dc5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockEmbed#a8718dc5",
+		}
 	}
 	b.PutID(PageBlockEmbedTypeID)
 	return p.EncodeBare(b)
@@ -2830,7 +3427,10 @@ func (p *PageBlockEmbed) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockEmbed) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockEmbed#a8718dc5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockEmbed#a8718dc5",
+		}
 	}
 	if !(p.FullWidth == false) {
 		p.Flags.Set(0)
@@ -2854,7 +3454,12 @@ func (p *PageBlockEmbed) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(5)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockEmbed#a8718dc5: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockEmbed#a8718dc5",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if p.Flags.Has(1) {
 		b.PutString(p.URL)
@@ -2872,7 +3477,12 @@ func (p *PageBlockEmbed) EncodeBare(b *bin.Buffer) error {
 		b.PutInt(p.H)
 	}
 	if err := p.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockEmbed#a8718dc5: field caption: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockEmbed#a8718dc5",
+			FieldName:  "caption",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -2992,10 +3602,16 @@ func (p *PageBlockEmbed) GetCaption() (value PageCaption) {
 // Decode implements bin.Decoder.
 func (p *PageBlockEmbed) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockEmbed#a8718dc5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockEmbed#a8718dc5",
+		}
 	}
 	if err := b.ConsumeID(PageBlockEmbedTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockEmbed#a8718dc5",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -3003,11 +3619,19 @@ func (p *PageBlockEmbed) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockEmbed) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockEmbed#a8718dc5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockEmbed#a8718dc5",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbed#a8718dc5",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	p.FullWidth = p.Flags.Has(0)
@@ -3015,41 +3639,71 @@ func (p *PageBlockEmbed) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbed#a8718dc5",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		p.URL = value
 	}
 	if p.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field html: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbed#a8718dc5",
+				FieldName:  "html",
+				Underlying: err,
+			}
 		}
 		p.HTML = value
 	}
 	if p.Flags.Has(4) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field poster_photo_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbed#a8718dc5",
+				FieldName:  "poster_photo_id",
+				Underlying: err,
+			}
 		}
 		p.PosterPhotoID = value
 	}
 	if p.Flags.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field w: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbed#a8718dc5",
+				FieldName:  "w",
+				Underlying: err,
+			}
 		}
 		p.W = value
 	}
 	if p.Flags.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field h: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbed#a8718dc5",
+				FieldName:  "h",
+				Underlying: err,
+			}
 		}
 		p.H = value
 	}
 	{
 		if err := p.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field caption: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbed#a8718dc5",
+				FieldName:  "caption",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -3207,7 +3861,10 @@ func (p *PageBlockEmbedPost) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockEmbedPost) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockEmbedPost#f259a80b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockEmbedPost#f259a80b",
+		}
 	}
 	b.PutID(PageBlockEmbedPostTypeID)
 	return p.EncodeBare(b)
@@ -3216,7 +3873,10 @@ func (p *PageBlockEmbedPost) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockEmbedPost) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockEmbedPost#f259a80b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockEmbedPost#f259a80b",
+		}
 	}
 	b.PutString(p.URL)
 	b.PutLong(p.WebpageID)
@@ -3226,14 +3886,39 @@ func (p *PageBlockEmbedPost) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(p.Blocks))
 	for idx, v := range p.Blocks {
 		if v == nil {
-			return fmt.Errorf("unable to encode pageBlockEmbedPost#f259a80b: field blocks element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockEmbedPost#f259a80b",
+				FieldName: "blocks",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<PageBlock>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageBlockEmbedPost#f259a80b: field blocks element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockEmbedPost#f259a80b",
+				FieldName: "blocks",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if err := p.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockEmbedPost#f259a80b: field caption: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockEmbedPost#f259a80b",
+			FieldName:  "caption",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -3281,10 +3966,16 @@ func (p *PageBlockEmbedPost) GetCaption() (value PageCaption) {
 // Decode implements bin.Decoder.
 func (p *PageBlockEmbedPost) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockEmbedPost#f259a80b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockEmbedPost#f259a80b",
+		}
 	}
 	if err := b.ConsumeID(PageBlockEmbedPostTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockEmbedPost#f259a80b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockEmbedPost#f259a80b",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -3292,47 +3983,80 @@ func (p *PageBlockEmbedPost) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockEmbedPost) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockEmbedPost#f259a80b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockEmbedPost#f259a80b",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbedPost#f259a80b: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbedPost#f259a80b",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		p.URL = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbedPost#f259a80b: field webpage_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbedPost#f259a80b",
+				FieldName:  "webpage_id",
+				Underlying: err,
+			}
 		}
 		p.WebpageID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbedPost#f259a80b: field author_photo_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbedPost#f259a80b",
+				FieldName:  "author_photo_id",
+				Underlying: err,
+			}
 		}
 		p.AuthorPhotoID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbedPost#f259a80b: field author: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbedPost#f259a80b",
+				FieldName:  "author",
+				Underlying: err,
+			}
 		}
 		p.Author = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbedPost#f259a80b: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbedPost#f259a80b",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		p.Date = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbedPost#f259a80b: field blocks: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbedPost#f259a80b",
+				FieldName:  "blocks",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -3341,14 +4065,24 @@ func (p *PageBlockEmbedPost) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode pageBlockEmbedPost#f259a80b: field blocks: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "pageBlockEmbedPost#f259a80b",
+					FieldName:  "blocks",
+					Underlying: err,
+				}
 			}
 			p.Blocks = append(p.Blocks, value)
 		}
 	}
 	{
 		if err := p.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbedPost#f259a80b: field caption: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockEmbedPost#f259a80b",
+				FieldName:  "caption",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -3451,7 +4185,10 @@ func (p *PageBlockCollage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockCollage) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockCollage#65a0fa4d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockCollage#65a0fa4d",
+		}
 	}
 	b.PutID(PageBlockCollageTypeID)
 	return p.EncodeBare(b)
@@ -3460,19 +4197,47 @@ func (p *PageBlockCollage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockCollage) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockCollage#65a0fa4d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockCollage#65a0fa4d",
+		}
 	}
 	b.PutVectorHeader(len(p.Items))
 	for idx, v := range p.Items {
 		if v == nil {
-			return fmt.Errorf("unable to encode pageBlockCollage#65a0fa4d: field items element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockCollage#65a0fa4d",
+				FieldName: "items",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<PageBlock>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageBlockCollage#65a0fa4d: field items element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockCollage#65a0fa4d",
+				FieldName: "items",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if err := p.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockCollage#65a0fa4d: field caption: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockCollage#65a0fa4d",
+			FieldName:  "caption",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -3495,10 +4260,16 @@ func (p *PageBlockCollage) GetCaption() (value PageCaption) {
 // Decode implements bin.Decoder.
 func (p *PageBlockCollage) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockCollage#65a0fa4d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockCollage#65a0fa4d",
+		}
 	}
 	if err := b.ConsumeID(PageBlockCollageTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockCollage#65a0fa4d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockCollage#65a0fa4d",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -3506,12 +4277,20 @@ func (p *PageBlockCollage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockCollage) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockCollage#65a0fa4d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockCollage#65a0fa4d",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockCollage#65a0fa4d: field items: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockCollage#65a0fa4d",
+				FieldName:  "items",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -3520,14 +4299,24 @@ func (p *PageBlockCollage) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode pageBlockCollage#65a0fa4d: field items: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "pageBlockCollage#65a0fa4d",
+					FieldName:  "items",
+					Underlying: err,
+				}
 			}
 			p.Items = append(p.Items, value)
 		}
 	}
 	{
 		if err := p.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockCollage#65a0fa4d: field caption: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockCollage#65a0fa4d",
+				FieldName:  "caption",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -3630,7 +4419,10 @@ func (p *PageBlockSlideshow) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockSlideshow) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockSlideshow#31f9590 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockSlideshow#31f9590",
+		}
 	}
 	b.PutID(PageBlockSlideshowTypeID)
 	return p.EncodeBare(b)
@@ -3639,19 +4431,47 @@ func (p *PageBlockSlideshow) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockSlideshow) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockSlideshow#31f9590 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockSlideshow#31f9590",
+		}
 	}
 	b.PutVectorHeader(len(p.Items))
 	for idx, v := range p.Items {
 		if v == nil {
-			return fmt.Errorf("unable to encode pageBlockSlideshow#31f9590: field items element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockSlideshow#31f9590",
+				FieldName: "items",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<PageBlock>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageBlockSlideshow#31f9590: field items element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockSlideshow#31f9590",
+				FieldName: "items",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if err := p.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockSlideshow#31f9590: field caption: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockSlideshow#31f9590",
+			FieldName:  "caption",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -3674,10 +4494,16 @@ func (p *PageBlockSlideshow) GetCaption() (value PageCaption) {
 // Decode implements bin.Decoder.
 func (p *PageBlockSlideshow) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockSlideshow#31f9590 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockSlideshow#31f9590",
+		}
 	}
 	if err := b.ConsumeID(PageBlockSlideshowTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockSlideshow#31f9590: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockSlideshow#31f9590",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -3685,12 +4511,20 @@ func (p *PageBlockSlideshow) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockSlideshow) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockSlideshow#31f9590 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockSlideshow#31f9590",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockSlideshow#31f9590: field items: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockSlideshow#31f9590",
+				FieldName:  "items",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -3699,14 +4533,24 @@ func (p *PageBlockSlideshow) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode pageBlockSlideshow#31f9590: field items: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "pageBlockSlideshow#31f9590",
+					FieldName:  "items",
+					Underlying: err,
+				}
 			}
 			p.Items = append(p.Items, value)
 		}
 	}
 	{
 		if err := p.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockSlideshow#31f9590: field caption: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockSlideshow#31f9590",
+				FieldName:  "caption",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -3798,7 +4642,10 @@ func (p *PageBlockChannel) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockChannel) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockChannel#ef1751b5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockChannel#ef1751b5",
+		}
 	}
 	b.PutID(PageBlockChannelTypeID)
 	return p.EncodeBare(b)
@@ -3807,13 +4654,29 @@ func (p *PageBlockChannel) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockChannel) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockChannel#ef1751b5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockChannel#ef1751b5",
+		}
 	}
 	if p.Channel == nil {
-		return fmt.Errorf("unable to encode pageBlockChannel#ef1751b5: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockChannel#ef1751b5",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "Chat",
+			},
+		}
 	}
 	if err := p.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockChannel#ef1751b5: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockChannel#ef1751b5",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -3826,10 +4689,16 @@ func (p *PageBlockChannel) GetChannel() (value ChatClass) {
 // Decode implements bin.Decoder.
 func (p *PageBlockChannel) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockChannel#ef1751b5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockChannel#ef1751b5",
+		}
 	}
 	if err := b.ConsumeID(PageBlockChannelTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockChannel#ef1751b5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockChannel#ef1751b5",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -3837,12 +4706,20 @@ func (p *PageBlockChannel) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockChannel) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockChannel#ef1751b5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockChannel#ef1751b5",
+		}
 	}
 	{
 		value, err := DecodeChat(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockChannel#ef1751b5: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockChannel#ef1751b5",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		p.Channel = value
 	}
@@ -3949,7 +4826,10 @@ func (p *PageBlockAudio) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockAudio) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockAudio#804361ea as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockAudio#804361ea",
+		}
 	}
 	b.PutID(PageBlockAudioTypeID)
 	return p.EncodeBare(b)
@@ -3958,11 +4838,19 @@ func (p *PageBlockAudio) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockAudio) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockAudio#804361ea as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockAudio#804361ea",
+		}
 	}
 	b.PutLong(p.AudioID)
 	if err := p.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockAudio#804361ea: field caption: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockAudio#804361ea",
+			FieldName:  "caption",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -3980,10 +4868,16 @@ func (p *PageBlockAudio) GetCaption() (value PageCaption) {
 // Decode implements bin.Decoder.
 func (p *PageBlockAudio) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockAudio#804361ea to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockAudio#804361ea",
+		}
 	}
 	if err := b.ConsumeID(PageBlockAudioTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockAudio#804361ea: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockAudio#804361ea",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -3991,18 +4885,31 @@ func (p *PageBlockAudio) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockAudio) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockAudio#804361ea to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockAudio#804361ea",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockAudio#804361ea: field audio_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockAudio#804361ea",
+				FieldName:  "audio_id",
+				Underlying: err,
+			}
 		}
 		p.AudioID = value
 	}
 	{
 		if err := p.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockAudio#804361ea: field caption: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockAudio#804361ea",
+				FieldName:  "caption",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -4094,7 +5001,10 @@ func (p *PageBlockKicker) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockKicker) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockKicker#1e148390 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockKicker#1e148390",
+		}
 	}
 	b.PutID(PageBlockKickerTypeID)
 	return p.EncodeBare(b)
@@ -4103,13 +5013,29 @@ func (p *PageBlockKicker) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockKicker) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockKicker#1e148390 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockKicker#1e148390",
+		}
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageBlockKicker#1e148390: field text is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockKicker#1e148390",
+			FieldName: "text",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockKicker#1e148390: field text: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockKicker#1e148390",
+			FieldName:  "text",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -4122,10 +5048,16 @@ func (p *PageBlockKicker) GetText() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (p *PageBlockKicker) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockKicker#1e148390 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockKicker#1e148390",
+		}
 	}
 	if err := b.ConsumeID(PageBlockKickerTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockKicker#1e148390: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockKicker#1e148390",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -4133,12 +5065,20 @@ func (p *PageBlockKicker) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockKicker) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockKicker#1e148390 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockKicker#1e148390",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockKicker#1e148390: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockKicker#1e148390",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		p.Text = value
 	}
@@ -4274,7 +5214,10 @@ func (p *PageBlockTable) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockTable) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockTable#bf4dea82 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockTable#bf4dea82",
+		}
 	}
 	b.PutID(PageBlockTableTypeID)
 	return p.EncodeBare(b)
@@ -4283,7 +5226,10 @@ func (p *PageBlockTable) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockTable) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockTable#bf4dea82 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockTable#bf4dea82",
+		}
 	}
 	if !(p.Bordered == false) {
 		p.Flags.Set(0)
@@ -4292,18 +5238,45 @@ func (p *PageBlockTable) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(1)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockTable#bf4dea82: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockTable#bf4dea82",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if p.Title == nil {
-		return fmt.Errorf("unable to encode pageBlockTable#bf4dea82: field title is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockTable#bf4dea82",
+			FieldName: "title",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Title.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockTable#bf4dea82: field title: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockTable#bf4dea82",
+			FieldName:  "title",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(p.Rows))
 	for idx, v := range p.Rows {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageBlockTable#bf4dea82: field rows element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockTable#bf4dea82",
+				FieldName: "rows",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -4354,10 +5327,16 @@ func (p *PageBlockTable) GetRows() (value []PageTableRow) {
 // Decode implements bin.Decoder.
 func (p *PageBlockTable) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockTable#bf4dea82 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockTable#bf4dea82",
+		}
 	}
 	if err := b.ConsumeID(PageBlockTableTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockTable#bf4dea82: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockTable#bf4dea82",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -4365,11 +5344,19 @@ func (p *PageBlockTable) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockTable) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockTable#bf4dea82 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockTable#bf4dea82",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockTable#bf4dea82: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockTable#bf4dea82",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	p.Bordered = p.Flags.Has(0)
@@ -4377,14 +5364,24 @@ func (p *PageBlockTable) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockTable#bf4dea82: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockTable#bf4dea82",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		p.Title = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockTable#bf4dea82: field rows: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockTable#bf4dea82",
+				FieldName:  "rows",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -4393,7 +5390,13 @@ func (p *PageBlockTable) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value PageTableRow
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode pageBlockTable#bf4dea82: field rows: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "pageBlockTable#bf4dea82",
+					FieldName:  "rows",
+					Underlying: err,
+				}
 			}
 			p.Rows = append(p.Rows, value)
 		}
@@ -4487,7 +5490,10 @@ func (p *PageBlockOrderedList) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockOrderedList) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockOrderedList#9a8ae1e1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockOrderedList#9a8ae1e1",
+		}
 	}
 	b.PutID(PageBlockOrderedListTypeID)
 	return p.EncodeBare(b)
@@ -4496,15 +5502,38 @@ func (p *PageBlockOrderedList) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockOrderedList) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockOrderedList#9a8ae1e1 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockOrderedList#9a8ae1e1",
+		}
 	}
 	b.PutVectorHeader(len(p.Items))
 	for idx, v := range p.Items {
 		if v == nil {
-			return fmt.Errorf("unable to encode pageBlockOrderedList#9a8ae1e1: field items element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockOrderedList#9a8ae1e1",
+				FieldName: "items",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<PageListOrderedItem>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageBlockOrderedList#9a8ae1e1: field items element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockOrderedList#9a8ae1e1",
+				FieldName: "items",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -4523,10 +5552,16 @@ func (p *PageBlockOrderedList) MapItems() (value PageListOrderedItemClassArray) 
 // Decode implements bin.Decoder.
 func (p *PageBlockOrderedList) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockOrderedList#9a8ae1e1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockOrderedList#9a8ae1e1",
+		}
 	}
 	if err := b.ConsumeID(PageBlockOrderedListTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockOrderedList#9a8ae1e1: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockOrderedList#9a8ae1e1",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -4534,12 +5569,20 @@ func (p *PageBlockOrderedList) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockOrderedList) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockOrderedList#9a8ae1e1 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockOrderedList#9a8ae1e1",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockOrderedList#9a8ae1e1: field items: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockOrderedList#9a8ae1e1",
+				FieldName:  "items",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -4548,7 +5591,12 @@ func (p *PageBlockOrderedList) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageListOrderedItem(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode pageBlockOrderedList#9a8ae1e1: field items: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "pageBlockOrderedList#9a8ae1e1",
+					FieldName:  "items",
+					Underlying: err,
+				}
 			}
 			p.Items = append(p.Items, value)
 		}
@@ -4673,7 +5721,10 @@ func (p *PageBlockDetails) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockDetails) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockDetails#76768bed as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockDetails#76768bed",
+		}
 	}
 	b.PutID(PageBlockDetailsTypeID)
 	return p.EncodeBare(b)
@@ -4682,28 +5733,69 @@ func (p *PageBlockDetails) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockDetails) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockDetails#76768bed as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockDetails#76768bed",
+		}
 	}
 	if !(p.Open == false) {
 		p.Flags.Set(0)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockDetails#76768bed: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockDetails#76768bed",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(p.Blocks))
 	for idx, v := range p.Blocks {
 		if v == nil {
-			return fmt.Errorf("unable to encode pageBlockDetails#76768bed: field blocks element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockDetails#76768bed",
+				FieldName: "blocks",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<PageBlock>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageBlockDetails#76768bed: field blocks element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockDetails#76768bed",
+				FieldName: "blocks",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if p.Title == nil {
-		return fmt.Errorf("unable to encode pageBlockDetails#76768bed: field title is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockDetails#76768bed",
+			FieldName: "title",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Title.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockDetails#76768bed: field title: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockDetails#76768bed",
+			FieldName:  "title",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -4742,10 +5834,16 @@ func (p *PageBlockDetails) GetTitle() (value RichTextClass) {
 // Decode implements bin.Decoder.
 func (p *PageBlockDetails) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockDetails#76768bed to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockDetails#76768bed",
+		}
 	}
 	if err := b.ConsumeID(PageBlockDetailsTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockDetails#76768bed: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockDetails#76768bed",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -4753,18 +5851,31 @@ func (p *PageBlockDetails) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockDetails) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockDetails#76768bed to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockDetails#76768bed",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockDetails#76768bed: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockDetails#76768bed",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	p.Open = p.Flags.Has(0)
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockDetails#76768bed: field blocks: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockDetails#76768bed",
+				FieldName:  "blocks",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -4773,7 +5884,12 @@ func (p *PageBlockDetails) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode pageBlockDetails#76768bed: field blocks: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "pageBlockDetails#76768bed",
+					FieldName:  "blocks",
+					Underlying: err,
+				}
 			}
 			p.Blocks = append(p.Blocks, value)
 		}
@@ -4781,7 +5897,12 @@ func (p *PageBlockDetails) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockDetails#76768bed: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockDetails#76768bed",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		p.Title = value
 	}
@@ -4885,7 +6006,10 @@ func (p *PageBlockRelatedArticles) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockRelatedArticles) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockRelatedArticles#16115a96 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockRelatedArticles#16115a96",
+		}
 	}
 	b.PutID(PageBlockRelatedArticlesTypeID)
 	return p.EncodeBare(b)
@@ -4894,18 +6018,43 @@ func (p *PageBlockRelatedArticles) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockRelatedArticles) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockRelatedArticles#16115a96 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockRelatedArticles#16115a96",
+		}
 	}
 	if p.Title == nil {
-		return fmt.Errorf("unable to encode pageBlockRelatedArticles#16115a96: field title is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockRelatedArticles#16115a96",
+			FieldName: "title",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "RichText",
+			},
+		}
 	}
 	if err := p.Title.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockRelatedArticles#16115a96: field title: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockRelatedArticles#16115a96",
+			FieldName:  "title",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(p.Articles))
 	for idx, v := range p.Articles {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageBlockRelatedArticles#16115a96: field articles element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "pageBlockRelatedArticles#16115a96",
+				FieldName: "articles",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -4924,10 +6073,16 @@ func (p *PageBlockRelatedArticles) GetArticles() (value []PageRelatedArticle) {
 // Decode implements bin.Decoder.
 func (p *PageBlockRelatedArticles) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockRelatedArticles#16115a96 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockRelatedArticles#16115a96",
+		}
 	}
 	if err := b.ConsumeID(PageBlockRelatedArticlesTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockRelatedArticles#16115a96: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockRelatedArticles#16115a96",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -4935,19 +6090,32 @@ func (p *PageBlockRelatedArticles) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockRelatedArticles) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockRelatedArticles#16115a96 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockRelatedArticles#16115a96",
+		}
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockRelatedArticles#16115a96: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockRelatedArticles#16115a96",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		p.Title = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockRelatedArticles#16115a96: field articles: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockRelatedArticles#16115a96",
+				FieldName:  "articles",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -4956,7 +6124,13 @@ func (p *PageBlockRelatedArticles) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value PageRelatedArticle
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode pageBlockRelatedArticles#16115a96: field articles: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "pageBlockRelatedArticles#16115a96",
+					FieldName:  "articles",
+					Underlying: err,
+				}
 			}
 			p.Articles = append(p.Articles, value)
 		}
@@ -5094,7 +6268,10 @@ func (p *PageBlockMap) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockMap) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockMap#a44f3ef6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockMap#a44f3ef6",
+		}
 	}
 	b.PutID(PageBlockMapTypeID)
 	return p.EncodeBare(b)
@@ -5103,19 +6280,40 @@ func (p *PageBlockMap) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockMap) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockMap#a44f3ef6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "pageBlockMap#a44f3ef6",
+		}
 	}
 	if p.Geo == nil {
-		return fmt.Errorf("unable to encode pageBlockMap#a44f3ef6: field geo is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "pageBlockMap#a44f3ef6",
+			FieldName: "geo",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "GeoPoint",
+			},
+		}
 	}
 	if err := p.Geo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockMap#a44f3ef6: field geo: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockMap#a44f3ef6",
+			FieldName:  "geo",
+			Underlying: err,
+		}
 	}
 	b.PutInt(p.Zoom)
 	b.PutInt(p.W)
 	b.PutInt(p.H)
 	if err := p.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockMap#a44f3ef6: field caption: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "pageBlockMap#a44f3ef6",
+			FieldName:  "caption",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -5148,10 +6346,16 @@ func (p *PageBlockMap) GetCaption() (value PageCaption) {
 // Decode implements bin.Decoder.
 func (p *PageBlockMap) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockMap#a44f3ef6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockMap#a44f3ef6",
+		}
 	}
 	if err := b.ConsumeID(PageBlockMapTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockMap#a44f3ef6: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "pageBlockMap#a44f3ef6",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -5159,39 +6363,67 @@ func (p *PageBlockMap) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockMap) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockMap#a44f3ef6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "pageBlockMap#a44f3ef6",
+		}
 	}
 	{
 		value, err := DecodeGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockMap#a44f3ef6: field geo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockMap#a44f3ef6",
+				FieldName:  "geo",
+				Underlying: err,
+			}
 		}
 		p.Geo = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockMap#a44f3ef6: field zoom: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockMap#a44f3ef6",
+				FieldName:  "zoom",
+				Underlying: err,
+			}
 		}
 		p.Zoom = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockMap#a44f3ef6: field w: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockMap#a44f3ef6",
+				FieldName:  "w",
+				Underlying: err,
+			}
 		}
 		p.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockMap#a44f3ef6: field h: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockMap#a44f3ef6",
+				FieldName:  "h",
+				Underlying: err,
+			}
 		}
 		p.H = value
 	}
 	{
 		if err := p.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockMap#a44f3ef6: field caption: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "pageBlockMap#a44f3ef6",
+				FieldName:  "caption",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -5281,207 +6513,297 @@ func DecodePageBlock(buf *bin.Buffer) (PageBlockClass, error) {
 		// Decoding pageBlockUnsupported#13567e8a.
 		v := PageBlockUnsupported{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockTitleTypeID:
 		// Decoding pageBlockTitle#70abc3fd.
 		v := PageBlockTitle{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockSubtitleTypeID:
 		// Decoding pageBlockSubtitle#8ffa9a1f.
 		v := PageBlockSubtitle{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockAuthorDateTypeID:
 		// Decoding pageBlockAuthorDate#baafe5e0.
 		v := PageBlockAuthorDate{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockHeaderTypeID:
 		// Decoding pageBlockHeader#bfd064ec.
 		v := PageBlockHeader{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockSubheaderTypeID:
 		// Decoding pageBlockSubheader#f12bb6e1.
 		v := PageBlockSubheader{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockParagraphTypeID:
 		// Decoding pageBlockParagraph#467a0766.
 		v := PageBlockParagraph{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockPreformattedTypeID:
 		// Decoding pageBlockPreformatted#c070d93e.
 		v := PageBlockPreformatted{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockFooterTypeID:
 		// Decoding pageBlockFooter#48870999.
 		v := PageBlockFooter{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockDividerTypeID:
 		// Decoding pageBlockDivider#db20b188.
 		v := PageBlockDivider{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockAnchorTypeID:
 		// Decoding pageBlockAnchor#ce0d37b0.
 		v := PageBlockAnchor{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockListTypeID:
 		// Decoding pageBlockList#e4e88011.
 		v := PageBlockList{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockBlockquoteTypeID:
 		// Decoding pageBlockBlockquote#263d7c26.
 		v := PageBlockBlockquote{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockPullquoteTypeID:
 		// Decoding pageBlockPullquote#4f4456d3.
 		v := PageBlockPullquote{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockPhotoTypeID:
 		// Decoding pageBlockPhoto#1759c560.
 		v := PageBlockPhoto{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockVideoTypeID:
 		// Decoding pageBlockVideo#7c8fe7b6.
 		v := PageBlockVideo{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockCoverTypeID:
 		// Decoding pageBlockCover#39f23300.
 		v := PageBlockCover{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockEmbedTypeID:
 		// Decoding pageBlockEmbed#a8718dc5.
 		v := PageBlockEmbed{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockEmbedPostTypeID:
 		// Decoding pageBlockEmbedPost#f259a80b.
 		v := PageBlockEmbedPost{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockCollageTypeID:
 		// Decoding pageBlockCollage#65a0fa4d.
 		v := PageBlockCollage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockSlideshowTypeID:
 		// Decoding pageBlockSlideshow#31f9590.
 		v := PageBlockSlideshow{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockChannelTypeID:
 		// Decoding pageBlockChannel#ef1751b5.
 		v := PageBlockChannel{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockAudioTypeID:
 		// Decoding pageBlockAudio#804361ea.
 		v := PageBlockAudio{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockKickerTypeID:
 		// Decoding pageBlockKicker#1e148390.
 		v := PageBlockKicker{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockTableTypeID:
 		// Decoding pageBlockTable#bf4dea82.
 		v := PageBlockTable{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockOrderedListTypeID:
 		// Decoding pageBlockOrderedList#9a8ae1e1.
 		v := PageBlockOrderedList{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockDetailsTypeID:
 		// Decoding pageBlockDetails#76768bed.
 		v := PageBlockDetails{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockRelatedArticlesTypeID:
 		// Decoding pageBlockRelatedArticles#16115a96.
 		v := PageBlockRelatedArticles{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case PageBlockMapTypeID:
 		// Decoding pageBlockMap#a44f3ef6.
 		v := PageBlockMap{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "PageBlockClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode PageBlockClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "PageBlockClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -5493,7 +6815,10 @@ type PageBlockBox struct {
 // Decode implements bin.Decoder for PageBlockBox.
 func (b *PageBlockBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode PageBlockBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "PageBlockBox",
+		}
 	}
 	v, err := DecodePageBlock(buf)
 	if err != nil {
@@ -5506,7 +6831,10 @@ func (b *PageBlockBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for PageBlockBox.
 func (b *PageBlockBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.PageBlock == nil {
-		return fmt.Errorf("unable to encode PageBlockClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "PageBlockBox",
+		}
 	}
 	return b.PageBlock.Encode(buf)
 }

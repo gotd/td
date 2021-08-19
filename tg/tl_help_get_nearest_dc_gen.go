@@ -85,7 +85,10 @@ func (g *HelpGetNearestDCRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *HelpGetNearestDCRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getNearestDc#1fb33026 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getNearestDc#1fb33026",
+		}
 	}
 	b.PutID(HelpGetNearestDCRequestTypeID)
 	return g.EncodeBare(b)
@@ -94,7 +97,10 @@ func (g *HelpGetNearestDCRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetNearestDCRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getNearestDc#1fb33026 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.getNearestDc#1fb33026",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (g *HelpGetNearestDCRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *HelpGetNearestDCRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getNearestDc#1fb33026 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getNearestDc#1fb33026",
+		}
 	}
 	if err := b.ConsumeID(HelpGetNearestDCRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getNearestDc#1fb33026: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.getNearestDc#1fb33026",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (g *HelpGetNearestDCRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetNearestDCRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getNearestDc#1fb33026 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.getNearestDc#1fb33026",
+		}
 	}
 	return nil
 }

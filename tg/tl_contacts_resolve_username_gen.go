@@ -102,7 +102,10 @@ func (r *ContactsResolveUsernameRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ContactsResolveUsernameRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode contacts.resolveUsername#f93ccba3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.resolveUsername#f93ccba3",
+		}
 	}
 	b.PutID(ContactsResolveUsernameRequestTypeID)
 	return r.EncodeBare(b)
@@ -111,7 +114,10 @@ func (r *ContactsResolveUsernameRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ContactsResolveUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode contacts.resolveUsername#f93ccba3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.resolveUsername#f93ccba3",
+		}
 	}
 	b.PutString(r.Username)
 	return nil
@@ -125,10 +131,16 @@ func (r *ContactsResolveUsernameRequest) GetUsername() (value string) {
 // Decode implements bin.Decoder.
 func (r *ContactsResolveUsernameRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode contacts.resolveUsername#f93ccba3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.resolveUsername#f93ccba3",
+		}
 	}
 	if err := b.ConsumeID(ContactsResolveUsernameRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.resolveUsername#f93ccba3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "contacts.resolveUsername#f93ccba3",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (r *ContactsResolveUsernameRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ContactsResolveUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode contacts.resolveUsername#f93ccba3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.resolveUsername#f93ccba3",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.resolveUsername#f93ccba3: field username: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.resolveUsername#f93ccba3",
+				FieldName:  "username",
+				Underlying: err,
+			}
 		}
 		r.Username = value
 	}

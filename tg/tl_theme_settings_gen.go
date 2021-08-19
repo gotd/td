@@ -172,7 +172,10 @@ func (t *ThemeSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ThemeSettings) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode themeSettings#9c14984a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "themeSettings#9c14984a",
+		}
 	}
 	b.PutID(ThemeSettingsTypeID)
 	return t.EncodeBare(b)
@@ -181,7 +184,10 @@ func (t *ThemeSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ThemeSettings) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode themeSettings#9c14984a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "themeSettings#9c14984a",
+		}
 	}
 	if !(t.MessageTopColor == 0) {
 		t.Flags.Set(0)
@@ -193,13 +199,31 @@ func (t *ThemeSettings) EncodeBare(b *bin.Buffer) error {
 		t.Flags.Set(1)
 	}
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode themeSettings#9c14984a: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "themeSettings#9c14984a",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if t.BaseTheme == nil {
-		return fmt.Errorf("unable to encode themeSettings#9c14984a: field base_theme is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "themeSettings#9c14984a",
+			FieldName: "base_theme",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "BaseTheme",
+			},
+		}
 	}
 	if err := t.BaseTheme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode themeSettings#9c14984a: field base_theme: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "themeSettings#9c14984a",
+			FieldName:  "base_theme",
+			Underlying: err,
+		}
 	}
 	b.PutInt(t.AccentColor)
 	if t.Flags.Has(0) {
@@ -210,10 +234,23 @@ func (t *ThemeSettings) EncodeBare(b *bin.Buffer) error {
 	}
 	if t.Flags.Has(1) {
 		if t.Wallpaper == nil {
-			return fmt.Errorf("unable to encode themeSettings#9c14984a: field wallpaper is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "themeSettings#9c14984a",
+				FieldName: "wallpaper",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "WallPaper",
+				},
+			}
 		}
 		if err := t.Wallpaper.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode themeSettings#9c14984a: field wallpaper: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "themeSettings#9c14984a",
+				FieldName:  "wallpaper",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -277,10 +314,16 @@ func (t *ThemeSettings) GetWallpaper() (value WallPaperClass, ok bool) {
 // Decode implements bin.Decoder.
 func (t *ThemeSettings) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode themeSettings#9c14984a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "themeSettings#9c14984a",
+		}
 	}
 	if err := b.ConsumeID(ThemeSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode themeSettings#9c14984a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "themeSettings#9c14984a",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -288,45 +331,78 @@ func (t *ThemeSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ThemeSettings) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode themeSettings#9c14984a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "themeSettings#9c14984a",
+		}
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode themeSettings#9c14984a: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "themeSettings#9c14984a",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := DecodeBaseTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode themeSettings#9c14984a: field base_theme: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "themeSettings#9c14984a",
+				FieldName:  "base_theme",
+				Underlying: err,
+			}
 		}
 		t.BaseTheme = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode themeSettings#9c14984a: field accent_color: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "themeSettings#9c14984a",
+				FieldName:  "accent_color",
+				Underlying: err,
+			}
 		}
 		t.AccentColor = value
 	}
 	if t.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode themeSettings#9c14984a: field message_top_color: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "themeSettings#9c14984a",
+				FieldName:  "message_top_color",
+				Underlying: err,
+			}
 		}
 		t.MessageTopColor = value
 	}
 	if t.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode themeSettings#9c14984a: field message_bottom_color: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "themeSettings#9c14984a",
+				FieldName:  "message_bottom_color",
+				Underlying: err,
+			}
 		}
 		t.MessageBottomColor = value
 	}
 	if t.Flags.Has(1) {
 		value, err := DecodeWallPaper(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode themeSettings#9c14984a: field wallpaper: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "themeSettings#9c14984a",
+				FieldName:  "wallpaper",
+				Underlying: err,
+			}
 		}
 		t.Wallpaper = value
 	}

@@ -112,7 +112,10 @@ func (i *InvokeWithLayer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InvokeWithLayer) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invokeWithLayer#da9b0d0d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "invokeWithLayer#da9b0d0d",
+		}
 	}
 	b.PutID(InvokeWithLayerTypeID)
 	return i.EncodeBare(b)
@@ -121,11 +124,19 @@ func (i *InvokeWithLayer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InvokeWithLayer) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invokeWithLayer#da9b0d0d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "invokeWithLayer#da9b0d0d",
+		}
 	}
 	b.PutInt(i.Layer)
 	if err := i.Query.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode invokeWithLayer#da9b0d0d: field query: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "invokeWithLayer#da9b0d0d",
+			FieldName:  "query",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -143,10 +154,16 @@ func (i *InvokeWithLayer) GetQuery() (value bin.Object) {
 // Decode implements bin.Decoder.
 func (i *InvokeWithLayer) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invokeWithLayer#da9b0d0d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "invokeWithLayer#da9b0d0d",
+		}
 	}
 	if err := b.ConsumeID(InvokeWithLayerTypeID); err != nil {
-		return fmt.Errorf("unable to decode invokeWithLayer#da9b0d0d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "invokeWithLayer#da9b0d0d",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -154,18 +171,31 @@ func (i *InvokeWithLayer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InvokeWithLayer) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invokeWithLayer#da9b0d0d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "invokeWithLayer#da9b0d0d",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode invokeWithLayer#da9b0d0d: field layer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "invokeWithLayer#da9b0d0d",
+				FieldName:  "layer",
+				Underlying: err,
+			}
 		}
 		i.Layer = value
 	}
 	{
 		if err := i.Query.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode invokeWithLayer#da9b0d0d: field query: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "invokeWithLayer#da9b0d0d",
+				FieldName:  "query",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

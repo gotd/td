@@ -85,7 +85,10 @@ func (c *ChatPhotoEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatPhotoEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPhotoEmpty#37c1011c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatPhotoEmpty#37c1011c",
+		}
 	}
 	b.PutID(ChatPhotoEmptyTypeID)
 	return c.EncodeBare(b)
@@ -94,7 +97,10 @@ func (c *ChatPhotoEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatPhotoEmpty) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPhotoEmpty#37c1011c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatPhotoEmpty#37c1011c",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (c *ChatPhotoEmpty) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatPhotoEmpty) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPhotoEmpty#37c1011c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatPhotoEmpty#37c1011c",
+		}
 	}
 	if err := b.ConsumeID(ChatPhotoEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatPhotoEmpty#37c1011c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "chatPhotoEmpty#37c1011c",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (c *ChatPhotoEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatPhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPhotoEmpty#37c1011c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatPhotoEmpty#37c1011c",
+		}
 	}
 	return nil
 }
@@ -252,7 +267,10 @@ func (c *ChatPhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatPhoto) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPhoto#1c6e1c11 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatPhoto#1c6e1c11",
+		}
 	}
 	b.PutID(ChatPhotoTypeID)
 	return c.EncodeBare(b)
@@ -261,7 +279,10 @@ func (c *ChatPhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatPhoto) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPhoto#1c6e1c11 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatPhoto#1c6e1c11",
+		}
 	}
 	if !(c.HasVideo == false) {
 		c.Flags.Set(0)
@@ -270,7 +291,12 @@ func (c *ChatPhoto) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(1)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhoto#1c6e1c11: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "chatPhoto#1c6e1c11",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutLong(c.PhotoID)
 	if c.Flags.Has(1) {
@@ -324,10 +350,16 @@ func (c *ChatPhoto) GetDCID() (value int) {
 // Decode implements bin.Decoder.
 func (c *ChatPhoto) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPhoto#1c6e1c11 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatPhoto#1c6e1c11",
+		}
 	}
 	if err := b.ConsumeID(ChatPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatPhoto#1c6e1c11: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "chatPhoto#1c6e1c11",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -335,32 +367,55 @@ func (c *ChatPhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatPhoto) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPhoto#1c6e1c11 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatPhoto#1c6e1c11",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#1c6e1c11: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatPhoto#1c6e1c11",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	c.HasVideo = c.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#1c6e1c11: field photo_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatPhoto#1c6e1c11",
+				FieldName:  "photo_id",
+				Underlying: err,
+			}
 		}
 		c.PhotoID = value
 	}
 	if c.Flags.Has(1) {
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#1c6e1c11: field stripped_thumb: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatPhoto#1c6e1c11",
+				FieldName:  "stripped_thumb",
+				Underlying: err,
+			}
 		}
 		c.StrippedThumb = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#1c6e1c11: field dc_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatPhoto#1c6e1c11",
+				FieldName:  "dc_id",
+				Underlying: err,
+			}
 		}
 		c.DCID = value
 	}
@@ -437,18 +492,27 @@ func DecodeChatPhoto(buf *bin.Buffer) (ChatPhotoClass, error) {
 		// Decoding chatPhotoEmpty#37c1011c.
 		v := ChatPhotoEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatPhotoClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ChatPhotoClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case ChatPhotoTypeID:
 		// Decoding chatPhoto#1c6e1c11.
 		v := ChatPhoto{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatPhotoClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "ChatPhotoClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ChatPhotoClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "ChatPhotoClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -460,7 +524,10 @@ type ChatPhotoBox struct {
 // Decode implements bin.Decoder for ChatPhotoBox.
 func (b *ChatPhotoBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode ChatPhotoBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ChatPhotoBox",
+		}
 	}
 	v, err := DecodeChatPhoto(buf)
 	if err != nil {
@@ -473,7 +540,10 @@ func (b *ChatPhotoBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for ChatPhotoBox.
 func (b *ChatPhotoBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.ChatPhoto == nil {
-		return fmt.Errorf("unable to encode ChatPhotoClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ChatPhotoBox",
+		}
 	}
 	return b.ChatPhoto.Encode(buf)
 }

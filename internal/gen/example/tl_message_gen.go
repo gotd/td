@@ -101,7 +101,10 @@ func (m *Message) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *Message) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#ec200d96 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "message#ec200d96",
+		}
 	}
 	b.PutID(MessageTypeID)
 	return m.EncodeBare(b)
@@ -110,10 +113,18 @@ func (m *Message) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *Message) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#ec200d96 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "message#ec200d96",
+		}
 	}
 	if err := m.Err.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#ec200d96: field err: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "message#ec200d96",
+			FieldName:  "err",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -126,10 +137,16 @@ func (m *Message) GetErr() (value Error) {
 // Decode implements bin.Decoder.
 func (m *Message) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#ec200d96 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "message#ec200d96",
+		}
 	}
 	if err := b.ConsumeID(MessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode message#ec200d96: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "message#ec200d96",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -137,11 +154,19 @@ func (m *Message) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *Message) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#ec200d96 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "message#ec200d96",
+		}
 	}
 	{
 		if err := m.Err.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#ec200d96: field err: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "message#ec200d96",
+				FieldName:  "err",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

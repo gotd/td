@@ -119,7 +119,10 @@ func (d *ChannelsDeleteHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *ChannelsDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode channels.deleteHistory#af369d42 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.deleteHistory#af369d42",
+		}
 	}
 	b.PutID(ChannelsDeleteHistoryRequestTypeID)
 	return d.EncodeBare(b)
@@ -128,13 +131,29 @@ func (d *ChannelsDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *ChannelsDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode channels.deleteHistory#af369d42 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.deleteHistory#af369d42",
+		}
 	}
 	if d.Channel == nil {
-		return fmt.Errorf("unable to encode channels.deleteHistory#af369d42: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.deleteHistory#af369d42",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := d.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.deleteHistory#af369d42: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.deleteHistory#af369d42",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	b.PutInt(d.MaxID)
 	return nil
@@ -158,10 +177,16 @@ func (d *ChannelsDeleteHistoryRequest) GetMaxID() (value int) {
 // Decode implements bin.Decoder.
 func (d *ChannelsDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode channels.deleteHistory#af369d42 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.deleteHistory#af369d42",
+		}
 	}
 	if err := b.ConsumeID(ChannelsDeleteHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.deleteHistory#af369d42: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.deleteHistory#af369d42",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -169,19 +194,32 @@ func (d *ChannelsDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *ChannelsDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode channels.deleteHistory#af369d42 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.deleteHistory#af369d42",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.deleteHistory#af369d42: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.deleteHistory#af369d42",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		d.Channel = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.deleteHistory#af369d42: field max_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.deleteHistory#af369d42",
+				FieldName:  "max_id",
+				Underlying: err,
+			}
 		}
 		d.MaxID = value
 	}

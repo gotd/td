@@ -105,7 +105,10 @@ func (s *AccountSendVerifyEmailCodeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSendVerifyEmailCodeRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.sendVerifyEmailCode#7011509f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.sendVerifyEmailCode#7011509f",
+		}
 	}
 	b.PutID(AccountSendVerifyEmailCodeRequestTypeID)
 	return s.EncodeBare(b)
@@ -114,7 +117,10 @@ func (s *AccountSendVerifyEmailCodeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSendVerifyEmailCodeRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.sendVerifyEmailCode#7011509f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.sendVerifyEmailCode#7011509f",
+		}
 	}
 	b.PutString(s.Email)
 	return nil
@@ -128,10 +134,16 @@ func (s *AccountSendVerifyEmailCodeRequest) GetEmail() (value string) {
 // Decode implements bin.Decoder.
 func (s *AccountSendVerifyEmailCodeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.sendVerifyEmailCode#7011509f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.sendVerifyEmailCode#7011509f",
+		}
 	}
 	if err := b.ConsumeID(AccountSendVerifyEmailCodeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.sendVerifyEmailCode#7011509f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.sendVerifyEmailCode#7011509f",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -139,12 +151,20 @@ func (s *AccountSendVerifyEmailCodeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSendVerifyEmailCodeRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.sendVerifyEmailCode#7011509f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.sendVerifyEmailCode#7011509f",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.sendVerifyEmailCode#7011509f: field email: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.sendVerifyEmailCode#7011509f",
+				FieldName:  "email",
+				Underlying: err,
+			}
 		}
 		s.Email = value
 	}

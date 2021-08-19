@@ -109,7 +109,10 @@ func (u *AccountUpdateDeviceLockedRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUpdateDeviceLockedRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateDeviceLocked#38df3532 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.updateDeviceLocked#38df3532",
+		}
 	}
 	b.PutID(AccountUpdateDeviceLockedRequestTypeID)
 	return u.EncodeBare(b)
@@ -118,7 +121,10 @@ func (u *AccountUpdateDeviceLockedRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUpdateDeviceLockedRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateDeviceLocked#38df3532 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.updateDeviceLocked#38df3532",
+		}
 	}
 	b.PutInt(u.Period)
 	return nil
@@ -132,10 +138,16 @@ func (u *AccountUpdateDeviceLockedRequest) GetPeriod() (value int) {
 // Decode implements bin.Decoder.
 func (u *AccountUpdateDeviceLockedRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateDeviceLocked#38df3532 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.updateDeviceLocked#38df3532",
+		}
 	}
 	if err := b.ConsumeID(AccountUpdateDeviceLockedRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.updateDeviceLocked#38df3532: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.updateDeviceLocked#38df3532",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -143,12 +155,20 @@ func (u *AccountUpdateDeviceLockedRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUpdateDeviceLockedRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateDeviceLocked#38df3532 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.updateDeviceLocked#38df3532",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateDeviceLocked#38df3532: field period: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.updateDeviceLocked#38df3532",
+				FieldName:  "period",
+				Underlying: err,
+			}
 		}
 		u.Period = value
 	}

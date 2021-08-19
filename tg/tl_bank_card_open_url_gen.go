@@ -113,7 +113,10 @@ func (b *BankCardOpenURL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BankCardOpenURL) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bankCardOpenUrl#f568028a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "bankCardOpenUrl#f568028a",
+		}
 	}
 	buf.PutID(BankCardOpenURLTypeID)
 	return b.EncodeBare(buf)
@@ -122,7 +125,10 @@ func (b *BankCardOpenURL) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BankCardOpenURL) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode bankCardOpenUrl#f568028a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "bankCardOpenUrl#f568028a",
+		}
 	}
 	buf.PutString(b.URL)
 	buf.PutString(b.Name)
@@ -142,10 +148,16 @@ func (b *BankCardOpenURL) GetName() (value string) {
 // Decode implements bin.Decoder.
 func (b *BankCardOpenURL) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bankCardOpenUrl#f568028a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "bankCardOpenUrl#f568028a",
+		}
 	}
 	if err := buf.ConsumeID(BankCardOpenURLTypeID); err != nil {
-		return fmt.Errorf("unable to decode bankCardOpenUrl#f568028a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "bankCardOpenUrl#f568028a",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -153,19 +165,32 @@ func (b *BankCardOpenURL) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BankCardOpenURL) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode bankCardOpenUrl#f568028a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "bankCardOpenUrl#f568028a",
+		}
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bankCardOpenUrl#f568028a: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "bankCardOpenUrl#f568028a",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		b.URL = value
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bankCardOpenUrl#f568028a: field name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "bankCardOpenUrl#f568028a",
+				FieldName:  "name",
+				Underlying: err,
+			}
 		}
 		b.Name = value
 	}

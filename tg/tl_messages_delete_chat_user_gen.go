@@ -130,7 +130,10 @@ func (d *MessagesDeleteChatUserRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteChatUserRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteChatUser#c534459a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.deleteChatUser#c534459a",
+		}
 	}
 	b.PutID(MessagesDeleteChatUserRequestTypeID)
 	return d.EncodeBare(b)
@@ -139,20 +142,41 @@ func (d *MessagesDeleteChatUserRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDeleteChatUserRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteChatUser#c534459a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.deleteChatUser#c534459a",
+		}
 	}
 	if !(d.RevokeHistory == false) {
 		d.Flags.Set(0)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteChatUser#c534459a: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.deleteChatUser#c534459a",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(d.ChatID)
 	if d.UserID == nil {
-		return fmt.Errorf("unable to encode messages.deleteChatUser#c534459a: field user_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.deleteChatUser#c534459a",
+			FieldName: "user_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := d.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteChatUser#c534459a: field user_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.deleteChatUser#c534459a",
+			FieldName:  "user_id",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -186,10 +210,16 @@ func (d *MessagesDeleteChatUserRequest) GetUserID() (value InputUserClass) {
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteChatUserRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteChatUser#c534459a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.deleteChatUser#c534459a",
+		}
 	}
 	if err := b.ConsumeID(MessagesDeleteChatUserRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.deleteChatUser#c534459a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.deleteChatUser#c534459a",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -197,25 +227,43 @@ func (d *MessagesDeleteChatUserRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDeleteChatUserRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteChatUser#c534459a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.deleteChatUser#c534459a",
+		}
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.deleteChatUser#c534459a: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.deleteChatUser#c534459a",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	d.RevokeHistory = d.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteChatUser#c534459a: field chat_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.deleteChatUser#c534459a",
+				FieldName:  "chat_id",
+				Underlying: err,
+			}
 		}
 		d.ChatID = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteChatUser#c534459a: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.deleteChatUser#c534459a",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		d.UserID = value
 	}

@@ -130,7 +130,10 @@ func (c *AccountChangePhoneRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AccountChangePhoneRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.changePhone#70c32edb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.changePhone#70c32edb",
+		}
 	}
 	b.PutID(AccountChangePhoneRequestTypeID)
 	return c.EncodeBare(b)
@@ -139,7 +142,10 @@ func (c *AccountChangePhoneRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AccountChangePhoneRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.changePhone#70c32edb as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.changePhone#70c32edb",
+		}
 	}
 	b.PutString(c.PhoneNumber)
 	b.PutString(c.PhoneCodeHash)
@@ -165,10 +171,16 @@ func (c *AccountChangePhoneRequest) GetPhoneCode() (value string) {
 // Decode implements bin.Decoder.
 func (c *AccountChangePhoneRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.changePhone#70c32edb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.changePhone#70c32edb",
+		}
 	}
 	if err := b.ConsumeID(AccountChangePhoneRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.changePhone#70c32edb: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.changePhone#70c32edb",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -176,26 +188,44 @@ func (c *AccountChangePhoneRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AccountChangePhoneRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.changePhone#70c32edb to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.changePhone#70c32edb",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.changePhone#70c32edb: field phone_number: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.changePhone#70c32edb",
+				FieldName:  "phone_number",
+				Underlying: err,
+			}
 		}
 		c.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.changePhone#70c32edb: field phone_code_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.changePhone#70c32edb",
+				FieldName:  "phone_code_hash",
+				Underlying: err,
+			}
 		}
 		c.PhoneCodeHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.changePhone#70c32edb: field phone_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.changePhone#70c32edb",
+				FieldName:  "phone_code",
+				Underlying: err,
+			}
 		}
 		c.PhoneCode = value
 	}

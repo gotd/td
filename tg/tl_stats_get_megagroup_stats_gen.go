@@ -128,7 +128,10 @@ func (g *StatsGetMegagroupStatsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *StatsGetMegagroupStatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getMegagroupStats#dcdf8607 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stats.getMegagroupStats#dcdf8607",
+		}
 	}
 	b.PutID(StatsGetMegagroupStatsRequestTypeID)
 	return g.EncodeBare(b)
@@ -137,19 +140,40 @@ func (g *StatsGetMegagroupStatsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *StatsGetMegagroupStatsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getMegagroupStats#dcdf8607 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stats.getMegagroupStats#dcdf8607",
+		}
 	}
 	if !(g.Dark == false) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getMegagroupStats#dcdf8607: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.getMegagroupStats#dcdf8607",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if g.Channel == nil {
-		return fmt.Errorf("unable to encode stats.getMegagroupStats#dcdf8607: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.getMegagroupStats#dcdf8607",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getMegagroupStats#dcdf8607: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.getMegagroupStats#dcdf8607",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -183,10 +207,16 @@ func (g *StatsGetMegagroupStatsRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 // Decode implements bin.Decoder.
 func (g *StatsGetMegagroupStatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getMegagroupStats#dcdf8607 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stats.getMegagroupStats#dcdf8607",
+		}
 	}
 	if err := b.ConsumeID(StatsGetMegagroupStatsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.getMegagroupStats#dcdf8607: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "stats.getMegagroupStats#dcdf8607",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -194,18 +224,31 @@ func (g *StatsGetMegagroupStatsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *StatsGetMegagroupStatsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getMegagroupStats#dcdf8607 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stats.getMegagroupStats#dcdf8607",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stats.getMegagroupStats#dcdf8607: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.getMegagroupStats#dcdf8607",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	g.Dark = g.Flags.Has(0)
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMegagroupStats#dcdf8607: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.getMegagroupStats#dcdf8607",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		g.Channel = value
 	}

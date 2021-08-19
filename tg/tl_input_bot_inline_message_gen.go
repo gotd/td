@@ -147,7 +147,10 @@ func (i *InputBotInlineMessageMediaAuto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaAuto) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageMediaAuto#3380c786 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageMediaAuto#3380c786",
+		}
 	}
 	b.PutID(InputBotInlineMessageMediaAutoTypeID)
 	return i.EncodeBare(b)
@@ -156,7 +159,10 @@ func (i *InputBotInlineMessageMediaAuto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputBotInlineMessageMediaAuto) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageMediaAuto#3380c786 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageMediaAuto#3380c786",
+		}
 	}
 	if !(i.Entities == nil) {
 		i.Flags.Set(1)
@@ -165,26 +171,64 @@ func (i *InputBotInlineMessageMediaAuto) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(2)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaAuto#3380c786: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputBotInlineMessageMediaAuto#3380c786",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(i.Message)
 	if i.Flags.Has(1) {
 		b.PutVectorHeader(len(i.Entities))
 		for idx, v := range i.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode inputBotInlineMessageMediaAuto#3380c786: field entities element with index %d is nil", idx)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "inputBotInlineMessageMediaAuto#3380c786",
+					FieldName: "entities",
+					Underlying: &bin.IndexError{
+						Index: idx,
+						Underlying: &bin.NilError{
+							Action:   "encode",
+							TypeName: "Vector<MessageEntity>",
+						},
+					},
+				}
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputBotInlineMessageMediaAuto#3380c786: field entities element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "inputBotInlineMessageMediaAuto#3380c786",
+					FieldName: "entities",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
 	if i.Flags.Has(2) {
 		if i.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaAuto#3380c786: field reply_markup is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "inputBotInlineMessageMediaAuto#3380c786",
+				FieldName: "reply_markup",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "ReplyMarkup",
+				},
+			}
 		}
 		if err := i.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaAuto#3380c786: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputBotInlineMessageMediaAuto#3380c786",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -236,10 +280,16 @@ func (i *InputBotInlineMessageMediaAuto) GetReplyMarkup() (value ReplyMarkupClas
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageMediaAuto) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaAuto#3380c786 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageMediaAuto#3380c786",
+		}
 	}
 	if err := b.ConsumeID(InputBotInlineMessageMediaAutoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputBotInlineMessageMediaAuto#3380c786: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputBotInlineMessageMediaAuto#3380c786",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -247,24 +297,42 @@ func (i *InputBotInlineMessageMediaAuto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputBotInlineMessageMediaAuto) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaAuto#3380c786 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageMediaAuto#3380c786",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaAuto#3380c786: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaAuto#3380c786",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaAuto#3380c786: field message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaAuto#3380c786",
+				FieldName:  "message",
+				Underlying: err,
+			}
 		}
 		i.Message = value
 	}
 	if i.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaAuto#3380c786: field entities: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaAuto#3380c786",
+				FieldName:  "entities",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -273,7 +341,12 @@ func (i *InputBotInlineMessageMediaAuto) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputBotInlineMessageMediaAuto#3380c786: field entities: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "inputBotInlineMessageMediaAuto#3380c786",
+					FieldName:  "entities",
+					Underlying: err,
+				}
 			}
 			i.Entities = append(i.Entities, value)
 		}
@@ -281,7 +354,12 @@ func (i *InputBotInlineMessageMediaAuto) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaAuto#3380c786: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaAuto#3380c786",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 		i.ReplyMarkup = value
 	}
@@ -431,7 +509,10 @@ func (i *InputBotInlineMessageText) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageText) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageText#3dcd7a87 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageText#3dcd7a87",
+		}
 	}
 	b.PutID(InputBotInlineMessageTextTypeID)
 	return i.EncodeBare(b)
@@ -440,7 +521,10 @@ func (i *InputBotInlineMessageText) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputBotInlineMessageText) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageText#3dcd7a87 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageText#3dcd7a87",
+		}
 	}
 	if !(i.NoWebpage == false) {
 		i.Flags.Set(0)
@@ -452,26 +536,64 @@ func (i *InputBotInlineMessageText) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(2)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageText#3dcd7a87: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputBotInlineMessageText#3dcd7a87",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(i.Message)
 	if i.Flags.Has(1) {
 		b.PutVectorHeader(len(i.Entities))
 		for idx, v := range i.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode inputBotInlineMessageText#3dcd7a87: field entities element with index %d is nil", idx)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "inputBotInlineMessageText#3dcd7a87",
+					FieldName: "entities",
+					Underlying: &bin.IndexError{
+						Index: idx,
+						Underlying: &bin.NilError{
+							Action:   "encode",
+							TypeName: "Vector<MessageEntity>",
+						},
+					},
+				}
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputBotInlineMessageText#3dcd7a87: field entities element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "inputBotInlineMessageText#3dcd7a87",
+					FieldName: "entities",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
 	if i.Flags.Has(2) {
 		if i.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageText#3dcd7a87: field reply_markup is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "inputBotInlineMessageText#3dcd7a87",
+				FieldName: "reply_markup",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "ReplyMarkup",
+				},
+			}
 		}
 		if err := i.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageText#3dcd7a87: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputBotInlineMessageText#3dcd7a87",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -539,10 +661,16 @@ func (i *InputBotInlineMessageText) GetReplyMarkup() (value ReplyMarkupClass, ok
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageText) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageText#3dcd7a87 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageText#3dcd7a87",
+		}
 	}
 	if err := b.ConsumeID(InputBotInlineMessageTextTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputBotInlineMessageText#3dcd7a87: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputBotInlineMessageText#3dcd7a87",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -550,25 +678,43 @@ func (i *InputBotInlineMessageText) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputBotInlineMessageText) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageText#3dcd7a87 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageText#3dcd7a87",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageText#3dcd7a87: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageText#3dcd7a87",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	i.NoWebpage = i.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageText#3dcd7a87: field message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageText#3dcd7a87",
+				FieldName:  "message",
+				Underlying: err,
+			}
 		}
 		i.Message = value
 	}
 	if i.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageText#3dcd7a87: field entities: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageText#3dcd7a87",
+				FieldName:  "entities",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -577,7 +723,12 @@ func (i *InputBotInlineMessageText) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputBotInlineMessageText#3dcd7a87: field entities: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "inputBotInlineMessageText#3dcd7a87",
+					FieldName:  "entities",
+					Underlying: err,
+				}
 			}
 			i.Entities = append(i.Entities, value)
 		}
@@ -585,7 +736,12 @@ func (i *InputBotInlineMessageText) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageText#3dcd7a87: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageText#3dcd7a87",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 		i.ReplyMarkup = value
 	}
@@ -761,7 +917,10 @@ func (i *InputBotInlineMessageMediaGeo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaGeo) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageMediaGeo#96929a85 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageMediaGeo#96929a85",
+		}
 	}
 	b.PutID(InputBotInlineMessageMediaGeoTypeID)
 	return i.EncodeBare(b)
@@ -770,7 +929,10 @@ func (i *InputBotInlineMessageMediaGeo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputBotInlineMessageMediaGeo) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageMediaGeo#96929a85 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageMediaGeo#96929a85",
+		}
 	}
 	if !(i.Heading == 0) {
 		i.Flags.Set(0)
@@ -785,13 +947,31 @@ func (i *InputBotInlineMessageMediaGeo) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(2)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaGeo#96929a85: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputBotInlineMessageMediaGeo#96929a85",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if i.GeoPoint == nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaGeo#96929a85: field geo_point is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "inputBotInlineMessageMediaGeo#96929a85",
+			FieldName: "geo_point",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputGeoPoint",
+			},
+		}
 	}
 	if err := i.GeoPoint.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaGeo#96929a85: field geo_point: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputBotInlineMessageMediaGeo#96929a85",
+			FieldName:  "geo_point",
+			Underlying: err,
+		}
 	}
 	if i.Flags.Has(0) {
 		b.PutInt(i.Heading)
@@ -804,10 +984,23 @@ func (i *InputBotInlineMessageMediaGeo) EncodeBare(b *bin.Buffer) error {
 	}
 	if i.Flags.Has(2) {
 		if i.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaGeo#96929a85: field reply_markup is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "inputBotInlineMessageMediaGeo#96929a85",
+				FieldName: "reply_markup",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "ReplyMarkup",
+				},
+			}
 		}
 		if err := i.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaGeo#96929a85: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputBotInlineMessageMediaGeo#96929a85",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -881,10 +1074,16 @@ func (i *InputBotInlineMessageMediaGeo) GetReplyMarkup() (value ReplyMarkupClass
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageMediaGeo) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaGeo#96929a85 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageMediaGeo#96929a85",
+		}
 	}
 	if err := b.ConsumeID(InputBotInlineMessageMediaGeoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputBotInlineMessageMediaGeo#96929a85",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -892,45 +1091,78 @@ func (i *InputBotInlineMessageMediaGeo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputBotInlineMessageMediaGeo) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaGeo#96929a85 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageMediaGeo#96929a85",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaGeo#96929a85",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field geo_point: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaGeo#96929a85",
+				FieldName:  "geo_point",
+				Underlying: err,
+			}
 		}
 		i.GeoPoint = value
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field heading: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaGeo#96929a85",
+				FieldName:  "heading",
+				Underlying: err,
+			}
 		}
 		i.Heading = value
 	}
 	if i.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field period: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaGeo#96929a85",
+				FieldName:  "period",
+				Underlying: err,
+			}
 		}
 		i.Period = value
 	}
 	if i.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field proximity_notification_radius: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaGeo#96929a85",
+				FieldName:  "proximity_notification_radius",
+				Underlying: err,
+			}
 		}
 		i.ProximityNotificationRadius = value
 	}
 	if i.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaGeo#96929a85",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 		i.ReplyMarkup = value
 	}
@@ -1103,7 +1335,10 @@ func (i *InputBotInlineMessageMediaVenue) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaVenue) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageMediaVenue#417bbf11 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageMediaVenue#417bbf11",
+		}
 	}
 	b.PutID(InputBotInlineMessageMediaVenueTypeID)
 	return i.EncodeBare(b)
@@ -1112,19 +1347,40 @@ func (i *InputBotInlineMessageMediaVenue) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputBotInlineMessageMediaVenue) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageMediaVenue#417bbf11 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageMediaVenue#417bbf11",
+		}
 	}
 	if !(i.ReplyMarkup == nil) {
 		i.Flags.Set(2)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaVenue#417bbf11: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputBotInlineMessageMediaVenue#417bbf11",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if i.GeoPoint == nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaVenue#417bbf11: field geo_point is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "inputBotInlineMessageMediaVenue#417bbf11",
+			FieldName: "geo_point",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputGeoPoint",
+			},
+		}
 	}
 	if err := i.GeoPoint.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaVenue#417bbf11: field geo_point: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputBotInlineMessageMediaVenue#417bbf11",
+			FieldName:  "geo_point",
+			Underlying: err,
+		}
 	}
 	b.PutString(i.Title)
 	b.PutString(i.Address)
@@ -1133,10 +1389,23 @@ func (i *InputBotInlineMessageMediaVenue) EncodeBare(b *bin.Buffer) error {
 	b.PutString(i.VenueType)
 	if i.Flags.Has(2) {
 		if i.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaVenue#417bbf11: field reply_markup is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "inputBotInlineMessageMediaVenue#417bbf11",
+				FieldName: "reply_markup",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "ReplyMarkup",
+				},
+			}
 		}
 		if err := i.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaVenue#417bbf11: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputBotInlineMessageMediaVenue#417bbf11",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -1190,10 +1459,16 @@ func (i *InputBotInlineMessageMediaVenue) GetReplyMarkup() (value ReplyMarkupCla
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageMediaVenue) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaVenue#417bbf11 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageMediaVenue#417bbf11",
+		}
 	}
 	if err := b.ConsumeID(InputBotInlineMessageMediaVenueTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputBotInlineMessageMediaVenue#417bbf11: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputBotInlineMessageMediaVenue#417bbf11",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -1201,59 +1476,102 @@ func (i *InputBotInlineMessageMediaVenue) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputBotInlineMessageMediaVenue) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaVenue#417bbf11 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageMediaVenue#417bbf11",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaVenue#417bbf11: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaVenue#417bbf11",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaVenue#417bbf11: field geo_point: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaVenue#417bbf11",
+				FieldName:  "geo_point",
+				Underlying: err,
+			}
 		}
 		i.GeoPoint = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaVenue#417bbf11: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaVenue#417bbf11",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		i.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaVenue#417bbf11: field address: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaVenue#417bbf11",
+				FieldName:  "address",
+				Underlying: err,
+			}
 		}
 		i.Address = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaVenue#417bbf11: field provider: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaVenue#417bbf11",
+				FieldName:  "provider",
+				Underlying: err,
+			}
 		}
 		i.Provider = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaVenue#417bbf11: field venue_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaVenue#417bbf11",
+				FieldName:  "venue_id",
+				Underlying: err,
+			}
 		}
 		i.VenueID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaVenue#417bbf11: field venue_type: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaVenue#417bbf11",
+				FieldName:  "venue_type",
+				Underlying: err,
+			}
 		}
 		i.VenueType = value
 	}
 	if i.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaVenue#417bbf11: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaVenue#417bbf11",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 		i.ReplyMarkup = value
 	}
@@ -1404,7 +1722,10 @@ func (i *InputBotInlineMessageMediaContact) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaContact) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageMediaContact#a6edbffd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageMediaContact#a6edbffd",
+		}
 	}
 	b.PutID(InputBotInlineMessageMediaContactTypeID)
 	return i.EncodeBare(b)
@@ -1413,13 +1734,21 @@ func (i *InputBotInlineMessageMediaContact) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputBotInlineMessageMediaContact) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageMediaContact#a6edbffd as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageMediaContact#a6edbffd",
+		}
 	}
 	if !(i.ReplyMarkup == nil) {
 		i.Flags.Set(2)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaContact#a6edbffd: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputBotInlineMessageMediaContact#a6edbffd",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(i.PhoneNumber)
 	b.PutString(i.FirstName)
@@ -1427,10 +1756,23 @@ func (i *InputBotInlineMessageMediaContact) EncodeBare(b *bin.Buffer) error {
 	b.PutString(i.Vcard)
 	if i.Flags.Has(2) {
 		if i.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaContact#a6edbffd: field reply_markup is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "inputBotInlineMessageMediaContact#a6edbffd",
+				FieldName: "reply_markup",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "ReplyMarkup",
+				},
+			}
 		}
 		if err := i.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaContact#a6edbffd: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputBotInlineMessageMediaContact#a6edbffd",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -1474,10 +1816,16 @@ func (i *InputBotInlineMessageMediaContact) GetReplyMarkup() (value ReplyMarkupC
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageMediaContact) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaContact#a6edbffd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageMediaContact#a6edbffd",
+		}
 	}
 	if err := b.ConsumeID(InputBotInlineMessageMediaContactTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputBotInlineMessageMediaContact#a6edbffd: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputBotInlineMessageMediaContact#a6edbffd",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -1485,45 +1833,78 @@ func (i *InputBotInlineMessageMediaContact) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputBotInlineMessageMediaContact) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaContact#a6edbffd to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageMediaContact#a6edbffd",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaContact#a6edbffd: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaContact#a6edbffd",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaContact#a6edbffd: field phone_number: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaContact#a6edbffd",
+				FieldName:  "phone_number",
+				Underlying: err,
+			}
 		}
 		i.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaContact#a6edbffd: field first_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaContact#a6edbffd",
+				FieldName:  "first_name",
+				Underlying: err,
+			}
 		}
 		i.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaContact#a6edbffd: field last_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaContact#a6edbffd",
+				FieldName:  "last_name",
+				Underlying: err,
+			}
 		}
 		i.LastName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaContact#a6edbffd: field vcard: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaContact#a6edbffd",
+				FieldName:  "vcard",
+				Underlying: err,
+			}
 		}
 		i.Vcard = value
 	}
 	if i.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaContact#a6edbffd: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaContact#a6edbffd",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 		i.ReplyMarkup = value
 	}
@@ -1630,7 +2011,10 @@ func (i *InputBotInlineMessageGame) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageGame) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageGame#4b425864 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageGame#4b425864",
+		}
 	}
 	b.PutID(InputBotInlineMessageGameTypeID)
 	return i.EncodeBare(b)
@@ -1639,20 +2023,41 @@ func (i *InputBotInlineMessageGame) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputBotInlineMessageGame) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageGame#4b425864 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageGame#4b425864",
+		}
 	}
 	if !(i.ReplyMarkup == nil) {
 		i.Flags.Set(2)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageGame#4b425864: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputBotInlineMessageGame#4b425864",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if i.Flags.Has(2) {
 		if i.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageGame#4b425864: field reply_markup is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "inputBotInlineMessageGame#4b425864",
+				FieldName: "reply_markup",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "ReplyMarkup",
+				},
+			}
 		}
 		if err := i.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageGame#4b425864: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputBotInlineMessageGame#4b425864",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -1676,10 +2081,16 @@ func (i *InputBotInlineMessageGame) GetReplyMarkup() (value ReplyMarkupClass, ok
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageGame) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageGame#4b425864 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageGame#4b425864",
+		}
 	}
 	if err := b.ConsumeID(InputBotInlineMessageGameTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputBotInlineMessageGame#4b425864: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputBotInlineMessageGame#4b425864",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -1687,17 +2098,30 @@ func (i *InputBotInlineMessageGame) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputBotInlineMessageGame) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageGame#4b425864 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageGame#4b425864",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageGame#4b425864: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageGame#4b425864",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	if i.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageGame#4b425864: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageGame#4b425864",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 		i.ReplyMarkup = value
 	}
@@ -1883,7 +2307,10 @@ func (i *InputBotInlineMessageMediaInvoice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaInvoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageMediaInvoice#d7e78225 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageMediaInvoice#d7e78225",
+		}
 	}
 	b.PutID(InputBotInlineMessageMediaInvoiceTypeID)
 	return i.EncodeBare(b)
@@ -1892,7 +2319,10 @@ func (i *InputBotInlineMessageMediaInvoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputBotInlineMessageMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineMessageMediaInvoice#d7e78225 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputBotInlineMessageMediaInvoice#d7e78225",
+		}
 	}
 	if !(i.Photo.Zero()) {
 		i.Flags.Set(0)
@@ -1901,29 +2331,62 @@ func (i *InputBotInlineMessageMediaInvoice) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(2)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(i.Title)
 	b.PutString(i.Description)
 	if i.Flags.Has(0) {
 		if err := i.Photo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 	}
 	if err := i.Invoice.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field invoice: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+			FieldName:  "invoice",
+			Underlying: err,
+		}
 	}
 	b.PutBytes(i.Payload)
 	b.PutString(i.Provider)
 	if err := i.ProviderData.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field provider_data: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+			FieldName:  "provider_data",
+			Underlying: err,
+		}
 	}
 	if i.Flags.Has(2) {
 		if i.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field reply_markup is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "inputBotInlineMessageMediaInvoice#d7e78225",
+				FieldName: "reply_markup",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "ReplyMarkup",
+				},
+			}
 		}
 		if err := i.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -1992,10 +2455,16 @@ func (i *InputBotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupC
 // Decode implements bin.Decoder.
 func (i *InputBotInlineMessageMediaInvoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaInvoice#d7e78225 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageMediaInvoice#d7e78225",
+		}
 	}
 	if err := b.ConsumeID(InputBotInlineMessageMediaInvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -2003,60 +2472,108 @@ func (i *InputBotInlineMessageMediaInvoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputBotInlineMessageMediaInvoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputBotInlineMessageMediaInvoice#d7e78225 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputBotInlineMessageMediaInvoice#d7e78225",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		i.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field description: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+				FieldName:  "description",
+				Underlying: err,
+			}
 		}
 		i.Description = value
 	}
 	if i.Flags.Has(0) {
 		if err := i.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field photo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+				FieldName:  "photo",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		if err := i.Invoice.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field invoice: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+				FieldName:  "invoice",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field payload: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+				FieldName:  "payload",
+				Underlying: err,
+			}
 		}
 		i.Payload = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field provider: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+				FieldName:  "provider",
+				Underlying: err,
+			}
 		}
 		i.Provider = value
 	}
 	{
 		if err := i.ProviderData.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field provider_data: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+				FieldName:  "provider_data",
+				Underlying: err,
+			}
 		}
 	}
 	if i.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d7e78225: field reply_markup: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputBotInlineMessageMediaInvoice#d7e78225",
+				FieldName:  "reply_markup",
+				Underlying: err,
+			}
 		}
 		i.ReplyMarkup = value
 	}
@@ -2128,53 +2645,77 @@ func DecodeInputBotInlineMessage(buf *bin.Buffer) (InputBotInlineMessageClass, e
 		// Decoding inputBotInlineMessageMediaAuto#3380c786.
 		v := InputBotInlineMessageMediaAuto{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputBotInlineMessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputBotInlineMessageTextTypeID:
 		// Decoding inputBotInlineMessageText#3dcd7a87.
 		v := InputBotInlineMessageText{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputBotInlineMessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputBotInlineMessageMediaGeoTypeID:
 		// Decoding inputBotInlineMessageMediaGeo#96929a85.
 		v := InputBotInlineMessageMediaGeo{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputBotInlineMessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputBotInlineMessageMediaVenueTypeID:
 		// Decoding inputBotInlineMessageMediaVenue#417bbf11.
 		v := InputBotInlineMessageMediaVenue{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputBotInlineMessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputBotInlineMessageMediaContactTypeID:
 		// Decoding inputBotInlineMessageMediaContact#a6edbffd.
 		v := InputBotInlineMessageMediaContact{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputBotInlineMessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputBotInlineMessageGameTypeID:
 		// Decoding inputBotInlineMessageGame#4b425864.
 		v := InputBotInlineMessageGame{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputBotInlineMessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputBotInlineMessageMediaInvoiceTypeID:
 		// Decoding inputBotInlineMessageMediaInvoice#d7e78225.
 		v := InputBotInlineMessageMediaInvoice{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputBotInlineMessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "InputBotInlineMessageClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -2186,7 +2727,10 @@ type InputBotInlineMessageBox struct {
 // Decode implements bin.Decoder for InputBotInlineMessageBox.
 func (b *InputBotInlineMessageBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputBotInlineMessageBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "InputBotInlineMessageBox",
+		}
 	}
 	v, err := DecodeInputBotInlineMessage(buf)
 	if err != nil {
@@ -2199,7 +2743,10 @@ func (b *InputBotInlineMessageBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputBotInlineMessageBox.
 func (b *InputBotInlineMessageBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputBotInlineMessage == nil {
-		return fmt.Errorf("unable to encode InputBotInlineMessageClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "InputBotInlineMessageBox",
+		}
 	}
 	return b.InputBotInlineMessage.Encode(buf)
 }

@@ -123,7 +123,10 @@ func (i *MessagesInitHistoryImportRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *MessagesInitHistoryImportRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode messages.initHistoryImport#34090c3b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.initHistoryImport#34090c3b",
+		}
 	}
 	b.PutID(MessagesInitHistoryImportRequestTypeID)
 	return i.EncodeBare(b)
@@ -132,19 +135,48 @@ func (i *MessagesInitHistoryImportRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *MessagesInitHistoryImportRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode messages.initHistoryImport#34090c3b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.initHistoryImport#34090c3b",
+		}
 	}
 	if i.Peer == nil {
-		return fmt.Errorf("unable to encode messages.initHistoryImport#34090c3b: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.initHistoryImport#34090c3b",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := i.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.initHistoryImport#34090c3b: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.initHistoryImport#34090c3b",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	if i.File == nil {
-		return fmt.Errorf("unable to encode messages.initHistoryImport#34090c3b: field file is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.initHistoryImport#34090c3b",
+			FieldName: "file",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputFile",
+			},
+		}
 	}
 	if err := i.File.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.initHistoryImport#34090c3b: field file: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.initHistoryImport#34090c3b",
+			FieldName:  "file",
+			Underlying: err,
+		}
 	}
 	b.PutInt(i.MediaCount)
 	return nil
@@ -168,10 +200,16 @@ func (i *MessagesInitHistoryImportRequest) GetMediaCount() (value int) {
 // Decode implements bin.Decoder.
 func (i *MessagesInitHistoryImportRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode messages.initHistoryImport#34090c3b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.initHistoryImport#34090c3b",
+		}
 	}
 	if err := b.ConsumeID(MessagesInitHistoryImportRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.initHistoryImport#34090c3b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.initHistoryImport#34090c3b",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -179,26 +217,44 @@ func (i *MessagesInitHistoryImportRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *MessagesInitHistoryImportRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode messages.initHistoryImport#34090c3b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.initHistoryImport#34090c3b",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.initHistoryImport#34090c3b: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.initHistoryImport#34090c3b",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		i.Peer = value
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.initHistoryImport#34090c3b: field file: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.initHistoryImport#34090c3b",
+				FieldName:  "file",
+				Underlying: err,
+			}
 		}
 		i.File = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.initHistoryImport#34090c3b: field media_count: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.initHistoryImport#34090c3b",
+				FieldName:  "media_count",
+				Underlying: err,
+			}
 		}
 		i.MediaCount = value
 	}

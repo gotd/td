@@ -108,7 +108,10 @@ func (l *ChannelsLeaveChannelRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *ChannelsLeaveChannelRequest) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode channels.leaveChannel#f836aa95 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.leaveChannel#f836aa95",
+		}
 	}
 	b.PutID(ChannelsLeaveChannelRequestTypeID)
 	return l.EncodeBare(b)
@@ -117,13 +120,29 @@ func (l *ChannelsLeaveChannelRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *ChannelsLeaveChannelRequest) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode channels.leaveChannel#f836aa95 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "channels.leaveChannel#f836aa95",
+		}
 	}
 	if l.Channel == nil {
-		return fmt.Errorf("unable to encode channels.leaveChannel#f836aa95: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "channels.leaveChannel#f836aa95",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := l.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.leaveChannel#f836aa95: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "channels.leaveChannel#f836aa95",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -141,10 +160,16 @@ func (l *ChannelsLeaveChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChann
 // Decode implements bin.Decoder.
 func (l *ChannelsLeaveChannelRequest) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode channels.leaveChannel#f836aa95 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.leaveChannel#f836aa95",
+		}
 	}
 	if err := b.ConsumeID(ChannelsLeaveChannelRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.leaveChannel#f836aa95: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "channels.leaveChannel#f836aa95",
+			Underlying: err,
+		}
 	}
 	return l.DecodeBare(b)
 }
@@ -152,12 +177,20 @@ func (l *ChannelsLeaveChannelRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *ChannelsLeaveChannelRequest) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode channels.leaveChannel#f836aa95 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "channels.leaveChannel#f836aa95",
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.leaveChannel#f836aa95: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "channels.leaveChannel#f836aa95",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		l.Channel = value
 	}

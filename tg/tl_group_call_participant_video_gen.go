@@ -146,7 +146,10 @@ func (g *GroupCallParticipantVideo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GroupCallParticipantVideo) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipantVideo#67753ac8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "groupCallParticipantVideo#67753ac8",
+		}
 	}
 	b.PutID(GroupCallParticipantVideoTypeID)
 	return g.EncodeBare(b)
@@ -155,7 +158,10 @@ func (g *GroupCallParticipantVideo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GroupCallParticipantVideo) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipantVideo#67753ac8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "groupCallParticipantVideo#67753ac8",
+		}
 	}
 	if !(g.Paused == false) {
 		g.Flags.Set(0)
@@ -164,13 +170,27 @@ func (g *GroupCallParticipantVideo) EncodeBare(b *bin.Buffer) error {
 		g.Flags.Set(1)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode groupCallParticipantVideo#67753ac8: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "groupCallParticipantVideo#67753ac8",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(g.Endpoint)
 	b.PutVectorHeader(len(g.SourceGroups))
 	for idx, v := range g.SourceGroups {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode groupCallParticipantVideo#67753ac8: field source_groups element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "groupCallParticipantVideo#67753ac8",
+				FieldName: "source_groups",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if g.Flags.Has(1) {
@@ -223,10 +243,16 @@ func (g *GroupCallParticipantVideo) GetAudioSource() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (g *GroupCallParticipantVideo) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipantVideo#67753ac8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "groupCallParticipantVideo#67753ac8",
+		}
 	}
 	if err := b.ConsumeID(GroupCallParticipantVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "groupCallParticipantVideo#67753ac8",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -234,25 +260,43 @@ func (g *GroupCallParticipantVideo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GroupCallParticipantVideo) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipantVideo#67753ac8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "groupCallParticipantVideo#67753ac8",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipantVideo#67753ac8",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	g.Paused = g.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: field endpoint: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipantVideo#67753ac8",
+				FieldName:  "endpoint",
+				Underlying: err,
+			}
 		}
 		g.Endpoint = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: field source_groups: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipantVideo#67753ac8",
+				FieldName:  "source_groups",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -261,7 +305,13 @@ func (g *GroupCallParticipantVideo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value GroupCallParticipantVideoSourceGroup
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: field source_groups: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "groupCallParticipantVideo#67753ac8",
+					FieldName:  "source_groups",
+					Underlying: err,
+				}
 			}
 			g.SourceGroups = append(g.SourceGroups, value)
 		}
@@ -269,7 +319,12 @@ func (g *GroupCallParticipantVideo) DecodeBare(b *bin.Buffer) error {
 	if g.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipantVideo#67753ac8: field audio_source: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "groupCallParticipantVideo#67753ac8",
+				FieldName:  "audio_source",
+				Underlying: err,
+			}
 		}
 		g.AudioSource = value
 	}

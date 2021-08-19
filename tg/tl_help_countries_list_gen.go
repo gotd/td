@@ -85,7 +85,10 @@ func (c *HelpCountriesListNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *HelpCountriesListNotModified) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode help.countriesListNotModified#93cc1f32 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.countriesListNotModified#93cc1f32",
+		}
 	}
 	b.PutID(HelpCountriesListNotModifiedTypeID)
 	return c.EncodeBare(b)
@@ -94,7 +97,10 @@ func (c *HelpCountriesListNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *HelpCountriesListNotModified) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode help.countriesListNotModified#93cc1f32 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.countriesListNotModified#93cc1f32",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (c *HelpCountriesListNotModified) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *HelpCountriesListNotModified) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode help.countriesListNotModified#93cc1f32 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.countriesListNotModified#93cc1f32",
+		}
 	}
 	if err := b.ConsumeID(HelpCountriesListNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.countriesListNotModified#93cc1f32: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.countriesListNotModified#93cc1f32",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (c *HelpCountriesListNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *HelpCountriesListNotModified) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode help.countriesListNotModified#93cc1f32 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.countriesListNotModified#93cc1f32",
+		}
 	}
 	return nil
 }
@@ -218,7 +233,10 @@ func (c *HelpCountriesList) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *HelpCountriesList) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode help.countriesList#87d0759e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.countriesList#87d0759e",
+		}
 	}
 	b.PutID(HelpCountriesListTypeID)
 	return c.EncodeBare(b)
@@ -227,12 +245,24 @@ func (c *HelpCountriesList) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *HelpCountriesList) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode help.countriesList#87d0759e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.countriesList#87d0759e",
+		}
 	}
 	b.PutVectorHeader(len(c.Countries))
 	for idx, v := range c.Countries {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.countriesList#87d0759e: field countries element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.countriesList#87d0759e",
+				FieldName: "countries",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutInt(c.Hash)
@@ -252,10 +282,16 @@ func (c *HelpCountriesList) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (c *HelpCountriesList) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode help.countriesList#87d0759e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.countriesList#87d0759e",
+		}
 	}
 	if err := b.ConsumeID(HelpCountriesListTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.countriesList#87d0759e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.countriesList#87d0759e",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -263,12 +299,20 @@ func (c *HelpCountriesList) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *HelpCountriesList) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode help.countriesList#87d0759e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.countriesList#87d0759e",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.countriesList#87d0759e: field countries: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.countriesList#87d0759e",
+				FieldName:  "countries",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -277,7 +321,13 @@ func (c *HelpCountriesList) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value HelpCountry
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode help.countriesList#87d0759e: field countries: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "help.countriesList#87d0759e",
+					FieldName:  "countries",
+					Underlying: err,
+				}
 			}
 			c.Countries = append(c.Countries, value)
 		}
@@ -285,7 +335,12 @@ func (c *HelpCountriesList) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.countriesList#87d0759e: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.countriesList#87d0759e",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		c.Hash = value
 	}
@@ -362,18 +417,27 @@ func DecodeHelpCountriesList(buf *bin.Buffer) (HelpCountriesListClass, error) {
 		// Decoding help.countriesListNotModified#93cc1f32.
 		v := HelpCountriesListNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode HelpCountriesListClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "HelpCountriesListClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case HelpCountriesListTypeID:
 		// Decoding help.countriesList#87d0759e.
 		v := HelpCountriesList{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode HelpCountriesListClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "HelpCountriesListClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode HelpCountriesListClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "HelpCountriesListClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -385,7 +449,10 @@ type HelpCountriesListBox struct {
 // Decode implements bin.Decoder for HelpCountriesListBox.
 func (b *HelpCountriesListBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode HelpCountriesListBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "HelpCountriesListBox",
+		}
 	}
 	v, err := DecodeHelpCountriesList(buf)
 	if err != nil {
@@ -398,7 +465,10 @@ func (b *HelpCountriesListBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for HelpCountriesListBox.
 func (b *HelpCountriesListBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.CountriesList == nil {
-		return fmt.Errorf("unable to encode HelpCountriesListClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "HelpCountriesListBox",
+		}
 	}
 	return b.CountriesList.Encode(buf)
 }

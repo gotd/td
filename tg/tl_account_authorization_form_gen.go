@@ -172,7 +172,10 @@ func (a *AccountAuthorizationForm) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AccountAuthorizationForm) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode account.authorizationForm#ad2e1cd8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.authorizationForm#ad2e1cd8",
+		}
 	}
 	b.PutID(AccountAuthorizationFormTypeID)
 	return a.EncodeBare(b)
@@ -181,45 +184,122 @@ func (a *AccountAuthorizationForm) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AccountAuthorizationForm) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode account.authorizationForm#ad2e1cd8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.authorizationForm#ad2e1cd8",
+		}
 	}
 	if !(a.PrivacyPolicyURL == "") {
 		a.Flags.Set(0)
 	}
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.authorizationForm#ad2e1cd8: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.authorizationForm#ad2e1cd8",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutVectorHeader(len(a.RequiredTypes))
 	for idx, v := range a.RequiredTypes {
 		if v == nil {
-			return fmt.Errorf("unable to encode account.authorizationForm#ad2e1cd8: field required_types element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.authorizationForm#ad2e1cd8",
+				FieldName: "required_types",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<SecureRequiredType>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.authorizationForm#ad2e1cd8: field required_types element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.authorizationForm#ad2e1cd8",
+				FieldName: "required_types",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(a.Values))
 	for idx, v := range a.Values {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.authorizationForm#ad2e1cd8: field values element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.authorizationForm#ad2e1cd8",
+				FieldName: "values",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(a.Errors))
 	for idx, v := range a.Errors {
 		if v == nil {
-			return fmt.Errorf("unable to encode account.authorizationForm#ad2e1cd8: field errors element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.authorizationForm#ad2e1cd8",
+				FieldName: "errors",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<SecureValueError>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.authorizationForm#ad2e1cd8: field errors element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.authorizationForm#ad2e1cd8",
+				FieldName: "errors",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(a.Users))
 	for idx, v := range a.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode account.authorizationForm#ad2e1cd8: field users element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.authorizationForm#ad2e1cd8",
+				FieldName: "users",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<User>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.authorizationForm#ad2e1cd8: field users element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.authorizationForm#ad2e1cd8",
+				FieldName: "users",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	if a.Flags.Has(0) {
@@ -281,10 +361,16 @@ func (a *AccountAuthorizationForm) GetPrivacyPolicyURL() (value string, ok bool)
 // Decode implements bin.Decoder.
 func (a *AccountAuthorizationForm) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode account.authorizationForm#ad2e1cd8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.authorizationForm#ad2e1cd8",
+		}
 	}
 	if err := b.ConsumeID(AccountAuthorizationFormTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.authorizationForm#ad2e1cd8",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -292,17 +378,30 @@ func (a *AccountAuthorizationForm) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode account.authorizationForm#ad2e1cd8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.authorizationForm#ad2e1cd8",
+		}
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.authorizationForm#ad2e1cd8",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field required_types: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.authorizationForm#ad2e1cd8",
+				FieldName:  "required_types",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -311,7 +410,12 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureRequiredType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field required_types: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "account.authorizationForm#ad2e1cd8",
+					FieldName:  "required_types",
+					Underlying: err,
+				}
 			}
 			a.RequiredTypes = append(a.RequiredTypes, value)
 		}
@@ -319,7 +423,12 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field values: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.authorizationForm#ad2e1cd8",
+				FieldName:  "values",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -328,7 +437,13 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value SecureValue
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field values: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "account.authorizationForm#ad2e1cd8",
+					FieldName:  "values",
+					Underlying: err,
+				}
 			}
 			a.Values = append(a.Values, value)
 		}
@@ -336,7 +451,12 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field errors: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.authorizationForm#ad2e1cd8",
+				FieldName:  "errors",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -345,7 +465,12 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureValueError(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field errors: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "account.authorizationForm#ad2e1cd8",
+					FieldName:  "errors",
+					Underlying: err,
+				}
 			}
 			a.Errors = append(a.Errors, value)
 		}
@@ -353,7 +478,12 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field users: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.authorizationForm#ad2e1cd8",
+				FieldName:  "users",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -362,7 +492,12 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field users: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "account.authorizationForm#ad2e1cd8",
+					FieldName:  "users",
+					Underlying: err,
+				}
 			}
 			a.Users = append(a.Users, value)
 		}
@@ -370,7 +505,12 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 	if a.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field privacy_policy_url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.authorizationForm#ad2e1cd8",
+				FieldName:  "privacy_policy_url",
+				Underlying: err,
+			}
 		}
 		a.PrivacyPolicyURL = value
 	}

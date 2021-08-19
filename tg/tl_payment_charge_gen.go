@@ -113,7 +113,10 @@ func (p *PaymentCharge) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PaymentCharge) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentCharge#ea02c27e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "paymentCharge#ea02c27e",
+		}
 	}
 	b.PutID(PaymentChargeTypeID)
 	return p.EncodeBare(b)
@@ -122,7 +125,10 @@ func (p *PaymentCharge) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PaymentCharge) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentCharge#ea02c27e as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "paymentCharge#ea02c27e",
+		}
 	}
 	b.PutString(p.ID)
 	b.PutString(p.ProviderChargeID)
@@ -142,10 +148,16 @@ func (p *PaymentCharge) GetProviderChargeID() (value string) {
 // Decode implements bin.Decoder.
 func (p *PaymentCharge) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentCharge#ea02c27e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "paymentCharge#ea02c27e",
+		}
 	}
 	if err := b.ConsumeID(PaymentChargeTypeID); err != nil {
-		return fmt.Errorf("unable to decode paymentCharge#ea02c27e: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "paymentCharge#ea02c27e",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -153,19 +165,32 @@ func (p *PaymentCharge) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PaymentCharge) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentCharge#ea02c27e to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "paymentCharge#ea02c27e",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentCharge#ea02c27e: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "paymentCharge#ea02c27e",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		p.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentCharge#ea02c27e: field provider_charge_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "paymentCharge#ea02c27e",
+				FieldName:  "provider_charge_id",
+				Underlying: err,
+			}
 		}
 		p.ProviderChargeID = value
 	}

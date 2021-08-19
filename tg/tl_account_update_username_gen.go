@@ -103,7 +103,10 @@ func (u *AccountUpdateUsernameRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUpdateUsernameRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateUsername#3e0bdd7c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.updateUsername#3e0bdd7c",
+		}
 	}
 	b.PutID(AccountUpdateUsernameRequestTypeID)
 	return u.EncodeBare(b)
@@ -112,7 +115,10 @@ func (u *AccountUpdateUsernameRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUpdateUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateUsername#3e0bdd7c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.updateUsername#3e0bdd7c",
+		}
 	}
 	b.PutString(u.Username)
 	return nil
@@ -126,10 +132,16 @@ func (u *AccountUpdateUsernameRequest) GetUsername() (value string) {
 // Decode implements bin.Decoder.
 func (u *AccountUpdateUsernameRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateUsername#3e0bdd7c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.updateUsername#3e0bdd7c",
+		}
 	}
 	if err := b.ConsumeID(AccountUpdateUsernameRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.updateUsername#3e0bdd7c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.updateUsername#3e0bdd7c",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -137,12 +149,20 @@ func (u *AccountUpdateUsernameRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUpdateUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateUsername#3e0bdd7c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.updateUsername#3e0bdd7c",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateUsername#3e0bdd7c: field username: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.updateUsername#3e0bdd7c",
+				FieldName:  "username",
+				Underlying: err,
+			}
 		}
 		u.Username = value
 	}

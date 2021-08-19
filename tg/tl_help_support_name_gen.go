@@ -102,7 +102,10 @@ func (s *HelpSupportName) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *HelpSupportName) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode help.supportName#8c05f1c9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.supportName#8c05f1c9",
+		}
 	}
 	b.PutID(HelpSupportNameTypeID)
 	return s.EncodeBare(b)
@@ -111,7 +114,10 @@ func (s *HelpSupportName) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *HelpSupportName) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode help.supportName#8c05f1c9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.supportName#8c05f1c9",
+		}
 	}
 	b.PutString(s.Name)
 	return nil
@@ -125,10 +131,16 @@ func (s *HelpSupportName) GetName() (value string) {
 // Decode implements bin.Decoder.
 func (s *HelpSupportName) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode help.supportName#8c05f1c9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.supportName#8c05f1c9",
+		}
 	}
 	if err := b.ConsumeID(HelpSupportNameTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.supportName#8c05f1c9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.supportName#8c05f1c9",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (s *HelpSupportName) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *HelpSupportName) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode help.supportName#8c05f1c9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.supportName#8c05f1c9",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.supportName#8c05f1c9: field name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.supportName#8c05f1c9",
+				FieldName:  "name",
+				Underlying: err,
+			}
 		}
 		s.Name = value
 	}

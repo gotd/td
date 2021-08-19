@@ -105,7 +105,10 @@ func (t *ContactsToggleTopPeersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ContactsToggleTopPeersRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode contacts.toggleTopPeers#8514bdda as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.toggleTopPeers#8514bdda",
+		}
 	}
 	b.PutID(ContactsToggleTopPeersRequestTypeID)
 	return t.EncodeBare(b)
@@ -114,7 +117,10 @@ func (t *ContactsToggleTopPeersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ContactsToggleTopPeersRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode contacts.toggleTopPeers#8514bdda as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "contacts.toggleTopPeers#8514bdda",
+		}
 	}
 	b.PutBool(t.Enabled)
 	return nil
@@ -128,10 +134,16 @@ func (t *ContactsToggleTopPeersRequest) GetEnabled() (value bool) {
 // Decode implements bin.Decoder.
 func (t *ContactsToggleTopPeersRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode contacts.toggleTopPeers#8514bdda to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.toggleTopPeers#8514bdda",
+		}
 	}
 	if err := b.ConsumeID(ContactsToggleTopPeersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.toggleTopPeers#8514bdda: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "contacts.toggleTopPeers#8514bdda",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -139,12 +151,20 @@ func (t *ContactsToggleTopPeersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ContactsToggleTopPeersRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode contacts.toggleTopPeers#8514bdda to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "contacts.toggleTopPeers#8514bdda",
+		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.toggleTopPeers#8514bdda: field enabled: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "contacts.toggleTopPeers#8514bdda",
+				FieldName:  "enabled",
+				Underlying: err,
+			}
 		}
 		t.Enabled = value
 	}

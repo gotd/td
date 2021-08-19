@@ -118,7 +118,10 @@ func (s *StickerPack) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StickerPack) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerPack#12b299d4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stickerPack#12b299d4",
+		}
 	}
 	b.PutID(StickerPackTypeID)
 	return s.EncodeBare(b)
@@ -127,7 +130,10 @@ func (s *StickerPack) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StickerPack) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerPack#12b299d4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stickerPack#12b299d4",
+		}
 	}
 	b.PutString(s.Emoticon)
 	b.PutVectorHeader(len(s.Documents))
@@ -150,10 +156,16 @@ func (s *StickerPack) GetDocuments() (value []int64) {
 // Decode implements bin.Decoder.
 func (s *StickerPack) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerPack#12b299d4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stickerPack#12b299d4",
+		}
 	}
 	if err := b.ConsumeID(StickerPackTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickerPack#12b299d4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "stickerPack#12b299d4",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -161,19 +173,32 @@ func (s *StickerPack) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StickerPack) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerPack#12b299d4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stickerPack#12b299d4",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerPack#12b299d4: field emoticon: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stickerPack#12b299d4",
+				FieldName:  "emoticon",
+				Underlying: err,
+			}
 		}
 		s.Emoticon = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerPack#12b299d4: field documents: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stickerPack#12b299d4",
+				FieldName:  "documents",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -182,7 +207,12 @@ func (s *StickerPack) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode stickerPack#12b299d4: field documents: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "stickerPack#12b299d4",
+					FieldName:  "documents",
+					Underlying: err,
+				}
 			}
 			s.Documents = append(s.Documents, value)
 		}

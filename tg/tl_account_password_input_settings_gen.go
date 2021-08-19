@@ -193,7 +193,10 @@ func (p *AccountPasswordInputSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *AccountPasswordInputSettings) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode account.passwordInputSettings#c23727c9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.passwordInputSettings#c23727c9",
+		}
 	}
 	b.PutID(AccountPasswordInputSettingsTypeID)
 	return p.EncodeBare(b)
@@ -202,7 +205,10 @@ func (p *AccountPasswordInputSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *AccountPasswordInputSettings) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode account.passwordInputSettings#c23727c9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.passwordInputSettings#c23727c9",
+		}
 	}
 	if !(p.NewAlgo == nil) {
 		p.Flags.Set(0)
@@ -220,14 +226,32 @@ func (p *AccountPasswordInputSettings) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(2)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.passwordInputSettings#c23727c9: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.passwordInputSettings#c23727c9",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if p.Flags.Has(0) {
 		if p.NewAlgo == nil {
-			return fmt.Errorf("unable to encode account.passwordInputSettings#c23727c9: field new_algo is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.passwordInputSettings#c23727c9",
+				FieldName: "new_algo",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "PasswordKdfAlgo",
+				},
+			}
 		}
 		if err := p.NewAlgo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.passwordInputSettings#c23727c9: field new_algo: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "account.passwordInputSettings#c23727c9",
+				FieldName:  "new_algo",
+				Underlying: err,
+			}
 		}
 	}
 	if p.Flags.Has(0) {
@@ -241,7 +265,12 @@ func (p *AccountPasswordInputSettings) EncodeBare(b *bin.Buffer) error {
 	}
 	if p.Flags.Has(2) {
 		if err := p.NewSecureSettings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.passwordInputSettings#c23727c9: field new_secure_settings: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "account.passwordInputSettings#c23727c9",
+				FieldName:  "new_secure_settings",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -325,10 +354,16 @@ func (p *AccountPasswordInputSettings) GetNewSecureSettings() (value SecureSecre
 // Decode implements bin.Decoder.
 func (p *AccountPasswordInputSettings) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode account.passwordInputSettings#c23727c9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.passwordInputSettings#c23727c9",
+		}
 	}
 	if err := b.ConsumeID(AccountPasswordInputSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.passwordInputSettings#c23727c9",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -336,44 +371,77 @@ func (p *AccountPasswordInputSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *AccountPasswordInputSettings) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode account.passwordInputSettings#c23727c9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.passwordInputSettings#c23727c9",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.passwordInputSettings#c23727c9",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	if p.Flags.Has(0) {
 		value, err := DecodePasswordKdfAlgo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field new_algo: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.passwordInputSettings#c23727c9",
+				FieldName:  "new_algo",
+				Underlying: err,
+			}
 		}
 		p.NewAlgo = value
 	}
 	if p.Flags.Has(0) {
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field new_password_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.passwordInputSettings#c23727c9",
+				FieldName:  "new_password_hash",
+				Underlying: err,
+			}
 		}
 		p.NewPasswordHash = value
 	}
 	if p.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field hint: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.passwordInputSettings#c23727c9",
+				FieldName:  "hint",
+				Underlying: err,
+			}
 		}
 		p.Hint = value
 	}
 	if p.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field email: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.passwordInputSettings#c23727c9",
+				FieldName:  "email",
+				Underlying: err,
+			}
 		}
 		p.Email = value
 	}
 	if p.Flags.Has(2) {
 		if err := p.NewSecureSettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field new_secure_settings: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.passwordInputSettings#c23727c9",
+				FieldName:  "new_secure_settings",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

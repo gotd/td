@@ -116,7 +116,10 @@ func (r *UploadReuploadCDNFileRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *UploadReuploadCDNFileRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode upload.reuploadCdnFile#9b2754a8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "upload.reuploadCdnFile#9b2754a8",
+		}
 	}
 	b.PutID(UploadReuploadCDNFileRequestTypeID)
 	return r.EncodeBare(b)
@@ -125,7 +128,10 @@ func (r *UploadReuploadCDNFileRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *UploadReuploadCDNFileRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode upload.reuploadCdnFile#9b2754a8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "upload.reuploadCdnFile#9b2754a8",
+		}
 	}
 	b.PutBytes(r.FileToken)
 	b.PutBytes(r.RequestToken)
@@ -145,10 +151,16 @@ func (r *UploadReuploadCDNFileRequest) GetRequestToken() (value []byte) {
 // Decode implements bin.Decoder.
 func (r *UploadReuploadCDNFileRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode upload.reuploadCdnFile#9b2754a8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "upload.reuploadCdnFile#9b2754a8",
+		}
 	}
 	if err := b.ConsumeID(UploadReuploadCDNFileRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.reuploadCdnFile#9b2754a8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "upload.reuploadCdnFile#9b2754a8",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -156,19 +168,32 @@ func (r *UploadReuploadCDNFileRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *UploadReuploadCDNFileRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode upload.reuploadCdnFile#9b2754a8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "upload.reuploadCdnFile#9b2754a8",
+		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.reuploadCdnFile#9b2754a8: field file_token: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.reuploadCdnFile#9b2754a8",
+				FieldName:  "file_token",
+				Underlying: err,
+			}
 		}
 		r.FileToken = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.reuploadCdnFile#9b2754a8: field request_token: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "upload.reuploadCdnFile#9b2754a8",
+				FieldName:  "request_token",
+				Underlying: err,
+			}
 		}
 		r.RequestToken = value
 	}

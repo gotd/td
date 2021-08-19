@@ -113,7 +113,10 @@ func (s *StickersSetStickerSetThumbRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StickersSetStickerSetThumbRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickers.setStickerSetThumb#9a364e30 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stickers.setStickerSetThumb#9a364e30",
+		}
 	}
 	b.PutID(StickersSetStickerSetThumbRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,19 +125,48 @@ func (s *StickersSetStickerSetThumbRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StickersSetStickerSetThumbRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickers.setStickerSetThumb#9a364e30 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stickers.setStickerSetThumb#9a364e30",
+		}
 	}
 	if s.Stickerset == nil {
-		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field stickerset is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stickers.setStickerSetThumb#9a364e30",
+			FieldName: "stickerset",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputStickerSet",
+			},
+		}
 	}
 	if err := s.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field stickerset: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stickers.setStickerSetThumb#9a364e30",
+			FieldName:  "stickerset",
+			Underlying: err,
+		}
 	}
 	if s.Thumb == nil {
-		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field thumb is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stickers.setStickerSetThumb#9a364e30",
+			FieldName: "thumb",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputDocument",
+			},
+		}
 	}
 	if err := s.Thumb.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field thumb: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stickers.setStickerSetThumb#9a364e30",
+			FieldName:  "thumb",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -157,10 +189,16 @@ func (s *StickersSetStickerSetThumbRequest) GetThumbAsNotEmpty() (*InputDocument
 // Decode implements bin.Decoder.
 func (s *StickersSetStickerSetThumbRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickers.setStickerSetThumb#9a364e30 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stickers.setStickerSetThumb#9a364e30",
+		}
 	}
 	if err := b.ConsumeID(StickersSetStickerSetThumbRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickers.setStickerSetThumb#9a364e30: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "stickers.setStickerSetThumb#9a364e30",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -168,19 +206,32 @@ func (s *StickersSetStickerSetThumbRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StickersSetStickerSetThumbRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickers.setStickerSetThumb#9a364e30 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stickers.setStickerSetThumb#9a364e30",
+		}
 	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.setStickerSetThumb#9a364e30: field stickerset: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stickers.setStickerSetThumb#9a364e30",
+				FieldName:  "stickerset",
+				Underlying: err,
+			}
 		}
 		s.Stickerset = value
 	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.setStickerSetThumb#9a364e30: field thumb: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stickers.setStickerSetThumb#9a364e30",
+				FieldName:  "thumb",
+				Underlying: err,
+			}
 		}
 		s.Thumb = value
 	}

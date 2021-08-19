@@ -123,7 +123,10 @@ func (s *AccountSaveSecureValueRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSaveSecureValueRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.saveSecureValue#899fe31d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.saveSecureValue#899fe31d",
+		}
 	}
 	b.PutID(AccountSaveSecureValueRequestTypeID)
 	return s.EncodeBare(b)
@@ -132,10 +135,18 @@ func (s *AccountSaveSecureValueRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSaveSecureValueRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.saveSecureValue#899fe31d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.saveSecureValue#899fe31d",
+		}
 	}
 	if err := s.Value.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.saveSecureValue#899fe31d: field value: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.saveSecureValue#899fe31d",
+			FieldName:  "value",
+			Underlying: err,
+		}
 	}
 	b.PutLong(s.SecureSecretID)
 	return nil
@@ -154,10 +165,16 @@ func (s *AccountSaveSecureValueRequest) GetSecureSecretID() (value int64) {
 // Decode implements bin.Decoder.
 func (s *AccountSaveSecureValueRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.saveSecureValue#899fe31d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.saveSecureValue#899fe31d",
+		}
 	}
 	if err := b.ConsumeID(AccountSaveSecureValueRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.saveSecureValue#899fe31d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.saveSecureValue#899fe31d",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -165,17 +182,30 @@ func (s *AccountSaveSecureValueRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSaveSecureValueRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.saveSecureValue#899fe31d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.saveSecureValue#899fe31d",
+		}
 	}
 	{
 		if err := s.Value.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.saveSecureValue#899fe31d: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.saveSecureValue#899fe31d",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.saveSecureValue#899fe31d: field secure_secret_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.saveSecureValue#899fe31d",
+				FieldName:  "secure_secret_id",
+				Underlying: err,
+			}
 		}
 		s.SecureSecretID = value
 	}

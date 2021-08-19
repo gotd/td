@@ -116,7 +116,10 @@ func (g *AccountGetThemesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetThemesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getThemes#285946f8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getThemes#285946f8",
+		}
 	}
 	b.PutID(AccountGetThemesRequestTypeID)
 	return g.EncodeBare(b)
@@ -125,7 +128,10 @@ func (g *AccountGetThemesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetThemesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getThemes#285946f8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.getThemes#285946f8",
+		}
 	}
 	b.PutString(g.Format)
 	b.PutInt(g.Hash)
@@ -145,10 +151,16 @@ func (g *AccountGetThemesRequest) GetHash() (value int) {
 // Decode implements bin.Decoder.
 func (g *AccountGetThemesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getThemes#285946f8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getThemes#285946f8",
+		}
 	}
 	if err := b.ConsumeID(AccountGetThemesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getThemes#285946f8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.getThemes#285946f8",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -156,19 +168,32 @@ func (g *AccountGetThemesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetThemesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getThemes#285946f8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.getThemes#285946f8",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getThemes#285946f8: field format: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.getThemes#285946f8",
+				FieldName:  "format",
+				Underlying: err,
+			}
 		}
 		g.Format = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getThemes#285946f8: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.getThemes#285946f8",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		g.Hash = value
 	}

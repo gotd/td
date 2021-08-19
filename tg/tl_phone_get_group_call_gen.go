@@ -112,7 +112,10 @@ func (g *PhoneGetGroupCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PhoneGetGroupCallRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getGroupCall#41845db as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.getGroupCall#41845db",
+		}
 	}
 	b.PutID(PhoneGetGroupCallRequestTypeID)
 	return g.EncodeBare(b)
@@ -121,10 +124,18 @@ func (g *PhoneGetGroupCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PhoneGetGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getGroupCall#41845db as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.getGroupCall#41845db",
+		}
 	}
 	if err := g.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.getGroupCall#41845db: field call: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.getGroupCall#41845db",
+			FieldName:  "call",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.Limit)
 	return nil
@@ -143,10 +154,16 @@ func (g *PhoneGetGroupCallRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *PhoneGetGroupCallRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getGroupCall#41845db to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.getGroupCall#41845db",
+		}
 	}
 	if err := b.ConsumeID(PhoneGetGroupCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.getGroupCall#41845db: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.getGroupCall#41845db",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -154,17 +171,30 @@ func (g *PhoneGetGroupCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PhoneGetGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getGroupCall#41845db to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.getGroupCall#41845db",
+		}
 	}
 	{
 		if err := g.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupCall#41845db: field call: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.getGroupCall#41845db",
+				FieldName:  "call",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupCall#41845db: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.getGroupCall#41845db",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}

@@ -146,7 +146,10 @@ func (s *SecureRequiredType) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureRequiredType) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureRequiredType#829d99da as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureRequiredType#829d99da",
+		}
 	}
 	b.PutID(SecureRequiredTypeTypeID)
 	return s.EncodeBare(b)
@@ -155,7 +158,10 @@ func (s *SecureRequiredType) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureRequiredType) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureRequiredType#829d99da as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureRequiredType#829d99da",
+		}
 	}
 	if !(s.NativeNames == false) {
 		s.Flags.Set(0)
@@ -167,13 +173,31 @@ func (s *SecureRequiredType) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(2)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode secureRequiredType#829d99da: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "secureRequiredType#829d99da",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if s.Type == nil {
-		return fmt.Errorf("unable to encode secureRequiredType#829d99da: field type is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "secureRequiredType#829d99da",
+			FieldName: "type",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "SecureValueType",
+			},
+		}
 	}
 	if err := s.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode secureRequiredType#829d99da: field type: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "secureRequiredType#829d99da",
+			FieldName:  "type",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -234,10 +258,16 @@ func (s *SecureRequiredType) GetType() (value SecureValueTypeClass) {
 // Decode implements bin.Decoder.
 func (s *SecureRequiredType) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureRequiredType#829d99da to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureRequiredType#829d99da",
+		}
 	}
 	if err := b.ConsumeID(SecureRequiredTypeTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureRequiredType#829d99da: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureRequiredType#829d99da",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -245,11 +275,19 @@ func (s *SecureRequiredType) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureRequiredType) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureRequiredType#829d99da to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureRequiredType#829d99da",
+		}
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode secureRequiredType#829d99da: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "secureRequiredType#829d99da",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	s.NativeNames = s.Flags.Has(0)
@@ -258,7 +296,12 @@ func (s *SecureRequiredType) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode secureRequiredType#829d99da: field type: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "secureRequiredType#829d99da",
+				FieldName:  "type",
+				Underlying: err,
+			}
 		}
 		s.Type = value
 	}
@@ -351,7 +394,10 @@ func (s *SecureRequiredTypeOneOf) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureRequiredTypeOneOf) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureRequiredTypeOneOf#27477b4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureRequiredTypeOneOf#27477b4",
+		}
 	}
 	b.PutID(SecureRequiredTypeOneOfTypeID)
 	return s.EncodeBare(b)
@@ -360,15 +406,38 @@ func (s *SecureRequiredTypeOneOf) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureRequiredTypeOneOf) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureRequiredTypeOneOf#27477b4 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureRequiredTypeOneOf#27477b4",
+		}
 	}
 	b.PutVectorHeader(len(s.Types))
 	for idx, v := range s.Types {
 		if v == nil {
-			return fmt.Errorf("unable to encode secureRequiredTypeOneOf#27477b4: field types element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "secureRequiredTypeOneOf#27477b4",
+				FieldName: "types",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<SecureRequiredType>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode secureRequiredTypeOneOf#27477b4: field types element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "secureRequiredTypeOneOf#27477b4",
+				FieldName: "types",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -387,10 +456,16 @@ func (s *SecureRequiredTypeOneOf) MapTypes() (value SecureRequiredTypeClassArray
 // Decode implements bin.Decoder.
 func (s *SecureRequiredTypeOneOf) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureRequiredTypeOneOf#27477b4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureRequiredTypeOneOf#27477b4",
+		}
 	}
 	if err := b.ConsumeID(SecureRequiredTypeOneOfTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureRequiredTypeOneOf#27477b4: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureRequiredTypeOneOf#27477b4",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -398,12 +473,20 @@ func (s *SecureRequiredTypeOneOf) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureRequiredTypeOneOf) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureRequiredTypeOneOf#27477b4 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureRequiredTypeOneOf#27477b4",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureRequiredTypeOneOf#27477b4: field types: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "secureRequiredTypeOneOf#27477b4",
+				FieldName:  "types",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -412,7 +495,12 @@ func (s *SecureRequiredTypeOneOf) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeSecureRequiredType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode secureRequiredTypeOneOf#27477b4: field types: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "secureRequiredTypeOneOf#27477b4",
+					FieldName:  "types",
+					Underlying: err,
+				}
 			}
 			s.Types = append(s.Types, value)
 		}
@@ -477,18 +565,27 @@ func DecodeSecureRequiredType(buf *bin.Buffer) (SecureRequiredTypeClass, error) 
 		// Decoding secureRequiredType#829d99da.
 		v := SecureRequiredType{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureRequiredTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureRequiredTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case SecureRequiredTypeOneOfTypeID:
 		// Decoding secureRequiredTypeOneOf#27477b4.
 		v := SecureRequiredTypeOneOf{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SecureRequiredTypeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "SecureRequiredTypeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode SecureRequiredTypeClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "SecureRequiredTypeClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -500,7 +597,10 @@ type SecureRequiredTypeBox struct {
 // Decode implements bin.Decoder for SecureRequiredTypeBox.
 func (b *SecureRequiredTypeBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode SecureRequiredTypeBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "SecureRequiredTypeBox",
+		}
 	}
 	v, err := DecodeSecureRequiredType(buf)
 	if err != nil {
@@ -513,7 +613,10 @@ func (b *SecureRequiredTypeBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for SecureRequiredTypeBox.
 func (b *SecureRequiredTypeBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.SecureRequiredType == nil {
-		return fmt.Errorf("unable to encode SecureRequiredTypeClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "SecureRequiredTypeBox",
+		}
 	}
 	return b.SecureRequiredType.Encode(buf)
 }

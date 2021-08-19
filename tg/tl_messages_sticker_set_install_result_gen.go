@@ -85,7 +85,10 @@ func (s *MessagesStickerSetInstallResultSuccess) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesStickerSetInstallResultSuccess) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.stickerSetInstallResultSuccess#38641628 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.stickerSetInstallResultSuccess#38641628",
+		}
 	}
 	b.PutID(MessagesStickerSetInstallResultSuccessTypeID)
 	return s.EncodeBare(b)
@@ -94,7 +97,10 @@ func (s *MessagesStickerSetInstallResultSuccess) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesStickerSetInstallResultSuccess) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.stickerSetInstallResultSuccess#38641628 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.stickerSetInstallResultSuccess#38641628",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (s *MessagesStickerSetInstallResultSuccess) EncodeBare(b *bin.Buffer) error
 // Decode implements bin.Decoder.
 func (s *MessagesStickerSetInstallResultSuccess) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.stickerSetInstallResultSuccess#38641628 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.stickerSetInstallResultSuccess#38641628",
+		}
 	}
 	if err := b.ConsumeID(MessagesStickerSetInstallResultSuccessTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.stickerSetInstallResultSuccess#38641628: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.stickerSetInstallResultSuccess#38641628",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (s *MessagesStickerSetInstallResultSuccess) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesStickerSetInstallResultSuccess) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.stickerSetInstallResultSuccess#38641628 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.stickerSetInstallResultSuccess#38641628",
+		}
 	}
 	return nil
 }
@@ -207,7 +222,10 @@ func (s *MessagesStickerSetInstallResultArchive) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesStickerSetInstallResultArchive) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.stickerSetInstallResultArchive#35e410a8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.stickerSetInstallResultArchive#35e410a8",
+		}
 	}
 	b.PutID(MessagesStickerSetInstallResultArchiveTypeID)
 	return s.EncodeBare(b)
@@ -216,15 +234,38 @@ func (s *MessagesStickerSetInstallResultArchive) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesStickerSetInstallResultArchive) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.stickerSetInstallResultArchive#35e410a8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.stickerSetInstallResultArchive#35e410a8",
+		}
 	}
 	b.PutVectorHeader(len(s.Sets))
 	for idx, v := range s.Sets {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.stickerSetInstallResultArchive#35e410a8: field sets element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.stickerSetInstallResultArchive#35e410a8",
+				FieldName: "sets",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<StickerSetCovered>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.stickerSetInstallResultArchive#35e410a8: field sets element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.stickerSetInstallResultArchive#35e410a8",
+				FieldName: "sets",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -243,10 +284,16 @@ func (s *MessagesStickerSetInstallResultArchive) MapSets() (value StickerSetCove
 // Decode implements bin.Decoder.
 func (s *MessagesStickerSetInstallResultArchive) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.stickerSetInstallResultArchive#35e410a8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.stickerSetInstallResultArchive#35e410a8",
+		}
 	}
 	if err := b.ConsumeID(MessagesStickerSetInstallResultArchiveTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.stickerSetInstallResultArchive#35e410a8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.stickerSetInstallResultArchive#35e410a8",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -254,12 +301,20 @@ func (s *MessagesStickerSetInstallResultArchive) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesStickerSetInstallResultArchive) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.stickerSetInstallResultArchive#35e410a8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.stickerSetInstallResultArchive#35e410a8",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.stickerSetInstallResultArchive#35e410a8: field sets: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.stickerSetInstallResultArchive#35e410a8",
+				FieldName:  "sets",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -268,7 +323,12 @@ func (s *MessagesStickerSetInstallResultArchive) DecodeBare(b *bin.Buffer) error
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStickerSetCovered(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.stickerSetInstallResultArchive#35e410a8: field sets: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.stickerSetInstallResultArchive#35e410a8",
+					FieldName:  "sets",
+					Underlying: err,
+				}
 			}
 			s.Sets = append(s.Sets, value)
 		}
@@ -335,18 +395,27 @@ func DecodeMessagesStickerSetInstallResult(buf *bin.Buffer) (MessagesStickerSetI
 		// Decoding messages.stickerSetInstallResultSuccess#38641628.
 		v := MessagesStickerSetInstallResultSuccess{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesStickerSetInstallResultClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessagesStickerSetInstallResultClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessagesStickerSetInstallResultArchiveTypeID:
 		// Decoding messages.stickerSetInstallResultArchive#35e410a8.
 		v := MessagesStickerSetInstallResultArchive{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesStickerSetInstallResultClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessagesStickerSetInstallResultClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessagesStickerSetInstallResultClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "MessagesStickerSetInstallResultClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -358,7 +427,10 @@ type MessagesStickerSetInstallResultBox struct {
 // Decode implements bin.Decoder for MessagesStickerSetInstallResultBox.
 func (b *MessagesStickerSetInstallResultBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode MessagesStickerSetInstallResultBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "MessagesStickerSetInstallResultBox",
+		}
 	}
 	v, err := DecodeMessagesStickerSetInstallResult(buf)
 	if err != nil {
@@ -371,7 +443,10 @@ func (b *MessagesStickerSetInstallResultBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for MessagesStickerSetInstallResultBox.
 func (b *MessagesStickerSetInstallResultBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.StickerSetInstallResult == nil {
-		return fmt.Errorf("unable to encode MessagesStickerSetInstallResultClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "MessagesStickerSetInstallResultBox",
+		}
 	}
 	return b.StickerSetInstallResult.Encode(buf)
 }

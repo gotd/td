@@ -150,7 +150,10 @@ func (b *AuthBindTempAuthKeyRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *AuthBindTempAuthKeyRequest) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode auth.bindTempAuthKey#cdd42a05 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.bindTempAuthKey#cdd42a05",
+		}
 	}
 	buf.PutID(AuthBindTempAuthKeyRequestTypeID)
 	return b.EncodeBare(buf)
@@ -159,7 +162,10 @@ func (b *AuthBindTempAuthKeyRequest) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *AuthBindTempAuthKeyRequest) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode auth.bindTempAuthKey#cdd42a05 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.bindTempAuthKey#cdd42a05",
+		}
 	}
 	buf.PutLong(b.PermAuthKeyID)
 	buf.PutLong(b.Nonce)
@@ -191,10 +197,16 @@ func (b *AuthBindTempAuthKeyRequest) GetEncryptedMessage() (value []byte) {
 // Decode implements bin.Decoder.
 func (b *AuthBindTempAuthKeyRequest) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode auth.bindTempAuthKey#cdd42a05 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.bindTempAuthKey#cdd42a05",
+		}
 	}
 	if err := buf.ConsumeID(AuthBindTempAuthKeyRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.bindTempAuthKey#cdd42a05: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.bindTempAuthKey#cdd42a05",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -202,33 +214,56 @@ func (b *AuthBindTempAuthKeyRequest) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *AuthBindTempAuthKeyRequest) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode auth.bindTempAuthKey#cdd42a05 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.bindTempAuthKey#cdd42a05",
+		}
 	}
 	{
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.bindTempAuthKey#cdd42a05: field perm_auth_key_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.bindTempAuthKey#cdd42a05",
+				FieldName:  "perm_auth_key_id",
+				Underlying: err,
+			}
 		}
 		b.PermAuthKeyID = value
 	}
 	{
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.bindTempAuthKey#cdd42a05: field nonce: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.bindTempAuthKey#cdd42a05",
+				FieldName:  "nonce",
+				Underlying: err,
+			}
 		}
 		b.Nonce = value
 	}
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.bindTempAuthKey#cdd42a05: field expires_at: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.bindTempAuthKey#cdd42a05",
+				FieldName:  "expires_at",
+				Underlying: err,
+			}
 		}
 		b.ExpiresAt = value
 	}
 	{
 		value, err := buf.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.bindTempAuthKey#cdd42a05: field encrypted_message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.bindTempAuthKey#cdd42a05",
+				FieldName:  "encrypted_message",
+				Underlying: err,
+			}
 		}
 		b.EncryptedMessage = value
 	}

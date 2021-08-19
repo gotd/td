@@ -145,7 +145,10 @@ func (i *AccountInstallThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *AccountInstallThemeRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode account.installTheme#7ae43737 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.installTheme#7ae43737",
+		}
 	}
 	b.PutID(AccountInstallThemeRequestTypeID)
 	return i.EncodeBare(b)
@@ -154,7 +157,10 @@ func (i *AccountInstallThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *AccountInstallThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode account.installTheme#7ae43737 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.installTheme#7ae43737",
+		}
 	}
 	if !(i.Dark == false) {
 		i.Flags.Set(0)
@@ -166,17 +172,35 @@ func (i *AccountInstallThemeRequest) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(1)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.installTheme#7ae43737: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "account.installTheme#7ae43737",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if i.Flags.Has(1) {
 		b.PutString(i.Format)
 	}
 	if i.Flags.Has(1) {
 		if i.Theme == nil {
-			return fmt.Errorf("unable to encode account.installTheme#7ae43737: field theme is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "account.installTheme#7ae43737",
+				FieldName: "theme",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputTheme",
+				},
+			}
 		}
 		if err := i.Theme.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.installTheme#7ae43737: field theme: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "account.installTheme#7ae43737",
+				FieldName:  "theme",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -231,10 +255,16 @@ func (i *AccountInstallThemeRequest) GetTheme() (value InputThemeClass, ok bool)
 // Decode implements bin.Decoder.
 func (i *AccountInstallThemeRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode account.installTheme#7ae43737 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.installTheme#7ae43737",
+		}
 	}
 	if err := b.ConsumeID(AccountInstallThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.installTheme#7ae43737: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.installTheme#7ae43737",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -242,25 +272,43 @@ func (i *AccountInstallThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *AccountInstallThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode account.installTheme#7ae43737 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.installTheme#7ae43737",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.installTheme#7ae43737",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	i.Dark = i.Flags.Has(0)
 	if i.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field format: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.installTheme#7ae43737",
+				FieldName:  "format",
+				Underlying: err,
+			}
 		}
 		i.Format = value
 	}
 	if i.Flags.Has(1) {
 		value, err := DecodeInputTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field theme: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "account.installTheme#7ae43737",
+				FieldName:  "theme",
+				Underlying: err,
+			}
 		}
 		i.Theme = value
 	}

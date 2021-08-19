@@ -101,7 +101,10 @@ func (s *SMS) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SMS) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sms#ed8bebfe as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sms#ed8bebfe",
+		}
 	}
 	b.PutID(SMSTypeID)
 	return s.EncodeBare(b)
@@ -110,7 +113,10 @@ func (s *SMS) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SMS) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sms#ed8bebfe as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "sms#ed8bebfe",
+		}
 	}
 	b.PutString(s.Text)
 	return nil
@@ -124,10 +130,16 @@ func (s *SMS) GetText() (value string) {
 // Decode implements bin.Decoder.
 func (s *SMS) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sms#ed8bebfe to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sms#ed8bebfe",
+		}
 	}
 	if err := b.ConsumeID(SMSTypeID); err != nil {
-		return fmt.Errorf("unable to decode sms#ed8bebfe: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "sms#ed8bebfe",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -135,12 +147,20 @@ func (s *SMS) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SMS) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sms#ed8bebfe to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "sms#ed8bebfe",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sms#ed8bebfe: field text: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "sms#ed8bebfe",
+				FieldName:  "text",
+				Underlying: err,
+			}
 		}
 		s.Text = value
 	}

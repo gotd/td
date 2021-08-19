@@ -102,7 +102,10 @@ func (r *MessagesReceivedMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesReceivedMessagesRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.receivedMessages#5a954c0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.receivedMessages#5a954c0",
+		}
 	}
 	b.PutID(MessagesReceivedMessagesRequestTypeID)
 	return r.EncodeBare(b)
@@ -111,7 +114,10 @@ func (r *MessagesReceivedMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReceivedMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.receivedMessages#5a954c0 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.receivedMessages#5a954c0",
+		}
 	}
 	b.PutInt(r.MaxID)
 	return nil
@@ -125,10 +131,16 @@ func (r *MessagesReceivedMessagesRequest) GetMaxID() (value int) {
 // Decode implements bin.Decoder.
 func (r *MessagesReceivedMessagesRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.receivedMessages#5a954c0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.receivedMessages#5a954c0",
+		}
 	}
 	if err := b.ConsumeID(MessagesReceivedMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.receivedMessages#5a954c0: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.receivedMessages#5a954c0",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (r *MessagesReceivedMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReceivedMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.receivedMessages#5a954c0 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.receivedMessages#5a954c0",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.receivedMessages#5a954c0: field max_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.receivedMessages#5a954c0",
+				FieldName:  "max_id",
+				Underlying: err,
+			}
 		}
 		r.MaxID = value
 	}

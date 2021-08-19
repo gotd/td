@@ -142,7 +142,10 @@ func (i *InputFile) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputFile) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputFile#f52ff27f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputFile#f52ff27f",
+		}
 	}
 	b.PutID(InputFileTypeID)
 	return i.EncodeBare(b)
@@ -151,7 +154,10 @@ func (i *InputFile) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputFile) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputFile#f52ff27f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputFile#f52ff27f",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutInt(i.Parts)
@@ -183,10 +189,16 @@ func (i *InputFile) GetMD5Checksum() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputFile) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputFile#f52ff27f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputFile#f52ff27f",
+		}
 	}
 	if err := b.ConsumeID(InputFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputFile#f52ff27f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputFile#f52ff27f",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -194,33 +206,56 @@ func (i *InputFile) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputFile) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputFile#f52ff27f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputFile#f52ff27f",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFile#f52ff27f: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputFile#f52ff27f",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFile#f52ff27f: field parts: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputFile#f52ff27f",
+				FieldName:  "parts",
+				Underlying: err,
+			}
 		}
 		i.Parts = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFile#f52ff27f: field name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputFile#f52ff27f",
+				FieldName:  "name",
+				Underlying: err,
+			}
 		}
 		i.Name = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFile#f52ff27f: field md5_checksum: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputFile#f52ff27f",
+				FieldName:  "md5_checksum",
+				Underlying: err,
+			}
 		}
 		i.MD5Checksum = value
 	}
@@ -339,7 +374,10 @@ func (i *InputFileBig) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputFileBig) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputFileBig#fa4f0bb5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputFileBig#fa4f0bb5",
+		}
 	}
 	b.PutID(InputFileBigTypeID)
 	return i.EncodeBare(b)
@@ -348,7 +386,10 @@ func (i *InputFileBig) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputFileBig) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputFileBig#fa4f0bb5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputFileBig#fa4f0bb5",
+		}
 	}
 	b.PutLong(i.ID)
 	b.PutInt(i.Parts)
@@ -374,10 +415,16 @@ func (i *InputFileBig) GetName() (value string) {
 // Decode implements bin.Decoder.
 func (i *InputFileBig) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputFileBig#fa4f0bb5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputFileBig#fa4f0bb5",
+		}
 	}
 	if err := b.ConsumeID(InputFileBigTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputFileBig#fa4f0bb5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputFileBig#fa4f0bb5",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -385,26 +432,44 @@ func (i *InputFileBig) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputFileBig) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputFileBig#fa4f0bb5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputFileBig#fa4f0bb5",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFileBig#fa4f0bb5: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputFileBig#fa4f0bb5",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFileBig#fa4f0bb5: field parts: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputFileBig#fa4f0bb5",
+				FieldName:  "parts",
+				Underlying: err,
+			}
 		}
 		i.Parts = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFileBig#fa4f0bb5: field name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputFileBig#fa4f0bb5",
+				FieldName:  "name",
+				Underlying: err,
+			}
 		}
 		i.Name = value
 	}
@@ -477,18 +542,27 @@ func DecodeInputFile(buf *bin.Buffer) (InputFileClass, error) {
 		// Decoding inputFile#f52ff27f.
 		v := InputFile{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case InputFileBigTypeID:
 		// Decoding inputFileBig#fa4f0bb5.
 		v := InputFileBig{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "InputFileClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputFileClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "InputFileClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -500,7 +574,10 @@ type InputFileBox struct {
 // Decode implements bin.Decoder for InputFileBox.
 func (b *InputFileBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode InputFileBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "InputFileBox",
+		}
 	}
 	v, err := DecodeInputFile(buf)
 	if err != nil {
@@ -513,7 +590,10 @@ func (b *InputFileBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for InputFileBox.
 func (b *InputFileBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.InputFile == nil {
-		return fmt.Errorf("unable to encode InputFileClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "InputFileBox",
+		}
 	}
 	return b.InputFile.Encode(buf)
 }

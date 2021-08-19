@@ -161,7 +161,10 @@ func (c *HelpCountry) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *HelpCountry) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode help.country#c3878e23 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.country#c3878e23",
+		}
 	}
 	b.PutID(HelpCountryTypeID)
 	return c.EncodeBare(b)
@@ -170,7 +173,10 @@ func (c *HelpCountry) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *HelpCountry) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode help.country#c3878e23 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "help.country#c3878e23",
+		}
 	}
 	if !(c.Hidden == false) {
 		c.Flags.Set(0)
@@ -179,7 +185,12 @@ func (c *HelpCountry) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(1)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.country#c3878e23: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "help.country#c3878e23",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutString(c.Iso2)
 	b.PutString(c.DefaultName)
@@ -189,7 +200,16 @@ func (c *HelpCountry) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(c.CountryCodes))
 	for idx, v := range c.CountryCodes {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.country#c3878e23: field country_codes element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "help.country#c3878e23",
+				FieldName: "country_codes",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -244,10 +264,16 @@ func (c *HelpCountry) GetCountryCodes() (value []HelpCountryCode) {
 // Decode implements bin.Decoder.
 func (c *HelpCountry) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode help.country#c3878e23 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.country#c3878e23",
+		}
 	}
 	if err := b.ConsumeID(HelpCountryTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.country#c3878e23: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "help.country#c3878e23",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -255,39 +281,67 @@ func (c *HelpCountry) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *HelpCountry) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode help.country#c3878e23 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "help.country#c3878e23",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.country#c3878e23: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.country#c3878e23",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	c.Hidden = c.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.country#c3878e23: field iso2: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.country#c3878e23",
+				FieldName:  "iso2",
+				Underlying: err,
+			}
 		}
 		c.Iso2 = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.country#c3878e23: field default_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.country#c3878e23",
+				FieldName:  "default_name",
+				Underlying: err,
+			}
 		}
 		c.DefaultName = value
 	}
 	if c.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.country#c3878e23: field name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.country#c3878e23",
+				FieldName:  "name",
+				Underlying: err,
+			}
 		}
 		c.Name = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.country#c3878e23: field country_codes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "help.country#c3878e23",
+				FieldName:  "country_codes",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -296,7 +350,13 @@ func (c *HelpCountry) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value HelpCountryCode
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode help.country#c3878e23: field country_codes: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "help.country#c3878e23",
+					FieldName:  "country_codes",
+					Underlying: err,
+				}
 			}
 			c.CountryCodes = append(c.CountryCodes, value)
 		}

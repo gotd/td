@@ -225,7 +225,10 @@ func (i *InitConnectionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InitConnectionRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode initConnection#c1cd5ea9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "initConnection#c1cd5ea9",
+		}
 	}
 	b.PutID(InitConnectionRequestTypeID)
 	return i.EncodeBare(b)
@@ -234,7 +237,10 @@ func (i *InitConnectionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InitConnectionRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode initConnection#c1cd5ea9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "initConnection#c1cd5ea9",
+		}
 	}
 	if !(i.Proxy.Zero()) {
 		i.Flags.Set(0)
@@ -243,7 +249,12 @@ func (i *InitConnectionRequest) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(1)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode initConnection#c1cd5ea9: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "initConnection#c1cd5ea9",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(i.APIID)
 	b.PutString(i.DeviceModel)
@@ -254,19 +265,42 @@ func (i *InitConnectionRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutString(i.LangCode)
 	if i.Flags.Has(0) {
 		if err := i.Proxy.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode initConnection#c1cd5ea9: field proxy: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "proxy",
+				Underlying: err,
+			}
 		}
 	}
 	if i.Flags.Has(1) {
 		if i.Params == nil {
-			return fmt.Errorf("unable to encode initConnection#c1cd5ea9: field params is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "initConnection#c1cd5ea9",
+				FieldName: "params",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "JSONValue",
+				},
+			}
 		}
 		if err := i.Params.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode initConnection#c1cd5ea9: field params: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "params",
+				Underlying: err,
+			}
 		}
 	}
 	if err := i.Query.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode initConnection#c1cd5ea9: field query: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "initConnection#c1cd5ea9",
+			FieldName:  "query",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -344,10 +378,16 @@ func (i *InitConnectionRequest) GetQuery() (value bin.Object) {
 // Decode implements bin.Decoder.
 func (i *InitConnectionRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode initConnection#c1cd5ea9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "initConnection#c1cd5ea9",
+		}
 	}
 	if err := b.ConsumeID(InitConnectionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "initConnection#c1cd5ea9",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -355,77 +395,135 @@ func (i *InitConnectionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InitConnectionRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode initConnection#c1cd5ea9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "initConnection#c1cd5ea9",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode initConnection#c1cd5ea9: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode initConnection#c1cd5ea9: field api_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "api_id",
+				Underlying: err,
+			}
 		}
 		i.APIID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode initConnection#c1cd5ea9: field device_model: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "device_model",
+				Underlying: err,
+			}
 		}
 		i.DeviceModel = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode initConnection#c1cd5ea9: field system_version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "system_version",
+				Underlying: err,
+			}
 		}
 		i.SystemVersion = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode initConnection#c1cd5ea9: field app_version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "app_version",
+				Underlying: err,
+			}
 		}
 		i.AppVersion = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode initConnection#c1cd5ea9: field system_lang_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "system_lang_code",
+				Underlying: err,
+			}
 		}
 		i.SystemLangCode = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode initConnection#c1cd5ea9: field lang_pack: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "lang_pack",
+				Underlying: err,
+			}
 		}
 		i.LangPack = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode initConnection#c1cd5ea9: field lang_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "lang_code",
+				Underlying: err,
+			}
 		}
 		i.LangCode = value
 	}
 	if i.Flags.Has(0) {
 		if err := i.Proxy.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode initConnection#c1cd5ea9: field proxy: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "proxy",
+				Underlying: err,
+			}
 		}
 	}
 	if i.Flags.Has(1) {
 		value, err := DecodeJSONValue(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode initConnection#c1cd5ea9: field params: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "params",
+				Underlying: err,
+			}
 		}
 		i.Params = value
 	}
 	{
 		if err := i.Query.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode initConnection#c1cd5ea9: field query: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "initConnection#c1cd5ea9",
+				FieldName:  "query",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

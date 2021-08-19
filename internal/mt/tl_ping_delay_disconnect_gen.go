@@ -110,7 +110,10 @@ func (p *PingDelayDisconnectRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PingDelayDisconnectRequest) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode ping_delay_disconnect#f3427b8c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ping_delay_disconnect#f3427b8c",
+		}
 	}
 	b.PutID(PingDelayDisconnectRequestTypeID)
 	return p.EncodeBare(b)
@@ -119,7 +122,10 @@ func (p *PingDelayDisconnectRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PingDelayDisconnectRequest) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode ping_delay_disconnect#f3427b8c as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "ping_delay_disconnect#f3427b8c",
+		}
 	}
 	b.PutLong(p.PingID)
 	b.PutInt(p.DisconnectDelay)
@@ -139,10 +145,16 @@ func (p *PingDelayDisconnectRequest) GetDisconnectDelay() (value int) {
 // Decode implements bin.Decoder.
 func (p *PingDelayDisconnectRequest) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode ping_delay_disconnect#f3427b8c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ping_delay_disconnect#f3427b8c",
+		}
 	}
 	if err := b.ConsumeID(PingDelayDisconnectRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode ping_delay_disconnect#f3427b8c: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "ping_delay_disconnect#f3427b8c",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -150,19 +162,32 @@ func (p *PingDelayDisconnectRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PingDelayDisconnectRequest) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode ping_delay_disconnect#f3427b8c to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "ping_delay_disconnect#f3427b8c",
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode ping_delay_disconnect#f3427b8c: field ping_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "ping_delay_disconnect#f3427b8c",
+				FieldName:  "ping_id",
+				Underlying: err,
+			}
 		}
 		p.PingID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode ping_delay_disconnect#f3427b8c: field disconnect_delay: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "ping_delay_disconnect#f3427b8c",
+				FieldName:  "disconnect_delay",
+				Underlying: err,
+			}
 		}
 		p.DisconnectDelay = value
 	}

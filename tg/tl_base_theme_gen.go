@@ -85,7 +85,10 @@ func (b *BaseThemeClassic) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BaseThemeClassic) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode baseThemeClassic#c3a12462 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "baseThemeClassic#c3a12462",
+		}
 	}
 	buf.PutID(BaseThemeClassicTypeID)
 	return b.EncodeBare(buf)
@@ -94,7 +97,10 @@ func (b *BaseThemeClassic) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BaseThemeClassic) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode baseThemeClassic#c3a12462 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "baseThemeClassic#c3a12462",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (b *BaseThemeClassic) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BaseThemeClassic) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode baseThemeClassic#c3a12462 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "baseThemeClassic#c3a12462",
+		}
 	}
 	if err := buf.ConsumeID(BaseThemeClassicTypeID); err != nil {
-		return fmt.Errorf("unable to decode baseThemeClassic#c3a12462: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "baseThemeClassic#c3a12462",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -113,7 +125,10 @@ func (b *BaseThemeClassic) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BaseThemeClassic) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode baseThemeClassic#c3a12462 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "baseThemeClassic#c3a12462",
+		}
 	}
 	return nil
 }
@@ -187,7 +202,10 @@ func (b *BaseThemeDay) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BaseThemeDay) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode baseThemeDay#fbd81688 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "baseThemeDay#fbd81688",
+		}
 	}
 	buf.PutID(BaseThemeDayTypeID)
 	return b.EncodeBare(buf)
@@ -196,7 +214,10 @@ func (b *BaseThemeDay) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BaseThemeDay) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode baseThemeDay#fbd81688 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "baseThemeDay#fbd81688",
+		}
 	}
 	return nil
 }
@@ -204,10 +225,16 @@ func (b *BaseThemeDay) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BaseThemeDay) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode baseThemeDay#fbd81688 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "baseThemeDay#fbd81688",
+		}
 	}
 	if err := buf.ConsumeID(BaseThemeDayTypeID); err != nil {
-		return fmt.Errorf("unable to decode baseThemeDay#fbd81688: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "baseThemeDay#fbd81688",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -215,7 +242,10 @@ func (b *BaseThemeDay) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BaseThemeDay) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode baseThemeDay#fbd81688 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "baseThemeDay#fbd81688",
+		}
 	}
 	return nil
 }
@@ -289,7 +319,10 @@ func (b *BaseThemeNight) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BaseThemeNight) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode baseThemeNight#b7b31ea8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "baseThemeNight#b7b31ea8",
+		}
 	}
 	buf.PutID(BaseThemeNightTypeID)
 	return b.EncodeBare(buf)
@@ -298,7 +331,10 @@ func (b *BaseThemeNight) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BaseThemeNight) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode baseThemeNight#b7b31ea8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "baseThemeNight#b7b31ea8",
+		}
 	}
 	return nil
 }
@@ -306,10 +342,16 @@ func (b *BaseThemeNight) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BaseThemeNight) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode baseThemeNight#b7b31ea8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "baseThemeNight#b7b31ea8",
+		}
 	}
 	if err := buf.ConsumeID(BaseThemeNightTypeID); err != nil {
-		return fmt.Errorf("unable to decode baseThemeNight#b7b31ea8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "baseThemeNight#b7b31ea8",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -317,7 +359,10 @@ func (b *BaseThemeNight) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BaseThemeNight) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode baseThemeNight#b7b31ea8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "baseThemeNight#b7b31ea8",
+		}
 	}
 	return nil
 }
@@ -391,7 +436,10 @@ func (b *BaseThemeTinted) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BaseThemeTinted) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode baseThemeTinted#6d5f77ee as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "baseThemeTinted#6d5f77ee",
+		}
 	}
 	buf.PutID(BaseThemeTintedTypeID)
 	return b.EncodeBare(buf)
@@ -400,7 +448,10 @@ func (b *BaseThemeTinted) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BaseThemeTinted) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode baseThemeTinted#6d5f77ee as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "baseThemeTinted#6d5f77ee",
+		}
 	}
 	return nil
 }
@@ -408,10 +459,16 @@ func (b *BaseThemeTinted) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BaseThemeTinted) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode baseThemeTinted#6d5f77ee to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "baseThemeTinted#6d5f77ee",
+		}
 	}
 	if err := buf.ConsumeID(BaseThemeTintedTypeID); err != nil {
-		return fmt.Errorf("unable to decode baseThemeTinted#6d5f77ee: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "baseThemeTinted#6d5f77ee",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -419,7 +476,10 @@ func (b *BaseThemeTinted) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BaseThemeTinted) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode baseThemeTinted#6d5f77ee to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "baseThemeTinted#6d5f77ee",
+		}
 	}
 	return nil
 }
@@ -493,7 +553,10 @@ func (b *BaseThemeArctic) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BaseThemeArctic) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode baseThemeArctic#5b11125a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "baseThemeArctic#5b11125a",
+		}
 	}
 	buf.PutID(BaseThemeArcticTypeID)
 	return b.EncodeBare(buf)
@@ -502,7 +565,10 @@ func (b *BaseThemeArctic) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BaseThemeArctic) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode baseThemeArctic#5b11125a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "baseThemeArctic#5b11125a",
+		}
 	}
 	return nil
 }
@@ -510,10 +576,16 @@ func (b *BaseThemeArctic) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BaseThemeArctic) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode baseThemeArctic#5b11125a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "baseThemeArctic#5b11125a",
+		}
 	}
 	if err := buf.ConsumeID(BaseThemeArcticTypeID); err != nil {
-		return fmt.Errorf("unable to decode baseThemeArctic#5b11125a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "baseThemeArctic#5b11125a",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -521,7 +593,10 @@ func (b *BaseThemeArctic) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BaseThemeArctic) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode baseThemeArctic#5b11125a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "baseThemeArctic#5b11125a",
+		}
 	}
 	return nil
 }
@@ -586,39 +661,57 @@ func DecodeBaseTheme(buf *bin.Buffer) (BaseThemeClass, error) {
 		// Decoding baseThemeClassic#c3a12462.
 		v := BaseThemeClassic{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BaseThemeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "BaseThemeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case BaseThemeDayTypeID:
 		// Decoding baseThemeDay#fbd81688.
 		v := BaseThemeDay{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BaseThemeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "BaseThemeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case BaseThemeNightTypeID:
 		// Decoding baseThemeNight#b7b31ea8.
 		v := BaseThemeNight{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BaseThemeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "BaseThemeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case BaseThemeTintedTypeID:
 		// Decoding baseThemeTinted#6d5f77ee.
 		v := BaseThemeTinted{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BaseThemeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "BaseThemeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case BaseThemeArcticTypeID:
 		// Decoding baseThemeArctic#5b11125a.
 		v := BaseThemeArctic{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode BaseThemeClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "BaseThemeClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode BaseThemeClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "BaseThemeClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -630,7 +723,10 @@ type BaseThemeBox struct {
 // Decode implements bin.Decoder for BaseThemeBox.
 func (b *BaseThemeBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode BaseThemeBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "BaseThemeBox",
+		}
 	}
 	v, err := DecodeBaseTheme(buf)
 	if err != nil {
@@ -643,7 +739,10 @@ func (b *BaseThemeBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for BaseThemeBox.
 func (b *BaseThemeBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.BaseTheme == nil {
-		return fmt.Errorf("unable to encode BaseThemeClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "BaseThemeBox",
+		}
 	}
 	return b.BaseTheme.Encode(buf)
 }

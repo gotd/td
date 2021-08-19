@@ -113,7 +113,10 @@ func (s *BotsSendCustomRequestRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *BotsSendCustomRequestRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode bots.sendCustomRequest#aa2769ed as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "bots.sendCustomRequest#aa2769ed",
+		}
 	}
 	b.PutID(BotsSendCustomRequestRequestTypeID)
 	return s.EncodeBare(b)
@@ -122,11 +125,19 @@ func (s *BotsSendCustomRequestRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *BotsSendCustomRequestRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode bots.sendCustomRequest#aa2769ed as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "bots.sendCustomRequest#aa2769ed",
+		}
 	}
 	b.PutString(s.CustomMethod)
 	if err := s.Params.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode bots.sendCustomRequest#aa2769ed: field params: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "bots.sendCustomRequest#aa2769ed",
+			FieldName:  "params",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -144,10 +155,16 @@ func (s *BotsSendCustomRequestRequest) GetParams() (value DataJSON) {
 // Decode implements bin.Decoder.
 func (s *BotsSendCustomRequestRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode bots.sendCustomRequest#aa2769ed to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "bots.sendCustomRequest#aa2769ed",
+		}
 	}
 	if err := b.ConsumeID(BotsSendCustomRequestRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode bots.sendCustomRequest#aa2769ed: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "bots.sendCustomRequest#aa2769ed",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -155,18 +172,31 @@ func (s *BotsSendCustomRequestRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *BotsSendCustomRequestRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode bots.sendCustomRequest#aa2769ed to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "bots.sendCustomRequest#aa2769ed",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.sendCustomRequest#aa2769ed: field custom_method: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "bots.sendCustomRequest#aa2769ed",
+				FieldName:  "custom_method",
+				Underlying: err,
+			}
 		}
 		s.CustomMethod = value
 	}
 	{
 		if err := s.Params.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode bots.sendCustomRequest#aa2769ed: field params: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "bots.sendCustomRequest#aa2769ed",
+				FieldName:  "params",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

@@ -715,7 +715,10 @@ func (c *Config) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *Config) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode config#330b4067 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "config#330b4067",
+		}
 	}
 	b.PutID(ConfigTypeID)
 	return c.EncodeBare(b)
@@ -724,7 +727,10 @@ func (c *Config) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *Config) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode config#330b4067 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "config#330b4067",
+		}
 	}
 	if !(c.PhonecallsEnabled == false) {
 		c.Flags.Set(1)
@@ -775,7 +781,12 @@ func (c *Config) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(2)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode config#330b4067: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "config#330b4067",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	b.PutInt(c.Date)
 	b.PutInt(c.Expires)
@@ -784,7 +795,16 @@ func (c *Config) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(c.DCOptions))
 	for idx, v := range c.DCOptions {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode config#330b4067: field dc_options element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "config#330b4067",
+				FieldName: "dc_options",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutString(c.DCTxtDomainName)
@@ -1272,10 +1292,16 @@ func (c *Config) GetBaseLangPackVersion() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (c *Config) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode config#330b4067 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "config#330b4067",
+		}
 	}
 	if err := b.ConsumeID(ConfigTypeID); err != nil {
-		return fmt.Errorf("unable to decode config#330b4067: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "config#330b4067",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -1283,11 +1309,19 @@ func (c *Config) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *Config) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode config#330b4067 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "config#330b4067",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	c.PhonecallsEnabled = c.Flags.Has(1)
@@ -1300,35 +1334,60 @@ func (c *Config) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		c.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field expires: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "expires",
+				Underlying: err,
+			}
 		}
 		c.Expires = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field test_mode: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "test_mode",
+				Underlying: err,
+			}
 		}
 		c.TestMode = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field this_dc: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "this_dc",
+				Underlying: err,
+			}
 		}
 		c.ThisDC = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field dc_options: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "dc_options",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -1337,7 +1396,13 @@ func (c *Config) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value DCOption
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode config#330b4067: field dc_options: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "config#330b4067",
+					FieldName:  "dc_options",
+					Underlying: err,
+				}
 			}
 			c.DCOptions = append(c.DCOptions, value)
 		}
@@ -1345,273 +1410,468 @@ func (c *Config) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field dc_txt_domain_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "dc_txt_domain_name",
+				Underlying: err,
+			}
 		}
 		c.DCTxtDomainName = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field chat_size_max: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "chat_size_max",
+				Underlying: err,
+			}
 		}
 		c.ChatSizeMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field megagroup_size_max: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "megagroup_size_max",
+				Underlying: err,
+			}
 		}
 		c.MegagroupSizeMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field forwarded_count_max: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "forwarded_count_max",
+				Underlying: err,
+			}
 		}
 		c.ForwardedCountMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field online_update_period_ms: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "online_update_period_ms",
+				Underlying: err,
+			}
 		}
 		c.OnlineUpdatePeriodMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field offline_blur_timeout_ms: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "offline_blur_timeout_ms",
+				Underlying: err,
+			}
 		}
 		c.OfflineBlurTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field offline_idle_timeout_ms: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "offline_idle_timeout_ms",
+				Underlying: err,
+			}
 		}
 		c.OfflineIdleTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field online_cloud_timeout_ms: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "online_cloud_timeout_ms",
+				Underlying: err,
+			}
 		}
 		c.OnlineCloudTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field notify_cloud_delay_ms: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "notify_cloud_delay_ms",
+				Underlying: err,
+			}
 		}
 		c.NotifyCloudDelayMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field notify_default_delay_ms: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "notify_default_delay_ms",
+				Underlying: err,
+			}
 		}
 		c.NotifyDefaultDelayMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field push_chat_period_ms: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "push_chat_period_ms",
+				Underlying: err,
+			}
 		}
 		c.PushChatPeriodMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field push_chat_limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "push_chat_limit",
+				Underlying: err,
+			}
 		}
 		c.PushChatLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field saved_gifs_limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "saved_gifs_limit",
+				Underlying: err,
+			}
 		}
 		c.SavedGifsLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field edit_time_limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "edit_time_limit",
+				Underlying: err,
+			}
 		}
 		c.EditTimeLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field revoke_time_limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "revoke_time_limit",
+				Underlying: err,
+			}
 		}
 		c.RevokeTimeLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field revoke_pm_time_limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "revoke_pm_time_limit",
+				Underlying: err,
+			}
 		}
 		c.RevokePmTimeLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field rating_e_decay: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "rating_e_decay",
+				Underlying: err,
+			}
 		}
 		c.RatingEDecay = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field stickers_recent_limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "stickers_recent_limit",
+				Underlying: err,
+			}
 		}
 		c.StickersRecentLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field stickers_faved_limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "stickers_faved_limit",
+				Underlying: err,
+			}
 		}
 		c.StickersFavedLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field channels_read_media_period: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "channels_read_media_period",
+				Underlying: err,
+			}
 		}
 		c.ChannelsReadMediaPeriod = value
 	}
 	if c.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field tmp_sessions: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "tmp_sessions",
+				Underlying: err,
+			}
 		}
 		c.TmpSessions = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field pinned_dialogs_count_max: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "pinned_dialogs_count_max",
+				Underlying: err,
+			}
 		}
 		c.PinnedDialogsCountMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field pinned_infolder_count_max: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "pinned_infolder_count_max",
+				Underlying: err,
+			}
 		}
 		c.PinnedInfolderCountMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field call_receive_timeout_ms: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "call_receive_timeout_ms",
+				Underlying: err,
+			}
 		}
 		c.CallReceiveTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field call_ring_timeout_ms: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "call_ring_timeout_ms",
+				Underlying: err,
+			}
 		}
 		c.CallRingTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field call_connect_timeout_ms: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "call_connect_timeout_ms",
+				Underlying: err,
+			}
 		}
 		c.CallConnectTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field call_packet_timeout_ms: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "call_packet_timeout_ms",
+				Underlying: err,
+			}
 		}
 		c.CallPacketTimeoutMs = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field me_url_prefix: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "me_url_prefix",
+				Underlying: err,
+			}
 		}
 		c.MeURLPrefix = value
 	}
 	if c.Flags.Has(7) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field autoupdate_url_prefix: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "autoupdate_url_prefix",
+				Underlying: err,
+			}
 		}
 		c.AutoupdateURLPrefix = value
 	}
 	if c.Flags.Has(9) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field gif_search_username: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "gif_search_username",
+				Underlying: err,
+			}
 		}
 		c.GifSearchUsername = value
 	}
 	if c.Flags.Has(10) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field venue_search_username: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "venue_search_username",
+				Underlying: err,
+			}
 		}
 		c.VenueSearchUsername = value
 	}
 	if c.Flags.Has(11) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field img_search_username: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "img_search_username",
+				Underlying: err,
+			}
 		}
 		c.ImgSearchUsername = value
 	}
 	if c.Flags.Has(12) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field static_maps_provider: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "static_maps_provider",
+				Underlying: err,
+			}
 		}
 		c.StaticMapsProvider = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field caption_length_max: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "caption_length_max",
+				Underlying: err,
+			}
 		}
 		c.CaptionLengthMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field message_length_max: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "message_length_max",
+				Underlying: err,
+			}
 		}
 		c.MessageLengthMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field webfile_dc_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "webfile_dc_id",
+				Underlying: err,
+			}
 		}
 		c.WebfileDCID = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field suggested_lang_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "suggested_lang_code",
+				Underlying: err,
+			}
 		}
 		c.SuggestedLangCode = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field lang_pack_version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "lang_pack_version",
+				Underlying: err,
+			}
 		}
 		c.LangPackVersion = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field base_lang_pack_version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "config#330b4067",
+				FieldName:  "base_lang_pack_version",
+				Underlying: err,
+			}
 		}
 		c.BaseLangPackVersion = value
 	}

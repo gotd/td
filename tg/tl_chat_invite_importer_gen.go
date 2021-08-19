@@ -112,7 +112,10 @@ func (c *ChatInviteImporter) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatInviteImporter) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteImporter#1e3e6680 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatInviteImporter#1e3e6680",
+		}
 	}
 	b.PutID(ChatInviteImporterTypeID)
 	return c.EncodeBare(b)
@@ -121,7 +124,10 @@ func (c *ChatInviteImporter) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatInviteImporter) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteImporter#1e3e6680 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "chatInviteImporter#1e3e6680",
+		}
 	}
 	b.PutInt(c.UserID)
 	b.PutInt(c.Date)
@@ -141,10 +147,16 @@ func (c *ChatInviteImporter) GetDate() (value int) {
 // Decode implements bin.Decoder.
 func (c *ChatInviteImporter) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteImporter#1e3e6680 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatInviteImporter#1e3e6680",
+		}
 	}
 	if err := b.ConsumeID(ChatInviteImporterTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatInviteImporter#1e3e6680: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "chatInviteImporter#1e3e6680",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -152,19 +164,32 @@ func (c *ChatInviteImporter) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatInviteImporter) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteImporter#1e3e6680 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "chatInviteImporter#1e3e6680",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteImporter#1e3e6680: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatInviteImporter#1e3e6680",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteImporter#1e3e6680: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "chatInviteImporter#1e3e6680",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		c.Date = value
 	}

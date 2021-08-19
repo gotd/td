@@ -90,7 +90,10 @@ func (r *AuthResetAuthorizationsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AuthResetAuthorizationsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode auth.resetAuthorizations#9fab0d1a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.resetAuthorizations#9fab0d1a",
+		}
 	}
 	b.PutID(AuthResetAuthorizationsRequestTypeID)
 	return r.EncodeBare(b)
@@ -99,7 +102,10 @@ func (r *AuthResetAuthorizationsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AuthResetAuthorizationsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode auth.resetAuthorizations#9fab0d1a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.resetAuthorizations#9fab0d1a",
+		}
 	}
 	return nil
 }
@@ -107,10 +113,16 @@ func (r *AuthResetAuthorizationsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *AuthResetAuthorizationsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode auth.resetAuthorizations#9fab0d1a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.resetAuthorizations#9fab0d1a",
+		}
 	}
 	if err := b.ConsumeID(AuthResetAuthorizationsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.resetAuthorizations#9fab0d1a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.resetAuthorizations#9fab0d1a",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -118,7 +130,10 @@ func (r *AuthResetAuthorizationsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AuthResetAuthorizationsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode auth.resetAuthorizations#9fab0d1a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.resetAuthorizations#9fab0d1a",
+		}
 	}
 	return nil
 }

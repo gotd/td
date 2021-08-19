@@ -101,7 +101,10 @@ func (t *TestVectorInt) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TestVectorInt) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testVectorInt#df9eb113 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "testVectorInt#df9eb113",
+		}
 	}
 	b.PutID(TestVectorIntTypeID)
 	return t.EncodeBare(b)
@@ -110,7 +113,10 @@ func (t *TestVectorInt) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TestVectorInt) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode testVectorInt#df9eb113 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "testVectorInt#df9eb113",
+		}
 	}
 	b.PutInt(len(t.Value))
 	for _, v := range t.Value {
@@ -127,10 +133,16 @@ func (t *TestVectorInt) GetValue() (value []int32) {
 // Decode implements bin.Decoder.
 func (t *TestVectorInt) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testVectorInt#df9eb113 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "testVectorInt#df9eb113",
+		}
 	}
 	if err := b.ConsumeID(TestVectorIntTypeID); err != nil {
-		return fmt.Errorf("unable to decode testVectorInt#df9eb113: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "testVectorInt#df9eb113",
+			Underlying: err,
+		}
 	}
 	return t.DecodeBare(b)
 }
@@ -138,12 +150,20 @@ func (t *TestVectorInt) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TestVectorInt) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode testVectorInt#df9eb113 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "testVectorInt#df9eb113",
+		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode testVectorInt#df9eb113: field value: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "testVectorInt#df9eb113",
+				FieldName:  "value",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -152,7 +172,12 @@ func (t *TestVectorInt) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode testVectorInt#df9eb113: field value: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "testVectorInt#df9eb113",
+					FieldName:  "value",
+					Underlying: err,
+				}
 			}
 			t.Value = append(t.Value, value)
 		}

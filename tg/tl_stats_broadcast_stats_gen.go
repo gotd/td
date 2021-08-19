@@ -265,7 +265,10 @@ func (b *StatsBroadcastStats) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *StatsBroadcastStats) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode stats.broadcastStats#bdf78394 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stats.broadcastStats#bdf78394",
+		}
 	}
 	buf.PutID(StatsBroadcastStatsTypeID)
 	return b.EncodeBare(buf)
@@ -274,81 +277,235 @@ func (b *StatsBroadcastStats) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *StatsBroadcastStats) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode stats.broadcastStats#bdf78394 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stats.broadcastStats#bdf78394",
+		}
 	}
 	if err := b.Period.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field period: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "period",
+			Underlying: err,
+		}
 	}
 	if err := b.Followers.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field followers: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "followers",
+			Underlying: err,
+		}
 	}
 	if err := b.ViewsPerPost.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field views_per_post: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "views_per_post",
+			Underlying: err,
+		}
 	}
 	if err := b.SharesPerPost.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field shares_per_post: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "shares_per_post",
+			Underlying: err,
+		}
 	}
 	if err := b.EnabledNotifications.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field enabled_notifications: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "enabled_notifications",
+			Underlying: err,
+		}
 	}
 	if b.GrowthGraph == nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field growth_graph is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.broadcastStats#bdf78394",
+			FieldName: "growth_graph",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "StatsGraph",
+			},
+		}
 	}
 	if err := b.GrowthGraph.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field growth_graph: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "growth_graph",
+			Underlying: err,
+		}
 	}
 	if b.FollowersGraph == nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field followers_graph is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.broadcastStats#bdf78394",
+			FieldName: "followers_graph",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "StatsGraph",
+			},
+		}
 	}
 	if err := b.FollowersGraph.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field followers_graph: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "followers_graph",
+			Underlying: err,
+		}
 	}
 	if b.MuteGraph == nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field mute_graph is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.broadcastStats#bdf78394",
+			FieldName: "mute_graph",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "StatsGraph",
+			},
+		}
 	}
 	if err := b.MuteGraph.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field mute_graph: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "mute_graph",
+			Underlying: err,
+		}
 	}
 	if b.TopHoursGraph == nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field top_hours_graph is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.broadcastStats#bdf78394",
+			FieldName: "top_hours_graph",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "StatsGraph",
+			},
+		}
 	}
 	if err := b.TopHoursGraph.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field top_hours_graph: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "top_hours_graph",
+			Underlying: err,
+		}
 	}
 	if b.InteractionsGraph == nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field interactions_graph is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.broadcastStats#bdf78394",
+			FieldName: "interactions_graph",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "StatsGraph",
+			},
+		}
 	}
 	if err := b.InteractionsGraph.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field interactions_graph: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "interactions_graph",
+			Underlying: err,
+		}
 	}
 	if b.IvInteractionsGraph == nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field iv_interactions_graph is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.broadcastStats#bdf78394",
+			FieldName: "iv_interactions_graph",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "StatsGraph",
+			},
+		}
 	}
 	if err := b.IvInteractionsGraph.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field iv_interactions_graph: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "iv_interactions_graph",
+			Underlying: err,
+		}
 	}
 	if b.ViewsBySourceGraph == nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field views_by_source_graph is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.broadcastStats#bdf78394",
+			FieldName: "views_by_source_graph",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "StatsGraph",
+			},
+		}
 	}
 	if err := b.ViewsBySourceGraph.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field views_by_source_graph: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "views_by_source_graph",
+			Underlying: err,
+		}
 	}
 	if b.NewFollowersBySourceGraph == nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field new_followers_by_source_graph is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.broadcastStats#bdf78394",
+			FieldName: "new_followers_by_source_graph",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "StatsGraph",
+			},
+		}
 	}
 	if err := b.NewFollowersBySourceGraph.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field new_followers_by_source_graph: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "new_followers_by_source_graph",
+			Underlying: err,
+		}
 	}
 	if b.LanguagesGraph == nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field languages_graph is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.broadcastStats#bdf78394",
+			FieldName: "languages_graph",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "StatsGraph",
+			},
+		}
 	}
 	if err := b.LanguagesGraph.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field languages_graph: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.broadcastStats#bdf78394",
+			FieldName:  "languages_graph",
+			Underlying: err,
+		}
 	}
 	buf.PutVectorHeader(len(b.RecentMessageInteractions))
 	for idx, v := range b.RecentMessageInteractions {
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field recent_message_interactions element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "stats.broadcastStats#bdf78394",
+				FieldName: "recent_message_interactions",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -432,10 +589,16 @@ func (b *StatsBroadcastStats) GetRecentMessageInteractions() (value []MessageInt
 // Decode implements bin.Decoder.
 func (b *StatsBroadcastStats) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode stats.broadcastStats#bdf78394 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stats.broadcastStats#bdf78394",
+		}
 	}
 	if err := buf.ConsumeID(StatsBroadcastStatsTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "stats.broadcastStats#bdf78394",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -443,100 +606,178 @@ func (b *StatsBroadcastStats) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *StatsBroadcastStats) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode stats.broadcastStats#bdf78394 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stats.broadcastStats#bdf78394",
+		}
 	}
 	{
 		if err := b.Period.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field period: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "period",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		if err := b.Followers.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field followers: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "followers",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		if err := b.ViewsPerPost.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field views_per_post: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "views_per_post",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		if err := b.SharesPerPost.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field shares_per_post: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "shares_per_post",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		if err := b.EnabledNotifications.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field enabled_notifications: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "enabled_notifications",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := DecodeStatsGraph(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field growth_graph: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "growth_graph",
+				Underlying: err,
+			}
 		}
 		b.GrowthGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field followers_graph: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "followers_graph",
+				Underlying: err,
+			}
 		}
 		b.FollowersGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field mute_graph: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "mute_graph",
+				Underlying: err,
+			}
 		}
 		b.MuteGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field top_hours_graph: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "top_hours_graph",
+				Underlying: err,
+			}
 		}
 		b.TopHoursGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field interactions_graph: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "interactions_graph",
+				Underlying: err,
+			}
 		}
 		b.InteractionsGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field iv_interactions_graph: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "iv_interactions_graph",
+				Underlying: err,
+			}
 		}
 		b.IvInteractionsGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field views_by_source_graph: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "views_by_source_graph",
+				Underlying: err,
+			}
 		}
 		b.ViewsBySourceGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field new_followers_by_source_graph: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "new_followers_by_source_graph",
+				Underlying: err,
+			}
 		}
 		b.NewFollowersBySourceGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field languages_graph: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "languages_graph",
+				Underlying: err,
+			}
 		}
 		b.LanguagesGraph = value
 	}
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field recent_message_interactions: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.broadcastStats#bdf78394",
+				FieldName:  "recent_message_interactions",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -545,7 +786,13 @@ func (b *StatsBroadcastStats) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value MessageInteractionCounters
 			if err := value.Decode(buf); err != nil {
-				return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field recent_message_interactions: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "stats.broadcastStats#bdf78394",
+					FieldName:  "recent_message_interactions",
+					Underlying: err,
+				}
 			}
 			b.RecentMessageInteractions = append(b.RecentMessageInteractions, value)
 		}

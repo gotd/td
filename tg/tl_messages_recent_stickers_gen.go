@@ -85,7 +85,10 @@ func (r *MessagesRecentStickersNotModified) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesRecentStickersNotModified) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.recentStickersNotModified#b17f890 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.recentStickersNotModified#b17f890",
+		}
 	}
 	b.PutID(MessagesRecentStickersNotModifiedTypeID)
 	return r.EncodeBare(b)
@@ -94,7 +97,10 @@ func (r *MessagesRecentStickersNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesRecentStickersNotModified) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.recentStickersNotModified#b17f890 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.recentStickersNotModified#b17f890",
+		}
 	}
 	return nil
 }
@@ -102,10 +108,16 @@ func (r *MessagesRecentStickersNotModified) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *MessagesRecentStickersNotModified) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.recentStickersNotModified#b17f890 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.recentStickersNotModified#b17f890",
+		}
 	}
 	if err := b.ConsumeID(MessagesRecentStickersNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.recentStickersNotModified#b17f890: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.recentStickersNotModified#b17f890",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -113,7 +125,10 @@ func (r *MessagesRecentStickersNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesRecentStickersNotModified) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.recentStickersNotModified#b17f890 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.recentStickersNotModified#b17f890",
+		}
 	}
 	return nil
 }
@@ -240,7 +255,10 @@ func (r *MessagesRecentStickers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesRecentStickers) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.recentStickers#22f3afb3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.recentStickers#22f3afb3",
+		}
 	}
 	b.PutID(MessagesRecentStickersTypeID)
 	return r.EncodeBare(b)
@@ -249,22 +267,54 @@ func (r *MessagesRecentStickers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesRecentStickers) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.recentStickers#22f3afb3 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.recentStickers#22f3afb3",
+		}
 	}
 	b.PutInt(r.Hash)
 	b.PutVectorHeader(len(r.Packs))
 	for idx, v := range r.Packs {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.recentStickers#22f3afb3: field packs element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.recentStickers#22f3afb3",
+				FieldName: "packs",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(r.Stickers))
 	for idx, v := range r.Stickers {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.recentStickers#22f3afb3: field stickers element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.recentStickers#22f3afb3",
+				FieldName: "stickers",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<Document>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.recentStickers#22f3afb3: field stickers element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.recentStickers#22f3afb3",
+				FieldName: "stickers",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	b.PutVectorHeader(len(r.Dates))
@@ -302,10 +352,16 @@ func (r *MessagesRecentStickers) GetDates() (value []int) {
 // Decode implements bin.Decoder.
 func (r *MessagesRecentStickers) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.recentStickers#22f3afb3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.recentStickers#22f3afb3",
+		}
 	}
 	if err := b.ConsumeID(MessagesRecentStickersTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.recentStickers#22f3afb3",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -313,19 +369,32 @@ func (r *MessagesRecentStickers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesRecentStickers) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.recentStickers#22f3afb3 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.recentStickers#22f3afb3",
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.recentStickers#22f3afb3",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		r.Hash = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: field packs: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.recentStickers#22f3afb3",
+				FieldName:  "packs",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -334,7 +403,13 @@ func (r *MessagesRecentStickers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value StickerPack
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: field packs: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "messages.recentStickers#22f3afb3",
+					FieldName:  "packs",
+					Underlying: err,
+				}
 			}
 			r.Packs = append(r.Packs, value)
 		}
@@ -342,7 +417,12 @@ func (r *MessagesRecentStickers) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: field stickers: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.recentStickers#22f3afb3",
+				FieldName:  "stickers",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -351,7 +431,12 @@ func (r *MessagesRecentStickers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: field stickers: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.recentStickers#22f3afb3",
+					FieldName:  "stickers",
+					Underlying: err,
+				}
 			}
 			r.Stickers = append(r.Stickers, value)
 		}
@@ -359,7 +444,12 @@ func (r *MessagesRecentStickers) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: field dates: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.recentStickers#22f3afb3",
+				FieldName:  "dates",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -368,7 +458,12 @@ func (r *MessagesRecentStickers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: field dates: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "messages.recentStickers#22f3afb3",
+					FieldName:  "dates",
+					Underlying: err,
+				}
 			}
 			r.Dates = append(r.Dates, value)
 		}
@@ -446,18 +541,27 @@ func DecodeMessagesRecentStickers(buf *bin.Buffer) (MessagesRecentStickersClass,
 		// Decoding messages.recentStickersNotModified#b17f890.
 		v := MessagesRecentStickersNotModified{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesRecentStickersClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessagesRecentStickersClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case MessagesRecentStickersTypeID:
 		// Decoding messages.recentStickers#22f3afb3.
 		v := MessagesRecentStickers{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessagesRecentStickersClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "MessagesRecentStickersClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessagesRecentStickersClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "MessagesRecentStickersClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -469,7 +573,10 @@ type MessagesRecentStickersBox struct {
 // Decode implements bin.Decoder for MessagesRecentStickersBox.
 func (b *MessagesRecentStickersBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode MessagesRecentStickersBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "MessagesRecentStickersBox",
+		}
 	}
 	v, err := DecodeMessagesRecentStickers(buf)
 	if err != nil {
@@ -482,7 +589,10 @@ func (b *MessagesRecentStickersBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for MessagesRecentStickersBox.
 func (b *MessagesRecentStickersBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.RecentStickers == nil {
-		return fmt.Errorf("unable to encode MessagesRecentStickersClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "MessagesRecentStickersBox",
+		}
 	}
 	return b.RecentStickers.Encode(buf)
 }

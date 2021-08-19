@@ -102,7 +102,10 @@ func (d *PhotosDeletePhotosRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *PhotosDeletePhotosRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode photos.deletePhotos#87cf7f2f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "photos.deletePhotos#87cf7f2f",
+		}
 	}
 	b.PutID(PhotosDeletePhotosRequestTypeID)
 	return d.EncodeBare(b)
@@ -111,15 +114,38 @@ func (d *PhotosDeletePhotosRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *PhotosDeletePhotosRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode photos.deletePhotos#87cf7f2f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "photos.deletePhotos#87cf7f2f",
+		}
 	}
 	b.PutVectorHeader(len(d.ID))
 	for idx, v := range d.ID {
 		if v == nil {
-			return fmt.Errorf("unable to encode photos.deletePhotos#87cf7f2f: field id element with index %d is nil", idx)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "photos.deletePhotos#87cf7f2f",
+				FieldName: "id",
+				Underlying: &bin.IndexError{
+					Index: idx,
+					Underlying: &bin.NilError{
+						Action:   "encode",
+						TypeName: "Vector<InputPhoto>",
+					},
+				},
+			}
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode photos.deletePhotos#87cf7f2f: field id element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "photos.deletePhotos#87cf7f2f",
+				FieldName: "id",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -138,10 +164,16 @@ func (d *PhotosDeletePhotosRequest) MapID() (value InputPhotoClassArray) {
 // Decode implements bin.Decoder.
 func (d *PhotosDeletePhotosRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode photos.deletePhotos#87cf7f2f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "photos.deletePhotos#87cf7f2f",
+		}
 	}
 	if err := b.ConsumeID(PhotosDeletePhotosRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode photos.deletePhotos#87cf7f2f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "photos.deletePhotos#87cf7f2f",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -149,12 +181,20 @@ func (d *PhotosDeletePhotosRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *PhotosDeletePhotosRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode photos.deletePhotos#87cf7f2f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "photos.deletePhotos#87cf7f2f",
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.deletePhotos#87cf7f2f: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "photos.deletePhotos#87cf7f2f",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -163,7 +203,12 @@ func (d *PhotosDeletePhotosRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPhoto(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode photos.deletePhotos#87cf7f2f: field id: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "photos.deletePhotos#87cf7f2f",
+					FieldName:  "id",
+					Underlying: err,
+				}
 			}
 			d.ID = append(d.ID, value)
 		}

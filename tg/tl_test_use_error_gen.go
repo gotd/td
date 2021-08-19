@@ -84,7 +84,10 @@ func (u *TestUseErrorRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *TestUseErrorRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode test.useError#ee75af01 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "test.useError#ee75af01",
+		}
 	}
 	b.PutID(TestUseErrorRequestTypeID)
 	return u.EncodeBare(b)
@@ -93,7 +96,10 @@ func (u *TestUseErrorRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *TestUseErrorRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode test.useError#ee75af01 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "test.useError#ee75af01",
+		}
 	}
 	return nil
 }
@@ -101,10 +107,16 @@ func (u *TestUseErrorRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *TestUseErrorRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode test.useError#ee75af01 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "test.useError#ee75af01",
+		}
 	}
 	if err := b.ConsumeID(TestUseErrorRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode test.useError#ee75af01: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "test.useError#ee75af01",
+			Underlying: err,
+		}
 	}
 	return u.DecodeBare(b)
 }
@@ -112,7 +124,10 @@ func (u *TestUseErrorRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *TestUseErrorRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode test.useError#ee75af01 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "test.useError#ee75af01",
+		}
 	}
 	return nil
 }

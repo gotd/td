@@ -130,7 +130,10 @@ func (a *AuthAuthorization) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AuthAuthorization) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode auth.authorization#cd050916 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.authorization#cd050916",
+		}
 	}
 	b.PutID(AuthAuthorizationTypeID)
 	return a.EncodeBare(b)
@@ -139,22 +142,43 @@ func (a *AuthAuthorization) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AuthAuthorization) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode auth.authorization#cd050916 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.authorization#cd050916",
+		}
 	}
 	if !(a.TmpSessions == 0) {
 		a.Flags.Set(0)
 	}
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode auth.authorization#cd050916: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "auth.authorization#cd050916",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if a.Flags.Has(0) {
 		b.PutInt(a.TmpSessions)
 	}
 	if a.User == nil {
-		return fmt.Errorf("unable to encode auth.authorization#cd050916: field user is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "auth.authorization#cd050916",
+			FieldName: "user",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "User",
+			},
+		}
 	}
 	if err := a.User.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode auth.authorization#cd050916: field user: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "auth.authorization#cd050916",
+			FieldName:  "user",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -182,10 +206,16 @@ func (a *AuthAuthorization) GetUser() (value UserClass) {
 // Decode implements bin.Decoder.
 func (a *AuthAuthorization) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode auth.authorization#cd050916 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.authorization#cd050916",
+		}
 	}
 	if err := b.ConsumeID(AuthAuthorizationTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.authorization#cd050916: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.authorization#cd050916",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -193,24 +223,42 @@ func (a *AuthAuthorization) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AuthAuthorization) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode auth.authorization#cd050916 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.authorization#cd050916",
+		}
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode auth.authorization#cd050916: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.authorization#cd050916",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	if a.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.authorization#cd050916: field tmp_sessions: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.authorization#cd050916",
+				FieldName:  "tmp_sessions",
+				Underlying: err,
+			}
 		}
 		a.TmpSessions = value
 	}
 	{
 		value, err := DecodeUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.authorization#cd050916: field user: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.authorization#cd050916",
+				FieldName:  "user",
+				Underlying: err,
+			}
 		}
 		a.User = value
 	}
@@ -322,7 +370,10 @@ func (a *AuthAuthorizationSignUpRequired) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AuthAuthorizationSignUpRequired) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode auth.authorizationSignUpRequired#44747e9a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.authorizationSignUpRequired#44747e9a",
+		}
 	}
 	b.PutID(AuthAuthorizationSignUpRequiredTypeID)
 	return a.EncodeBare(b)
@@ -331,17 +382,30 @@ func (a *AuthAuthorizationSignUpRequired) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AuthAuthorizationSignUpRequired) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode auth.authorizationSignUpRequired#44747e9a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "auth.authorizationSignUpRequired#44747e9a",
+		}
 	}
 	if !(a.TermsOfService.Zero()) {
 		a.Flags.Set(0)
 	}
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode auth.authorizationSignUpRequired#44747e9a: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "auth.authorizationSignUpRequired#44747e9a",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if a.Flags.Has(0) {
 		if err := a.TermsOfService.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode auth.authorizationSignUpRequired#44747e9a: field terms_of_service: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "auth.authorizationSignUpRequired#44747e9a",
+				FieldName:  "terms_of_service",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -365,10 +429,16 @@ func (a *AuthAuthorizationSignUpRequired) GetTermsOfService() (value HelpTermsOf
 // Decode implements bin.Decoder.
 func (a *AuthAuthorizationSignUpRequired) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode auth.authorizationSignUpRequired#44747e9a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.authorizationSignUpRequired#44747e9a",
+		}
 	}
 	if err := b.ConsumeID(AuthAuthorizationSignUpRequiredTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.authorizationSignUpRequired#44747e9a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "auth.authorizationSignUpRequired#44747e9a",
+			Underlying: err,
+		}
 	}
 	return a.DecodeBare(b)
 }
@@ -376,16 +446,29 @@ func (a *AuthAuthorizationSignUpRequired) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AuthAuthorizationSignUpRequired) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode auth.authorizationSignUpRequired#44747e9a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "auth.authorizationSignUpRequired#44747e9a",
+		}
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode auth.authorizationSignUpRequired#44747e9a: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.authorizationSignUpRequired#44747e9a",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	if a.Flags.Has(0) {
 		if err := a.TermsOfService.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode auth.authorizationSignUpRequired#44747e9a: field terms_of_service: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "auth.authorizationSignUpRequired#44747e9a",
+				FieldName:  "terms_of_service",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -448,18 +531,27 @@ func DecodeAuthAuthorization(buf *bin.Buffer) (AuthAuthorizationClass, error) {
 		// Decoding auth.authorization#cd050916.
 		v := AuthAuthorization{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AuthAuthorizationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AuthAuthorizationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case AuthAuthorizationSignUpRequiredTypeID:
 		// Decoding auth.authorizationSignUpRequired#44747e9a.
 		v := AuthAuthorizationSignUpRequired{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode AuthAuthorizationClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "AuthAuthorizationClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode AuthAuthorizationClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "AuthAuthorizationClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -471,7 +563,10 @@ type AuthAuthorizationBox struct {
 // Decode implements bin.Decoder for AuthAuthorizationBox.
 func (b *AuthAuthorizationBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode AuthAuthorizationBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "AuthAuthorizationBox",
+		}
 	}
 	v, err := DecodeAuthAuthorization(buf)
 	if err != nil {
@@ -484,7 +579,10 @@ func (b *AuthAuthorizationBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for AuthAuthorizationBox.
 func (b *AuthAuthorizationBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.Authorization == nil {
-		return fmt.Errorf("unable to encode AuthAuthorizationClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "AuthAuthorizationBox",
+		}
 	}
 	return b.Authorization.Encode(buf)
 }

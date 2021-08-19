@@ -160,7 +160,10 @@ func (g *UpdatesGetChannelDifferenceRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UpdatesGetChannelDifferenceRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode updates.getChannelDifference#3173d78 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "updates.getChannelDifference#3173d78",
+		}
 	}
 	b.PutID(UpdatesGetChannelDifferenceRequestTypeID)
 	return g.EncodeBare(b)
@@ -169,25 +172,59 @@ func (g *UpdatesGetChannelDifferenceRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UpdatesGetChannelDifferenceRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode updates.getChannelDifference#3173d78 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "updates.getChannelDifference#3173d78",
+		}
 	}
 	if !(g.Force == false) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.getChannelDifference#3173d78: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "updates.getChannelDifference#3173d78",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if g.Channel == nil {
-		return fmt.Errorf("unable to encode updates.getChannelDifference#3173d78: field channel is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "updates.getChannelDifference#3173d78",
+			FieldName: "channel",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputChannel",
+			},
+		}
 	}
 	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.getChannelDifference#3173d78: field channel: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "updates.getChannelDifference#3173d78",
+			FieldName:  "channel",
+			Underlying: err,
+		}
 	}
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode updates.getChannelDifference#3173d78: field filter is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "updates.getChannelDifference#3173d78",
+			FieldName: "filter",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "ChannelMessagesFilter",
+			},
+		}
 	}
 	if err := g.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.getChannelDifference#3173d78: field filter: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "updates.getChannelDifference#3173d78",
+			FieldName:  "filter",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.Pts)
 	b.PutInt(g.Limit)
@@ -243,10 +280,16 @@ func (g *UpdatesGetChannelDifferenceRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *UpdatesGetChannelDifferenceRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode updates.getChannelDifference#3173d78 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "updates.getChannelDifference#3173d78",
+		}
 	}
 	if err := b.ConsumeID(UpdatesGetChannelDifferenceRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.getChannelDifference#3173d78: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "updates.getChannelDifference#3173d78",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -254,39 +297,67 @@ func (g *UpdatesGetChannelDifferenceRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UpdatesGetChannelDifferenceRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode updates.getChannelDifference#3173d78 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "updates.getChannelDifference#3173d78",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updates.getChannelDifference#3173d78: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.getChannelDifference#3173d78",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	g.Force = g.Flags.Has(0)
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.getChannelDifference#3173d78: field channel: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.getChannelDifference#3173d78",
+				FieldName:  "channel",
+				Underlying: err,
+			}
 		}
 		g.Channel = value
 	}
 	{
 		value, err := DecodeChannelMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.getChannelDifference#3173d78: field filter: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.getChannelDifference#3173d78",
+				FieldName:  "filter",
+				Underlying: err,
+			}
 		}
 		g.Filter = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.getChannelDifference#3173d78: field pts: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.getChannelDifference#3173d78",
+				FieldName:  "pts",
+				Underlying: err,
+			}
 		}
 		g.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.getChannelDifference#3173d78: field limit: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "updates.getChannelDifference#3173d78",
+				FieldName:  "limit",
+				Underlying: err,
+			}
 		}
 		g.Limit = value
 	}

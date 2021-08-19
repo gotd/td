@@ -102,7 +102,10 @@ func (m *StatsMessageStats) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *StatsMessageStats) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode stats.messageStats#8999f295 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stats.messageStats#8999f295",
+		}
 	}
 	b.PutID(StatsMessageStatsTypeID)
 	return m.EncodeBare(b)
@@ -111,13 +114,29 @@ func (m *StatsMessageStats) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *StatsMessageStats) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode stats.messageStats#8999f295 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stats.messageStats#8999f295",
+		}
 	}
 	if m.ViewsGraph == nil {
-		return fmt.Errorf("unable to encode stats.messageStats#8999f295: field views_graph is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "stats.messageStats#8999f295",
+			FieldName: "views_graph",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "StatsGraph",
+			},
+		}
 	}
 	if err := m.ViewsGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.messageStats#8999f295: field views_graph: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "stats.messageStats#8999f295",
+			FieldName:  "views_graph",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -130,10 +149,16 @@ func (m *StatsMessageStats) GetViewsGraph() (value StatsGraphClass) {
 // Decode implements bin.Decoder.
 func (m *StatsMessageStats) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode stats.messageStats#8999f295 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stats.messageStats#8999f295",
+		}
 	}
 	if err := b.ConsumeID(StatsMessageStatsTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.messageStats#8999f295: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "stats.messageStats#8999f295",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -141,12 +166,20 @@ func (m *StatsMessageStats) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *StatsMessageStats) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode stats.messageStats#8999f295 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stats.messageStats#8999f295",
+		}
 	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.messageStats#8999f295: field views_graph: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stats.messageStats#8999f295",
+				FieldName:  "views_graph",
+				Underlying: err,
+			}
 		}
 		m.ViewsGraph = value
 	}

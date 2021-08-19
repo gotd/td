@@ -134,7 +134,10 @@ func (g *MessagesGetStatsURLRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetStatsURLRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getStatsURL#812c2ae6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getStatsURL#812c2ae6",
+		}
 	}
 	b.PutID(MessagesGetStatsURLRequestTypeID)
 	return g.EncodeBare(b)
@@ -143,19 +146,40 @@ func (g *MessagesGetStatsURLRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetStatsURLRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getStatsURL#812c2ae6 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getStatsURL#812c2ae6",
+		}
 	}
 	if !(g.Dark == false) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getStatsURL#812c2ae6: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getStatsURL#812c2ae6",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getStatsURL#812c2ae6: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getStatsURL#812c2ae6",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getStatsURL#812c2ae6: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getStatsURL#812c2ae6",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutString(g.Params)
 	return nil
@@ -190,10 +214,16 @@ func (g *MessagesGetStatsURLRequest) GetParams() (value string) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetStatsURLRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getStatsURL#812c2ae6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getStatsURL#812c2ae6",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetStatsURLRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getStatsURL#812c2ae6: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getStatsURL#812c2ae6",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -201,25 +231,43 @@ func (g *MessagesGetStatsURLRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetStatsURLRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getStatsURL#812c2ae6 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getStatsURL#812c2ae6",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getStatsURL#812c2ae6: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getStatsURL#812c2ae6",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	g.Dark = g.Flags.Has(0)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getStatsURL#812c2ae6: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getStatsURL#812c2ae6",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getStatsURL#812c2ae6: field params: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getStatsURL#812c2ae6",
+				FieldName:  "params",
+				Underlying: err,
+			}
 		}
 		g.Params = value
 	}

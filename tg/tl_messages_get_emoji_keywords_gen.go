@@ -102,7 +102,10 @@ func (g *MessagesGetEmojiKeywordsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetEmojiKeywordsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getEmojiKeywords#35a0e062 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getEmojiKeywords#35a0e062",
+		}
 	}
 	b.PutID(MessagesGetEmojiKeywordsRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,7 +114,10 @@ func (g *MessagesGetEmojiKeywordsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetEmojiKeywordsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getEmojiKeywords#35a0e062 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getEmojiKeywords#35a0e062",
+		}
 	}
 	b.PutString(g.LangCode)
 	return nil
@@ -125,10 +131,16 @@ func (g *MessagesGetEmojiKeywordsRequest) GetLangCode() (value string) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetEmojiKeywordsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getEmojiKeywords#35a0e062 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getEmojiKeywords#35a0e062",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetEmojiKeywordsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getEmojiKeywords#35a0e062: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getEmojiKeywords#35a0e062",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (g *MessagesGetEmojiKeywordsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetEmojiKeywordsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getEmojiKeywords#35a0e062 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getEmojiKeywords#35a0e062",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getEmojiKeywords#35a0e062: field lang_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getEmojiKeywords#35a0e062",
+				FieldName:  "lang_code",
+				Underlying: err,
+			}
 		}
 		g.LangCode = value
 	}

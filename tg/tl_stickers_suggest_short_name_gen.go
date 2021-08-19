@@ -101,7 +101,10 @@ func (s *StickersSuggestShortNameRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StickersSuggestShortNameRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickers.suggestShortName#4dafc503 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stickers.suggestShortName#4dafc503",
+		}
 	}
 	b.PutID(StickersSuggestShortNameRequestTypeID)
 	return s.EncodeBare(b)
@@ -110,7 +113,10 @@ func (s *StickersSuggestShortNameRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StickersSuggestShortNameRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickers.suggestShortName#4dafc503 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "stickers.suggestShortName#4dafc503",
+		}
 	}
 	b.PutString(s.Title)
 	return nil
@@ -124,10 +130,16 @@ func (s *StickersSuggestShortNameRequest) GetTitle() (value string) {
 // Decode implements bin.Decoder.
 func (s *StickersSuggestShortNameRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickers.suggestShortName#4dafc503 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stickers.suggestShortName#4dafc503",
+		}
 	}
 	if err := b.ConsumeID(StickersSuggestShortNameRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickers.suggestShortName#4dafc503: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "stickers.suggestShortName#4dafc503",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -135,12 +147,20 @@ func (s *StickersSuggestShortNameRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StickersSuggestShortNameRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickers.suggestShortName#4dafc503 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "stickers.suggestShortName#4dafc503",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.suggestShortName#4dafc503: field title: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "stickers.suggestShortName#4dafc503",
+				FieldName:  "title",
+				Underlying: err,
+			}
 		}
 		s.Title = value
 	}

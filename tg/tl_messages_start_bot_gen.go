@@ -141,7 +141,10 @@ func (s *MessagesStartBotRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesStartBotRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.startBot#e6df7378 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.startBot#e6df7378",
+		}
 	}
 	b.PutID(MessagesStartBotRequestTypeID)
 	return s.EncodeBare(b)
@@ -150,19 +153,48 @@ func (s *MessagesStartBotRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesStartBotRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.startBot#e6df7378 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.startBot#e6df7378",
+		}
 	}
 	if s.Bot == nil {
-		return fmt.Errorf("unable to encode messages.startBot#e6df7378: field bot is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.startBot#e6df7378",
+			FieldName: "bot",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := s.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.startBot#e6df7378: field bot: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.startBot#e6df7378",
+			FieldName:  "bot",
+			Underlying: err,
+		}
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.startBot#e6df7378: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.startBot#e6df7378",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.startBot#e6df7378: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.startBot#e6df7378",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutLong(s.RandomID)
 	b.PutString(s.StartParam)
@@ -192,10 +224,16 @@ func (s *MessagesStartBotRequest) GetStartParam() (value string) {
 // Decode implements bin.Decoder.
 func (s *MessagesStartBotRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.startBot#e6df7378 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.startBot#e6df7378",
+		}
 	}
 	if err := b.ConsumeID(MessagesStartBotRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.startBot#e6df7378: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.startBot#e6df7378",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -203,33 +241,56 @@ func (s *MessagesStartBotRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesStartBotRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.startBot#e6df7378 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.startBot#e6df7378",
+		}
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.startBot#e6df7378: field bot: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.startBot#e6df7378",
+				FieldName:  "bot",
+				Underlying: err,
+			}
 		}
 		s.Bot = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.startBot#e6df7378: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.startBot#e6df7378",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.startBot#e6df7378: field random_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.startBot#e6df7378",
+				FieldName:  "random_id",
+				Underlying: err,
+			}
 		}
 		s.RandomID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.startBot#e6df7378: field start_param: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.startBot#e6df7378",
+				FieldName:  "start_param",
+				Underlying: err,
+			}
 		}
 		s.StartParam = value
 	}

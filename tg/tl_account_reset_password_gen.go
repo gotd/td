@@ -84,7 +84,10 @@ func (r *AccountResetPasswordRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountResetPasswordRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetPassword#9308ce1b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetPassword#9308ce1b",
+		}
 	}
 	b.PutID(AccountResetPasswordRequestTypeID)
 	return r.EncodeBare(b)
@@ -93,7 +96,10 @@ func (r *AccountResetPasswordRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountResetPasswordRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.resetPassword#9308ce1b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "account.resetPassword#9308ce1b",
+		}
 	}
 	return nil
 }
@@ -101,10 +107,16 @@ func (r *AccountResetPasswordRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *AccountResetPasswordRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetPassword#9308ce1b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetPassword#9308ce1b",
+		}
 	}
 	if err := b.ConsumeID(AccountResetPasswordRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.resetPassword#9308ce1b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "account.resetPassword#9308ce1b",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -112,7 +124,10 @@ func (r *AccountResetPasswordRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountResetPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.resetPassword#9308ce1b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "account.resetPassword#9308ce1b",
+		}
 	}
 	return nil
 }

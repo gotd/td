@@ -168,7 +168,10 @@ func (r *MessagesRequestURLAuthRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesRequestURLAuthRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestUrlAuth#198fb446 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.requestUrlAuth#198fb446",
+		}
 	}
 	b.PutID(MessagesRequestURLAuthRequestTypeID)
 	return r.EncodeBare(b)
@@ -177,7 +180,10 @@ func (r *MessagesRequestURLAuthRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesRequestURLAuthRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestUrlAuth#198fb446 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.requestUrlAuth#198fb446",
+		}
 	}
 	if !(r.Peer == nil) {
 		r.Flags.Set(1)
@@ -192,14 +198,32 @@ func (r *MessagesRequestURLAuthRequest) EncodeBare(b *bin.Buffer) error {
 		r.Flags.Set(2)
 	}
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.requestUrlAuth#198fb446: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.requestUrlAuth#198fb446",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if r.Flags.Has(1) {
 		if r.Peer == nil {
-			return fmt.Errorf("unable to encode messages.requestUrlAuth#198fb446: field peer is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messages.requestUrlAuth#198fb446",
+				FieldName: "peer",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputPeer",
+				},
+			}
 		}
 		if err := r.Peer.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.requestUrlAuth#198fb446: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "messages.requestUrlAuth#198fb446",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 	}
 	if r.Flags.Has(1) {
@@ -277,10 +301,16 @@ func (r *MessagesRequestURLAuthRequest) GetURL() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (r *MessagesRequestURLAuthRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestUrlAuth#198fb446 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.requestUrlAuth#198fb446",
+		}
 	}
 	if err := b.ConsumeID(MessagesRequestURLAuthRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.requestUrlAuth#198fb446",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -288,38 +318,66 @@ func (r *MessagesRequestURLAuthRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesRequestURLAuthRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestUrlAuth#198fb446 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.requestUrlAuth#198fb446",
+		}
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.requestUrlAuth#198fb446",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	if r.Flags.Has(1) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.requestUrlAuth#198fb446",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		r.Peer = value
 	}
 	if r.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.requestUrlAuth#198fb446",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		r.MsgID = value
 	}
 	if r.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field button_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.requestUrlAuth#198fb446",
+				FieldName:  "button_id",
+				Underlying: err,
+			}
 		}
 		r.ButtonID = value
 	}
 	if r.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.requestUrlAuth#198fb446",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		r.URL = value
 	}

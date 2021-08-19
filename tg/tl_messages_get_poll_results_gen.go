@@ -113,7 +113,10 @@ func (g *MessagesGetPollResultsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetPollResultsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPollResults#73bb643b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getPollResults#73bb643b",
+		}
 	}
 	b.PutID(MessagesGetPollResultsRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,13 +125,29 @@ func (g *MessagesGetPollResultsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetPollResultsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPollResults#73bb643b as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.getPollResults#73bb643b",
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getPollResults#73bb643b: field peer is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.getPollResults#73bb643b",
+			FieldName: "peer",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputPeer",
+			},
+		}
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getPollResults#73bb643b: field peer: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.getPollResults#73bb643b",
+			FieldName:  "peer",
+			Underlying: err,
+		}
 	}
 	b.PutInt(g.MsgID)
 	return nil
@@ -147,10 +166,16 @@ func (g *MessagesGetPollResultsRequest) GetMsgID() (value int) {
 // Decode implements bin.Decoder.
 func (g *MessagesGetPollResultsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPollResults#73bb643b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getPollResults#73bb643b",
+		}
 	}
 	if err := b.ConsumeID(MessagesGetPollResultsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getPollResults#73bb643b: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.getPollResults#73bb643b",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -158,19 +183,32 @@ func (g *MessagesGetPollResultsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetPollResultsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPollResults#73bb643b to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.getPollResults#73bb643b",
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPollResults#73bb643b: field peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getPollResults#73bb643b",
+				FieldName:  "peer",
+				Underlying: err,
+			}
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPollResults#73bb643b: field msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.getPollResults#73bb643b",
+				FieldName:  "msg_id",
+				Underlying: err,
+			}
 		}
 		g.MsgID = value
 	}

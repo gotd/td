@@ -215,7 +215,10 @@ func (p *PeerSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PeerSettings) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerSettings#733f2961 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "peerSettings#733f2961",
+		}
 	}
 	b.PutID(PeerSettingsTypeID)
 	return p.EncodeBare(b)
@@ -224,7 +227,10 @@ func (p *PeerSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PeerSettings) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerSettings#733f2961 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "peerSettings#733f2961",
+		}
 	}
 	if !(p.ReportSpam == false) {
 		p.Flags.Set(0)
@@ -254,7 +260,12 @@ func (p *PeerSettings) EncodeBare(b *bin.Buffer) error {
 		p.Flags.Set(6)
 	}
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode peerSettings#733f2961: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "peerSettings#733f2961",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if p.Flags.Has(6) {
 		b.PutInt(p.GeoDistance)
@@ -408,10 +419,16 @@ func (p *PeerSettings) GetGeoDistance() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (p *PeerSettings) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerSettings#733f2961 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "peerSettings#733f2961",
+		}
 	}
 	if err := b.ConsumeID(PeerSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode peerSettings#733f2961: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "peerSettings#733f2961",
+			Underlying: err,
+		}
 	}
 	return p.DecodeBare(b)
 }
@@ -419,11 +436,19 @@ func (p *PeerSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PeerSettings) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerSettings#733f2961 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "peerSettings#733f2961",
+		}
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode peerSettings#733f2961: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "peerSettings#733f2961",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	p.ReportSpam = p.Flags.Has(0)
@@ -437,7 +462,12 @@ func (p *PeerSettings) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(6) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#733f2961: field geo_distance: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "peerSettings#733f2961",
+				FieldName:  "geo_distance",
+				Underlying: err,
+			}
 		}
 		p.GeoDistance = value
 	}

@@ -243,7 +243,10 @@ func (m *MessageFwdHeader) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageFwdHeader) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageFwdHeader#5f777dce as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageFwdHeader#5f777dce",
+		}
 	}
 	b.PutID(MessageFwdHeaderTypeID)
 	return m.EncodeBare(b)
@@ -252,7 +255,10 @@ func (m *MessageFwdHeader) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageFwdHeader) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageFwdHeader#5f777dce as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messageFwdHeader#5f777dce",
+		}
 	}
 	if !(m.Imported == false) {
 		m.Flags.Set(7)
@@ -279,14 +285,32 @@ func (m *MessageFwdHeader) EncodeBare(b *bin.Buffer) error {
 		m.Flags.Set(6)
 	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageFwdHeader#5f777dce: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messageFwdHeader#5f777dce",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if m.Flags.Has(0) {
 		if m.FromID == nil {
-			return fmt.Errorf("unable to encode messageFwdHeader#5f777dce: field from_id is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messageFwdHeader#5f777dce",
+				FieldName: "from_id",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "Peer",
+				},
+			}
 		}
 		if err := m.FromID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageFwdHeader#5f777dce: field from_id: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "messageFwdHeader#5f777dce",
+				FieldName:  "from_id",
+				Underlying: err,
+			}
 		}
 	}
 	if m.Flags.Has(5) {
@@ -301,10 +325,23 @@ func (m *MessageFwdHeader) EncodeBare(b *bin.Buffer) error {
 	}
 	if m.Flags.Has(4) {
 		if m.SavedFromPeer == nil {
-			return fmt.Errorf("unable to encode messageFwdHeader#5f777dce: field saved_from_peer is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "messageFwdHeader#5f777dce",
+				FieldName: "saved_from_peer",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "Peer",
+				},
+			}
 		}
 		if err := m.SavedFromPeer.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageFwdHeader#5f777dce: field saved_from_peer: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "messageFwdHeader#5f777dce",
+				FieldName:  "saved_from_peer",
+				Underlying: err,
+			}
 		}
 	}
 	if m.Flags.Has(4) {
@@ -445,10 +482,16 @@ func (m *MessageFwdHeader) GetPsaType() (value string, ok bool) {
 // Decode implements bin.Decoder.
 func (m *MessageFwdHeader) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageFwdHeader#5f777dce to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageFwdHeader#5f777dce",
+		}
 	}
 	if err := b.ConsumeID(MessageFwdHeaderTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messageFwdHeader#5f777dce",
+			Underlying: err,
+		}
 	}
 	return m.DecodeBare(b)
 }
@@ -456,67 +499,115 @@ func (m *MessageFwdHeader) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageFwdHeader) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageFwdHeader#5f777dce to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messageFwdHeader#5f777dce",
+		}
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageFwdHeader#5f777dce",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	m.Imported = m.Flags.Has(7)
 	if m.Flags.Has(0) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: field from_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageFwdHeader#5f777dce",
+				FieldName:  "from_id",
+				Underlying: err,
+			}
 		}
 		m.FromID = value
 	}
 	if m.Flags.Has(5) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: field from_name: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageFwdHeader#5f777dce",
+				FieldName:  "from_name",
+				Underlying: err,
+			}
 		}
 		m.FromName = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageFwdHeader#5f777dce",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		m.Date = value
 	}
 	if m.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: field channel_post: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageFwdHeader#5f777dce",
+				FieldName:  "channel_post",
+				Underlying: err,
+			}
 		}
 		m.ChannelPost = value
 	}
 	if m.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: field post_author: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageFwdHeader#5f777dce",
+				FieldName:  "post_author",
+				Underlying: err,
+			}
 		}
 		m.PostAuthor = value
 	}
 	if m.Flags.Has(4) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: field saved_from_peer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageFwdHeader#5f777dce",
+				FieldName:  "saved_from_peer",
+				Underlying: err,
+			}
 		}
 		m.SavedFromPeer = value
 	}
 	if m.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: field saved_from_msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageFwdHeader#5f777dce",
+				FieldName:  "saved_from_msg_id",
+				Underlying: err,
+			}
 		}
 		m.SavedFromMsgID = value
 	}
 	if m.Flags.Has(6) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: field psa_type: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messageFwdHeader#5f777dce",
+				FieldName:  "psa_type",
+				Underlying: err,
+			}
 		}
 		m.PsaType = value
 	}

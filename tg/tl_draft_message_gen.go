@@ -116,7 +116,10 @@ func (d *DraftMessageEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DraftMessageEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessageEmpty#1b0c841a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "draftMessageEmpty#1b0c841a",
+		}
 	}
 	b.PutID(DraftMessageEmptyTypeID)
 	return d.EncodeBare(b)
@@ -125,13 +128,21 @@ func (d *DraftMessageEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DraftMessageEmpty) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessageEmpty#1b0c841a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "draftMessageEmpty#1b0c841a",
+		}
 	}
 	if !(d.Date == 0) {
 		d.Flags.Set(0)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode draftMessageEmpty#1b0c841a: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "draftMessageEmpty#1b0c841a",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if d.Flags.Has(0) {
 		b.PutInt(d.Date)
@@ -157,10 +168,16 @@ func (d *DraftMessageEmpty) GetDate() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (d *DraftMessageEmpty) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessageEmpty#1b0c841a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "draftMessageEmpty#1b0c841a",
+		}
 	}
 	if err := b.ConsumeID(DraftMessageEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode draftMessageEmpty#1b0c841a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "draftMessageEmpty#1b0c841a",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -168,17 +185,30 @@ func (d *DraftMessageEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DraftMessageEmpty) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessageEmpty#1b0c841a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "draftMessageEmpty#1b0c841a",
+		}
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode draftMessageEmpty#1b0c841a: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "draftMessageEmpty#1b0c841a",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	if d.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessageEmpty#1b0c841a: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "draftMessageEmpty#1b0c841a",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		d.Date = value
 	}
@@ -342,7 +372,10 @@ func (d *DraftMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DraftMessage) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessage#fd8e711f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "draftMessage#fd8e711f",
+		}
 	}
 	b.PutID(DraftMessageTypeID)
 	return d.EncodeBare(b)
@@ -351,7 +384,10 @@ func (d *DraftMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessage#fd8e711f as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "draftMessage#fd8e711f",
+		}
 	}
 	if !(d.NoWebpage == false) {
 		d.Flags.Set(1)
@@ -363,7 +399,12 @@ func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 		d.Flags.Set(3)
 	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode draftMessage#fd8e711f: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "draftMessage#fd8e711f",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if d.Flags.Has(0) {
 		b.PutInt(d.ReplyToMsgID)
@@ -373,10 +414,30 @@ func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(d.Entities))
 		for idx, v := range d.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode draftMessage#fd8e711f: field entities element with index %d is nil", idx)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "draftMessage#fd8e711f",
+					FieldName: "entities",
+					Underlying: &bin.IndexError{
+						Index: idx,
+						Underlying: &bin.NilError{
+							Action:   "encode",
+							TypeName: "Vector<MessageEntity>",
+						},
+					},
+				}
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode draftMessage#fd8e711f: field entities element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "draftMessage#fd8e711f",
+					FieldName: "entities",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
@@ -451,10 +512,16 @@ func (d *DraftMessage) GetDate() (value int) {
 // Decode implements bin.Decoder.
 func (d *DraftMessage) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessage#fd8e711f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "draftMessage#fd8e711f",
+		}
 	}
 	if err := b.ConsumeID(DraftMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode draftMessage#fd8e711f: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "draftMessage#fd8e711f",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -462,32 +529,55 @@ func (d *DraftMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessage#fd8e711f to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "draftMessage#fd8e711f",
+		}
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode draftMessage#fd8e711f: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "draftMessage#fd8e711f",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	d.NoWebpage = d.Flags.Has(1)
 	if d.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#fd8e711f: field reply_to_msg_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "draftMessage#fd8e711f",
+				FieldName:  "reply_to_msg_id",
+				Underlying: err,
+			}
 		}
 		d.ReplyToMsgID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#fd8e711f: field message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "draftMessage#fd8e711f",
+				FieldName:  "message",
+				Underlying: err,
+			}
 		}
 		d.Message = value
 	}
 	if d.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#fd8e711f: field entities: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "draftMessage#fd8e711f",
+				FieldName:  "entities",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -496,7 +586,12 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode draftMessage#fd8e711f: field entities: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "draftMessage#fd8e711f",
+					FieldName:  "entities",
+					Underlying: err,
+				}
 			}
 			d.Entities = append(d.Entities, value)
 		}
@@ -504,7 +599,12 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#fd8e711f: field date: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "draftMessage#fd8e711f",
+				FieldName:  "date",
+				Underlying: err,
+			}
 		}
 		d.Date = value
 	}
@@ -581,18 +681,27 @@ func DecodeDraftMessage(buf *bin.Buffer) (DraftMessageClass, error) {
 		// Decoding draftMessageEmpty#1b0c841a.
 		v := DraftMessageEmpty{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DraftMessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "DraftMessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case DraftMessageTypeID:
 		// Decoding draftMessage#fd8e711f.
 		v := DraftMessage{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode DraftMessageClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "DraftMessageClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode DraftMessageClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "DraftMessageClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -604,7 +713,10 @@ type DraftMessageBox struct {
 // Decode implements bin.Decoder for DraftMessageBox.
 func (b *DraftMessageBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode DraftMessageBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "DraftMessageBox",
+		}
 	}
 	v, err := DecodeDraftMessage(buf)
 	if err != nil {
@@ -617,7 +729,10 @@ func (b *DraftMessageBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for DraftMessageBox.
 func (b *DraftMessageBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.DraftMessage == nil {
-		return fmt.Errorf("unable to encode DraftMessageClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "DraftMessageBox",
+		}
 	}
 	return b.DraftMessage.Encode(buf)
 }

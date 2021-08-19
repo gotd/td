@@ -116,7 +116,10 @@ func (g *GlobalPrivacySettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GlobalPrivacySettings) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode globalPrivacySettings#bea2f424 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "globalPrivacySettings#bea2f424",
+		}
 	}
 	b.PutID(GlobalPrivacySettingsTypeID)
 	return g.EncodeBare(b)
@@ -125,13 +128,21 @@ func (g *GlobalPrivacySettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GlobalPrivacySettings) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode globalPrivacySettings#bea2f424 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "globalPrivacySettings#bea2f424",
+		}
 	}
 	if !(g.ArchiveAndMuteNewNoncontactPeers == false) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode globalPrivacySettings#bea2f424: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "globalPrivacySettings#bea2f424",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if g.Flags.Has(0) {
 		b.PutBool(g.ArchiveAndMuteNewNoncontactPeers)
@@ -157,10 +168,16 @@ func (g *GlobalPrivacySettings) GetArchiveAndMuteNewNoncontactPeers() (value boo
 // Decode implements bin.Decoder.
 func (g *GlobalPrivacySettings) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode globalPrivacySettings#bea2f424 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "globalPrivacySettings#bea2f424",
+		}
 	}
 	if err := b.ConsumeID(GlobalPrivacySettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode globalPrivacySettings#bea2f424: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "globalPrivacySettings#bea2f424",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -168,17 +185,30 @@ func (g *GlobalPrivacySettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GlobalPrivacySettings) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode globalPrivacySettings#bea2f424 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "globalPrivacySettings#bea2f424",
+		}
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode globalPrivacySettings#bea2f424: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "globalPrivacySettings#bea2f424",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	if g.Flags.Has(0) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode globalPrivacySettings#bea2f424: field archive_and_mute_new_noncontact_peers: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "globalPrivacySettings#bea2f424",
+				FieldName:  "archive_and_mute_new_noncontact_peers",
+				Underlying: err,
+			}
 		}
 		g.ArchiveAndMuteNewNoncontactPeers = value
 	}

@@ -133,7 +133,10 @@ func (s *MessagesSaveRecentStickerRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSaveRecentStickerRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.saveRecentSticker#392718f8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.saveRecentSticker#392718f8",
+		}
 	}
 	b.PutID(MessagesSaveRecentStickerRequestTypeID)
 	return s.EncodeBare(b)
@@ -142,19 +145,40 @@ func (s *MessagesSaveRecentStickerRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSaveRecentStickerRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.saveRecentSticker#392718f8 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.saveRecentSticker#392718f8",
+		}
 	}
 	if !(s.Attached == false) {
 		s.Flags.Set(0)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.saveRecentSticker#392718f8: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.saveRecentSticker#392718f8",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if s.ID == nil {
-		return fmt.Errorf("unable to encode messages.saveRecentSticker#392718f8: field id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "messages.saveRecentSticker#392718f8",
+			FieldName: "id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputDocument",
+			},
+		}
 	}
 	if err := s.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.saveRecentSticker#392718f8: field id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.saveRecentSticker#392718f8",
+			FieldName:  "id",
+			Underlying: err,
+		}
 	}
 	b.PutBool(s.Unsave)
 	return nil
@@ -194,10 +218,16 @@ func (s *MessagesSaveRecentStickerRequest) GetUnsave() (value bool) {
 // Decode implements bin.Decoder.
 func (s *MessagesSaveRecentStickerRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.saveRecentSticker#392718f8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.saveRecentSticker#392718f8",
+		}
 	}
 	if err := b.ConsumeID(MessagesSaveRecentStickerRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.saveRecentSticker#392718f8: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.saveRecentSticker#392718f8",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -205,25 +235,43 @@ func (s *MessagesSaveRecentStickerRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSaveRecentStickerRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.saveRecentSticker#392718f8 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.saveRecentSticker#392718f8",
+		}
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.saveRecentSticker#392718f8: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.saveRecentSticker#392718f8",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	s.Attached = s.Flags.Has(0)
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.saveRecentSticker#392718f8: field id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.saveRecentSticker#392718f8",
+				FieldName:  "id",
+				Underlying: err,
+			}
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.saveRecentSticker#392718f8: field unsave: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.saveRecentSticker#392718f8",
+				FieldName:  "unsave",
+				Underlying: err,
+			}
 		}
 		s.Unsave = value
 	}

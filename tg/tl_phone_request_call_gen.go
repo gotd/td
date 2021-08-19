@@ -158,7 +158,10 @@ func (r *PhoneRequestCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *PhoneRequestCallRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode phone.requestCall#42ff96ed as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.requestCall#42ff96ed",
+		}
 	}
 	b.PutID(PhoneRequestCallRequestTypeID)
 	return r.EncodeBare(b)
@@ -167,24 +170,50 @@ func (r *PhoneRequestCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *PhoneRequestCallRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode phone.requestCall#42ff96ed as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "phone.requestCall#42ff96ed",
+		}
 	}
 	if !(r.Video == false) {
 		r.Flags.Set(0)
 	}
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.requestCall#42ff96ed: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.requestCall#42ff96ed",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if r.UserID == nil {
-		return fmt.Errorf("unable to encode phone.requestCall#42ff96ed: field user_id is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "phone.requestCall#42ff96ed",
+			FieldName: "user_id",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "InputUser",
+			},
+		}
 	}
 	if err := r.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.requestCall#42ff96ed: field user_id: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.requestCall#42ff96ed",
+			FieldName:  "user_id",
+			Underlying: err,
+		}
 	}
 	b.PutInt(r.RandomID)
 	b.PutBytes(r.GAHash)
 	if err := r.Protocol.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.requestCall#42ff96ed: field protocol: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "phone.requestCall#42ff96ed",
+			FieldName:  "protocol",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -228,10 +257,16 @@ func (r *PhoneRequestCallRequest) GetProtocol() (value PhoneCallProtocol) {
 // Decode implements bin.Decoder.
 func (r *PhoneRequestCallRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode phone.requestCall#42ff96ed to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.requestCall#42ff96ed",
+		}
 	}
 	if err := b.ConsumeID(PhoneRequestCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.requestCall#42ff96ed: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "phone.requestCall#42ff96ed",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -239,38 +274,66 @@ func (r *PhoneRequestCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *PhoneRequestCallRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode phone.requestCall#42ff96ed to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "phone.requestCall#42ff96ed",
+		}
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.requestCall#42ff96ed: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.requestCall#42ff96ed",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	r.Video = r.Flags.Has(0)
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.requestCall#42ff96ed: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.requestCall#42ff96ed",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		r.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.requestCall#42ff96ed: field random_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.requestCall#42ff96ed",
+				FieldName:  "random_id",
+				Underlying: err,
+			}
 		}
 		r.RandomID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.requestCall#42ff96ed: field g_a_hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.requestCall#42ff96ed",
+				FieldName:  "g_a_hash",
+				Underlying: err,
+			}
 		}
 		r.GAHash = value
 	}
 	{
 		if err := r.Protocol.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.requestCall#42ff96ed: field protocol: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "phone.requestCall#42ff96ed",
+				FieldName:  "protocol",
+				Underlying: err,
+			}
 		}
 	}
 	return nil

@@ -111,7 +111,10 @@ func (c *MessagesClearRecentStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *MessagesClearRecentStickersRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.clearRecentStickers#8999602d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.clearRecentStickers#8999602d",
+		}
 	}
 	b.PutID(MessagesClearRecentStickersRequestTypeID)
 	return c.EncodeBare(b)
@@ -120,13 +123,21 @@ func (c *MessagesClearRecentStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesClearRecentStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.clearRecentStickers#8999602d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "messages.clearRecentStickers#8999602d",
+		}
 	}
 	if !(c.Attached == false) {
 		c.Flags.Set(0)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.clearRecentStickers#8999602d: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "messages.clearRecentStickers#8999602d",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -150,10 +161,16 @@ func (c *MessagesClearRecentStickersRequest) GetAttached() (value bool) {
 // Decode implements bin.Decoder.
 func (c *MessagesClearRecentStickersRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.clearRecentStickers#8999602d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.clearRecentStickers#8999602d",
+		}
 	}
 	if err := b.ConsumeID(MessagesClearRecentStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.clearRecentStickers#8999602d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "messages.clearRecentStickers#8999602d",
+			Underlying: err,
+		}
 	}
 	return c.DecodeBare(b)
 }
@@ -161,11 +178,19 @@ func (c *MessagesClearRecentStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesClearRecentStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.clearRecentStickers#8999602d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "messages.clearRecentStickers#8999602d",
+		}
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.clearRecentStickers#8999602d: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "messages.clearRecentStickers#8999602d",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	c.Attached = c.Flags.Has(0)

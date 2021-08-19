@@ -139,7 +139,10 @@ func (s *SecureCredentialsEncrypted) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SecureCredentialsEncrypted) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureCredentialsEncrypted#33f0ea47 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureCredentialsEncrypted#33f0ea47",
+		}
 	}
 	b.PutID(SecureCredentialsEncryptedTypeID)
 	return s.EncodeBare(b)
@@ -148,7 +151,10 @@ func (s *SecureCredentialsEncrypted) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SecureCredentialsEncrypted) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode secureCredentialsEncrypted#33f0ea47 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "secureCredentialsEncrypted#33f0ea47",
+		}
 	}
 	b.PutBytes(s.Data)
 	b.PutBytes(s.Hash)
@@ -174,10 +180,16 @@ func (s *SecureCredentialsEncrypted) GetSecret() (value []byte) {
 // Decode implements bin.Decoder.
 func (s *SecureCredentialsEncrypted) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureCredentialsEncrypted#33f0ea47 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureCredentialsEncrypted#33f0ea47",
+		}
 	}
 	if err := b.ConsumeID(SecureCredentialsEncryptedTypeID); err != nil {
-		return fmt.Errorf("unable to decode secureCredentialsEncrypted#33f0ea47: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "secureCredentialsEncrypted#33f0ea47",
+			Underlying: err,
+		}
 	}
 	return s.DecodeBare(b)
 }
@@ -185,26 +197,44 @@ func (s *SecureCredentialsEncrypted) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SecureCredentialsEncrypted) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode secureCredentialsEncrypted#33f0ea47 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "secureCredentialsEncrypted#33f0ea47",
+		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureCredentialsEncrypted#33f0ea47: field data: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "secureCredentialsEncrypted#33f0ea47",
+				FieldName:  "data",
+				Underlying: err,
+			}
 		}
 		s.Data = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureCredentialsEncrypted#33f0ea47: field hash: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "secureCredentialsEncrypted#33f0ea47",
+				FieldName:  "hash",
+				Underlying: err,
+			}
 		}
 		s.Hash = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode secureCredentialsEncrypted#33f0ea47: field secret: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "secureCredentialsEncrypted#33f0ea47",
+				FieldName:  "secret",
+				Underlying: err,
+			}
 		}
 		s.Secret = value
 	}

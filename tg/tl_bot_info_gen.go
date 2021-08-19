@@ -124,7 +124,10 @@ func (b *BotInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotInfo) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#98e81d3a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botInfo#98e81d3a",
+		}
 	}
 	buf.PutID(BotInfoTypeID)
 	return b.EncodeBare(buf)
@@ -133,14 +136,26 @@ func (b *BotInfo) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#98e81d3a as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "botInfo#98e81d3a",
+		}
 	}
 	buf.PutInt(b.UserID)
 	buf.PutString(b.Description)
 	buf.PutVectorHeader(len(b.Commands))
 	for idx, v := range b.Commands {
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode botInfo#98e81d3a: field commands element with index %d: %w", idx, err)
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "botInfo#98e81d3a",
+				FieldName: "commands",
+				BareField: false,
+				Underlying: &bin.IndexError{
+					Index:      idx,
+					Underlying: err,
+				},
+			}
 		}
 	}
 	return nil
@@ -164,10 +179,16 @@ func (b *BotInfo) GetCommands() (value []BotCommand) {
 // Decode implements bin.Decoder.
 func (b *BotInfo) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#98e81d3a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botInfo#98e81d3a",
+		}
 	}
 	if err := buf.ConsumeID(BotInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInfo#98e81d3a: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "botInfo#98e81d3a",
+			Underlying: err,
+		}
 	}
 	return b.DecodeBare(buf)
 }
@@ -175,26 +196,44 @@ func (b *BotInfo) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#98e81d3a to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "botInfo#98e81d3a",
+		}
 	}
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#98e81d3a: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "botInfo#98e81d3a",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		b.UserID = value
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#98e81d3a: field description: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "botInfo#98e81d3a",
+				FieldName:  "description",
+				Underlying: err,
+			}
 		}
 		b.Description = value
 	}
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#98e81d3a: field commands: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "botInfo#98e81d3a",
+				FieldName:  "commands",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -203,7 +242,13 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.Decode(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#98e81d3a: field commands: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					BareField:  false,
+					TypeName:   "botInfo#98e81d3a",
+					FieldName:  "commands",
+					Underlying: err,
+				}
 			}
 			b.Commands = append(b.Commands, value)
 		}

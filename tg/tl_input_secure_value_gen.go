@@ -256,7 +256,10 @@ func (i *InputSecureValue) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputSecureValue) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputSecureValue#db21d0a7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputSecureValue#db21d0a7",
+		}
 	}
 	b.PutID(InputSecureValueTypeID)
 	return i.EncodeBare(b)
@@ -265,7 +268,10 @@ func (i *InputSecureValue) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputSecureValue) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputSecureValue#db21d0a7 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "inputSecureValue#db21d0a7",
+		}
 	}
 	if !(i.Data.Zero()) {
 		i.Flags.Set(0)
@@ -289,51 +295,133 @@ func (i *InputSecureValue) EncodeBare(b *bin.Buffer) error {
 		i.Flags.Set(5)
 	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field flags: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputSecureValue#db21d0a7",
+			FieldName:  "flags",
+			Underlying: err,
+		}
 	}
 	if i.Type == nil {
-		return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field type is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "inputSecureValue#db21d0a7",
+			FieldName: "type",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "SecureValueType",
+			},
+		}
 	}
 	if err := i.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field type: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "inputSecureValue#db21d0a7",
+			FieldName:  "type",
+			Underlying: err,
+		}
 	}
 	if i.Flags.Has(0) {
 		if err := i.Data.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field data: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "data",
+				Underlying: err,
+			}
 		}
 	}
 	if i.Flags.Has(1) {
 		if i.FrontSide == nil {
-			return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field front_side is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "inputSecureValue#db21d0a7",
+				FieldName: "front_side",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputSecureFile",
+				},
+			}
 		}
 		if err := i.FrontSide.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field front_side: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "front_side",
+				Underlying: err,
+			}
 		}
 	}
 	if i.Flags.Has(2) {
 		if i.ReverseSide == nil {
-			return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field reverse_side is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "inputSecureValue#db21d0a7",
+				FieldName: "reverse_side",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputSecureFile",
+				},
+			}
 		}
 		if err := i.ReverseSide.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field reverse_side: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "reverse_side",
+				Underlying: err,
+			}
 		}
 	}
 	if i.Flags.Has(3) {
 		if i.Selfie == nil {
-			return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field selfie is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "inputSecureValue#db21d0a7",
+				FieldName: "selfie",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "InputSecureFile",
+				},
+			}
 		}
 		if err := i.Selfie.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field selfie: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "selfie",
+				Underlying: err,
+			}
 		}
 	}
 	if i.Flags.Has(6) {
 		b.PutVectorHeader(len(i.Translation))
 		for idx, v := range i.Translation {
 			if v == nil {
-				return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field translation element with index %d is nil", idx)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "inputSecureValue#db21d0a7",
+					FieldName: "translation",
+					Underlying: &bin.IndexError{
+						Index: idx,
+						Underlying: &bin.NilError{
+							Action:   "encode",
+							TypeName: "Vector<InputSecureFile>",
+						},
+					},
+				}
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field translation element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "inputSecureValue#db21d0a7",
+					FieldName: "translation",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
@@ -341,19 +429,52 @@ func (i *InputSecureValue) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(i.Files))
 		for idx, v := range i.Files {
 			if v == nil {
-				return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field files element with index %d is nil", idx)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "inputSecureValue#db21d0a7",
+					FieldName: "files",
+					Underlying: &bin.IndexError{
+						Index: idx,
+						Underlying: &bin.NilError{
+							Action:   "encode",
+							TypeName: "Vector<InputSecureFile>",
+						},
+					},
+				}
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field files element with index %d: %w", idx, err)
+				return &bin.FieldError{
+					Action:    "encode",
+					TypeName:  "inputSecureValue#db21d0a7",
+					FieldName: "files",
+					BareField: false,
+					Underlying: &bin.IndexError{
+						Index:      idx,
+						Underlying: err,
+					},
+				}
 			}
 		}
 	}
 	if i.Flags.Has(5) {
 		if i.PlainData == nil {
-			return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field plain_data is nil")
+			return &bin.FieldError{
+				Action:    "encode",
+				TypeName:  "inputSecureValue#db21d0a7",
+				FieldName: "plain_data",
+				Underlying: &bin.NilError{
+					Action:   "encode",
+					TypeName: "SecurePlainData",
+				},
+			}
 		}
 		if err := i.PlainData.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field plain_data: %w", err)
+			return &bin.FieldError{
+				Action:     "encode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "plain_data",
+				Underlying: err,
+			}
 		}
 	}
 	return nil
@@ -488,10 +609,16 @@ func (i *InputSecureValue) GetPlainData() (value SecurePlainDataClass, ok bool) 
 // Decode implements bin.Decoder.
 func (i *InputSecureValue) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputSecureValue#db21d0a7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputSecureValue#db21d0a7",
+		}
 	}
 	if err := b.ConsumeID(InputSecureValueTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "inputSecureValue#db21d0a7",
+			Underlying: err,
+		}
 	}
 	return i.DecodeBare(b)
 }
@@ -499,50 +626,88 @@ func (i *InputSecureValue) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputSecureValue) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputSecureValue#db21d0a7 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "inputSecureValue#db21d0a7",
+		}
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field flags: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "flags",
+				Underlying: err,
+			}
 		}
 	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field type: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "type",
+				Underlying: err,
+			}
 		}
 		i.Type = value
 	}
 	if i.Flags.Has(0) {
 		if err := i.Data.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field data: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "data",
+				Underlying: err,
+			}
 		}
 	}
 	if i.Flags.Has(1) {
 		value, err := DecodeInputSecureFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field front_side: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "front_side",
+				Underlying: err,
+			}
 		}
 		i.FrontSide = value
 	}
 	if i.Flags.Has(2) {
 		value, err := DecodeInputSecureFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field reverse_side: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "reverse_side",
+				Underlying: err,
+			}
 		}
 		i.ReverseSide = value
 	}
 	if i.Flags.Has(3) {
 		value, err := DecodeInputSecureFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field selfie: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "selfie",
+				Underlying: err,
+			}
 		}
 		i.Selfie = value
 	}
 	if i.Flags.Has(6) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field translation: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "translation",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -551,7 +716,12 @@ func (i *InputSecureValue) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputSecureFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field translation: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "inputSecureValue#db21d0a7",
+					FieldName:  "translation",
+					Underlying: err,
+				}
 			}
 			i.Translation = append(i.Translation, value)
 		}
@@ -559,7 +729,12 @@ func (i *InputSecureValue) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(4) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field files: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "files",
+				Underlying: err,
+			}
 		}
 
 		if headerLen > 0 {
@@ -568,7 +743,12 @@ func (i *InputSecureValue) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputSecureFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field files: %w", err)
+				return &bin.FieldError{
+					Action:     "decode",
+					TypeName:   "inputSecureValue#db21d0a7",
+					FieldName:  "files",
+					Underlying: err,
+				}
 			}
 			i.Files = append(i.Files, value)
 		}
@@ -576,7 +756,12 @@ func (i *InputSecureValue) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(5) {
 		value, err := DecodeSecurePlainData(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field plain_data: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "inputSecureValue#db21d0a7",
+				FieldName:  "plain_data",
+				Underlying: err,
+			}
 		}
 		i.PlainData = value
 	}

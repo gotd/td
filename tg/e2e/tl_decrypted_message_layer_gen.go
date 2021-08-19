@@ -145,7 +145,10 @@ func (d *DecryptedMessageLayer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageLayer) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageLayer#1be31789 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "decryptedMessageLayer#1be31789",
+		}
 	}
 	b.PutID(DecryptedMessageLayerTypeID)
 	return d.EncodeBare(b)
@@ -154,17 +157,33 @@ func (d *DecryptedMessageLayer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DecryptedMessageLayer) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageLayer#1be31789 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "decryptedMessageLayer#1be31789",
+		}
 	}
 	b.PutBytes(d.RandomBytes)
 	b.PutInt(d.Layer)
 	b.PutInt(d.InSeqNo)
 	b.PutInt(d.OutSeqNo)
 	if d.Message == nil {
-		return fmt.Errorf("unable to encode decryptedMessageLayer#1be31789: field message is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "decryptedMessageLayer#1be31789",
+			FieldName: "message",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "DecryptedMessage",
+			},
+		}
 	}
 	if err := d.Message.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode decryptedMessageLayer#1be31789: field message: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "decryptedMessageLayer#1be31789",
+			FieldName:  "message",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -197,10 +216,16 @@ func (d *DecryptedMessageLayer) GetMessage() (value DecryptedMessageClass) {
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageLayer) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageLayer#1be31789 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "decryptedMessageLayer#1be31789",
+		}
 	}
 	if err := b.ConsumeID(DecryptedMessageLayerTypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageLayer#1be31789: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "decryptedMessageLayer#1be31789",
+			Underlying: err,
+		}
 	}
 	return d.DecodeBare(b)
 }
@@ -208,40 +233,68 @@ func (d *DecryptedMessageLayer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DecryptedMessageLayer) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageLayer#1be31789 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "decryptedMessageLayer#1be31789",
+		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageLayer#1be31789: field random_bytes: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "decryptedMessageLayer#1be31789",
+				FieldName:  "random_bytes",
+				Underlying: err,
+			}
 		}
 		d.RandomBytes = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageLayer#1be31789: field layer: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "decryptedMessageLayer#1be31789",
+				FieldName:  "layer",
+				Underlying: err,
+			}
 		}
 		d.Layer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageLayer#1be31789: field in_seq_no: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "decryptedMessageLayer#1be31789",
+				FieldName:  "in_seq_no",
+				Underlying: err,
+			}
 		}
 		d.InSeqNo = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageLayer#1be31789: field out_seq_no: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "decryptedMessageLayer#1be31789",
+				FieldName:  "out_seq_no",
+				Underlying: err,
+			}
 		}
 		d.OutSeqNo = value
 	}
 	{
 		value, err := DecodeDecryptedMessage(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageLayer#1be31789: field message: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "decryptedMessageLayer#1be31789",
+				FieldName:  "message",
+				Underlying: err,
+			}
 		}
 		d.Message = value
 	}

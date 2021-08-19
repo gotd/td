@@ -124,7 +124,10 @@ func (g *LangpackGetDifferenceRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *LangpackGetDifferenceRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode langpack.getDifference#cd984aa5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "langpack.getDifference#cd984aa5",
+		}
 	}
 	b.PutID(LangpackGetDifferenceRequestTypeID)
 	return g.EncodeBare(b)
@@ -133,7 +136,10 @@ func (g *LangpackGetDifferenceRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *LangpackGetDifferenceRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode langpack.getDifference#cd984aa5 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "langpack.getDifference#cd984aa5",
+		}
 	}
 	b.PutString(g.LangPack)
 	b.PutString(g.LangCode)
@@ -159,10 +165,16 @@ func (g *LangpackGetDifferenceRequest) GetFromVersion() (value int) {
 // Decode implements bin.Decoder.
 func (g *LangpackGetDifferenceRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode langpack.getDifference#cd984aa5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "langpack.getDifference#cd984aa5",
+		}
 	}
 	if err := b.ConsumeID(LangpackGetDifferenceRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode langpack.getDifference#cd984aa5: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "langpack.getDifference#cd984aa5",
+			Underlying: err,
+		}
 	}
 	return g.DecodeBare(b)
 }
@@ -170,26 +182,44 @@ func (g *LangpackGetDifferenceRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *LangpackGetDifferenceRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode langpack.getDifference#cd984aa5 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "langpack.getDifference#cd984aa5",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langpack.getDifference#cd984aa5: field lang_pack: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langpack.getDifference#cd984aa5",
+				FieldName:  "lang_pack",
+				Underlying: err,
+			}
 		}
 		g.LangPack = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode langpack.getDifference#cd984aa5: field lang_code: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langpack.getDifference#cd984aa5",
+				FieldName:  "lang_code",
+				Underlying: err,
+			}
 		}
 		g.LangCode = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode langpack.getDifference#cd984aa5: field from_version: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "langpack.getDifference#cd984aa5",
+				FieldName:  "from_version",
+				Underlying: err,
+			}
 		}
 		g.FromVersion = value
 	}

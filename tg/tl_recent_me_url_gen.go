@@ -102,7 +102,10 @@ func (r *RecentMeURLUnknown) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RecentMeURLUnknown) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlUnknown#46e1d13d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "recentMeUrlUnknown#46e1d13d",
+		}
 	}
 	b.PutID(RecentMeURLUnknownTypeID)
 	return r.EncodeBare(b)
@@ -111,7 +114,10 @@ func (r *RecentMeURLUnknown) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RecentMeURLUnknown) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlUnknown#46e1d13d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "recentMeUrlUnknown#46e1d13d",
+		}
 	}
 	b.PutString(r.URL)
 	return nil
@@ -125,10 +131,16 @@ func (r *RecentMeURLUnknown) GetURL() (value string) {
 // Decode implements bin.Decoder.
 func (r *RecentMeURLUnknown) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlUnknown#46e1d13d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "recentMeUrlUnknown#46e1d13d",
+		}
 	}
 	if err := b.ConsumeID(RecentMeURLUnknownTypeID); err != nil {
-		return fmt.Errorf("unable to decode recentMeUrlUnknown#46e1d13d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "recentMeUrlUnknown#46e1d13d",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -136,12 +148,20 @@ func (r *RecentMeURLUnknown) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RecentMeURLUnknown) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlUnknown#46e1d13d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "recentMeUrlUnknown#46e1d13d",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlUnknown#46e1d13d: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "recentMeUrlUnknown#46e1d13d",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		r.URL = value
 	}
@@ -245,7 +265,10 @@ func (r *RecentMeURLUser) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RecentMeURLUser) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlUser#8dbc3336 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "recentMeUrlUser#8dbc3336",
+		}
 	}
 	b.PutID(RecentMeURLUserTypeID)
 	return r.EncodeBare(b)
@@ -254,7 +277,10 @@ func (r *RecentMeURLUser) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RecentMeURLUser) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlUser#8dbc3336 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "recentMeUrlUser#8dbc3336",
+		}
 	}
 	b.PutString(r.URL)
 	b.PutInt(r.UserID)
@@ -274,10 +300,16 @@ func (r *RecentMeURLUser) GetUserID() (value int) {
 // Decode implements bin.Decoder.
 func (r *RecentMeURLUser) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlUser#8dbc3336 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "recentMeUrlUser#8dbc3336",
+		}
 	}
 	if err := b.ConsumeID(RecentMeURLUserTypeID); err != nil {
-		return fmt.Errorf("unable to decode recentMeUrlUser#8dbc3336: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "recentMeUrlUser#8dbc3336",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -285,19 +317,32 @@ func (r *RecentMeURLUser) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RecentMeURLUser) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlUser#8dbc3336 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "recentMeUrlUser#8dbc3336",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlUser#8dbc3336: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "recentMeUrlUser#8dbc3336",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		r.URL = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlUser#8dbc3336: field user_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "recentMeUrlUser#8dbc3336",
+				FieldName:  "user_id",
+				Underlying: err,
+			}
 		}
 		r.UserID = value
 	}
@@ -401,7 +446,10 @@ func (r *RecentMeURLChat) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RecentMeURLChat) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlChat#a01b22f9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "recentMeUrlChat#a01b22f9",
+		}
 	}
 	b.PutID(RecentMeURLChatTypeID)
 	return r.EncodeBare(b)
@@ -410,7 +458,10 @@ func (r *RecentMeURLChat) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RecentMeURLChat) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlChat#a01b22f9 as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "recentMeUrlChat#a01b22f9",
+		}
 	}
 	b.PutString(r.URL)
 	b.PutInt(r.ChatID)
@@ -430,10 +481,16 @@ func (r *RecentMeURLChat) GetChatID() (value int) {
 // Decode implements bin.Decoder.
 func (r *RecentMeURLChat) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlChat#a01b22f9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "recentMeUrlChat#a01b22f9",
+		}
 	}
 	if err := b.ConsumeID(RecentMeURLChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode recentMeUrlChat#a01b22f9: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "recentMeUrlChat#a01b22f9",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -441,19 +498,32 @@ func (r *RecentMeURLChat) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RecentMeURLChat) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlChat#a01b22f9 to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "recentMeUrlChat#a01b22f9",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlChat#a01b22f9: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "recentMeUrlChat#a01b22f9",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		r.URL = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlChat#a01b22f9: field chat_id: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "recentMeUrlChat#a01b22f9",
+				FieldName:  "chat_id",
+				Underlying: err,
+			}
 		}
 		r.ChatID = value
 	}
@@ -557,7 +627,10 @@ func (r *RecentMeURLChatInvite) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RecentMeURLChatInvite) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlChatInvite#eb49081d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "recentMeUrlChatInvite#eb49081d",
+		}
 	}
 	b.PutID(RecentMeURLChatInviteTypeID)
 	return r.EncodeBare(b)
@@ -566,14 +639,30 @@ func (r *RecentMeURLChatInvite) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RecentMeURLChatInvite) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlChatInvite#eb49081d as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "recentMeUrlChatInvite#eb49081d",
+		}
 	}
 	b.PutString(r.URL)
 	if r.ChatInvite == nil {
-		return fmt.Errorf("unable to encode recentMeUrlChatInvite#eb49081d: field chat_invite is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "recentMeUrlChatInvite#eb49081d",
+			FieldName: "chat_invite",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "ChatInvite",
+			},
+		}
 	}
 	if err := r.ChatInvite.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode recentMeUrlChatInvite#eb49081d: field chat_invite: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "recentMeUrlChatInvite#eb49081d",
+			FieldName:  "chat_invite",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -591,10 +680,16 @@ func (r *RecentMeURLChatInvite) GetChatInvite() (value ChatInviteClass) {
 // Decode implements bin.Decoder.
 func (r *RecentMeURLChatInvite) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlChatInvite#eb49081d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "recentMeUrlChatInvite#eb49081d",
+		}
 	}
 	if err := b.ConsumeID(RecentMeURLChatInviteTypeID); err != nil {
-		return fmt.Errorf("unable to decode recentMeUrlChatInvite#eb49081d: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "recentMeUrlChatInvite#eb49081d",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -602,19 +697,32 @@ func (r *RecentMeURLChatInvite) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RecentMeURLChatInvite) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlChatInvite#eb49081d to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "recentMeUrlChatInvite#eb49081d",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlChatInvite#eb49081d: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "recentMeUrlChatInvite#eb49081d",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		r.URL = value
 	}
 	{
 		value, err := DecodeChatInvite(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlChatInvite#eb49081d: field chat_invite: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "recentMeUrlChatInvite#eb49081d",
+				FieldName:  "chat_invite",
+				Underlying: err,
+			}
 		}
 		r.ChatInvite = value
 	}
@@ -718,7 +826,10 @@ func (r *RecentMeURLStickerSet) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RecentMeURLStickerSet) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlStickerSet#bc0a57dc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "recentMeUrlStickerSet#bc0a57dc",
+		}
 	}
 	b.PutID(RecentMeURLStickerSetTypeID)
 	return r.EncodeBare(b)
@@ -727,14 +838,30 @@ func (r *RecentMeURLStickerSet) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RecentMeURLStickerSet) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlStickerSet#bc0a57dc as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "recentMeUrlStickerSet#bc0a57dc",
+		}
 	}
 	b.PutString(r.URL)
 	if r.Set == nil {
-		return fmt.Errorf("unable to encode recentMeUrlStickerSet#bc0a57dc: field set is nil")
+		return &bin.FieldError{
+			Action:    "encode",
+			TypeName:  "recentMeUrlStickerSet#bc0a57dc",
+			FieldName: "set",
+			Underlying: &bin.NilError{
+				Action:   "encode",
+				TypeName: "StickerSetCovered",
+			},
+		}
 	}
 	if err := r.Set.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode recentMeUrlStickerSet#bc0a57dc: field set: %w", err)
+		return &bin.FieldError{
+			Action:     "encode",
+			TypeName:   "recentMeUrlStickerSet#bc0a57dc",
+			FieldName:  "set",
+			Underlying: err,
+		}
 	}
 	return nil
 }
@@ -752,10 +879,16 @@ func (r *RecentMeURLStickerSet) GetSet() (value StickerSetCoveredClass) {
 // Decode implements bin.Decoder.
 func (r *RecentMeURLStickerSet) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlStickerSet#bc0a57dc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "recentMeUrlStickerSet#bc0a57dc",
+		}
 	}
 	if err := b.ConsumeID(RecentMeURLStickerSetTypeID); err != nil {
-		return fmt.Errorf("unable to decode recentMeUrlStickerSet#bc0a57dc: %w", err)
+		return &bin.DecodeError{
+			TypeName:   "recentMeUrlStickerSet#bc0a57dc",
+			Underlying: err,
+		}
 	}
 	return r.DecodeBare(b)
 }
@@ -763,19 +896,32 @@ func (r *RecentMeURLStickerSet) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RecentMeURLStickerSet) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlStickerSet#bc0a57dc to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "recentMeUrlStickerSet#bc0a57dc",
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlStickerSet#bc0a57dc: field url: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "recentMeUrlStickerSet#bc0a57dc",
+				FieldName:  "url",
+				Underlying: err,
+			}
 		}
 		r.URL = value
 	}
 	{
 		value, err := DecodeStickerSetCovered(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlStickerSet#bc0a57dc: field set: %w", err)
+			return &bin.FieldError{
+				Action:     "decode",
+				TypeName:   "recentMeUrlStickerSet#bc0a57dc",
+				FieldName:  "set",
+				Underlying: err,
+			}
 		}
 		r.Set = value
 	}
@@ -845,39 +991,57 @@ func DecodeRecentMeURL(buf *bin.Buffer) (RecentMeURLClass, error) {
 		// Decoding recentMeUrlUnknown#46e1d13d.
 		v := RecentMeURLUnknown{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "RecentMeURLClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case RecentMeURLUserTypeID:
 		// Decoding recentMeUrlUser#8dbc3336.
 		v := RecentMeURLUser{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "RecentMeURLClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case RecentMeURLChatTypeID:
 		// Decoding recentMeUrlChat#a01b22f9.
 		v := RecentMeURLChat{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "RecentMeURLClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case RecentMeURLChatInviteTypeID:
 		// Decoding recentMeUrlChatInvite#eb49081d.
 		v := RecentMeURLChatInvite{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "RecentMeURLClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	case RecentMeURLStickerSetTypeID:
 		// Decoding recentMeUrlStickerSet#bc0a57dc.
 		v := RecentMeURLStickerSet{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", err)
+			return nil, &bin.DecodeError{
+				TypeName:   "RecentMeURLClass",
+				Underlying: err,
+			}
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", bin.NewUnexpectedID(id))
+		return nil, &bin.DecodeError{
+			TypeName:   "RecentMeURLClass",
+			Underlying: bin.NewUnexpectedID(id),
+		}
 	}
 }
 
@@ -889,7 +1053,10 @@ type RecentMeURLBox struct {
 // Decode implements bin.Decoder for RecentMeURLBox.
 func (b *RecentMeURLBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode RecentMeURLBox to nil")
+		return &bin.NilError{
+			Action:   "decode",
+			TypeName: "RecentMeURLBox",
+		}
 	}
 	v, err := DecodeRecentMeURL(buf)
 	if err != nil {
@@ -902,7 +1069,10 @@ func (b *RecentMeURLBox) Decode(buf *bin.Buffer) error {
 // Encode implements bin.Encode for RecentMeURLBox.
 func (b *RecentMeURLBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.RecentMeUrl == nil {
-		return fmt.Errorf("unable to encode RecentMeURLClass as nil")
+		return &bin.NilError{
+			Action:   "encode",
+			TypeName: "RecentMeURLBox",
+		}
 	}
 	return b.RecentMeUrl.Encode(buf)
 }
