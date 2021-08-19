@@ -8,20 +8,22 @@
 {{ template "struct" $s }}
 {{ template "zero_derive" $s }}
 {{ template "string_derive" $s }}
-{{ template "fill_from" $s }}
+{{ if $.Flags.Mapping }}{{ template "fill_from" $s }}{{ end }}
 {{ template "type_info" $s }}
 {{ template "encode" $s }}
 {{ template "decode" $s }}
-{{ template "getset" $s }}
-{{ template "field_mapping" newStructConfig ($s) ($) }}
-{{ template "method" newStructConfig ($s) ($) }}
+{{ if $.Flags.GetSet }}{{ template "getset" $s }}{{ end }}
+{{ if $.Flags.Mapping }}{{ template "field_mapping" newStructConfig ($s) ($) }}{{ end }}
+{{ if $.Flags.Client }}{{ template "method" $s }}{{ end }}
 {{ end }}
 
 {{ range $f := $.Interfaces }}
 {{ template "interface" newInterfaceConfig ($f) ($) }}
-{{ template "interface_mapping" $f }}
+{{ if $.Flags.Mapping }}{{ template "interface_mapping" $f }}{{ end }}
 {{ template "box" $f }}
 {{ end }}
 
+{{- if $.Flags.Slices }}
 {{ template "slices" $ }}
 {{ end }}
+{{- end }}

@@ -25,9 +25,9 @@ type {{ $f.Name }} interface {
     {{- if $field.Links }}
         {{- template "print_links" $field.Links }}
     {{- end }}
-    {{ template "getter_func_type" $field -}}
+    {{ if $.Config.Flags.GetSet }}{{ template "getter_func_type" $field -}}{{ end }}
 
-    {{- if not $field.DoubleSlice }}
+    {{- if and ($.Config.Flags.Mapping) (not $field.DoubleSlice) }}
     {{- if not $field.Slice }}
     {{- $mappings := index ($.Config.Mappings) ($field.Type) -}}
     {{- range $mapping := $mappings -}}
@@ -41,7 +41,7 @@ type {{ $f.Name }} interface {
 
     {{- end }}
 {{- end }}
-{{ range $mapping := $f.Mappings -}}{{- if not $mapping.Constructor -}}
+{{ range $mapping := $f.Mappings -}}{{- if and ($.Config.Flags.Mapping) (not $mapping.Constructor) -}}
     // As{{ $mapping.MapperName }} tries to map {{ $f.Name }} to {{ $mapping.Name }}.
     {{ template "mapper_func_type" $mapping }}
 {{ end }}{{ end }}

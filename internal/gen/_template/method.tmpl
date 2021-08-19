@@ -1,7 +1,5 @@
-{{- /*gotype: github.com/gotd/td/internal/gen.structConfig*/ -}}
-{{ define "method" }}{{- $s := .Struct -}}
-
-{{- if and $.Config.GenerateClient $s.Method }}
+{{- /*gotype: github.com/gotd/td/internal/gen.structDef*/ -}}
+{{ define "method" }}{{- $s := . -}}{{ if $s.Method }}
 // {{ $s.Method }} invokes method {{ $s.RawType }} returning error if any.
 {{- if $s.Docs }}
 {{- range $d := $s.Docs }}
@@ -60,6 +58,5 @@ func (c *Client) {{ $s.Method }}({{ template "request_params" $s }}) error {
     return nil
 }
 {{- end }}
-{{- end }}
 
-{{ end }}
+{{ end }}{{ end }}

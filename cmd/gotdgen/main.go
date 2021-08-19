@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/gotd/tl"
 
@@ -36,12 +37,10 @@ func main() {
 	targetDir := flag.String("target", "td", "Path to target dir")
 	packageName := flag.String("package", "td", "Target package name")
 	performFormat := flag.Bool("format", true, "Perform code formatting")
-	docBase := flag.String("doc", "", "Base documentation url")
-	docLineLimit := flag.Int("line-limit", 0, "GoDoc comment line length limit")
 	clean := flag.Bool("clean", false, "Clean generated files before generation")
-	client := flag.Bool("client", true, "Generate client definition")
-	registry := flag.Bool("registry", true, "Generate type ID registry")
-	server := flag.Bool("server", false, "Generate server handlers")
+
+	genOpts := gen.GeneratorOptions{}
+	genOpts.RegisterFlags(flag.CommandLine)
 
 	flag.Parse()
 	if *schemaPath == "" {
@@ -84,32 +83,25 @@ func main() {
 		}
 	}
 
+	start := time.Now()
 	fs := formattedSource{
 		Root:   *targetDir,
 		Format: *performFormat,
 	}
-	var opts []gen.Option
-	if *client {
-		opts = append(opts, gen.WithClient())
-	}
-	if *registry {
-		opts = append(opts, gen.WithRegistry())
-	}
-	if *server {
-		opts = append(opts, gen.WithServer())
-	}
-	if *docBase != "" {
-		opts = append(opts, gen.WithDocumentation(*docBase))
-	}
-	if *docLineLimit != 0 {
-		opts = append(opts, gen.WithDocLineLimit(*docLineLimit))
-	}
-	g, err := gen.NewGenerator(schema, opts...)
+	g, err := gen.NewGenerator(schema, genOpts)
 	if err != nil {
 		panic(fmt.Sprintf("%+v", err))
 	}
+	collectInfoTime := time.Since(start)
 
 	if err := g.WriteSource(fs, *packageName, gen.Template()); err != nil {
 		panic(fmt.Sprintf("%+v", err))
 	}
+	writeTime := time.Since(start)
+
+	fmt.Printf("Generation %s complete, collect time: %s, write time: %s\n",
+		*packageName,
+		collectInfoTime,
+		writeTime,
+	)
 }
